@@ -1,4 +1,4 @@
-package imgs.menu;
+package gui.menu;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatLaf;
