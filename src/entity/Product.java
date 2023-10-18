@@ -131,7 +131,7 @@ public class Product {
 //      Xác định tỉ lệ lợi nhuận của sản phẩm
         if (this.type == Type.BOOK) {
             Book bookInstance = (Book) this;
-            if (bookInstance.getLanguage().compareToIgnoreCase("Tiếng Việt") != 0) {
+            if (bookInstance.getBookOrigin() == BookOrigin.FOREIGN) {
                 rate = 1.6;
             } else {
                 rate = 1.4;
