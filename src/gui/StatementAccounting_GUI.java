@@ -11,12 +11,12 @@ import raven.toast.Notifications;
  *
  * @author Hoàng Khang
  */
-public class StatementCashCount_GUI extends javax.swing.JPanel {
+public class StatementAccounting_GUI extends javax.swing.JPanel {
 
     /**
      * Creates new form Statement_GUI
      */
-    public StatementCashCount_GUI() {
+    public StatementAccounting_GUI() {
         initComponents();
     }
 
