@@ -38,6 +38,8 @@ public class Sales_GUI extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         pnl_right = new javax.swing.JPanel();
         pnl_customerInfo = new javax.swing.JPanel();
+        pnl_customerDefault = new javax.swing.JPanel();
+        chk_defaultCustomer = new javax.swing.JCheckBox();
         pnl_customerPhone = new javax.swing.JPanel();
         lbl_customerPhone = new javax.swing.JLabel();
         txt_customerPhone = new javax.swing.JTextField();
@@ -82,7 +84,7 @@ public class Sales_GUI extends javax.swing.JPanel {
         pnl_btnMain = new javax.swing.JPanel();
         btn_submit = new javax.swing.JButton();
 
-        setLayout(new java.awt.GridLayout());
+        setLayout(new java.awt.GridLayout(1, 0));
 
         splitPane_main.setMinimumSize(new java.awt.Dimension(1305, 768));
 
@@ -139,9 +141,17 @@ public class Sales_GUI extends javax.swing.JPanel {
         pnl_right.setPreferredSize(new java.awt.Dimension(400, 768));
         pnl_right.setLayout(new javax.swing.BoxLayout(pnl_right, javax.swing.BoxLayout.Y_AXIS));
 
-        pnl_customerInfo.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Khách hàng"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        pnl_customerInfo.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin khách hàng"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         pnl_customerInfo.setPreferredSize(new java.awt.Dimension(500, 150));
         pnl_customerInfo.setLayout(new javax.swing.BoxLayout(pnl_customerInfo, javax.swing.BoxLayout.Y_AXIS));
+
+        pnl_customerDefault.setPreferredSize(new java.awt.Dimension(561, 40));
+        pnl_customerDefault.setLayout(new java.awt.BorderLayout());
+
+        chk_defaultCustomer.setText("Khách hàng mặc định");
+        pnl_customerDefault.add(chk_defaultCustomer, java.awt.BorderLayout.CENTER);
+
+        pnl_customerInfo.add(pnl_customerDefault);
 
         pnl_customerPhone.setPreferredSize(new java.awt.Dimension(561, 40));
         pnl_customerPhone.setLayout(new javax.swing.BoxLayout(pnl_customerPhone, javax.swing.BoxLayout.LINE_AXIS));
@@ -198,7 +208,7 @@ public class Sales_GUI extends javax.swing.JPanel {
 
         pnl_right.add(pnl_customerInfo);
 
-        pnl_orderInfo.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Hóa đơn"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        pnl_orderInfo.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin hóa đơn"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         pnl_orderInfo.setPreferredSize(new java.awt.Dimension(500, 400));
         pnl_orderInfo.setLayout(new javax.swing.BoxLayout(pnl_orderInfo, javax.swing.BoxLayout.Y_AXIS));
 
@@ -358,12 +368,16 @@ public class Sales_GUI extends javax.swing.JPanel {
 
         pnl_control.add(pnl_btnGroup);
 
-        pnl_btnMain.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        pnl_btnMain.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 5, 5, 5));
         pnl_btnMain.setPreferredSize(new java.awt.Dimension(561, 60));
         pnl_btnMain.setLayout(new java.awt.BorderLayout());
 
+        btn_submit.setFont(btn_submit.getFont().deriveFont((float)18));
         btn_submit.setText("THANH TOÁN");
         pnl_btnMain.add(btn_submit, java.awt.BorderLayout.CENTER);
+        btn_submit.putClientProperty(FlatClientProperties.STYLE,""
+            + "background:$Menu.background;"
+            + "foreground:$Menu.foreground;");
 
         pnl_control.add(pnl_btnMain);
 
@@ -421,6 +435,7 @@ public class Sales_GUI extends javax.swing.JPanel {
     private javax.swing.JButton btn_search;
     private javax.swing.JButton btn_submit;
     private javax.swing.JButton btn_viewSaves;
+    private javax.swing.JCheckBox chk_defaultCustomer;
     private javax.swing.JComboBox<String> cmb_orderPaymentMethod;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lbl_customerName;
@@ -438,6 +453,7 @@ public class Sales_GUI extends javax.swing.JPanel {
     private javax.swing.JPanel pnl_cart;
     private javax.swing.JPanel pnl_cartFooter;
     private javax.swing.JPanel pnl_control;
+    private javax.swing.JPanel pnl_customerDefault;
     private javax.swing.JPanel pnl_customerInfo;
     private javax.swing.JPanel pnl_customerName;
     private javax.swing.JPanel pnl_customerPhone;
