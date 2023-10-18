@@ -85,7 +85,7 @@ public class StatisticProduct_GUI extends javax.swing.JPanel {
         pnl_header.setPreferredSize(new java.awt.Dimension(661, 368));
         pnl_header.setLayout(new java.awt.BorderLayout());
 
-        pnl_control.setBorder(javax.swing.BorderFactory.createTitledBorder("Thống kê theo: "));
+        pnl_control.setBorder(javax.swing.BorderFactory.createTitledBorder("Lọc: "));
         pnl_control.setPreferredSize(new java.awt.Dimension(1366, 80));
         pnl_control.setLayout(new javax.swing.BoxLayout(pnl_control, javax.swing.BoxLayout.LINE_AXIS));
         pnl_control.add(filler26);
@@ -125,7 +125,7 @@ public class StatisticProduct_GUI extends javax.swing.JPanel {
         pnl_header.add(pnl_tableTopProduct, java.awt.BorderLayout.CENTER);
 
         pnl_infomation.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin sản phẩm"));
-        pnl_infomation.setPreferredSize(new java.awt.Dimension(400, 400));
+        pnl_infomation.setPreferredSize(new java.awt.Dimension(450, 400));
         pnl_infomation.setLayout(new javax.swing.BoxLayout(pnl_infomation, javax.swing.BoxLayout.Y_AXIS));
         pnl_infomation.add(filler21);
 
@@ -133,7 +133,7 @@ public class StatisticProduct_GUI extends javax.swing.JPanel {
         pnl_productID.add(filler1);
 
         lbl_productID.setText("Mã sản phẩm: ");
-        lbl_productID.setPreferredSize(new java.awt.Dimension(110, 0));
+        lbl_productID.setPreferredSize(new java.awt.Dimension(120, 0));
         lbl_productID.setSize(new java.awt.Dimension(100, 0));
         pnl_productID.add(lbl_productID);
         pnl_productID.add(filler2);
@@ -151,7 +151,7 @@ public class StatisticProduct_GUI extends javax.swing.JPanel {
         pnl_productName.add(filler4);
 
         lbl_productIName.setText("Tên sản phẩm: ");
-        lbl_productIName.setPreferredSize(new java.awt.Dimension(110, 0));
+        lbl_productIName.setPreferredSize(new java.awt.Dimension(120, 0));
         lbl_productIName.setSize(new java.awt.Dimension(100, 0));
         pnl_productName.add(lbl_productIName);
         pnl_productName.add(filler5);
@@ -174,7 +174,7 @@ public class StatisticProduct_GUI extends javax.swing.JPanel {
         pnl_productType.add(filler22);
 
         lbl_productIType.setText("Mã sản phẩm: ");
-        lbl_productIType.setPreferredSize(new java.awt.Dimension(110, 0));
+        lbl_productIType.setPreferredSize(new java.awt.Dimension(120, 0));
         pnl_productType.add(lbl_productIType);
         pnl_productType.add(filler23);
 
@@ -191,7 +191,7 @@ public class StatisticProduct_GUI extends javax.swing.JPanel {
         pnl_price.add(filler7);
 
         lbl_price.setText("Giá sản phẩm:");
-        lbl_price.setPreferredSize(new java.awt.Dimension(110, 0));
+        lbl_price.setPreferredSize(new java.awt.Dimension(120, 0));
         lbl_price.setSize(new java.awt.Dimension(100, 0));
         pnl_price.add(lbl_price);
         pnl_price.add(filler8);
@@ -209,7 +209,7 @@ public class StatisticProduct_GUI extends javax.swing.JPanel {
         pnl_quantity.add(filler10);
 
         lbl_quantity.setText("Số lượng đã bán: ");
-        lbl_quantity.setPreferredSize(new java.awt.Dimension(110, 0));
+        lbl_quantity.setPreferredSize(new java.awt.Dimension(120, 0));
         lbl_quantity.setSize(new java.awt.Dimension(100, 0));
         pnl_quantity.add(lbl_quantity);
         pnl_quantity.add(filler11);
@@ -227,7 +227,7 @@ public class StatisticProduct_GUI extends javax.swing.JPanel {
         pnl_total.add(filler13);
 
         lbl_total.setText("Tổng doanh thu: ");
-        lbl_total.setPreferredSize(new java.awt.Dimension(110, 0));
+        lbl_total.setPreferredSize(new java.awt.Dimension(120, 0));
         lbl_total.setSize(new java.awt.Dimension(100, 0));
         pnl_total.add(lbl_total);
         pnl_total.add(filler14);

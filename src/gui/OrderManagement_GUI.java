@@ -29,10 +29,24 @@ public class OrderManagement_GUI extends javax.swing.JPanel {
         pnl_header = new javax.swing.JPanel();
         pnl_center = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbl_order = new javax.swing.JTable();
         pnl_infomation = new javax.swing.JPanel();
         pnl_orderDetail = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tbl_orderDetail = new javax.swing.JTable();
         pnl_info = new javax.swing.JPanel();
+        pnl_customerName = new javax.swing.JPanel();
+        lbl_customerName = new javax.swing.JLabel();
+        txt_customerName = new javax.swing.JTextField();
+        pnl_phone = new javax.swing.JPanel();
+        lbl_phone = new javax.swing.JLabel();
+        txt_phone = new javax.swing.JTextField();
+        pnl_orderStatus = new javax.swing.JPanel();
+        lbl_status = new javax.swing.JLabel();
+        txt_status = new javax.swing.JTextField();
+        pnl_total = new javax.swing.JPanel();
+        lbl_customerName1 = new javax.swing.JLabel();
+        txt_total = new javax.swing.JTextField();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -45,48 +59,201 @@ public class OrderManagement_GUI extends javax.swing.JPanel {
         pnl_center.setBorder(javax.swing.BorderFactory.createTitledBorder("Danh sách hoá đơn: "));
         pnl_center.setLayout(new java.awt.BorderLayout());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_order.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Mã hoá đơn", "Nhân viên", "Khách hàng", "Ngày mua", "Thành tiền"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Double.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tbl_order);
 
         pnl_center.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         add(pnl_center, java.awt.BorderLayout.CENTER);
 
         pnl_infomation.setMinimumSize(new java.awt.Dimension(200, 0));
-        pnl_infomation.setPreferredSize(new java.awt.Dimension(400, 768));
+        pnl_infomation.setPreferredSize(new java.awt.Dimension(500, 768));
         pnl_infomation.setLayout(new java.awt.BorderLayout());
 
         pnl_orderDetail.setBorder(javax.swing.BorderFactory.createTitledBorder("Chi tiết hoá đơn:"));
         pnl_orderDetail.setIgnoreRepaint(true);
         pnl_orderDetail.setLayout(new java.awt.BorderLayout());
+
+        tbl_orderDetail.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Đơn giá", "Tổng tiền"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tbl_orderDetail);
+
+        pnl_orderDetail.add(jScrollPane2, java.awt.BorderLayout.CENTER);
+
         pnl_infomation.add(pnl_orderDetail, java.awt.BorderLayout.CENTER);
 
         pnl_info.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin:"));
         pnl_info.setPreferredSize(new java.awt.Dimension(400, 200));
-        pnl_info.setLayout(new java.awt.BorderLayout());
+        pnl_info.setLayout(new javax.swing.BoxLayout(pnl_info, javax.swing.BoxLayout.Y_AXIS));
+
+        pnl_customerName.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        pnl_customerName.setLayout(new javax.swing.BoxLayout(pnl_customerName, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_customerName.setText("Tên khách hàng:");
+        lbl_customerName.setPreferredSize(new java.awt.Dimension(150, 30));
+        pnl_customerName.add(lbl_customerName);
+
+        txt_customerName.setEditable(false);
+        txt_customerName.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
+        txt_customerName.setPreferredSize(new java.awt.Dimension(64, 15));
+        txt_customerName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_customerNameActionPerformed(evt);
+            }
+        });
+        pnl_customerName.add(txt_customerName);
+
+        pnl_info.add(pnl_customerName);
+
+        pnl_phone.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        pnl_phone.setLayout(new javax.swing.BoxLayout(pnl_phone, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_phone.setText("Số điện thoại:");
+        lbl_phone.setPreferredSize(new java.awt.Dimension(150, 30));
+        pnl_phone.add(lbl_phone);
+
+        txt_phone.setEditable(false);
+        txt_phone.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
+        txt_phone.setPreferredSize(new java.awt.Dimension(64, 15));
+        txt_phone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_phoneActionPerformed(evt);
+            }
+        });
+        pnl_phone.add(txt_phone);
+
+        pnl_info.add(pnl_phone);
+
+        pnl_orderStatus.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        pnl_orderStatus.setLayout(new javax.swing.BoxLayout(pnl_orderStatus, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_status.setText("Trạng thái đơn hàng: ");
+        lbl_status.setPreferredSize(new java.awt.Dimension(150, 30));
+        pnl_orderStatus.add(lbl_status);
+
+        txt_status.setEditable(false);
+        txt_status.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
+        txt_status.setPreferredSize(new java.awt.Dimension(64, 15));
+        txt_status.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_statusActionPerformed(evt);
+            }
+        });
+        pnl_orderStatus.add(txt_status);
+
+        pnl_info.add(pnl_orderStatus);
+
+        pnl_total.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        pnl_total.setLayout(new javax.swing.BoxLayout(pnl_total, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_customerName1.setText("Tổng tiền: ");
+        lbl_customerName1.setPreferredSize(new java.awt.Dimension(150, 30));
+        pnl_total.add(lbl_customerName1);
+
+        txt_total.setEditable(false);
+        txt_total.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
+        txt_total.setPreferredSize(new java.awt.Dimension(64, 15));
+        txt_total.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_totalActionPerformed(evt);
+            }
+        });
+        pnl_total.add(txt_total);
+
+        pnl_info.add(pnl_total);
+
         pnl_infomation.add(pnl_info, java.awt.BorderLayout.SOUTH);
 
         add(pnl_infomation, java.awt.BorderLayout.EAST);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txt_customerNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_customerNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_customerNameActionPerformed
+
+    private void txt_phoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_phoneActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_phoneActionPerformed
+
+    private void txt_statusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_statusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_statusActionPerformed
+
+    private void txt_totalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_totalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_totalActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lbl_customerName;
+    private javax.swing.JLabel lbl_customerName1;
+    private javax.swing.JLabel lbl_phone;
+    private javax.swing.JLabel lbl_status;
     private javax.swing.JPanel pnl_center;
+    private javax.swing.JPanel pnl_customerName;
     private javax.swing.JPanel pnl_header;
     private javax.swing.JPanel pnl_info;
     private javax.swing.JPanel pnl_infomation;
     private javax.swing.JPanel pnl_orderDetail;
+    private javax.swing.JPanel pnl_orderStatus;
+    private javax.swing.JPanel pnl_phone;
+    private javax.swing.JPanel pnl_total;
+    private javax.swing.JTable tbl_order;
+    private javax.swing.JTable tbl_orderDetail;
+    private javax.swing.JTextField txt_customerName;
+    private javax.swing.JTextField txt_phone;
+    private javax.swing.JTextField txt_status;
+    private javax.swing.JTextField txt_total;
     // End of variables declaration//GEN-END:variables
 }

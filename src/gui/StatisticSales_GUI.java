@@ -27,8 +27,9 @@ public class StatisticSales_GUI extends javax.swing.JPanel {
     private void initComponents() {
 
         pnl_header = new javax.swing.JPanel();
+        pnl_topleft = new javax.swing.JPanel();
         pnl_control = new javax.swing.JPanel();
-        filler26 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(20, 0), new java.awt.Dimension(10, 32767));
+        filler26 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(30, 0), new java.awt.Dimension(10, 32767));
         pnl_filter = new javax.swing.JPanel();
         filler28 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         month_statistrcSales = new com.toedter.calendar.JMonthChooser();
@@ -36,35 +37,26 @@ public class StatisticSales_GUI extends javax.swing.JPanel {
         filler27 = new javax.swing.Box.Filler(new java.awt.Dimension(300, 0), new java.awt.Dimension(300, 0), new java.awt.Dimension(1000, 32767));
         pnl_infomaotionBody = new javax.swing.JPanel();
         pnl_orderQuantiy = new javax.swing.JPanel();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
+        jPanel1 = new javax.swing.JPanel();
         lbl_orderQuantity = new javax.swing.JLabel();
-        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         txt_orderQuantity = new javax.swing.JTextField();
-        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         pnl_returnOrderQuantity = new javax.swing.JPanel();
-        filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
+        jPanel2 = new javax.swing.JPanel();
         lbl_returnOrderQuanitty = new javax.swing.JLabel();
-        filler5 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         txt_returnOrderQuantity = new javax.swing.JTextField();
-        filler6 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         pnl_purchaseOrderQuantiy = new javax.swing.JPanel();
-        filler7 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
+        jPanel3 = new javax.swing.JPanel();
         lbl_purchaseOrderQuantity = new javax.swing.JLabel();
-        filler8 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         txt_purchaseOrderQuanitty = new javax.swing.JTextField();
-        filler9 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         pnl_orderQuantiy3 = new javax.swing.JPanel();
-        filler10 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
+        jPanel5 = new javax.swing.JPanel();
         lbl_orderQuantity3 = new javax.swing.JLabel();
-        filler11 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         txt_orderQuantity3 = new javax.swing.JTextField();
-        filler12 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         pnl_orderQuantiy4 = new javax.swing.JPanel();
-        filler13 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
+        jPanel4 = new javax.swing.JPanel();
         lbl_orderQuantity4 = new javax.swing.JLabel();
-        filler14 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         txt_orderQuantity4 = new javax.swing.JTextField();
-        filler15 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
+        pnl_topright = new javax.swing.JPanel();
         pnl_productTypeStatistic = new javax.swing.JPanel();
         pnl_center = new javax.swing.JPanel();
 
@@ -75,11 +67,14 @@ public class StatisticSales_GUI extends javax.swing.JPanel {
         pnl_header.setPreferredSize(new java.awt.Dimension(500, 368));
         pnl_header.setLayout(new java.awt.BorderLayout());
 
-        pnl_control.setBorder(javax.swing.BorderFactory.createTitledBorder("Thống kê theo: "));
-        pnl_control.setPreferredSize(new java.awt.Dimension(1366, 60));
+        pnl_topleft.setLayout(new java.awt.BorderLayout());
+
+        pnl_control.setBorder(javax.swing.BorderFactory.createTitledBorder("Lọc: "));
+        pnl_control.setPreferredSize(new java.awt.Dimension(1366, 70));
         pnl_control.setLayout(new javax.swing.BoxLayout(pnl_control, javax.swing.BoxLayout.LINE_AXIS));
         pnl_control.add(filler26);
 
+        pnl_filter.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 5, 1));
         pnl_filter.setMaximumSize(new java.awt.Dimension(300, 2147483647));
         pnl_filter.setMinimumSize(new java.awt.Dimension(300, 27));
         pnl_filter.setPreferredSize(new java.awt.Dimension(300, 56));
@@ -90,112 +85,140 @@ public class StatisticSales_GUI extends javax.swing.JPanel {
         month_statistrcSales.setPreferredSize(new java.awt.Dimension(150, 20));
         pnl_filter.add(month_statistrcSales);
 
+        year_statisticSales.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         year_statisticSales.setPreferredSize(new java.awt.Dimension(150, 20));
         pnl_filter.add(year_statisticSales);
 
         pnl_control.add(pnl_filter);
         pnl_control.add(filler27);
 
-        pnl_header.add(pnl_control, java.awt.BorderLayout.NORTH);
+        pnl_topleft.add(pnl_control, java.awt.BorderLayout.NORTH);
 
         pnl_infomaotionBody.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin chi tiết"));
         pnl_infomaotionBody.setLayout(new java.awt.GridLayout(2, 3));
 
-        pnl_orderQuantiy.setBorder(javax.swing.BorderFactory.createEmptyBorder(40, 1, 40, 1));
-        pnl_orderQuantiy.setLayout(new javax.swing.BoxLayout(pnl_orderQuantiy, javax.swing.BoxLayout.LINE_AXIS));
-        pnl_orderQuantiy.add(filler1);
+        pnl_orderQuantiy.setBorder(javax.swing.BorderFactory.createEmptyBorder(30, 10, 30, 10));
+        pnl_orderQuantiy.setLayout(new javax.swing.BoxLayout(pnl_orderQuantiy, javax.swing.BoxLayout.Y_AXIS));
 
+        jPanel1.setPreferredSize(new java.awt.Dimension(100, 20));
+        jPanel1.setLayout(new java.awt.BorderLayout());
+
+        lbl_orderQuantity.setFont(lbl_orderQuantity.getFont().deriveFont(lbl_orderQuantity.getFont().getStyle() | java.awt.Font.BOLD, 14));
         lbl_orderQuantity.setText("Tổng số hoá đơn: ");
-        lbl_orderQuantity.setPreferredSize(new java.awt.Dimension(110, 0));
-        pnl_orderQuantiy.add(lbl_orderQuantity);
-        pnl_orderQuantiy.add(filler2);
+        lbl_orderQuantity.setMaximumSize(new java.awt.Dimension(165, 20));
+        lbl_orderQuantity.setMinimumSize(new java.awt.Dimension(165, 20));
+        lbl_orderQuantity.setPreferredSize(new java.awt.Dimension(165, 50));
+        jPanel1.add(lbl_orderQuantity, java.awt.BorderLayout.CENTER);
+
+        pnl_orderQuantiy.add(jPanel1);
 
         txt_orderQuantity.setEditable(false);
+        txt_orderQuantity.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
         txt_orderQuantity.setMinimumSize(new java.awt.Dimension(50, 20));
         txt_orderQuantity.setPreferredSize(new java.awt.Dimension(50, 20));
         pnl_orderQuantiy.add(txt_orderQuantity);
-        pnl_orderQuantiy.add(filler3);
 
         pnl_infomaotionBody.add(pnl_orderQuantiy);
 
-        pnl_returnOrderQuantity.setBorder(javax.swing.BorderFactory.createEmptyBorder(40, 1, 40, 1));
-        pnl_returnOrderQuantity.setLayout(new javax.swing.BoxLayout(pnl_returnOrderQuantity, javax.swing.BoxLayout.LINE_AXIS));
-        pnl_returnOrderQuantity.add(filler4);
+        pnl_returnOrderQuantity.setBorder(javax.swing.BorderFactory.createEmptyBorder(30, 10, 30, 10));
+        pnl_returnOrderQuantity.setLayout(new javax.swing.BoxLayout(pnl_returnOrderQuantity, javax.swing.BoxLayout.Y_AXIS));
 
+        jPanel2.setPreferredSize(new java.awt.Dimension(100, 20));
+        jPanel2.setLayout(new java.awt.BorderLayout());
+
+        lbl_returnOrderQuanitty.setFont(lbl_returnOrderQuanitty.getFont().deriveFont(lbl_returnOrderQuanitty.getFont().getStyle() | java.awt.Font.BOLD, 14));
         lbl_returnOrderQuanitty.setText("Tổng hoá đơn trả:");
-        lbl_returnOrderQuanitty.setPreferredSize(new java.awt.Dimension(110, 0));
-        pnl_returnOrderQuantity.add(lbl_returnOrderQuanitty);
-        pnl_returnOrderQuantity.add(filler5);
+        lbl_returnOrderQuanitty.setPreferredSize(new java.awt.Dimension(130, 20));
+        jPanel2.add(lbl_returnOrderQuanitty, java.awt.BorderLayout.CENTER);
+
+        pnl_returnOrderQuantity.add(jPanel2);
 
         txt_returnOrderQuantity.setEditable(false);
+        txt_returnOrderQuantity.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
         txt_returnOrderQuantity.setMinimumSize(new java.awt.Dimension(50, 20));
         txt_returnOrderQuantity.setPreferredSize(new java.awt.Dimension(50, 20));
         pnl_returnOrderQuantity.add(txt_returnOrderQuantity);
-        pnl_returnOrderQuantity.add(filler6);
 
         pnl_infomaotionBody.add(pnl_returnOrderQuantity);
 
-        pnl_purchaseOrderQuantiy.setBorder(javax.swing.BorderFactory.createEmptyBorder(40, 1, 40, 1));
-        pnl_purchaseOrderQuantiy.setLayout(new javax.swing.BoxLayout(pnl_purchaseOrderQuantiy, javax.swing.BoxLayout.LINE_AXIS));
-        pnl_purchaseOrderQuantiy.add(filler7);
+        pnl_purchaseOrderQuantiy.setBorder(javax.swing.BorderFactory.createEmptyBorder(30, 10, 30, 10));
+        pnl_purchaseOrderQuantiy.setLayout(new javax.swing.BoxLayout(pnl_purchaseOrderQuantiy, javax.swing.BoxLayout.Y_AXIS));
 
+        jPanel3.setPreferredSize(new java.awt.Dimension(100, 20));
+        jPanel3.setLayout(new java.awt.BorderLayout());
+
+        lbl_purchaseOrderQuantity.setFont(lbl_purchaseOrderQuantity.getFont().deriveFont(lbl_purchaseOrderQuantity.getFont().getStyle() | java.awt.Font.BOLD, 14));
         lbl_purchaseOrderQuantity.setText("Tổng số đơn nhập: ");
         lbl_purchaseOrderQuantity.setMaximumSize(new java.awt.Dimension(130, 17));
         lbl_purchaseOrderQuantity.setMinimumSize(new java.awt.Dimension(130, 17));
-        lbl_purchaseOrderQuantity.setPreferredSize(new java.awt.Dimension(120, 0));
-        pnl_purchaseOrderQuantiy.add(lbl_purchaseOrderQuantity);
-        pnl_purchaseOrderQuantiy.add(filler8);
+        lbl_purchaseOrderQuantity.setPreferredSize(new java.awt.Dimension(130, 20));
+        jPanel3.add(lbl_purchaseOrderQuantity, java.awt.BorderLayout.CENTER);
+
+        pnl_purchaseOrderQuantiy.add(jPanel3);
 
         txt_purchaseOrderQuanitty.setEditable(false);
+        txt_purchaseOrderQuanitty.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
         txt_purchaseOrderQuanitty.setMinimumSize(new java.awt.Dimension(50, 20));
         txt_purchaseOrderQuanitty.setPreferredSize(new java.awt.Dimension(50, 20));
         pnl_purchaseOrderQuantiy.add(txt_purchaseOrderQuanitty);
-        pnl_purchaseOrderQuantiy.add(filler9);
 
         pnl_infomaotionBody.add(pnl_purchaseOrderQuantiy);
 
-        pnl_orderQuantiy3.setBorder(javax.swing.BorderFactory.createEmptyBorder(40, 1, 40, 1));
+        pnl_orderQuantiy3.setBorder(javax.swing.BorderFactory.createEmptyBorder(30, 10, 30, 10));
         pnl_orderQuantiy3.setMinimumSize(new java.awt.Dimension(380, 20));
         pnl_orderQuantiy3.setPreferredSize(new java.awt.Dimension(380, 20));
-        pnl_orderQuantiy3.setLayout(new javax.swing.BoxLayout(pnl_orderQuantiy3, javax.swing.BoxLayout.LINE_AXIS));
-        pnl_orderQuantiy3.add(filler10);
+        pnl_orderQuantiy3.setLayout(new javax.swing.BoxLayout(pnl_orderQuantiy3, javax.swing.BoxLayout.Y_AXIS));
 
+        jPanel5.setLayout(new java.awt.BorderLayout());
+
+        lbl_orderQuantity3.setFont(lbl_orderQuantity3.getFont().deriveFont(lbl_orderQuantity3.getFont().getStyle() | java.awt.Font.BOLD, 14));
         lbl_orderQuantity3.setText("Tổng doanh thu:");
-        lbl_orderQuantity3.setPreferredSize(new java.awt.Dimension(110, 0));
-        pnl_orderQuantiy3.add(lbl_orderQuantity3);
-        pnl_orderQuantiy3.add(filler11);
+        lbl_orderQuantity3.setPreferredSize(new java.awt.Dimension(130, 20));
+        jPanel5.add(lbl_orderQuantity3, java.awt.BorderLayout.CENTER);
+
+        pnl_orderQuantiy3.add(jPanel5);
 
         txt_orderQuantity3.setEditable(false);
+        txt_orderQuantity3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
         txt_orderQuantity3.setMinimumSize(new java.awt.Dimension(50, 20));
         txt_orderQuantity3.setPreferredSize(new java.awt.Dimension(50, 20));
         pnl_orderQuantiy3.add(txt_orderQuantity3);
-        pnl_orderQuantiy3.add(filler12);
 
         pnl_infomaotionBody.add(pnl_orderQuantiy3);
 
-        pnl_orderQuantiy4.setBorder(javax.swing.BorderFactory.createEmptyBorder(40, 1, 40, 1));
-        pnl_orderQuantiy4.setLayout(new javax.swing.BoxLayout(pnl_orderQuantiy4, javax.swing.BoxLayout.LINE_AXIS));
-        pnl_orderQuantiy4.add(filler13);
+        pnl_orderQuantiy4.setBorder(javax.swing.BorderFactory.createEmptyBorder(30, 10, 30, 10));
+        pnl_orderQuantiy4.setLayout(new javax.swing.BoxLayout(pnl_orderQuantiy4, javax.swing.BoxLayout.Y_AXIS));
 
+        jPanel4.setLayout(new java.awt.BorderLayout());
+
+        lbl_orderQuantity4.setFont(lbl_orderQuantity4.getFont().deriveFont(lbl_orderQuantity4.getFont().getStyle() | java.awt.Font.BOLD, 14));
         lbl_orderQuantity4.setText("Chỉ tiêu:");
-        lbl_orderQuantity4.setPreferredSize(new java.awt.Dimension(110, 0));
-        pnl_orderQuantiy4.add(lbl_orderQuantity4);
-        pnl_orderQuantiy4.add(filler14);
+        lbl_orderQuantity4.setPreferredSize(new java.awt.Dimension(130, 20));
+        jPanel4.add(lbl_orderQuantity4, java.awt.BorderLayout.CENTER);
+
+        pnl_orderQuantiy4.add(jPanel4);
 
         txt_orderQuantity4.setEditable(false);
+        txt_orderQuantity4.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
         txt_orderQuantity4.setMinimumSize(new java.awt.Dimension(50, 20));
         txt_orderQuantity4.setPreferredSize(new java.awt.Dimension(50, 20));
         pnl_orderQuantiy4.add(txt_orderQuantity4);
-        pnl_orderQuantiy4.add(filler15);
 
         pnl_infomaotionBody.add(pnl_orderQuantiy4);
 
-        pnl_header.add(pnl_infomaotionBody, java.awt.BorderLayout.CENTER);
+        pnl_topleft.add(pnl_infomaotionBody, java.awt.BorderLayout.CENTER);
+
+        pnl_header.add(pnl_topleft, java.awt.BorderLayout.CENTER);
+
+        pnl_topright.setPreferredSize(new java.awt.Dimension(450, 100));
+        pnl_topright.setLayout(new java.awt.BorderLayout());
 
         pnl_productTypeStatistic.setBorder(javax.swing.BorderFactory.createTitledBorder("Biểu đồ tỷ lệ sản phẩm "));
-        pnl_productTypeStatistic.setPreferredSize(new java.awt.Dimension(400, 400));
+        pnl_productTypeStatistic.setPreferredSize(new java.awt.Dimension(450, 450));
         pnl_productTypeStatistic.setLayout(new javax.swing.BoxLayout(pnl_productTypeStatistic, javax.swing.BoxLayout.Y_AXIS));
-        pnl_header.add(pnl_productTypeStatistic, java.awt.BorderLayout.EAST);
+        pnl_topright.add(pnl_productTypeStatistic, java.awt.BorderLayout.EAST);
+
+        pnl_header.add(pnl_topright, java.awt.BorderLayout.EAST);
 
         add(pnl_header, java.awt.BorderLayout.NORTH);
 
@@ -207,24 +230,14 @@ public class StatisticSales_GUI extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.Box.Filler filler1;
-    private javax.swing.Box.Filler filler10;
-    private javax.swing.Box.Filler filler11;
-    private javax.swing.Box.Filler filler12;
-    private javax.swing.Box.Filler filler13;
-    private javax.swing.Box.Filler filler14;
-    private javax.swing.Box.Filler filler15;
-    private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler26;
     private javax.swing.Box.Filler filler27;
     private javax.swing.Box.Filler filler28;
-    private javax.swing.Box.Filler filler3;
-    private javax.swing.Box.Filler filler4;
-    private javax.swing.Box.Filler filler5;
-    private javax.swing.Box.Filler filler6;
-    private javax.swing.Box.Filler filler7;
-    private javax.swing.Box.Filler filler8;
-    private javax.swing.Box.Filler filler9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JLabel lbl_orderQuantity;
     private javax.swing.JLabel lbl_orderQuantity3;
     private javax.swing.JLabel lbl_orderQuantity4;
@@ -242,6 +255,8 @@ public class StatisticSales_GUI extends javax.swing.JPanel {
     private javax.swing.JPanel pnl_productTypeStatistic;
     private javax.swing.JPanel pnl_purchaseOrderQuantiy;
     private javax.swing.JPanel pnl_returnOrderQuantity;
+    private javax.swing.JPanel pnl_topleft;
+    private javax.swing.JPanel pnl_topright;
     private javax.swing.JTextField txt_orderQuantity;
     private javax.swing.JTextField txt_orderQuantity3;
     private javax.swing.JTextField txt_orderQuantity4;
