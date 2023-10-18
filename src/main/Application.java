@@ -28,7 +28,7 @@ public class Application extends javax.swing.JFrame {
 
     public Application() {
         initComponents();
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         setTitle("Omega Book");
         mainForm = new MainView();
