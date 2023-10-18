@@ -21,7 +21,6 @@ import javax.swing.JScrollPane;
  * @author thanhcanhit
  */
 public class Menu extends JPanel {
-
     private final String menuItems[][] = {
         {"Bán hàng"},
         {"Đơn hàng", "Quản lí đơn bán", "Quản lí đơn nhập", "Tạo đơn nhập"},

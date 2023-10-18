@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import gui.menu.Menu;
 import gui.menu.MenuAction;
+import javax.swing.JOptionPane;
 import main.Application;
 
 /**
@@ -33,21 +34,21 @@ public class MainView extends JLayeredPane {
         setBorder(new EmptyBorder(5, 5, 5, 5));
         setLayout(new MainFormLayout());
         menu = new Menu();
-        panelBody = new JPanel(new BorderLayout());
+        pnl_body = new JPanel(new BorderLayout());
         initMenuArrowIcon();
-        menuButton.putClientProperty(FlatClientProperties.STYLE, ""
+        btn_menu.putClientProperty(FlatClientProperties.STYLE, ""
                 + "background:$Menu.button.background;"
                 + "arc:999;"
                 + "focusWidth:0;"
                 + "borderWidth:0");
-        menuButton.addActionListener((ActionEvent e) -> {
+        btn_menu.addActionListener((ActionEvent e) -> {
             setMenuFull(!menu.isMenuFull());
         });
         initMenuEvent();
-        setLayer(menuButton, JLayeredPane.POPUP_LAYER);
-        add(menuButton);
+        setLayer(btn_menu, JLayeredPane.POPUP_LAYER);
+        add(btn_menu);
         add(menu);
-        add(panelBody);
+        add(pnl_body);
     }
 
     @Override
@@ -57,18 +58,18 @@ public class MainView extends JLayeredPane {
     }
 
     private void initMenuArrowIcon() {
-        if (menuButton == null) {
-            menuButton = new JButton();
+        if (btn_menu == null) {
+            btn_menu = new JButton();
         }
         String icon = (getComponentOrientation().isLeftToRight()) ? "menu_left.svg" : "menu_right.svg";
-        menuButton.setIcon(new FlatSVGIcon("imgs/menu/" + icon, 0.8f));
+        btn_menu.setIcon(new FlatSVGIcon("imgs/menu/" + icon, 0.8f));
     }
 
     private void initMenuEvent() {
         menu.addMenuEvent((int index, int subIndex, MenuAction action) -> {
             switch (index) {
                 case 0:
-                    Application.showForm(new JPanel());
+                    Application.showForm(new Sales_GUI());
                     break;
                 case 1:
                     switch (subIndex) {
@@ -94,6 +95,10 @@ public class MainView extends JLayeredPane {
                     break;
 
                 case 9:
+                    if (JOptionPane.showConfirmDialog(this, "Bạn có thật sự muốn đăng xuất", "Xác nhận hành động", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                        Application.logout();
+                    }
+
                     break;
                 default:
                     action.cancel();
@@ -109,7 +114,7 @@ public class MainView extends JLayeredPane {
         } else {
             icon = (full) ? "menu_right.svg" : "menu_left.svg";
         }
-        menuButton.setIcon(new FlatSVGIcon("imgs/menu/" + icon, 0.8f));
+        btn_menu.setIcon(new FlatSVGIcon("imgs/menu/" + icon, 0.8f));
         menu.setMenuFull(full);
         revalidate();
     }
@@ -119,10 +124,10 @@ public class MainView extends JLayeredPane {
     }
 
     public void showForm(Component component) {
-        panelBody.removeAll();
-        panelBody.add(component);
-        panelBody.repaint();
-        panelBody.revalidate();
+        pnl_body.removeAll();
+        pnl_body.add(component);
+        pnl_body.repaint();
+        pnl_body.revalidate();
     }
 
     public void setSelectedMenu(int index, int subIndex) {
@@ -130,8 +135,8 @@ public class MainView extends JLayeredPane {
     }
 
     private Menu menu;
-    private JPanel panelBody;
-    private JButton menuButton;
+    private JPanel pnl_body;
+    private JButton btn_menu;
 
     private class MainFormLayout implements LayoutManager {
 
@@ -169,22 +174,23 @@ public class MainView extends JLayeredPane {
                 int menuWidth = UIScale.scale(menu.isMenuFull() ? menu.getMenuMaxWidth() : menu.getMenuMinWidth());
                 int menuX = ltr ? x : x + width - menuWidth;
                 menu.setBounds(menuX, y, menuWidth, height);
-                int menuButtonWidth = menuButton.getPreferredSize().width;
-                int menuButtonHeight = menuButton.getPreferredSize().height;
+                int menuButtonWidth = btn_menu.getPreferredSize().width;
+                int menuButtonHeight = btn_menu.getPreferredSize().height;
                 int menubX;
                 if (ltr) {
                     menubX = (int) (x + menuWidth - (menuButtonWidth * (menu.isMenuFull() ? 0.5f : 0.3f)));
                 } else {
                     menubX = (int) (menuX - (menuButtonWidth * (menu.isMenuFull() ? 0.5f : 0.7f)));
                 }
-                menuButton.setBounds(menubX, UIScale.scale(30), menuButtonWidth, menuButtonHeight);
+                btn_menu.setBounds(menubX, UIScale.scale(30), menuButtonWidth, menuButtonHeight);
                 int gap = UIScale.scale(5);
                 int bodyWidth = width - menuWidth - gap;
                 int bodyHeight = height;
                 int bodyx = ltr ? (x + menuWidth + gap) : x;
                 int bodyy = y;
-                panelBody.setBounds(bodyx, bodyy, bodyWidth, bodyHeight);
+                pnl_body.setBounds(bodyx, bodyy, bodyWidth, bodyHeight);
             }
         }
+
     }
 }

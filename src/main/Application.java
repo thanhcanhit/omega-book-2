@@ -2,13 +2,16 @@ package main;
 
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.extras.FlatAnimatedLafChange;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
+import entity.Employee;
+import gui.Login_GUI;
 import gui.MainView;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import raven.toast.Notifications;
 
@@ -20,6 +23,8 @@ public class Application extends javax.swing.JFrame {
 
     private static Application app;
     private final MainView mainForm;
+    private final Login_GUI loginForm;
+    public static Employee employee = null;
 
     public Application() {
         initComponents();
@@ -27,7 +32,8 @@ public class Application extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setTitle("Omega Book");
         mainForm = new MainView();
-        setContentPane(mainForm);
+        loginForm = new Login_GUI();
+        setContentPane(loginForm);
         Notifications.getInstance().setJFrame(this);
 
         // Handle on close
@@ -54,6 +60,28 @@ public class Application extends javax.swing.JFrame {
 
     public static void setSelectedMenu(int index, int subIndex) {
         app.mainForm.setSelectedMenu(index, subIndex);
+    }
+
+    public static void login(Employee employee) {
+        FlatAnimatedLafChange.showSnapshot();
+        app.setContentPane(app.mainForm);
+        app.mainForm.applyComponentOrientation(app.getComponentOrientation());
+        setSelectedMenu(0, 0);
+        app.mainForm.hideMenu();
+        SwingUtilities.updateComponentTreeUI(app.mainForm);
+        Application.employee = employee;
+        FlatAnimatedLafChange.hideSnapshotWithAnimation();
+        Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đăng nhập vào hệ thống thành công");
+    }
+
+    public static void logout() {
+        Application.employee = null;
+        FlatAnimatedLafChange.showSnapshot();
+        app.setContentPane(app.loginForm);
+        app.loginForm.applyComponentOrientation(app.getComponentOrientation());
+        SwingUtilities.updateComponentTreeUI(app.loginForm);
+        FlatAnimatedLafChange.hideSnapshotWithAnimation();
+        Notifications.getInstance().show(Notifications.Type.INFO, "Đăng xuất khỏi hệ thống thành công");
     }
 
     @SuppressWarnings("unchecked")
