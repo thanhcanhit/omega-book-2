@@ -74,6 +74,7 @@ public class MainView extends JLayeredPane {
                 case 1:
                     switch (subIndex) {
                         case 1:
+                            Application.showForm(new OrderManagement_GUI());
                             break;
                         case 2:
                             break;
@@ -85,6 +86,7 @@ public class MainView extends JLayeredPane {
                 case 2:
                     switch (subIndex) {
                         case 1:
+                            Application.showForm(new ReturnOrderManagemant_GUI());
                             break;
                         case 2:
                             break;
@@ -93,7 +95,32 @@ public class MainView extends JLayeredPane {
                             break;
                     }
                     break;
-
+                case 5:
+                    Application.showForm(new EmployeeManagement_GUI());
+                    break;
+                case 7:
+                    switch (subIndex) {
+                        case 1:
+                            Application.showForm(new StatisticSales_GUI());
+                            break;
+                        case 2:
+                            Application.showForm(new StatisticProduct_GUI());
+                            break;
+                        default:
+                            action.cancel();
+                            break;
+                    }
+                    break;
+                case 8:
+                    switch (subIndex) {
+                        case 1:
+                            Application.showForm(new StatementCashCount_GUI());
+                            break;
+                        default:
+                            action.cancel();
+                            break;
+                    }
+                    break;
                 case 9:
                     if (JOptionPane.showConfirmDialog(this, "Bạn có thật sự muốn đăng xuất", "Xác nhận hành động", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                         Application.logout();
