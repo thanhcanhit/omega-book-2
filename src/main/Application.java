@@ -33,7 +33,7 @@ public class Application extends javax.swing.JFrame {
         setTitle("Omega Book");
         mainForm = new MainView();
         loginForm = new Login_GUI();
-        setContentPane(loginForm);
+        setContentPane(mainForm);
         Notifications.getInstance().setJFrame(this);
 
         // Handle on close
