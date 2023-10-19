@@ -30,29 +30,20 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
     private void initComponents() {
 
         pnl_infomation = new javax.swing.JPanel();
-        pnl_cashCountInfoHeader = new javax.swing.JPanel();
+        pnl_cashCountTime = new javax.swing.JPanel();
         txt_timeAccounting = new javax.swing.JTextField();
-        pnl_cashCountInfoBody = new javax.swing.JPanel();
         pnl_employeeCashCount1 = new javax.swing.JPanel();
         lbl_employeeCashCount1 = new javax.swing.JLabel();
         txt_employeeCashCount1 = new javax.swing.JTextField();
-        filler5 = new javax.swing.Box.Filler(new java.awt.Dimension(5, 0), new java.awt.Dimension(5, 0), new java.awt.Dimension(5, 32767));
         pnl_employeeCashCount1Name = new javax.swing.JPanel();
-        filler14 = new javax.swing.Box.Filler(new java.awt.Dimension(5, 0), new java.awt.Dimension(100, 0), new java.awt.Dimension(5, 32767));
         txt_employeeCashCount1Name = new javax.swing.JTextField();
-        filler16 = new javax.swing.Box.Filler(new java.awt.Dimension(5, 0), new java.awt.Dimension(5, 0), new java.awt.Dimension(5, 32767));
         pnl_employeeCashCount2 = new javax.swing.JPanel();
         lbl_employeeCashCount2 = new javax.swing.JLabel();
         txt_employeeCashCount2 = new javax.swing.JTextField();
-        filler6 = new javax.swing.Box.Filler(new java.awt.Dimension(5, 0), new java.awt.Dimension(5, 0), new java.awt.Dimension(5, 32767));
         pnl_employeeCashCount2Name = new javax.swing.JPanel();
-        filler15 = new javax.swing.Box.Filler(new java.awt.Dimension(5, 0), new java.awt.Dimension(100, 0), new java.awt.Dimension(5, 32767));
         txt_employeeCashCount1Name1 = new javax.swing.JTextField();
-        filler17 = new javax.swing.Box.Filler(new java.awt.Dimension(5, 0), new java.awt.Dimension(5, 0), new java.awt.Dimension(5, 32767));
-        pnl_cashCountInfoFooter = new javax.swing.JPanel();
         pnl_cashCountTotal = new javax.swing.JPanel();
         lbl_cashCountTotal = new javax.swing.JLabel();
-        filler9 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         txt_cashCountTotal = new javax.swing.JTextField();
         pnl_cashCountSave = new javax.swing.JPanel();
         btn_saveCashCount = new javax.swing.JButton();
@@ -70,11 +61,11 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
 
         pnl_infomation.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18))); // NOI18N
         pnl_infomation.setFont(pnl_infomation.getFont());
-        pnl_infomation.setPreferredSize(new java.awt.Dimension(350, 690));
-        pnl_infomation.setLayout(new java.awt.BorderLayout());
+        pnl_infomation.setPreferredSize(new java.awt.Dimension(400, 690));
+        pnl_infomation.setLayout(new javax.swing.BoxLayout(pnl_infomation, javax.swing.BoxLayout.Y_AXIS));
 
-        pnl_cashCountInfoHeader.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 15, 1));
-        pnl_cashCountInfoHeader.setLayout(new javax.swing.BoxLayout(pnl_cashCountInfoHeader, javax.swing.BoxLayout.LINE_AXIS));
+        pnl_cashCountTime.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 15, 1));
+        pnl_cashCountTime.setLayout(new javax.swing.BoxLayout(pnl_cashCountTime, javax.swing.BoxLayout.LINE_AXIS));
 
         txt_timeAccounting.setBackground(new java.awt.Color(242, 242, 242));
         txt_timeAccounting.setFont(txt_timeAccounting.getFont().deriveFont(txt_timeAccounting.getFont().getStyle() | java.awt.Font.BOLD, 20));
@@ -86,18 +77,17 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
                 txt_timeAccountingActionPerformed(evt);
             }
         });
-        pnl_cashCountInfoHeader.add(txt_timeAccounting);
+        pnl_cashCountTime.add(txt_timeAccounting);
 
-        pnl_infomation.add(pnl_cashCountInfoHeader, java.awt.BorderLayout.NORTH);
+        pnl_infomation.add(pnl_cashCountTime);
 
-        pnl_cashCountInfoBody.setLayout(new java.awt.GridLayout(6, 1));
-
-        pnl_employeeCashCount1.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 1, 1, 1));
+        pnl_employeeCashCount1.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 5, 10, 5));
+        pnl_employeeCashCount1.setFont(pnl_employeeCashCount1.getFont().deriveFont((float)16));
         pnl_employeeCashCount1.setLayout(new javax.swing.BoxLayout(pnl_employeeCashCount1, javax.swing.BoxLayout.X_AXIS));
 
-        lbl_employeeCashCount1.setFont(lbl_employeeCashCount1.getFont().deriveFont(lbl_employeeCashCount1.getFont().getStyle() | java.awt.Font.BOLD, 16));
+        lbl_employeeCashCount1.setFont(lbl_employeeCashCount1.getFont().deriveFont((float)16));
         lbl_employeeCashCount1.setText("Nhân viên 1:");
-        lbl_employeeCashCount1.setPreferredSize(new java.awt.Dimension(100, 16));
+        lbl_employeeCashCount1.setPreferredSize(new java.awt.Dimension(150, 16));
         pnl_employeeCashCount1.add(lbl_employeeCashCount1);
 
         txt_employeeCashCount1.setEditable(false);
@@ -111,13 +101,12 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
             }
         });
         pnl_employeeCashCount1.add(txt_employeeCashCount1);
-        pnl_employeeCashCount1.add(filler5);
 
-        pnl_cashCountInfoBody.add(pnl_employeeCashCount1);
+        pnl_infomation.add(pnl_employeeCashCount1);
 
-        pnl_employeeCashCount1Name.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 1, 1, 1));
+        pnl_employeeCashCount1Name.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 150, 20, 5));
+        pnl_employeeCashCount1Name.setFont(pnl_employeeCashCount1Name.getFont().deriveFont((float)16));
         pnl_employeeCashCount1Name.setLayout(new javax.swing.BoxLayout(pnl_employeeCashCount1Name, javax.swing.BoxLayout.X_AXIS));
-        pnl_employeeCashCount1Name.add(filler14);
 
         txt_employeeCashCount1Name.setEditable(false);
         txt_employeeCashCount1Name.setFont(txt_employeeCashCount1Name.getFont().deriveFont((float)16));
@@ -130,17 +119,17 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
             }
         });
         pnl_employeeCashCount1Name.add(txt_employeeCashCount1Name);
-        pnl_employeeCashCount1Name.add(filler16);
 
-        pnl_cashCountInfoBody.add(pnl_employeeCashCount1Name);
+        pnl_infomation.add(pnl_employeeCashCount1Name);
 
-        pnl_employeeCashCount2.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 1, 1, 1));
+        pnl_employeeCashCount2.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 5, 10, 5));
+        pnl_employeeCashCount2.setFont(pnl_employeeCashCount2.getFont().deriveFont((float)16));
         pnl_employeeCashCount2.setPreferredSize(new java.awt.Dimension(200, 32));
         pnl_employeeCashCount2.setLayout(new javax.swing.BoxLayout(pnl_employeeCashCount2, javax.swing.BoxLayout.LINE_AXIS));
 
-        lbl_employeeCashCount2.setFont(lbl_employeeCashCount2.getFont().deriveFont(lbl_employeeCashCount2.getFont().getStyle() | java.awt.Font.BOLD, 16));
+        lbl_employeeCashCount2.setFont(lbl_employeeCashCount2.getFont().deriveFont((float)16));
         lbl_employeeCashCount2.setText("Nhân viên 2:");
-        lbl_employeeCashCount2.setPreferredSize(new java.awt.Dimension(100, 16));
+        lbl_employeeCashCount2.setPreferredSize(new java.awt.Dimension(150, 16));
         pnl_employeeCashCount2.add(lbl_employeeCashCount2);
 
         txt_employeeCashCount2.setEditable(false);
@@ -155,13 +144,12 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
             }
         });
         pnl_employeeCashCount2.add(txt_employeeCashCount2);
-        pnl_employeeCashCount2.add(filler6);
 
-        pnl_cashCountInfoBody.add(pnl_employeeCashCount2);
+        pnl_infomation.add(pnl_employeeCashCount2);
 
-        pnl_employeeCashCount2Name.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 1, 1, 1));
+        pnl_employeeCashCount2Name.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 150, 20, 5));
+        pnl_employeeCashCount2Name.setFont(pnl_employeeCashCount2Name.getFont().deriveFont((float)16));
         pnl_employeeCashCount2Name.setLayout(new javax.swing.BoxLayout(pnl_employeeCashCount2Name, javax.swing.BoxLayout.X_AXIS));
-        pnl_employeeCashCount2Name.add(filler15);
 
         txt_employeeCashCount1Name1.setEditable(false);
         txt_employeeCashCount1Name1.setFont(txt_employeeCashCount1Name1.getFont().deriveFont((float)16));
@@ -174,23 +162,16 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
             }
         });
         pnl_employeeCashCount2Name.add(txt_employeeCashCount1Name1);
-        pnl_employeeCashCount2Name.add(filler17);
 
-        pnl_cashCountInfoBody.add(pnl_employeeCashCount2Name);
+        pnl_infomation.add(pnl_employeeCashCount2Name);
 
-        pnl_infomation.add(pnl_cashCountInfoBody, java.awt.BorderLayout.CENTER);
-
-        pnl_cashCountInfoFooter.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 20, 1));
-        pnl_cashCountInfoFooter.setLayout(new javax.swing.BoxLayout(pnl_cashCountInfoFooter, javax.swing.BoxLayout.Y_AXIS));
-
-        pnl_cashCountTotal.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 1, 1, 1));
+        pnl_cashCountTotal.setBorder(javax.swing.BorderFactory.createEmptyBorder(80, 5, 1, 5));
         pnl_cashCountTotal.setPreferredSize(new java.awt.Dimension(160, 50));
         pnl_cashCountTotal.setLayout(new javax.swing.BoxLayout(pnl_cashCountTotal, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_cashCountTotal.setFont(lbl_cashCountTotal.getFont().deriveFont((lbl_cashCountTotal.getFont().getStyle() | java.awt.Font.ITALIC) | java.awt.Font.BOLD, 28));
         lbl_cashCountTotal.setText("Tổng:");
         pnl_cashCountTotal.add(lbl_cashCountTotal);
-        pnl_cashCountTotal.add(filler9);
 
         txt_cashCountTotal.setEditable(false);
         txt_cashCountTotal.setFont(txt_cashCountTotal.getFont().deriveFont((txt_cashCountTotal.getFont().getStyle() | java.awt.Font.ITALIC) | java.awt.Font.BOLD, 26));
@@ -203,10 +184,10 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
         });
         pnl_cashCountTotal.add(txt_cashCountTotal);
 
-        pnl_cashCountInfoFooter.add(pnl_cashCountTotal);
+        pnl_infomation.add(pnl_cashCountTotal);
 
-        pnl_cashCountSave.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 5, 10, 5));
-        pnl_cashCountSave.setLayout(new java.awt.BorderLayout());
+        pnl_cashCountSave.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 5, 15, 5));
+        pnl_cashCountSave.setLayout(new java.awt.GridLayout());
 
         btn_saveCashCount.setFont(btn_saveCashCount.getFont().deriveFont(btn_saveCashCount.getFont().getStyle() | java.awt.Font.BOLD, 20));
         btn_saveCashCount.setText("Tạo báo cáo");
@@ -216,11 +197,9 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
                 btn_saveCashCountActionPerformed(evt);
             }
         });
-        pnl_cashCountSave.add(btn_saveCashCount, java.awt.BorderLayout.PAGE_END);
+        pnl_cashCountSave.add(btn_saveCashCount);
 
-        pnl_cashCountInfoFooter.add(pnl_cashCountSave);
-
-        pnl_infomation.add(pnl_cashCountInfoFooter, java.awt.BorderLayout.SOUTH);
+        pnl_infomation.add(pnl_cashCountSave);
 
         add(pnl_infomation, java.awt.BorderLayout.EAST);
 
@@ -298,22 +277,13 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
     private javax.swing.Box.Filler filler10;
     private javax.swing.Box.Filler filler11;
     private javax.swing.Box.Filler filler12;
-    private javax.swing.Box.Filler filler14;
-    private javax.swing.Box.Filler filler15;
-    private javax.swing.Box.Filler filler16;
-    private javax.swing.Box.Filler filler17;
-    private javax.swing.Box.Filler filler5;
-    private javax.swing.Box.Filler filler6;
-    private javax.swing.Box.Filler filler9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbl_cashCountTotal;
     private javax.swing.JLabel lbl_employeeCashCount1;
     private javax.swing.JLabel lbl_employeeCashCount2;
     private javax.swing.JLabel lbl_titleCashCount;
-    private javax.swing.JPanel pnl_cashCountInfoBody;
-    private javax.swing.JPanel pnl_cashCountInfoFooter;
-    private javax.swing.JPanel pnl_cashCountInfoHeader;
     private javax.swing.JPanel pnl_cashCountSave;
+    private javax.swing.JPanel pnl_cashCountTime;
     private javax.swing.JPanel pnl_cashCountTotal;
     private javax.swing.JPanel pnl_employeeCashCount1;
     private javax.swing.JPanel pnl_employeeCashCount1Name;
