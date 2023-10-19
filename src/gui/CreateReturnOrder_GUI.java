@@ -4,6 +4,8 @@
  */
 package gui;
 
+import com.formdev.flatlaf.FlatClientProperties;
+
 /**
  *
  * @author Như Tâm
@@ -26,19 +28,288 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        group_returnOrder = new javax.swing.ButtonGroup();
+        spl_createReturnOrder = new javax.swing.JSplitPane();
+        pnl_order = new javax.swing.JPanel();
+        pnl_searchOrder = new javax.swing.JPanel();
+        txt_searchOrder = new javax.swing.JTextField();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(10, 10), new java.awt.Dimension(32767, 0));
+        btn_searchOrder = new javax.swing.JButton();
+        pnl_orderInfor = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        pnl_returnOrder = new javax.swing.JPanel();
+        pnl_employeeInfor = new javax.swing.JPanel();
+        pnl_employeeID = new javax.swing.JPanel();
+        lbl_employeeID = new javax.swing.JLabel();
+        txt_employeeID = new javax.swing.JTextField();
+        pnl_nameEmp = new javax.swing.JPanel();
+        lbl_nameEmp = new javax.swing.JLabel();
+        txt_nameEmp = new javax.swing.JTextField();
+        pnl_returnOrderInfor = new javax.swing.JPanel();
+        pnl_returnOrderID = new javax.swing.JPanel();
+        lbl_returnOrderID = new javax.swing.JLabel();
+        txt_returnOrderID = new javax.swing.JTextField();
+        pnl_returnOrderDate = new javax.swing.JPanel();
+        lbl_returnOrderDate = new javax.swing.JLabel();
+        txt_returnOrderDate = new javax.swing.JTextField();
+        pnl_productReturn = new javax.swing.JPanel();
+        pnl_lblProduct = new javax.swing.JPanel();
+        lbl_product = new javax.swing.JLabel();
+        src_tblProduct = new javax.swing.JScrollPane();
+        tbl_product = new javax.swing.JTable();
+        pnl_typeReturnOrder = new javax.swing.JPanel();
+        lbl_typeReturnOrder = new javax.swing.JLabel();
+        pnl_buttonTypeReturnOrder = new javax.swing.JPanel();
+        rdb_exchange = new javax.swing.JRadioButton();
+        rdb_return = new javax.swing.JRadioButton();
+        jPanel1 = new javax.swing.JPanel();
+        btn_createReturnOrder = new javax.swing.JButton();
+
+        setLayout(new java.awt.BorderLayout());
+
+        pnl_order.setMinimumSize(new java.awt.Dimension(500, 123));
+        pnl_order.setPreferredSize(new java.awt.Dimension(600, 768));
+        pnl_order.setLayout(new javax.swing.BoxLayout(pnl_order, javax.swing.BoxLayout.Y_AXIS));
+
+        pnl_searchOrder.setBorder(javax.swing.BorderFactory.createEmptyBorder(7, 7, 7, 7));
+        pnl_searchOrder.setMinimumSize(new java.awt.Dimension(457, 37));
+        pnl_searchOrder.setLayout(new javax.swing.BoxLayout(pnl_searchOrder, javax.swing.BoxLayout.X_AXIS));
+
+        txt_searchOrder.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Nhập mã hoá đơn");
+        pnl_searchOrder.add(txt_searchOrder);
+        pnl_searchOrder.add(filler1);
+
+        btn_searchOrder.setText("Tìm kiếm");
+        btn_searchOrder.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        pnl_searchOrder.add(btn_searchOrder);
+
+        pnl_order.add(pnl_searchOrder);
+
+        pnl_orderInfor.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin hoá đơn"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        pnl_orderInfor.setPreferredSize(new java.awt.Dimension(150, 700));
+        pnl_orderInfor.setLayout(new java.awt.BorderLayout(0, 10));
+
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(452, 100));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Mã HĐ", "Mã KH", "Ngày mua", "Tổng tiền"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, true, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
+        pnl_orderInfor.add(jScrollPane1, java.awt.BorderLayout.PAGE_START);
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Mã SP", "Tên SP", "SL", "Đơn giá", "Tổng tiền"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jTable2);
+
+        pnl_orderInfor.add(jScrollPane2, java.awt.BorderLayout.CENTER);
+
+        pnl_order.add(pnl_orderInfor);
+
+        spl_createReturnOrder.setLeftComponent(pnl_order);
+
+        pnl_returnOrder.setMinimumSize(new java.awt.Dimension(400, 123));
+        pnl_returnOrder.setPreferredSize(new java.awt.Dimension(500, 768));
+        pnl_returnOrder.setLayout(new javax.swing.BoxLayout(pnl_returnOrder, javax.swing.BoxLayout.Y_AXIS));
+
+        pnl_employeeInfor.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Nhân viên"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        pnl_employeeInfor.setPreferredSize(new java.awt.Dimension(1211, 106));
+        pnl_employeeInfor.setLayout(new javax.swing.BoxLayout(pnl_employeeInfor, javax.swing.BoxLayout.Y_AXIS));
+
+        pnl_employeeID.setLayout(new javax.swing.BoxLayout(pnl_employeeID, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_employeeID.setText("Mã nhân viên:");
+        pnl_employeeID.add(lbl_employeeID);
+        pnl_employeeID.add(txt_employeeID);
+
+        pnl_employeeInfor.add(pnl_employeeID);
+
+        pnl_nameEmp.setLayout(new javax.swing.BoxLayout(pnl_nameEmp, javax.swing.BoxLayout.X_AXIS));
+
+        lbl_nameEmp.setText("Tên nhân viên:");
+        pnl_nameEmp.add(lbl_nameEmp);
+        pnl_nameEmp.add(txt_nameEmp);
+
+        pnl_employeeInfor.add(pnl_nameEmp);
+
+        pnl_returnOrder.add(pnl_employeeInfor);
+
+        pnl_returnOrderInfor.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin đơn đổi trả"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        pnl_returnOrderInfor.setPreferredSize(new java.awt.Dimension(1211, 720));
+        pnl_returnOrderInfor.setLayout(new javax.swing.BoxLayout(pnl_returnOrderInfor, javax.swing.BoxLayout.Y_AXIS));
+
+        pnl_returnOrderID.setLayout(new javax.swing.BoxLayout(pnl_returnOrderID, javax.swing.BoxLayout.X_AXIS));
+
+        lbl_returnOrderID.setText("Mã HĐĐT:");
+        pnl_returnOrderID.add(lbl_returnOrderID);
+        pnl_returnOrderID.add(txt_returnOrderID);
+
+        pnl_returnOrderInfor.add(pnl_returnOrderID);
+
+        pnl_returnOrderDate.setLayout(new javax.swing.BoxLayout(pnl_returnOrderDate, javax.swing.BoxLayout.X_AXIS));
+
+        lbl_returnOrderDate.setText("Ngày đổi trả:");
+        pnl_returnOrderDate.add(lbl_returnOrderDate);
+        pnl_returnOrderDate.add(txt_returnOrderDate);
+
+        pnl_returnOrderInfor.add(pnl_returnOrderDate);
+
+        pnl_productReturn.setLayout(new javax.swing.BoxLayout(pnl_productReturn, javax.swing.BoxLayout.Y_AXIS));
+
+        pnl_lblProduct.setPreferredSize(new java.awt.Dimension(10, 1));
+        pnl_lblProduct.setLayout(new java.awt.BorderLayout());
+
+        lbl_product.setText("Sản phẩm");
+        pnl_lblProduct.add(lbl_product, java.awt.BorderLayout.CENTER);
+
+        pnl_productReturn.add(pnl_lblProduct);
+
+        src_tblProduct.setPreferredSize(new java.awt.Dimension(452, 200));
+
+        tbl_product.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Mã SP", "Tên SP", "SL"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        src_tblProduct.setViewportView(tbl_product);
+        if (tbl_product.getColumnModel().getColumnCount() > 0) {
+            tbl_product.getColumnModel().getColumn(2).setResizable(false);
+        }
+
+        pnl_productReturn.add(src_tblProduct);
+
+        pnl_returnOrderInfor.add(pnl_productReturn);
+
+        pnl_typeReturnOrder.setLayout(new javax.swing.BoxLayout(pnl_typeReturnOrder, javax.swing.BoxLayout.X_AXIS));
+
+        lbl_typeReturnOrder.setText("Loại:");
+        pnl_typeReturnOrder.add(lbl_typeReturnOrder);
+
+        pnl_buttonTypeReturnOrder.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+
+        group_returnOrder.add(rdb_exchange);
+        rdb_exchange.setText("Đổi hàng");
+        pnl_buttonTypeReturnOrder.add(rdb_exchange);
+
+        group_returnOrder.add(rdb_return);
+        rdb_return.setText("Trả hàng");
+        pnl_buttonTypeReturnOrder.add(rdb_return);
+
+        pnl_typeReturnOrder.add(pnl_buttonTypeReturnOrder);
+
+        pnl_returnOrderInfor.add(pnl_typeReturnOrder);
+
+        jPanel1.setLayout(new java.awt.BorderLayout());
+
+        btn_createReturnOrder.setText("jButton1");
+        jPanel1.add(btn_createReturnOrder, java.awt.BorderLayout.CENTER);
+
+        pnl_returnOrderInfor.add(jPanel1);
+
+        pnl_returnOrder.add(pnl_returnOrderInfor);
+
+        spl_createReturnOrder.setRightComponent(pnl_returnOrder);
+
+        add(spl_createReturnOrder, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_createReturnOrder;
+    private javax.swing.JButton btn_searchOrder;
+    private javax.swing.Box.Filler filler1;
+    private javax.swing.ButtonGroup group_returnOrder;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JLabel lbl_employeeID;
+    private javax.swing.JLabel lbl_nameEmp;
+    private javax.swing.JLabel lbl_product;
+    private javax.swing.JLabel lbl_returnOrderDate;
+    private javax.swing.JLabel lbl_returnOrderID;
+    private javax.swing.JLabel lbl_typeReturnOrder;
+    private javax.swing.JPanel pnl_buttonTypeReturnOrder;
+    private javax.swing.JPanel pnl_employeeID;
+    private javax.swing.JPanel pnl_employeeInfor;
+    private javax.swing.JPanel pnl_lblProduct;
+    private javax.swing.JPanel pnl_nameEmp;
+    private javax.swing.JPanel pnl_order;
+    private javax.swing.JPanel pnl_orderInfor;
+    private javax.swing.JPanel pnl_productReturn;
+    private javax.swing.JPanel pnl_returnOrder;
+    private javax.swing.JPanel pnl_returnOrderDate;
+    private javax.swing.JPanel pnl_returnOrderID;
+    private javax.swing.JPanel pnl_returnOrderInfor;
+    private javax.swing.JPanel pnl_searchOrder;
+    private javax.swing.JPanel pnl_typeReturnOrder;
+    private javax.swing.JRadioButton rdb_exchange;
+    private javax.swing.JRadioButton rdb_return;
+    private javax.swing.JSplitPane spl_createReturnOrder;
+    private javax.swing.JScrollPane src_tblProduct;
+    private javax.swing.JTable tbl_product;
+    private javax.swing.JTextField txt_employeeID;
+    private javax.swing.JTextField txt_nameEmp;
+    private javax.swing.JTextField txt_returnOrderDate;
+    private javax.swing.JTextField txt_returnOrderID;
+    private javax.swing.JTextField txt_searchOrder;
     // End of variables declaration//GEN-END:variables
 }
