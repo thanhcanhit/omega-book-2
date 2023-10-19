@@ -67,7 +67,6 @@ public class MainView extends JLayeredPane {
 
     private void initMenuEvent() {
         menu.addMenuEvent((int index, int subIndex, MenuAction action) -> {
-
             switch (index) {
                 case 0:
                     Application.showForm(new Sales_GUI());
