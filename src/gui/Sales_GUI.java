@@ -38,6 +38,19 @@ public class Sales_GUI extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         pnl_right = new javax.swing.JPanel();
         pnl_info = new javax.swing.JPanel();
+        pnl_customerInfo = new javax.swing.JPanel();
+        pnl_customerDefault = new javax.swing.JPanel();
+        chk_defaultCustomer = new javax.swing.JCheckBox();
+        pnl_customerPhone = new javax.swing.JPanel();
+        lbl_customerPhone = new javax.swing.JLabel();
+        txt_customerPhone = new javax.swing.JTextField();
+        pnl_customerName = new javax.swing.JPanel();
+        lbl_customerName = new javax.swing.JLabel();
+        txt_customerName = new javax.swing.JTextField();
+        pnl_customerRank = new javax.swing.JPanel();
+        lbl_customerRank = new javax.swing.JLabel();
+        txt_customerRank = new javax.swing.JTextField();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 5), new java.awt.Dimension(0, 5), new java.awt.Dimension(32767, 5));
         pnl_orderInfo = new javax.swing.JPanel();
         pnl_orderId = new javax.swing.JPanel();
         lbl_orderId = new javax.swing.JLabel();
@@ -64,18 +77,6 @@ public class Sales_GUI extends javax.swing.JPanel {
         pnl_orderCustomerReturn = new javax.swing.JPanel();
         lbl_orderCustomerReturn = new javax.swing.JLabel();
         txt_orderCustomerReturn = new javax.swing.JTextField();
-        pnl_customerInfo = new javax.swing.JPanel();
-        pnl_customerDefault = new javax.swing.JPanel();
-        chk_defaultCustomer = new javax.swing.JCheckBox();
-        pnl_customerPhone = new javax.swing.JPanel();
-        lbl_customerPhone = new javax.swing.JLabel();
-        txt_customerPhone = new javax.swing.JTextField();
-        pnl_customerName = new javax.swing.JPanel();
-        lbl_customerName = new javax.swing.JLabel();
-        txt_customerName = new javax.swing.JTextField();
-        pnl_customerRank = new javax.swing.JPanel();
-        lbl_customerRank = new javax.swing.JLabel();
-        txt_customerRank = new javax.swing.JTextField();
         pnl_control = new javax.swing.JPanel();
         pnl_btnGroup = new javax.swing.JPanel();
         btn_save = new javax.swing.JButton();
@@ -147,10 +148,90 @@ public class Sales_GUI extends javax.swing.JPanel {
 
         pnl_info.setLayout(new javax.swing.BoxLayout(pnl_info, javax.swing.BoxLayout.Y_AXIS));
 
+        pnl_customerInfo.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin khách hàng"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        pnl_customerInfo.setPreferredSize(new java.awt.Dimension(500, 150));
+        pnl_customerInfo.setLayout(new javax.swing.BoxLayout(pnl_customerInfo, javax.swing.BoxLayout.Y_AXIS));
+
+        pnl_customerDefault.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        pnl_customerDefault.setPreferredSize(new java.awt.Dimension(561, 40));
+        pnl_customerDefault.setLayout(new java.awt.BorderLayout());
+
+        chk_defaultCustomer.setText("Khách hàng mặc định");
+        pnl_customerDefault.add(chk_defaultCustomer, java.awt.BorderLayout.CENTER);
+
+        pnl_customerInfo.add(pnl_customerDefault);
+
+        pnl_customerPhone.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        pnl_customerPhone.setPreferredSize(new java.awt.Dimension(561, 40));
+        pnl_customerPhone.setLayout(new javax.swing.BoxLayout(pnl_customerPhone, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_customerPhone.setText("Số điện thoại");
+        lbl_customerPhone.setPreferredSize(new java.awt.Dimension(130, 40));
+        pnl_customerPhone.add(lbl_customerPhone);
+
+        txt_customerPhone.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        txt_customerPhone.setMinimumSize(new java.awt.Dimension(300, 40));
+        txt_customerPhone.setPreferredSize(new java.awt.Dimension(300, 40));
+        txt_customerPhone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_customerPhoneActionPerformed(evt);
+            }
+        });
+        pnl_customerPhone.add(txt_customerPhone);
+
+        pnl_customerInfo.add(pnl_customerPhone);
+
+        pnl_customerName.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        pnl_customerName.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        pnl_customerName.setPreferredSize(new java.awt.Dimension(561, 40));
+        pnl_customerName.setLayout(new javax.swing.BoxLayout(pnl_customerName, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_customerName.setText("Họ và tên");
+        lbl_customerName.setPreferredSize(new java.awt.Dimension(130, 40));
+        pnl_customerName.add(lbl_customerName);
+
+        txt_customerName.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        txt_customerName.setMinimumSize(new java.awt.Dimension(300, 40));
+        txt_customerName.setPreferredSize(new java.awt.Dimension(300, 40));
+        txt_customerName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_customerNameActionPerformed(evt);
+            }
+        });
+        pnl_customerName.add(txt_customerName);
+
+        pnl_customerInfo.add(pnl_customerName);
+
+        pnl_customerRank.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        pnl_customerRank.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        pnl_customerRank.setPreferredSize(new java.awt.Dimension(561, 40));
+        pnl_customerRank.setLayout(new javax.swing.BoxLayout(pnl_customerRank, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_customerRank.setText("Hạng thành viên");
+        lbl_customerRank.setPreferredSize(new java.awt.Dimension(130, 40));
+        pnl_customerRank.add(lbl_customerRank);
+
+        txt_customerRank.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        txt_customerRank.setMinimumSize(new java.awt.Dimension(300, 40));
+        txt_customerRank.setPreferredSize(new java.awt.Dimension(300, 40));
+        txt_customerRank.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_customerRankActionPerformed(evt);
+            }
+        });
+        pnl_customerRank.add(txt_customerRank);
+
+        pnl_customerInfo.add(pnl_customerRank);
+
+        pnl_info.add(pnl_customerInfo);
+        pnl_info.add(filler1);
+
         pnl_orderInfo.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin hóa đơn"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-        pnl_orderInfo.setPreferredSize(new java.awt.Dimension(500, 400));
+        pnl_orderInfo.setMaximumSize(new java.awt.Dimension(100019, 380));
+        pnl_orderInfo.setPreferredSize(new java.awt.Dimension(500, 300));
         pnl_orderInfo.setLayout(new javax.swing.BoxLayout(pnl_orderInfo, javax.swing.BoxLayout.Y_AXIS));
 
+        pnl_orderId.setMaximumSize(new java.awt.Dimension(99999, 40));
         pnl_orderId.setPreferredSize(new java.awt.Dimension(561, 40));
         pnl_orderId.setLayout(new javax.swing.BoxLayout(pnl_orderId, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -158,7 +239,9 @@ public class Sales_GUI extends javax.swing.JPanel {
         lbl_orderId.setPreferredSize(new java.awt.Dimension(130, 40));
         pnl_orderId.add(lbl_orderId);
 
-        txt_orderId.setPreferredSize(new java.awt.Dimension(64, 40));
+        txt_orderId.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        txt_orderId.setMinimumSize(new java.awt.Dimension(300, 40));
+        txt_orderId.setPreferredSize(new java.awt.Dimension(300, 40));
         txt_orderId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_orderIdActionPerformed(evt);
@@ -169,6 +252,7 @@ public class Sales_GUI extends javax.swing.JPanel {
         pnl_orderInfo.add(pnl_orderId);
 
         pnl_orderDate.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        pnl_orderDate.setMaximumSize(new java.awt.Dimension(99999, 40));
         pnl_orderDate.setPreferredSize(new java.awt.Dimension(561, 40));
         pnl_orderDate.setLayout(new javax.swing.BoxLayout(pnl_orderDate, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -176,7 +260,9 @@ public class Sales_GUI extends javax.swing.JPanel {
         lbl_orderDate.setPreferredSize(new java.awt.Dimension(130, 40));
         pnl_orderDate.add(lbl_orderDate);
 
-        txt_orderDate.setPreferredSize(new java.awt.Dimension(64, 40));
+        txt_orderDate.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        txt_orderDate.setMinimumSize(new java.awt.Dimension(300, 40));
+        txt_orderDate.setPreferredSize(new java.awt.Dimension(300, 40));
         txt_orderDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_orderDateActionPerformed(evt);
@@ -187,6 +273,7 @@ public class Sales_GUI extends javax.swing.JPanel {
         pnl_orderInfo.add(pnl_orderDate);
 
         pnl_discount.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        pnl_discount.setMaximumSize(new java.awt.Dimension(99999, 40));
         pnl_discount.setPreferredSize(new java.awt.Dimension(561, 40));
         pnl_discount.setLayout(new javax.swing.BoxLayout(pnl_discount, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -194,7 +281,9 @@ public class Sales_GUI extends javax.swing.JPanel {
         lbl_orderDiscount.setPreferredSize(new java.awt.Dimension(130, 40));
         pnl_discount.add(lbl_orderDiscount);
 
-        txt_orderDiscount.setPreferredSize(new java.awt.Dimension(64, 40));
+        txt_orderDiscount.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        txt_orderDiscount.setMinimumSize(new java.awt.Dimension(300, 40));
+        txt_orderDiscount.setPreferredSize(new java.awt.Dimension(300, 40));
         txt_orderDiscount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_orderDiscountActionPerformed(evt);
@@ -205,6 +294,7 @@ public class Sales_GUI extends javax.swing.JPanel {
         pnl_orderInfo.add(pnl_discount);
 
         pnl_orderPay.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        pnl_orderPay.setMaximumSize(new java.awt.Dimension(99999, 40));
         pnl_orderPay.setPreferredSize(new java.awt.Dimension(561, 40));
         pnl_orderPay.setLayout(new javax.swing.BoxLayout(pnl_orderPay, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -212,7 +302,9 @@ public class Sales_GUI extends javax.swing.JPanel {
         lbl_orderPay.setPreferredSize(new java.awt.Dimension(130, 40));
         pnl_orderPay.add(lbl_orderPay);
 
-        txt_orderPay.setPreferredSize(new java.awt.Dimension(64, 40));
+        txt_orderPay.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        txt_orderPay.setMinimumSize(new java.awt.Dimension(300, 40));
+        txt_orderPay.setPreferredSize(new java.awt.Dimension(300, 40));
         txt_orderPay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_orderPayActionPerformed(evt);
@@ -223,6 +315,7 @@ public class Sales_GUI extends javax.swing.JPanel {
         pnl_orderInfo.add(pnl_orderPay);
 
         pnl_orderPaymentMethod.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        pnl_orderPaymentMethod.setMaximumSize(new java.awt.Dimension(99999, 40));
         pnl_orderPaymentMethod.setPreferredSize(new java.awt.Dimension(561, 40));
         pnl_orderPaymentMethod.setLayout(new javax.swing.BoxLayout(pnl_orderPaymentMethod, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -231,11 +324,14 @@ public class Sales_GUI extends javax.swing.JPanel {
         pnl_orderPaymentMethod.add(lbl_orderPaymentMethod);
 
         cmb_orderPaymentMethod.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tiền mặt", "ATM" }));
+        cmb_orderPaymentMethod.setMinimumSize(new java.awt.Dimension(300, 40));
+        cmb_orderPaymentMethod.setPreferredSize(new java.awt.Dimension(300, 40));
         pnl_orderPaymentMethod.add(cmb_orderPaymentMethod);
 
         pnl_orderInfo.add(pnl_orderPaymentMethod);
 
         pnl_orderCustomerGive.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        pnl_orderCustomerGive.setMaximumSize(new java.awt.Dimension(99999, 40));
         pnl_orderCustomerGive.setPreferredSize(new java.awt.Dimension(561, 40));
         pnl_orderCustomerGive.setLayout(new javax.swing.BoxLayout(pnl_orderCustomerGive, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -243,7 +339,9 @@ public class Sales_GUI extends javax.swing.JPanel {
         lbl_orderCustomerGive.setPreferredSize(new java.awt.Dimension(130, 40));
         pnl_orderCustomerGive.add(lbl_orderCustomerGive);
 
-        txt_orderCustomerGive.setPreferredSize(new java.awt.Dimension(64, 40));
+        txt_orderCustomerGive.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        txt_orderCustomerGive.setMinimumSize(new java.awt.Dimension(300, 40));
+        txt_orderCustomerGive.setPreferredSize(new java.awt.Dimension(300, 40));
         txt_orderCustomerGive.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_orderCustomerGiveActionPerformed(evt);
@@ -254,6 +352,7 @@ public class Sales_GUI extends javax.swing.JPanel {
         pnl_orderInfo.add(pnl_orderCustomerGive);
 
         pnl_orderCustomerGiveOptions.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        pnl_orderCustomerGiveOptions.setMaximumSize(new java.awt.Dimension(99999, 40));
         pnl_orderCustomerGiveOptions.setPreferredSize(new java.awt.Dimension(561, 60));
         pnl_orderCustomerGiveOptions.setLayout(new java.awt.GridLayout(1, 3, 5, 0));
 
@@ -268,6 +367,7 @@ public class Sales_GUI extends javax.swing.JPanel {
 
         pnl_orderInfo.add(pnl_orderCustomerGiveOptions);
 
+        pnl_orderCustomerReturn.setMaximumSize(new java.awt.Dimension(99999, 40));
         pnl_orderCustomerReturn.setPreferredSize(new java.awt.Dimension(561, 40));
         pnl_orderCustomerReturn.setLayout(new javax.swing.BoxLayout(pnl_orderCustomerReturn, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -275,6 +375,8 @@ public class Sales_GUI extends javax.swing.JPanel {
         lbl_orderCustomerReturn.setPreferredSize(new java.awt.Dimension(130, 40));
         pnl_orderCustomerReturn.add(lbl_orderCustomerReturn);
 
+        txt_orderCustomerReturn.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        txt_orderCustomerReturn.setMinimumSize(new java.awt.Dimension(100, 35));
         txt_orderCustomerReturn.setPreferredSize(new java.awt.Dimension(64, 40));
         txt_orderCustomerReturn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -286,73 +388,6 @@ public class Sales_GUI extends javax.swing.JPanel {
         pnl_orderInfo.add(pnl_orderCustomerReturn);
 
         pnl_info.add(pnl_orderInfo);
-
-        pnl_customerInfo.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin khách hàng"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-        pnl_customerInfo.setPreferredSize(new java.awt.Dimension(500, 150));
-        pnl_customerInfo.setLayout(new javax.swing.BoxLayout(pnl_customerInfo, javax.swing.BoxLayout.Y_AXIS));
-
-        pnl_customerDefault.setPreferredSize(new java.awt.Dimension(561, 40));
-        pnl_customerDefault.setLayout(new java.awt.BorderLayout());
-
-        chk_defaultCustomer.setText("Khách hàng mặc định");
-        pnl_customerDefault.add(chk_defaultCustomer, java.awt.BorderLayout.CENTER);
-
-        pnl_customerInfo.add(pnl_customerDefault);
-
-        pnl_customerPhone.setPreferredSize(new java.awt.Dimension(561, 40));
-        pnl_customerPhone.setLayout(new javax.swing.BoxLayout(pnl_customerPhone, javax.swing.BoxLayout.LINE_AXIS));
-
-        lbl_customerPhone.setText("Số điện thoại");
-        lbl_customerPhone.setPreferredSize(new java.awt.Dimension(130, 40));
-        pnl_customerPhone.add(lbl_customerPhone);
-
-        txt_customerPhone.setPreferredSize(new java.awt.Dimension(64, 40));
-        txt_customerPhone.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_customerPhoneActionPerformed(evt);
-            }
-        });
-        pnl_customerPhone.add(txt_customerPhone);
-
-        pnl_customerInfo.add(pnl_customerPhone);
-
-        pnl_customerName.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
-        pnl_customerName.setPreferredSize(new java.awt.Dimension(561, 40));
-        pnl_customerName.setLayout(new javax.swing.BoxLayout(pnl_customerName, javax.swing.BoxLayout.LINE_AXIS));
-
-        lbl_customerName.setText("Họ và tên");
-        lbl_customerName.setPreferredSize(new java.awt.Dimension(130, 40));
-        pnl_customerName.add(lbl_customerName);
-
-        txt_customerName.setPreferredSize(new java.awt.Dimension(64, 40));
-        txt_customerName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_customerNameActionPerformed(evt);
-            }
-        });
-        pnl_customerName.add(txt_customerName);
-
-        pnl_customerInfo.add(pnl_customerName);
-
-        pnl_customerRank.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
-        pnl_customerRank.setPreferredSize(new java.awt.Dimension(561, 40));
-        pnl_customerRank.setLayout(new javax.swing.BoxLayout(pnl_customerRank, javax.swing.BoxLayout.LINE_AXIS));
-
-        lbl_customerRank.setText("Hạng thành viên");
-        lbl_customerRank.setPreferredSize(new java.awt.Dimension(130, 40));
-        pnl_customerRank.add(lbl_customerRank);
-
-        txt_customerRank.setPreferredSize(new java.awt.Dimension(64, 40));
-        txt_customerRank.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_customerRankActionPerformed(evt);
-            }
-        });
-        pnl_customerRank.add(txt_customerRank);
-
-        pnl_customerInfo.add(pnl_customerRank);
-
-        pnl_info.add(pnl_customerInfo);
 
         pnl_right.add(pnl_info, java.awt.BorderLayout.CENTER);
 
@@ -377,15 +412,15 @@ public class Sales_GUI extends javax.swing.JPanel {
         pnl_control.add(pnl_btnGroup);
 
         pnl_btnMain.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 5, 5, 5));
-        pnl_btnMain.setPreferredSize(new java.awt.Dimension(561, 60));
+        pnl_btnMain.setPreferredSize(new java.awt.Dimension(561, 50));
         pnl_btnMain.setLayout(new java.awt.BorderLayout());
 
         btn_submit.setFont(btn_submit.getFont().deriveFont((float)18));
         btn_submit.setText("THANH TOÁN");
-        pnl_btnMain.add(btn_submit, java.awt.BorderLayout.CENTER);
         btn_submit.putClientProperty(FlatClientProperties.STYLE,""
             + "background:$Menu.background;"
             + "foreground:$Menu.foreground;");
+        pnl_btnMain.add(btn_submit, java.awt.BorderLayout.CENTER);
 
         pnl_control.add(pnl_btnMain);
 
@@ -445,6 +480,7 @@ public class Sales_GUI extends javax.swing.JPanel {
     private javax.swing.JButton btn_viewSaves;
     private javax.swing.JCheckBox chk_defaultCustomer;
     private javax.swing.JComboBox<String> cmb_orderPaymentMethod;
+    private javax.swing.Box.Filler filler1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lbl_customerName;
     private javax.swing.JLabel lbl_customerPhone;
