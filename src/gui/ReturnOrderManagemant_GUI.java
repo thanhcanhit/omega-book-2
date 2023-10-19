@@ -29,8 +29,9 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
         pnl_topReturnOrder = new javax.swing.JPanel();
         pnl_searchRerturnOrder = new javax.swing.JPanel();
         txt_searchReturnOrder = new javax.swing.JTextField();
+        filler6 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
+        btn_searchReturnOrder = new javax.swing.JButton();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
-        btb_searchReturnOrder = new javax.swing.JButton();
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(30, 0), new java.awt.Dimension(30, 0), new java.awt.Dimension(30, 32767));
         chk_admitReturnOrder = new javax.swing.JCheckBox();
         filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(30, 0), new java.awt.Dimension(30, 0), new java.awt.Dimension(30, 32767));
@@ -49,8 +50,9 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
         lbl_returnOrderID = new javax.swing.JLabel();
         txt_returnOrderID = new javax.swing.JTextField();
         pnl_productID = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        lbl_product = new javax.swing.JLabel();
+        scr_productInfor = new javax.swing.JScrollPane();
+        tbl_productInfor = new javax.swing.JTable();
         pnl_statusReturnOrder = new javax.swing.JPanel();
         lbl_status = new javax.swing.JLabel();
         pnl_radioStatusReturnOrder = new javax.swing.JPanel();
@@ -62,19 +64,25 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(1366, 768));
         setLayout(new java.awt.BorderLayout());
 
-        pnl_topReturnOrder.setPreferredSize(new java.awt.Dimension(1368, 80));
+        pnl_topReturnOrder.setPreferredSize(new java.awt.Dimension(1368, 60));
         pnl_topReturnOrder.setLayout(new javax.swing.BoxLayout(pnl_topReturnOrder, javax.swing.BoxLayout.LINE_AXIS));
 
-        pnl_searchRerturnOrder.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 28));
+        pnl_searchRerturnOrder.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        pnl_searchRerturnOrder.setLayout(new javax.swing.BoxLayout(pnl_searchRerturnOrder, javax.swing.BoxLayout.X_AXIS));
 
-        txt_searchReturnOrder.setPreferredSize(new java.awt.Dimension(300, 22));
+        txt_searchReturnOrder.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        txt_searchReturnOrder.setPreferredSize(new java.awt.Dimension(500, 22));
         pnl_searchRerturnOrder.add(txt_searchReturnOrder);
+        pnl_searchRerturnOrder.add(filler6);
+
+        btn_searchReturnOrder.setText("Tìm kiếm");
+        btn_searchReturnOrder.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        btn_searchReturnOrder.setMaximumSize(new java.awt.Dimension(79, 43));
+        btn_searchReturnOrder.setPreferredSize(new java.awt.Dimension(90, 33));
+        pnl_searchRerturnOrder.add(btn_searchReturnOrder);
 
         pnl_topReturnOrder.add(pnl_searchRerturnOrder);
         pnl_topReturnOrder.add(filler1);
-
-        btb_searchReturnOrder.setText("Tìm kiếm");
-        pnl_topReturnOrder.add(btb_searchReturnOrder);
         pnl_topReturnOrder.add(filler2);
 
         chk_admitReturnOrder.setText("Đã chấp nhập");
@@ -119,25 +127,26 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
         add(pnl_centerReturnOrder, java.awt.BorderLayout.CENTER);
 
         pnl_eastReturnOrder.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Chi tiết"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-        pnl_eastReturnOrder.setPreferredSize(new java.awt.Dimension(400, 437));
+        pnl_eastReturnOrder.setPreferredSize(new java.awt.Dimension(500, 437));
         pnl_eastReturnOrder.setLayout(new javax.swing.BoxLayout(pnl_eastReturnOrder, javax.swing.BoxLayout.Y_AXIS));
 
-        pnl_employeeID.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        pnl_employeeID.setPreferredSize(new java.awt.Dimension(132, 32));
+        pnl_employeeID.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
         pnl_employeeID.setLayout(new javax.swing.BoxLayout(pnl_employeeID, javax.swing.BoxLayout.LINE_AXIS));
 
-        lbl_employeeID.setText("Mã NV:");
-        lbl_employeeID.setPreferredSize(lbl_returnOrderID.getPreferredSize());
+        lbl_employeeID.setText("Mã nhân viên:");
+        lbl_employeeID.setMaximumSize(new java.awt.Dimension(80, 16));
+        lbl_employeeID.setPreferredSize(new java.awt.Dimension(80, 16));
         pnl_employeeID.add(lbl_employeeID);
         pnl_employeeID.add(txt_employeeID);
 
         pnl_eastReturnOrder.add(pnl_employeeID);
 
-        pnl_returnOrderID.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        pnl_returnOrderID.setPreferredSize(new java.awt.Dimension(135, 32));
+        pnl_returnOrderID.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
         pnl_returnOrderID.setLayout(new javax.swing.BoxLayout(pnl_returnOrderID, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_returnOrderID.setText("Mã đơn ĐT:");
+        lbl_returnOrderID.setMaximumSize(new java.awt.Dimension(80, 16));
+        lbl_returnOrderID.setPreferredSize(new java.awt.Dimension(80, 16));
         pnl_returnOrderID.add(lbl_returnOrderID);
         pnl_returnOrderID.add(txt_returnOrderID);
 
@@ -146,7 +155,11 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
         pnl_productID.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         pnl_productID.setLayout(new java.awt.BorderLayout());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        lbl_product.setText("Sản phẩm:");
+        lbl_product.setPreferredSize(new java.awt.Dimension(56, 26));
+        pnl_productID.add(lbl_product, java.awt.BorderLayout.PAGE_START);
+
+        tbl_productInfor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -165,24 +178,27 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
-        jTable1.setShowGrid(true);
-        jScrollPane1.setViewportView(jTable1);
+        tbl_productInfor.setMinimumSize(new java.awt.Dimension(30, 40));
+        tbl_productInfor.setPreferredSize(new java.awt.Dimension(150, 40));
+        tbl_productInfor.setShowGrid(true);
+        scr_productInfor.setViewportView(tbl_productInfor);
 
-        pnl_productID.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        pnl_productID.add(scr_productInfor, java.awt.BorderLayout.CENTER);
 
         pnl_eastReturnOrder.add(pnl_productID);
 
         pnl_statusReturnOrder.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         pnl_statusReturnOrder.setMinimumSize(new java.awt.Dimension(135, 32));
+        pnl_statusReturnOrder.setPreferredSize(new java.awt.Dimension(290, 36));
         pnl_statusReturnOrder.setLayout(new javax.swing.BoxLayout(pnl_statusReturnOrder, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_status.setText("Trạng thái:");
-        lbl_status.setPreferredSize(lbl_returnOrderID.getPreferredSize());
+        lbl_status.setPreferredSize(lbl_employeeID.getPreferredSize());
         pnl_statusReturnOrder.add(lbl_status);
         lbl_status.getAccessibleContext().setAccessibleName("Trạng thái");
 
         pnl_radioStatusReturnOrder.setPreferredSize(new java.awt.Dimension(219, 12));
-        pnl_radioStatusReturnOrder.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 25));
+        pnl_radioStatusReturnOrder.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 2));
 
         rdb_admit.setText("Xác nhận");
         pnl_radioStatusReturnOrder.add(rdb_admit);
@@ -207,9 +223,9 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btb_searchReturnOrder;
     private javax.swing.JCheckBox btn_pendingReturnOrder;
     private javax.swing.JButton btn_saveReturnOrder;
+    private javax.swing.JButton btn_searchReturnOrder;
     private javax.swing.JCheckBox chk_admitReturnOrder;
     private javax.swing.JCheckBox chk_denyReturnOrder;
     private javax.swing.Box.Filler filler1;
@@ -217,9 +233,9 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
     private javax.swing.Box.Filler filler3;
     private javax.swing.Box.Filler filler4;
     private javax.swing.Box.Filler filler5;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.Box.Filler filler6;
     private javax.swing.JLabel lbl_employeeID;
+    private javax.swing.JLabel lbl_product;
     private javax.swing.JLabel lbl_returnOrderID;
     private javax.swing.JLabel lbl_status;
     private javax.swing.JPanel pnl_buttonSave;
@@ -235,7 +251,9 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
     private javax.swing.JRadioButton rdb_admit;
     private javax.swing.JRadioButton rdb_deny;
     private javax.swing.JScrollPane scr_inforReturnOrder;
+    private javax.swing.JScrollPane scr_productInfor;
     private javax.swing.JTable tbl_inforReturnOrder;
+    private javax.swing.JTable tbl_productInfor;
     private javax.swing.JTextField txt_employeeID;
     private javax.swing.JTextField txt_returnOrderID;
     private javax.swing.JTextField txt_searchReturnOrder;

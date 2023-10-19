@@ -103,7 +103,7 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
 
         pnl_centerEmp.setLayout(new javax.swing.BoxLayout(pnl_centerEmp, javax.swing.BoxLayout.LINE_AXIS));
 
-        scr_tableInforEmp.setMinimumSize(new java.awt.Dimension(800, 20));
+        scr_tableInforEmp.setMinimumSize(new java.awt.Dimension(400, 20));
         scr_tableInforEmp.setPreferredSize(new java.awt.Dimension(800, 402));
 
         tbl_employeeInfor.setModel(new javax.swing.table.DefaultTableModel(
@@ -150,16 +150,17 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         pnl_empID.setPreferredSize(new java.awt.Dimension(210, 30));
         pnl_empID.setLayout(new javax.swing.BoxLayout(pnl_empID, javax.swing.BoxLayout.LINE_AXIS));
 
-        lbl_empID.setText("Mã nhân viên:");
+        lbl_empID.setText("Mã NV:");
         lbl_empID.setMaximumSize(new java.awt.Dimension(45, 16));
         lbl_empID.setMinimumSize(new java.awt.Dimension(45, 16));
         lbl_empID.setPreferredSize(new java.awt.Dimension(80, 16));
         pnl_empID.add(lbl_empID);
 
-        txt_empID.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txt_empID.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txt_empID.setText("NV0001");
         txt_empID.setBorder(null);
         txt_empID.setEnabled(false);
-        txt_empID.setPreferredSize(new java.awt.Dimension(200, 15));
+        txt_empID.setPreferredSize(new java.awt.Dimension(150, 15));
         pnl_empID.add(txt_empID);
 
         pnl_inforDetailEmp.add(pnl_empID);
