@@ -4,6 +4,8 @@
  */
 package gui;
 
+import com.formdev.flatlaf.FlatClientProperties;
+
 /**
  *
  * @author KienTran
@@ -14,6 +16,7 @@ public class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
      * Creates new form PurchaseOrderManagement_GUI
      */
     public PurchaseOrderManagement_GUI() {
+        
         initComponents();
     }
 
@@ -26,19 +29,293 @@ public class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        splitPane = new javax.swing.JSplitPane();
+        pnl_right = new javax.swing.JPanel();
+        pnl_purchaseOrderDetail = new javax.swing.JPanel();
+        scr_orderDetail = new javax.swing.JScrollPane();
+        tbl_orderDetail = new javax.swing.JTable();
+        pnl_purchaseOrderInfo = new javax.swing.JPanel();
+        pnl_status = new javax.swing.JPanel();
+        lbl_status = new javax.swing.JLabel();
+        rad_notReceiver = new javax.swing.JRadioButton();
+        rad_receiver = new javax.swing.JRadioButton();
+        rad_decline = new javax.swing.JRadioButton();
+        pnl_orderDate = new javax.swing.JPanel();
+        lbl_status1 = new javax.swing.JLabel();
+        txt_orderDate = new javax.swing.JTextField();
+        pnl_supplierName = new javax.swing.JPanel();
+        lbl_supplierName = new javax.swing.JLabel();
+        txt_supplierName = new javax.swing.JTextField();
+        pnl_noteLabel = new javax.swing.JPanel();
+        lbl_note = new javax.swing.JLabel();
+        pnl_note = new javax.swing.JPanel();
+        scr_note = new javax.swing.JScrollPane();
+        txa_note1 = new javax.swing.JTextArea();
+        pnl_total = new javax.swing.JPanel();
+        lbl_subTotal = new javax.swing.JLabel();
+        txt_subTotal = new javax.swing.JTextField();
+        pnl_control = new javax.swing.JPanel();
+        btn_submit = new javax.swing.JButton();
+        pnl_center = new javax.swing.JPanel();
+        scr_purchaseOrder = new javax.swing.JScrollPane();
+        tbl_purchaseOrder = new javax.swing.JTable();
+
+        setLayout(new java.awt.BorderLayout());
+
+        pnl_right.setMaximumSize(new java.awt.Dimension(600, 2147483647));
+        pnl_right.setMinimumSize(new java.awt.Dimension(500, 399));
+        pnl_right.setPreferredSize(new java.awt.Dimension(500, 0));
+        pnl_right.setLayout(new java.awt.BorderLayout());
+
+        pnl_purchaseOrderDetail.setBorder(javax.swing.BorderFactory.createTitledBorder("Chi tiết đơn nhập hàng:"));
+        pnl_purchaseOrderDetail.setLayout(new java.awt.BorderLayout());
+
+        tbl_orderDetail.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Giá nhập", "Tổng tiền"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        scr_orderDetail.setViewportView(tbl_orderDetail);
+
+        pnl_purchaseOrderDetail.add(scr_orderDetail, java.awt.BorderLayout.CENTER);
+
+        pnl_right.add(pnl_purchaseOrderDetail, java.awt.BorderLayout.CENTER);
+
+        pnl_purchaseOrderInfo.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin:"));
+        pnl_purchaseOrderInfo.setPreferredSize(new java.awt.Dimension(500, 400));
+        pnl_purchaseOrderInfo.setLayout(new javax.swing.BoxLayout(pnl_purchaseOrderInfo, javax.swing.BoxLayout.Y_AXIS));
+
+        pnl_status.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 5, 5, 10));
+        pnl_status.setMaximumSize(new java.awt.Dimension(1000, 50));
+        pnl_status.setLayout(new javax.swing.BoxLayout(pnl_status, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_status.setText("Trạng thái:");
+        lbl_status.setMaximumSize(new java.awt.Dimension(110, 100));
+        lbl_status.setPreferredSize(new java.awt.Dimension(110, 0));
+        pnl_status.add(lbl_status);
+
+        rad_notReceiver.setText("Chưa nhận");
+        rad_notReceiver.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 30, 1, 1));
+        rad_notReceiver.setIconTextGap(8);
+        rad_notReceiver.setSize(new java.awt.Dimension(50, 0));
+        pnl_status.add(rad_notReceiver);
+
+        rad_receiver.setText("Đã nhận");
+        rad_receiver.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 30, 1, 1));
+        rad_receiver.setIconTextGap(8);
+        rad_receiver.setSize(new java.awt.Dimension(50, 0));
+        pnl_status.add(rad_receiver);
+
+        rad_decline.setText("Đã huỷ");
+        rad_decline.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 30, 1, 1));
+        rad_decline.setIconTextGap(8);
+        rad_decline.setSize(new java.awt.Dimension(50, 0));
+        pnl_status.add(rad_decline);
+
+        pnl_purchaseOrderInfo.add(pnl_status);
+
+        pnl_orderDate.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 5, 5, 10));
+        pnl_orderDate.setMaximumSize(new java.awt.Dimension(1000, 50));
+        pnl_orderDate.setLayout(new javax.swing.BoxLayout(pnl_orderDate, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_status1.setText("Ngày nhập hàng:");
+        lbl_status1.setMaximumSize(new java.awt.Dimension(110, 100));
+        lbl_status1.setPreferredSize(new java.awt.Dimension(125, 0));
+        pnl_orderDate.add(lbl_status1);
+
+        txt_orderDate.setEditable(false);
+        txt_orderDate.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txt_orderDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_orderDateActionPerformed(evt);
+            }
+        });
+        pnl_orderDate.add(txt_orderDate);
+
+        pnl_purchaseOrderInfo.add(pnl_orderDate);
+
+        pnl_supplierName.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 5, 5, 10));
+        pnl_supplierName.setMaximumSize(new java.awt.Dimension(1000, 50));
+        pnl_supplierName.setLayout(new javax.swing.BoxLayout(pnl_supplierName, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_supplierName.setText("Nhà cung cấp:");
+        lbl_supplierName.setMaximumSize(new java.awt.Dimension(110, 100));
+        lbl_supplierName.setPreferredSize(new java.awt.Dimension(125, 0));
+        pnl_supplierName.add(lbl_supplierName);
+
+        txt_supplierName.setEditable(false);
+        txt_supplierName.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txt_supplierName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_supplierNameActionPerformed(evt);
+            }
+        });
+        pnl_supplierName.add(txt_supplierName);
+
+        pnl_purchaseOrderInfo.add(pnl_supplierName);
+
+        pnl_noteLabel.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        pnl_noteLabel.setMaximumSize(new java.awt.Dimension(1000, 30));
+        pnl_noteLabel.setMinimumSize(new java.awt.Dimension(49, 5));
+        pnl_noteLabel.setPreferredSize(new java.awt.Dimension(49, 30));
+        pnl_noteLabel.setLayout(new javax.swing.BoxLayout(pnl_noteLabel, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_note.setText("Ghi chú:");
+        pnl_noteLabel.add(lbl_note);
+
+        pnl_purchaseOrderInfo.add(pnl_noteLabel);
+
+        pnl_note.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 5, 10, 5));
+        pnl_note.setMaximumSize(new java.awt.Dimension(1000, 100));
+        pnl_note.setLayout(new javax.swing.BoxLayout(pnl_note, javax.swing.BoxLayout.LINE_AXIS));
+
+        scr_note.setMinimumSize(new java.awt.Dimension(16, 120));
+        scr_note.setPreferredSize(new java.awt.Dimension(244, 120));
+
+        txa_note1.setColumns(20);
+        txa_note1.setRows(5);
+        txa_note1.setMinimumSize(new java.awt.Dimension(13, 120));
+        txa_note1.setPreferredSize(new java.awt.Dimension(232, 120));
+        scr_note.setViewportView(txa_note1);
+
+        pnl_note.add(scr_note);
+
+        pnl_purchaseOrderInfo.add(pnl_note);
+
+        pnl_total.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 5, 5, 10));
+        pnl_total.setMaximumSize(new java.awt.Dimension(1000, 100));
+        pnl_total.setLayout(new javax.swing.BoxLayout(pnl_total, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_subTotal.setText("Tổng tiền:");
+        lbl_subTotal.setToolTipText("");
+        lbl_subTotal.setMaximumSize(new java.awt.Dimension(110, 100));
+        lbl_subTotal.setPreferredSize(new java.awt.Dimension(125, 0));
+        pnl_total.add(lbl_subTotal);
+
+        txt_subTotal.setEditable(false);
+        txt_subTotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_subTotalActionPerformed(evt);
+            }
+        });
+        pnl_total.add(txt_subTotal);
+
+        pnl_purchaseOrderInfo.add(pnl_total);
+
+        pnl_control.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 5, 5, 10));
+        pnl_control.setMaximumSize(new java.awt.Dimension(1000, 100));
+        pnl_control.setLayout(new java.awt.BorderLayout());
+
+        btn_submit.setText("Xác nhận");
+        btn_submit.putClientProperty(FlatClientProperties.STYLE, "background:$Menu.background;"+"foreground:$Menu.foreground;");
+        pnl_control.add(btn_submit, java.awt.BorderLayout.CENTER);
+
+        pnl_purchaseOrderInfo.add(pnl_control);
+
+        pnl_right.add(pnl_purchaseOrderInfo, java.awt.BorderLayout.SOUTH);
+
+        splitPane.setRightComponent(pnl_right);
+
+        pnl_center.setBorder(javax.swing.BorderFactory.createTitledBorder("Danh sách đơn nhập hàng:"));
+        pnl_center.setMinimumSize(new java.awt.Dimension(600, 44));
+        pnl_center.setPreferredSize(new java.awt.Dimension(950, 768));
+        pnl_center.setLayout(new java.awt.BorderLayout());
+
+        scr_purchaseOrder.setPreferredSize(new java.awt.Dimension(800, 402));
+
+        tbl_purchaseOrder.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Mã đơn nhập hàng", "Mã nhà cung cấp ", "Ngày đặt", "Ngày nhận"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbl_purchaseOrder.setSize(new java.awt.Dimension(800, 80));
+        scr_purchaseOrder.setViewportView(tbl_purchaseOrder);
+
+        pnl_center.add(scr_purchaseOrder, java.awt.BorderLayout.CENTER);
+
+        splitPane.setLeftComponent(pnl_center);
+
+        add(splitPane, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txt_orderDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_orderDateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_orderDateActionPerformed
+
+    private void txt_supplierNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_supplierNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_supplierNameActionPerformed
+
+    private void txt_subTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_subTotalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_subTotalActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_submit;
+    private javax.swing.JLabel lbl_note;
+    private javax.swing.JLabel lbl_status;
+    private javax.swing.JLabel lbl_status1;
+    private javax.swing.JLabel lbl_subTotal;
+    private javax.swing.JLabel lbl_supplierName;
+    private javax.swing.JPanel pnl_center;
+    private javax.swing.JPanel pnl_control;
+    private javax.swing.JPanel pnl_note;
+    private javax.swing.JPanel pnl_noteLabel;
+    private javax.swing.JPanel pnl_orderDate;
+    private javax.swing.JPanel pnl_purchaseOrderDetail;
+    private javax.swing.JPanel pnl_purchaseOrderInfo;
+    private javax.swing.JPanel pnl_right;
+    private javax.swing.JPanel pnl_status;
+    private javax.swing.JPanel pnl_supplierName;
+    private javax.swing.JPanel pnl_total;
+    private javax.swing.JRadioButton rad_decline;
+    private javax.swing.JRadioButton rad_notReceiver;
+    private javax.swing.JRadioButton rad_receiver;
+    private javax.swing.JScrollPane scr_note;
+    private javax.swing.JScrollPane scr_orderDetail;
+    private javax.swing.JScrollPane scr_purchaseOrder;
+    private javax.swing.JSplitPane splitPane;
+    private javax.swing.JTable tbl_orderDetail;
+    private javax.swing.JTable tbl_purchaseOrder;
+    private javax.swing.JTextArea txa_note1;
+    private javax.swing.JTextField txt_orderDate;
+    private javax.swing.JTextField txt_subTotal;
+    private javax.swing.JTextField txt_supplierName;
     // End of variables declaration//GEN-END:variables
 }
