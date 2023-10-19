@@ -96,6 +96,7 @@ public class Application extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Omega Book");
+        setIconImage(new javax.swing.ImageIcon(getClass().getResource("/imgs/icon.png")).getImage());
         setPreferredSize(new java.awt.Dimension(1366, 768));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
