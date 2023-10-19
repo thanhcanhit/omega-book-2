@@ -4,6 +4,8 @@
  */
 package gui;
 
+import com.formdev.flatlaf.FlatClientProperties;
+
 /**
  *
  * @author KienTran
@@ -27,6 +29,31 @@ public class OrderManagement_GUI extends javax.swing.JPanel {
     private void initComponents() {
 
         pnl_header = new javax.swing.JPanel();
+        pnl_orderFilter = new javax.swing.JPanel();
+        lbl_orderID = new javax.swing.JLabel();
+        txt_orderID = new javax.swing.JTextField();
+        pnl_orderStatusFilter = new javax.swing.JPanel();
+        lbl_orderStatusFilter = new javax.swing.JLabel();
+        cmb_orderStatusFilter = new javax.swing.JComboBox<>();
+        pnl_orderDate = new javax.swing.JPanel();
+        lbl_orderDate = new javax.swing.JLabel();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        pnl_searchButton = new javax.swing.JPanel();
+        btn_search = new javax.swing.JButton();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(50, 0), new java.awt.Dimension(100, 0), new java.awt.Dimension(500, 32767));
+        pnl_customerFilter = new javax.swing.JPanel();
+        lbl_customerID = new javax.swing.JLabel();
+        txt_customerID = new javax.swing.JTextField();
+        pnl_customerPhone = new javax.swing.JPanel();
+        lbl_customerPhone = new javax.swing.JLabel();
+        txt_customerPhone = new javax.swing.JTextField();
+        pnl_orderDateTo = new javax.swing.JPanel();
+        lbl_orderDateTo = new javax.swing.JLabel();
+        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        pnl_refreshButton = new javax.swing.JPanel();
+        btn_refresh = new javax.swing.JButton();
+        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(100, 0), new java.awt.Dimension(100, 0), new java.awt.Dimension(500, 32767));
+        splitPane = new javax.swing.JSplitPane();
         pnl_center = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_order = new javax.swing.JTable();
@@ -41,9 +68,6 @@ public class OrderManagement_GUI extends javax.swing.JPanel {
         pnl_phone = new javax.swing.JPanel();
         lbl_phone = new javax.swing.JLabel();
         txt_phone = new javax.swing.JTextField();
-        pnl_orderStatus = new javax.swing.JPanel();
-        lbl_status = new javax.swing.JLabel();
-        txt_status = new javax.swing.JTextField();
         pnl_total = new javax.swing.JPanel();
         lbl_customerName1 = new javax.swing.JLabel();
         txt_total = new javax.swing.JTextField();
@@ -52,11 +76,123 @@ public class OrderManagement_GUI extends javax.swing.JPanel {
 
         pnl_header.setBorder(javax.swing.BorderFactory.createTitledBorder("Tìm kiếm: "));
         pnl_header.setMinimumSize(new java.awt.Dimension(10, 100));
-        pnl_header.setPreferredSize(new java.awt.Dimension(1366, 150));
-        pnl_header.setLayout(new java.awt.GridLayout(2, 3));
+        pnl_header.setPreferredSize(new java.awt.Dimension(1366, 130));
+        pnl_header.setLayout(new java.awt.GridLayout(2, 4));
+
+        pnl_orderFilter.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        pnl_orderFilter.setLayout(new javax.swing.BoxLayout(pnl_orderFilter, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_orderID.setText("Mã đơn hàng: ");
+        lbl_orderID.setPreferredSize(new java.awt.Dimension(130, 130));
+        pnl_orderFilter.add(lbl_orderID);
+        pnl_orderFilter.add(txt_orderID);
+
+        pnl_header.add(pnl_orderFilter);
+
+        pnl_orderStatusFilter.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        pnl_orderStatusFilter.setLayout(new javax.swing.BoxLayout(pnl_orderStatusFilter, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_orderStatusFilter.setText("Tổng doanh thu:");
+        lbl_orderStatusFilter.setMaximumSize(new java.awt.Dimension(160, 150));
+        lbl_orderStatusFilter.setMinimumSize(new java.awt.Dimension(130, 130));
+        lbl_orderStatusFilter.setPreferredSize(new java.awt.Dimension(140, 150));
+        pnl_orderStatusFilter.add(lbl_orderStatusFilter);
+
+        cmb_orderStatusFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "< 100.000VNĐ", "> 100.000VNĐ && < 5.000VNĐ", "> 500.000VNĐ && < 1.000.000VNĐ", "> 1.000.000VNĐ", " " }));
+        cmb_orderStatusFilter.setMaximumSize(new java.awt.Dimension(160, 32767));
+        cmb_orderStatusFilter.setMinimumSize(new java.awt.Dimension(100, 23));
+        cmb_orderStatusFilter.setPreferredSize(new java.awt.Dimension(140, 23));
+        pnl_orderStatusFilter.add(cmb_orderStatusFilter);
+
+        pnl_header.add(pnl_orderStatusFilter);
+
+        pnl_orderDate.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        pnl_orderDate.setMaximumSize(new java.awt.Dimension(200, 2147483647));
+        pnl_orderDate.setMinimumSize(new java.awt.Dimension(200, 200));
+        pnl_orderDate.setPreferredSize(new java.awt.Dimension(200, 43));
+        pnl_orderDate.setLayout(new javax.swing.BoxLayout(pnl_orderDate, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_orderDate.setText("Từ ngày: ");
+        lbl_orderDate.setPreferredSize(new java.awt.Dimension(80, 0));
+        lbl_orderDate.setSize(new java.awt.Dimension(100, 0));
+        pnl_orderDate.add(lbl_orderDate);
+
+        jDateChooser1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 60));
+        pnl_orderDate.add(jDateChooser1);
+
+        pnl_header.add(pnl_orderDate);
+
+        pnl_searchButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 10, 8, 10));
+        pnl_searchButton.setMaximumSize(new java.awt.Dimension(100, 2147483647));
+        pnl_searchButton.setPreferredSize(new java.awt.Dimension(100, 100));
+        pnl_searchButton.setLayout(new java.awt.BorderLayout());
+
+        btn_search.setText("Tìm kiếm");
+        btn_search.putClientProperty(FlatClientProperties.STYLE, "background: $Menu.background;"
+            + "foreground:$Menu.foreground;"
+        );
+        pnl_searchButton.add(btn_search, java.awt.BorderLayout.CENTER);
+        pnl_searchButton.add(filler1, java.awt.BorderLayout.LINE_START);
+
+        pnl_header.add(pnl_searchButton);
+
+        pnl_customerFilter.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        pnl_customerFilter.setLayout(new javax.swing.BoxLayout(pnl_customerFilter, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_customerID.setText("Mã khách hàng: ");
+        lbl_customerID.setPreferredSize(new java.awt.Dimension(130, 130));
+        pnl_customerFilter.add(lbl_customerID);
+        pnl_customerFilter.add(txt_customerID);
+
+        pnl_header.add(pnl_customerFilter);
+
+        pnl_customerPhone.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        pnl_customerPhone.setLayout(new javax.swing.BoxLayout(pnl_customerPhone, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_customerPhone.setText("Số điện thoại:");
+        lbl_customerPhone.setMaximumSize(new java.awt.Dimension(160, 150));
+        lbl_customerPhone.setMinimumSize(new java.awt.Dimension(130, 130));
+        lbl_customerPhone.setPreferredSize(new java.awt.Dimension(140, 150));
+        pnl_customerPhone.add(lbl_customerPhone);
+
+        txt_customerPhone.setMinimumSize(new java.awt.Dimension(130, 23));
+        txt_customerPhone.setPreferredSize(new java.awt.Dimension(120, 23));
+        pnl_customerPhone.add(txt_customerPhone);
+
+        pnl_header.add(pnl_customerPhone);
+
+        pnl_orderDateTo.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        pnl_orderDateTo.setMaximumSize(new java.awt.Dimension(200, 2147483647));
+        pnl_orderDateTo.setMinimumSize(new java.awt.Dimension(200, 200));
+        pnl_orderDateTo.setPreferredSize(new java.awt.Dimension(200, 43));
+        pnl_orderDateTo.setLayout(new javax.swing.BoxLayout(pnl_orderDateTo, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_orderDateTo.setText("Đến ngày:");
+        lbl_orderDateTo.setPreferredSize(new java.awt.Dimension(80, 0));
+        lbl_orderDateTo.setSize(new java.awt.Dimension(100, 0));
+        pnl_orderDateTo.add(lbl_orderDateTo);
+
+        jDateChooser2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 60));
+        pnl_orderDateTo.add(jDateChooser2);
+
+        pnl_header.add(pnl_orderDateTo);
+
+        pnl_refreshButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 10, 8, 10));
+        pnl_refreshButton.setMaximumSize(new java.awt.Dimension(100, 2147483647));
+        pnl_refreshButton.setPreferredSize(new java.awt.Dimension(100, 100));
+        pnl_refreshButton.setLayout(new java.awt.BorderLayout());
+
+        btn_refresh.setText("Làm mới");
+        pnl_refreshButton.add(btn_refresh, java.awt.BorderLayout.CENTER);
+        pnl_refreshButton.add(filler2, java.awt.BorderLayout.LINE_START);
+
+        pnl_header.add(pnl_refreshButton);
+
         add(pnl_header, java.awt.BorderLayout.NORTH);
 
         pnl_center.setBorder(javax.swing.BorderFactory.createTitledBorder("Danh sách hoá đơn: "));
+        pnl_center.setDoubleBuffered(false);
+        pnl_center.setMinimumSize(new java.awt.Dimension(600, 40));
         pnl_center.setLayout(new java.awt.BorderLayout());
 
         tbl_order.setModel(new javax.swing.table.DefaultTableModel(
@@ -85,13 +221,14 @@ public class OrderManagement_GUI extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tbl_order.setMinimumSize(new java.awt.Dimension(400, 80));
         jScrollPane1.setViewportView(tbl_order);
 
         pnl_center.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        add(pnl_center, java.awt.BorderLayout.CENTER);
+        splitPane.setLeftComponent(pnl_center);
 
-        pnl_infomation.setMinimumSize(new java.awt.Dimension(200, 0));
+        pnl_infomation.setMinimumSize(new java.awt.Dimension(400, 0));
         pnl_infomation.setPreferredSize(new java.awt.Dimension(500, 768));
         pnl_infomation.setLayout(new java.awt.BorderLayout());
 
@@ -135,15 +272,15 @@ public class OrderManagement_GUI extends javax.swing.JPanel {
         pnl_info.setPreferredSize(new java.awt.Dimension(400, 200));
         pnl_info.setLayout(new javax.swing.BoxLayout(pnl_info, javax.swing.BoxLayout.Y_AXIS));
 
-        pnl_customerName.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        pnl_customerName.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 5, 20, 10));
         pnl_customerName.setLayout(new javax.swing.BoxLayout(pnl_customerName, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_customerName.setText("Tên khách hàng:");
-        lbl_customerName.setPreferredSize(new java.awt.Dimension(150, 30));
+        lbl_customerName.setPreferredSize(new java.awt.Dimension(120, 30));
         pnl_customerName.add(lbl_customerName);
 
         txt_customerName.setEditable(false);
-        txt_customerName.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
+        txt_customerName.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         txt_customerName.setPreferredSize(new java.awt.Dimension(64, 15));
         txt_customerName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -154,15 +291,15 @@ public class OrderManagement_GUI extends javax.swing.JPanel {
 
         pnl_info.add(pnl_customerName);
 
-        pnl_phone.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        pnl_phone.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 5, 20, 10));
         pnl_phone.setLayout(new javax.swing.BoxLayout(pnl_phone, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_phone.setText("Số điện thoại:");
-        lbl_phone.setPreferredSize(new java.awt.Dimension(150, 30));
+        lbl_phone.setPreferredSize(new java.awt.Dimension(120, 30));
         pnl_phone.add(lbl_phone);
 
         txt_phone.setEditable(false);
-        txt_phone.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
+        txt_phone.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         txt_phone.setPreferredSize(new java.awt.Dimension(64, 15));
         txt_phone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -173,34 +310,15 @@ public class OrderManagement_GUI extends javax.swing.JPanel {
 
         pnl_info.add(pnl_phone);
 
-        pnl_orderStatus.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        pnl_orderStatus.setLayout(new javax.swing.BoxLayout(pnl_orderStatus, javax.swing.BoxLayout.LINE_AXIS));
-
-        lbl_status.setText("Trạng thái đơn hàng: ");
-        lbl_status.setPreferredSize(new java.awt.Dimension(150, 30));
-        pnl_orderStatus.add(lbl_status);
-
-        txt_status.setEditable(false);
-        txt_status.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
-        txt_status.setPreferredSize(new java.awt.Dimension(64, 15));
-        txt_status.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_statusActionPerformed(evt);
-            }
-        });
-        pnl_orderStatus.add(txt_status);
-
-        pnl_info.add(pnl_orderStatus);
-
-        pnl_total.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        pnl_total.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 10));
         pnl_total.setLayout(new javax.swing.BoxLayout(pnl_total, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_customerName1.setText("Tổng tiền: ");
-        lbl_customerName1.setPreferredSize(new java.awt.Dimension(150, 30));
+        lbl_customerName1.setPreferredSize(new java.awt.Dimension(120, 30));
         pnl_total.add(lbl_customerName1);
 
         txt_total.setEditable(false);
-        txt_total.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
+        txt_total.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         txt_total.setPreferredSize(new java.awt.Dimension(64, 15));
         txt_total.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -213,20 +331,18 @@ public class OrderManagement_GUI extends javax.swing.JPanel {
 
         pnl_infomation.add(pnl_info, java.awt.BorderLayout.SOUTH);
 
-        add(pnl_infomation, java.awt.BorderLayout.EAST);
+        splitPane.setRightComponent(pnl_infomation);
+
+        add(splitPane, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_customerNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_customerNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_customerNameActionPerformed
-
+    
     private void txt_phoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_phoneActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_phoneActionPerformed
-
-    private void txt_statusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_statusActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_statusActionPerformed
 
     private void txt_totalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_totalActionPerformed
         // TODO add your handling code here:
@@ -234,26 +350,48 @@ public class OrderManagement_GUI extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_refresh;
+    private javax.swing.JButton btn_search;
+    private javax.swing.JComboBox<String> cmb_orderStatusFilter;
+    private javax.swing.Box.Filler filler1;
+    private javax.swing.Box.Filler filler2;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lbl_customerID;
     private javax.swing.JLabel lbl_customerName;
     private javax.swing.JLabel lbl_customerName1;
+    private javax.swing.JLabel lbl_customerPhone;
+    private javax.swing.JLabel lbl_orderDate;
+    private javax.swing.JLabel lbl_orderDateTo;
+    private javax.swing.JLabel lbl_orderID;
+    private javax.swing.JLabel lbl_orderStatusFilter;
     private javax.swing.JLabel lbl_phone;
-    private javax.swing.JLabel lbl_status;
     private javax.swing.JPanel pnl_center;
+    private javax.swing.JPanel pnl_customerFilter;
     private javax.swing.JPanel pnl_customerName;
+    private javax.swing.JPanel pnl_customerPhone;
     private javax.swing.JPanel pnl_header;
     private javax.swing.JPanel pnl_info;
     private javax.swing.JPanel pnl_infomation;
+    private javax.swing.JPanel pnl_orderDate;
+    private javax.swing.JPanel pnl_orderDateTo;
     private javax.swing.JPanel pnl_orderDetail;
-    private javax.swing.JPanel pnl_orderStatus;
+    private javax.swing.JPanel pnl_orderFilter;
+    private javax.swing.JPanel pnl_orderStatusFilter;
     private javax.swing.JPanel pnl_phone;
+    private javax.swing.JPanel pnl_refreshButton;
+    private javax.swing.JPanel pnl_searchButton;
     private javax.swing.JPanel pnl_total;
+    private javax.swing.JSplitPane splitPane;
     private javax.swing.JTable tbl_order;
     private javax.swing.JTable tbl_orderDetail;
+    private javax.swing.JTextField txt_customerID;
     private javax.swing.JTextField txt_customerName;
+    private javax.swing.JTextField txt_customerPhone;
+    private javax.swing.JTextField txt_orderID;
     private javax.swing.JTextField txt_phone;
-    private javax.swing.JTextField txt_status;
     private javax.swing.JTextField txt_total;
     // End of variables declaration//GEN-END:variables
 }
