@@ -37,18 +37,7 @@ public class Sales_GUI extends javax.swing.JPanel {
         pnl_cartFooter = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         pnl_right = new javax.swing.JPanel();
-        pnl_customerInfo = new javax.swing.JPanel();
-        pnl_customerDefault = new javax.swing.JPanel();
-        chk_defaultCustomer = new javax.swing.JCheckBox();
-        pnl_customerPhone = new javax.swing.JPanel();
-        lbl_customerPhone = new javax.swing.JLabel();
-        txt_customerPhone = new javax.swing.JTextField();
-        pnl_customerName = new javax.swing.JPanel();
-        lbl_customerName = new javax.swing.JLabel();
-        txt_customerName = new javax.swing.JTextField();
-        pnl_customerRank = new javax.swing.JPanel();
-        lbl_customerRank = new javax.swing.JLabel();
-        txt_customerRank = new javax.swing.JTextField();
+        pnl_info = new javax.swing.JPanel();
         pnl_orderInfo = new javax.swing.JPanel();
         pnl_orderId = new javax.swing.JPanel();
         lbl_orderId = new javax.swing.JLabel();
@@ -75,6 +64,18 @@ public class Sales_GUI extends javax.swing.JPanel {
         pnl_orderCustomerReturn = new javax.swing.JPanel();
         lbl_orderCustomerReturn = new javax.swing.JLabel();
         txt_orderCustomerReturn = new javax.swing.JTextField();
+        pnl_customerInfo = new javax.swing.JPanel();
+        pnl_customerDefault = new javax.swing.JPanel();
+        chk_defaultCustomer = new javax.swing.JCheckBox();
+        pnl_customerPhone = new javax.swing.JPanel();
+        lbl_customerPhone = new javax.swing.JLabel();
+        txt_customerPhone = new javax.swing.JTextField();
+        pnl_customerName = new javax.swing.JPanel();
+        lbl_customerName = new javax.swing.JLabel();
+        txt_customerName = new javax.swing.JTextField();
+        pnl_customerRank = new javax.swing.JPanel();
+        lbl_customerRank = new javax.swing.JLabel();
+        txt_customerRank = new javax.swing.JTextField();
         pnl_control = new javax.swing.JPanel();
         pnl_btnGroup = new javax.swing.JPanel();
         btn_save = new javax.swing.JButton();
@@ -142,74 +143,9 @@ public class Sales_GUI extends javax.swing.JPanel {
         splitPane_main.setLeftComponent(pnl_left);
 
         pnl_right.setPreferredSize(new java.awt.Dimension(400, 768));
-        pnl_right.setLayout(new javax.swing.BoxLayout(pnl_right, javax.swing.BoxLayout.Y_AXIS));
+        pnl_right.setLayout(new java.awt.BorderLayout());
 
-        pnl_customerInfo.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin khách hàng"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-        pnl_customerInfo.setPreferredSize(new java.awt.Dimension(500, 150));
-        pnl_customerInfo.setLayout(new javax.swing.BoxLayout(pnl_customerInfo, javax.swing.BoxLayout.Y_AXIS));
-
-        pnl_customerDefault.setPreferredSize(new java.awt.Dimension(561, 40));
-        pnl_customerDefault.setLayout(new java.awt.BorderLayout());
-
-        chk_defaultCustomer.setText("Khách hàng mặc định");
-        pnl_customerDefault.add(chk_defaultCustomer, java.awt.BorderLayout.CENTER);
-
-        pnl_customerInfo.add(pnl_customerDefault);
-
-        pnl_customerPhone.setPreferredSize(new java.awt.Dimension(561, 40));
-        pnl_customerPhone.setLayout(new javax.swing.BoxLayout(pnl_customerPhone, javax.swing.BoxLayout.LINE_AXIS));
-
-        lbl_customerPhone.setText("Số điện thoại");
-        lbl_customerPhone.setPreferredSize(new java.awt.Dimension(130, 40));
-        pnl_customerPhone.add(lbl_customerPhone);
-
-        txt_customerPhone.setPreferredSize(new java.awt.Dimension(64, 40));
-        txt_customerPhone.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_customerPhoneActionPerformed(evt);
-            }
-        });
-        pnl_customerPhone.add(txt_customerPhone);
-
-        pnl_customerInfo.add(pnl_customerPhone);
-
-        pnl_customerName.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
-        pnl_customerName.setPreferredSize(new java.awt.Dimension(561, 40));
-        pnl_customerName.setLayout(new javax.swing.BoxLayout(pnl_customerName, javax.swing.BoxLayout.LINE_AXIS));
-
-        lbl_customerName.setText("Họ và tên");
-        lbl_customerName.setPreferredSize(new java.awt.Dimension(130, 40));
-        pnl_customerName.add(lbl_customerName);
-
-        txt_customerName.setPreferredSize(new java.awt.Dimension(64, 40));
-        txt_customerName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_customerNameActionPerformed(evt);
-            }
-        });
-        pnl_customerName.add(txt_customerName);
-
-        pnl_customerInfo.add(pnl_customerName);
-
-        pnl_customerRank.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
-        pnl_customerRank.setPreferredSize(new java.awt.Dimension(561, 40));
-        pnl_customerRank.setLayout(new javax.swing.BoxLayout(pnl_customerRank, javax.swing.BoxLayout.LINE_AXIS));
-
-        lbl_customerRank.setText("Hạng thành viên");
-        lbl_customerRank.setPreferredSize(new java.awt.Dimension(130, 40));
-        pnl_customerRank.add(lbl_customerRank);
-
-        txt_customerRank.setPreferredSize(new java.awt.Dimension(64, 40));
-        txt_customerRank.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_customerRankActionPerformed(evt);
-            }
-        });
-        pnl_customerRank.add(txt_customerRank);
-
-        pnl_customerInfo.add(pnl_customerRank);
-
-        pnl_right.add(pnl_customerInfo);
+        pnl_info.setLayout(new javax.swing.BoxLayout(pnl_info, javax.swing.BoxLayout.Y_AXIS));
 
         pnl_orderInfo.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin hóa đơn"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         pnl_orderInfo.setPreferredSize(new java.awt.Dimension(500, 400));
@@ -349,7 +285,76 @@ public class Sales_GUI extends javax.swing.JPanel {
 
         pnl_orderInfo.add(pnl_orderCustomerReturn);
 
-        pnl_right.add(pnl_orderInfo);
+        pnl_info.add(pnl_orderInfo);
+
+        pnl_customerInfo.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin khách hàng"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        pnl_customerInfo.setPreferredSize(new java.awt.Dimension(500, 150));
+        pnl_customerInfo.setLayout(new javax.swing.BoxLayout(pnl_customerInfo, javax.swing.BoxLayout.Y_AXIS));
+
+        pnl_customerDefault.setPreferredSize(new java.awt.Dimension(561, 40));
+        pnl_customerDefault.setLayout(new java.awt.BorderLayout());
+
+        chk_defaultCustomer.setText("Khách hàng mặc định");
+        pnl_customerDefault.add(chk_defaultCustomer, java.awt.BorderLayout.CENTER);
+
+        pnl_customerInfo.add(pnl_customerDefault);
+
+        pnl_customerPhone.setPreferredSize(new java.awt.Dimension(561, 40));
+        pnl_customerPhone.setLayout(new javax.swing.BoxLayout(pnl_customerPhone, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_customerPhone.setText("Số điện thoại");
+        lbl_customerPhone.setPreferredSize(new java.awt.Dimension(130, 40));
+        pnl_customerPhone.add(lbl_customerPhone);
+
+        txt_customerPhone.setPreferredSize(new java.awt.Dimension(64, 40));
+        txt_customerPhone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_customerPhoneActionPerformed(evt);
+            }
+        });
+        pnl_customerPhone.add(txt_customerPhone);
+
+        pnl_customerInfo.add(pnl_customerPhone);
+
+        pnl_customerName.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        pnl_customerName.setPreferredSize(new java.awt.Dimension(561, 40));
+        pnl_customerName.setLayout(new javax.swing.BoxLayout(pnl_customerName, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_customerName.setText("Họ và tên");
+        lbl_customerName.setPreferredSize(new java.awt.Dimension(130, 40));
+        pnl_customerName.add(lbl_customerName);
+
+        txt_customerName.setPreferredSize(new java.awt.Dimension(64, 40));
+        txt_customerName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_customerNameActionPerformed(evt);
+            }
+        });
+        pnl_customerName.add(txt_customerName);
+
+        pnl_customerInfo.add(pnl_customerName);
+
+        pnl_customerRank.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        pnl_customerRank.setPreferredSize(new java.awt.Dimension(561, 40));
+        pnl_customerRank.setLayout(new javax.swing.BoxLayout(pnl_customerRank, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_customerRank.setText("Hạng thành viên");
+        lbl_customerRank.setPreferredSize(new java.awt.Dimension(130, 40));
+        pnl_customerRank.add(lbl_customerRank);
+
+        txt_customerRank.setPreferredSize(new java.awt.Dimension(64, 40));
+        txt_customerRank.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_customerRankActionPerformed(evt);
+            }
+        });
+        pnl_customerRank.add(txt_customerRank);
+
+        pnl_customerInfo.add(pnl_customerRank);
+
+        pnl_info.add(pnl_customerInfo);
+
+        pnl_right.add(pnl_info, java.awt.BorderLayout.CENTER);
 
         pnl_control.setLayout(new javax.swing.BoxLayout(pnl_control, javax.swing.BoxLayout.PAGE_AXIS));
 
@@ -384,7 +389,7 @@ public class Sales_GUI extends javax.swing.JPanel {
 
         pnl_control.add(pnl_btnMain);
 
-        pnl_right.add(pnl_control);
+        pnl_right.add(pnl_control, java.awt.BorderLayout.SOUTH);
 
         splitPane_main.setRightComponent(pnl_right);
 
@@ -463,6 +468,7 @@ public class Sales_GUI extends javax.swing.JPanel {
     private javax.swing.JPanel pnl_customerRank;
     private javax.swing.JPanel pnl_discount;
     private javax.swing.JPanel pnl_header;
+    private javax.swing.JPanel pnl_info;
     private javax.swing.JPanel pnl_left;
     private javax.swing.JPanel pnl_orderCustomerGive;
     private javax.swing.JPanel pnl_orderCustomerGiveOptions;
