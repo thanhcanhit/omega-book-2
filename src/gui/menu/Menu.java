@@ -29,7 +29,7 @@ public class Menu extends JPanel {
         {"Sản phẩm"},
         {"Nhân viên"},
         {"Khách hàng"},
-        {"Thống kê", "Thống kê doanh thu", "Thống kê sản phẩm"},
+        {"Thống kê", "Thống kê doanh thu", "Thống kê sản phẩm", "Thống kê khách hàng"},
         {"Báo cáo", "Kiểm tiền", "Kết toán"},
         {"Đăng xuất"}
     };

@@ -20,7 +20,6 @@ import javax.swing.JToolBar;
 import javax.swing.LookAndFeel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import gui.menu.Menu;
 
 /**
  *

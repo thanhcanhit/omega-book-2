@@ -121,6 +121,9 @@ public class MainView extends JLayeredPane {
                         case 2:
                             Application.showForm(new StatisticProduct_GUI());
                             break;
+                        case 3:
+                            Application.showForm(new StatisticCustomer_GUI());
+                            break;
                         default:
                             action.cancel();
                             break;
