@@ -78,6 +78,10 @@ public class MainView extends JLayeredPane {
                             Application.showForm(new OrderManagement_GUI());
                             break;
                         case 2:
+                            Application.showForm(new PurchaseOrderManagement_GUI());
+                            break;
+                        case 3:
+                            Application.showForm(new CreatePurchaseOrder_GUI());
                             break;
                         default:
                             action.cancel();
@@ -90,14 +94,24 @@ public class MainView extends JLayeredPane {
                             Application.showForm(new ReturnOrderManagemant_GUI());
                             break;
                         case 2:
+                            Application.showForm(new CreateReturnOrder_GUI());
                             break;
                         default:
                             action.cancel();
                             break;
                     }
                     break;
+                case 3:
+                    Application.showForm(new PromotionManagement_GUI());
+                    break;
+                case 4:
+                    Application.showForm(new ProductManagement_GUI());
+                    break;
                 case 5:
                     Application.showForm(new EmployeeManagement_GUI());
+                    break;
+                case 6:
+                    Application.showForm(new CustomerManagement_GUI());
                     break;
                 case 7:
                     switch (subIndex) {
@@ -111,9 +125,6 @@ public class MainView extends JLayeredPane {
                             action.cancel();
                             break;
                     }
-                    break;
-                case 6:
-                    Application.showForm(new CustomerManagement_GUI());
                     break;
                 case 8:
                     switch (subIndex) {
