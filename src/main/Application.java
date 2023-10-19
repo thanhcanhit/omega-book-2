@@ -1,9 +1,9 @@
 package main;
 
 import com.formdev.flatlaf.FlatLaf;
-import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.extras.FlatAnimatedLafChange;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import entity.Employee;
 import gui.Login_GUI;
 import gui.MainView;
@@ -28,12 +28,12 @@ public class Application extends javax.swing.JFrame {
 
     public Application() {
         initComponents();
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         setTitle("Omega Book");
         mainForm = new MainView();
         loginForm = new Login_GUI();
-        setContentPane(loginForm);
+        setContentPane(mainForm);
         Notifications.getInstance().setJFrame(this);
 
         // Handle on close
@@ -63,24 +63,30 @@ public class Application extends javax.swing.JFrame {
     }
 
     public static void login(Employee employee) {
+//        Update UI
         FlatAnimatedLafChange.showSnapshot();
         app.setContentPane(app.mainForm);
         app.mainForm.applyComponentOrientation(app.getComponentOrientation());
         setSelectedMenu(0, 0);
         app.mainForm.hideMenu();
         SwingUtilities.updateComponentTreeUI(app.mainForm);
-        Application.employee = employee;
         FlatAnimatedLafChange.hideSnapshotWithAnimation();
+        
+//        Update state
+        Application.employee = employee;
         Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đăng nhập vào hệ thống thành công");
     }
 
     public static void logout() {
-        Application.employee = null;
+//        Update UI
         FlatAnimatedLafChange.showSnapshot();
         app.setContentPane(app.loginForm);
         app.loginForm.applyComponentOrientation(app.getComponentOrientation());
         SwingUtilities.updateComponentTreeUI(app.loginForm);
         FlatAnimatedLafChange.hideSnapshotWithAnimation();
+        
+//        Update state
+        Application.employee = null;
         Notifications.getInstance().show(Notifications.Type.INFO, "Đăng xuất khỏi hệ thống thành công");
     }
 
@@ -109,7 +115,7 @@ public class Application extends javax.swing.JFrame {
         FlatRobotoFont.install();
         FlatLaf.registerCustomDefaultsSource("theme");
         UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 15));
-        FlatLightLaf.setup();
+        FlatMacLightLaf.setup();
         java.awt.EventQueue.invokeLater(() -> {
             app = new Application();
             app.setVisible(true);
