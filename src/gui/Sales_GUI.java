@@ -102,6 +102,9 @@ public class Sales_GUI extends javax.swing.JPanel {
         btn_search.setMaximumSize(new java.awt.Dimension(100, 50));
         btn_search.setMinimumSize(new java.awt.Dimension(100, 50));
         btn_search.setPreferredSize(new java.awt.Dimension(100, 50));
+        btn_search.putClientProperty(FlatClientProperties.STYLE,""
+            + "background:$Menu.background;"
+            + "foreground:$Menu.foreground;");
         pnl_header.add(btn_search);
 
         pnl_left.add(pnl_header, java.awt.BorderLayout.NORTH);
@@ -314,9 +317,9 @@ public class Sales_GUI extends javax.swing.JPanel {
 
         pnl_orderInfo.add(pnl_orderCustomerGive);
 
-        pnl_orderCustomerGiveOptions.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        pnl_orderCustomerGiveOptions.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         pnl_orderCustomerGiveOptions.setPreferredSize(new java.awt.Dimension(561, 60));
-        pnl_orderCustomerGiveOptions.setLayout(new java.awt.GridLayout(1, 3));
+        pnl_orderCustomerGiveOptions.setLayout(new java.awt.GridLayout(1, 3, 5, 0));
 
         btn_option1.setText("Gợi ý 1");
         pnl_orderCustomerGiveOptions.add(btn_option1);

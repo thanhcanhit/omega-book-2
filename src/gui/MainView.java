@@ -67,6 +67,7 @@ public class MainView extends JLayeredPane {
 
     private void initMenuEvent() {
         menu.addMenuEvent((int index, int subIndex, MenuAction action) -> {
+
             switch (index) {
                 case 0:
                     Application.showForm(new Sales_GUI());
@@ -110,6 +111,9 @@ public class MainView extends JLayeredPane {
                             action.cancel();
                             break;
                     }
+                    break;
+                case 6:
+                    Application.showForm(new CustomerManagement_GUI());
                     break;
                 case 8:
                     switch (subIndex) {

@@ -63,24 +63,30 @@ public class Application extends javax.swing.JFrame {
     }
 
     public static void login(Employee employee) {
+//        Update UI
         FlatAnimatedLafChange.showSnapshot();
         app.setContentPane(app.mainForm);
         app.mainForm.applyComponentOrientation(app.getComponentOrientation());
         setSelectedMenu(0, 0);
         app.mainForm.hideMenu();
         SwingUtilities.updateComponentTreeUI(app.mainForm);
-        Application.employee = employee;
         FlatAnimatedLafChange.hideSnapshotWithAnimation();
+        
+//        Update state
+        Application.employee = employee;
         Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đăng nhập vào hệ thống thành công");
     }
 
     public static void logout() {
-        Application.employee = null;
+//        Update UI
         FlatAnimatedLafChange.showSnapshot();
         app.setContentPane(app.loginForm);
         app.loginForm.applyComponentOrientation(app.getComponentOrientation());
         SwingUtilities.updateComponentTreeUI(app.loginForm);
         FlatAnimatedLafChange.hideSnapshotWithAnimation();
+        
+//        Update state
+        Application.employee = null;
         Notifications.getInstance().show(Notifications.Type.INFO, "Đăng xuất khỏi hệ thống thành công");
     }
 
