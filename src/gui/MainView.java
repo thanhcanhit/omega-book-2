@@ -49,6 +49,7 @@ public class MainView extends JLayeredPane {
         add(btn_menu);
         add(menu);
         add(pnl_body);
+
     }
 
     @Override
@@ -69,7 +70,7 @@ public class MainView extends JLayeredPane {
         menu.addMenuEvent((int index, int subIndex, MenuAction action) -> {
             switch (index) {
                 case 0:
-                    Application.showForm(new Sales_GUI());
+                    Application.showMainView();
                     break;
                 case 1:
                     switch (subIndex) {
