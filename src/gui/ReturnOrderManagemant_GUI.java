@@ -4,6 +4,8 @@
  */
 package gui;
 
+import com.formdev.flatlaf.FlatClientProperties;
+
 /**
  *
  * @author Như Tâm
@@ -31,14 +33,11 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
         txt_searchReturnOrder = new javax.swing.JTextField();
         filler6 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         btn_searchReturnOrder = new javax.swing.JButton();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
-        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(30, 0), new java.awt.Dimension(30, 0), new java.awt.Dimension(30, 32767));
+        jPanel1 = new javax.swing.JPanel();
         chk_admitReturnOrder = new javax.swing.JCheckBox();
-        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(30, 0), new java.awt.Dimension(30, 0), new java.awt.Dimension(30, 32767));
         chk_denyReturnOrder = new javax.swing.JCheckBox();
-        filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(30, 0), new java.awt.Dimension(30, 0), new java.awt.Dimension(30, 32767));
-        btn_pendingReturnOrder = new javax.swing.JCheckBox();
-        filler5 = new javax.swing.Box.Filler(new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 32767));
+        chk_pendingReturnOrder = new javax.swing.JCheckBox();
+        cmb_typeReturnOrder = new javax.swing.JComboBox<>();
         pnl_centerReturnOrder = new javax.swing.JPanel();
         scr_inforReturnOrder = new javax.swing.JScrollPane();
         tbl_inforReturnOrder = new javax.swing.JTable();
@@ -70,32 +69,36 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
         pnl_searchRerturnOrder.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
         pnl_searchRerturnOrder.setLayout(new javax.swing.BoxLayout(pnl_searchRerturnOrder, javax.swing.BoxLayout.X_AXIS));
 
-        txt_searchReturnOrder.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        txt_searchReturnOrder.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Nhập mã đơn đổi trả");
         txt_searchReturnOrder.setPreferredSize(new java.awt.Dimension(500, 22));
         pnl_searchRerturnOrder.add(txt_searchReturnOrder);
         pnl_searchRerturnOrder.add(filler6);
 
         btn_searchReturnOrder.setText("Tìm kiếm");
-        btn_searchReturnOrder.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        btn_searchReturnOrder.putClientProperty(FlatClientProperties.STYLE,""
+            + "background:$Menu.background;"
+            + "foreground:$Menu.foreground;");
         btn_searchReturnOrder.setMaximumSize(new java.awt.Dimension(79, 43));
         btn_searchReturnOrder.setPreferredSize(new java.awt.Dimension(90, 33));
         pnl_searchRerturnOrder.add(btn_searchReturnOrder);
 
         pnl_topReturnOrder.add(pnl_searchRerturnOrder);
-        pnl_topReturnOrder.add(filler1);
-        pnl_topReturnOrder.add(filler2);
+
+        jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 15));
 
         chk_admitReturnOrder.setText("Đã chấp nhập");
-        pnl_topReturnOrder.add(chk_admitReturnOrder);
-        pnl_topReturnOrder.add(filler3);
+        jPanel1.add(chk_admitReturnOrder);
 
         chk_denyReturnOrder.setText("Từ chối");
-        pnl_topReturnOrder.add(chk_denyReturnOrder);
-        pnl_topReturnOrder.add(filler4);
+        jPanel1.add(chk_denyReturnOrder);
 
-        btn_pendingReturnOrder.setText("Đang chờ");
-        pnl_topReturnOrder.add(btn_pendingReturnOrder);
-        pnl_topReturnOrder.add(filler5);
+        chk_pendingReturnOrder.setText("Đang chờ");
+        jPanel1.add(chk_pendingReturnOrder);
+
+        cmb_typeReturnOrder.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Loại đơn", "Đổi hàng", "Trả hàng" }));
+        jPanel1.add(cmb_typeReturnOrder);
+
+        pnl_topReturnOrder.add(jPanel1);
 
         add(pnl_topReturnOrder, java.awt.BorderLayout.NORTH);
 
@@ -210,11 +213,14 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
 
         pnl_eastReturnOrder.add(pnl_statusReturnOrder);
 
-        pnl_buttonSave.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 5));
+        pnl_buttonSave.setLayout(new java.awt.BorderLayout());
 
         btn_saveReturnOrder.setText("Lưu");
+        btn_saveReturnOrder.putClientProperty(FlatClientProperties.STYLE,""
+            + "background:$Menu.background;"
+            + "foreground:$Menu.foreground;");
         btn_saveReturnOrder.setPreferredSize(new java.awt.Dimension(300, 40));
-        pnl_buttonSave.add(btn_saveReturnOrder);
+        pnl_buttonSave.add(btn_saveReturnOrder, java.awt.BorderLayout.CENTER);
 
         pnl_eastReturnOrder.add(pnl_buttonSave);
 
@@ -223,17 +229,14 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox btn_pendingReturnOrder;
     private javax.swing.JButton btn_saveReturnOrder;
     private javax.swing.JButton btn_searchReturnOrder;
     private javax.swing.JCheckBox chk_admitReturnOrder;
     private javax.swing.JCheckBox chk_denyReturnOrder;
-    private javax.swing.Box.Filler filler1;
-    private javax.swing.Box.Filler filler2;
-    private javax.swing.Box.Filler filler3;
-    private javax.swing.Box.Filler filler4;
-    private javax.swing.Box.Filler filler5;
+    private javax.swing.JCheckBox chk_pendingReturnOrder;
+    private javax.swing.JComboBox<String> cmb_typeReturnOrder;
     private javax.swing.Box.Filler filler6;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbl_employeeID;
     private javax.swing.JLabel lbl_product;
     private javax.swing.JLabel lbl_returnOrderID;

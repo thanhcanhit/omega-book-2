@@ -4,6 +4,8 @@
  */
 package gui;
 
+import com.formdev.flatlaf.FlatClientProperties;
+
 /**
  *
  * @author Như Tâm
@@ -26,19 +28,310 @@ public class PromotionManagement_GUI extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        slp_promotion = new javax.swing.JSplitPane();
+        pnl_listPromotion = new javax.swing.JPanel();
+        pnl_searchPromotion = new javax.swing.JPanel();
+        pnl_txtSearchPromo = new javax.swing.JPanel();
+        txt_searchPromo = new javax.swing.JTextField();
+        pnl_buttonSearchPromo = new javax.swing.JPanel();
+        btn_searchPromo = new javax.swing.JButton();
+        pnl_promotionInfor = new javax.swing.JPanel();
+        src_inforPromo = new javax.swing.JScrollPane();
+        tbl_inforPromo = new javax.swing.JTable();
+        pnl_promotionNew = new javax.swing.JPanel();
+        pnl_filterPromo = new javax.swing.JPanel();
+        cmb_typePromo = new javax.swing.JComboBox<>();
+        cmb_statusPromo = new javax.swing.JComboBox<>();
+        pnl_inforPromo = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        lbl_promotionID = new javax.swing.JLabel();
+        txt_promotionID = new javax.swing.JTextField();
+        jPanel7 = new javax.swing.JPanel();
+        lbl_typePromo = new javax.swing.JLabel();
+        txt_typePromo = new javax.swing.JTextField();
+        jPanel8 = new javax.swing.JPanel();
+        lbl_discountPromo = new javax.swing.JLabel();
+        txt_discountPromo = new javax.swing.JTextField();
+        jPanel9 = new javax.swing.JPanel();
+        lbl_startDatePromo = new javax.swing.JLabel();
+        txt_startDatePromo = new javax.swing.JTextField();
+        jPanel10 = new javax.swing.JPanel();
+        lbl_endDatePromo = new javax.swing.JLabel();
+        txt_endDatePromo = new javax.swing.JTextField();
+        pnl_buttonPromo = new javax.swing.JPanel();
+        jPanel11 = new javax.swing.JPanel();
+        btn_createPromo = new javax.swing.JButton();
+        jPanel12 = new javax.swing.JPanel();
+        btn_removePromo = new javax.swing.JButton();
+
+        setPreferredSize(new java.awt.Dimension(1366, 768));
+        setLayout(new java.awt.BorderLayout());
+
+        pnl_listPromotion.setMaximumSize(new java.awt.Dimension(900, 2147483647));
+        pnl_listPromotion.setPreferredSize(new java.awt.Dimension(700, 432));
+        pnl_listPromotion.setLayout(new javax.swing.BoxLayout(pnl_listPromotion, javax.swing.BoxLayout.Y_AXIS));
+
+        pnl_searchPromotion.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        pnl_searchPromotion.setMaximumSize(new java.awt.Dimension(900, 50));
+        pnl_searchPromotion.setMinimumSize(new java.awt.Dimension(500, 27));
+        pnl_searchPromotion.setPreferredSize(new java.awt.Dimension(700, 50));
+        pnl_searchPromotion.setLayout(new javax.swing.BoxLayout(pnl_searchPromotion, javax.swing.BoxLayout.X_AXIS));
+
+        pnl_txtSearchPromo.setLayout(new javax.swing.BoxLayout(pnl_txtSearchPromo, javax.swing.BoxLayout.LINE_AXIS));
+
+        txt_searchPromo.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Nhập mã khuyến mãi");
+        pnl_txtSearchPromo.add(txt_searchPromo);
+
+        pnl_searchPromotion.add(pnl_txtSearchPromo);
+
+        pnl_buttonSearchPromo.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        pnl_buttonSearchPromo.setMaximumSize(new java.awt.Dimension(100, 2147483647));
+        pnl_buttonSearchPromo.setPreferredSize(new java.awt.Dimension(100, 23));
+        pnl_buttonSearchPromo.setLayout(new java.awt.BorderLayout());
+
+        btn_searchPromo.setText("Tìm kiếm");
+        btn_searchPromo.putClientProperty(FlatClientProperties.STYLE,""
+            + "background:$Menu.background;"
+            + "foreground:$Menu.foreground;");
+        btn_searchPromo.setMaximumSize(new java.awt.Dimension(39, 23));
+        btn_searchPromo.setMinimumSize(new java.awt.Dimension(39, 23));
+        btn_searchPromo.setPreferredSize(new java.awt.Dimension(39, 23));
+        pnl_buttonSearchPromo.add(btn_searchPromo, java.awt.BorderLayout.CENTER);
+
+        pnl_searchPromotion.add(pnl_buttonSearchPromo);
+
+        pnl_listPromotion.add(pnl_searchPromotion);
+
+        pnl_promotionInfor.setMaximumSize(new java.awt.Dimension(900, 2147483647));
+        pnl_promotionInfor.setMinimumSize(new java.awt.Dimension(500, 16));
+        pnl_promotionInfor.setPreferredSize(new java.awt.Dimension(700, 402));
+        pnl_promotionInfor.setLayout(new java.awt.BorderLayout());
+
+        src_inforPromo.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+
+        tbl_inforPromo.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Mã KM", "Loại KM", "Giảm giá", "Ngày bắt đầu", "Ngày kết thúc", "Trạng thái"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        src_inforPromo.setViewportView(tbl_inforPromo);
+
+        pnl_promotionInfor.add(src_inforPromo, java.awt.BorderLayout.CENTER);
+
+        pnl_listPromotion.add(pnl_promotionInfor);
+
+        slp_promotion.setLeftComponent(pnl_listPromotion);
+
+        pnl_promotionNew.setMaximumSize(new java.awt.Dimension(666, 2147483647));
+        pnl_promotionNew.setMinimumSize(new java.awt.Dimension(500, 192));
+        pnl_promotionNew.setPreferredSize(new java.awt.Dimension(600, 190));
+        pnl_promotionNew.setLayout(new javax.swing.BoxLayout(pnl_promotionNew, javax.swing.BoxLayout.Y_AXIS));
+
+        pnl_filterPromo.setMaximumSize(new java.awt.Dimension(32767, 50));
+        pnl_filterPromo.setPreferredSize(new java.awt.Dimension(256, 50));
+        pnl_filterPromo.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+
+        cmb_typePromo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Loại" }));
+        pnl_filterPromo.add(cmb_typePromo);
+
+        cmb_statusPromo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Trạng thái", "Đang diễn ra", "Đã kết thúc" }));
+        pnl_filterPromo.add(cmb_statusPromo);
+
+        pnl_promotionNew.add(pnl_filterPromo);
+
+        pnl_inforPromo.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        pnl_inforPromo.setLayout(new javax.swing.BoxLayout(pnl_inforPromo, javax.swing.BoxLayout.Y_AXIS));
+
+        jPanel6.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        jPanel6.setMaximumSize(new java.awt.Dimension(2147483647, 50));
+        jPanel6.setMinimumSize(new java.awt.Dimension(151, 20));
+        jPanel6.setPreferredSize(new java.awt.Dimension(176, 40));
+        jPanel6.setLayout(new javax.swing.BoxLayout(jPanel6, javax.swing.BoxLayout.X_AXIS));
+
+        lbl_promotionID.setText("Mã KM:");
+        lbl_promotionID.setMaximumSize(new java.awt.Dimension(95, 16));
+        lbl_promotionID.setMinimumSize(new java.awt.Dimension(77, 16));
+        lbl_promotionID.setPreferredSize(new java.awt.Dimension(95, 16));
+        jPanel6.add(lbl_promotionID);
+
+        txt_promotionID.setEditable(false);
+        txt_promotionID.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        txt_promotionID.setPreferredSize(new java.awt.Dimension(71, 12));
+        txt_promotionID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_promotionIDActionPerformed(evt);
+            }
+        });
+        jPanel6.add(txt_promotionID);
+
+        pnl_inforPromo.add(jPanel6);
+
+        jPanel7.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        jPanel7.setLayout(new javax.swing.BoxLayout(jPanel7, javax.swing.BoxLayout.X_AXIS));
+
+        lbl_typePromo.setText("Loại KM:");
+        lbl_typePromo.setMaximumSize(new java.awt.Dimension(95, 16));
+        lbl_typePromo.setMinimumSize(new java.awt.Dimension(77, 16));
+        lbl_typePromo.setPreferredSize(new java.awt.Dimension(95, 16));
+        jPanel7.add(lbl_typePromo);
+
+        txt_typePromo.setMaximumSize(new java.awt.Dimension(2147483647, 50));
+        txt_typePromo.setPreferredSize(new java.awt.Dimension(71, 12));
+        jPanel7.add(txt_typePromo);
+
+        pnl_inforPromo.add(jPanel7);
+
+        jPanel8.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        jPanel8.setLayout(new javax.swing.BoxLayout(jPanel8, javax.swing.BoxLayout.X_AXIS));
+
+        lbl_discountPromo.setText("Giảm giá:");
+        lbl_discountPromo.setMaximumSize(new java.awt.Dimension(95, 16));
+        lbl_discountPromo.setMinimumSize(new java.awt.Dimension(77, 16));
+        lbl_discountPromo.setPreferredSize(new java.awt.Dimension(95, 16));
+        jPanel8.add(lbl_discountPromo);
+
+        txt_discountPromo.setMaximumSize(new java.awt.Dimension(2147483647, 50));
+        txt_discountPromo.setPreferredSize(new java.awt.Dimension(64, 40));
+        jPanel8.add(txt_discountPromo);
+
+        pnl_inforPromo.add(jPanel8);
+
+        jPanel9.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        jPanel9.setLayout(new javax.swing.BoxLayout(jPanel9, javax.swing.BoxLayout.X_AXIS));
+
+        lbl_startDatePromo.setText("Ngày bắt đầu:");
+        lbl_startDatePromo.setMaximumSize(new java.awt.Dimension(95, 16));
+        lbl_startDatePromo.setMinimumSize(new java.awt.Dimension(77, 16));
+        lbl_startDatePromo.setPreferredSize(new java.awt.Dimension(95, 16));
+        jPanel9.add(lbl_startDatePromo);
+
+        txt_startDatePromo.setMaximumSize(new java.awt.Dimension(2147483647, 50));
+        txt_startDatePromo.setMinimumSize(new java.awt.Dimension(64, 12));
+        txt_startDatePromo.setPreferredSize(new java.awt.Dimension(64, 40));
+        txt_startDatePromo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_startDatePromoActionPerformed(evt);
+            }
+        });
+        jPanel9.add(txt_startDatePromo);
+
+        pnl_inforPromo.add(jPanel9);
+
+        jPanel10.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        jPanel10.setLayout(new javax.swing.BoxLayout(jPanel10, javax.swing.BoxLayout.X_AXIS));
+
+        lbl_endDatePromo.setText("Ngày kết thúc:");
+        jPanel10.add(lbl_endDatePromo);
+
+        txt_endDatePromo.setMaximumSize(new java.awt.Dimension(2147483647, 50));
+        txt_endDatePromo.setMinimumSize(new java.awt.Dimension(64, 12));
+        txt_endDatePromo.setPreferredSize(new java.awt.Dimension(64, 40));
+        jPanel10.add(txt_endDatePromo);
+
+        pnl_inforPromo.add(jPanel10);
+
+        pnl_promotionNew.add(pnl_inforPromo);
+
+        pnl_buttonPromo.setMaximumSize(new java.awt.Dimension(65534, 50));
+        pnl_buttonPromo.setMinimumSize(new java.awt.Dimension(100, 50));
+        pnl_buttonPromo.setPreferredSize(new java.awt.Dimension(1261, 50));
+        pnl_buttonPromo.setLayout(new javax.swing.BoxLayout(pnl_buttonPromo, javax.swing.BoxLayout.LINE_AXIS));
+
+        jPanel11.setLayout(new java.awt.BorderLayout());
+
+        btn_createPromo.setText("TẠO MỚI");
+        btn_createPromo.putClientProperty(FlatClientProperties.STYLE,""
+            + "background:$Menu.background;"
+            + "foreground:$Menu.foreground;");
+        jPanel11.add(btn_createPromo, java.awt.BorderLayout.CENTER);
+
+        pnl_buttonPromo.add(jPanel11);
+
+        jPanel12.setLayout(new java.awt.BorderLayout());
+
+        btn_removePromo.setText("GỠ ");
+        btn_removePromo.setActionCommand("");
+        btn_removePromo.putClientProperty(FlatClientProperties.STYLE,""
+            + "background:$Menu.background;"
+            + "foreground:$Menu.foreground;");
+        btn_removePromo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_removePromoActionPerformed(evt);
+            }
+        });
+        jPanel12.add(btn_removePromo, java.awt.BorderLayout.CENTER);
+
+        pnl_buttonPromo.add(jPanel12);
+
+        pnl_promotionNew.add(pnl_buttonPromo);
+
+        slp_promotion.setRightComponent(pnl_promotionNew);
+
+        add(slp_promotion, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_removePromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_removePromoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_removePromoActionPerformed
+
+    private void txt_startDatePromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_startDatePromoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_startDatePromoActionPerformed
+
+    private void txt_promotionIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_promotionIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_promotionIDActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_createPromo;
+    private javax.swing.JButton btn_removePromo;
+    private javax.swing.JButton btn_searchPromo;
+    private javax.swing.JComboBox<String> cmb_statusPromo;
+    private javax.swing.JComboBox<String> cmb_typePromo;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
+    private javax.swing.JLabel lbl_discountPromo;
+    private javax.swing.JLabel lbl_endDatePromo;
+    private javax.swing.JLabel lbl_promotionID;
+    private javax.swing.JLabel lbl_startDatePromo;
+    private javax.swing.JLabel lbl_typePromo;
+    private javax.swing.JPanel pnl_buttonPromo;
+    private javax.swing.JPanel pnl_buttonSearchPromo;
+    private javax.swing.JPanel pnl_filterPromo;
+    private javax.swing.JPanel pnl_inforPromo;
+    private javax.swing.JPanel pnl_listPromotion;
+    private javax.swing.JPanel pnl_promotionInfor;
+    private javax.swing.JPanel pnl_promotionNew;
+    private javax.swing.JPanel pnl_searchPromotion;
+    private javax.swing.JPanel pnl_txtSearchPromo;
+    private javax.swing.JSplitPane slp_promotion;
+    private javax.swing.JScrollPane src_inforPromo;
+    private javax.swing.JTable tbl_inforPromo;
+    private javax.swing.JTextField txt_discountPromo;
+    private javax.swing.JTextField txt_endDatePromo;
+    private javax.swing.JTextField txt_promotionID;
+    private javax.swing.JTextField txt_searchPromo;
+    private javax.swing.JTextField txt_startDatePromo;
+    private javax.swing.JTextField txt_typePromo;
     // End of variables declaration//GEN-END:variables
 }
