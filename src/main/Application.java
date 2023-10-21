@@ -7,6 +7,7 @@ import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import entity.Employee;
 import gui.Login_GUI;
 import gui.MainView;
+import gui.Sales_GUI;
 import java.awt.Component;
 import java.awt.Font;
 import javax.swing.JFrame;
@@ -24,6 +25,7 @@ public class Application extends javax.swing.JFrame {
     private static Application app;
     private final MainView mainForm;
     private final Login_GUI loginForm;
+    private static final Sales_GUI salesForm = new Sales_GUI();
     public static Employee employee = null;
 
     public Application() {
@@ -33,7 +35,7 @@ public class Application extends javax.swing.JFrame {
         setTitle("Omega Book");
         mainForm = new MainView();
         loginForm = new Login_GUI();
-        setContentPane(mainForm);
+        setContentPane(loginForm);
         Notifications.getInstance().setJFrame(this);
 
         // Handle on close
@@ -53,6 +55,10 @@ public class Application extends javax.swing.JFrame {
         });
     }
 
+    public static void showMainView() {
+        app.mainForm.showForm(salesForm);
+    }
+
     public static void showForm(Component component) {
         component.applyComponentOrientation(app.getComponentOrientation());
         app.mainForm.showForm(component);
@@ -67,11 +73,11 @@ public class Application extends javax.swing.JFrame {
         FlatAnimatedLafChange.showSnapshot();
         app.setContentPane(app.mainForm);
         app.mainForm.applyComponentOrientation(app.getComponentOrientation());
-        setSelectedMenu(0, 0);
         app.mainForm.hideMenu();
+        setSelectedMenu(0, 0);
         SwingUtilities.updateComponentTreeUI(app.mainForm);
         FlatAnimatedLafChange.hideSnapshotWithAnimation();
-        
+
 //        Update state
         Application.employee = employee;
         Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đăng nhập vào hệ thống thành công");
@@ -84,7 +90,7 @@ public class Application extends javax.swing.JFrame {
         app.loginForm.applyComponentOrientation(app.getComponentOrientation());
         SwingUtilities.updateComponentTreeUI(app.loginForm);
         FlatAnimatedLafChange.hideSnapshotWithAnimation();
-        
+
 //        Update state
         Application.employee = null;
         Notifications.getInstance().show(Notifications.Type.INFO, "Đăng xuất khỏi hệ thống thành công");

@@ -39,8 +39,8 @@ public class Login_GUI extends javax.swing.JPanel {
         btn_login.putClientProperty(FlatClientProperties.STYLE, ""
                 + "borderWidth:0;"
                 + "focusWidth:0");
-        txt_user.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "");
-        txt_password.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "");
+        txt_user.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Mã nhân viên của bạn");
+        txt_password.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Nhập vào mật khẩu của bạn");
     }
 
     @SuppressWarnings("unchecked")
@@ -178,7 +178,7 @@ public class Login_GUI extends javax.swing.JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        Image background = Toolkit.getDefaultToolkit().createImage("imgs/login/background.png");
+        Image background = Toolkit.getDefaultToolkit().createImage("/imgs/login/background.png");
         g.drawImage(background, 0, 0, null);
     }
 

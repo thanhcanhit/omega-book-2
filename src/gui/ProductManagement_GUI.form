@@ -49,8 +49,23 @@
           <SubComponents>
             <Container class="javax.swing.JPanel" name="pnl_header">
               <Properties>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.CompoundBorderInfo">
+                    <CompoundBorder>
+                      <Border PropertyName="outside" info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                        <TitledBorder title="T&#xec;m ki&#x1ebf;m &amp; L&#x1ecd;c"/>
+                      </Border>
+                      <Border PropertyName="inside" info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+                        <EmptyBorder bottom="5" left="5" right="5" top="5"/>
+                      </Border>
+                    </CompoundBorder>
+                  </Border>
+                </Property>
+                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[516, 150]"/>
+                </Property>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[1366, 50]"/>
+                  <Dimension value="[1366, 150]"/>
                 </Property>
               </Properties>
               <Constraints>
@@ -59,30 +74,221 @@
                 </Constraint>
               </Constraints>
 
-              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
+              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout">
+                <Property name="axis" type="int" value="1"/>
+              </Layout>
               <SubComponents>
-                <Component class="javax.swing.JTextField" name="txt_search">
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txt_search.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, &quot;M&#xe3; s&#x1ea3;n ph&#x1ea9;m&quot;);"/>
-                  </AuxValues>
-                </Component>
-                <Component class="javax.swing.JButton" name="btn_search">
+                <Container class="javax.swing.JPanel" name="pnl_search">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Th&#xea;m"/>
                     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[100, 50]"/>
+                      <Dimension value="[2147483647, 40]"/>
                     </Property>
                     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[100, 50]"/>
+                      <Dimension value="[164, 40]"/>
                     </Property>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[100, 50]"/>
+                      <Dimension value="[100, 40]"/>
                     </Property>
                   </Properties>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_search.putClientProperty(FlatClientProperties.STYLE,&quot;&quot;&#xa;                + &quot;background:$Menu.background;&quot;&#xa;                + &quot;foreground:$Menu.foreground;&quot;);"/>
-                  </AuxValues>
-                </Component>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JTextField" name="txt_search">
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txt_search.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, &quot;M&#xe3; s&#x1ea3;n ph&#x1ea9;m&quot;);"/>
+                      </AuxValues>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="btn_search">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="T&#xec;m ki&#x1ebf;m"/>
+                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[100, 50]"/>
+                        </Property>
+                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[100, 50]"/>
+                        </Property>
+                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[100, 50]"/>
+                        </Property>
+                      </Properties>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_search.putClientProperty(FlatClientProperties.STYLE,&quot;&quot;&#xa;                + &quot;background:$Menu.background;&quot;&#xa;                + &quot;foreground:$Menu.foreground;&quot;);"/>
+                      </AuxValues>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Container class="javax.swing.JPanel" name="pnl_filter">
+                  <Properties>
+                    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[32867, 80]"/>
+                    </Property>
+                    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[506, 80]"/>
+                    </Property>
+                    <Property name="opaque" type="boolean" value="false"/>
+                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[100, 80]"/>
+                    </Property>
+                  </Properties>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
+                  <SubComponents>
+                    <Container class="javax.swing.JPanel" name="pnl_container20">
+                      <Properties>
+                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[406, 80]"/>
+                        </Property>
+                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[100, 80]"/>
+                        </Property>
+                      </Properties>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
+                        <Property name="columns" type="int" value="2"/>
+                        <Property name="horizontalGap" type="int" value="5"/>
+                        <Property name="rows" type="int" value="2"/>
+                        <Property name="verticalGap" type="int" value="5"/>
+                      </Layout>
+                      <SubComponents>
+                        <Container class="javax.swing.JPanel" name="pnl_name">
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
+                          <SubComponents>
+                            <Component class="javax.swing.JLabel" name="lbl_name">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="T&#xea;n s&#x1ea3;n ph&#x1ea9;m"/>
+                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[110, 35]"/>
+                                </Property>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JTextField" name="txt_name">
+                              <Properties>
+                                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[100, 22]"/>
+                                </Property>
+                              </Properties>
+                            </Component>
+                          </SubComponents>
+                        </Container>
+                        <Container class="javax.swing.JPanel" name="pnl_empty">
+                          <Properties>
+                            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[100, 20]"/>
+                            </Property>
+                          </Properties>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
+                          <SubComponents>
+                            <Component class="javax.swing.JCheckBox" name="chk_empty">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="S&#x1ea3;n ph&#x1ea9;m h&#x1ebf;t h&#xe0;ng"/>
+                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[140, 35]"/>
+                                </Property>
+                              </Properties>
+                            </Component>
+                          </SubComponents>
+                        </Container>
+                        <Container class="javax.swing.JPanel" name="pnl_type">
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
+                          <SubComponents>
+                            <Component class="javax.swing.JLabel" name="lbl_type">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Lo&#x1ea1;i s&#x1ea3;n ph&#x1ea9;m"/>
+                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[110, 35]"/>
+                                </Property>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JComboBox" name="cmb_type">
+                              <Properties>
+                                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                                  <StringArray count="2">
+                                    <StringItem index="0" value="S&#xe1;ch"/>
+                                    <StringItem index="1" value="V&#x103;n ph&#xf2;ng ph&#x1ea9;m"/>
+                                  </StringArray>
+                                </Property>
+                              </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                              </AuxValues>
+                            </Component>
+                          </SubComponents>
+                        </Container>
+                        <Container class="javax.swing.JPanel" name="pnl_typeDetail">
+                          <Properties>
+                            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                              <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+                                <EmptyBorder bottom="0" left="5" right="0" top="0"/>
+                              </Border>
+                            </Property>
+                            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[140, 35]"/>
+                            </Property>
+                          </Properties>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
+                          <SubComponents>
+                            <Component class="javax.swing.JLabel" name="lbl_typeDetail">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Lo&#x1ea1;i chi ti&#x1ebf;t"/>
+                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[110, 35]"/>
+                                </Property>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JComboBox" name="cmb_typeDetail">
+                              <Properties>
+                                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                                  <StringArray count="2">
+                                    <StringItem index="0" value="Wibu"/>
+                                    <StringItem index="1" value="Anime"/>
+                                  </StringArray>
+                                </Property>
+                              </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                              </AuxValues>
+                            </Component>
+                          </SubComponents>
+                        </Container>
+                      </SubComponents>
+                    </Container>
+                    <Container class="javax.swing.JPanel" name="pnl_container21">
+                      <Properties>
+                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[100, 32767]"/>
+                        </Property>
+                      </Properties>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
+                        <Property name="columns" type="int" value="0"/>
+                        <Property name="rows" type="int" value="1"/>
+                      </Layout>
+                      <SubComponents>
+                        <Component class="javax.swing.JButton" name="btn_filter">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="L&#x1ecd;c"/>
+                            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[100, 50]"/>
+                            </Property>
+                            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[100, 50]"/>
+                            </Property>
+                            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[100, 50]"/>
+                            </Property>
+                          </Properties>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_filter.putClientProperty(FlatClientProperties.STYLE,&quot;&quot;&#xa;                + &quot;background:$Menu.background;&quot;&#xa;                + &quot;foreground:$Menu.foreground;&quot;);"/>
+                          </AuxValues>
+                        </Component>
+                      </SubComponents>
+                    </Container>
+                  </SubComponents>
+                </Container>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="pnl_cart">
@@ -212,10 +418,11 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
           <SubComponents>
-            <Container class="javax.swing.JScrollPane" name="scr_info">
+            <Container class="javax.swing.JScrollPane" name="scr_detail">
               <Properties>
-                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[400, 600]"/>
+                <Property name="autoscrolls" type="boolean" value="true"/>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Default Cursor"/>
                 </Property>
                 <Property name="viewportView" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
                   <ComponentRef name="pnl_rightCenter"/>
@@ -232,8 +439,9 @@
                 <Container class="javax.swing.JPanel" name="pnl_rightCenter">
                   <Properties>
                     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[420, 400]"/>
+                      <Dimension value="[420, 800]"/>
                     </Property>
+                    <Property name="name" type="java.lang.String" value="" noResource="true"/>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[400, 600]"/>
                     </Property>
@@ -269,10 +477,10 @@
                         <Container class="javax.swing.JPanel" name="pnl_productTop">
                           <Properties>
                             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[400, 140]"/>
+                              <Dimension value="[400, 170]"/>
                             </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[400, 180]"/>
+                              <Dimension value="[400, 170]"/>
                             </Property>
                           </Properties>
 
@@ -612,13 +820,13 @@
                         <AuxValue name="classDetails" type="java.lang.String" value="Box.Filler.VerticalStrut"/>
                       </AuxValues>
                     </Component>
-                    <Container class="javax.swing.JPanel" name="pnl_bookDetail2">
+                    <Container class="javax.swing.JPanel" name="pnl_stationeryDetail">
                       <Properties>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.CompoundBorderInfo">
                             <CompoundBorder>
                               <Border PropertyName="outside" info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                                <TitledBorder title="Th&#xf4;ng tin chi ti&#x1ebf;t s&#xe1;ch"/>
+                                <TitledBorder title="Th&#xf4;ng tin chi ti&#x1ebf;t v&#x103;n ph&#xf2;ng ph&#x1ea9;m"/>
                               </Border>
                               <Border PropertyName="inside" info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
                                 <EmptyBorder bottom="5" left="5" right="5" top="5"/>
@@ -626,8 +834,11 @@
                             </CompoundBorder>
                           </Border>
                         </Property>
+                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[425, 200]"/>
+                        </Property>
                         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[400, 400]"/>
+                          <Dimension value="[400, 300]"/>
                         </Property>
                       </Properties>
 
@@ -635,73 +846,15 @@
                         <Property name="axis" type="int" value="1"/>
                       </Layout>
                       <SubComponents>
-                        <Container class="javax.swing.JPanel" name="pnl_bookCenter2">
+                        <Container class="javax.swing.JPanel" name="pnl_stationery">
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
-                            <Property name="columns" type="int" value="2"/>
+                            <Property name="columns" type="int" value="1"/>
                             <Property name="horizontalGap" type="int" value="5"/>
-                            <Property name="rows" type="int" value="4"/>
+                            <Property name="rows" type="int" value="5"/>
                             <Property name="verticalGap" type="int" value="5"/>
                           </Layout>
                           <SubComponents>
-                            <Container class="javax.swing.JPanel" name="pnl_bookAuthor2">
-                              <Properties>
-                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[100, 35]"/>
-                                </Property>
-                              </Properties>
-
-                              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
-                              <SubComponents>
-                                <Component class="javax.swing.JLabel" name="lbl_bookAuthor2">
-                                  <Properties>
-                                    <Property name="text" type="java.lang.String" value="T&#xe1;c gi&#x1ea3;"/>
-                                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                      <Dimension value="[130, 40]"/>
-                                    </Property>
-                                  </Properties>
-                                </Component>
-                                <Component class="javax.swing.JTextField" name="txt_bookAuthor2">
-                                  <Properties>
-                                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                      <Dimension value="[64, 40]"/>
-                                    </Property>
-                                  </Properties>
-                                  <Events>
-                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_bookAuthor2ActionPerformed"/>
-                                  </Events>
-                                </Component>
-                              </SubComponents>
-                            </Container>
-                            <Container class="javax.swing.JPanel" name="pnl_bookPublisher2">
-                              <Properties>
-                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[100, 35]"/>
-                                </Property>
-                              </Properties>
-
-                              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
-                              <SubComponents>
-                                <Component class="javax.swing.JLabel" name="lbl_bookPublisher2">
-                                  <Properties>
-                                    <Property name="text" type="java.lang.String" value="Nh&#xe0; xu&#x1ea5;t b&#x1ea3;n"/>
-                                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                      <Dimension value="[130, 40]"/>
-                                    </Property>
-                                  </Properties>
-                                </Component>
-                                <Component class="javax.swing.JTextField" name="txt_bookPublisher2">
-                                  <Properties>
-                                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                      <Dimension value="[64, 40]"/>
-                                    </Property>
-                                  </Properties>
-                                  <Events>
-                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_bookPublisher2ActionPerformed"/>
-                                  </Events>
-                                </Component>
-                              </SubComponents>
-                            </Container>
                             <Container class="javax.swing.JPanel" name="pnl_container23">
                               <Properties>
                                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -711,23 +864,24 @@
 
                               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
                               <SubComponents>
-                                <Component class="javax.swing.JLabel" name="lbl_bookPublishDate2">
+                                <Component class="javax.swing.JLabel" name="lbl_stationeryColor">
                                   <Properties>
-                                    <Property name="text" type="java.lang.String" value="N&#x103;m xu&#x1ea5;t b&#x1ea3;n"/>
+                                    <Property name="text" type="java.lang.String" value="M&#xe0;u s&#x1eaf;c"/>
                                     <Property name="toolTipText" type="java.lang.String" value=""/>
                                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                      <Dimension value="[130, 40]"/>
+                                      <Dimension value="[100, 30]"/>
                                     </Property>
+                                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
                                   </Properties>
                                 </Component>
-                                <Component class="javax.swing.JTextField" name="txt_bookPublishDate2">
+                                <Component class="javax.swing.JTextField" name="txt_stationeryColor">
                                   <Properties>
                                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                                       <Dimension value="[64, 40]"/>
                                     </Property>
                                   </Properties>
                                   <Events>
-                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_bookPublishDate2ActionPerformed"/>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_stationeryColorActionPerformed"/>
                                   </Events>
                                 </Component>
                               </SubComponents>
@@ -741,20 +895,24 @@
 
                               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
                               <SubComponents>
-                                <Component class="javax.swing.JLabel" name="lbl_bookHardCover2">
+                                <Component class="javax.swing.JLabel" name="lbl_stationeryType">
                                   <Properties>
-                                    <Property name="text" type="java.lang.String" value="B&#xec;a c&#x1ee9;ng"/>
-                                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                      <Dimension value="[130, 40]"/>
+                                    <Property name="text" type="java.lang.String" value="Lo&#x1ea1;i VPP"/>
+                                    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[120, 30]"/>
                                     </Property>
+                                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[100, 30]"/>
+                                    </Property>
+                                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
                                   </Properties>
                                 </Component>
-                                <Component class="javax.swing.JComboBox" name="cmb_bookHardCover2">
+                                <Component class="javax.swing.JComboBox" name="cmb_stationeryType">
                                   <Properties>
                                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                                       <StringArray count="2">
-                                        <StringItem index="0" value="C&#xf3;"/>
-                                        <StringItem index="1" value="Kh&#xf4;ng"/>
+                                        <StringItem index="0" value="B&#xfa;t-vi&#x1ebf;t"/>
+                                        <StringItem index="1" value="D&#x1ee5;ng c&#x1ee5; h&#x1ecd;c sinh"/>
                                       </StringArray>
                                     </Property>
                                   </Properties>
@@ -773,15 +931,16 @@
 
                               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
                               <SubComponents>
-                                <Component class="javax.swing.JLabel" name="lbl_bookQuantityPage2">
+                                <Component class="javax.swing.JLabel" name="lbl_stationeryOrigin">
                                   <Properties>
-                                    <Property name="text" type="java.lang.String" value="S&#x1ed1; trang"/>
+                                    <Property name="text" type="java.lang.String" value="Xu&#x1ea5;t x&#x1ee9;"/>
                                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                      <Dimension value="[130, 40]"/>
+                                      <Dimension value="[100, 30]"/>
                                     </Property>
+                                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
                                   </Properties>
                                 </Component>
-                                <Component class="javax.swing.JTextField" name="txt_bookQuantityPage2">
+                                <Component class="javax.swing.JTextField" name="txt_stationeryOrigin">
                                 </Component>
                               </SubComponents>
                             </Container>
@@ -794,28 +953,32 @@
 
                               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
                               <SubComponents>
-                                <Component class="javax.swing.JLabel" name="lbl_bookLanguage2">
+                                <Component class="javax.swing.JLabel" name="lbl_stationeryWeight">
                                   <Properties>
-                                    <Property name="text" type="java.lang.String" value="Ng&#xf4;n ng&#x1eef;"/>
+                                    <Property name="text" type="java.lang.String" value="Tr&#x1ecd;ng l&#x1b0;&#x1ee3;ng"/>
                                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                      <Dimension value="[130, 40]"/>
+                                      <Dimension value="[100, 30]"/>
                                     </Property>
+                                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
                                   </Properties>
                                 </Component>
-                                <Component class="javax.swing.JTextField" name="txt_bookLanguage2">
+                                <Component class="javax.swing.JTextField" name="txt_stationeryWeight">
                                   <Properties>
                                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                                       <Dimension value="[64, 40]"/>
                                     </Property>
                                   </Properties>
                                   <Events>
-                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_bookLanguage2ActionPerformed"/>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_stationeryWeightActionPerformed"/>
                                   </Events>
                                 </Component>
                               </SubComponents>
                             </Container>
-                            <Container class="javax.swing.JPanel" name="pnl_container27">
+                            <Container class="javax.swing.JPanel" name="pnl_container28">
                               <Properties>
+                                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[200, 30]"/>
+                                </Property>
                                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                                   <Dimension value="[100, 35]"/>
                                 </Property>
@@ -823,84 +986,37 @@
 
                               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
                               <SubComponents>
-                                <Component class="javax.swing.JLabel" name="lbl_bookTranslator2">
+                                <Component class="javax.swing.JLabel" name="lbl_stationeryBrand">
                                   <Properties>
-                                    <Property name="text" type="java.lang.String" value="D&#x1ecb;ch gi&#x1ea3;"/>
-                                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                      <Dimension value="[130, 40]"/>
+                                    <Property name="text" type="java.lang.String" value="Nh&#xe3;n h&#xe0;ng"/>
+                                    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[120, 30]"/>
                                     </Property>
+                                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[100, 30]"/>
+                                    </Property>
+                                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
                                   </Properties>
                                 </Component>
-                                <Component class="javax.swing.JTextField" name="txt_bookTranslator2">
+                                <Component class="javax.swing.JComboBox" name="cmb_stationeryBrand">
                                   <Properties>
+                                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                                      <StringArray count="3">
+                                        <StringItem index="0" value="Nh&#xe3;n h&#xe0;ng 1"/>
+                                        <StringItem index="1" value="Nh&#xe3;n h&#xe0;ng 2"/>
+                                        <StringItem index="2" value=" "/>
+                                      </StringArray>
+                                    </Property>
+                                    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[102, 30]"/>
+                                    </Property>
                                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                      <Dimension value="[64, 40]"/>
+                                      <Dimension value="[102, 30]"/>
                                     </Property>
                                   </Properties>
-                                  <Events>
-                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_bookTranslator2ActionPerformed"/>
-                                  </Events>
-                                </Component>
-                              </SubComponents>
-                            </Container>
-                          </SubComponents>
-                        </Container>
-                        <Container class="javax.swing.JPanel" name="pnl_container9">
-                          <Properties>
-                            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                              <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
-                                <EmptyBorder bottom="0" left="0" right="0" top="0"/>
-                              </Border>
-                            </Property>
-                            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[200, 110]"/>
-                            </Property>
-                            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[279, 140]"/>
-                            </Property>
-                          </Properties>
-
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout">
-                            <Property name="axis" type="int" value="1"/>
-                          </Layout>
-                          <SubComponents>
-                            <Container class="javax.swing.JPanel" name="pnl_container28">
-
-                              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
-                                <Property name="columns" type="int" value="0"/>
-                                <Property name="rows" type="int" value="1"/>
-                              </Layout>
-                              <SubComponents>
-                                <Component class="javax.swing.JLabel" name="lbl_bookDescription2">
-                                  <Properties>
-                                    <Property name="text" type="java.lang.String" value="M&#xf4; t&#x1ea3;"/>
-                                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                      <Dimension value="[100, 20]"/>
-                                    </Property>
-                                  </Properties>
-                                </Component>
-                              </SubComponents>
-                            </Container>
-                            <Container class="javax.swing.JScrollPane" name="scr_productName3">
-                              <Properties>
-                                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[100, 100]"/>
-                                </Property>
-                              </Properties>
-                              <AuxValues>
-                                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                              </AuxValues>
-
-                              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                              <SubComponents>
-                                <Component class="javax.swing.JTextArea" name="txa_bookDescription2">
-                                  <Properties>
-                                    <Property name="columns" type="int" value="15"/>
-                                    <Property name="lineWrap" type="boolean" value="true"/>
-                                    <Property name="rows" type="int" value="4"/>
-                                    <Property name="tabSize" type="int" value="4"/>
-                                    <Property name="text" type="java.lang.String" value="Cu&#x1ed9;c &#x111;&#x1edd;i c&#x1ee7;a thanhcanhit"/>
-                                  </Properties>
+                                  <AuxValues>
+                                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                                  </AuxValues>
                                 </Component>
                               </SubComponents>
                             </Container>
