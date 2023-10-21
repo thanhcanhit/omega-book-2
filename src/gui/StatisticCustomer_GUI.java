@@ -26,21 +26,384 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setPreferredSize(new java.awt.Dimension(1366, 768));
+        pnl_chart = new javax.swing.JPanel();
+        pnl_header = new javax.swing.JPanel();
+        pnl_filter = new javax.swing.JPanel();
+        cbo_month = new com.toedter.calendar.JMonthChooser();
+        cbo_year = new com.toedter.calendar.JYearChooser();
+        btn_filter = new javax.swing.JButton();
+        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(600, 0), new java.awt.Dimension(600, 0), new java.awt.Dimension(600, 32767));
+        pnl_infor = new javax.swing.JPanel();
+        pnl_infoCustomer = new javax.swing.JPanel();
+        jPanel13 = new javax.swing.JPanel();
+        jPanel14 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jTextField7 = new javax.swing.JTextField();
+        jPanel15 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jTextField8 = new javax.swing.JTextField();
+        jPanel16 = new javax.swing.JPanel();
+        jPanel17 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jTextField9 = new javax.swing.JTextField();
+        jPanel18 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jTextField10 = new javax.swing.JTextField();
+        pnl_inforByGroup = new javax.swing.JPanel();
+        pnl_groupOfMale = new javax.swing.JPanel();
+        pnl_maleUnder18 = new javax.swing.JPanel();
+        lbl_maleUnder18 = new javax.swing.JLabel();
+        txt_maleUnder18 = new javax.swing.JTextField();
+        pnl_male18To40 = new javax.swing.JPanel();
+        lbl_male18To40 = new javax.swing.JLabel();
+        txt_male18To40 = new javax.swing.JTextField();
+        pnl_maleOver40 = new javax.swing.JPanel();
+        lbl_maleOver40 = new javax.swing.JLabel();
+        txt_maleOver40 = new javax.swing.JTextField();
+        pnl_groupOfFemale = new javax.swing.JPanel();
+        pnl_femaleUnder18 = new javax.swing.JPanel();
+        lbl_femaleUnder18 = new javax.swing.JLabel();
+        txt_femaleUnder18 = new javax.swing.JTextField();
+        pnl_female18To40 = new javax.swing.JPanel();
+        lbl_female18To40 = new javax.swing.JLabel();
+        txt_female18To40 = new javax.swing.JTextField();
+        pnl_femaleOver40 = new javax.swing.JPanel();
+        lbl_femaleOver40 = new javax.swing.JLabel();
+        txt_femaleOver40 = new javax.swing.JTextField();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        setPreferredSize(new java.awt.Dimension(1366, 768));
+        setLayout(new java.awt.BorderLayout());
+
+        pnl_chart.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thống kê theo nhóm khách hàng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14)), javax.swing.BorderFactory.createEmptyBorder(20, 1, 1, 1))); // NOI18N
+        pnl_chart.setPreferredSize(new java.awt.Dimension(200, 0));
+
+        javax.swing.GroupLayout pnl_chartLayout = new javax.swing.GroupLayout(pnl_chart);
+        pnl_chart.setLayout(pnl_chartLayout);
+        pnl_chartLayout.setHorizontalGroup(
+            pnl_chartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1070, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        pnl_chartLayout.setVerticalGroup(
+            pnl_chartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
+
+        add(pnl_chart, java.awt.BorderLayout.CENTER);
+
+        pnl_header.setLayout(new javax.swing.BoxLayout(pnl_header, javax.swing.BoxLayout.Y_AXIS));
+
+        pnl_filter.setMaximumSize(new java.awt.Dimension(12000000, 2147483647));
+        pnl_filter.setMinimumSize(new java.awt.Dimension(0, 0));
+        pnl_filter.setPreferredSize(new java.awt.Dimension(100, 50));
+        pnl_filter.setLayout(new javax.swing.BoxLayout(pnl_filter, javax.swing.BoxLayout.LINE_AXIS));
+
+        cbo_month.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 100));
+        cbo_month.setMaximumSize(new java.awt.Dimension(180, 2147483647));
+        cbo_month.setPreferredSize(new java.awt.Dimension(180, 28));
+        pnl_filter.add(cbo_month);
+
+        cbo_year.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 10));
+        cbo_year.setMaximumSize(new java.awt.Dimension(180, 2147483647));
+        cbo_year.setPreferredSize(new java.awt.Dimension(180, 26));
+        pnl_filter.add(cbo_year);
+
+        btn_filter.setText("Lọc");
+        btn_filter.setToolTipText("");
+        btn_filter.setMaximumSize(new java.awt.Dimension(77, 70));
+        btn_filter.setMinimumSize(new java.awt.Dimension(72, 28));
+        btn_filter.setPreferredSize(new java.awt.Dimension(72, 30));
+        pnl_filter.add(btn_filter);
+        pnl_filter.add(filler3);
+
+        pnl_header.add(pnl_filter);
+
+        pnl_infor.setLayout(new javax.swing.BoxLayout(pnl_infor, javax.swing.BoxLayout.Y_AXIS));
+
+        pnl_infoCustomer.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14)), javax.swing.BorderFactory.createEmptyBorder(10, 20, 10, 20))); // NOI18N
+        pnl_infoCustomer.setLayout(new javax.swing.BoxLayout(pnl_infoCustomer, javax.swing.BoxLayout.X_AXIS));
+
+        jPanel13.setLayout(new javax.swing.BoxLayout(jPanel13, javax.swing.BoxLayout.Y_AXIS));
+
+        jPanel14.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 1, 5, 1));
+        jPanel14.setLayout(new javax.swing.BoxLayout(jPanel14, javax.swing.BoxLayout.X_AXIS));
+
+        jLabel7.setFont(jLabel7.getFont().deriveFont((float)16));
+        jLabel7.setText("Số lượng khách mua hàng:");
+        jLabel7.setPreferredSize(new java.awt.Dimension(200, 0));
+        jPanel14.add(jLabel7);
+
+        jTextField7.setEditable(false);
+        jTextField7.setBackground(null);
+        jTextField7.setFont(jTextField7.getFont().deriveFont((float)16));
+        jTextField7.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTextField7.setToolTipText("");
+        jTextField7.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0)));
+        jTextField7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField7ActionPerformed(evt);
+            }
+        });
+        jPanel14.add(jTextField7);
+
+        jPanel13.add(jPanel14);
+
+        jPanel15.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 1, 5, 1));
+        jPanel15.setLayout(new javax.swing.BoxLayout(jPanel15, javax.swing.BoxLayout.X_AXIS));
+
+        jLabel8.setFont(jLabel8.getFont().deriveFont((float)16));
+        jLabel8.setText("Khách hàng thành viên:");
+        jLabel8.setPreferredSize(new java.awt.Dimension(200, 0));
+        jPanel15.add(jLabel8);
+
+        jTextField8.setEditable(false);
+        jTextField8.setBackground(null);
+        jTextField8.setFont(jTextField8.getFont().deriveFont((float)16));
+        jTextField8.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTextField8.setToolTipText("");
+        jTextField8.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0)));
+        jPanel15.add(jTextField8);
+
+        jPanel13.add(jPanel15);
+
+        pnl_infoCustomer.add(jPanel13);
+
+        jPanel16.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 1));
+        jPanel16.setLayout(new javax.swing.BoxLayout(jPanel16, javax.swing.BoxLayout.Y_AXIS));
+
+        jPanel17.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 1, 5, 1));
+        jPanel17.setLayout(new javax.swing.BoxLayout(jPanel17, javax.swing.BoxLayout.X_AXIS));
+
+        jLabel9.setFont(jLabel9.getFont().deriveFont((float)16));
+        jLabel9.setText("Tổng khách nam:");
+        jLabel9.setPreferredSize(new java.awt.Dimension(200, 0));
+        jPanel17.add(jLabel9);
+
+        jTextField9.setEditable(false);
+        jTextField9.setBackground(null);
+        jTextField9.setFont(jTextField9.getFont().deriveFont((float)16));
+        jTextField9.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTextField9.setToolTipText("");
+        jTextField9.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0)));
+        jTextField9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField9ActionPerformed(evt);
+            }
+        });
+        jPanel17.add(jTextField9);
+
+        jPanel16.add(jPanel17);
+
+        jPanel18.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 1, 5, 1));
+        jPanel18.setLayout(new javax.swing.BoxLayout(jPanel18, javax.swing.BoxLayout.X_AXIS));
+
+        jLabel10.setFont(jLabel10.getFont().deriveFont((float)16));
+        jLabel10.setText("Tổng khách nữ:");
+        jLabel10.setPreferredSize(new java.awt.Dimension(200, 0));
+        jPanel18.add(jLabel10);
+
+        jTextField10.setEditable(false);
+        jTextField10.setBackground(null);
+        jTextField10.setFont(jTextField10.getFont().deriveFont((float)16));
+        jTextField10.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTextField10.setToolTipText("");
+        jTextField10.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0)));
+        jPanel18.add(jTextField10);
+
+        jPanel16.add(jPanel18);
+
+        pnl_infoCustomer.add(jPanel16);
+
+        pnl_infor.add(pnl_infoCustomer);
+
+        pnl_inforByGroup.setLayout(new javax.swing.BoxLayout(pnl_inforByGroup, javax.swing.BoxLayout.X_AXIS));
+
+        pnl_groupOfMale.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Khách hàng nam", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14)), javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 1))); // NOI18N
+        pnl_groupOfMale.setLayout(new javax.swing.BoxLayout(pnl_groupOfMale, javax.swing.BoxLayout.Y_AXIS));
+
+        pnl_maleUnder18.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 1, 1, 1));
+        pnl_maleUnder18.setLayout(new javax.swing.BoxLayout(pnl_maleUnder18, javax.swing.BoxLayout.X_AXIS));
+
+        lbl_maleUnder18.setFont(lbl_maleUnder18.getFont().deriveFont((float)16));
+        lbl_maleUnder18.setText("Nam < 18 tuổi:");
+        lbl_maleUnder18.setPreferredSize(new java.awt.Dimension(150, 16));
+        pnl_maleUnder18.add(lbl_maleUnder18);
+
+        txt_maleUnder18.setEditable(false);
+        txt_maleUnder18.setBackground(null);
+        txt_maleUnder18.setFont(txt_maleUnder18.getFont().deriveFont((float)16));
+        txt_maleUnder18.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txt_maleUnder18.setToolTipText("");
+        txt_maleUnder18.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), null));
+        pnl_maleUnder18.add(txt_maleUnder18);
+
+        pnl_groupOfMale.add(pnl_maleUnder18);
+
+        pnl_male18To40.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 1, 1, 1));
+        pnl_male18To40.setLayout(new javax.swing.BoxLayout(pnl_male18To40, javax.swing.BoxLayout.X_AXIS));
+
+        lbl_male18To40.setFont(lbl_male18To40.getFont().deriveFont((float)16));
+        lbl_male18To40.setText("Nam từ 18 - 40 tuổi:");
+        lbl_male18To40.setPreferredSize(new java.awt.Dimension(150, 16));
+        pnl_male18To40.add(lbl_male18To40);
+
+        txt_male18To40.setEditable(false);
+        txt_male18To40.setBackground(null);
+        txt_male18To40.setFont(txt_male18To40.getFont().deriveFont((float)16));
+        txt_male18To40.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txt_male18To40.setToolTipText("");
+        txt_male18To40.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), null));
+        txt_male18To40.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_male18To40ActionPerformed(evt);
+            }
+        });
+        pnl_male18To40.add(txt_male18To40);
+
+        pnl_groupOfMale.add(pnl_male18To40);
+
+        pnl_maleOver40.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 1, 1, 1));
+        pnl_maleOver40.setLayout(new javax.swing.BoxLayout(pnl_maleOver40, javax.swing.BoxLayout.X_AXIS));
+
+        lbl_maleOver40.setFont(lbl_maleOver40.getFont().deriveFont((float)16));
+        lbl_maleOver40.setText("Nam > 40 tuổi");
+        lbl_maleOver40.setPreferredSize(new java.awt.Dimension(150, 16));
+        pnl_maleOver40.add(lbl_maleOver40);
+
+        txt_maleOver40.setEditable(false);
+        txt_maleOver40.setBackground(null);
+        txt_maleOver40.setFont(txt_maleOver40.getFont().deriveFont((float)16));
+        txt_maleOver40.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txt_maleOver40.setToolTipText("");
+        txt_maleOver40.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), null));
+        pnl_maleOver40.add(txt_maleOver40);
+
+        pnl_groupOfMale.add(pnl_maleOver40);
+
+        pnl_inforByGroup.add(pnl_groupOfMale);
+
+        pnl_groupOfFemale.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Khách hàng nữ"), javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 1)));
+        pnl_groupOfFemale.setLayout(new javax.swing.BoxLayout(pnl_groupOfFemale, javax.swing.BoxLayout.Y_AXIS));
+
+        pnl_femaleUnder18.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 1, 1, 1));
+        pnl_femaleUnder18.setLayout(new javax.swing.BoxLayout(pnl_femaleUnder18, javax.swing.BoxLayout.X_AXIS));
+
+        lbl_femaleUnder18.setFont(lbl_femaleUnder18.getFont().deriveFont((float)16));
+        lbl_femaleUnder18.setText("Nữ < 18 tuổi:");
+        lbl_femaleUnder18.setPreferredSize(new java.awt.Dimension(150, 16));
+        pnl_femaleUnder18.add(lbl_femaleUnder18);
+
+        txt_femaleUnder18.setEditable(false);
+        txt_femaleUnder18.setBackground(null);
+        txt_femaleUnder18.setFont(txt_femaleUnder18.getFont().deriveFont((float)16));
+        txt_femaleUnder18.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txt_femaleUnder18.setToolTipText("");
+        txt_femaleUnder18.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), null));
+        pnl_femaleUnder18.add(txt_femaleUnder18);
+
+        pnl_groupOfFemale.add(pnl_femaleUnder18);
+
+        pnl_female18To40.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 1, 1, 1));
+        pnl_female18To40.setLayout(new javax.swing.BoxLayout(pnl_female18To40, javax.swing.BoxLayout.X_AXIS));
+
+        lbl_female18To40.setFont(lbl_female18To40.getFont().deriveFont((float)16));
+        lbl_female18To40.setText("Nữ từ 18 - 40 tuổi:");
+        lbl_female18To40.setPreferredSize(new java.awt.Dimension(150, 16));
+        pnl_female18To40.add(lbl_female18To40);
+
+        txt_female18To40.setEditable(false);
+        txt_female18To40.setBackground(null);
+        txt_female18To40.setFont(txt_female18To40.getFont().deriveFont((float)16));
+        txt_female18To40.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txt_female18To40.setToolTipText("");
+        txt_female18To40.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), null));
+        pnl_female18To40.add(txt_female18To40);
+
+        pnl_groupOfFemale.add(pnl_female18To40);
+
+        pnl_femaleOver40.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 1, 1, 1));
+        pnl_femaleOver40.setLayout(new javax.swing.BoxLayout(pnl_femaleOver40, javax.swing.BoxLayout.X_AXIS));
+
+        lbl_femaleOver40.setFont(lbl_femaleOver40.getFont().deriveFont((float)16));
+        lbl_femaleOver40.setText("Nữ > 40 tuổi:");
+        lbl_femaleOver40.setPreferredSize(new java.awt.Dimension(150, 16));
+        pnl_femaleOver40.add(lbl_femaleOver40);
+
+        txt_femaleOver40.setEditable(false);
+        txt_femaleOver40.setBackground(null);
+        txt_femaleOver40.setFont(txt_femaleOver40.getFont().deriveFont((float)16));
+        txt_femaleOver40.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txt_femaleOver40.setToolTipText("");
+        txt_femaleOver40.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), null));
+        pnl_femaleOver40.add(txt_femaleOver40);
+
+        pnl_groupOfFemale.add(pnl_femaleOver40);
+
+        pnl_inforByGroup.add(pnl_groupOfFemale);
+
+        pnl_infor.add(pnl_inforByGroup);
+
+        pnl_header.add(pnl_infor);
+
+        add(pnl_header, java.awt.BorderLayout.NORTH);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txt_male18To40ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_male18To40ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_male18To40ActionPerformed
+
+    private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField9ActionPerformed
+
+    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField7ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_filter;
+    private com.toedter.calendar.JMonthChooser cbo_month;
+    private com.toedter.calendar.JYearChooser cbo_year;
+    private javax.swing.Box.Filler filler3;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
+    private javax.swing.JPanel jPanel16;
+    private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel18;
+    private javax.swing.JTextField jTextField10;
+    private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextField jTextField9;
+    private javax.swing.JLabel lbl_female18To40;
+    private javax.swing.JLabel lbl_femaleOver40;
+    private javax.swing.JLabel lbl_femaleUnder18;
+    private javax.swing.JLabel lbl_male18To40;
+    private javax.swing.JLabel lbl_maleOver40;
+    private javax.swing.JLabel lbl_maleUnder18;
+    private javax.swing.JPanel pnl_chart;
+    private javax.swing.JPanel pnl_female18To40;
+    private javax.swing.JPanel pnl_femaleOver40;
+    private javax.swing.JPanel pnl_femaleUnder18;
+    private javax.swing.JPanel pnl_filter;
+    private javax.swing.JPanel pnl_groupOfFemale;
+    private javax.swing.JPanel pnl_groupOfMale;
+    private javax.swing.JPanel pnl_header;
+    private javax.swing.JPanel pnl_infoCustomer;
+    private javax.swing.JPanel pnl_infor;
+    private javax.swing.JPanel pnl_inforByGroup;
+    private javax.swing.JPanel pnl_male18To40;
+    private javax.swing.JPanel pnl_maleOver40;
+    private javax.swing.JPanel pnl_maleUnder18;
+    private javax.swing.JTextField txt_female18To40;
+    private javax.swing.JTextField txt_femaleOver40;
+    private javax.swing.JTextField txt_femaleUnder18;
+    private javax.swing.JTextField txt_male18To40;
+    private javax.swing.JTextField txt_maleOver40;
+    private javax.swing.JTextField txt_maleUnder18;
     // End of variables declaration//GEN-END:variables
 }

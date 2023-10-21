@@ -668,7 +668,7 @@
                         <Font bold="true" component="jButton3" property="font" relativeSize="false" size="14"/>
                       </FontInfo>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Reload"/>
+                    <Property name="text" type="java.lang.String" value="L&#xe0;m m&#x1edb;i"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -765,7 +765,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButton5">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Reload"/>
+                <Property name="text" type="java.lang.String" value="L&#xe0;m m&#x1edb;i"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>
