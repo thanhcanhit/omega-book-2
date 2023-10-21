@@ -34,6 +34,7 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
         pnl_searchOrder = new javax.swing.JPanel();
         txt_searchOrder = new javax.swing.JTextField();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(10, 10), new java.awt.Dimension(32767, 0));
+        pnl_buttonSearchOrder = new javax.swing.JPanel();
         btn_searchOrder = new javax.swing.JButton();
         pnl_orderInfor = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -65,7 +66,10 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
         pnl_buttonTypeReturnOrder = new javax.swing.JPanel();
         rdb_exchange = new javax.swing.JRadioButton();
         rdb_return = new javax.swing.JRadioButton();
-        jPanel1 = new javax.swing.JPanel();
+        pnl_descreptionReturnOrder = new javax.swing.JPanel();
+        lbl_descreptionReturnOrder = new javax.swing.JLabel();
+        txt_descreptionReturnOrder = new javax.swing.JTextField();
+        pnl_createReturnOrder = new javax.swing.JPanel();
         btn_createReturnOrder = new javax.swing.JButton();
 
         setLayout(new java.awt.BorderLayout());
@@ -82,9 +86,16 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
         pnl_searchOrder.add(txt_searchOrder);
         pnl_searchOrder.add(filler1);
 
+        pnl_buttonSearchOrder.setMaximumSize(new java.awt.Dimension(50, 2147483647));
+        pnl_buttonSearchOrder.setLayout(new java.awt.BorderLayout());
+
         btn_searchOrder.setText("Tìm kiếm");
-        btn_searchOrder.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        pnl_searchOrder.add(btn_searchOrder);
+        btn_searchOrder.putClientProperty(FlatClientProperties.STYLE,""
+            + "background:$Menu.background;"
+            + "foreground:$Menu.foreground;");
+        pnl_buttonSearchOrder.add(btn_searchOrder, java.awt.BorderLayout.CENTER);
+
+        pnl_searchOrder.add(pnl_buttonSearchOrder);
 
         pnl_order.add(pnl_searchOrder);
 
@@ -151,14 +162,16 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
 
         spl_createReturnOrder.setLeftComponent(pnl_order);
 
+        pnl_returnOrder.setMaximumSize(new java.awt.Dimension(400, 768));
         pnl_returnOrder.setMinimumSize(new java.awt.Dimension(400, 123));
-        pnl_returnOrder.setPreferredSize(new java.awt.Dimension(500, 768));
+        pnl_returnOrder.setPreferredSize(new java.awt.Dimension(400, 768));
         pnl_returnOrder.setLayout(new javax.swing.BoxLayout(pnl_returnOrder, javax.swing.BoxLayout.Y_AXIS));
 
         pnl_employeeInfor.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Nhân viên"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         pnl_employeeInfor.setPreferredSize(new java.awt.Dimension(1211, 106));
         pnl_employeeInfor.setLayout(new javax.swing.BoxLayout(pnl_employeeInfor, javax.swing.BoxLayout.Y_AXIS));
 
+        pnl_employeeID.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         pnl_employeeID.setLayout(new javax.swing.BoxLayout(pnl_employeeID, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_employeeID.setText("Mã nhân viên:");
@@ -167,6 +180,7 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
 
         pnl_employeeInfor.add(pnl_employeeID);
 
+        pnl_nameEmp.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         pnl_nameEmp.setLayout(new javax.swing.BoxLayout(pnl_nameEmp, javax.swing.BoxLayout.X_AXIS));
 
         lbl_nameEmp.setText("Tên nhân viên:");
@@ -181,14 +195,27 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
         pnl_returnOrderInfor.setPreferredSize(new java.awt.Dimension(1211, 720));
         pnl_returnOrderInfor.setLayout(new javax.swing.BoxLayout(pnl_returnOrderInfor, javax.swing.BoxLayout.Y_AXIS));
 
+        pnl_returnOrderID.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        pnl_returnOrderID.setMaximumSize(new java.awt.Dimension(2147483647, 34));
+        pnl_returnOrderID.setMinimumSize(new java.awt.Dimension(118, 10));
+        pnl_returnOrderID.setPreferredSize(new java.awt.Dimension(597, 34));
         pnl_returnOrderID.setLayout(new javax.swing.BoxLayout(pnl_returnOrderID, javax.swing.BoxLayout.X_AXIS));
 
         lbl_returnOrderID.setText("Mã HĐĐT:");
+        lbl_returnOrderID.setMaximumSize(new java.awt.Dimension(80, 16));
+        lbl_returnOrderID.setMinimumSize(new java.awt.Dimension(68, 16));
+        lbl_returnOrderID.setPreferredSize(new java.awt.Dimension(80, 16));
         pnl_returnOrderID.add(lbl_returnOrderID);
+
+        txt_returnOrderID.setPreferredSize(txt_returnOrderDate.getPreferredSize());
         pnl_returnOrderID.add(txt_returnOrderID);
 
         pnl_returnOrderInfor.add(pnl_returnOrderID);
 
+        pnl_returnOrderDate.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        pnl_returnOrderDate.setMaximumSize(new java.awt.Dimension(2147483647, 34));
+        pnl_returnOrderDate.setMinimumSize(new java.awt.Dimension(132, 10));
+        pnl_returnOrderDate.setPreferredSize(new java.awt.Dimension(132, 34));
         pnl_returnOrderDate.setLayout(new javax.swing.BoxLayout(pnl_returnOrderDate, javax.swing.BoxLayout.X_AXIS));
 
         lbl_returnOrderDate.setText("Ngày đổi trả:");
@@ -199,7 +226,9 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
 
         pnl_productReturn.setLayout(new javax.swing.BoxLayout(pnl_productReturn, javax.swing.BoxLayout.Y_AXIS));
 
-        pnl_lblProduct.setPreferredSize(new java.awt.Dimension(10, 1));
+        pnl_lblProduct.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        pnl_lblProduct.setMaximumSize(new java.awt.Dimension(2147483647, 34));
+        pnl_lblProduct.setPreferredSize(new java.awt.Dimension(10, 34));
         pnl_lblProduct.setLayout(new java.awt.BorderLayout());
 
         lbl_product.setText("Sản phẩm");
@@ -207,6 +236,7 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
 
         pnl_productReturn.add(pnl_lblProduct);
 
+        src_tblProduct.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         src_tblProduct.setPreferredSize(new java.awt.Dimension(452, 200));
 
         tbl_product.setModel(new javax.swing.table.DefaultTableModel(
@@ -237,9 +267,12 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
 
         pnl_returnOrderInfor.add(pnl_productReturn);
 
+        pnl_typeReturnOrder.setMaximumSize(new java.awt.Dimension(32792, 34));
+        pnl_typeReturnOrder.setPreferredSize(new java.awt.Dimension(1191, 34));
         pnl_typeReturnOrder.setLayout(new javax.swing.BoxLayout(pnl_typeReturnOrder, javax.swing.BoxLayout.X_AXIS));
 
         lbl_typeReturnOrder.setText("Loại:");
+        lbl_typeReturnOrder.setPreferredSize(lbl_returnOrderDate.getPreferredSize());
         pnl_typeReturnOrder.add(lbl_typeReturnOrder);
 
         pnl_buttonTypeReturnOrder.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
@@ -256,12 +289,29 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
 
         pnl_returnOrderInfor.add(pnl_typeReturnOrder);
 
-        jPanel1.setLayout(new java.awt.BorderLayout());
+        pnl_descreptionReturnOrder.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        pnl_descreptionReturnOrder.setMaximumSize(new java.awt.Dimension(2147483647, 34));
+        pnl_descreptionReturnOrder.setPreferredSize(new java.awt.Dimension(741, 34));
+        pnl_descreptionReturnOrder.setLayout(new javax.swing.BoxLayout(pnl_descreptionReturnOrder, javax.swing.BoxLayout.X_AXIS));
 
-        btn_createReturnOrder.setText("jButton1");
-        jPanel1.add(btn_createReturnOrder, java.awt.BorderLayout.CENTER);
+        lbl_descreptionReturnOrder.setText("Lý do:");
+        lbl_descreptionReturnOrder.setPreferredSize(lbl_returnOrderDate.getPreferredSize());
+        pnl_descreptionReturnOrder.add(lbl_descreptionReturnOrder);
+        pnl_descreptionReturnOrder.add(txt_descreptionReturnOrder);
 
-        pnl_returnOrderInfor.add(jPanel1);
+        pnl_returnOrderInfor.add(pnl_descreptionReturnOrder);
+
+        pnl_createReturnOrder.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        pnl_createReturnOrder.setPreferredSize(new java.awt.Dimension(1191, 50));
+        pnl_createReturnOrder.setLayout(new java.awt.BorderLayout());
+
+        btn_createReturnOrder.setText("TẠO ĐƠN ĐỔI TRẢ");
+        btn_createReturnOrder.putClientProperty(FlatClientProperties.STYLE,""
+            + "background:$Menu.background;"
+            + "foreground:$Menu.foreground;");
+        pnl_createReturnOrder.add(btn_createReturnOrder, java.awt.BorderLayout.CENTER);
+
+        pnl_returnOrderInfor.add(pnl_createReturnOrder);
 
         pnl_returnOrder.add(pnl_returnOrderInfor);
 
@@ -276,18 +326,21 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
     private javax.swing.JButton btn_searchOrder;
     private javax.swing.Box.Filler filler1;
     private javax.swing.ButtonGroup group_returnOrder;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JLabel lbl_descreptionReturnOrder;
     private javax.swing.JLabel lbl_employeeID;
     private javax.swing.JLabel lbl_nameEmp;
     private javax.swing.JLabel lbl_product;
     private javax.swing.JLabel lbl_returnOrderDate;
     private javax.swing.JLabel lbl_returnOrderID;
     private javax.swing.JLabel lbl_typeReturnOrder;
+    private javax.swing.JPanel pnl_buttonSearchOrder;
     private javax.swing.JPanel pnl_buttonTypeReturnOrder;
+    private javax.swing.JPanel pnl_createReturnOrder;
+    private javax.swing.JPanel pnl_descreptionReturnOrder;
     private javax.swing.JPanel pnl_employeeID;
     private javax.swing.JPanel pnl_employeeInfor;
     private javax.swing.JPanel pnl_lblProduct;
@@ -306,6 +359,7 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
     private javax.swing.JSplitPane spl_createReturnOrder;
     private javax.swing.JScrollPane src_tblProduct;
     private javax.swing.JTable tbl_product;
+    private javax.swing.JTextField txt_descreptionReturnOrder;
     private javax.swing.JTextField txt_employeeID;
     private javax.swing.JTextField txt_nameEmp;
     private javax.swing.JTextField txt_returnOrderDate;

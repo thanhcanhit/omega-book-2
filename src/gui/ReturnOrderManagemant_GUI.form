@@ -50,15 +50,13 @@
           <SubComponents>
             <Component class="javax.swing.JTextField" name="txt_searchReturnOrder">
               <Properties>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
-                    <EmptyBorder bottom="5" left="5" right="5" top="5"/>
-                  </Border>
-                </Property>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[500, 22]"/>
                 </Property>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txt_searchReturnOrder.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, &quot;Nh&#x1ead;p m&#xe3; &#x111;&#x1a1;n &#x111;&#x1ed5;i tr&#x1ea3;&quot;);"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.Box$Filler" name="filler6">
               <Properties>
@@ -78,12 +76,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="btn_searchReturnOrder">
               <Properties>
-                <Property name="text" type="java.lang.String" value="T&#xec;m ki&#x1ebf;m"/>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
-                    <EmptyBorder bottom="10" left="10" right="10" top="10"/>
-                  </Border>
-                </Property>
+                <Property name="text" type="java.lang.String" value="T&#xec;m ki&#x1ebf;m" postCode="btn_searchReturnOrder.putClientProperty(FlatClientProperties.STYLE,&quot;&quot;&#xa;                + &quot;background:$Menu.background;&quot;&#xa;                + &quot;foreground:$Menu.foreground;&quot;);"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[79, 43]"/>
                 </Property>
@@ -94,101 +87,44 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.Box$Filler" name="filler1">
-          <Properties>
-            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[10, 32767]"/>
-            </Property>
-            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[10, 0]"/>
-            </Property>
-            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[10, 0]"/>
-            </Property>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="classDetails" type="java.lang.String" value="Box.Filler.HorizontalStrut"/>
-          </AuxValues>
-        </Component>
-        <Component class="javax.swing.Box$Filler" name="filler2">
-          <Properties>
-            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[30, 32767]"/>
-            </Property>
-            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[30, 0]"/>
-            </Property>
-            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[30, 0]"/>
-            </Property>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="classDetails" type="java.lang.String" value="Box.Filler.HorizontalStrut"/>
-          </AuxValues>
-        </Component>
-        <Component class="javax.swing.JCheckBox" name="chk_admitReturnOrder">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="&#x110;&#xe3; ch&#x1ea5;p nh&#x1ead;p"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.Box$Filler" name="filler3">
-          <Properties>
-            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[30, 32767]"/>
-            </Property>
-            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[30, 0]"/>
-            </Property>
-            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[30, 0]"/>
-            </Property>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="classDetails" type="java.lang.String" value="Box.Filler.HorizontalStrut"/>
-          </AuxValues>
-        </Component>
-        <Component class="javax.swing.JCheckBox" name="chk_denyReturnOrder">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="T&#x1eeb; ch&#x1ed1;i"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.Box$Filler" name="filler4">
-          <Properties>
-            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[30, 32767]"/>
-            </Property>
-            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[30, 0]"/>
-            </Property>
-            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[30, 0]"/>
-            </Property>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="classDetails" type="java.lang.String" value="Box.Filler.HorizontalStrut"/>
-          </AuxValues>
-        </Component>
-        <Component class="javax.swing.JCheckBox" name="btn_pendingReturnOrder">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="&#x110;ang ch&#x1edd;"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.Box$Filler" name="filler5">
-          <Properties>
-            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[20, 32767]"/>
-            </Property>
-            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[20, 0]"/>
-            </Property>
-            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[20, 0]"/>
-            </Property>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="classDetails" type="java.lang.String" value="Box.Filler.HorizontalStrut"/>
-          </AuxValues>
-        </Component>
+        <Container class="javax.swing.JPanel" name="jPanel1">
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout">
+            <Property name="alignment" type="int" value="0"/>
+            <Property name="verticalGap" type="int" value="15"/>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JCheckBox" name="chk_admitReturnOrder">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#x110;&#xe3; ch&#x1ea5;p nh&#x1ead;p"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="chk_denyReturnOrder">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="T&#x1eeb; ch&#x1ed1;i"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="chk_pendingReturnOrder">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#x110;ang ch&#x1edd;"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="cmb_typeReturnOrder">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="3">
+                    <StringItem index="0" value="Lo&#x1ea1;i &#x111;&#x1a1;n"/>
+                    <StringItem index="1" value="&#x110;&#x1ed5;i h&#xe0;ng"/>
+                    <StringItem index="2" value="Tr&#x1ea3; h&#xe0;ng"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+          </SubComponents>
+        </Container>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="pnl_centerReturnOrder">
@@ -465,17 +401,20 @@
         </Container>
         <Container class="javax.swing.JPanel" name="pnl_buttonSave">
 
-          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout">
-            <Property name="horizontalGap" type="int" value="10"/>
-          </Layout>
+          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
           <SubComponents>
             <Component class="javax.swing.JButton" name="btn_saveReturnOrder">
               <Properties>
-                <Property name="text" type="java.lang.String" value="L&#x1b0;u"/>
+                <Property name="text" type="java.lang.String" value="L&#x1b0;u" postCode="btn_saveReturnOrder.putClientProperty(FlatClientProperties.STYLE,&quot;&quot;&#xa;                + &quot;background:$Menu.background;&quot;&#xa;                + &quot;foreground:$Menu.foreground;&quot;);"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[300, 40]"/>
                 </Property>
               </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
+                  <BorderConstraints direction="Center"/>
+                </Constraint>
+              </Constraints>
             </Component>
           </SubComponents>
         </Container>

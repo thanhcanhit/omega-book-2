@@ -70,6 +70,35 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         pnl_container2 = new javax.swing.JPanel();
         lbl_productType = new javax.swing.JLabel();
         cmb_productType = new javax.swing.JComboBox<>();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
+        pnl_bookDetail2 = new javax.swing.JPanel();
+        pnl_bookCenter2 = new javax.swing.JPanel();
+        pnl_bookAuthor2 = new javax.swing.JPanel();
+        lbl_bookAuthor2 = new javax.swing.JLabel();
+        txt_bookAuthor2 = new javax.swing.JTextField();
+        pnl_bookPublisher2 = new javax.swing.JPanel();
+        lbl_bookPublisher2 = new javax.swing.JLabel();
+        txt_bookPublisher2 = new javax.swing.JTextField();
+        pnl_container23 = new javax.swing.JPanel();
+        lbl_bookPublishDate2 = new javax.swing.JLabel();
+        txt_bookPublishDate2 = new javax.swing.JTextField();
+        pnl_container24 = new javax.swing.JPanel();
+        lbl_bookHardCover2 = new javax.swing.JLabel();
+        cmb_bookHardCover2 = new javax.swing.JComboBox<>();
+        pnl_container25 = new javax.swing.JPanel();
+        lbl_bookQuantityPage2 = new javax.swing.JLabel();
+        txt_bookQuantityPage2 = new javax.swing.JTextField();
+        pnl_container26 = new javax.swing.JPanel();
+        lbl_bookLanguage2 = new javax.swing.JLabel();
+        txt_bookLanguage2 = new javax.swing.JTextField();
+        pnl_container27 = new javax.swing.JPanel();
+        lbl_bookTranslator2 = new javax.swing.JLabel();
+        txt_bookTranslator2 = new javax.swing.JTextField();
+        pnl_container9 = new javax.swing.JPanel();
+        pnl_container28 = new javax.swing.JPanel();
+        lbl_bookDescription2 = new javax.swing.JLabel();
+        scr_productName3 = new javax.swing.JScrollPane();
+        txa_bookDescription2 = new javax.swing.JTextArea();
         pnl_bookDetail = new javax.swing.JPanel();
         pnl_bookCenter = new javax.swing.JPanel();
         pnl_bookAuthor = new javax.swing.JPanel();
@@ -139,7 +168,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Đơn giá", "Thành tiền"
+                "Mã sản phẩm", "Tên sản phẩm", "Giá nhập", "Giá bán", "Số lượng tồn"
             }
         ));
         scr_cart.setViewportView(tbl_cart);
@@ -331,6 +360,151 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         pnl_productInfo.add(pnl_productCenter);
 
         pnl_rightCenter.add(pnl_productInfo);
+        pnl_rightCenter.add(filler1);
+
+        pnl_bookDetail2.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin chi tiết sách"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        pnl_bookDetail2.setPreferredSize(new java.awt.Dimension(400, 400));
+        pnl_bookDetail2.setLayout(new javax.swing.BoxLayout(pnl_bookDetail2, javax.swing.BoxLayout.Y_AXIS));
+
+        pnl_bookCenter2.setLayout(new java.awt.GridLayout(4, 2, 5, 5));
+
+        pnl_bookAuthor2.setPreferredSize(new java.awt.Dimension(100, 35));
+        pnl_bookAuthor2.setLayout(new javax.swing.BoxLayout(pnl_bookAuthor2, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_bookAuthor2.setText("Tác giả");
+        lbl_bookAuthor2.setPreferredSize(new java.awt.Dimension(130, 40));
+        pnl_bookAuthor2.add(lbl_bookAuthor2);
+
+        txt_bookAuthor2.setPreferredSize(new java.awt.Dimension(64, 40));
+        txt_bookAuthor2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_bookAuthor2ActionPerformed(evt);
+            }
+        });
+        pnl_bookAuthor2.add(txt_bookAuthor2);
+
+        pnl_bookCenter2.add(pnl_bookAuthor2);
+
+        pnl_bookPublisher2.setPreferredSize(new java.awt.Dimension(100, 35));
+        pnl_bookPublisher2.setLayout(new javax.swing.BoxLayout(pnl_bookPublisher2, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_bookPublisher2.setText("Nhà xuất bản");
+        lbl_bookPublisher2.setPreferredSize(new java.awt.Dimension(130, 40));
+        pnl_bookPublisher2.add(lbl_bookPublisher2);
+
+        txt_bookPublisher2.setPreferredSize(new java.awt.Dimension(64, 40));
+        txt_bookPublisher2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_bookPublisher2ActionPerformed(evt);
+            }
+        });
+        pnl_bookPublisher2.add(txt_bookPublisher2);
+
+        pnl_bookCenter2.add(pnl_bookPublisher2);
+
+        pnl_container23.setPreferredSize(new java.awt.Dimension(100, 35));
+        pnl_container23.setLayout(new javax.swing.BoxLayout(pnl_container23, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_bookPublishDate2.setText("Năm xuất bản");
+        lbl_bookPublishDate2.setToolTipText("");
+        lbl_bookPublishDate2.setPreferredSize(new java.awt.Dimension(130, 40));
+        pnl_container23.add(lbl_bookPublishDate2);
+
+        txt_bookPublishDate2.setPreferredSize(new java.awt.Dimension(64, 40));
+        txt_bookPublishDate2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_bookPublishDate2ActionPerformed(evt);
+            }
+        });
+        pnl_container23.add(txt_bookPublishDate2);
+
+        pnl_bookCenter2.add(pnl_container23);
+
+        pnl_container24.setPreferredSize(new java.awt.Dimension(100, 35));
+        pnl_container24.setLayout(new javax.swing.BoxLayout(pnl_container24, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_bookHardCover2.setText("Bìa cứng");
+        lbl_bookHardCover2.setPreferredSize(new java.awt.Dimension(130, 40));
+        pnl_container24.add(lbl_bookHardCover2);
+
+        cmb_bookHardCover2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Có", "Không" }));
+        pnl_container24.add(cmb_bookHardCover2);
+
+        pnl_bookCenter2.add(pnl_container24);
+
+        pnl_container25.setPreferredSize(new java.awt.Dimension(100, 35));
+        pnl_container25.setLayout(new javax.swing.BoxLayout(pnl_container25, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_bookQuantityPage2.setText("Số trang");
+        lbl_bookQuantityPage2.setPreferredSize(new java.awt.Dimension(130, 40));
+        pnl_container25.add(lbl_bookQuantityPage2);
+        pnl_container25.add(txt_bookQuantityPage2);
+
+        pnl_bookCenter2.add(pnl_container25);
+
+        pnl_container26.setPreferredSize(new java.awt.Dimension(100, 35));
+        pnl_container26.setLayout(new javax.swing.BoxLayout(pnl_container26, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_bookLanguage2.setText("Ngôn ngữ");
+        lbl_bookLanguage2.setPreferredSize(new java.awt.Dimension(130, 40));
+        pnl_container26.add(lbl_bookLanguage2);
+
+        txt_bookLanguage2.setPreferredSize(new java.awt.Dimension(64, 40));
+        txt_bookLanguage2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_bookLanguage2ActionPerformed(evt);
+            }
+        });
+        pnl_container26.add(txt_bookLanguage2);
+
+        pnl_bookCenter2.add(pnl_container26);
+
+        pnl_container27.setPreferredSize(new java.awt.Dimension(100, 35));
+        pnl_container27.setLayout(new javax.swing.BoxLayout(pnl_container27, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_bookTranslator2.setText("Dịch giả");
+        lbl_bookTranslator2.setPreferredSize(new java.awt.Dimension(130, 40));
+        pnl_container27.add(lbl_bookTranslator2);
+
+        txt_bookTranslator2.setPreferredSize(new java.awt.Dimension(64, 40));
+        txt_bookTranslator2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_bookTranslator2ActionPerformed(evt);
+            }
+        });
+        pnl_container27.add(txt_bookTranslator2);
+
+        pnl_bookCenter2.add(pnl_container27);
+
+        pnl_bookDetail2.add(pnl_bookCenter2);
+
+        pnl_container9.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        pnl_container9.setMinimumSize(new java.awt.Dimension(200, 110));
+        pnl_container9.setPreferredSize(new java.awt.Dimension(279, 140));
+        pnl_container9.setLayout(new javax.swing.BoxLayout(pnl_container9, javax.swing.BoxLayout.Y_AXIS));
+
+        pnl_container28.setLayout(new java.awt.GridLayout());
+
+        lbl_bookDescription2.setText("Mô tả");
+        lbl_bookDescription2.setPreferredSize(new java.awt.Dimension(100, 20));
+        pnl_container28.add(lbl_bookDescription2);
+
+        pnl_container9.add(pnl_container28);
+
+        scr_productName3.setMinimumSize(new java.awt.Dimension(100, 100));
+
+        txa_bookDescription2.setColumns(15);
+        txa_bookDescription2.setLineWrap(true);
+        txa_bookDescription2.setRows(4);
+        txa_bookDescription2.setTabSize(4);
+        txa_bookDescription2.setText("Cuộc đời của thanhcanhit");
+        scr_productName3.setViewportView(txa_bookDescription2);
+
+        pnl_container9.add(scr_productName3);
+
+        pnl_bookDetail2.add(pnl_container9);
+
+        pnl_rightCenter.add(pnl_bookDetail2);
 
         pnl_bookDetail.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin chi tiết sách"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         pnl_bookDetail.setPreferredSize(new java.awt.Dimension(400, 400));
@@ -537,6 +711,26 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_bookAuthorActionPerformed
 
+    private void txt_bookAuthor2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_bookAuthor2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_bookAuthor2ActionPerformed
+
+    private void txt_bookPublisher2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_bookPublisher2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_bookPublisher2ActionPerformed
+
+    private void txt_bookPublishDate2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_bookPublishDate2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_bookPublishDate2ActionPerformed
+
+    private void txt_bookLanguage2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_bookLanguage2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_bookLanguage2ActionPerformed
+
+    private void txt_bookTranslator2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_bookTranslator2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_bookTranslator2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_add;
@@ -546,15 +740,25 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
     private javax.swing.JButton btn_search;
     private javax.swing.JButton btn_update;
     private javax.swing.JComboBox<String> cmb_bookHardCover;
+    private javax.swing.JComboBox<String> cmb_bookHardCover2;
     private javax.swing.JComboBox<String> cmb_productType;
+    private javax.swing.Box.Filler filler1;
     private javax.swing.JLabel lbl_bookAuthor;
+    private javax.swing.JLabel lbl_bookAuthor2;
     private javax.swing.JLabel lbl_bookDescription;
+    private javax.swing.JLabel lbl_bookDescription2;
     private javax.swing.JLabel lbl_bookHardCover;
+    private javax.swing.JLabel lbl_bookHardCover2;
     private javax.swing.JLabel lbl_bookLanguage;
+    private javax.swing.JLabel lbl_bookLanguage2;
     private javax.swing.JLabel lbl_bookPublishDate;
+    private javax.swing.JLabel lbl_bookPublishDate2;
     private javax.swing.JLabel lbl_bookPublisher;
+    private javax.swing.JLabel lbl_bookPublisher2;
     private javax.swing.JLabel lbl_bookQuantityPage;
+    private javax.swing.JLabel lbl_bookQuantityPage2;
     private javax.swing.JLabel lbl_bookTranslator;
+    private javax.swing.JLabel lbl_bookTranslator2;
     private javax.swing.JLabel lbl_pageNumber;
     private javax.swing.JLabel lbl_productCostPrice;
     private javax.swing.JLabel lbl_productId;
@@ -565,9 +769,13 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
     private javax.swing.JLabel lbl_productType;
     private javax.swing.JLabel lbl_productVAT;
     private javax.swing.JPanel pnl_bookAuthor;
+    private javax.swing.JPanel pnl_bookAuthor2;
     private javax.swing.JPanel pnl_bookCenter;
+    private javax.swing.JPanel pnl_bookCenter2;
     private javax.swing.JPanel pnl_bookDetail;
+    private javax.swing.JPanel pnl_bookDetail2;
     private javax.swing.JPanel pnl_bookPublisher;
+    private javax.swing.JPanel pnl_bookPublisher2;
     private javax.swing.JPanel pnl_cart;
     private javax.swing.JPanel pnl_cartFooter;
     private javax.swing.JPanel pnl_container;
@@ -579,11 +787,18 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
     private javax.swing.JPanel pnl_container15;
     private javax.swing.JPanel pnl_container16;
     private javax.swing.JPanel pnl_container2;
+    private javax.swing.JPanel pnl_container23;
+    private javax.swing.JPanel pnl_container24;
+    private javax.swing.JPanel pnl_container25;
+    private javax.swing.JPanel pnl_container26;
+    private javax.swing.JPanel pnl_container27;
+    private javax.swing.JPanel pnl_container28;
     private javax.swing.JPanel pnl_container3;
     private javax.swing.JPanel pnl_container4;
     private javax.swing.JPanel pnl_container5;
     private javax.swing.JPanel pnl_container6;
     private javax.swing.JPanel pnl_container7;
+    private javax.swing.JPanel pnl_container9;
     private javax.swing.JPanel pnl_control;
     private javax.swing.JPanel pnl_header;
     private javax.swing.JPanel pnl_left;
@@ -599,16 +814,24 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
     private javax.swing.JScrollPane scr_info;
     private javax.swing.JScrollPane scr_productName;
     private javax.swing.JScrollPane scr_productName1;
+    private javax.swing.JScrollPane scr_productName3;
     private javax.swing.JSplitPane splitPane_main;
     private javax.swing.JTable tbl_cart;
     private javax.swing.JTextArea txa_bookDescription;
+    private javax.swing.JTextArea txa_bookDescription2;
     private javax.swing.JTextArea txa_productName;
     private javax.swing.JTextField txt_bookAuthor;
+    private javax.swing.JTextField txt_bookAuthor2;
     private javax.swing.JTextField txt_bookLanguage;
+    private javax.swing.JTextField txt_bookLanguage2;
     private javax.swing.JTextField txt_bookPublishDate;
+    private javax.swing.JTextField txt_bookPublishDate2;
     private javax.swing.JTextField txt_bookPublisher;
+    private javax.swing.JTextField txt_bookPublisher2;
     private javax.swing.JTextField txt_bookQuantityPage;
+    private javax.swing.JTextField txt_bookQuantityPage2;
     private javax.swing.JTextField txt_bookTranslator;
+    private javax.swing.JTextField txt_bookTranslator2;
     private javax.swing.JTextField txt_productCostPrice;
     private javax.swing.JTextField txt_productId;
     private javax.swing.JTextField txt_productInventory;

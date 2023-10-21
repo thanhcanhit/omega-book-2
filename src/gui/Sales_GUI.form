@@ -202,6 +202,195 @@
                 <Property name="axis" type="int" value="1"/>
               </Layout>
               <SubComponents>
+                <Container class="javax.swing.JPanel" name="pnl_customerInfo">
+                  <Properties>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.CompoundBorderInfo">
+                        <CompoundBorder>
+                          <Border PropertyName="outside" info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                            <TitledBorder title="Th&#xf4;ng tin kh&#xe1;ch h&#xe0;ng"/>
+                          </Border>
+                          <Border PropertyName="inside" info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+                            <EmptyBorder bottom="5" left="5" right="5" top="5"/>
+                          </Border>
+                        </CompoundBorder>
+                      </Border>
+                    </Property>
+                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[500, 150]"/>
+                    </Property>
+                  </Properties>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout">
+                    <Property name="axis" type="int" value="1"/>
+                  </Layout>
+                  <SubComponents>
+                    <Container class="javax.swing.JPanel" name="pnl_customerDefault">
+                      <Properties>
+                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[2147483647, 40]"/>
+                        </Property>
+                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[561, 40]"/>
+                        </Property>
+                      </Properties>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
+                      <SubComponents>
+                        <Component class="javax.swing.JCheckBox" name="chk_defaultCustomer">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Kh&#xe1;ch h&#xe0;ng m&#x1eb7;c &#x111;&#x1ecb;nh"/>
+                          </Properties>
+                          <Constraints>
+                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
+                              <BorderConstraints direction="Center"/>
+                            </Constraint>
+                          </Constraints>
+                        </Component>
+                      </SubComponents>
+                    </Container>
+                    <Container class="javax.swing.JPanel" name="pnl_customerPhone">
+                      <Properties>
+                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[2147483647, 40]"/>
+                        </Property>
+                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[561, 40]"/>
+                        </Property>
+                      </Properties>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
+                      <SubComponents>
+                        <Component class="javax.swing.JLabel" name="lbl_customerPhone">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="S&#x1ed1; &#x111;i&#x1ec7;n tho&#x1ea1;i"/>
+                            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[130, 40]"/>
+                            </Property>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JTextField" name="txt_customerPhone">
+                          <Properties>
+                            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[2147483647, 40]"/>
+                            </Property>
+                            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[300, 40]"/>
+                            </Property>
+                            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[300, 40]"/>
+                            </Property>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_customerPhoneActionPerformed"/>
+                          </Events>
+                        </Component>
+                      </SubComponents>
+                    </Container>
+                    <Container class="javax.swing.JPanel" name="pnl_customerName">
+                      <Properties>
+                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                          <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+                            <EmptyBorder bottom="0" left="0" right="0" top="5"/>
+                          </Border>
+                        </Property>
+                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[2147483647, 40]"/>
+                        </Property>
+                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[561, 40]"/>
+                        </Property>
+                      </Properties>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
+                      <SubComponents>
+                        <Component class="javax.swing.JLabel" name="lbl_customerName">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="H&#x1ecd; v&#xe0; t&#xea;n"/>
+                            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[130, 40]"/>
+                            </Property>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JTextField" name="txt_customerName">
+                          <Properties>
+                            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[2147483647, 40]"/>
+                            </Property>
+                            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[300, 40]"/>
+                            </Property>
+                            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[300, 40]"/>
+                            </Property>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_customerNameActionPerformed"/>
+                          </Events>
+                        </Component>
+                      </SubComponents>
+                    </Container>
+                    <Container class="javax.swing.JPanel" name="pnl_customerRank">
+                      <Properties>
+                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                          <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+                            <EmptyBorder bottom="0" left="0" right="0" top="5"/>
+                          </Border>
+                        </Property>
+                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[2147483647, 40]"/>
+                        </Property>
+                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[561, 40]"/>
+                        </Property>
+                      </Properties>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
+                      <SubComponents>
+                        <Component class="javax.swing.JLabel" name="lbl_customerRank">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="H&#x1ea1;ng th&#xe0;nh vi&#xea;n"/>
+                            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[130, 40]"/>
+                            </Property>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JTextField" name="txt_customerRank">
+                          <Properties>
+                            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[2147483647, 40]"/>
+                            </Property>
+                            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[300, 40]"/>
+                            </Property>
+                            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[300, 40]"/>
+                            </Property>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_customerRankActionPerformed"/>
+                          </Events>
+                        </Component>
+                      </SubComponents>
+                    </Container>
+                  </SubComponents>
+                </Container>
+                <Component class="javax.swing.Box$Filler" name="filler1">
+                  <Properties>
+                    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[32767, 5]"/>
+                    </Property>
+                    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[0, 5]"/>
+                    </Property>
+                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[0, 5]"/>
+                    </Property>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="classDetails" type="java.lang.String" value="Box.Filler.VerticalStrut"/>
+                  </AuxValues>
+                </Component>
                 <Container class="javax.swing.JPanel" name="pnl_orderInfo">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -216,8 +405,11 @@
                         </CompoundBorder>
                       </Border>
                     </Property>
+                    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[100019, 380]"/>
+                    </Property>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[500, 400]"/>
+                      <Dimension value="[500, 300]"/>
                     </Property>
                   </Properties>
 
@@ -227,6 +419,9 @@
                   <SubComponents>
                     <Container class="javax.swing.JPanel" name="pnl_orderId">
                       <Properties>
+                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[99999, 40]"/>
+                        </Property>
                         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                           <Dimension value="[561, 40]"/>
                         </Property>
@@ -244,8 +439,14 @@
                         </Component>
                         <Component class="javax.swing.JTextField" name="txt_orderId">
                           <Properties>
+                            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[2147483647, 40]"/>
+                            </Property>
+                            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[300, 40]"/>
+                            </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[64, 40]"/>
+                              <Dimension value="[300, 40]"/>
                             </Property>
                           </Properties>
                           <Events>
@@ -260,6 +461,9 @@
                           <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
                             <EmptyBorder bottom="0" left="0" right="0" top="5"/>
                           </Border>
+                        </Property>
+                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[99999, 40]"/>
                         </Property>
                         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                           <Dimension value="[561, 40]"/>
@@ -278,8 +482,14 @@
                         </Component>
                         <Component class="javax.swing.JTextField" name="txt_orderDate">
                           <Properties>
+                            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[2147483647, 40]"/>
+                            </Property>
+                            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[300, 40]"/>
+                            </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[64, 40]"/>
+                              <Dimension value="[300, 40]"/>
                             </Property>
                           </Properties>
                           <Events>
@@ -294,6 +504,9 @@
                           <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
                             <EmptyBorder bottom="0" left="0" right="0" top="5"/>
                           </Border>
+                        </Property>
+                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[99999, 40]"/>
                         </Property>
                         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                           <Dimension value="[561, 40]"/>
@@ -312,8 +525,14 @@
                         </Component>
                         <Component class="javax.swing.JTextField" name="txt_orderDiscount">
                           <Properties>
+                            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[2147483647, 40]"/>
+                            </Property>
+                            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[300, 40]"/>
+                            </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[64, 40]"/>
+                              <Dimension value="[300, 40]"/>
                             </Property>
                           </Properties>
                           <Events>
@@ -328,6 +547,9 @@
                           <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
                             <EmptyBorder bottom="0" left="0" right="0" top="5"/>
                           </Border>
+                        </Property>
+                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[99999, 40]"/>
                         </Property>
                         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                           <Dimension value="[561, 40]"/>
@@ -346,8 +568,14 @@
                         </Component>
                         <Component class="javax.swing.JTextField" name="txt_orderPay">
                           <Properties>
+                            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[2147483647, 40]"/>
+                            </Property>
+                            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[300, 40]"/>
+                            </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[64, 40]"/>
+                              <Dimension value="[300, 40]"/>
                             </Property>
                           </Properties>
                           <Events>
@@ -362,6 +590,9 @@
                           <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
                             <EmptyBorder bottom="0" left="0" right="0" top="5"/>
                           </Border>
+                        </Property>
+                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[99999, 40]"/>
                         </Property>
                         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                           <Dimension value="[561, 40]"/>
@@ -386,6 +617,12 @@
                                 <StringItem index="1" value="ATM"/>
                               </StringArray>
                             </Property>
+                            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[300, 40]"/>
+                            </Property>
+                            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[300, 40]"/>
+                            </Property>
                           </Properties>
                           <AuxValues>
                             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -399,6 +636,9 @@
                           <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
                             <EmptyBorder bottom="0" left="0" right="0" top="5"/>
                           </Border>
+                        </Property>
+                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[99999, 40]"/>
                         </Property>
                         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                           <Dimension value="[561, 40]"/>
@@ -417,8 +657,14 @@
                         </Component>
                         <Component class="javax.swing.JTextField" name="txt_orderCustomerGive">
                           <Properties>
+                            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[2147483647, 40]"/>
+                            </Property>
+                            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[300, 40]"/>
+                            </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[64, 40]"/>
+                              <Dimension value="[300, 40]"/>
                             </Property>
                           </Properties>
                           <Events>
@@ -433,6 +679,9 @@
                           <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
                             <EmptyBorder bottom="5" left="5" right="5" top="5"/>
                           </Border>
+                        </Property>
+                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[99999, 40]"/>
                         </Property>
                         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                           <Dimension value="[561, 60]"/>
@@ -464,6 +713,9 @@
                     </Container>
                     <Container class="javax.swing.JPanel" name="pnl_orderCustomerReturn">
                       <Properties>
+                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[99999, 40]"/>
+                        </Property>
                         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                           <Dimension value="[561, 40]"/>
                         </Property>
@@ -481,155 +733,18 @@
                         </Component>
                         <Component class="javax.swing.JTextField" name="txt_orderCustomerReturn">
                           <Properties>
+                            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[2147483647, 40]"/>
+                            </Property>
+                            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[100, 35]"/>
+                            </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                               <Dimension value="[64, 40]"/>
                             </Property>
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_orderCustomerReturnActionPerformed"/>
-                          </Events>
-                        </Component>
-                      </SubComponents>
-                    </Container>
-                  </SubComponents>
-                </Container>
-                <Container class="javax.swing.JPanel" name="pnl_customerInfo">
-                  <Properties>
-                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                      <Border info="org.netbeans.modules.form.compat2.border.CompoundBorderInfo">
-                        <CompoundBorder>
-                          <Border PropertyName="outside" info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                            <TitledBorder title="Th&#xf4;ng tin kh&#xe1;ch h&#xe0;ng"/>
-                          </Border>
-                          <Border PropertyName="inside" info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
-                            <EmptyBorder bottom="5" left="5" right="5" top="5"/>
-                          </Border>
-                        </CompoundBorder>
-                      </Border>
-                    </Property>
-                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[500, 150]"/>
-                    </Property>
-                  </Properties>
-
-                  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout">
-                    <Property name="axis" type="int" value="1"/>
-                  </Layout>
-                  <SubComponents>
-                    <Container class="javax.swing.JPanel" name="pnl_customerDefault">
-                      <Properties>
-                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[561, 40]"/>
-                        </Property>
-                      </Properties>
-
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
-                      <SubComponents>
-                        <Component class="javax.swing.JCheckBox" name="chk_defaultCustomer">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Kh&#xe1;ch h&#xe0;ng m&#x1eb7;c &#x111;&#x1ecb;nh"/>
-                          </Properties>
-                          <Constraints>
-                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
-                              <BorderConstraints direction="Center"/>
-                            </Constraint>
-                          </Constraints>
-                        </Component>
-                      </SubComponents>
-                    </Container>
-                    <Container class="javax.swing.JPanel" name="pnl_customerPhone">
-                      <Properties>
-                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[561, 40]"/>
-                        </Property>
-                      </Properties>
-
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
-                      <SubComponents>
-                        <Component class="javax.swing.JLabel" name="lbl_customerPhone">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="S&#x1ed1; &#x111;i&#x1ec7;n tho&#x1ea1;i"/>
-                            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[130, 40]"/>
-                            </Property>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JTextField" name="txt_customerPhone">
-                          <Properties>
-                            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[64, 40]"/>
-                            </Property>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_customerPhoneActionPerformed"/>
-                          </Events>
-                        </Component>
-                      </SubComponents>
-                    </Container>
-                    <Container class="javax.swing.JPanel" name="pnl_customerName">
-                      <Properties>
-                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                          <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
-                            <EmptyBorder bottom="0" left="0" right="0" top="5"/>
-                          </Border>
-                        </Property>
-                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[561, 40]"/>
-                        </Property>
-                      </Properties>
-
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
-                      <SubComponents>
-                        <Component class="javax.swing.JLabel" name="lbl_customerName">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="H&#x1ecd; v&#xe0; t&#xea;n"/>
-                            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[130, 40]"/>
-                            </Property>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JTextField" name="txt_customerName">
-                          <Properties>
-                            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[64, 40]"/>
-                            </Property>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_customerNameActionPerformed"/>
-                          </Events>
-                        </Component>
-                      </SubComponents>
-                    </Container>
-                    <Container class="javax.swing.JPanel" name="pnl_customerRank">
-                      <Properties>
-                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                          <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
-                            <EmptyBorder bottom="0" left="0" right="0" top="5"/>
-                          </Border>
-                        </Property>
-                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[561, 40]"/>
-                        </Property>
-                      </Properties>
-
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
-                      <SubComponents>
-                        <Component class="javax.swing.JLabel" name="lbl_customerRank">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="H&#x1ea1;ng th&#xe0;nh vi&#xea;n"/>
-                            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[130, 40]"/>
-                            </Property>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JTextField" name="txt_customerRank">
-                          <Properties>
-                            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[64, 40]"/>
-                            </Property>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_customerRankActionPerformed"/>
                           </Events>
                         </Component>
                       </SubComponents>
@@ -698,7 +813,7 @@
                       </Border>
                     </Property>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[561, 60]"/>
+                      <Dimension value="[561, 50]"/>
                     </Property>
                   </Properties>
 
@@ -714,7 +829,7 @@
                         <Property name="text" type="java.lang.String" value="THANH TO&#xc1;N"/>
                       </Properties>
                       <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="btn_submit.putClientProperty(FlatClientProperties.STYLE,&quot;&quot;&#xa;                + &quot;background:$Menu.background;&quot;&#xa;                + &quot;foreground:$Menu.foreground;&quot;);"/>
+                        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_submit.putClientProperty(FlatClientProperties.STYLE,&quot;&quot;&#xa;                + &quot;background:$Menu.background;&quot;&#xa;                + &quot;foreground:$Menu.foreground;&quot;);"/>
                       </AuxValues>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">

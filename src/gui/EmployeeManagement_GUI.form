@@ -21,7 +21,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,1,-82,0,0,3,62"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,3,0,0,0,5,86"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
@@ -41,48 +41,107 @@
         </Constraint>
       </Constraints>
 
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout">
-        <Property name="horizontalGap" type="int" value="20"/>
-        <Property name="verticalGap" type="int" value="20"/>
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout">
+        <Property name="axis" type="int" value="0"/>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JTextField" name="txt_employeeSearch">
+        <Container class="javax.swing.JPanel" name="jPanel3">
           <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+                <EmptyBorder bottom="5" left="5" right="5" top="5"/>
+              </Border>
+            </Property>
+          </Properties>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout">
+            <Property name="axis" type="int" value="0"/>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JTextField" name="txt_employeeSearch">
+              <Properties>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[500, 30]"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_employeeSearchActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="txt_employeeSearch.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT,&quot;Nh&#x1ead;p m&#xe3; nh&#xe2;n vi&#xea;n&quot;);"/>
+              </AuxValues>
+            </Component>
+            <Container class="javax.swing.JPanel" name="jPanel5">
+              <Properties>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+                    <EmptyBorder bottom="5" left="5" right="5" top="5"/>
+                  </Border>
+                </Property>
+              </Properties>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
+              <SubComponents>
+                <Component class="javax.swing.JButton" name="btn_searchEmp">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="T&#xec;m ki&#x1ebf;m"/>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_searchEmp.putClientProperty(FlatClientProperties.STYLE,&quot;&quot;&#xa;                + &quot;background:$Menu.background;&quot;&#xa;                + &quot;foreground:$Menu.foreground;&quot;);"/>
+                  </AuxValues>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
+                      <BorderConstraints direction="Center"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+              </SubComponents>
+            </Container>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="jPanel4">
+          <Properties>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[600, 32767]"/>
+            </Property>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[500, 30]"/>
+              <Dimension value="[600, 100]"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_employeeSearchActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="btn_searchEmp">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="T&#xec;m ki&#x1ebf;m"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="cmb_roleEmp">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Ch&#x1ee9;c v&#x1ee5;"/>
-                <StringItem index="1" value="NV B&#xe1;n H&#xe0;ng"/>
-                <StringItem index="2" value="C&#x1eed;a H&#xe0;ng Tr&#x1b0;&#x1edf;ng"/>
-                <StringItem index="3" value="Ki&#x1ec3;m S&#xe1;t Vi&#xea;n"/>
-              </StringArray>
-            </Property>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-          </AuxValues>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lbl_reloadEmp">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imgs/employee/reload_employee.png"/>
-            </Property>
-          </Properties>
-        </Component>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout">
+            <Property name="alignment" type="int" value="0"/>
+            <Property name="horizontalGap" type="int" value="10"/>
+            <Property name="verticalGap" type="int" value="17"/>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JComboBox" name="cmb_roleEmp">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="4">
+                    <StringItem index="0" value="Ch&#x1ee9;c v&#x1ee5;"/>
+                    <StringItem index="1" value="NV B&#xe1;n H&#xe0;ng"/>
+                    <StringItem index="2" value="C&#x1eed;a H&#xe0;ng Tr&#x1b0;&#x1edf;ng"/>
+                    <StringItem index="3" value="Ki&#x1ec3;m S&#xe1;t Vi&#xea;n"/>
+                  </StringArray>
+                </Property>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[128, 32]"/>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbl_reloadEmp">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/imgs/employee/reload_employee.png"/>
+                </Property>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="pnl_centerEmp">
@@ -187,19 +246,20 @@
                 </Constraint>
               </Constraints>
 
-              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
-                <Property name="columns" type="int" value="1"/>
-                <Property name="horizontalGap" type="int" value="10"/>
-                <Property name="rows" type="int" value="15"/>
+              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout">
+                <Property name="axis" type="int" value="1"/>
               </Layout>
               <SubComponents>
                 <Container class="javax.swing.JPanel" name="pnl_empID">
                   <Properties>
+                    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[2147483647, 50]"/>
+                    </Property>
                     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[118, 6]"/>
                     </Property>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[210, 30]"/>
+                      <Dimension value="[210, 50]"/>
                     </Property>
                   </Properties>
 
@@ -251,6 +311,14 @@
                   </AuxValues>
                 </Component>
                 <Container class="javax.swing.JPanel" name="pnl_nameEmp">
+                  <Properties>
+                    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[2147483647, 50]"/>
+                    </Property>
+                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[230, 50]"/>
+                    </Property>
+                  </Properties>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
                   <SubComponents>
@@ -288,6 +356,14 @@
                   </AuxValues>
                 </Component>
                 <Container class="javax.swing.JPanel" name="pnl_addressEmp">
+                  <Properties>
+                    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[2147483647, 50]"/>
+                    </Property>
+                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[230, 50]"/>
+                    </Property>
+                  </Properties>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
                   <SubComponents>
@@ -325,6 +401,14 @@
                   </AuxValues>
                 </Component>
                 <Container class="javax.swing.JPanel" name="pnl_genderEmp">
+                  <Properties>
+                    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[32815, 50]"/>
+                    </Property>
+                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[183, 50]"/>
+                    </Property>
+                  </Properties>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
                   <SubComponents>
@@ -386,6 +470,14 @@
                   </AuxValues>
                 </Component>
                 <Container class="javax.swing.JPanel" name="pnl_phoneNumberEmp">
+                  <Properties>
+                    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[2147483647, 50]"/>
+                    </Property>
+                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[230, 50]"/>
+                    </Property>
+                  </Properties>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
                   <SubComponents>
@@ -423,6 +515,14 @@
                   </AuxValues>
                 </Component>
                 <Container class="javax.swing.JPanel" name="pnl_citizenIDEmp">
+                  <Properties>
+                    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[2147483647, 50]"/>
+                    </Property>
+                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[230, 50]"/>
+                    </Property>
+                  </Properties>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
                   <SubComponents>
@@ -460,6 +560,14 @@
                   </AuxValues>
                 </Component>
                 <Container class="javax.swing.JPanel" name="pnl_statusEmp">
+                  <Properties>
+                    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[2147483647, 50]"/>
+                    </Property>
+                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[230, 50]"/>
+                    </Property>
+                  </Properties>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
                   <SubComponents>
@@ -497,6 +605,14 @@
                   </AuxValues>
                 </Component>
                 <Container class="javax.swing.JPanel" name="pnl_password">
+                  <Properties>
+                    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[2147483647, 50]"/>
+                    </Property>
+                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[230, 50]"/>
+                    </Property>
+                  </Properties>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
                   <SubComponents>
@@ -517,39 +633,75 @@
                     </Component>
                   </SubComponents>
                 </Container>
+                <Component class="javax.swing.Box$Filler" name="filler8">
+                  <Properties>
+                    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[32767, 15]"/>
+                    </Property>
+                    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[0, 15]"/>
+                    </Property>
+                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[0, 15]"/>
+                    </Property>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="classDetails" type="java.lang.String" value="Box.Filler.VerticalStrut"/>
+                  </AuxValues>
+                </Component>
+                <Container class="javax.swing.JPanel" name="pnl_buttonEmp">
+                  <Properties>
+                    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[2147483647, 50]"/>
+                    </Property>
+                  </Properties>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
+                  <SubComponents>
+                    <Container class="javax.swing.JPanel" name="jPanel1">
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
+                      <SubComponents>
+                        <Component class="javax.swing.JButton" name="btn_addEmp">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Th&#xea;m NV"/>
+                          </Properties>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_addEmp.putClientProperty(FlatClientProperties.STYLE,&quot;&quot;&#xa;                + &quot;background:$Menu.background;&quot;&#xa;                + &quot;foreground:$Menu.foreground;&quot;);"/>
+                          </AuxValues>
+                          <Constraints>
+                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
+                              <BorderConstraints direction="Center"/>
+                            </Constraint>
+                          </Constraints>
+                        </Component>
+                      </SubComponents>
+                    </Container>
+                    <Container class="javax.swing.JPanel" name="jPanel2">
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
+                      <SubComponents>
+                        <Component class="javax.swing.JButton" name="btn_updateEmp">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="C&#x1ead;p nh&#x1ead;t NV"/>
+                          </Properties>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_updateEmp.putClientProperty(FlatClientProperties.STYLE,&quot;&quot;&#xa;                + &quot;background:$Menu.background;&quot;&#xa;                + &quot;foreground:$Menu.foreground;&quot;);"/>
+                          </AuxValues>
+                          <Constraints>
+                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
+                              <BorderConstraints direction="Center"/>
+                            </Constraint>
+                          </Constraints>
+                        </Component>
+                      </SubComponents>
+                    </Container>
+                  </SubComponents>
+                </Container>
               </SubComponents>
             </Container>
           </SubComponents>
         </Container>
-      </SubComponents>
-    </Container>
-    <Container class="javax.swing.JPanel" name="pnl_bottomEmp">
-      <Properties>
-        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[1368, 50]"/>
-        </Property>
-      </Properties>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
-          <BorderConstraints direction="South"/>
-        </Constraint>
-      </Constraints>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout">
-        <Property name="horizontalGap" type="int" value="10"/>
-        <Property name="verticalGap" type="int" value="10"/>
-      </Layout>
-      <SubComponents>
-        <Component class="javax.swing.JButton" name="btn_updateEmp">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="C&#x1ead;p nh&#x1ead;t NV"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="btn_addEmp">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Th&#xea;m NV"/>
-          </Properties>
-        </Component>
       </SubComponents>
     </Container>
   </SubComponents>
