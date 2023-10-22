@@ -12,6 +12,7 @@ import java.util.Objects;
  * @author Hoàng Khang
  */
 public class Employee {
+
     private String employeeID;
     private String citizenIdentification;
     private String role;
@@ -27,20 +28,20 @@ public class Employee {
     }
 
     public Employee(String employeeID) {
-        this.employeeID = employeeID;
+        setEmployeeID(employeeID);
     }
 
     public Employee(String employeeID, String citizenIdentification, String role, boolean status, String name, String phoneNumber, boolean gender, Date dateOfBirth, String address, Store store) {
-        this.employeeID = employeeID;
-        this.citizenIdentification = citizenIdentification;
-        this.role = role;
-        this.status = status;
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.gender = gender;
-        this.dateOfBirth = dateOfBirth;
-        this.address = address;
-        this.store = store;
+        setEmployeeID(employeeID);
+        setCitizenIdentification(citizenIdentification);
+        setRole(role);
+        setStatus(status);
+        setStore(store);
+        setPhoneNumber(phoneNumber);
+        setName(name);
+        setDateOfBirth(dateOfBirth);
+        setAddress(address);
+        setGender(gender);
     }
 
     public String getEmployeeID() {
@@ -55,7 +56,11 @@ public class Employee {
         return citizenIdentification;
     }
 
-    public void setCitizenIdentification(String citizenIdentification) {
+    public void setCitizenIdentification(String citizenIdentification) throws IllegalArgumentException {
+        citizenIdentification = citizenIdentification.trim();
+        if (!citizenIdentification.matches("\\d{12}")) {
+            throw new IllegalArgumentException("Mã định danh phải gồm đúng 12 chữ số!");
+        }
         this.citizenIdentification = citizenIdentification;
     }
 
@@ -79,7 +84,14 @@ public class Employee {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name) throws IllegalArgumentException {
+        name = name.trim();
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("Họ tên không được rỗng!");
+        }
+        if (!name.matches("[a-zA-Z\\p{InCombiningDiacriticalMarks} ]+")) {
+            throw new IllegalArgumentException("Họ tên chỉ được chứa kí tự chữ và khoảng trắng!");
+        }
         this.name = name;
     }
 
@@ -87,7 +99,11 @@ public class Employee {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) throws IllegalArgumentException {
+        phoneNumber = phoneNumber.trim();
+        if (!phoneNumber.matches("^(02|03|05|07|08|09)\\d{8}$")) {
+            throw new IllegalArgumentException("Số điện thoại không hợp lệ!");
+        }
         this.phoneNumber = phoneNumber;
     }
 
@@ -103,7 +119,10 @@ public class Employee {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) throws IllegalArgumentException {
+        if (dateOfBirth.after(new Date())) {
+            throw new IllegalArgumentException("Ngày sinh không được sau ngày hiện tại!");
+        }
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -149,7 +168,5 @@ public class Employee {
         final Employee other = (Employee) obj;
         return Objects.equals(this.employeeID, other.employeeID);
     }
-    
-    
-    
+
 }
