@@ -8,11 +8,15 @@ import entity.Employee;
 import gui.Login_GUI;
 import gui.MainView;
 import gui.Sales_GUI;
+import gui.Welcome_GUI;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 import javax.swing.UIManager;
 import raven.toast.Notifications;
 
@@ -124,10 +128,21 @@ public class Application extends javax.swing.JFrame {
         FlatLaf.registerCustomDefaultsSource("theme");
         UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 15));
         FlatMacLightLaf.setup();
-        java.awt.EventQueue.invokeLater(() -> {
-            app = new Application();
-            app.setVisible(true);
+
+//        Fake loading
+        new Welcome_GUI().setVisible(true);
+        Timer timer = new Timer(3000, new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                java.awt.EventQueue.invokeLater(() -> {
+                    app = new Application();
+                    app.setVisible(true);
+                });
+            }
         });
+        timer.setRepeats(false);
+        timer.start();
+//        app = new Application();
+//        app.setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
