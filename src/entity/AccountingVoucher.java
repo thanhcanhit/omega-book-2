@@ -22,13 +22,12 @@ public class AccountingVoucher {
     private double withDraw;
     private double difference;
     private CashCountSheet cashCountSheet;
-    private List<AccountingVoucherDetail> accoutingVoucherDetailList;
     private ArrayList<Order> orderList;
 
     public AccountingVoucher() {
     }
 
-    public AccountingVoucher(String accountingVoucherID, Date createdDate, Date endedDate, double sale, double payViaATM, double withDraw, double difference, CashCountSheet cashCountSheet, ArrayList<AccountingVoucherDetail> accoutingVoucherDetailList, ArrayList<Order> orderList) {
+    public AccountingVoucher(String accountingVoucherID, Date createdDate, Date endedDate, double sale, double payViaATM, double withDraw, double difference, CashCountSheet cashCountSheet,  ArrayList<Order> orderList) {
         setAccountingVoucherID(accountingVoucherID);
         setCreatedDate(createdDate);
         setEndedDate(endedDate);
@@ -37,7 +36,6 @@ public class AccountingVoucher {
         setWithDraw();
         setDifference();
         setCashCountSheet(cashCountSheet);
-        setAccoutinVoucherDetailList(accoutingVoucherDetailList);
     }
     
     
@@ -126,17 +124,11 @@ public class AccountingVoucher {
         this.cashCountSheet = cashCountSheet;
     }
 
-    public List<AccountingVoucherDetail> getAccoutinVoucherDetailList() {
-        return accoutingVoucherDetailList;
-    }
 
-    public void setAccoutinVoucherDetailList(List<AccountingVoucherDetail> accoutingVoucherDetailList) {
-        this.accoutingVoucherDetailList = accoutingVoucherDetailList;
-    }
 
     @Override
     public String toString() {
-        return "AccountingVoucher{" + "accountingVoucherID=" + accountingVoucherID + ", createdDate=" + createdDate + ", endedDate=" + endedDate + ", sale=" + sale + ", payViaATM=" + payViaATM + ", withDraw=" + withDraw + ", difference=" + difference + ", cashCountSheet=" + cashCountSheet + ", accoutinVoucherDetailList=" + accoutingVoucherDetailList + '}';
+        return "AccountingVoucher{" + "accountingVoucherID=" + accountingVoucherID + ", createdDate=" + createdDate + ", endedDate=" + endedDate + ", sale=" + sale + ", payViaATM=" + payViaATM + ", withDraw=" + withDraw + ", difference=" + difference + ", cashCountSheet=" + cashCountSheet + ", accoutinVoucherDetailList=" +  '}';
     }
 
     @Override

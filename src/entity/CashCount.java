@@ -18,7 +18,7 @@ public class CashCount {
     public CashCount() {
     }
 
-    public CashCount(int quantity, double value, double total) {
+    public CashCount(int quantity, double value) {
         setValue(value);
         setQuantity(quantity);
         setTotal();

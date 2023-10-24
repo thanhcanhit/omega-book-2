@@ -11,6 +11,7 @@ import java.util.Objects;
  * @author Hoàng Khang
  */
 public class CashCountSheetDetail {
+    private int index;
     private Employee employee;
     private CashCountSheet cashCountSheet;
 
@@ -18,9 +19,18 @@ public class CashCountSheetDetail {
     }
     
 
-    public CashCountSheetDetail(Employee employee, CashCountSheet cashCountSheet) {
+    public CashCountSheetDetail(int index, Employee employee, CashCountSheet cashCountSheet) {
+        this.index = index;
         this.employee = employee;
         this.cashCountSheet = cashCountSheet;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     public Employee getEmployee() {
