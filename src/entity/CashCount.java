@@ -4,6 +4,8 @@
  */
 package entity;
 
+import java.util.Arrays;
+
 /**
  *
  * @author Hoàng Khang
@@ -16,31 +18,36 @@ public class CashCount {
     public CashCount() {
     }
 
-    public CashCount(double value) {
-        this.value = value;
-    }
-
-    public CashCount(int quantity, double value, double total) {
-        this.quantity = quantity;
-        this.value = value;
-        this.total = total;
+    public CashCount(int quantity, double value) {
+        setValue(value);
+        setQuantity(quantity);
+        setTotal();
     }
 
     public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setQuantity(int quantity) throws IllegalArgumentException {
+    if (quantity <= 0) {
+        throw new IllegalArgumentException("Giá trị của quantity phải lớn hơn 0!");
     }
+    this.quantity = quantity;
+}
+
 
     public double getValue() {
         return value;
     }
 
-    public void setValue(double value) {
-        this.value = value;
+    public void setValue(double value) throws IllegalArgumentException {
+    double[] allowedValues = {1000, 2000, 5000, 10000, 20000, 50000, 100000, 200000, 500000};
+    if (!Arrays.stream(allowedValues).anyMatch(val -> val == value)) {
+        throw new IllegalArgumentException("Giá trị của value không hợp lệ!");
     }
+    this.value = value;
+}
+
 
     public double getTotal() {
         return total;

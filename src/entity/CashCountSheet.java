@@ -4,6 +4,7 @@
  */
 package entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -15,10 +16,11 @@ import java.util.Objects;
 public class CashCountSheet {
 
     private String cashCountSheetID;
-    private List<CashCount> cashCountList;
+    private ArrayList<CashCount> cashCountList;
     private Date createdDate;
     private Date endedDate;
     private double total;
+    private ArrayList<CashCountSheetDetail> cashCountSheetDetailList;
 
     public CashCountSheet() {
     }
@@ -27,12 +29,13 @@ public class CashCountSheet {
         this.cashCountSheetID = cashCountSheetID;
     }
 
-    public CashCountSheet(String cashCountSheetID, List<CashCount> cashCountList, Date createdDate, Date endedDate, double total) {
+    public CashCountSheet(String cashCountSheetID, ArrayList<CashCount> cashCountList,ArrayList<CashCountSheetDetail> cashCountSheetDetailList, Date createdDate, Date endedDate, double total) {
         this.cashCountSheetID = cashCountSheetID;
         this.cashCountList = cashCountList;
         this.createdDate = createdDate;
         this.endedDate = endedDate;
         this.total = total;
+        this.cashCountSheetDetailList = cashCountSheetDetailList;
     }
 
     public String getCashCountSheetID() {
@@ -47,7 +50,7 @@ public class CashCountSheet {
         return cashCountList;
     }
 
-    public void setCashCountList(List<CashCount> cashCountList) {
+    public void setCashCountList(ArrayList<CashCount> cashCountList) {
         this.cashCountList = cashCountList;
     }
 
@@ -79,6 +82,15 @@ public class CashCountSheet {
         this.total = sum;
     }
 
+    public ArrayList<CashCountSheetDetail> getCashCountSheetDetailList() {
+        return cashCountSheetDetailList;
+    }
+
+    public void setCashCountSheetDetailList(ArrayList<CashCountSheetDetail> cashCountSheetDetailList) {
+        this.cashCountSheetDetailList = cashCountSheetDetailList;
+    }
+
+    
     @Override
     public String toString() {
         return "CashCountSheet{" + "cashCountSheetID=" + cashCountSheetID + ", cashCountList=" + cashCountList + ", createdDate=" + createdDate + ", endedDate=" + endedDate + ", total=" + total + '}';

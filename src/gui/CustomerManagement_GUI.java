@@ -291,7 +291,7 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         jPanel9.add(jButton2);
 
         jButton3.setFont(jButton3.getFont().deriveFont(jButton3.getFont().getStyle() | java.awt.Font.BOLD, 14));
-        jButton3.setText("Reload");
+        jButton3.setText("Làm mới");
         jPanel9.add(jButton3);
 
         pnl_infoFooter.add(jPanel9);
@@ -336,7 +336,7 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         });
         pnl_searchForPhone.add(jButton1);
 
-        jButton5.setText("Reload");
+        jButton5.setText("Làm mới");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
