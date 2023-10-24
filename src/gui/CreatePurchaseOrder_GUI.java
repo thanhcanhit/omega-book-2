@@ -158,9 +158,10 @@ public class CreatePurchaseOrder_GUI extends javax.swing.JPanel {
         pnl_orderCustomerGive.setPreferredSize(new java.awt.Dimension(561, 100));
         pnl_orderCustomerGive.setLayout(new javax.swing.BoxLayout(pnl_orderCustomerGive, javax.swing.BoxLayout.Y_AXIS));
 
-        pnl_container.setLayout(new java.awt.GridLayout());
+        pnl_container.setLayout(new java.awt.GridLayout(1, 0));
 
-        lbl_description.setText("Tiền khách đưa");
+        lbl_description.setText("Lưu ý");
+        lbl_description.setToolTipText("");
         lbl_description.setPreferredSize(new java.awt.Dimension(130, 40));
         pnl_container.add(lbl_description);
 

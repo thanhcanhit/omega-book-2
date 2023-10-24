@@ -1357,6 +1357,9 @@
                     <Property name="text" type="java.lang.String" value="Th&#xea;m s&#x1ea3;n ph&#x1ea9;m m&#x1edb;i"/>
                     <Property name="actionCommand" type="java.lang.String" value=""/>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_add.setIcon(SVGIcon.getSVGIcon(&quot;imgs/menu/1.svg&quot;));"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>

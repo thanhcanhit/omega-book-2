@@ -4,7 +4,7 @@
  */
 package gui;
 import com.formdev.flatlaf.FlatClientProperties;
-
+import utilities.SVGIcon;
 /**
  *
  * @author thanhcanhit
@@ -700,6 +700,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 
         btn_add.setText("Thêm sản phẩm mới");
         btn_add.setActionCommand("");
+        btn_add.setIcon(SVGIcon.getSVGIcon("imgs/menu/1.svg"));
         pnl_control.add(btn_add);
 
         pnl_right.add(pnl_control, java.awt.BorderLayout.SOUTH);
@@ -764,7 +765,6 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
     private javax.swing.JButton btn_update;
     private javax.swing.JCheckBox chk_empty;
     private javax.swing.JComboBox<String> cmb_bookHardCover;
-    private javax.swing.JComboBox<String> cmb_bookHardCover2;
     private javax.swing.JComboBox<String> cmb_productType;
     private javax.swing.JComboBox<String> cmb_stationeryBrand;
     private javax.swing.JComboBox<String> cmb_stationeryType;
@@ -772,19 +772,12 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cmb_typeDetail;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JLabel lbl_bookAuthor;
-    private javax.swing.JLabel lbl_bookAuthor2;
     private javax.swing.JLabel lbl_bookDescription;
-    private javax.swing.JLabel lbl_bookDescription2;
     private javax.swing.JLabel lbl_bookHardCover;
-    private javax.swing.JLabel lbl_bookHardCover2;
     private javax.swing.JLabel lbl_bookLanguage;
-    private javax.swing.JLabel lbl_bookLanguage2;
     private javax.swing.JLabel lbl_bookPublishDate;
-    private javax.swing.JLabel lbl_bookPublishDate2;
     private javax.swing.JLabel lbl_bookPublisher;
-    private javax.swing.JLabel lbl_bookPublisher2;
     private javax.swing.JLabel lbl_bookQuantityPage;
-    private javax.swing.JLabel lbl_bookQuantityPage2;
     private javax.swing.JLabel lbl_bookTranslator;
     private javax.swing.JLabel lbl_name;
     private javax.swing.JLabel lbl_pageNumber;
@@ -804,13 +797,9 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
     private javax.swing.JLabel lbl_type;
     private javax.swing.JLabel lbl_typeDetail;
     private javax.swing.JPanel pnl_bookAuthor;
-    private javax.swing.JPanel pnl_bookAuthor2;
     private javax.swing.JPanel pnl_bookCenter;
-    private javax.swing.JPanel pnl_bookCenter2;
     private javax.swing.JPanel pnl_bookDetail;
-    private javax.swing.JPanel pnl_bookDetail2;
     private javax.swing.JPanel pnl_bookPublisher;
-    private javax.swing.JPanel pnl_bookPublisher2;
     private javax.swing.JPanel pnl_cart;
     private javax.swing.JPanel pnl_cartFooter;
     private javax.swing.JPanel pnl_container;
@@ -834,7 +823,6 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
     private javax.swing.JPanel pnl_container5;
     private javax.swing.JPanel pnl_container6;
     private javax.swing.JPanel pnl_container7;
-    private javax.swing.JPanel pnl_container9;
     private javax.swing.JPanel pnl_control;
     private javax.swing.JPanel pnl_empty;
     private javax.swing.JPanel pnl_filter;
@@ -858,22 +846,15 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
     private javax.swing.JScrollPane scr_detail;
     private javax.swing.JScrollPane scr_productName;
     private javax.swing.JScrollPane scr_productName1;
-    private javax.swing.JScrollPane scr_productName3;
     private javax.swing.JSplitPane splitPane_main;
     private javax.swing.JTable tbl_cart;
     private javax.swing.JTextArea txa_bookDescription;
-    private javax.swing.JTextArea txa_bookDescription2;
     private javax.swing.JTextArea txa_productName;
     private javax.swing.JTextField txt_bookAuthor;
-    private javax.swing.JTextField txt_bookAuthor2;
     private javax.swing.JTextField txt_bookLanguage;
-    private javax.swing.JTextField txt_bookLanguage2;
     private javax.swing.JTextField txt_bookPublishDate;
-    private javax.swing.JTextField txt_bookPublishDate2;
     private javax.swing.JTextField txt_bookPublisher;
-    private javax.swing.JTextField txt_bookPublisher2;
     private javax.swing.JTextField txt_bookQuantityPage;
-    private javax.swing.JTextField txt_bookQuantityPage2;
     private javax.swing.JTextField txt_bookTranslator;
     private javax.swing.JTextField txt_name;
     private javax.swing.JTextField txt_productCostPrice;

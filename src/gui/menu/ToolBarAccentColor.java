@@ -23,7 +23,7 @@ import javax.swing.UIManager;
 
 /**
  *
- * @author Raven
+ * @author thanhcanhit
  */
 public class ToolBarAccentColor extends JPanel {
 

@@ -14,13 +14,22 @@ import main.Application;
 
 /**
  *
- * @author Raven
+ * @author thanhcanhit
  */
 public class Login_GUI extends javax.swing.JPanel {
 
     public Login_GUI() {
         initComponents();
         init();
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+
+        super.paintComponent(g);
+        Image background = Toolkit.getDefaultToolkit().createImage(getClass().getResource("/imgs/login/background.png"));
+        g.drawImage(background, 0, 0, this);
+
     }
 
     private void init() {
@@ -172,14 +181,6 @@ public class Login_GUI extends javax.swing.JPanel {
                 lbl_main.setBounds(x, y, loginWidth, loginHeight);
             }
         }
-    }
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-
-        Image background = Toolkit.getDefaultToolkit().createImage("/imgs/login/background.png");
-        g.drawImage(background, 0, 0, null);
     }
 
     private class LoginLayout implements LayoutManager {
