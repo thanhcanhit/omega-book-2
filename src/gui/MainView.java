@@ -19,26 +19,15 @@ import gui.menu.Menu;
 import gui.menu.MenuAction;
 import javax.swing.JOptionPane;
 import main.Application;
-import database.ConnectDB;
 
 /**
  *
  * @author thanhcanhit
  */
 public class MainView extends JLayeredPane {
-    
+
     public MainView() {
-        connectDB();
         init();
-    }
-    
-    public void connectDB() {
-        try {
-            ConnectDB.connect();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Không thể kết nối đến server!", "Lỗi", JOptionPane.DEFAULT_OPTION);
-            System.exit(0);
-        }
     }
 
     private void init() {

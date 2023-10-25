@@ -11,21 +11,25 @@ import java.sql.*;
  * @author Hoàng Khang
  */
 public class ConnectDB {
-       public static Connection conn = null;
-    
+
+    public static Connection conn = null;
+
     public static void connect() throws SQLException {
-        String url = "jdbc:sqlserver://localhost:1433;databasename=Omegabook";
+
+        String url = "jdbc:sqlserver://localhost:1433;databasename=OmegaBook";
         String user = "sa";
         String password = "sapassword"; //123456aA@$
-        
+
         conn = DriverManager.getConnection(url, user, password);
+
     }
-    
+
     public static void disconnect() {
-        try {
-            conn.close();
-        } catch (SQLException e) {
-            
+        if (conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+            }
         }
     }
 }

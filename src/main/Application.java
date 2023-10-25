@@ -4,6 +4,7 @@ import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.extras.FlatAnimatedLafChange;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
+import database.ConnectDB;
 import entity.Employee;
 import gui.Login_GUI;
 import gui.MainView;
@@ -12,7 +13,7 @@ import gui.Welcome_GUI;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -26,7 +27,7 @@ import raven.toast.Notifications;
  */
 public class Application extends javax.swing.JFrame {
 
-    private static Application app;
+    public static Application app;
     private final MainView mainForm;
     private final Login_GUI loginForm;
     private static final Sales_GUI salesForm = new Sales_GUI();
@@ -52,7 +53,7 @@ public class Application extends javax.swing.JFrame {
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 //                    Đóng kết nối
-//                    ConnectDB.disconnect();
+                    ConnectDB.disconnect();
                     System.exit(0);
                 }
             }
@@ -100,6 +101,10 @@ public class Application extends javax.swing.JFrame {
         Notifications.getInstance().show(Notifications.Type.INFO, "Đăng xuất khỏi hệ thống thành công");
     }
 
+    public static void close() {
+        System.exit(0);
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -128,16 +133,25 @@ public class Application extends javax.swing.JFrame {
         FlatLaf.registerCustomDefaultsSource("theme");
         UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 15));
         FlatMacLightLaf.setup();
+        app = new Application();
 
 //        Fake loading
         new Welcome_GUI().setVisible(true);
-        Timer timer = new Timer(3000, new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                java.awt.EventQueue.invokeLater(() -> {
-                    app = new Application();
-                    app.setVisible(true);
-                });
-            }
+        
+        
+//        Connect db
+        try {
+            ConnectDB.connect();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Không thể kết nối đến database!", "Vui lòng kiểm tra", JOptionPane.DEFAULT_OPTION);
+            System.exit(0);
+        }
+        
+//        Delay render
+        Timer timer = new Timer(2500, (ActionEvent evt) -> {
+            java.awt.EventQueue.invokeLater(() -> {
+                app.setVisible(true);
+            });
         });
         timer.setRepeats(false);
         timer.start();
