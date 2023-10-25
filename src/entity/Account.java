@@ -41,9 +41,9 @@ public class Account {
             throw new Exception(EMPLOYEE_ERROR);
     }
 
-    public Account(String passWord, Employee employee) {
-        this.passWord = passWord;
-        this.employee = employee;
+    public Account(String passWord, Employee employee) throws Exception {
+        setPassWord(passWord);
+        setEmployee(employee);
     }
 
     public Account() {
