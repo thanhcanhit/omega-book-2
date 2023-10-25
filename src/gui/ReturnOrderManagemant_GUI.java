@@ -133,29 +133,37 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
         pnl_eastReturnOrder.setPreferredSize(new java.awt.Dimension(500, 437));
         pnl_eastReturnOrder.setLayout(new javax.swing.BoxLayout(pnl_eastReturnOrder, javax.swing.BoxLayout.Y_AXIS));
 
-        pnl_employeeID.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        pnl_employeeID.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         pnl_employeeID.setLayout(new javax.swing.BoxLayout(pnl_employeeID, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_employeeID.setText("Mã nhân viên:");
         lbl_employeeID.setMaximumSize(new java.awt.Dimension(80, 16));
         lbl_employeeID.setPreferredSize(new java.awt.Dimension(80, 16));
         pnl_employeeID.add(lbl_employeeID);
+
+        txt_employeeID.setMaximumSize(new java.awt.Dimension(2147483647, 30));
+        txt_employeeID.setMinimumSize(new java.awt.Dimension(64, 30));
+        txt_employeeID.setPreferredSize(new java.awt.Dimension(64, 30));
         pnl_employeeID.add(txt_employeeID);
 
         pnl_eastReturnOrder.add(pnl_employeeID);
 
-        pnl_returnOrderID.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        pnl_returnOrderID.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         pnl_returnOrderID.setLayout(new javax.swing.BoxLayout(pnl_returnOrderID, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_returnOrderID.setText("Mã đơn ĐT:");
         lbl_returnOrderID.setMaximumSize(new java.awt.Dimension(80, 16));
         lbl_returnOrderID.setPreferredSize(new java.awt.Dimension(80, 16));
         pnl_returnOrderID.add(lbl_returnOrderID);
+
+        txt_returnOrderID.setMaximumSize(new java.awt.Dimension(2147483647, 30));
+        txt_returnOrderID.setMinimumSize(new java.awt.Dimension(64, 30));
+        txt_returnOrderID.setPreferredSize(new java.awt.Dimension(64, 30));
         pnl_returnOrderID.add(txt_returnOrderID);
 
         pnl_eastReturnOrder.add(pnl_returnOrderID);
 
-        pnl_productID.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        pnl_productID.setPreferredSize(new java.awt.Dimension(462, 420));
         pnl_productID.setLayout(new java.awt.BorderLayout());
 
         lbl_product.setText("Sản phẩm:");
@@ -191,8 +199,9 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
         pnl_eastReturnOrder.add(pnl_productID);
 
         pnl_statusReturnOrder.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        pnl_statusReturnOrder.setMinimumSize(new java.awt.Dimension(135, 32));
-        pnl_statusReturnOrder.setPreferredSize(new java.awt.Dimension(290, 36));
+        pnl_statusReturnOrder.setMaximumSize(new java.awt.Dimension(32833, 40));
+        pnl_statusReturnOrder.setMinimumSize(new java.awt.Dimension(135, 30));
+        pnl_statusReturnOrder.setPreferredSize(new java.awt.Dimension(290, 30));
         pnl_statusReturnOrder.setLayout(new javax.swing.BoxLayout(pnl_statusReturnOrder, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_status.setText("Trạng thái:");
@@ -213,6 +222,9 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
 
         pnl_eastReturnOrder.add(pnl_statusReturnOrder);
 
+        pnl_buttonSave.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        pnl_buttonSave.setMinimumSize(new java.awt.Dimension(72, 40));
+        pnl_buttonSave.setPreferredSize(new java.awt.Dimension(300, 45));
         pnl_buttonSave.setLayout(new java.awt.BorderLayout());
 
         btn_saveReturnOrder.setText("Lưu");
