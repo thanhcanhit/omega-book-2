@@ -115,7 +115,7 @@ public class StatisticSales_GUI extends javax.swing.JPanel {
         txt_orderQuantity.setEditable(false);
         txt_orderQuantity.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
         txt_orderQuantity.setMinimumSize(new java.awt.Dimension(50, 20));
-        txt_orderQuantity.setPreferredSize(new java.awt.Dimension(50, 20));
+        txt_orderQuantity.setPreferredSize(new java.awt.Dimension(50, 30));
         pnl_orderQuantiy.add(txt_orderQuantity);
 
         pnl_infomaotionBody.add(pnl_orderQuantiy);
@@ -136,7 +136,7 @@ public class StatisticSales_GUI extends javax.swing.JPanel {
         txt_returnOrderQuantity.setEditable(false);
         txt_returnOrderQuantity.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
         txt_returnOrderQuantity.setMinimumSize(new java.awt.Dimension(50, 20));
-        txt_returnOrderQuantity.setPreferredSize(new java.awt.Dimension(50, 20));
+        txt_returnOrderQuantity.setPreferredSize(new java.awt.Dimension(50, 30));
         pnl_returnOrderQuantity.add(txt_returnOrderQuantity);
 
         pnl_infomaotionBody.add(pnl_returnOrderQuantity);
@@ -159,7 +159,7 @@ public class StatisticSales_GUI extends javax.swing.JPanel {
         txt_purchaseOrderQuanitty.setEditable(false);
         txt_purchaseOrderQuanitty.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
         txt_purchaseOrderQuanitty.setMinimumSize(new java.awt.Dimension(50, 20));
-        txt_purchaseOrderQuanitty.setPreferredSize(new java.awt.Dimension(50, 20));
+        txt_purchaseOrderQuanitty.setPreferredSize(new java.awt.Dimension(50, 30));
         pnl_purchaseOrderQuantiy.add(txt_purchaseOrderQuanitty);
 
         pnl_infomaotionBody.add(pnl_purchaseOrderQuantiy);
@@ -181,7 +181,7 @@ public class StatisticSales_GUI extends javax.swing.JPanel {
         txt_orderQuantity3.setEditable(false);
         txt_orderQuantity3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
         txt_orderQuantity3.setMinimumSize(new java.awt.Dimension(50, 20));
-        txt_orderQuantity3.setPreferredSize(new java.awt.Dimension(50, 20));
+        txt_orderQuantity3.setPreferredSize(new java.awt.Dimension(50, 30));
         pnl_orderQuantiy3.add(txt_orderQuantity3);
 
         pnl_infomaotionBody.add(pnl_orderQuantiy3);
@@ -201,7 +201,7 @@ public class StatisticSales_GUI extends javax.swing.JPanel {
         txt_orderQuantity4.setEditable(false);
         txt_orderQuantity4.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
         txt_orderQuantity4.setMinimumSize(new java.awt.Dimension(50, 20));
-        txt_orderQuantity4.setPreferredSize(new java.awt.Dimension(50, 20));
+        txt_orderQuantity4.setPreferredSize(new java.awt.Dimension(50, 30));
         pnl_orderQuantiy4.add(txt_orderQuantity4);
 
         pnl_infomaotionBody.add(pnl_orderQuantiy4);

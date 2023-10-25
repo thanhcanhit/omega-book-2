@@ -76,6 +76,9 @@
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[180, 40]"/>
                 </Property>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[155, 30]"/>
+                </Property>
               </Properties>
             </Component>
           </SubComponents>
@@ -187,7 +190,7 @@
                   <Dimension value="[0, 10]"/>
                 </Property>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[0, 10]"/>
+                  <Dimension value="[0, 6]"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -248,7 +251,7 @@
                       <Dimension value="[50, 20]"/>
                     </Property>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[50, 20]"/>
+                      <Dimension value="[50, 30]"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -279,7 +282,7 @@
                   <Dimension value="[0, 10]"/>
                 </Property>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[0, 10]"/>
+                  <Dimension value="[0, 6]"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -340,7 +343,7 @@
                       <Dimension value="[50, 20]"/>
                     </Property>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[50, 20]"/>
+                      <Dimension value="[50, 30]"/>
                     </Property>
                   </Properties>
                   <Events>
@@ -374,7 +377,7 @@
                   <Dimension value="[0, 10]"/>
                 </Property>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[0, 10]"/>
+                  <Dimension value="[0, 6]"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -432,7 +435,7 @@
                       <Dimension value="[50, 20]"/>
                     </Property>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[50, 20]"/>
+                      <Dimension value="[50, 30]"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -463,7 +466,7 @@
                   <Dimension value="[0, 10]"/>
                 </Property>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[0, 10]"/>
+                  <Dimension value="[0, 6]"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -524,7 +527,7 @@
                       <Dimension value="[50, 20]"/>
                     </Property>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[50, 20]"/>
+                      <Dimension value="[50, 30]"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -555,7 +558,7 @@
                   <Dimension value="[0, 10]"/>
                 </Property>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[0, 10]"/>
+                  <Dimension value="[0, 6]"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -616,7 +619,7 @@
                       <Dimension value="[50, 20]"/>
                     </Property>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[50, 20]"/>
+                      <Dimension value="[50, 30]"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -647,7 +650,7 @@
                   <Dimension value="[0, 10]"/>
                 </Property>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[0, 10]"/>
+                  <Dimension value="[0, 6]"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -708,7 +711,7 @@
                       <Dimension value="[50, 20]"/>
                     </Property>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[50, 20]"/>
+                      <Dimension value="[50, 30]"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -739,7 +742,7 @@
                   <Dimension value="[0, 10]"/>
                 </Property>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[0, 10]"/>
+                  <Dimension value="[0, 6]"/>
                 </Property>
               </Properties>
               <AuxValues>
