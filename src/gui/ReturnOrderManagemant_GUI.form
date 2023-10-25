@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.8" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.ButtonGroup" name="group_statusReturnOrder">
+    </Component>
+  </NonVisualComponents>
   <Properties>
     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[1366, 768]"/>
@@ -87,7 +91,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="jPanel1">
+        <Container class="javax.swing.JPanel" name="pnl_chkReturnOrder">
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout">
             <Property name="alignment" type="int" value="0"/>
@@ -410,11 +414,17 @@
               <SubComponents>
                 <Component class="javax.swing.JRadioButton" name="rdb_admit">
                   <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="group_statusReturnOrder"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="X&#xe1;c nh&#x1ead;n"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="rdb_deny">
                   <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="group_statusReturnOrder"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="T&#x1eeb; ch&#x1ed1;i"/>
                   </Properties>
                 </Component>
