@@ -34,49 +34,49 @@ public class StatisticProduct_GUI extends javax.swing.JPanel {
         scr_tableProduct = new javax.swing.JScrollPane();
         tbl_topProduct = new javax.swing.JTable();
         pnl_infomation = new javax.swing.JPanel();
-        filler21 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
+        filler21 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 6), new java.awt.Dimension(32767, 10));
         pnl_productID = new javax.swing.JPanel();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         lbl_productID = new javax.swing.JLabel();
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         txt_productID = new javax.swing.JTextField();
         filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
-        filler20 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
+        filler20 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 6), new java.awt.Dimension(32767, 10));
         pnl_productName = new javax.swing.JPanel();
         filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         lbl_productIName = new javax.swing.JLabel();
         filler5 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         txt_productName = new javax.swing.JTextField();
         filler6 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
-        filler19 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
+        filler19 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 6), new java.awt.Dimension(32767, 10));
         pnl_productType = new javax.swing.JPanel();
         filler22 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         lbl_productIType = new javax.swing.JLabel();
         filler23 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         txt_productType = new javax.swing.JTextField();
         filler24 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
-        filler25 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
+        filler25 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 6), new java.awt.Dimension(32767, 10));
         pnl_price = new javax.swing.JPanel();
         filler7 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         lbl_price = new javax.swing.JLabel();
         filler8 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         txt_price = new javax.swing.JTextField();
         filler9 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
-        filler18 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
+        filler18 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 6), new java.awt.Dimension(32767, 10));
         pnl_quantity = new javax.swing.JPanel();
         filler10 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         lbl_quantity = new javax.swing.JLabel();
         filler11 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         txt_quantity = new javax.swing.JTextField();
         filler12 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
-        filler17 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
+        filler17 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 6), new java.awt.Dimension(32767, 10));
         pnl_total = new javax.swing.JPanel();
         filler13 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         lbl_total = new javax.swing.JLabel();
         filler14 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         txt_total = new javax.swing.JTextField();
         filler15 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
-        filler16 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
+        filler16 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 6), new java.awt.Dimension(32767, 10));
         pnl_center = new javax.swing.JPanel();
 
         setPreferredSize(new java.awt.Dimension(1366, 768));
@@ -92,6 +92,7 @@ public class StatisticProduct_GUI extends javax.swing.JPanel {
 
         date_statisticProduct.setDateFormatString("dd,mm,yyyy ");
         date_statisticProduct.setMaximumSize(new java.awt.Dimension(180, 40));
+        date_statisticProduct.setPreferredSize(new java.awt.Dimension(155, 30));
         pnl_control.add(date_statisticProduct);
 
         pnl_header.add(pnl_control, java.awt.BorderLayout.NORTH);
@@ -140,7 +141,7 @@ public class StatisticProduct_GUI extends javax.swing.JPanel {
 
         txt_productID.setEditable(false);
         txt_productID.setMinimumSize(new java.awt.Dimension(50, 20));
-        txt_productID.setPreferredSize(new java.awt.Dimension(50, 20));
+        txt_productID.setPreferredSize(new java.awt.Dimension(50, 30));
         pnl_productID.add(txt_productID);
         pnl_productID.add(filler3);
 
@@ -158,7 +159,7 @@ public class StatisticProduct_GUI extends javax.swing.JPanel {
 
         txt_productName.setEditable(false);
         txt_productName.setMinimumSize(new java.awt.Dimension(50, 20));
-        txt_productName.setPreferredSize(new java.awt.Dimension(50, 20));
+        txt_productName.setPreferredSize(new java.awt.Dimension(50, 30));
         txt_productName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_productNameActionPerformed(evt);
@@ -180,7 +181,7 @@ public class StatisticProduct_GUI extends javax.swing.JPanel {
 
         txt_productType.setEditable(false);
         txt_productType.setMinimumSize(new java.awt.Dimension(50, 20));
-        txt_productType.setPreferredSize(new java.awt.Dimension(50, 20));
+        txt_productType.setPreferredSize(new java.awt.Dimension(50, 30));
         pnl_productType.add(txt_productType);
         pnl_productType.add(filler24);
 
@@ -198,7 +199,7 @@ public class StatisticProduct_GUI extends javax.swing.JPanel {
 
         txt_price.setEditable(false);
         txt_price.setMinimumSize(new java.awt.Dimension(50, 20));
-        txt_price.setPreferredSize(new java.awt.Dimension(50, 20));
+        txt_price.setPreferredSize(new java.awt.Dimension(50, 30));
         pnl_price.add(txt_price);
         pnl_price.add(filler9);
 
@@ -216,7 +217,7 @@ public class StatisticProduct_GUI extends javax.swing.JPanel {
 
         txt_quantity.setEditable(false);
         txt_quantity.setMinimumSize(new java.awt.Dimension(50, 20));
-        txt_quantity.setPreferredSize(new java.awt.Dimension(50, 20));
+        txt_quantity.setPreferredSize(new java.awt.Dimension(50, 30));
         pnl_quantity.add(txt_quantity);
         pnl_quantity.add(filler12);
 
@@ -234,7 +235,7 @@ public class StatisticProduct_GUI extends javax.swing.JPanel {
 
         txt_total.setEditable(false);
         txt_total.setMinimumSize(new java.awt.Dimension(50, 20));
-        txt_total.setPreferredSize(new java.awt.Dimension(50, 20));
+        txt_total.setPreferredSize(new java.awt.Dimension(50, 30));
         pnl_total.add(txt_total);
         pnl_total.add(filler15);
 

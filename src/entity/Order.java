@@ -13,7 +13,7 @@ import java.util.Objects;
  *
  * @author macbookk
  */
-public class Order {
+public final class Order {
     
     
     private String orderID;
@@ -112,11 +112,22 @@ public class Order {
     }
 
     public Order(String orderID, Date orderAt, boolean status, Promotion promotion, Employee employee, Customer customer, ArrayList<OrderDetail> orderDetail) {
+        setStatus(status);
+        setSubTotal();
+        setTotalDue();
+        setOrderAt(orderAt);
+        setCustomer(customer);
+        setOrderDetail(orderDetail);
+        setPromotion(promotion);
+        setOrderID(orderID);
+        
+    }
+    public Order(String orderID, Date orderAt, boolean status, Promotion promotion, Employee employee, Customer customer, ArrayList<OrderDetail> orderDetail, double  subTotal, double toTalDue) {
         this.orderID = orderID;
         this.orderAt = orderAt;
         this.status = status;
-        setSubTotal();
-        setTotalDue();
+        this.subTotal= subTotal;
+        this.totalDue= toTalDue;
         this.promotion = promotion;
         this.employee = employee;
         this.customer = customer;

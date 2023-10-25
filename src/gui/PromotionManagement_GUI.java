@@ -43,6 +43,7 @@ public class PromotionManagement_GUI extends javax.swing.JPanel {
         cmb_typePromo = new javax.swing.JComboBox<>();
         cmb_statusPromo = new javax.swing.JComboBox<>();
         pnl_inforPromo = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         lbl_promotionID = new javax.swing.JLabel();
         txt_promotionID = new javax.swing.JTextField();
@@ -154,7 +155,9 @@ public class PromotionManagement_GUI extends javax.swing.JPanel {
         pnl_promotionNew.add(pnl_filterPromo);
 
         pnl_inforPromo.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-        pnl_inforPromo.setLayout(new javax.swing.BoxLayout(pnl_inforPromo, javax.swing.BoxLayout.Y_AXIS));
+        pnl_inforPromo.setLayout(new java.awt.BorderLayout());
+
+        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.Y_AXIS));
 
         jPanel6.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         jPanel6.setMaximumSize(new java.awt.Dimension(2147483647, 50));
@@ -170,7 +173,9 @@ public class PromotionManagement_GUI extends javax.swing.JPanel {
 
         txt_promotionID.setEditable(false);
         txt_promotionID.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        txt_promotionID.setPreferredSize(new java.awt.Dimension(71, 12));
+        txt_promotionID.setMaximumSize(new java.awt.Dimension(2147483647, 30));
+        txt_promotionID.setMinimumSize(new java.awt.Dimension(64, 30));
+        txt_promotionID.setPreferredSize(new java.awt.Dimension(71, 30));
         txt_promotionID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_promotionIDActionPerformed(evt);
@@ -178,7 +183,7 @@ public class PromotionManagement_GUI extends javax.swing.JPanel {
         });
         jPanel6.add(txt_promotionID);
 
-        pnl_inforPromo.add(jPanel6);
+        jPanel1.add(jPanel6);
 
         jPanel7.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         jPanel7.setLayout(new javax.swing.BoxLayout(jPanel7, javax.swing.BoxLayout.X_AXIS));
@@ -189,11 +194,12 @@ public class PromotionManagement_GUI extends javax.swing.JPanel {
         lbl_typePromo.setPreferredSize(new java.awt.Dimension(95, 16));
         jPanel7.add(lbl_typePromo);
 
-        txt_typePromo.setMaximumSize(new java.awt.Dimension(2147483647, 50));
-        txt_typePromo.setPreferredSize(new java.awt.Dimension(71, 12));
+        txt_typePromo.setMaximumSize(new java.awt.Dimension(2147483647, 30));
+        txt_typePromo.setMinimumSize(new java.awt.Dimension(64, 30));
+        txt_typePromo.setPreferredSize(new java.awt.Dimension(71, 30));
         jPanel7.add(txt_typePromo);
 
-        pnl_inforPromo.add(jPanel7);
+        jPanel1.add(jPanel7);
 
         jPanel8.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         jPanel8.setLayout(new javax.swing.BoxLayout(jPanel8, javax.swing.BoxLayout.X_AXIS));
@@ -204,11 +210,12 @@ public class PromotionManagement_GUI extends javax.swing.JPanel {
         lbl_discountPromo.setPreferredSize(new java.awt.Dimension(95, 16));
         jPanel8.add(lbl_discountPromo);
 
-        txt_discountPromo.setMaximumSize(new java.awt.Dimension(2147483647, 50));
-        txt_discountPromo.setPreferredSize(new java.awt.Dimension(64, 40));
+        txt_discountPromo.setMaximumSize(new java.awt.Dimension(2147483647, 30));
+        txt_discountPromo.setMinimumSize(new java.awt.Dimension(64, 30));
+        txt_discountPromo.setPreferredSize(new java.awt.Dimension(64, 30));
         jPanel8.add(txt_discountPromo);
 
-        pnl_inforPromo.add(jPanel8);
+        jPanel1.add(jPanel8);
 
         jPanel9.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         jPanel9.setLayout(new javax.swing.BoxLayout(jPanel9, javax.swing.BoxLayout.X_AXIS));
@@ -219,9 +226,9 @@ public class PromotionManagement_GUI extends javax.swing.JPanel {
         lbl_startDatePromo.setPreferredSize(new java.awt.Dimension(95, 16));
         jPanel9.add(lbl_startDatePromo);
 
-        txt_startDatePromo.setMaximumSize(new java.awt.Dimension(2147483647, 50));
-        txt_startDatePromo.setMinimumSize(new java.awt.Dimension(64, 12));
-        txt_startDatePromo.setPreferredSize(new java.awt.Dimension(64, 40));
+        txt_startDatePromo.setMaximumSize(new java.awt.Dimension(2147483647, 30));
+        txt_startDatePromo.setMinimumSize(new java.awt.Dimension(64, 30));
+        txt_startDatePromo.setPreferredSize(new java.awt.Dimension(64, 30));
         txt_startDatePromo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_startDatePromoActionPerformed(evt);
@@ -229,7 +236,7 @@ public class PromotionManagement_GUI extends javax.swing.JPanel {
         });
         jPanel9.add(txt_startDatePromo);
 
-        pnl_inforPromo.add(jPanel9);
+        jPanel1.add(jPanel9);
 
         jPanel10.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         jPanel10.setLayout(new javax.swing.BoxLayout(jPanel10, javax.swing.BoxLayout.X_AXIS));
@@ -237,14 +244,14 @@ public class PromotionManagement_GUI extends javax.swing.JPanel {
         lbl_endDatePromo.setText("Ngày kết thúc:");
         jPanel10.add(lbl_endDatePromo);
 
-        txt_endDatePromo.setMaximumSize(new java.awt.Dimension(2147483647, 50));
-        txt_endDatePromo.setMinimumSize(new java.awt.Dimension(64, 12));
-        txt_endDatePromo.setPreferredSize(new java.awt.Dimension(64, 40));
+        txt_endDatePromo.setMaximumSize(new java.awt.Dimension(2147483647, 30));
+        txt_endDatePromo.setMinimumSize(new java.awt.Dimension(64, 30));
+        txt_endDatePromo.setPreferredSize(new java.awt.Dimension(64, 30));
         jPanel10.add(txt_endDatePromo);
 
-        pnl_inforPromo.add(jPanel10);
+        jPanel1.add(jPanel10);
 
-        pnl_promotionNew.add(pnl_inforPromo);
+        pnl_inforPromo.add(jPanel1, java.awt.BorderLayout.CENTER);
 
         pnl_buttonPromo.setMaximumSize(new java.awt.Dimension(65534, 50));
         pnl_buttonPromo.setMinimumSize(new java.awt.Dimension(100, 50));
@@ -277,7 +284,9 @@ public class PromotionManagement_GUI extends javax.swing.JPanel {
 
         pnl_buttonPromo.add(jPanel12);
 
-        pnl_promotionNew.add(pnl_buttonPromo);
+        pnl_inforPromo.add(pnl_buttonPromo, java.awt.BorderLayout.SOUTH);
+
+        pnl_promotionNew.add(pnl_inforPromo);
 
         slp_promotion.setRightComponent(pnl_promotionNew);
 
@@ -303,6 +312,7 @@ public class PromotionManagement_GUI extends javax.swing.JPanel {
     private javax.swing.JButton btn_searchPromo;
     private javax.swing.JComboBox<String> cmb_statusPromo;
     private javax.swing.JComboBox<String> cmb_typePromo;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;

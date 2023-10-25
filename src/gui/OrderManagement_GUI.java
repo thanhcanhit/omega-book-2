@@ -85,6 +85,9 @@ public class OrderManagement_GUI extends javax.swing.JPanel {
         lbl_orderID.setText("Mã đơn hàng: ");
         lbl_orderID.setPreferredSize(new java.awt.Dimension(130, 130));
         pnl_orderFilter.add(lbl_orderID);
+
+        txt_orderID.setMinimumSize(null);
+        txt_orderID.setPreferredSize(new java.awt.Dimension(30, 30));
         pnl_orderFilter.add(txt_orderID);
 
         pnl_header.add(pnl_orderFilter);
@@ -100,8 +103,8 @@ public class OrderManagement_GUI extends javax.swing.JPanel {
 
         cmb_orderStatusFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "< 100.000VNĐ", "> 100.000VNĐ && < 5.000VNĐ", "> 500.000VNĐ && < 1.000.000VNĐ", "> 1.000.000VNĐ", " " }));
         cmb_orderStatusFilter.setMaximumSize(new java.awt.Dimension(160, 32767));
-        cmb_orderStatusFilter.setMinimumSize(new java.awt.Dimension(100, 23));
-        cmb_orderStatusFilter.setPreferredSize(new java.awt.Dimension(140, 23));
+        cmb_orderStatusFilter.setMinimumSize(null);
+        cmb_orderStatusFilter.setPreferredSize(new java.awt.Dimension(30, 30));
         pnl_orderStatusFilter.add(cmb_orderStatusFilter);
 
         pnl_header.add(pnl_orderStatusFilter);
@@ -118,6 +121,8 @@ public class OrderManagement_GUI extends javax.swing.JPanel {
         pnl_orderDate.add(lbl_orderDate);
 
         jDateChooser1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 60));
+        jDateChooser1.setMinimumSize(new java.awt.Dimension(216, 30));
+        jDateChooser1.setPreferredSize(new java.awt.Dimension(130, 30));
         pnl_orderDate.add(jDateChooser1);
 
         pnl_header.add(pnl_orderDate);
@@ -142,6 +147,9 @@ public class OrderManagement_GUI extends javax.swing.JPanel {
         lbl_customerID.setText("Mã khách hàng: ");
         lbl_customerID.setPreferredSize(new java.awt.Dimension(130, 130));
         pnl_customerFilter.add(lbl_customerID);
+
+        txt_customerID.setMinimumSize(null);
+        txt_customerID.setPreferredSize(new java.awt.Dimension(30, 30));
         pnl_customerFilter.add(txt_customerID);
 
         pnl_header.add(pnl_customerFilter);
@@ -155,8 +163,8 @@ public class OrderManagement_GUI extends javax.swing.JPanel {
         lbl_customerPhone.setPreferredSize(new java.awt.Dimension(140, 150));
         pnl_customerPhone.add(lbl_customerPhone);
 
-        txt_customerPhone.setMinimumSize(new java.awt.Dimension(130, 23));
-        txt_customerPhone.setPreferredSize(new java.awt.Dimension(120, 23));
+        txt_customerPhone.setMinimumSize(null);
+        txt_customerPhone.setPreferredSize(new java.awt.Dimension(30, 30));
         pnl_customerPhone.add(txt_customerPhone);
 
         pnl_header.add(pnl_customerPhone);
@@ -173,6 +181,8 @@ public class OrderManagement_GUI extends javax.swing.JPanel {
         pnl_orderDateTo.add(lbl_orderDateTo);
 
         jDateChooser2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 60));
+        jDateChooser2.setMinimumSize(new java.awt.Dimension(216, 30));
+        jDateChooser2.setPreferredSize(new java.awt.Dimension(130, 30));
         pnl_orderDateTo.add(jDateChooser2);
 
         pnl_header.add(pnl_orderDateTo);
@@ -281,7 +291,7 @@ public class OrderManagement_GUI extends javax.swing.JPanel {
 
         txt_customerName.setEditable(false);
         txt_customerName.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        txt_customerName.setPreferredSize(new java.awt.Dimension(64, 15));
+        txt_customerName.setPreferredSize(new java.awt.Dimension(64, 30));
         txt_customerName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_customerNameActionPerformed(evt);
@@ -300,7 +310,7 @@ public class OrderManagement_GUI extends javax.swing.JPanel {
 
         txt_phone.setEditable(false);
         txt_phone.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        txt_phone.setPreferredSize(new java.awt.Dimension(64, 15));
+        txt_phone.setPreferredSize(new java.awt.Dimension(64, 30));
         txt_phone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_phoneActionPerformed(evt);
@@ -319,7 +329,7 @@ public class OrderManagement_GUI extends javax.swing.JPanel {
 
         txt_total.setEditable(false);
         txt_total.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        txt_total.setPreferredSize(new java.awt.Dimension(64, 15));
+        txt_total.setPreferredSize(new java.awt.Dimension(64, 30));
         txt_total.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_totalActionPerformed(evt);

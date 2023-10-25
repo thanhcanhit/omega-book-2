@@ -42,40 +42,34 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         scr_tableInforEmp = new javax.swing.JScrollPane();
         tbl_employeeInfor = new javax.swing.JTable();
         pnl_inforDetailEmp = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
         pnl_empID = new javax.swing.JPanel();
         lbl_empID = new javax.swing.JLabel();
         txt_empID = new javax.swing.JTextField();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
         pnl_nameEmp = new javax.swing.JPanel();
         lbl_name = new javax.swing.JLabel();
         txt_name = new javax.swing.JTextField();
-        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
         pnl_addressEmp = new javax.swing.JPanel();
         lbl_addressEmp = new javax.swing.JLabel();
         txt_addressEmp = new javax.swing.JTextField();
-        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
         pnl_genderEmp = new javax.swing.JPanel();
         lbl_genderEmp = new javax.swing.JLabel();
         pnl_genderRadioEmp = new javax.swing.JPanel();
         rad_female = new javax.swing.JRadioButton();
         rad_male = new javax.swing.JRadioButton();
-        filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
         pnl_phoneNumberEmp = new javax.swing.JPanel();
         lbl_phoneNumberEmp = new javax.swing.JLabel();
         txt_phoneNumberEmp = new javax.swing.JTextField();
-        filler5 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
         pnl_citizenIDEmp = new javax.swing.JPanel();
         lbl_citizenID = new javax.swing.JLabel();
         txt_citizenIDEmp = new javax.swing.JTextField();
-        filler6 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
         pnl_statusEmp = new javax.swing.JPanel();
         lbl_statusEmp = new javax.swing.JLabel();
         txt_statusEmp = new javax.swing.JTextField();
-        filler7 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
         pnl_password = new javax.swing.JPanel();
         lbl_password = new javax.swing.JLabel();
         txt_password = new javax.swing.JTextField();
-        filler8 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
+        jPanel7 = new javax.swing.JPanel();
         pnl_buttonEmp = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         btn_addEmp = new javax.swing.JButton();
@@ -173,7 +167,9 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
 
         pnl_inforDetailEmp.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông Tin"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         pnl_inforDetailEmp.setPreferredSize(new java.awt.Dimension(200, 100));
-        pnl_inforDetailEmp.setLayout(new javax.swing.BoxLayout(pnl_inforDetailEmp, javax.swing.BoxLayout.Y_AXIS));
+        pnl_inforDetailEmp.setLayout(new java.awt.BorderLayout());
+
+        jPanel6.setLayout(new javax.swing.BoxLayout(jPanel6, javax.swing.BoxLayout.Y_AXIS));
 
         pnl_empID.setMaximumSize(new java.awt.Dimension(2147483647, 50));
         pnl_empID.setMinimumSize(new java.awt.Dimension(118, 6));
@@ -190,11 +186,12 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         txt_empID.setText("NV0001");
         txt_empID.setBorder(null);
         txt_empID.setEnabled(false);
-        txt_empID.setPreferredSize(new java.awt.Dimension(150, 15));
+        txt_empID.setMaximumSize(new java.awt.Dimension(2147483647, 30));
+        txt_empID.setMinimumSize(new java.awt.Dimension(64, 30));
+        txt_empID.setPreferredSize(new java.awt.Dimension(150, 30));
         pnl_empID.add(txt_empID);
 
-        pnl_inforDetailEmp.add(pnl_empID);
-        pnl_inforDetailEmp.add(filler1);
+        jPanel6.add(pnl_empID);
 
         pnl_nameEmp.setMaximumSize(new java.awt.Dimension(2147483647, 50));
         pnl_nameEmp.setPreferredSize(new java.awt.Dimension(230, 50));
@@ -204,11 +201,12 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         lbl_name.setPreferredSize(lbl_empID.getPreferredSize());
         pnl_nameEmp.add(lbl_name);
 
-        txt_name.setPreferredSize(txt_empID.getPreferredSize());
+        txt_name.setMaximumSize(new java.awt.Dimension(2147483647, 30));
+        txt_name.setMinimumSize(new java.awt.Dimension(64, 30));
+        txt_name.setPreferredSize(new java.awt.Dimension(64, 30));
         pnl_nameEmp.add(txt_name);
 
-        pnl_inforDetailEmp.add(pnl_nameEmp);
-        pnl_inforDetailEmp.add(filler2);
+        jPanel6.add(pnl_nameEmp);
 
         pnl_addressEmp.setMaximumSize(new java.awt.Dimension(2147483647, 50));
         pnl_addressEmp.setPreferredSize(new java.awt.Dimension(230, 50));
@@ -218,11 +216,12 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         lbl_addressEmp.setPreferredSize(lbl_empID.getPreferredSize());
         pnl_addressEmp.add(lbl_addressEmp);
 
-        txt_addressEmp.setPreferredSize(txt_empID.getPreferredSize());
+        txt_addressEmp.setMaximumSize(new java.awt.Dimension(2147483647, 30));
+        txt_addressEmp.setMinimumSize(new java.awt.Dimension(64, 30));
+        txt_addressEmp.setPreferredSize(new java.awt.Dimension(64, 30));
         pnl_addressEmp.add(txt_addressEmp);
 
-        pnl_inforDetailEmp.add(pnl_addressEmp);
-        pnl_inforDetailEmp.add(filler3);
+        jPanel6.add(pnl_addressEmp);
 
         pnl_genderEmp.setMaximumSize(new java.awt.Dimension(32815, 50));
         pnl_genderEmp.setPreferredSize(new java.awt.Dimension(183, 50));
@@ -232,6 +231,9 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         lbl_genderEmp.setPreferredSize(lbl_empID.getPreferredSize());
         pnl_genderEmp.add(lbl_genderEmp);
 
+        pnl_genderRadioEmp.setMaximumSize(new java.awt.Dimension(32767, 30));
+        pnl_genderRadioEmp.setMinimumSize(new java.awt.Dimension(103, 30));
+        pnl_genderRadioEmp.setPreferredSize(new java.awt.Dimension(103, 30));
         pnl_genderRadioEmp.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
 
         group_gender.add(rad_female);
@@ -252,8 +254,7 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
 
         pnl_genderEmp.add(pnl_genderRadioEmp);
 
-        pnl_inforDetailEmp.add(pnl_genderEmp);
-        pnl_inforDetailEmp.add(filler4);
+        jPanel6.add(pnl_genderEmp);
 
         pnl_phoneNumberEmp.setMaximumSize(new java.awt.Dimension(2147483647, 50));
         pnl_phoneNumberEmp.setPreferredSize(new java.awt.Dimension(230, 50));
@@ -263,11 +264,12 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         lbl_phoneNumberEmp.setPreferredSize(lbl_empID.getPreferredSize());
         pnl_phoneNumberEmp.add(lbl_phoneNumberEmp);
 
-        txt_phoneNumberEmp.setPreferredSize(txt_empID.getPreferredSize());
+        txt_phoneNumberEmp.setMaximumSize(new java.awt.Dimension(2147483647, 30));
+        txt_phoneNumberEmp.setMinimumSize(new java.awt.Dimension(64, 30));
+        txt_phoneNumberEmp.setPreferredSize(new java.awt.Dimension(64, 30));
         pnl_phoneNumberEmp.add(txt_phoneNumberEmp);
 
-        pnl_inforDetailEmp.add(pnl_phoneNumberEmp);
-        pnl_inforDetailEmp.add(filler5);
+        jPanel6.add(pnl_phoneNumberEmp);
 
         pnl_citizenIDEmp.setMaximumSize(new java.awt.Dimension(2147483647, 50));
         pnl_citizenIDEmp.setPreferredSize(new java.awt.Dimension(230, 50));
@@ -277,11 +279,12 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         lbl_citizenID.setPreferredSize(lbl_empID.getPreferredSize());
         pnl_citizenIDEmp.add(lbl_citizenID);
 
-        txt_citizenIDEmp.setPreferredSize(txt_empID.getPreferredSize());
+        txt_citizenIDEmp.setMaximumSize(new java.awt.Dimension(2147483647, 30));
+        txt_citizenIDEmp.setMinimumSize(new java.awt.Dimension(64, 30));
+        txt_citizenIDEmp.setPreferredSize(new java.awt.Dimension(64, 30));
         pnl_citizenIDEmp.add(txt_citizenIDEmp);
 
-        pnl_inforDetailEmp.add(pnl_citizenIDEmp);
-        pnl_inforDetailEmp.add(filler6);
+        jPanel6.add(pnl_citizenIDEmp);
 
         pnl_statusEmp.setMaximumSize(new java.awt.Dimension(2147483647, 50));
         pnl_statusEmp.setPreferredSize(new java.awt.Dimension(230, 50));
@@ -291,11 +294,12 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         lbl_statusEmp.setPreferredSize(lbl_empID.getPreferredSize());
         pnl_statusEmp.add(lbl_statusEmp);
 
-        txt_statusEmp.setPreferredSize(txt_empID.getPreferredSize());
+        txt_statusEmp.setMaximumSize(new java.awt.Dimension(2147483647, 30));
+        txt_statusEmp.setMinimumSize(new java.awt.Dimension(64, 30));
+        txt_statusEmp.setPreferredSize(new java.awt.Dimension(64, 30));
         pnl_statusEmp.add(txt_statusEmp);
 
-        pnl_inforDetailEmp.add(pnl_statusEmp);
-        pnl_inforDetailEmp.add(filler7);
+        jPanel6.add(pnl_statusEmp);
 
         pnl_password.setMaximumSize(new java.awt.Dimension(2147483647, 50));
         pnl_password.setPreferredSize(new java.awt.Dimension(230, 50));
@@ -305,13 +309,22 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         lbl_password.setPreferredSize(lbl_empID.getPreferredSize());
         pnl_password.add(lbl_password);
 
-        txt_password.setPreferredSize(txt_empID.getPreferredSize());
+        txt_password.setMaximumSize(new java.awt.Dimension(2147483647, 30));
+        txt_password.setMinimumSize(new java.awt.Dimension(64, 30));
+        txt_password.setPreferredSize(new java.awt.Dimension(64, 30));
         pnl_password.add(txt_password);
 
-        pnl_inforDetailEmp.add(pnl_password);
-        pnl_inforDetailEmp.add(filler8);
+        jPanel6.add(pnl_password);
 
-        pnl_buttonEmp.setMaximumSize(new java.awt.Dimension(2147483647, 50));
+        pnl_inforDetailEmp.add(jPanel6, java.awt.BorderLayout.CENTER);
+
+        jPanel7.setMaximumSize(new java.awt.Dimension(2147483647, 100));
+        jPanel7.setMinimumSize(new java.awt.Dimension(176, 100));
+        jPanel7.setLayout(new javax.swing.BoxLayout(jPanel7, javax.swing.BoxLayout.X_AXIS));
+
+        pnl_buttonEmp.setMaximumSize(new java.awt.Dimension(2147483647, 100));
+        pnl_buttonEmp.setMinimumSize(new java.awt.Dimension(176, 50));
+        pnl_buttonEmp.setPreferredSize(new java.awt.Dimension(176, 50));
         pnl_buttonEmp.setLayout(new javax.swing.BoxLayout(pnl_buttonEmp, javax.swing.BoxLayout.LINE_AXIS));
 
         jPanel1.setLayout(new java.awt.BorderLayout());
@@ -334,7 +347,9 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
 
         pnl_buttonEmp.add(jPanel2);
 
-        pnl_inforDetailEmp.add(pnl_buttonEmp);
+        jPanel7.add(pnl_buttonEmp);
+
+        pnl_inforDetailEmp.add(jPanel7, java.awt.BorderLayout.SOUTH);
 
         spl_inforEmp.setRightComponent(pnl_inforDetailEmp);
 
@@ -356,20 +371,14 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
     private javax.swing.JButton btn_searchEmp;
     private javax.swing.JButton btn_updateEmp;
     private javax.swing.JComboBox<String> cmb_roleEmp;
-    private javax.swing.Box.Filler filler1;
-    private javax.swing.Box.Filler filler2;
-    private javax.swing.Box.Filler filler3;
-    private javax.swing.Box.Filler filler4;
-    private javax.swing.Box.Filler filler5;
-    private javax.swing.Box.Filler filler6;
-    private javax.swing.Box.Filler filler7;
-    private javax.swing.Box.Filler filler8;
     private javax.swing.ButtonGroup group_gender;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JLabel lbl_addressEmp;
     private javax.swing.JLabel lbl_citizenID;
     private javax.swing.JLabel lbl_empID;

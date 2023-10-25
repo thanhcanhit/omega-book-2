@@ -139,6 +139,7 @@ public class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
 
         txt_orderDate.setEditable(false);
         txt_orderDate.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txt_orderDate.setPreferredSize(new java.awt.Dimension(64, 30));
         txt_orderDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_orderDateActionPerformed(evt);
@@ -159,6 +160,7 @@ public class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
 
         txt_supplierName.setEditable(false);
         txt_supplierName.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txt_supplierName.setPreferredSize(new java.awt.Dimension(64, 30));
         txt_supplierName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_supplierNameActionPerformed(evt);
@@ -179,7 +181,7 @@ public class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
 
         pnl_purchaseOrderInfo.add(pnl_noteLabel);
 
-        pnl_note.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 5, 10, 5));
+        pnl_note.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         pnl_note.setMaximumSize(new java.awt.Dimension(1000, 100));
         pnl_note.setLayout(new javax.swing.BoxLayout(pnl_note, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -196,7 +198,7 @@ public class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
 
         pnl_purchaseOrderInfo.add(pnl_note);
 
-        pnl_total.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 5, 5, 10));
+        pnl_total.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         pnl_total.setMaximumSize(new java.awt.Dimension(1000, 100));
         pnl_total.setLayout(new javax.swing.BoxLayout(pnl_total, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -207,6 +209,7 @@ public class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
         pnl_total.add(lbl_subTotal);
 
         txt_subTotal.setEditable(false);
+        txt_subTotal.setPreferredSize(new java.awt.Dimension(64, 30));
         txt_subTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_subTotalActionPerformed(evt);
@@ -216,7 +219,7 @@ public class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
 
         pnl_purchaseOrderInfo.add(pnl_total);
 
-        pnl_control.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 5, 5, 10));
+        pnl_control.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         pnl_control.setMaximumSize(new java.awt.Dimension(1000, 100));
         pnl_control.setLayout(new java.awt.BorderLayout());
 
