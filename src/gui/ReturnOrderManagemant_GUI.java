@@ -28,12 +28,13 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        group_statusReturnOrder = new javax.swing.ButtonGroup();
         pnl_topReturnOrder = new javax.swing.JPanel();
         pnl_searchRerturnOrder = new javax.swing.JPanel();
         txt_searchReturnOrder = new javax.swing.JTextField();
         filler6 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         btn_searchReturnOrder = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        pnl_chkReturnOrder = new javax.swing.JPanel();
         chk_admitReturnOrder = new javax.swing.JCheckBox();
         chk_denyReturnOrder = new javax.swing.JCheckBox();
         chk_pendingReturnOrder = new javax.swing.JCheckBox();
@@ -84,21 +85,21 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
 
         pnl_topReturnOrder.add(pnl_searchRerturnOrder);
 
-        jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 15));
+        pnl_chkReturnOrder.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 15));
 
         chk_admitReturnOrder.setText("Đã chấp nhập");
-        jPanel1.add(chk_admitReturnOrder);
+        pnl_chkReturnOrder.add(chk_admitReturnOrder);
 
         chk_denyReturnOrder.setText("Từ chối");
-        jPanel1.add(chk_denyReturnOrder);
+        pnl_chkReturnOrder.add(chk_denyReturnOrder);
 
         chk_pendingReturnOrder.setText("Đang chờ");
-        jPanel1.add(chk_pendingReturnOrder);
+        pnl_chkReturnOrder.add(chk_pendingReturnOrder);
 
         cmb_typeReturnOrder.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Loại đơn", "Đổi hàng", "Trả hàng" }));
-        jPanel1.add(cmb_typeReturnOrder);
+        pnl_chkReturnOrder.add(cmb_typeReturnOrder);
 
-        pnl_topReturnOrder.add(jPanel1);
+        pnl_topReturnOrder.add(pnl_chkReturnOrder);
 
         add(pnl_topReturnOrder, java.awt.BorderLayout.NORTH);
 
@@ -212,9 +213,11 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
         pnl_radioStatusReturnOrder.setPreferredSize(new java.awt.Dimension(219, 12));
         pnl_radioStatusReturnOrder.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 2));
 
+        group_statusReturnOrder.add(rdb_admit);
         rdb_admit.setText("Xác nhận");
         pnl_radioStatusReturnOrder.add(rdb_admit);
 
+        group_statusReturnOrder.add(rdb_deny);
         rdb_deny.setText("Từ chối");
         pnl_radioStatusReturnOrder.add(rdb_deny);
 
@@ -248,13 +251,14 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
     private javax.swing.JCheckBox chk_pendingReturnOrder;
     private javax.swing.JComboBox<String> cmb_typeReturnOrder;
     private javax.swing.Box.Filler filler6;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.ButtonGroup group_statusReturnOrder;
     private javax.swing.JLabel lbl_employeeID;
     private javax.swing.JLabel lbl_product;
     private javax.swing.JLabel lbl_returnOrderID;
     private javax.swing.JLabel lbl_status;
     private javax.swing.JPanel pnl_buttonSave;
     private javax.swing.JPanel pnl_centerReturnOrder;
+    private javax.swing.JPanel pnl_chkReturnOrder;
     private javax.swing.JPanel pnl_eastReturnOrder;
     private javax.swing.JPanel pnl_employeeID;
     private javax.swing.JPanel pnl_productID;

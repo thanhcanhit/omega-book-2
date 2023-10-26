@@ -41,6 +41,7 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
         jTable1 = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        pnl_right = new javax.swing.JPanel();
         pnl_returnOrder = new javax.swing.JPanel();
         pnl_employeeInfor = new javax.swing.JPanel();
         pnl_employeeID = new javax.swing.JPanel();
@@ -74,9 +75,11 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
 
         setLayout(new java.awt.BorderLayout());
 
+        spl_createReturnOrder.setResizeWeight(0.95);
+
         pnl_order.setMinimumSize(new java.awt.Dimension(500, 123));
-        pnl_order.setPreferredSize(new java.awt.Dimension(600, 768));
-        pnl_order.setLayout(new javax.swing.BoxLayout(pnl_order, javax.swing.BoxLayout.Y_AXIS));
+        pnl_order.setPreferredSize(new java.awt.Dimension(700, 768));
+        pnl_order.setLayout(new java.awt.BorderLayout());
 
         pnl_searchOrder.setBorder(javax.swing.BorderFactory.createEmptyBorder(7, 7, 7, 7));
         pnl_searchOrder.setMinimumSize(new java.awt.Dimension(457, 37));
@@ -97,7 +100,7 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
 
         pnl_searchOrder.add(pnl_buttonSearchOrder);
 
-        pnl_order.add(pnl_searchOrder);
+        pnl_order.add(pnl_searchOrder, java.awt.BorderLayout.NORTH);
 
         pnl_orderInfor.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin hoá đơn"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         pnl_orderInfor.setPreferredSize(new java.awt.Dimension(150, 700));
@@ -158,17 +161,22 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
 
         pnl_orderInfor.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
-        pnl_order.add(pnl_orderInfor);
+        pnl_order.add(pnl_orderInfor, java.awt.BorderLayout.CENTER);
 
         spl_createReturnOrder.setLeftComponent(pnl_order);
 
-        pnl_returnOrder.setMaximumSize(new java.awt.Dimension(400, 768));
+        pnl_right.setMaximumSize(new java.awt.Dimension(600, 2147483647));
+        pnl_right.setMinimumSize(new java.awt.Dimension(500, 123));
+        pnl_right.setLayout(new java.awt.BorderLayout());
+
+        pnl_returnOrder.setMaximumSize(new java.awt.Dimension(600, 768));
         pnl_returnOrder.setMinimumSize(new java.awt.Dimension(400, 123));
         pnl_returnOrder.setPreferredSize(new java.awt.Dimension(400, 768));
         pnl_returnOrder.setLayout(new javax.swing.BoxLayout(pnl_returnOrder, javax.swing.BoxLayout.Y_AXIS));
 
         pnl_employeeInfor.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Nhân viên"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-        pnl_employeeInfor.setPreferredSize(new java.awt.Dimension(1211, 106));
+        pnl_employeeInfor.setMinimumSize(new java.awt.Dimension(400, 113));
+        pnl_employeeInfor.setPreferredSize(new java.awt.Dimension(30, 100));
         pnl_employeeInfor.setLayout(new javax.swing.BoxLayout(pnl_employeeInfor, javax.swing.BoxLayout.Y_AXIS));
 
         pnl_employeeID.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
@@ -200,7 +208,8 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
         pnl_returnOrder.add(pnl_employeeInfor);
 
         pnl_returnOrderInfor.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin đơn đổi trả"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-        pnl_returnOrderInfor.setPreferredSize(new java.awt.Dimension(1211, 720));
+        pnl_returnOrderInfor.setMinimumSize(new java.awt.Dimension(400, 278));
+        pnl_returnOrderInfor.setPreferredSize(new java.awt.Dimension(400, 100));
         pnl_returnOrderInfor.setLayout(new javax.swing.BoxLayout(pnl_returnOrderInfor, javax.swing.BoxLayout.Y_AXIS));
 
         pnl_returnOrderID.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
@@ -340,7 +349,9 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
 
         pnl_returnOrder.add(pnl_returnOrderInfor);
 
-        spl_createReturnOrder.setRightComponent(pnl_returnOrder);
+        pnl_right.add(pnl_returnOrder, java.awt.BorderLayout.CENTER);
+
+        spl_createReturnOrder.setRightComponent(pnl_right);
 
         add(spl_createReturnOrder, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
@@ -377,6 +388,7 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
     private javax.swing.JPanel pnl_returnOrderDate;
     private javax.swing.JPanel pnl_returnOrderID;
     private javax.swing.JPanel pnl_returnOrderInfor;
+    private javax.swing.JPanel pnl_right;
     private javax.swing.JPanel pnl_searchOrder;
     private javax.swing.JPanel pnl_typeReturnOrder;
     private javax.swing.JRadioButton rdb_exchange;
