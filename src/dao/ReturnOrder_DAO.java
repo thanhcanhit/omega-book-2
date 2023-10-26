@@ -104,6 +104,7 @@ public class ReturnOrder_DAO implements DAOBase<ReturnOrder>{
             int i= 1;
             st.setInt(i++, returnOrder.getStatus());
             st.setDate(i++, new java.sql.Date(returnOrder.getOrderDate().getTime()));
+            st.setString(i++, id);
             //st.setBoolean(i++, returnOrder.isType());
             n = st.executeUpdate();
         } catch (Exception e) {

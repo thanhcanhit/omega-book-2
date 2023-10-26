@@ -5,7 +5,8 @@
 package dao;
 
 import database.ConnectDB;
-import entity.*;
+import entity.Brand;
+import entity.Supplier;
 import interfaces.DAOBase;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,41 +17,41 @@ import java.util.ArrayList;
  *
  * @author Như Tâm
  */
-public class Supplier_DAO implements DAOBase<Supplier>{
+public class Brand_DAO implements DAOBase<Brand> {
 
     @Override
-    public Supplier getOne(String id) {
-        Supplier supplier = null;
+    public Brand getOne(String id) {
+        Brand brand = null;
         try {
-            PreparedStatement st = ConnectDB.conn.prepareStatement("SELECT * FROM Supplier WHERE supplierID = ?");
+            PreparedStatement st = ConnectDB.conn.prepareStatement("SELECT * FROM Brand WHERE brandID = ?");
             st.setString(1, id);
             ResultSet rs = st.executeQuery();
             
             while (rs.next()) {
-                String supplierID = rs.getString("supplierID");
+                String brandID = rs.getString("brandID");
                 String name = rs.getString("name");
-                String address = rs.getString("address");
-                supplier = new Supplier(supplierID, name, address);
+                String country = rs.getString("country");
+                brand = new Brand(brandID, name, country);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return supplier;
+        return brand;
     }
 
     @Override
-    public ArrayList<Supplier> getAll() {
-        ArrayList<Supplier> result = new ArrayList<>();
+    public ArrayList<Brand> getAll() {
+        ArrayList result = new ArrayList<>();
         try {
             Statement st = ConnectDB.conn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM Supplier");
+            ResultSet rs = st.executeQuery("SELECT * FROM Brand");
             
             while (rs.next()) {                
-                String storeID = rs.getString("supplierID");
+                String brandID = rs.getString("brandID");
                 String name = rs.getString("name");
-                String address = rs.getString("address");
-                Supplier supplier = new Supplier(storeID, name, address);
-                result.add(supplier);
+                String country = rs.getString("country");
+                Brand brand = new Brand(brandID, name, country);
+                result.add(brand);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -64,14 +65,14 @@ public class Supplier_DAO implements DAOBase<Supplier>{
     }
 
     @Override
-    public Boolean create(Supplier supplier) {
+    public Boolean create(Brand brand) {
         int n = 0;
         try {
-            PreparedStatement st = ConnectDB.conn.prepareStatement("INSERT INTO Supplier "
+            PreparedStatement st = ConnectDB.conn.prepareStatement("INSERT INTO Brand "
                     + "VALUES (?,?,?)");
-            st.setString(1, supplier.getSupplierID());
-            st.setString(2, supplier.getName());
-            st.setString(3, supplier.getAddress());
+            st.setString(1, brand.getBrandID());
+            st.setString(2, brand.getName());
+            st.setString(3, brand.getCountry());
             n = st.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -80,15 +81,15 @@ public class Supplier_DAO implements DAOBase<Supplier>{
     }
 
     @Override
-    public Boolean update(String id, Supplier supplier) {
-        int n = 0;
+    public Boolean update(String id, Brand brand) {
+         int n = 0;
         try {
-            PreparedStatement st = ConnectDB.conn.prepareStatement("UPDATE Supplier "
-                    + "SET name = ?, address = ?"
-                    + "WHERE supplierID = ?");
+            PreparedStatement st = ConnectDB.conn.prepareStatement("UPDATE Brand "
+                    + "SET name = ?, country = ?"
+                    + "WHERE brandID = ?");
             int i = 1;
-            st.setString(i++, supplier.getName());
-            st.setString(i++, supplier.getAddress());
+            st.setString(i++, brand.getName());
+            st.setString(i++, brand.getCountry());
             st.setString(i++, id);
             n = st.executeUpdate();
         } catch (Exception e) {
