@@ -8,12 +8,13 @@ import interfaces.DAOBase;
 import java.util.ArrayList;
 import java.sql.*;
 import database.ConnectDB;
+import entity.*;
 
 /**
  *
  * @author Như Tâm
  */
-public class Promotion implements DAOBase<Promotion>{
+public class Promotion_DAO implements DAOBase<Promotion>{
 
     @Override
     public Promotion getOne(String id) {
@@ -21,6 +22,15 @@ public class Promotion implements DAOBase<Promotion>{
         try {
             PreparedStatement st = ConnectDB.conn.prepareStatement("SELECT * FROM Promotion WHERE promotionID = ?");
             ResultSet rs = st.executeQuery();
+            
+            while (rs.next()) {                
+                String promotionID = rs.getString("promotionID");
+                int type = rs.getInt("type");
+                double discount = rs.getDouble("discount");
+                Date startedDate = rs.getDate("startedDate");
+                Date endedDate = rs.getDate("endedDate");
+                promo = new Promotion(startedDate, endedDate, type, discount);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -37,6 +47,12 @@ public class Promotion implements DAOBase<Promotion>{
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+
+    @Override
+    public Boolean delete(String id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     @Override
     public Boolean create(Promotion object) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -44,11 +60,6 @@ public class Promotion implements DAOBase<Promotion>{
 
     @Override
     public Boolean update(String id, Promotion newObject) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Boolean delete(String id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
