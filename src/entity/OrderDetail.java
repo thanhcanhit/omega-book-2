@@ -12,10 +12,29 @@ public final class OrderDetail {
     private final String QUANTITY_ERROR="Số lượng sản phẩm không được nhỏ hơn 1 !";
     private final String PRICE_ERROR="Giá bán phải lớn hơn giá nhập, không được rỗng và lớn hơn 0 !";
     
+    private Order order;
+    private Product product;
     private int quantity;
     private double price;
     private double lineTotal;
 
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    
     public int getQuantity() {
         return quantity;
     }
@@ -49,12 +68,16 @@ public final class OrderDetail {
     public OrderDetail() {
     }
 
-    public OrderDetail(int quantity, double price) throws Exception{
+    public OrderDetail(Order order, Product product, int quantity, double price) throws Exception{
+        setOrder(order);
+        setProduct(product);
         setQuantity(quantity);
         setPrice(price);
         setLineTotal();
     }
-    public OrderDetail(int quantity, double price, double lineTotal) {
+    public OrderDetail(Order order, Product product,int quantity, double price, double lineTotal) {
+        this.order = order;
+        this.product= product;       
         this.quantity = quantity;
         this.price = price;
         this.lineTotal=lineTotal;

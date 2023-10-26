@@ -19,12 +19,31 @@ public class PurchaseOrderDetail {
     private double costPrice;
     private double lineTotal;
     private PurchaseOrder purchaseOrder;
+    private Product product;
 
-    public PurchaseOrderDetail(PurchaseOrder purchaseOrder, int quantity, double costPrice, double lineTotal) throws Exception {
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+    
+    
+
+    public PurchaseOrderDetail(PurchaseOrder purchaseOrder, Product product, int quantity, double costPrice) throws Exception {
         setPurchaseOrder(purchaseOrder);
+        setProduct(product);
         setQuantity(quantity);
         setCostPrice(costPrice);
         setLineTotal();
+    }
+    public PurchaseOrderDetail(PurchaseOrder purchaseOrder, Product product, int quantity, double costPrice, double lineTotal) throws Exception {
+        this.purchaseOrder=purchaseOrder;
+        this.product=product;
+        this.quantity=quantity;
+        this.costPrice=costPrice;
+        this.lineTotal=lineTotal;      
     }
 
     public PurchaseOrderDetail() {
