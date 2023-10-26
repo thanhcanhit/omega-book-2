@@ -30,6 +30,12 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pnl_title = new javax.swing.JPanel();
+        lbl_titleCashCount = new javax.swing.JLabel();
+        pnl_center = new javax.swing.JPanel();
+        jSplitPane1 = new javax.swing.JSplitPane();
+        scr_cashCountSheets = new javax.swing.JScrollPane();
+        tbl_cashCountSheets = new javax.swing.JTable();
         pnl_infomation = new javax.swing.JPanel();
         pnl_accountingInfoHeader = new javax.swing.JPanel();
         txt_timeAccounting = new javax.swing.JTextField();
@@ -61,17 +67,45 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
         pnl_AccountingInfoFooter = new javax.swing.JPanel();
         pnl_accountingConfirm = new javax.swing.JPanel();
         btn_accountingConform = new javax.swing.JButton();
-        pnl_title = new javax.swing.JPanel();
-        lbl_titleCashCount = new javax.swing.JLabel();
-        pnl_cashCountSheetList = new javax.swing.JPanel();
-        scr_cashCountSheets = new javax.swing.JScrollPane();
-        tbl_cashCountSheets = new javax.swing.JTable();
 
         setPreferredSize(new java.awt.Dimension(1366, 768));
         setLayout(new java.awt.BorderLayout());
 
+        pnl_title.setLayout(new java.awt.BorderLayout());
+
+        lbl_titleCashCount.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lbl_titleCashCount.setText("Kết toán");
+        lbl_titleCashCount.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 1));
+        pnl_title.add(lbl_titleCashCount, java.awt.BorderLayout.CENTER);
+
+        add(pnl_title, java.awt.BorderLayout.NORTH);
+
+        pnl_center.setLayout(new javax.swing.BoxLayout(pnl_center, javax.swing.BoxLayout.LINE_AXIS));
+
+        jSplitPane1.setResizeWeight(0.6);
+
+        scr_cashCountSheets.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách phiếu kiểm tiền", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18), new java.awt.Color(0, 102, 153))); // NOI18N
+        scr_cashCountSheets.setMinimumSize(new java.awt.Dimension(500, 46));
+        scr_cashCountSheets.setPreferredSize(new java.awt.Dimension(500, 432));
+
+        tbl_cashCountSheets.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("")));
+        tbl_cashCountSheets.setFont(tbl_cashCountSheets.getFont().deriveFont(tbl_cashCountSheets.getFont().getStyle() & ~java.awt.Font.BOLD, 18));
+        tbl_cashCountSheets.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"KTI0018102023", "21083791", "21083791", "20:04 18-10-2023", "17.000.000", null}
+            },
+            new String [] {
+                "Mã phiếu kiểm tiền", "Nhân viên kiểm", "Nhân viên giám sát", "Thời gian", "Tổng", "Kết toán"
+            }
+        ));
+        tbl_cashCountSheets.setPreferredSize(new java.awt.Dimension(500, 45));
+        tbl_cashCountSheets.setRowHeight(45);
+        scr_cashCountSheets.setViewportView(tbl_cashCountSheets);
+
+        jSplitPane1.setLeftComponent(scr_cashCountSheets);
+
         pnl_infomation.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18), new java.awt.Color(0, 102, 153))); // NOI18N
-        pnl_infomation.setMinimumSize(new java.awt.Dimension(200, 466));
+        pnl_infomation.setMinimumSize(new java.awt.Dimension(400, 466));
         pnl_infomation.setPreferredSize(new java.awt.Dimension(450, 690));
         pnl_infomation.setLayout(new java.awt.BorderLayout());
 
@@ -94,10 +128,11 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
 
         pnl_infomation.add(pnl_accountingInfoHeader, java.awt.BorderLayout.NORTH);
 
-        pnl_accountingInfoBody.setLayout(new java.awt.GridLayout(8, 1));
+        pnl_accountingInfoBody.setLayout(new javax.swing.BoxLayout(pnl_accountingInfoBody, javax.swing.BoxLayout.Y_AXIS));
 
-        pnl_cashCountInAccounting.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 1, 1, 1));
-        pnl_cashCountInAccounting.setLayout(new javax.swing.BoxLayout(pnl_cashCountInAccounting, javax.swing.BoxLayout.X_AXIS));
+        pnl_cashCountInAccounting.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        pnl_cashCountInAccounting.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        pnl_cashCountInAccounting.setLayout(new javax.swing.BoxLayout(pnl_cashCountInAccounting, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_cashCountInAccounting.setFont(lbl_cashCountInAccounting.getFont().deriveFont((float)16));
         lbl_cashCountInAccounting.setText("Phiếu kiểm:");
@@ -107,8 +142,9 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
         txt_cashCountInAccounting.setEditable(false);
         txt_cashCountInAccounting.setFont(txt_cashCountInAccounting.getFont().deriveFont((float)16));
         txt_cashCountInAccounting.setText("KTI0018102023");
-        txt_cashCountInAccounting.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 0)));
+        txt_cashCountInAccounting.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), null));
         txt_cashCountInAccounting.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txt_cashCountInAccounting.setMaximumSize(new java.awt.Dimension(2147483647, 40));
         txt_cashCountInAccounting.setPreferredSize(new java.awt.Dimension(100, 22));
         txt_cashCountInAccounting.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,8 +155,9 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
 
         pnl_accountingInfoBody.add(pnl_cashCountInAccounting);
 
-        pnl_employeeAcounting1.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 1, 1, 1));
-        pnl_employeeAcounting1.setLayout(new javax.swing.BoxLayout(pnl_employeeAcounting1, javax.swing.BoxLayout.X_AXIS));
+        pnl_employeeAcounting1.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        pnl_employeeAcounting1.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        pnl_employeeAcounting1.setLayout(new javax.swing.BoxLayout(pnl_employeeAcounting1, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_employeeAccounting1.setFont(lbl_employeeAccounting1.getFont().deriveFont((float)16));
         lbl_employeeAccounting1.setText("Nhân viên 1:");
@@ -130,8 +167,9 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
         txt_employeeAccounting1.setEditable(false);
         txt_employeeAccounting1.setFont(txt_employeeAccounting1.getFont().deriveFont((float)16));
         txt_employeeAccounting1.setText("NV010020232300 - Lê Hoàng Khang");
-        txt_employeeAccounting1.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 0)));
+        txt_employeeAccounting1.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), null));
         txt_employeeAccounting1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txt_employeeAccounting1.setMaximumSize(new java.awt.Dimension(2147483647, 40));
         txt_employeeAccounting1.setPreferredSize(new java.awt.Dimension(100, 22));
         txt_employeeAccounting1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -142,7 +180,8 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
 
         pnl_accountingInfoBody.add(pnl_employeeAcounting1);
 
-        pnl_employeeAcounting2.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 1, 1, 1));
+        pnl_employeeAcounting2.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        pnl_employeeAcounting2.setMaximumSize(new java.awt.Dimension(2147483647, 40));
         pnl_employeeAcounting2.setPreferredSize(new java.awt.Dimension(200, 32));
         pnl_employeeAcounting2.setLayout(new javax.swing.BoxLayout(pnl_employeeAcounting2, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -154,8 +193,9 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
         txt_employeeAccounting2.setEditable(false);
         txt_employeeAccounting2.setFont(txt_employeeAccounting2.getFont().deriveFont((float)16));
         txt_employeeAccounting2.setText("NV020020032022 - Nguyễn Thanh Cảnh");
-        txt_employeeAccounting2.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 0)));
+        txt_employeeAccounting2.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), null));
         txt_employeeAccounting2.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txt_employeeAccounting2.setMaximumSize(new java.awt.Dimension(2147483647, 40));
         txt_employeeAccounting2.setMinimumSize(new java.awt.Dimension(100, 22));
         txt_employeeAccounting2.setPreferredSize(new java.awt.Dimension(100, 22));
         txt_employeeAccounting2.addActionListener(new java.awt.event.ActionListener() {
@@ -167,8 +207,9 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
 
         pnl_accountingInfoBody.add(pnl_employeeAcounting2);
 
-        pnl_totalMoney.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 1, 1, 1));
-        pnl_totalMoney.setLayout(new javax.swing.BoxLayout(pnl_totalMoney, javax.swing.BoxLayout.X_AXIS));
+        pnl_totalMoney.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        pnl_totalMoney.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        pnl_totalMoney.setLayout(new javax.swing.BoxLayout(pnl_totalMoney, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_totalMoney.setFont(lbl_totalMoney.getFont().deriveFont((float)16));
         lbl_totalMoney.setText("Tiền mặt:");
@@ -179,8 +220,9 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
         txt_totalMoney.setFont(txt_totalMoney.getFont().deriveFont((float)16));
         txt_totalMoney.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txt_totalMoney.setText("2.600.000 VND");
-        txt_totalMoney.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 0)));
+        txt_totalMoney.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), null));
         txt_totalMoney.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txt_totalMoney.setMaximumSize(new java.awt.Dimension(2147483647, 40));
         txt_totalMoney.setPreferredSize(new java.awt.Dimension(100, 22));
         txt_totalMoney.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -191,8 +233,9 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
 
         pnl_accountingInfoBody.add(pnl_totalMoney);
 
-        pnl_saleAccounting.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 1, 1, 1));
-        pnl_saleAccounting.setLayout(new javax.swing.BoxLayout(pnl_saleAccounting, javax.swing.BoxLayout.X_AXIS));
+        pnl_saleAccounting.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        pnl_saleAccounting.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        pnl_saleAccounting.setLayout(new javax.swing.BoxLayout(pnl_saleAccounting, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_saleAccounting.setFont(lbl_saleAccounting.getFont().deriveFont((float)16));
         lbl_saleAccounting.setText("Doanh thu:");
@@ -203,8 +246,9 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
         txt_saleAccounting.setFont(txt_saleAccounting.getFont().deriveFont((float)16));
         txt_saleAccounting.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txt_saleAccounting.setText("1.000.000 VND");
-        txt_saleAccounting.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 0)));
+        txt_saleAccounting.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), null));
         txt_saleAccounting.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txt_saleAccounting.setMaximumSize(new java.awt.Dimension(2147483647, 40));
         txt_saleAccounting.setPreferredSize(new java.awt.Dimension(100, 22));
         txt_saleAccounting.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -215,8 +259,9 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
 
         pnl_accountingInfoBody.add(pnl_saleAccounting);
 
-        pnl_payViaATM.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 1, 1, 1));
-        pnl_payViaATM.setLayout(new javax.swing.BoxLayout(pnl_payViaATM, javax.swing.BoxLayout.X_AXIS));
+        pnl_payViaATM.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        pnl_payViaATM.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        pnl_payViaATM.setLayout(new javax.swing.BoxLayout(pnl_payViaATM, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_payViaATM.setFont(lbl_payViaATM.getFont().deriveFont((float)16));
         lbl_payViaATM.setText("ATM:");
@@ -227,8 +272,9 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
         txt_payViaATM.setFont(txt_payViaATM.getFont().deriveFont((float)16));
         txt_payViaATM.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txt_payViaATM.setText("20.000 VND");
-        txt_payViaATM.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 0)));
+        txt_payViaATM.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), null));
         txt_payViaATM.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txt_payViaATM.setMaximumSize(new java.awt.Dimension(2147483647, 40));
         txt_payViaATM.setPreferredSize(new java.awt.Dimension(100, 22));
         txt_payViaATM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -239,8 +285,9 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
 
         pnl_accountingInfoBody.add(pnl_payViaATM);
 
-        pnl_withdraw.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 1, 1, 1));
-        pnl_withdraw.setLayout(new javax.swing.BoxLayout(pnl_withdraw, javax.swing.BoxLayout.X_AXIS));
+        pnl_withdraw.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        pnl_withdraw.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        pnl_withdraw.setLayout(new javax.swing.BoxLayout(pnl_withdraw, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_withdraw.setFont(lbl_withdraw.getFont().deriveFont((float)16));
         lbl_withdraw.setText("Tiền lấy ra:");
@@ -251,8 +298,9 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
         txt_withdraw.setFont(txt_withdraw.getFont().deriveFont((float)16));
         txt_withdraw.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txt_withdraw.setText("980.000 VND");
-        txt_withdraw.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 0)));
+        txt_withdraw.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), null));
         txt_withdraw.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txt_withdraw.setMaximumSize(new java.awt.Dimension(2147483647, 40));
         txt_withdraw.setPreferredSize(new java.awt.Dimension(100, 22));
         txt_withdraw.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -263,8 +311,9 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
 
         pnl_accountingInfoBody.add(pnl_withdraw);
 
-        pnl_difference.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 1, 1, 1));
-        pnl_difference.setLayout(new javax.swing.BoxLayout(pnl_difference, javax.swing.BoxLayout.X_AXIS));
+        pnl_difference.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        pnl_difference.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        pnl_difference.setLayout(new javax.swing.BoxLayout(pnl_difference, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_difference.setFont(lbl_difference.getFont().deriveFont((float)16));
         lbl_difference.setText("Chênh lệch:");
@@ -276,8 +325,9 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
         txt_difference.setForeground(new java.awt.Color(255, 0, 51));
         txt_difference.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txt_difference.setText("- 165.000 VND");
-        txt_difference.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 0)));
+        txt_difference.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), null));
         txt_difference.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txt_difference.setMaximumSize(new java.awt.Dimension(2147483647, 40));
         txt_difference.setPreferredSize(new java.awt.Dimension(100, 22));
         txt_difference.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -311,38 +361,11 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
 
         pnl_infomation.add(pnl_AccountingInfoFooter, java.awt.BorderLayout.SOUTH);
 
-        add(pnl_infomation, java.awt.BorderLayout.EAST);
+        jSplitPane1.setRightComponent(pnl_infomation);
 
-        pnl_title.setLayout(new java.awt.BorderLayout());
+        pnl_center.add(jSplitPane1);
 
-        lbl_titleCashCount.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lbl_titleCashCount.setText("Kết toán");
-        lbl_titleCashCount.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 1));
-        pnl_title.add(lbl_titleCashCount, java.awt.BorderLayout.CENTER);
-
-        add(pnl_title, java.awt.BorderLayout.NORTH);
-
-        pnl_cashCountSheetList.setLayout(new java.awt.BorderLayout());
-
-        scr_cashCountSheets.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách phiếu kiểm tiền", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18), new java.awt.Color(0, 102, 153))); // NOI18N
-
-        tbl_cashCountSheets.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("")));
-        tbl_cashCountSheets.setFont(tbl_cashCountSheets.getFont().deriveFont(tbl_cashCountSheets.getFont().getStyle() & ~java.awt.Font.BOLD, 18));
-        tbl_cashCountSheets.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"KTI0018102023", "21083791", "21083791", "20:04 18-10-2023", "17.000.000", null}
-            },
-            new String [] {
-                "Mã phiếu kiểm tiền", "Nhân viên kiểm", "Nhân viên giám sát", "Thời gian", "Tổng", "Kết toán"
-            }
-        ));
-        tbl_cashCountSheets.setPreferredSize(new java.awt.Dimension(500, 45));
-        tbl_cashCountSheets.setRowHeight(45);
-        scr_cashCountSheets.setViewportView(tbl_cashCountSheets);
-
-        pnl_cashCountSheetList.add(scr_cashCountSheets, java.awt.BorderLayout.CENTER);
-
-        add(pnl_cashCountSheetList, java.awt.BorderLayout.CENTER);
+        add(pnl_center, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_employeeAccounting1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_employeeAccounting1ActionPerformed
@@ -389,6 +412,7 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_accountingConform;
+    private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JLabel lbl_cashCountInAccounting;
     private javax.swing.JLabel lbl_difference;
     private javax.swing.JLabel lbl_employeeAccounting1;
@@ -403,7 +427,7 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
     private javax.swing.JPanel pnl_accountingInfoBody;
     private javax.swing.JPanel pnl_accountingInfoHeader;
     private javax.swing.JPanel pnl_cashCountInAccounting;
-    private javax.swing.JPanel pnl_cashCountSheetList;
+    private javax.swing.JPanel pnl_center;
     private javax.swing.JPanel pnl_difference;
     private javax.swing.JPanel pnl_employeeAcounting1;
     private javax.swing.JPanel pnl_employeeAcounting2;
