@@ -75,6 +75,7 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         setLayout(new java.awt.BorderLayout());
 
         pnl_chart.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thống kê theo nhóm khách hàng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14)), javax.swing.BorderFactory.createEmptyBorder(20, 1, 1, 1))); // NOI18N
+        pnl_chart.setMaximumSize(null);
         pnl_chart.setPreferredSize(new java.awt.Dimension(200, 0));
 
         javax.swing.GroupLayout pnl_chartLayout = new javax.swing.GroupLayout(pnl_chart);
@@ -120,11 +121,14 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         pnl_infor.setLayout(new javax.swing.BoxLayout(pnl_infor, javax.swing.BoxLayout.Y_AXIS));
 
         pnl_infoCustomer.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14)), javax.swing.BorderFactory.createEmptyBorder(10, 20, 10, 20))); // NOI18N
-        pnl_infoCustomer.setLayout(new javax.swing.BoxLayout(pnl_infoCustomer, javax.swing.BoxLayout.X_AXIS));
+        pnl_infoCustomer.setLayout(new javax.swing.BoxLayout(pnl_infoCustomer, javax.swing.BoxLayout.LINE_AXIS));
 
         jPanel13.setLayout(new javax.swing.BoxLayout(jPanel13, javax.swing.BoxLayout.Y_AXIS));
 
-        jPanel14.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 1, 5, 1));
+        jPanel14.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        jPanel14.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        jPanel14.setMinimumSize(new java.awt.Dimension(249, 40));
+        jPanel14.setPreferredSize(new java.awt.Dimension(264, 40));
         jPanel14.setLayout(new javax.swing.BoxLayout(jPanel14, javax.swing.BoxLayout.X_AXIS));
 
         jLabel7.setFont(jLabel7.getFont().deriveFont((float)16));
@@ -133,11 +137,13 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         jPanel14.add(jLabel7);
 
         jTextField7.setEditable(false);
-        jTextField7.setBackground(null);
         jTextField7.setFont(jTextField7.getFont().deriveFont((float)16));
         jTextField7.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField7.setToolTipText("");
-        jTextField7.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0)));
+        jTextField7.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 0)));
+        jTextField7.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        jTextField7.setMinimumSize(new java.awt.Dimension(64, 40));
+        jTextField7.setPreferredSize(new java.awt.Dimension(64, 40));
         jTextField7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField7ActionPerformed(evt);
@@ -147,7 +153,10 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
 
         jPanel13.add(jPanel14);
 
-        jPanel15.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 1, 5, 1));
+        jPanel15.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        jPanel15.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        jPanel15.setMinimumSize(new java.awt.Dimension(225, 40));
+        jPanel15.setPreferredSize(new java.awt.Dimension(264, 40));
         jPanel15.setLayout(new javax.swing.BoxLayout(jPanel15, javax.swing.BoxLayout.X_AXIS));
 
         jLabel8.setFont(jLabel8.getFont().deriveFont((float)16));
@@ -156,11 +165,13 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         jPanel15.add(jLabel8);
 
         jTextField8.setEditable(false);
-        jTextField8.setBackground(null);
         jTextField8.setFont(jTextField8.getFont().deriveFont((float)16));
         jTextField8.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField8.setToolTipText("");
-        jTextField8.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0)));
+        jTextField8.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 0)));
+        jTextField8.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        jTextField8.setMinimumSize(new java.awt.Dimension(64, 40));
+        jTextField8.setPreferredSize(new java.awt.Dimension(64, 40));
         jPanel15.add(jTextField8);
 
         jPanel13.add(jPanel15);
@@ -170,7 +181,10 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         jPanel16.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 1));
         jPanel16.setLayout(new javax.swing.BoxLayout(jPanel16, javax.swing.BoxLayout.Y_AXIS));
 
-        jPanel17.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 1, 5, 1));
+        jPanel17.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        jPanel17.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        jPanel17.setMinimumSize(new java.awt.Dimension(184, 40));
+        jPanel17.setPreferredSize(new java.awt.Dimension(266, 40));
         jPanel17.setLayout(new javax.swing.BoxLayout(jPanel17, javax.swing.BoxLayout.X_AXIS));
 
         jLabel9.setFont(jLabel9.getFont().deriveFont((float)16));
@@ -179,11 +193,13 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         jPanel17.add(jLabel9);
 
         jTextField9.setEditable(false);
-        jTextField9.setBackground(null);
         jTextField9.setFont(jTextField9.getFont().deriveFont((float)16));
         jTextField9.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField9.setToolTipText("");
-        jTextField9.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0)));
+        jTextField9.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 0)));
+        jTextField9.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        jTextField9.setMinimumSize(new java.awt.Dimension(64, 40));
+        jTextField9.setPreferredSize(new java.awt.Dimension(64, 40));
         jTextField9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField9ActionPerformed(evt);
@@ -193,7 +209,7 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
 
         jPanel16.add(jPanel17);
 
-        jPanel18.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 1, 5, 1));
+        jPanel18.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
         jPanel18.setLayout(new javax.swing.BoxLayout(jPanel18, javax.swing.BoxLayout.X_AXIS));
 
         jLabel10.setFont(jLabel10.getFont().deriveFont((float)16));
@@ -202,11 +218,13 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         jPanel18.add(jLabel10);
 
         jTextField10.setEditable(false);
-        jTextField10.setBackground(null);
         jTextField10.setFont(jTextField10.getFont().deriveFont((float)16));
         jTextField10.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField10.setToolTipText("");
-        jTextField10.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0)));
+        jTextField10.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 0)));
+        jTextField10.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        jTextField10.setMinimumSize(new java.awt.Dimension(64, 40));
+        jTextField10.setPreferredSize(new java.awt.Dimension(64, 40));
         jPanel18.add(jTextField10);
 
         jPanel16.add(jPanel18);
@@ -220,7 +238,10 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         pnl_groupOfMale.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Khách hàng nam", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14)), javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 1))); // NOI18N
         pnl_groupOfMale.setLayout(new javax.swing.BoxLayout(pnl_groupOfMale, javax.swing.BoxLayout.Y_AXIS));
 
-        pnl_maleUnder18.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 1, 1, 1));
+        pnl_maleUnder18.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        pnl_maleUnder18.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        pnl_maleUnder18.setMinimumSize(new java.awt.Dimension(171, 40));
+        pnl_maleUnder18.setPreferredSize(new java.awt.Dimension(216, 40));
         pnl_maleUnder18.setLayout(new javax.swing.BoxLayout(pnl_maleUnder18, javax.swing.BoxLayout.X_AXIS));
 
         lbl_maleUnder18.setFont(lbl_maleUnder18.getFont().deriveFont((float)16));
@@ -229,16 +250,19 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         pnl_maleUnder18.add(lbl_maleUnder18);
 
         txt_maleUnder18.setEditable(false);
-        txt_maleUnder18.setBackground(null);
         txt_maleUnder18.setFont(txt_maleUnder18.getFont().deriveFont((float)16));
         txt_maleUnder18.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txt_maleUnder18.setToolTipText("");
-        txt_maleUnder18.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), null));
+        txt_maleUnder18.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 0)));
+        txt_maleUnder18.setMaximumSize(new java.awt.Dimension(25555555, 40));
         pnl_maleUnder18.add(txt_maleUnder18);
 
         pnl_groupOfMale.add(pnl_maleUnder18);
 
-        pnl_male18To40.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 1, 1, 1));
+        pnl_male18To40.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        pnl_male18To40.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        pnl_male18To40.setMinimumSize(new java.awt.Dimension(204, 40));
+        pnl_male18To40.setPreferredSize(new java.awt.Dimension(214, 40));
         pnl_male18To40.setLayout(new javax.swing.BoxLayout(pnl_male18To40, javax.swing.BoxLayout.X_AXIS));
 
         lbl_male18To40.setFont(lbl_male18To40.getFont().deriveFont((float)16));
@@ -247,11 +271,11 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         pnl_male18To40.add(lbl_male18To40);
 
         txt_male18To40.setEditable(false);
-        txt_male18To40.setBackground(null);
         txt_male18To40.setFont(txt_male18To40.getFont().deriveFont((float)16));
         txt_male18To40.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txt_male18To40.setToolTipText("");
-        txt_male18To40.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), null));
+        txt_male18To40.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 0)));
+        txt_male18To40.setMaximumSize(new java.awt.Dimension(25555555, 40));
         txt_male18To40.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_male18To40ActionPerformed(evt);
@@ -261,7 +285,7 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
 
         pnl_groupOfMale.add(pnl_male18To40);
 
-        pnl_maleOver40.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 1, 1, 1));
+        pnl_maleOver40.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
         pnl_maleOver40.setLayout(new javax.swing.BoxLayout(pnl_maleOver40, javax.swing.BoxLayout.X_AXIS));
 
         lbl_maleOver40.setFont(lbl_maleOver40.getFont().deriveFont((float)16));
@@ -270,11 +294,11 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         pnl_maleOver40.add(lbl_maleOver40);
 
         txt_maleOver40.setEditable(false);
-        txt_maleOver40.setBackground(null);
         txt_maleOver40.setFont(txt_maleOver40.getFont().deriveFont((float)16));
         txt_maleOver40.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txt_maleOver40.setToolTipText("");
-        txt_maleOver40.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), null));
+        txt_maleOver40.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 0)));
+        txt_maleOver40.setMaximumSize(null);
         pnl_maleOver40.add(txt_maleOver40);
 
         pnl_groupOfMale.add(pnl_maleOver40);
@@ -284,7 +308,10 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         pnl_groupOfFemale.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Khách hàng nữ"), javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 1)));
         pnl_groupOfFemale.setLayout(new javax.swing.BoxLayout(pnl_groupOfFemale, javax.swing.BoxLayout.Y_AXIS));
 
-        pnl_femaleUnder18.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 1, 1, 1));
+        pnl_femaleUnder18.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        pnl_femaleUnder18.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        pnl_femaleUnder18.setMinimumSize(new java.awt.Dimension(156, 40));
+        pnl_femaleUnder18.setPreferredSize(new java.awt.Dimension(214, 40));
         pnl_femaleUnder18.setLayout(new javax.swing.BoxLayout(pnl_femaleUnder18, javax.swing.BoxLayout.X_AXIS));
 
         lbl_femaleUnder18.setFont(lbl_femaleUnder18.getFont().deriveFont((float)16));
@@ -293,16 +320,18 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         pnl_femaleUnder18.add(lbl_femaleUnder18);
 
         txt_femaleUnder18.setEditable(false);
-        txt_femaleUnder18.setBackground(null);
         txt_femaleUnder18.setFont(txt_femaleUnder18.getFont().deriveFont((float)16));
         txt_femaleUnder18.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txt_femaleUnder18.setToolTipText("");
-        txt_femaleUnder18.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), null));
+        txt_femaleUnder18.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 0)));
+        txt_femaleUnder18.setMaximumSize(null);
         pnl_femaleUnder18.add(txt_femaleUnder18);
 
         pnl_groupOfFemale.add(pnl_femaleUnder18);
 
-        pnl_female18To40.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 1, 1, 1));
+        pnl_female18To40.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        pnl_female18To40.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        pnl_female18To40.setPreferredSize(new java.awt.Dimension(214, 40));
         pnl_female18To40.setLayout(new javax.swing.BoxLayout(pnl_female18To40, javax.swing.BoxLayout.X_AXIS));
 
         lbl_female18To40.setFont(lbl_female18To40.getFont().deriveFont((float)16));
@@ -311,16 +340,18 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         pnl_female18To40.add(lbl_female18To40);
 
         txt_female18To40.setEditable(false);
-        txt_female18To40.setBackground(null);
         txt_female18To40.setFont(txt_female18To40.getFont().deriveFont((float)16));
         txt_female18To40.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txt_female18To40.setToolTipText("");
-        txt_female18To40.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), null));
+        txt_female18To40.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 0)));
+        txt_female18To40.setMaximumSize(null);
         pnl_female18To40.add(txt_female18To40);
 
         pnl_groupOfFemale.add(pnl_female18To40);
 
-        pnl_femaleOver40.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 1, 1, 1));
+        pnl_femaleOver40.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        pnl_femaleOver40.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        pnl_femaleOver40.setPreferredSize(new java.awt.Dimension(214, 40));
         pnl_femaleOver40.setLayout(new javax.swing.BoxLayout(pnl_femaleOver40, javax.swing.BoxLayout.X_AXIS));
 
         lbl_femaleOver40.setFont(lbl_femaleOver40.getFont().deriveFont((float)16));
@@ -329,11 +360,11 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         pnl_femaleOver40.add(lbl_femaleOver40);
 
         txt_femaleOver40.setEditable(false);
-        txt_femaleOver40.setBackground(null);
         txt_femaleOver40.setFont(txt_femaleOver40.getFont().deriveFont((float)16));
         txt_femaleOver40.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txt_femaleOver40.setToolTipText("");
-        txt_femaleOver40.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), null));
+        txt_femaleOver40.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 0)));
+        txt_femaleOver40.setMaximumSize(null);
         pnl_femaleOver40.add(txt_femaleOver40);
 
         pnl_groupOfFemale.add(pnl_femaleOver40);

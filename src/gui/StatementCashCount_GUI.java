@@ -35,9 +35,8 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
         lbl_titleCashCount = new javax.swing.JLabel();
         filler11 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
         filler12 = new javax.swing.Box.Filler(new java.awt.Dimension(5, 0), new java.awt.Dimension(5, 0), new java.awt.Dimension(5, 32767));
-        jPanel1 = new javax.swing.JPanel();
-        scr_cashCounts = new javax.swing.JScrollPane();
-        tbl_cashCounts = new javax.swing.JTable();
+        pnl_center = new javax.swing.JPanel();
+        jSplitPane1 = new javax.swing.JSplitPane();
         pnl_infomation = new javax.swing.JPanel();
         pnl_infoFooter = new javax.swing.JPanel();
         pnl_cashCountTotal = new javax.swing.JPanel();
@@ -50,14 +49,18 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
         lbl_employeeCashCount1 = new javax.swing.JLabel();
         txt_employeeCashCount1 = new javax.swing.JTextField();
         pnl_employeeCashCount1Name = new javax.swing.JPanel();
+        lbl_employeeCashCount3 = new javax.swing.JLabel();
         txt_employeeCashCount1Name = new javax.swing.JTextField();
         pnl_employeeCashCount2 = new javax.swing.JPanel();
         lbl_employeeCashCount2 = new javax.swing.JLabel();
         txt_employeeCashCount2 = new javax.swing.JTextField();
         pnl_employeeCashCount2Name = new javax.swing.JPanel();
+        lbl_employeeCashCount4 = new javax.swing.JLabel();
         txt_employeeCashCount1Name1 = new javax.swing.JTextField();
         pnl_infoHeader = new javax.swing.JPanel();
         txt_timeAccounting = new javax.swing.JTextField();
+        scr_cashCounts = new javax.swing.JScrollPane();
+        tbl_cashCounts = new javax.swing.JTable();
 
         setPreferredSize(new java.awt.Dimension(1366, 768));
         setLayout(new java.awt.BorderLayout());
@@ -73,36 +76,15 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
 
         add(pnl_title, java.awt.BorderLayout.NORTH);
 
-        jPanel1.setLayout(new java.awt.BorderLayout());
+        pnl_center.setLayout(new javax.swing.BoxLayout(pnl_center, javax.swing.BoxLayout.LINE_AXIS));
 
-        tbl_cashCounts.setFont(tbl_cashCounts.getFont().deriveFont(tbl_cashCounts.getFont().getStyle() & ~java.awt.Font.BOLD, 18));
-        tbl_cashCounts.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"1", "500.000", null, null},
-                {"2", "200.000", null, null},
-                {"3", "100.000", null, null},
-                {"4", "50.000", null, null},
-                {"5", "20.000", null, null},
-                {"6", "10.000", null, null},
-                {"7", "5.000", null, null},
-                {"8", "2.000", null, null},
-                {"9", "1.000", null, null},
-                {"10", "500", null, null}
-            },
-            new String [] {
-                "STT", "Mệnh giá", "Số lượng", "Tổng"
-            }
-        ));
-        tbl_cashCounts.setRowHeight(45);
-        scr_cashCounts.setViewportView(tbl_cashCounts);
-
-        jPanel1.add(scr_cashCounts, java.awt.BorderLayout.CENTER);
-
-        add(jPanel1, java.awt.BorderLayout.CENTER);
+        jSplitPane1.setResizeWeight(0.9);
 
         pnl_infomation.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18))); // NOI18N
         pnl_infomation.setFont(pnl_infomation.getFont());
-        pnl_infomation.setPreferredSize(new java.awt.Dimension(400, 690));
+        pnl_infomation.setMaximumSize(new java.awt.Dimension(800, 500));
+        pnl_infomation.setMinimumSize(new java.awt.Dimension(400, 400));
+        pnl_infomation.setPreferredSize(new java.awt.Dimension(400, 500));
         pnl_infomation.setLayout(new java.awt.BorderLayout());
 
         pnl_infoFooter.setLayout(new javax.swing.BoxLayout(pnl_infoFooter, javax.swing.BoxLayout.Y_AXIS));
@@ -135,7 +117,7 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
 
         pnl_cashCountSave.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 0, 0, 0));
         pnl_cashCountSave.setPreferredSize(new java.awt.Dimension(135, 60));
-        pnl_cashCountSave.setLayout(new java.awt.GridLayout());
+        pnl_cashCountSave.setLayout(new java.awt.GridLayout(1, 0));
 
         btn_saveCashCount.setFont(btn_saveCashCount.getFont().deriveFont(btn_saveCashCount.getFont().getStyle() | java.awt.Font.BOLD, 20));
         btn_saveCashCount.setText("Tạo báo cáo");
@@ -154,11 +136,11 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
 
         pnl_infoBody.setLayout(new javax.swing.BoxLayout(pnl_infoBody, javax.swing.BoxLayout.Y_AXIS));
 
-        pnl_employeeCashCount1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 5, 10, 5));
+        pnl_employeeCashCount1.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
         pnl_employeeCashCount1.setFont(pnl_employeeCashCount1.getFont().deriveFont((float)16));
-        pnl_employeeCashCount1.setMaximumSize(new java.awt.Dimension(2147483647, 60));
-        pnl_employeeCashCount1.setMinimumSize(new java.awt.Dimension(0, 50));
-        pnl_employeeCashCount1.setPreferredSize(new java.awt.Dimension(0, 60));
+        pnl_employeeCashCount1.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        pnl_employeeCashCount1.setMinimumSize(new java.awt.Dimension(0, 40));
+        pnl_employeeCashCount1.setPreferredSize(new java.awt.Dimension(0, 40));
         pnl_employeeCashCount1.setLayout(new javax.swing.BoxLayout(pnl_employeeCashCount1, javax.swing.BoxLayout.X_AXIS));
 
         lbl_employeeCashCount1.setFont(lbl_employeeCashCount1.getFont().deriveFont((float)16));
@@ -182,12 +164,16 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
 
         pnl_infoBody.add(pnl_employeeCashCount1);
 
-        pnl_employeeCashCount1Name.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 150, 20, 5));
+        pnl_employeeCashCount1Name.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
         pnl_employeeCashCount1Name.setFont(pnl_employeeCashCount1Name.getFont().deriveFont((float)16));
-        pnl_employeeCashCount1Name.setMaximumSize(new java.awt.Dimension(2147483647, 60));
-        pnl_employeeCashCount1Name.setMinimumSize(new java.awt.Dimension(0, 50));
-        pnl_employeeCashCount1Name.setPreferredSize(new java.awt.Dimension(0, 60));
+        pnl_employeeCashCount1Name.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        pnl_employeeCashCount1Name.setMinimumSize(new java.awt.Dimension(0, 40));
+        pnl_employeeCashCount1Name.setPreferredSize(new java.awt.Dimension(0, 40));
         pnl_employeeCashCount1Name.setLayout(new javax.swing.BoxLayout(pnl_employeeCashCount1Name, javax.swing.BoxLayout.X_AXIS));
+
+        lbl_employeeCashCount3.setFont(lbl_employeeCashCount3.getFont().deriveFont((float)16));
+        lbl_employeeCashCount3.setPreferredSize(new java.awt.Dimension(145, 16));
+        pnl_employeeCashCount1Name.add(lbl_employeeCashCount3);
 
         txt_employeeCashCount1Name.setEditable(false);
         txt_employeeCashCount1Name.setFont(txt_employeeCashCount1Name.getFont().deriveFont((float)16));
@@ -204,11 +190,11 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
 
         pnl_infoBody.add(pnl_employeeCashCount1Name);
 
-        pnl_employeeCashCount2.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 5, 10, 5));
+        pnl_employeeCashCount2.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
         pnl_employeeCashCount2.setFont(pnl_employeeCashCount2.getFont().deriveFont((float)16));
-        pnl_employeeCashCount2.setMaximumSize(new java.awt.Dimension(2147483647, 60));
-        pnl_employeeCashCount2.setMinimumSize(new java.awt.Dimension(0, 50));
-        pnl_employeeCashCount2.setPreferredSize(new java.awt.Dimension(0, 60));
+        pnl_employeeCashCount2.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        pnl_employeeCashCount2.setMinimumSize(new java.awt.Dimension(0, 40));
+        pnl_employeeCashCount2.setPreferredSize(new java.awt.Dimension(0, 40));
         pnl_employeeCashCount2.setLayout(new javax.swing.BoxLayout(pnl_employeeCashCount2, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_employeeCashCount2.setFont(lbl_employeeCashCount2.getFont().deriveFont((float)16));
@@ -233,12 +219,16 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
 
         pnl_infoBody.add(pnl_employeeCashCount2);
 
-        pnl_employeeCashCount2Name.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 150, 20, 5));
+        pnl_employeeCashCount2Name.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
         pnl_employeeCashCount2Name.setFont(pnl_employeeCashCount2Name.getFont().deriveFont((float)16));
-        pnl_employeeCashCount2Name.setMaximumSize(new java.awt.Dimension(2147483647, 60));
-        pnl_employeeCashCount2Name.setMinimumSize(new java.awt.Dimension(0, 50));
-        pnl_employeeCashCount2Name.setPreferredSize(new java.awt.Dimension(0, 60));
+        pnl_employeeCashCount2Name.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        pnl_employeeCashCount2Name.setMinimumSize(new java.awt.Dimension(0, 40));
+        pnl_employeeCashCount2Name.setPreferredSize(new java.awt.Dimension(0, 40));
         pnl_employeeCashCount2Name.setLayout(new javax.swing.BoxLayout(pnl_employeeCashCount2Name, javax.swing.BoxLayout.X_AXIS));
+
+        lbl_employeeCashCount4.setFont(lbl_employeeCashCount4.getFont().deriveFont((float)16));
+        lbl_employeeCashCount4.setPreferredSize(new java.awt.Dimension(145, 16));
+        pnl_employeeCashCount2Name.add(lbl_employeeCashCount4);
 
         txt_employeeCashCount1Name1.setEditable(false);
         txt_employeeCashCount1Name1.setFont(txt_employeeCashCount1Name1.getFont().deriveFont((float)16));
@@ -274,37 +264,68 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
 
         pnl_infomation.add(pnl_infoHeader, java.awt.BorderLayout.NORTH);
 
-        add(pnl_infomation, java.awt.BorderLayout.EAST);
+        jSplitPane1.setRightComponent(pnl_infomation);
+
+        scr_cashCounts.setMinimumSize(new java.awt.Dimension(1200, 16));
+
+        tbl_cashCounts.setFont(tbl_cashCounts.getFont().deriveFont(tbl_cashCounts.getFont().getStyle() & ~java.awt.Font.BOLD, 18));
+        tbl_cashCounts.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"1", "500.000", null, null},
+                {"2", "200.000", null, null},
+                {"3", "100.000", null, null},
+                {"4", "50.000", null, null},
+                {"5", "20.000", null, null},
+                {"6", "10.000", null, null},
+                {"7", "5.000", null, null},
+                {"8", "2.000", null, null},
+                {"9", "1.000", null, null},
+                {"10", "500", null, null}
+            },
+            new String [] {
+                "STT", "Mệnh giá", "Số lượng", "Tổng"
+            }
+        ));
+        tbl_cashCounts.setMaximumSize(new java.awt.Dimension(2147483647, 800));
+        tbl_cashCounts.setMinimumSize(new java.awt.Dimension(800, 450));
+        tbl_cashCounts.setRowHeight(45);
+        scr_cashCounts.setViewportView(tbl_cashCounts);
+
+        jSplitPane1.setLeftComponent(scr_cashCounts);
+
+        pnl_center.add(jSplitPane1);
+
+        add(pnl_center, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txt_employeeCashCount1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_employeeCashCount1ActionPerformed
+    private void txt_timeAccountingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_timeAccountingActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_employeeCashCount1ActionPerformed
+    }//GEN-LAST:event_txt_timeAccountingActionPerformed
+
+    private void txt_employeeCashCount1Name1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_employeeCashCount1Name1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_employeeCashCount1Name1ActionPerformed
 
     private void txt_employeeCashCount2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_employeeCashCount2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_employeeCashCount2ActionPerformed
 
-    private void txt_cashCountTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_cashCountTotalActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_cashCountTotalActionPerformed
-
     private void txt_employeeCashCount1NameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_employeeCashCount1NameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_employeeCashCount1NameActionPerformed
 
-    private void txt_employeeCashCount1Name1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_employeeCashCount1Name1ActionPerformed
+    private void txt_employeeCashCount1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_employeeCashCount1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_employeeCashCount1Name1ActionPerformed
+    }//GEN-LAST:event_txt_employeeCashCount1ActionPerformed
 
     private void btn_saveCashCountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saveCashCountActionPerformed
         // TODO add your handling code here:
         Notifications.getInstance().show(Notifications.Type.INFO, "Tạo phiếu kiểm tiền thành công");
     }//GEN-LAST:event_btn_saveCashCountActionPerformed
 
-    private void txt_timeAccountingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_timeAccountingActionPerformed
+    private void txt_cashCountTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_cashCountTotalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_timeAccountingActionPerformed
+    }//GEN-LAST:event_txt_cashCountTotalActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -312,13 +333,16 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
     private javax.swing.Box.Filler filler10;
     private javax.swing.Box.Filler filler11;
     private javax.swing.Box.Filler filler12;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JLabel lbl_cashCountTotal;
     private javax.swing.JLabel lbl_employeeCashCount1;
     private javax.swing.JLabel lbl_employeeCashCount2;
+    private javax.swing.JLabel lbl_employeeCashCount3;
+    private javax.swing.JLabel lbl_employeeCashCount4;
     private javax.swing.JLabel lbl_titleCashCount;
     private javax.swing.JPanel pnl_cashCountSave;
     private javax.swing.JPanel pnl_cashCountTotal;
+    private javax.swing.JPanel pnl_center;
     private javax.swing.JPanel pnl_employeeCashCount1;
     private javax.swing.JPanel pnl_employeeCashCount1Name;
     private javax.swing.JPanel pnl_employeeCashCount2;
