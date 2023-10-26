@@ -28,20 +28,20 @@ public class PromotionManagement_GUI extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        slp_promotion = new javax.swing.JSplitPane();
-        pnl_listPromotion = new javax.swing.JPanel();
         pnl_searchPromotion = new javax.swing.JPanel();
         pnl_txtSearchPromo = new javax.swing.JPanel();
         txt_searchPromo = new javax.swing.JTextField();
         pnl_buttonSearchPromo = new javax.swing.JPanel();
         btn_searchPromo = new javax.swing.JButton();
+        pnl_filterPromo = new javax.swing.JPanel();
+        cmb_typePromo = new javax.swing.JComboBox<>();
+        cmb_statusPromo = new javax.swing.JComboBox<>();
+        slp_promotion = new javax.swing.JSplitPane();
+        pnl_listPromotion = new javax.swing.JPanel();
         pnl_promotionInfor = new javax.swing.JPanel();
         src_inforPromo = new javax.swing.JScrollPane();
         tbl_inforPromo = new javax.swing.JTable();
         pnl_promotionNew = new javax.swing.JPanel();
-        pnl_filterPromo = new javax.swing.JPanel();
-        cmb_typePromo = new javax.swing.JComboBox<>();
-        cmb_statusPromo = new javax.swing.JComboBox<>();
         pnl_inforPromo = new javax.swing.JPanel();
         pnl_txtInforPromo = new javax.swing.JPanel();
         pnl_promoID = new javax.swing.JPanel();
@@ -67,10 +67,6 @@ public class PromotionManagement_GUI extends javax.swing.JPanel {
 
         setPreferredSize(new java.awt.Dimension(1366, 768));
         setLayout(new java.awt.BorderLayout());
-
-        pnl_listPromotion.setMaximumSize(new java.awt.Dimension(900, 2147483647));
-        pnl_listPromotion.setPreferredSize(new java.awt.Dimension(700, 432));
-        pnl_listPromotion.setLayout(new javax.swing.BoxLayout(pnl_listPromotion, javax.swing.BoxLayout.Y_AXIS));
 
         pnl_searchPromotion.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         pnl_searchPromotion.setMaximumSize(new java.awt.Dimension(900, 50));
@@ -101,10 +97,26 @@ public class PromotionManagement_GUI extends javax.swing.JPanel {
 
         pnl_searchPromotion.add(pnl_buttonSearchPromo);
 
-        pnl_listPromotion.add(pnl_searchPromotion);
+        pnl_filterPromo.setMaximumSize(new java.awt.Dimension(500, 50));
+        pnl_filterPromo.setMinimumSize(new java.awt.Dimension(300, 32));
+        pnl_filterPromo.setPreferredSize(new java.awt.Dimension(300, 50));
+        pnl_filterPromo.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+
+        cmb_typePromo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Loại" }));
+        pnl_filterPromo.add(cmb_typePromo);
+
+        cmb_statusPromo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Trạng thái", "Đang diễn ra", "Đã kết thúc" }));
+        pnl_filterPromo.add(cmb_statusPromo);
+
+        pnl_searchPromotion.add(pnl_filterPromo);
+
+        add(pnl_searchPromotion, java.awt.BorderLayout.NORTH);
+
+        pnl_listPromotion.setPreferredSize(new java.awt.Dimension(800, 432));
+        pnl_listPromotion.setLayout(new java.awt.BorderLayout());
 
         pnl_promotionInfor.setMaximumSize(new java.awt.Dimension(900, 2147483647));
-        pnl_promotionInfor.setMinimumSize(new java.awt.Dimension(500, 16));
+        pnl_promotionInfor.setMinimumSize(new java.awt.Dimension(700, 16));
         pnl_promotionInfor.setPreferredSize(new java.awt.Dimension(700, 402));
         pnl_promotionInfor.setLayout(new java.awt.BorderLayout());
 
@@ -133,30 +145,24 @@ public class PromotionManagement_GUI extends javax.swing.JPanel {
 
         pnl_promotionInfor.add(src_inforPromo, java.awt.BorderLayout.CENTER);
 
-        pnl_listPromotion.add(pnl_promotionInfor);
+        pnl_listPromotion.add(pnl_promotionInfor, java.awt.BorderLayout.CENTER);
 
         slp_promotion.setLeftComponent(pnl_listPromotion);
 
-        pnl_promotionNew.setMaximumSize(new java.awt.Dimension(666, 2147483647));
-        pnl_promotionNew.setMinimumSize(new java.awt.Dimension(500, 192));
-        pnl_promotionNew.setPreferredSize(new java.awt.Dimension(600, 190));
+        pnl_promotionNew.setAlignmentX(0.0F);
+        pnl_promotionNew.setAlignmentY(0.0F);
+        pnl_promotionNew.setMaximumSize(new java.awt.Dimension(300, 32767));
+        pnl_promotionNew.setMinimumSize(new java.awt.Dimension(300, 192));
+        pnl_promotionNew.setPreferredSize(new java.awt.Dimension(300, 190));
         pnl_promotionNew.setLayout(new javax.swing.BoxLayout(pnl_promotionNew, javax.swing.BoxLayout.Y_AXIS));
 
-        pnl_filterPromo.setMaximumSize(new java.awt.Dimension(32767, 50));
-        pnl_filterPromo.setPreferredSize(new java.awt.Dimension(256, 50));
-        pnl_filterPromo.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
-
-        cmb_typePromo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Loại" }));
-        pnl_filterPromo.add(cmb_typePromo);
-
-        cmb_statusPromo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Trạng thái", "Đang diễn ra", "Đã kết thúc" }));
-        pnl_filterPromo.add(cmb_statusPromo);
-
-        pnl_promotionNew.add(pnl_filterPromo);
-
         pnl_inforPromo.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        pnl_inforPromo.setMaximumSize(new java.awt.Dimension(600, 2147483647));
+        pnl_inforPromo.setMinimumSize(new java.awt.Dimension(350, 263));
+        pnl_inforPromo.setPreferredSize(new java.awt.Dimension(400, 283));
         pnl_inforPromo.setLayout(new java.awt.BorderLayout());
 
+        pnl_txtInforPromo.setMaximumSize(new java.awt.Dimension(600, 210));
         pnl_txtInforPromo.setLayout(new javax.swing.BoxLayout(pnl_txtInforPromo, javax.swing.BoxLayout.Y_AXIS));
 
         pnl_promoID.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
@@ -253,7 +259,7 @@ public class PromotionManagement_GUI extends javax.swing.JPanel {
 
         pnl_inforPromo.add(pnl_txtInforPromo, java.awt.BorderLayout.CENTER);
 
-        pnl_buttonPromo.setMaximumSize(new java.awt.Dimension(65534, 50));
+        pnl_buttonPromo.setMaximumSize(new java.awt.Dimension(600, 50));
         pnl_buttonPromo.setMinimumSize(new java.awt.Dimension(100, 50));
         pnl_buttonPromo.setPreferredSize(new java.awt.Dimension(1261, 50));
         pnl_buttonPromo.setLayout(new javax.swing.BoxLayout(pnl_buttonPromo, javax.swing.BoxLayout.LINE_AXIS));
