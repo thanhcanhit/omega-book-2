@@ -23,8 +23,9 @@ public class PurchaseOrder {
     private PurchaseOrderStatus status;
     private Supplier supplier;
     private Employee employee;
+    private ArrayList<PurchaseOrderDetail> purchaseOrderDetailList;
 
-    public PurchaseOrder(String purchaseOrderID, Date orderDate, Date receiveDate, String note, PurchaseOrderStatus status, Supplier supplier, Employee employee) throws Exception {
+    public PurchaseOrder(String purchaseOrderID, Date orderDate, Date receiveDate, String note, PurchaseOrderStatus status, Supplier supplier, Employee employee, ArrayList<PurchaseOrderDetail> purchaseOrderDetailList) throws Exception {
         setPurchaseOrderID(purchaseOrderID);
         setOrderDate(orderDate);
         setReceiveDate(receiveDate);
@@ -32,6 +33,7 @@ public class PurchaseOrder {
         setStatus(status);
         setSupplier(supplier);
         setEmployee(employee);
+        setPurchaseOrderDetailList(purchaseOrderDetailList);
     }
     
 
@@ -109,6 +111,14 @@ public class PurchaseOrder {
     public void setEmployee(Employee employee) {
         this.employee = employee;
     }
+
+    public ArrayList<PurchaseOrderDetail> getPurchaseOrderDetailList() {
+        return purchaseOrderDetailList;
+    }
+
+    public void setPurchaseOrderDetailList(ArrayList<PurchaseOrderDetail> purchaseOrderDetailList) {
+        this.purchaseOrderDetailList = purchaseOrderDetailList;
+    }
     
     @Override
     public int hashCode() {
@@ -134,8 +144,9 @@ public class PurchaseOrder {
 
     @Override
     public String toString() {
-        return  purchaseOrderID + "," + orderDate + "," + receiveDate + "," + note + ","
-                + status + "," + supplier + "," + employee;
+        return "PurchaseOrder{" + "purchaseOrderID=" + purchaseOrderID + ", orderDate=" + orderDate + ", receiveDate=" + receiveDate + ", note=" + note + ", status=" + status + ", supplier=" + supplier + ", employee=" + employee + ", purchaseOrderDetailList=" + purchaseOrderDetailList + '}';
     }
+
+    
     
 }
