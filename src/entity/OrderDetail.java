@@ -8,7 +8,7 @@ package entity;
  *
  * @author macbookk
  */
-public class OrderDetail {
+public final class OrderDetail {
     private final String QUANTITY_ERROR="Số lượng sản phẩm không được nhỏ hơn 1 !";
     private final String PRICE_ERROR="Giá bán phải lớn hơn giá nhập, không được rỗng và lớn hơn 0 !";
     
@@ -49,12 +49,16 @@ public class OrderDetail {
     public OrderDetail() {
     }
 
-    public OrderDetail(int quantity, double price) {
-        this.quantity = quantity;
-        this.price = price;
+    public OrderDetail(int quantity, double price) throws Exception{
+        setQuantity(quantity);
+        setPrice(price);
         setLineTotal();
     }
-
+    public OrderDetail(int quantity, double price, double lineTotal) {
+        this.quantity = quantity;
+        this.price = price;
+        this.lineTotal=lineTotal;
+    }
     @Override
     public String toString() {
         return "OrderDetail{" + "quantity=" + quantity + ", price=" + price + ", lineTotal=" + lineTotal + '}';

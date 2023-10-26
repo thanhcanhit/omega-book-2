@@ -27,8 +27,8 @@ public class Login_GUI extends javax.swing.JPanel {
     protected void paintComponent(Graphics g) {
 
         super.paintComponent(g);
-        Image background = Toolkit.getDefaultToolkit().createImage(getClass().getResource("/imgs/login/background.png"));
-        g.drawImage(background, 0, 0, this);
+//        Image background = Toolkit.getDefaultToolkit().createImage(getClass().getResource("/imgs/login/background.png"));
+//        g.drawImage(background, 0, 0, this);
 
     }
 

@@ -31,7 +31,7 @@
         <Container class="javax.swing.JPanel" name="pnl_left">
           <Properties>
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[700, 59]"/>
+              <Dimension value="[600, 59]"/>
             </Property>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[900, 768]"/>
@@ -179,6 +179,12 @@
         </Container>
         <Container class="javax.swing.JPanel" name="pnl_right">
           <Properties>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[500, 2147483647]"/>
+            </Property>
+            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[300, 657]"/>
+            </Property>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[400, 768]"/>
             </Property>
@@ -264,6 +270,9 @@
                         <Component class="javax.swing.JLabel" name="lbl_customerPhone">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="S&#x1ed1; &#x111;i&#x1ec7;n tho&#x1ea1;i"/>
+                            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[130, 40]"/>
+                            </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                               <Dimension value="[130, 40]"/>
                             </Property>
@@ -272,13 +281,13 @@
                         <Component class="javax.swing.JTextField" name="txt_customerPhone">
                           <Properties>
                             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[2147483647, 40]"/>
+                              <Dimension value="[99999, 35]"/>
                             </Property>
                             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[300, 40]"/>
+                              <Dimension value="[100, 35]"/>
                             </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[300, 40]"/>
+                              <Dimension value="[30, 30]"/>
                             </Property>
                           </Properties>
                           <Events>
@@ -307,6 +316,9 @@
                         <Component class="javax.swing.JLabel" name="lbl_customerName">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="H&#x1ecd; v&#xe0; t&#xea;n"/>
+                            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[130, 40]"/>
+                            </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                               <Dimension value="[130, 40]"/>
                             </Property>
@@ -315,13 +327,13 @@
                         <Component class="javax.swing.JTextField" name="txt_customerName">
                           <Properties>
                             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[2147483647, 40]"/>
+                              <Dimension value="[99999, 35]"/>
                             </Property>
                             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[300, 40]"/>
+                              <Dimension value="[100, 35]"/>
                             </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[300, 40]"/>
+                              <Dimension value="[30, 30]"/>
                             </Property>
                           </Properties>
                           <Events>
@@ -350,6 +362,9 @@
                         <Component class="javax.swing.JLabel" name="lbl_customerRank">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="H&#x1ea1;ng th&#xe0;nh vi&#xea;n"/>
+                            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[130, 40]"/>
+                            </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                               <Dimension value="[130, 40]"/>
                             </Property>
@@ -358,13 +373,13 @@
                         <Component class="javax.swing.JTextField" name="txt_customerRank">
                           <Properties>
                             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[2147483647, 40]"/>
+                              <Dimension value="[99999, 35]"/>
                             </Property>
                             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[300, 40]"/>
+                              <Dimension value="[100, 35]"/>
                             </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[300, 40]"/>
+                              <Dimension value="[30, 30]"/>
                             </Property>
                           </Properties>
                           <Events>
@@ -432,6 +447,9 @@
                         <Component class="javax.swing.JLabel" name="lbl_orderId">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="M&#xe3; h&#xf3;a &#x111;&#x1a1;n"/>
+                            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[130, 40]"/>
+                            </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                               <Dimension value="[130, 40]"/>
                             </Property>
@@ -440,13 +458,13 @@
                         <Component class="javax.swing.JTextField" name="txt_orderId">
                           <Properties>
                             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[2147483647, 40]"/>
+                              <Dimension value="[99999, 35]"/>
                             </Property>
                             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[300, 40]"/>
+                              <Dimension value="[100, 35]"/>
                             </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[300, 40]"/>
+                              <Dimension value="[30, 30]"/>
                             </Property>
                           </Properties>
                           <Events>
@@ -475,6 +493,9 @@
                         <Component class="javax.swing.JLabel" name="lbl_orderDate">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Ng&#xe0;y t&#x1ea1;o"/>
+                            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[130, 40]"/>
+                            </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                               <Dimension value="[130, 40]"/>
                             </Property>
@@ -483,13 +504,13 @@
                         <Component class="javax.swing.JTextField" name="txt_orderDate">
                           <Properties>
                             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[2147483647, 40]"/>
+                              <Dimension value="[99999, 35]"/>
                             </Property>
                             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[300, 40]"/>
+                              <Dimension value="[100, 35]"/>
                             </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[300, 40]"/>
+                              <Dimension value="[30, 30]"/>
                             </Property>
                           </Properties>
                           <Events>
@@ -518,6 +539,9 @@
                         <Component class="javax.swing.JLabel" name="lbl_orderDiscount">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Chi&#x1ebf;t kh&#x1ea5;u"/>
+                            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[130, 40]"/>
+                            </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                               <Dimension value="[130, 40]"/>
                             </Property>
@@ -526,13 +550,13 @@
                         <Component class="javax.swing.JTextField" name="txt_orderDiscount">
                           <Properties>
                             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[2147483647, 40]"/>
+                              <Dimension value="[99999, 35]"/>
                             </Property>
                             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[300, 40]"/>
+                              <Dimension value="[100, 35]"/>
                             </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[300, 40]"/>
+                              <Dimension value="[30, 30]"/>
                             </Property>
                           </Properties>
                           <Events>
@@ -561,6 +585,9 @@
                         <Component class="javax.swing.JLabel" name="lbl_orderPay">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Kh&#xe1;ch ph&#x1ea3;i tr&#x1ea3;"/>
+                            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[130, 40]"/>
+                            </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                               <Dimension value="[130, 40]"/>
                             </Property>
@@ -569,13 +596,13 @@
                         <Component class="javax.swing.JTextField" name="txt_orderPay">
                           <Properties>
                             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[2147483647, 40]"/>
+                              <Dimension value="[99999, 35]"/>
                             </Property>
                             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[300, 40]"/>
+                              <Dimension value="[100, 35]"/>
                             </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[300, 40]"/>
+                              <Dimension value="[30, 30]"/>
                             </Property>
                           </Properties>
                           <Events>
@@ -604,6 +631,9 @@
                         <Component class="javax.swing.JLabel" name="lbl_orderPaymentMethod">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Ph&#x1b0;&#x1a1;ng th&#x1ee9;c"/>
+                            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[130, 40]"/>
+                            </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                               <Dimension value="[130, 40]"/>
                             </Property>
@@ -617,11 +647,14 @@
                                 <StringItem index="1" value="ATM"/>
                               </StringArray>
                             </Property>
+                            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[99999, 35]"/>
+                            </Property>
                             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[300, 40]"/>
+                              <Dimension value="[100, 35]"/>
                             </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[300, 40]"/>
+                              <Dimension value="[30, 30]"/>
                             </Property>
                           </Properties>
                           <AuxValues>
@@ -650,6 +683,9 @@
                         <Component class="javax.swing.JLabel" name="lbl_orderCustomerGive">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Ti&#x1ec1;n kh&#xe1;ch &#x111;&#x1b0;a"/>
+                            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[130, 40]"/>
+                            </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                               <Dimension value="[130, 40]"/>
                             </Property>
@@ -658,13 +694,13 @@
                         <Component class="javax.swing.JTextField" name="txt_orderCustomerGive">
                           <Properties>
                             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[2147483647, 40]"/>
+                              <Dimension value="[99999, 35]"/>
                             </Property>
                             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[300, 40]"/>
+                              <Dimension value="[100, 35]"/>
                             </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[300, 40]"/>
+                              <Dimension value="[30, 30]"/>
                             </Property>
                           </Properties>
                           <Events>
@@ -726,6 +762,9 @@
                         <Component class="javax.swing.JLabel" name="lbl_orderCustomerReturn">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Ti&#x1ec1;n th&#x1eeb;a"/>
+                            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[130, 40]"/>
+                            </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                               <Dimension value="[130, 40]"/>
                             </Property>
@@ -734,13 +773,13 @@
                         <Component class="javax.swing.JTextField" name="txt_orderCustomerReturn">
                           <Properties>
                             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[2147483647, 40]"/>
+                              <Dimension value="[99999, 35]"/>
                             </Property>
                             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                               <Dimension value="[100, 35]"/>
                             </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[64, 40]"/>
+                              <Dimension value="[30, 30]"/>
                             </Property>
                           </Properties>
                           <Events>

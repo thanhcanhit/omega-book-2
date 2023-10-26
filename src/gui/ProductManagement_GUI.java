@@ -141,8 +141,8 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 
         splitPane_main.setMinimumSize(new java.awt.Dimension(1305, 768));
 
-        pnl_left.setMinimumSize(new java.awt.Dimension(700, 59));
-        pnl_left.setPreferredSize(new java.awt.Dimension(900, 768));
+        pnl_left.setMinimumSize(new java.awt.Dimension(400, 59));
+        pnl_left.setPreferredSize(new java.awt.Dimension(800, 768));
         pnl_left.setLayout(new java.awt.BorderLayout());
 
         pnl_header.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Tìm kiếm & Lọc"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
@@ -281,6 +281,8 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 
         splitPane_main.setLeftComponent(pnl_left);
 
+        pnl_right.setMaximumSize(new java.awt.Dimension(500, 2147483647));
+        pnl_right.setMinimumSize(new java.awt.Dimension(350, 39));
         pnl_right.setPreferredSize(new java.awt.Dimension(400, 768));
         pnl_right.setLayout(new java.awt.BorderLayout());
 
@@ -366,10 +368,14 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         pnl_container3.setLayout(new javax.swing.BoxLayout(pnl_container3, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_productCostPrice.setText("Giá nhập");
-        lbl_productCostPrice.setPreferredSize(new java.awt.Dimension(130, 40));
+        lbl_productCostPrice.setMaximumSize(null);
+        lbl_productCostPrice.setMinimumSize(new java.awt.Dimension(110, 30));
+        lbl_productCostPrice.setPreferredSize(new java.awt.Dimension(110, 40));
         pnl_container3.add(lbl_productCostPrice);
 
-        txt_productCostPrice.setPreferredSize(new java.awt.Dimension(64, 40));
+        txt_productCostPrice.setMaximumSize(new java.awt.Dimension(9999, 40));
+        txt_productCostPrice.setMinimumSize(new java.awt.Dimension(100, 30));
+        txt_productCostPrice.setPreferredSize(new java.awt.Dimension(100, 30));
         txt_productCostPrice.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_productCostPriceActionPerformed(evt);
@@ -384,10 +390,14 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         pnl_container4.setLayout(new javax.swing.BoxLayout(pnl_container4, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_productPrice.setText("Giá bán");
-        lbl_productPrice.setPreferredSize(new java.awt.Dimension(130, 40));
+        lbl_productPrice.setMaximumSize(null);
+        lbl_productPrice.setMinimumSize(new java.awt.Dimension(110, 30));
+        lbl_productPrice.setPreferredSize(new java.awt.Dimension(110, 40));
         pnl_container4.add(lbl_productPrice);
 
-        txt_productPrice.setPreferredSize(new java.awt.Dimension(64, 40));
+        txt_productPrice.setMaximumSize(new java.awt.Dimension(9999, 40));
+        txt_productPrice.setMinimumSize(new java.awt.Dimension(100, 30));
+        txt_productPrice.setPreferredSize(new java.awt.Dimension(100, 30));
         txt_productPrice.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_productPriceActionPerformed(evt);
@@ -402,10 +412,14 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         pnl_container5.setLayout(new javax.swing.BoxLayout(pnl_container5, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_productInventory.setText("Tồn kho");
-        lbl_productInventory.setPreferredSize(new java.awt.Dimension(130, 40));
+        lbl_productInventory.setMaximumSize(null);
+        lbl_productInventory.setMinimumSize(new java.awt.Dimension(110, 30));
+        lbl_productInventory.setPreferredSize(new java.awt.Dimension(110, 40));
         pnl_container5.add(lbl_productInventory);
 
-        txt_productInventory.setPreferredSize(new java.awt.Dimension(64, 40));
+        txt_productInventory.setMaximumSize(new java.awt.Dimension(9999, 40));
+        txt_productInventory.setMinimumSize(new java.awt.Dimension(100, 30));
+        txt_productInventory.setPreferredSize(new java.awt.Dimension(100, 30));
         txt_productInventory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_productInventoryActionPerformed(evt);
@@ -420,10 +434,14 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         pnl_container6.setLayout(new javax.swing.BoxLayout(pnl_container6, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_productVAT.setText("VAT");
-        lbl_productVAT.setPreferredSize(new java.awt.Dimension(130, 40));
+        lbl_productVAT.setMaximumSize(null);
+        lbl_productVAT.setMinimumSize(new java.awt.Dimension(110, 30));
+        lbl_productVAT.setPreferredSize(new java.awt.Dimension(110, 40));
         pnl_container6.add(lbl_productVAT);
 
-        txt_productVAT.setPreferredSize(new java.awt.Dimension(64, 40));
+        txt_productVAT.setMaximumSize(new java.awt.Dimension(9999, 40));
+        txt_productVAT.setMinimumSize(new java.awt.Dimension(100, 30));
+        txt_productVAT.setPreferredSize(new java.awt.Dimension(100, 30));
         txt_productVAT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_productVATActionPerformed(evt);
@@ -437,10 +455,15 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         pnl_container2.setLayout(new javax.swing.BoxLayout(pnl_container2, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_productType.setText("Loại sản phẩm");
-        lbl_productType.setPreferredSize(new java.awt.Dimension(130, 40));
+        lbl_productType.setMaximumSize(null);
+        lbl_productType.setMinimumSize(new java.awt.Dimension(110, 30));
+        lbl_productType.setPreferredSize(new java.awt.Dimension(110, 40));
         pnl_container2.add(lbl_productType);
 
         cmb_productType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sách", "Văn phòng phẩm" }));
+        cmb_productType.setMaximumSize(new java.awt.Dimension(9999, 40));
+        cmb_productType.setMinimumSize(new java.awt.Dimension(100, 30));
+        cmb_productType.setPreferredSize(new java.awt.Dimension(100, 30));
         pnl_container2.add(cmb_productType);
 
         pnl_productCenter.add(pnl_container2);
@@ -462,11 +485,13 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 
         lbl_stationeryColor.setText("Màu sắc");
         lbl_stationeryColor.setToolTipText("");
-        lbl_stationeryColor.setPreferredSize(new java.awt.Dimension(100, 30));
+        lbl_stationeryColor.setPreferredSize(new java.awt.Dimension(110, 30));
         lbl_stationeryColor.setRequestFocusEnabled(false);
         pnl_container23.add(lbl_stationeryColor);
 
-        txt_stationeryColor.setPreferredSize(new java.awt.Dimension(64, 40));
+        txt_stationeryColor.setMaximumSize(new java.awt.Dimension(9999, 40));
+        txt_stationeryColor.setMinimumSize(new java.awt.Dimension(100, 30));
+        txt_stationeryColor.setPreferredSize(new java.awt.Dimension(100, 30));
         txt_stationeryColor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_stationeryColorActionPerformed(evt);
@@ -481,11 +506,14 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 
         lbl_stationeryType.setText("Loại VPP");
         lbl_stationeryType.setMinimumSize(new java.awt.Dimension(120, 30));
-        lbl_stationeryType.setPreferredSize(new java.awt.Dimension(100, 30));
+        lbl_stationeryType.setPreferredSize(new java.awt.Dimension(110, 30));
         lbl_stationeryType.setRequestFocusEnabled(false);
         pnl_container24.add(lbl_stationeryType);
 
         cmb_stationeryType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bút-viết", "Dụng cụ học sinh" }));
+        cmb_stationeryType.setMaximumSize(new java.awt.Dimension(9999, 40));
+        cmb_stationeryType.setMinimumSize(new java.awt.Dimension(100, 30));
+        cmb_stationeryType.setPreferredSize(new java.awt.Dimension(100, 30));
         pnl_container24.add(cmb_stationeryType);
 
         pnl_stationery.add(pnl_container24);
@@ -494,9 +522,13 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         pnl_container25.setLayout(new javax.swing.BoxLayout(pnl_container25, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_stationeryOrigin.setText("Xuất xứ");
-        lbl_stationeryOrigin.setPreferredSize(new java.awt.Dimension(100, 30));
+        lbl_stationeryOrigin.setPreferredSize(new java.awt.Dimension(110, 30));
         lbl_stationeryOrigin.setRequestFocusEnabled(false);
         pnl_container25.add(lbl_stationeryOrigin);
+
+        txt_stationeryOrigin.setMaximumSize(new java.awt.Dimension(9999, 40));
+        txt_stationeryOrigin.setMinimumSize(new java.awt.Dimension(100, 30));
+        txt_stationeryOrigin.setPreferredSize(new java.awt.Dimension(100, 30));
         pnl_container25.add(txt_stationeryOrigin);
 
         pnl_stationery.add(pnl_container25);
@@ -505,11 +537,13 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         pnl_container26.setLayout(new javax.swing.BoxLayout(pnl_container26, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_stationeryWeight.setText("Trọng lượng");
-        lbl_stationeryWeight.setPreferredSize(new java.awt.Dimension(100, 30));
+        lbl_stationeryWeight.setPreferredSize(new java.awt.Dimension(110, 30));
         lbl_stationeryWeight.setRequestFocusEnabled(false);
         pnl_container26.add(lbl_stationeryWeight);
 
-        txt_stationeryWeight.setPreferredSize(new java.awt.Dimension(64, 40));
+        txt_stationeryWeight.setMaximumSize(new java.awt.Dimension(9999, 40));
+        txt_stationeryWeight.setMinimumSize(new java.awt.Dimension(100, 30));
+        txt_stationeryWeight.setPreferredSize(new java.awt.Dimension(100, 30));
         txt_stationeryWeight.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_stationeryWeightActionPerformed(evt);
@@ -525,13 +559,14 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 
         lbl_stationeryBrand.setText("Nhãn hàng");
         lbl_stationeryBrand.setMinimumSize(new java.awt.Dimension(120, 30));
-        lbl_stationeryBrand.setPreferredSize(new java.awt.Dimension(100, 30));
+        lbl_stationeryBrand.setPreferredSize(new java.awt.Dimension(110, 30));
         lbl_stationeryBrand.setRequestFocusEnabled(false);
         pnl_container28.add(lbl_stationeryBrand);
 
         cmb_stationeryBrand.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nhãn hàng 1", "Nhãn hàng 2", " " }));
-        cmb_stationeryBrand.setMinimumSize(new java.awt.Dimension(102, 30));
-        cmb_stationeryBrand.setPreferredSize(new java.awt.Dimension(102, 30));
+        cmb_stationeryBrand.setMaximumSize(new java.awt.Dimension(9999, 40));
+        cmb_stationeryBrand.setMinimumSize(new java.awt.Dimension(100, 30));
+        cmb_stationeryBrand.setPreferredSize(new java.awt.Dimension(100, 30));
         pnl_container28.add(cmb_stationeryBrand);
 
         pnl_stationery.add(pnl_container28);
@@ -550,10 +585,12 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         pnl_bookAuthor.setLayout(new javax.swing.BoxLayout(pnl_bookAuthor, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_bookAuthor.setText("Tác giả");
-        lbl_bookAuthor.setPreferredSize(new java.awt.Dimension(130, 40));
+        lbl_bookAuthor.setPreferredSize(new java.awt.Dimension(120, 40));
         pnl_bookAuthor.add(lbl_bookAuthor);
 
-        txt_bookAuthor.setPreferredSize(new java.awt.Dimension(64, 40));
+        txt_bookAuthor.setMaximumSize(new java.awt.Dimension(9999, 40));
+        txt_bookAuthor.setMinimumSize(new java.awt.Dimension(100, 30));
+        txt_bookAuthor.setPreferredSize(new java.awt.Dimension(100, 30));
         txt_bookAuthor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_bookAuthorActionPerformed(evt);
@@ -567,10 +604,12 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         pnl_bookPublisher.setLayout(new javax.swing.BoxLayout(pnl_bookPublisher, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_bookPublisher.setText("Nhà xuất bản");
-        lbl_bookPublisher.setPreferredSize(new java.awt.Dimension(130, 40));
+        lbl_bookPublisher.setPreferredSize(new java.awt.Dimension(120, 40));
         pnl_bookPublisher.add(lbl_bookPublisher);
 
-        txt_bookPublisher.setPreferredSize(new java.awt.Dimension(64, 40));
+        txt_bookPublisher.setMaximumSize(new java.awt.Dimension(9999, 40));
+        txt_bookPublisher.setMinimumSize(new java.awt.Dimension(100, 30));
+        txt_bookPublisher.setPreferredSize(new java.awt.Dimension(100, 30));
         txt_bookPublisher.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_bookPublisherActionPerformed(evt);
@@ -585,10 +624,12 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 
         lbl_bookPublishDate.setText("Năm xuất bản");
         lbl_bookPublishDate.setToolTipText("");
-        lbl_bookPublishDate.setPreferredSize(new java.awt.Dimension(130, 40));
+        lbl_bookPublishDate.setPreferredSize(new java.awt.Dimension(120, 40));
         pnl_container11.add(lbl_bookPublishDate);
 
-        txt_bookPublishDate.setPreferredSize(new java.awt.Dimension(64, 40));
+        txt_bookPublishDate.setMaximumSize(new java.awt.Dimension(9999, 40));
+        txt_bookPublishDate.setMinimumSize(new java.awt.Dimension(100, 30));
+        txt_bookPublishDate.setPreferredSize(new java.awt.Dimension(100, 30));
         txt_bookPublishDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_bookPublishDateActionPerformed(evt);
@@ -602,10 +643,13 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         pnl_container12.setLayout(new javax.swing.BoxLayout(pnl_container12, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_bookHardCover.setText("Bìa cứng");
-        lbl_bookHardCover.setPreferredSize(new java.awt.Dimension(130, 40));
+        lbl_bookHardCover.setPreferredSize(new java.awt.Dimension(120, 40));
         pnl_container12.add(lbl_bookHardCover);
 
         cmb_bookHardCover.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Có", "Không" }));
+        cmb_bookHardCover.setMaximumSize(new java.awt.Dimension(9999, 40));
+        cmb_bookHardCover.setMinimumSize(new java.awt.Dimension(100, 30));
+        cmb_bookHardCover.setPreferredSize(new java.awt.Dimension(100, 30));
         pnl_container12.add(cmb_bookHardCover);
 
         pnl_bookCenter.add(pnl_container12);
@@ -614,8 +658,12 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         pnl_container13.setLayout(new javax.swing.BoxLayout(pnl_container13, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_bookQuantityPage.setText("Số trang");
-        lbl_bookQuantityPage.setPreferredSize(new java.awt.Dimension(130, 40));
+        lbl_bookQuantityPage.setPreferredSize(new java.awt.Dimension(120, 40));
         pnl_container13.add(lbl_bookQuantityPage);
+
+        txt_bookQuantityPage.setMaximumSize(new java.awt.Dimension(9999, 40));
+        txt_bookQuantityPage.setMinimumSize(new java.awt.Dimension(100, 30));
+        txt_bookQuantityPage.setPreferredSize(new java.awt.Dimension(100, 30));
         pnl_container13.add(txt_bookQuantityPage);
 
         pnl_bookCenter.add(pnl_container13);
@@ -624,10 +672,12 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         pnl_container14.setLayout(new javax.swing.BoxLayout(pnl_container14, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_bookLanguage.setText("Ngôn ngữ");
-        lbl_bookLanguage.setPreferredSize(new java.awt.Dimension(130, 40));
+        lbl_bookLanguage.setPreferredSize(new java.awt.Dimension(120, 40));
         pnl_container14.add(lbl_bookLanguage);
 
-        txt_bookLanguage.setPreferredSize(new java.awt.Dimension(64, 40));
+        txt_bookLanguage.setMaximumSize(new java.awt.Dimension(9999, 40));
+        txt_bookLanguage.setMinimumSize(new java.awt.Dimension(100, 30));
+        txt_bookLanguage.setPreferredSize(new java.awt.Dimension(100, 30));
         txt_bookLanguage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_bookLanguageActionPerformed(evt);
@@ -644,7 +694,9 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         lbl_bookTranslator.setPreferredSize(new java.awt.Dimension(130, 40));
         pnl_container15.add(lbl_bookTranslator);
 
-        txt_bookTranslator.setPreferredSize(new java.awt.Dimension(64, 40));
+        txt_bookTranslator.setMaximumSize(new java.awt.Dimension(9999, 40));
+        txt_bookTranslator.setMinimumSize(new java.awt.Dimension(100, 30));
+        txt_bookTranslator.setPreferredSize(new java.awt.Dimension(100, 30));
         txt_bookTranslator.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_bookTranslatorActionPerformed(evt);

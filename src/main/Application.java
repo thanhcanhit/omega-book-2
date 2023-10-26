@@ -11,6 +11,7 @@ import gui.MainView;
 import gui.Sales_GUI;
 import gui.Welcome_GUI;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
@@ -37,6 +38,7 @@ public class Application extends javax.swing.JFrame {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
+        setSize(new Dimension(1366, 768));
         setTitle("Omega Book");
         mainForm = new MainView();
         loginForm = new Login_GUI();
@@ -136,7 +138,7 @@ public class Application extends javax.swing.JFrame {
         app = new Application();
 
 //        Fake loading
-        new Welcome_GUI().setVisible(true);
+//        new Welcome_GUI().setVisible(true);
         
         
 //        Connect db
@@ -148,15 +150,15 @@ public class Application extends javax.swing.JFrame {
         }
         
 //        Delay render
-        Timer timer = new Timer(2500, (ActionEvent evt) -> {
-            java.awt.EventQueue.invokeLater(() -> {
-                app.setVisible(true);
-            });
-        });
-        timer.setRepeats(false);
-        timer.start();
-//        app = new Application();
-//        app.setVisible(true);
+//        Timer timer = new Timer(2500, (ActionEvent evt) -> {
+//            java.awt.EventQueue.invokeLater(() -> {
+//                app.setVisible(true);
+//            });
+//        });
+//        timer.setRepeats(false);
+//        timer.start();
+        app = new Application();
+        app.setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
