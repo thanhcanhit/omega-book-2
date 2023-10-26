@@ -21,6 +21,7 @@
   <SubComponents>
     <Container class="javax.swing.JSplitPane" name="splitPane_main">
       <Properties>
+        <Property name="resizeWeight" type="double" value="0.7"/>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[1305, 768]"/>
         </Property>

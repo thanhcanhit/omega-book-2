@@ -56,6 +56,7 @@ public class CreatePurchaseOrder_GUI extends javax.swing.JPanel {
 
         setLayout(new java.awt.GridLayout(1, 0));
 
+        splitPane_main.setResizeWeight(0.7);
         splitPane_main.setMinimumSize(new java.awt.Dimension(1305, 768));
 
         pnl_left.setMinimumSize(new java.awt.Dimension(700, 59));
