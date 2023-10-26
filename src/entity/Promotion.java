@@ -9,14 +9,24 @@ import java.util.Date;
 
 /**
  *
- * @author macbookk
+ * @author KienTran
  */
 public class Promotion {
+    private String promotionID;
+
+   
     private Date startedDate;
     private Date endedDate;
     private int type;
     private double discount;
     
+     public String getPromotionID() {
+        return promotionID;
+    }
+
+    public void setPromotionID(String promotionID) {
+        this.promotionID = promotionID;
+    }
     public Date getStartedDate() {
         return startedDate;
     }
@@ -54,12 +64,15 @@ public class Promotion {
 
     public Promotion() {
     }
-    
-    public Promotion(Date startedDate, Date endedDate, int type, double discount) {
-        this.startedDate = startedDate;
-        this.endedDate = endedDate;
-        this.type = type;
-        this.discount = discount;
+    public Promotion(String promotionID){
+        setPromotionID(promotionID);
+    }
+    public Promotion(String promotionID,Date startedDate, Date endedDate, int type, double discount) throws Exception{
+        setPromotionID(promotionID);
+        setStartedDate(startedDate);
+        setEndedDate(endedDate);
+        setDiscount(discount);
+        setType(type);
     }
     
     @Override

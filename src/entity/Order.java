@@ -21,10 +21,21 @@ public final class Order {
     private boolean status;
     private double subTotal;
     private double totalDue;
+    private boolean payment;
     private Promotion promotion;
     private Employee employee;
     private Customer customer;
     private ArrayList<OrderDetail> orderDetail;
+
+    public boolean isPayment() {
+        return payment;
+    }
+
+    public void setPayment(boolean payment) {
+        this.payment = payment;
+    }
+    
+    
 
     public ArrayList<OrderDetail> getOrderDetail() {
         return orderDetail;
@@ -111,24 +122,26 @@ public final class Order {
         this.customer = customer;
     }
 
-    public Order(String orderID, Date orderAt, boolean status, Promotion promotion, Employee employee, Customer customer, ArrayList<OrderDetail> orderDetail) {
+    public Order(String orderID, Date orderAt,boolean payment, boolean status, Promotion promotion, Employee employee, Customer customer, ArrayList<OrderDetail> orderDetail) {
         setStatus(status);
         setSubTotal();
         setTotalDue();
         setOrderAt(orderAt);
         setCustomer(customer);
         setOrderDetail(orderDetail);
+        setPayment(payment);
         setPromotion(promotion);
         setOrderID(orderID);
         
     }
-    public Order(String orderID, Date orderAt, boolean status, Promotion promotion, Employee employee, Customer customer, ArrayList<OrderDetail> orderDetail, double  subTotal, double toTalDue) {
+    public Order(String orderID, Date orderAt,boolean payment, boolean status, Promotion promotion, Employee employee, Customer customer, ArrayList<OrderDetail> orderDetail, double  subTotal, double toTalDue) {
         this.orderID = orderID;
         this.orderAt = orderAt;
         this.status = status;
         this.subTotal= subTotal;
         this.totalDue= toTalDue;
         this.promotion = promotion;
+        this.payment=payment;
         this.employee = employee;
         this.customer = customer;
         this.orderDetail=orderDetail;
@@ -165,7 +178,9 @@ public final class Order {
 
     @Override
     public String toString() {
-        return "Order{" + "orderID=" + orderID + ", orderAt=" + orderAt + ", status=" + status + ", subTotal=" + subTotal + ", totalDue=" + totalDue + ", promotion=" + promotion + ", employee=" + employee + ", customer=" + customer + '}';
+        return "Order{" + "orderID=" + orderID + ", orderAt=" + orderAt + ", status=" + status + ", subTotal=" + subTotal + ", totalDue=" + totalDue + ", payment=" + payment + ", promotion=" + promotion + ", employee=" + employee + ", customer=" + customer + ", orderDetail=" + orderDetail + '}';
     }
+
+    
     
 }
