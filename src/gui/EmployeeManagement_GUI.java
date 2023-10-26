@@ -136,7 +136,7 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
 
         tbl_employeeInfor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
+                {"NV020032023001", "Hồ  Thị Như Tâm", "03-11-2003", null},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null}
@@ -148,16 +148,9 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
-            boolean[] canEdit = new boolean [] {
-                false, true, true, true
-            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
         });
         tbl_employeeInfor.setPreferredSize(new java.awt.Dimension(600, 80));
@@ -188,7 +181,7 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         pnl_empID.add(lbl_empID);
 
         txt_empID.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txt_empID.setText("NV0001");
+        txt_empID.setText("NV020032023001");
         txt_empID.setBorder(null);
         txt_empID.setEnabled(false);
         txt_empID.setMaximumSize(new java.awt.Dimension(2147483647, 30));

@@ -5,50 +5,52 @@
 package dao;
 
 import database.ConnectDB;
-import entity.Store;
+import entity.*;
 import interfaces.DAOBase;
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
  *
  * @author Như Tâm
  */
-public class Store_DAO implements DAOBase<Store>{
+public class Supplier_DAO implements DAOBase<Supplier>{
 
     @Override
-    public Store getOne(String id) {
-        Store store = null;
+    public Supplier getOne(String id) {
+        Supplier supplier = null;
         try {
-            PreparedStatement st = ConnectDB.conn.prepareStatement("SELECT * FROM Store WHERE storeID = ?");
+            PreparedStatement st = ConnectDB.conn.prepareStatement("SELECT * FROM Supplier WHERE supplierID = ?");
             st.setString(1, id);
             ResultSet rs = st.executeQuery();
             
             while (rs.next()) {
-                String storeID = rs.getString("storeID");
+                String supplierID = rs.getString("supplierID");
                 String name = rs.getString("name");
                 String address = rs.getString("address");
-                store = new Store(storeID, name, address);
+                supplier = new Supplier(supplierID, name, address);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return store;
+        return supplier;
     }
 
     @Override
-    public ArrayList<Store> getAll() {
-        ArrayList<Store> result = new ArrayList<>();
+    public ArrayList<Supplier> getAll() {
+        ArrayList<Supplier> result = new ArrayList<>();
         try {
             Statement st = ConnectDB.conn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM Store");
+            ResultSet rs = st.executeQuery("SELECT * FROM Supplier");
             
             while (rs.next()) {                
-                String storeID = rs.getString("storeID");
+                String storeID = rs.getString("supplierID");
                 String name = rs.getString("name");
                 String address = rs.getString("address");
-                Store store = new Store(storeID, name, address);
-                result.add(store);
+                Supplier supplier = new Supplier(storeID, name, address);
+                result.add(supplier);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,14 +64,14 @@ public class Store_DAO implements DAOBase<Store>{
     }
 
     @Override
-    public Boolean create(Store store) {
+    public Boolean create(Supplier supplier) {
         int n = 0;
         try {
-            PreparedStatement st = ConnectDB.conn.prepareStatement("INSERT INTO Store "
+            PreparedStatement st = ConnectDB.conn.prepareStatement("INSERT INTO Supplier "
                     + "VALUES (?,?,?)");
-            st.setString(1, store.getStoreID());
-            st.setString(2, store.getName());
-            st.setString(3, store.getAddress());
+            st.setString(1, supplier.getSupplierID());
+            st.setString(2, supplier.getName());
+            st.setString(3, supplier.getAddress());
             n = st.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -78,7 +80,7 @@ public class Store_DAO implements DAOBase<Store>{
     }
 
     @Override
-    public Boolean update(String id, Store newObject) {
+    public Boolean update(String id, Supplier suplier) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -86,4 +88,5 @@ public class Store_DAO implements DAOBase<Store>{
     public Boolean delete(String id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
 }
