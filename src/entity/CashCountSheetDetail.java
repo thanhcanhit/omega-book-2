@@ -11,25 +11,24 @@ import java.util.Objects;
  * @author Hoàng Khang
  */
 public class CashCountSheetDetail {
-    private int index;
+    private boolean index;
     private Employee employee;
     private CashCountSheet cashCountSheet;
 
     public CashCountSheetDetail() {
     }
-    
 
-    public CashCountSheetDetail(int index, Employee employee, CashCountSheet cashCountSheet) {
+    public CashCountSheetDetail(boolean index, Employee employee, CashCountSheet cashCountSheet) {
         this.index = index;
         this.employee = employee;
         this.cashCountSheet = cashCountSheet;
     }
 
-    public int getIndex() {
+    public boolean getIndex() {
         return index;
     }
 
-    public void setIndex(int index) {
+    public void setIndex(boolean index) {
         this.index = index;
     }
 

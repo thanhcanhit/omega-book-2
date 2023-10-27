@@ -13,7 +13,7 @@ import java.util.Objects;
  *
  * @author Hoàng Khang
  */
-public class AccountingVoucher {
+public class AcountingVoucher {
     private String accountingVoucherID;
     private Date createdDate;
     private Date endedDate;
@@ -24,11 +24,11 @@ public class AccountingVoucher {
     private CashCountSheet cashCountSheet;
     private ArrayList<Order> orderList;
 
-    public AccountingVoucher() {
+    public AcountingVoucher() {
     }
 
-    public AccountingVoucher(String accountingVoucherID, Date createdDate, Date endedDate, double sale, double payViaATM, double withDraw, double difference, CashCountSheet cashCountSheet,  ArrayList<Order> orderList) {
-        setAccountingVoucherID(accountingVoucherID);
+    public AcountingVoucher(String accountingVoucherID, Date createdDate, Date endedDate,CashCountSheet cashCountSheet,  ArrayList<Order> orderList) {
+        setAcountingVoucherID(accountingVoucherID);
         setCreatedDate(createdDate);
         setEndedDate(endedDate);
         setOrderList(orderList);
@@ -40,11 +40,11 @@ public class AccountingVoucher {
     
     
 
-    public AccountingVoucher(String accountingVoucherID) {
+    public AcountingVoucher(String accountingVoucherID) {
         this.accountingVoucherID = accountingVoucherID;
     }
 
-    public String getAccountingVoucherID() {
+    public String getAcountingVoucherID() {
         return accountingVoucherID;
     }
 
@@ -57,7 +57,7 @@ public class AccountingVoucher {
     }
 
     
-    public void setAccountingVoucherID(String accountingVoucherID) {
+    public void setAcountingVoucherID(String accountingVoucherID) {
         this.accountingVoucherID = accountingVoucherID;
     }
 
@@ -149,7 +149,7 @@ public class AccountingVoucher {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final AccountingVoucher other = (AccountingVoucher) obj;
+        final AcountingVoucher other = (AcountingVoucher) obj;
         return Objects.equals(this.accountingVoucherID, other.accountingVoucherID);
     }
 
