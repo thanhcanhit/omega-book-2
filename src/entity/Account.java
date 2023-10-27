@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 /**
  *
- * @author macbookk
+ * @author KienTran
  */
 public class Account {
     

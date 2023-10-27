@@ -4,6 +4,9 @@
  */
 package entity;
 
+import enums.Type;
+import enums.StationeryType;
+
 /**
  *
  * @author thanhcanhit

@@ -11,9 +11,9 @@ import java.util.regex.Pattern;
 
 /**
  *
- * @author macbookk
+ * @author KienTran
  */
-public class Shift {
+public final class Shift {
     private final String ID_EMPTY="ID không được rỗng !";
     private final String STARTEDAT_ERROR = "StartedAt không được rỗng !";
     private final String ENDEDAD_ERROR = "EndedAt Không được rỗng !";
@@ -29,8 +29,9 @@ public class Shift {
     }
 
     public void setShiftID(String shiftID) throws Exception{
-        //regex : "^[P][H]\\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])\\d{4}$";
-        if(shiftID.trim().length()>0){
+        String regex = "^[P][H]\\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])\\d{4}$";
+        Pattern pattern = Pattern.compile(regex);
+        if(!pattern.matcher(shiftID).matches()){
             this.shiftID = shiftID;
         }else 
             throw new Exception(ID_EMPTY);
@@ -70,11 +71,11 @@ public class Shift {
             throw new Exception(ACCOUNT_ERROR);
     }
 
-    public Shift(String shiftID, Date startedAt, Date endedAt, Account account) {
-        this.shiftID = shiftID;
-        this.startedAt = startedAt;
-        this.endedAt = endedAt;
-        this.account = account;
+    public Shift(String shiftID, Date startedAt, Date endedAt, Account account) throws Exception{
+        setAccount(account);
+        setStartedAt(startedAt);
+        setEndedAt(endedAt);
+        setShiftID(shiftID);
     }
 
     public Shift(String shiftID) {

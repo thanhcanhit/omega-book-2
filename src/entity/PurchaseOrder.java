@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package entity;
+import enums.PurchaseOrderStatus;
 import java.time.LocalDate;
 import java.util.*;
 /**
@@ -26,6 +27,16 @@ public class PurchaseOrder {
     private ArrayList<PurchaseOrderDetail> purchaseOrderDetailList;
 
     public PurchaseOrder(String purchaseOrderID, Date orderDate, Date receiveDate, String note, PurchaseOrderStatus status, Supplier supplier, Employee employee, ArrayList<PurchaseOrderDetail> purchaseOrderDetailList) throws Exception {
+        setPurchaseOrderID(purchaseOrderID);
+        setOrderDate(orderDate);
+        setReceiveDate(receiveDate);
+        setNote(note);
+        setStatus(status);
+        setSupplier(supplier);
+        setEmployee(employee);
+        setPurchaseOrderDetailList(purchaseOrderDetailList);
+    }
+    public PurchaseOrder(String purchaseOrderID, Date orderDate, Date receiveDate, String note, PurchaseOrderStatus status, Supplier supplier, Employee employee, ArrayList<PurchaseOrderDetail> purchaseOrderDetailList, Double total) throws Exception {
         setPurchaseOrderID(purchaseOrderID);
         setOrderDate(orderDate);
         setReceiveDate(receiveDate);

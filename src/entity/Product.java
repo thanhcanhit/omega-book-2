@@ -4,6 +4,8 @@
  */
 package entity;
 
+import enums.Type;
+import enums.BookOrigin;
 import java.util.Objects;
 import java.util.regex.Pattern;
 

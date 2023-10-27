@@ -4,6 +4,9 @@
  */
 package entity;
 
+import enums.Type;
+import enums.BookCategory;
+import enums.BookOrigin;
 import java.time.LocalDate;
 
 /**

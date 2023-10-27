@@ -5,34 +5,42 @@
 package entity;
 
 
+import enums.PromotionType;
 import java.util.Date;
 
 /**
  *
  * @author KienTran
  */
-public class Promotion {
-    private String promotionID;
-
-   
+public final class Promotion {
+    private final String PROMOTIONID_ERROR="Mã chương trình khuyến mãi không hợp lệ !";
+    private final String STARTEDDATE_ERROR="Ngày tạo chương trình khuyến mãi không được rỗng !";
+    private final String ENDEDDATE_ERROR="Ngày kết thúc chương trình khuyến mãi không được rỗng !";
+    private final String DISCOUNT_ERROR="Giảm giá không hợp lệ !";
+    
+    private String promotionID; 
     private Date startedDate;
     private Date endedDate;
-    private int type;
+    private PromotionType type;
     private double discount;
     
      public String getPromotionID() {
         return promotionID;
     }
 
-    public void setPromotionID(String promotionID) {
-        this.promotionID = promotionID;
+    public void setPromotionID(String promotionID) throws Exception{
+        
+            this.promotionID = promotionID;
     }
     public Date getStartedDate() {
         return startedDate;
     }
 
     public void setStartedDate(Date startedDate) throws Exception {
-        this.startedDate = startedDate;
+        if(startedDate!=null)
+            this.startedDate = startedDate;
+        else
+            throw new Exception(STARTEDDATE_ERROR);
     }
 
     public Date getEndedDate() {
@@ -40,16 +48,17 @@ public class Promotion {
     }
 
     public void setEndedDate(Date endedDate) throws Exception{
-
-        this.endedDate = endedDate;
+        if(endedDate!=null)
+            this.endedDate = endedDate;
+        else
+            throw new Exception(ENDEDDATE_ERROR);
     }
 
-    public int getType() {
+    public PromotionType getType() {
         return type;
     }
 
-    public void setType(int type) throws Exception{
-        if(type>=0)
+    public void setType(PromotionType type) throws Exception{
             this.type = type;
       
     }
@@ -59,25 +68,30 @@ public class Promotion {
     }
 
     public void setDiscount(double discount) throws Exception{
-        this.discount = discount;
+        if(discount>=0)
+            this.discount = discount;
+        else
+            throw new Exception(DISCOUNT_ERROR);
     }
 
     public Promotion() {
     }
-    public Promotion(String promotionID){
+    public Promotion(String promotionID) throws Exception{
         setPromotionID(promotionID);
     }
-    public Promotion(String promotionID,Date startedDate, Date endedDate, int type, double discount) throws Exception{
+    public Promotion(String promotionID,Date startedDate, Date endedDate, PromotionType type, double discount) throws Exception{
         setPromotionID(promotionID);
         setStartedDate(startedDate);
         setEndedDate(endedDate);
         setDiscount(discount);
         setType(type);
     }
-    
+
     @Override
     public String toString() {
-        return "Promotion{" + "startedDate=" + startedDate + ", endedDate=" + endedDate + ", type=" + type + ", discount=" + discount + '}';
+        return "Promotion{" + "PROMOTIONID_ERROR=" + PROMOTIONID_ERROR + ", STARTEDDATE_ERROR=" + STARTEDDATE_ERROR + ", ENDEDDATE_ERROR=" + ENDEDDATE_ERROR + ", DISCOUNT_ERROR=" + DISCOUNT_ERROR + ", promotionID=" + promotionID + ", startedDate=" + startedDate + ", endedDate=" + endedDate + ", type=" + type + ", discount=" + discount + '}';
     }
+    
+    
     
 }

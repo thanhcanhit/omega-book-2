@@ -4,20 +4,20 @@
  */
 package entity;
 
+import enums.ReturnOrderStatus;
 import java.util.Date;
 import java.util.Objects;
 
 /**
  *
- * @author macbookk
+ * @author KienTran
  */
 public class ReturnOrder {
-    private final String STATUS_ERROR= "Trạng thái không hợp lệ !";
     private final String ORDER_ERROR="Order không được rỗng !";
     private final String EMPLOYEE_ERROR="Employee không được rỗng !";
     
     private Date orderDate;
-    private int status;
+    private ReturnOrderStatus status;
     private String returnOrderID;
     private Employee employee;
     private Order order;
@@ -54,7 +54,7 @@ public class ReturnOrder {
         this.returnOrderID = returnOrderID;
     }
 
-    public ReturnOrder(Date orderDate, int status, String returnOrderID, Employee employee, Order order, boolean type) {
+    public ReturnOrder(Date orderDate, ReturnOrderStatus status, String returnOrderID, Employee employee, Order order, boolean type) {
         this.orderDate = orderDate;
         this.status = status;
         this.returnOrderID = returnOrderID;
@@ -70,19 +70,19 @@ public class ReturnOrder {
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
-        this.orderDate = orderDate;
+    public void setOrderDate(Date orderDate) throws Exception{
+        if(orderDate!=null)
+            this.orderDate = orderDate;
+        else
+            throw new Exception("");
     }
 
-    public int getStatus() {
+    public ReturnOrderStatus getStatus() {
         return status;
     }
 
-    public void setStatus(int status) throws Exception{
-        if(status==1 || status==0 || status==2)
-            this.status = status;
-        else
-            throw new Exception(STATUS_ERROR);
+    public void setStatus(ReturnOrderStatus status) {
+        this.status = status;
     }
 
     public String getReturnOrderID() {
