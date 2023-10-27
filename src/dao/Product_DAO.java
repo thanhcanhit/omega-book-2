@@ -6,13 +6,13 @@ package dao;
 
 import database.ConnectDB;
 import entity.Book;
-import entity.BookCategory;
-import entity.BookOrigin;
+import enums.BookCategory;
+import enums.BookOrigin;
 import entity.Brand;
 import entity.Product;
 import entity.Stationery;
-import entity.StationeryType;
-import entity.Type;
+import enums.StationeryType;
+import enums.Type;
 import interfaces.DAOBase;
 import java.sql.*;
 import java.util.ArrayList;
