@@ -6,21 +6,14 @@ package enums;
 
 /**
  *
- * @author thanhcanhit
+ * @author KienTran
  */
-public enum BookCategory {
-    LITERATURE(1),
-    ECONOMICS(2),
-    PSYCHOLOGY(3),
-    CHILDRENS_BOOK(4),
-    PARENTING(5),
-    BIOGRAPHY(6),
-    TEXTBOOK_REFERENCE(7),
-    LANGUAGE_LEARNING(8);
-
+public enum ReturnOrderStatus {
+    PENDING(0), SUCCESS(1), CANCEL(2);
+    
     private final int value;
 
-    private BookCategory(int value) {
+    private ReturnOrderStatus(int value) {
         this.value = value;
     }
 
