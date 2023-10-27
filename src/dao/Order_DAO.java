@@ -21,7 +21,7 @@ import java.sql.*;
  *
  * @author KienTran
  */
-public class Order_DAO implements DAOBase<Order>{
+public class Order_DAO implements DAOBase<Order> {
 
     @Override
     public Order getOne(String id) {
@@ -92,37 +92,37 @@ public class Order_DAO implements DAOBase<Order>{
     @Override
     public Boolean create(Order object) {
         try {
-                String sql = "INSERT INTO Order (orderID, payment, status, orderAt, employeeID, customerID, promotionID, totalDue, subTotal) " +
-                             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                PreparedStatement preparedStatement = ConnectDB.conn.prepareStatement(sql);
+            String sql = "INSERT INTO Order (orderID, payment, status, orderAt, employeeID, customerID, promotionID, totalDue, subTotal) "
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement preparedStatement = ConnectDB.conn.prepareStatement(sql);
 
-                preparedStatement.setString(1, object.getOrderID());
-                preparedStatement.setBoolean(2, object.isPayment());
-                preparedStatement.setBoolean(3, object.isStatus());
-                preparedStatement.setDate(4, new java.sql.Date(object.getOrderAt().getTime()));
-                preparedStatement.setString(5, object.getEmployee().getEmployeeID());
-                preparedStatement.setString(6, object.getCustomer().getCustomerID());
-                preparedStatement.setString(7, object.getPromotion().getPromotionID());
-                preparedStatement.setDouble(8, object.getTotalDue());
-                preparedStatement.setDouble(9, object.getSubTotal());
+            preparedStatement.setString(1, object.getOrderID());
+            preparedStatement.setBoolean(2, object.isPayment());
+            preparedStatement.setBoolean(3, object.isStatus());
+            preparedStatement.setDate(4, new java.sql.Date(object.getOrderAt().getTime()));
+            preparedStatement.setString(5, object.getEmployee().getEmployeeID());
+            preparedStatement.setString(6, object.getCustomer().getCustomerID());
+            preparedStatement.setString(7, object.getPromotion().getPromotionID());
+            preparedStatement.setDouble(8, object.getTotalDue());
+            preparedStatement.setDouble(9, object.getSubTotal());
 
-                int rowsAffected = preparedStatement.executeUpdate();
-                for (OrderDetail orderDetail : object.getOrderDetail()) {
-                    orderDetail.setOrder(object);
-                    new OrderDetail_DAO().create(orderDetail);
-                }
-                return rowsAffected > 0;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return false;
-            }    
+            int rowsAffected = preparedStatement.executeUpdate();
+            for (OrderDetail orderDetail : object.getOrderDetail()) {
+                orderDetail.setOrder(object);
+                new OrderDetail_DAO().create(orderDetail);
+            }
+            return rowsAffected > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
     public Boolean update(String id, Order newObject) {
         try {
-            String sql = "UPDATE Order SET payment=?, status=?, orderAt=?, employeeID=?, customerID=?, promotionID=?, totalDue=?, subTotal=?  " +
-                         "WHERE orderID=?";
+            String sql = "UPDATE Order SET payment=?, status=?, orderAt=?, employeeID=?, customerID=?, promotionID=?, totalDue=?, subTotal=?  "
+                    + "WHERE orderID=?";
             PreparedStatement preparedStatement = ConnectDB.conn.prepareStatement(sql);
             preparedStatement.setBoolean(1, newObject.isPayment());
             preparedStatement.setBoolean(2, newObject.isStatus());
@@ -155,5 +155,62 @@ public class Order_DAO implements DAOBase<Order>{
         }
         return n > 0;
     }
-    
+
+    /**
+     * @param accoutingVoucherID  Mã phiếu kết toán
+     * @return ArrayList<Order> Danh sách hóa đơn đã được kết toán trong phiếu kết toán
+     * @author Hoàng Khang
+     */
+    public ArrayList<Order> getAllOrderInAcountingVoucher(String acountingVoucherID) {
+        ArrayList<Order> result = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM [Order] WHERE accountinggVoucherID = ?";
+            PreparedStatement preparedStatement = ConnectDB.conn.prepareStatement(sql);
+            preparedStatement.setString(1, acountingVoucherID);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                String orderID = resultSet.getString("orderID");
+                boolean status = resultSet.getBoolean("status");
+                Date orderAt = resultSet.getDate("orderAt");
+                boolean payment = resultSet.getBoolean("payment");
+                String employeeID = resultSet.getString("employeeID");
+                String customerID = resultSet.getString("cutomerID");
+                String promotionID = resultSet.getString("promotionID");
+                Double totalDue = resultSet.getDouble("totalDue");
+                Double subTotal = resultSet.getDouble("subTotal");
+                Promotion promotion = new Promotion(promotionID);
+                Customer customer = new Customer(customerID);
+                Employee employee = new Employee(employeeID);
+
+                Order order = new Order(orderID, orderAt, payment, status, promotion, employee, customer, new OrderDetail_DAO().getAll(orderID), subTotal, totalDue);
+                result.add(order);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /**
+     * Phương thức thực hiện việc cập nhật mã phiếu kết toán cho một hóa đơn
+     * @param orderID Mã hóa đơn
+     * @param  acountingVoucherID Mã phiếu kết toán
+     * @author Hoàng Khang
+     */
+    public boolean updateOrderAcountingVoucher(String orderID, String acountingVoucherID) {
+        try {
+            String sql = "UPDATE [Order] SET accountinggVoucherID = ? WHERE orderID = ?";
+            PreparedStatement preparedStatement = ConnectDB.conn.prepareStatement(sql);
+            preparedStatement.setString(1, acountingVoucherID);
+            preparedStatement.setString(2, orderID);
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }
