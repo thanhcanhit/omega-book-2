@@ -23,6 +23,7 @@ public class Promotion_DAO implements DAOBase<Promotion>{
         Promotion promo = null;
         try {
             PreparedStatement st = ConnectDB.conn.prepareStatement("SELECT * FROM Promotion WHERE promotionID = ?");
+            st.setString(1, id);
             ResultSet rs = st.executeQuery();
             
             while (rs.next()) {                
@@ -88,7 +89,8 @@ public class Promotion_DAO implements DAOBase<Promotion>{
             st.setString(1, promo.getPromotionID());
             st.setInt(2, promo.getType().getValue());
             st.setDouble(3, promo.getDiscount());
-            //st.setDate(4, promo.getStartedDate());
+            st.setDate(4, new java.sql.Date(promo.getStartedDate().getTime()));
+            st.setDate(5, new java.sql.Date(promo.getEndedDate().getTime()));
             n = st.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

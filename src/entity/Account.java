@@ -45,6 +45,10 @@ public class Account {
         setPassWord(passWord);
         setEmployee(employee);
     }
+    
+    public Account(Employee employee) throws Exception {
+        setEmployee(employee);
+    }
 
     public Account() {
     }

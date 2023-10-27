@@ -198,9 +198,24 @@
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="4" rowCount="4">
-                        <Column editable="false" title="M&#xe3; NV" type="java.lang.String"/>
-                        <Column editable="true" title="H&#x1ecd; t&#xea;n" type="java.lang.String"/>
-                        <Column editable="true" title="Ng&#xe0;y sinh" type="java.lang.String"/>
+                        <Column editable="true" title="M&#xe3; NV" type="java.lang.String">
+                          <Data value="NV020032023001"/>
+                          <Data value="null"/>
+                          <Data value="null"/>
+                          <Data value="null"/>
+                        </Column>
+                        <Column editable="true" title="H&#x1ecd; t&#xea;n" type="java.lang.String">
+                          <Data value="H&#x1ed3;  Th&#x1ecb; Nh&#x1b0; T&#xe2;m"/>
+                          <Data value="null"/>
+                          <Data value="null"/>
+                          <Data value="null"/>
+                        </Column>
+                        <Column editable="true" title="Ng&#xe0;y sinh" type="java.lang.String">
+                          <Data value="03-11-2003"/>
+                          <Data value="null"/>
+                          <Data value="null"/>
+                          <Data value="null"/>
+                        </Column>
                         <Column editable="true" title="Ch&#x1ee9;c v&#x1ee5;" type="java.lang.String"/>
                       </Table>
                     </Property>
@@ -308,7 +323,7 @@
                         <Component class="javax.swing.JTextField" name="txt_empID">
                           <Properties>
                             <Property name="horizontalAlignment" type="int" value="2"/>
-                            <Property name="text" type="java.lang.String" value="NV0001"/>
+                            <Property name="text" type="java.lang.String" value="NV020032023001"/>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="null"/>
                             </Property>

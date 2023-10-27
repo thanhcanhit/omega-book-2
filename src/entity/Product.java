@@ -18,7 +18,7 @@ public class Product {
     protected String productID;
     protected String name;
     protected Double costPrice;
-    protected Byte[] image;
+    protected byte[] image;
     protected Double VAT;
     protected Integer inventory;
     protected Double price;
@@ -35,7 +35,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(String productID, String name, Double costPrice, Byte[] image, Double VAT, Integer inventory, Type type) throws Exception {
+    public Product(String productID, String name, Double costPrice, Double price, byte[] image, Double VAT, Integer inventory, Type type) throws Exception {
         setProductID(productID);
         setName(name);
         setCostPrice(costPrice);
@@ -43,7 +43,7 @@ public class Product {
         setVAT(VAT);
         setInventory(inventory);
         setType(type);
-        setPrice();
+        this.price = price;
     }
 
     public Product(String productID) throws Exception {
@@ -87,11 +87,11 @@ public class Product {
         this.costPrice = costPrice;
     }
 
-    public Byte[] getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public final void setImage(Byte[] image) {
+    public final void setImage(byte[] image) {
         this.image = image;
     }
 

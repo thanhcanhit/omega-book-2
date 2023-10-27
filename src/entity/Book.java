@@ -41,8 +41,8 @@ public final class Book extends Product {
         super(ProductID);
     }
 
-    public Book(String author, String publisher, Integer publishYear, String description, Integer pageQuantity, Boolean isHardCover, String language, String translator, BookOrigin bookOrigin, BookCategory bookCategory, String productID, String name, Double costPrice, Byte[] image, Double VAT, Integer inventory, Type type) throws Exception {
-        super(productID, name, costPrice, image, VAT, inventory, type);
+    public Book(String author, String publisher, Integer publishYear, String description, Integer pageQuantity, Boolean isHardCover, String language, String translator, BookOrigin bookOrigin, BookCategory bookCategory, String productID, String name, Double costPrice, Double price, byte[] image, Double VAT, Integer inventory, Type type) throws Exception {
+        super(productID, name, costPrice, price, image, VAT, inventory, type);
         setAuthor(author);
         setPublisher(publisher);
         setPublishYear(publishYear);
