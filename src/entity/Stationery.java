@@ -42,6 +42,7 @@ public final class Stationery extends Product {
         setStationeryType(stationeryType);
         setBrand(brand);
     }
+    
 
     public String getColor() {
         return color;

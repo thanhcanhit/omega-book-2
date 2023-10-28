@@ -5,7 +5,7 @@
 package entity;
 
 import enums.Type;
-import enums.BookOrigin;
+import enums.BookType;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
@@ -55,7 +55,7 @@ public class Product {
     }
 
     private void setProductID(String productID) throws Exception {
-        String regex = "^SP[1-3][0-9]{2}[0-9]{4}$";
+        String regex = "^SP[1-3]\\d{2}\\d\\d{4}$";
         Pattern pattern = Pattern.compile(regex);
 
         if (!pattern.matcher(productID).matches()) {
@@ -133,7 +133,7 @@ public class Product {
 //      Xác định tỉ lệ lợi nhuận của sản phẩm
         if (this.type == Type.BOOK) {
             Book bookInstance = (Book) this;
-            if (bookInstance.getBookOrigin() == BookOrigin.FOREIGN) {
+            if (bookInstance.getBookOrigin() == BookType.FOREIGN) {
                 rate = 1.6;
             } else {
                 rate = 1.4;
