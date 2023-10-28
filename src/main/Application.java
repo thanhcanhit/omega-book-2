@@ -4,6 +4,7 @@ import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.extras.FlatAnimatedLafChange;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
+import com.formdev.flatlaf.extras.FlatSVGIcon;
 import database.ConnectDB;
 import entity.Employee;
 import gui.Login_GUI;
@@ -15,6 +16,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
+import javax.swing.Icon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -40,6 +42,7 @@ public class Application extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setSize(new Dimension(1366, 768));
         setTitle("Omega Book");
+        setIconImage(new FlatSVGIcon("imgs/icon.svg").getImage());
         mainForm = new MainView();
         loginForm = new Login_GUI();
         setContentPane(loginForm);
@@ -113,7 +116,6 @@ public class Application extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Omega Book");
-        setIconImage(new javax.swing.ImageIcon(getClass().getResource("/imgs/icon.png")).getImage());
         setPreferredSize(new java.awt.Dimension(1366, 768));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
