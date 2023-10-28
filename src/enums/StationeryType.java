@@ -26,4 +26,16 @@ public enum StationeryType {
         return value;
     }
 
+    public boolean compare(int value) {
+        return this.value == value;
+    }
+
+    public static StationeryType fromInt(int value) {
+        for (StationeryType type : values()) {
+            if (type.compare(value)) {
+                return type;
+            }
+        }
+        return null;
+    }
 }

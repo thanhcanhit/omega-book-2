@@ -20,4 +20,17 @@ public enum PromotionType {
     public int getValue() {
         return value;
     }
+    
+    public boolean compare(int value) {
+        return this.value == value;
+    }
+
+    public static PromotionType fromInt(int value) {
+        for (PromotionType type : values()) {
+            if (type.compare(value)) {
+                return type;
+            }
+        }
+        return null;
+    }
 }

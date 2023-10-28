@@ -27,4 +27,17 @@ public enum BookCategory {
     public int getValue() {
         return value;
     }
+
+    public boolean compare(int value) {
+        return this.value == value;
+    }
+
+    public static BookCategory fromInt(int value) {
+        for (BookCategory type : values()) {
+            if (type.compare(value)) {
+                return type;
+            }
+        }
+        return null;
+    }
 }
