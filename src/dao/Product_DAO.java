@@ -7,7 +7,7 @@ package dao;
 import database.ConnectDB;
 import entity.Book;
 import enums.BookCategory;
-import enums.BookOrigin;
+import enums.BookType;
 import entity.Brand;
 import entity.Product;
 import entity.Stationery;
@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  * @author thanhcanhit
  */
 public class Product_DAO implements DAOBase<Product> {
-
+    
     @Override
     public Product getOne(String id) {
         Product result = null;
@@ -42,7 +42,7 @@ public class Product_DAO implements DAOBase<Product> {
         }
         return result;
     }
-
+    
     @Override
     public ArrayList<Product> getAll() {
         ArrayList<Product> result = new ArrayList<>();
@@ -59,11 +59,44 @@ public class Product_DAO implements DAOBase<Product> {
         return result;
     }
 
+    /**
+     * Dùng cho logic chia trang Số phần tử 1 trang là 50
+     *
+     * @param page trang hiện tại (1,...)
+     * @return ArrayList<Product>
+     */
+    public ArrayList<Product> getPage(int page) {
+        ArrayList<Product> result = new ArrayList<>();
+        String query = """
+                       select * from product
+                       order by productID
+                       offset ? rows
+                       FETCH NEXT 50 ROWS ONLY
+                       """;
+        int offsetQuantity = (page - 1) * 50;
+        try {
+            
+            PreparedStatement st = ConnectDB.conn.prepareStatement(query);
+            st.setInt(1, offsetQuantity);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                if (rs != null) {
+                    result.add(getProductData(rs));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception ex) {
+            Logger.getLogger(Account_DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+    
     @Override
     public String generateID() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
+    
     @Override
     public Boolean create(Product object
     ) {
@@ -89,14 +122,14 @@ public class Product_DAO implements DAOBase<Product> {
         try {
             PreparedStatement st = ConnectDB.conn.prepareStatement(query);
             setParams(object, st);
-
+            
             n = st.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return n > 0;
     }
-
+    
     @Override
     public Boolean update(String id, Product newObject
     ) {
@@ -121,16 +154,16 @@ public class Product_DAO implements DAOBase<Product> {
 //        Truyền tham số phù hợp cho từng loại
         try {
             PreparedStatement st = ConnectDB.conn.prepareStatement(query);
-            int currentIndex = setParams(newObject, st);
+            int currentIndex = setParams(newObject, st) + 1;
             st.setString(currentIndex, id);
-
+            
             n = st.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return n > 0;
     }
-
+    
     @Override
     public Boolean delete(String id
     ) {
@@ -151,14 +184,14 @@ public class Product_DAO implements DAOBase<Product> {
         String id = rs.getString("productID");
         String name = rs.getString("name");
         Double costPrice = rs.getDouble("costPrice");
-        byte[] image = rs.getBytes("image");
+        byte[] image = rs.getBytes("img");
         Double VAT = rs.getDouble("VAT");
         Double price = rs.getDouble("price");
         int productType = rs.getInt("productType");
         int inventory = rs.getInt("inventory");
 
 //      Định danh loại sản phẩm để lấy đủ thông tin cần cho đúng loại đối tượng
-        if (Type.values()[productType] == Type.BOOK) {
+        if (Type.BOOK.compare(productType)) {
             String author = rs.getString("author");
             String publisher = rs.getString("publisher");
             int publishYear = rs.getInt("publishYear");
@@ -166,22 +199,22 @@ public class Product_DAO implements DAOBase<Product> {
             int pageQuantity = rs.getInt("pageQuantity");
             boolean isHardCover = rs.getBoolean("isHardCover");
             String language = rs.getString("language");
-            String translator = rs.getString("translator");
+            String translator = rs.getString("translater");
             int bookCategory = rs.getInt("bookCategory");
             int bookType = rs.getInt("bookType");
-
-            result = new Book(author, publisher, publishYear, desc, pageQuantity, isHardCover, language, translator, BookOrigin.values()[bookType], BookCategory.values()[bookCategory], id, name, costPrice, price, image, VAT, inventory, Type.BOOK);
-        } else if (Type.values()[productType] == Type.STATIONERY) {
+            
+            result = new Book(author, publisher, publishYear, desc, pageQuantity, isHardCover, language, translator, BookType.fromInt(bookType), BookCategory.fromInt(bookCategory), id, name, costPrice, price, image, VAT, inventory, Type.BOOK);
+        } else if (Type.BOOK.compare(productType)) {
             String color = rs.getString("color");
             Double weight = rs.getDouble("weight");
             String material = rs.getString("material");
             String origin = rs.getString("origin");
             String brandID = rs.getString("brandID");
             int stationeryType = rs.getInt("stationeryType");
-
-            result = new Stationery(color, weight, material, origin, StationeryType.values()[stationeryType], new Brand(brandID), id, name, costPrice, price, image, VAT, inventory, Type.STATIONERY);
+            
+            result = new Stationery(color, weight, material, origin, StationeryType.fromInt(stationeryType), new Brand(brandID), id, name, costPrice, price, image, VAT, inventory, Type.STATIONERY);
         }
-
+        
         return result;
     }
 
@@ -235,5 +268,5 @@ public class Product_DAO implements DAOBase<Product> {
         }
         return 0;
     }
-
+    
 }
