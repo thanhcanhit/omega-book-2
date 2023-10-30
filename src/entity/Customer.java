@@ -5,6 +5,7 @@
 package entity;
 import java.io.*;
 import java.text.*;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.regex.Pattern;
 /**
@@ -54,11 +55,9 @@ public class Customer implements Serializable{
     }
 
     public void setCustomerID(String customerID) throws Exception {
-        if(!customerID.trim().equals("")) {
-            this.customerID = customerID;
-        } else {
+        if(customerID.trim().equals(""))
             throw new Exception(ID_EMPTY);
-        }
+        this.customerID = customerID;
     }
 
     public String getName() {
@@ -66,11 +65,9 @@ public class Customer implements Serializable{
     }
 
     public void setName(String name) throws Exception {
-        if(!name.trim().equals("")) {
-            this.name = name;
-        } else {
+        if(name.trim().equals(""))
             throw new Exception(NAME_EMPTY);
-        }
+        this.name = name;
     }
 
     public int getScore() {
@@ -78,11 +75,9 @@ public class Customer implements Serializable{
     }
 
     public void setScore(int score) throws Exception {
-        if(score >= 0) {
-            this.score =+ score;
-        } else {
+        if(score < 0) 
             throw new Exception(SCORE_ERROR);
-        }
+        this.score =+ score;
     }
 
     public boolean isGender() {
@@ -98,12 +93,9 @@ public class Customer implements Serializable{
     }
 
     public void setDateOfBirth(Date dateOfBirth) throws Exception {
-        Date current = new Date();
-        if(dateOfBirth.compareTo(current) < 0) {
-            this.dateOfBirth = dateOfBirth;
-        } else {
+        if(dateOfBirth.after(java.sql.Date.valueOf(LocalDate.now()))) 
             throw new Exception(DATEBIRTH_ERROR);
-        }
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getPhoneNumber() {
@@ -112,11 +104,9 @@ public class Customer implements Serializable{
 
     public void setPhoneNumber(String phoneNumber) throws Exception {
         String patternPhone = "^(09|03|08|07|05|02)\\d{8}$";
-        if(Pattern.matches(patternPhone, phoneNumber)) {
-            this.phoneNumber = phoneNumber;
-        } else {
+        if(!Pattern.matches(patternPhone, phoneNumber)) 
             throw new Exception(PHONENUMBER_ERROR);
-        }
+        this.phoneNumber = phoneNumber;
     }
 
     public String getRank() {
@@ -131,7 +121,7 @@ public class Customer implements Serializable{
         else if(score <  10000)
             rank = "Vàng";
         else
-            rank = "Không";
+            rank = "Kim cương";
     }
 
     public String getAddress() {
@@ -139,11 +129,9 @@ public class Customer implements Serializable{
     }
 
     public void setAddress(String address) throws Exception {
-        if(address != null) {
-            this.address = address;
-        } else {
+        if(address == null)
             throw new Exception(ADDRESS_EMPTY);
-        }
+        this.address = address;
     }
     
     @Override
