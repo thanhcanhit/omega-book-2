@@ -29,12 +29,12 @@ public class CashCountSheet {
         this.cashCountSheetID = cashCountSheetID;
     }
 
-    public CashCountSheet(String cashCountSheetID, ArrayList<CashCount> cashCountList,ArrayList<CashCountSheetDetail> cashCountSheetDetailList, Date createdDate, Date endedDate, double total) {
+    public CashCountSheet(String cashCountSheetID, ArrayList<CashCount> cashCountList,ArrayList<CashCountSheetDetail> cashCountSheetDetailList, Date createdDate, Date endedDate) {
         this.cashCountSheetID = cashCountSheetID;
         this.cashCountList = cashCountList;
         this.createdDate = createdDate;
         this.endedDate = endedDate;
-        this.total = total;
+        setTotal();
         this.cashCountSheetDetailList = cashCountSheetDetailList;
     }
 

@@ -4,6 +4,9 @@
  */
 package entity;
 
+import enums.Type;
+import enums.StationeryType;
+
 /**
  *
  * @author thanhcanhit
@@ -30,8 +33,8 @@ public final class Stationery extends Product {
         super(productID);
     }
 
-    public Stationery(String color, Double weight, String material, String origin, StationeryType stationeryType, Brand brand, String productID, String name, Double costPrice, Byte[] image, Double VAT, Integer inventory, Type type) throws Exception {
-        super(productID, name, costPrice, image, VAT, inventory, type);
+    public Stationery(String color, Double weight, String material, String origin, StationeryType stationeryType, Brand brand, String productID, String name, Double costPrice, Double price, byte[] image, Double VAT, Integer inventory, Type type) throws Exception {
+        super(productID, name, costPrice, price, image, VAT, inventory, type);
         setColor(color);
         setWeight(weight);
         setMaterial(material);
@@ -39,6 +42,7 @@ public final class Stationery extends Product {
         setStationeryType(stationeryType);
         setBrand(brand);
     }
+    
 
     public String getColor() {
         return color;

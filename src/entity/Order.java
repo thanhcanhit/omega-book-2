@@ -11,10 +11,15 @@ import java.util.Objects;
 
 /**
  *
- * @author macbookk
+ * @author KienTran
  */
 public final class Order {
-    
+    private final String ORDERID_ERROR = "Mã hoá đơn không hợp lệ !";
+    private final String ORDERAT_ERROR ="Ngày tạo hoá đơn không hợp lệ !";
+    private final String PROMOTION_ERROR="Khuyến mãi không được rỗng !";
+    private final String EMPLOYEE_ERROR="Nhân viên không được rỗng !";
+    private final String CUSTOMER_ERROR="Khách hàng không được rỗng !";
+    private final String ORDERDETAIL_ERROR="Chi tiết hoá đơn không được rỗng !";
     
     private String orderID;
     private Date orderAt;
@@ -46,7 +51,8 @@ public final class Order {
         return orderID;
     }
 
-    public void setOrderID(String orderID){
+    public void setOrderID(String orderID) throws Exception{
+       
         this.orderID = orderID;
         
     }
@@ -55,8 +61,11 @@ public final class Order {
         return orderAt;
     }
 
-    public void setOrderAt(Date orderAt) {
-        this.orderAt = orderAt;
+    public void setOrderAt(Date orderAt) throws Exception{
+        if(orderAt!=null)
+            this.orderAt = orderAt;
+        else
+            throw new Exception(ORDERAT_ERROR);
     }
 
     public boolean isStatus() {
@@ -75,7 +84,7 @@ public final class Order {
      * Tiền thanh toán = Tổng hóa đơn – Khuyến mãi + Phần trăm thuế*(Tổng hóa đơn-Khuyến mãi)
      */
     private void setTotalDue() {
-        this.totalDue = subTotal - ((promotion.getType()==0) ? (promotion.getDiscount()*(subTotal)) : promotion.getDiscount()) ;
+        this.totalDue = subTotal - ((promotion.getType() == promotion.getType().PERCENT) ? (promotion.getDiscount()*(subTotal)) : promotion.getDiscount()) ;
     }
     
     
@@ -93,8 +102,11 @@ public final class Order {
 
     
 
-    public void setOrderDetail(ArrayList<OrderDetail> orderDetail) {
-        this.orderDetail = orderDetail;
+    public void setOrderDetail(ArrayList<OrderDetail> orderDetail) throws Exception{
+        if(!orderDetail.isEmpty())
+            this.orderDetail = orderDetail;
+        else
+            throw new Exception(ORDERDETAIL_ERROR);
     }
 
 
@@ -102,27 +114,36 @@ public final class Order {
         return promotion;
     }
 
-    public void setPromotion(Promotion promotion) {
-        this.promotion = promotion;
+    public void setPromotion(Promotion promotion) throws Exception {
+        if(promotion!=null)
+            this.promotion = promotion;
+        else
+            throw new Exception(PROMOTION_ERROR);
     }
 
     public Employee getEmployee() {
         return employee;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setEmployee(Employee employee) throws Exception {
+        if(employee!=null)
+            this.employee = employee;
+        else
+            throw new Exception(EMPLOYEE_ERROR);
     }
 
     public Customer getCustomer() {
         return customer;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomer(Customer customer) throws Exception{
+        if(customer!=null)
+            this.customer = customer;
+        else
+            throw new Exception(CUSTOMER_ERROR);
     }
 
-    public Order(String orderID, Date orderAt,boolean payment, boolean status, Promotion promotion, Employee employee, Customer customer, ArrayList<OrderDetail> orderDetail) {
+    public Order(String orderID, Date orderAt,boolean payment, boolean status, Promotion promotion, Employee employee, Customer customer, ArrayList<OrderDetail> orderDetail) throws Exception {
         setStatus(status);
         setSubTotal();
         setTotalDue();
@@ -180,6 +201,8 @@ public final class Order {
     public String toString() {
         return "Order{" + "orderID=" + orderID + ", orderAt=" + orderAt + ", status=" + status + ", subTotal=" + subTotal + ", totalDue=" + totalDue + ", payment=" + payment + ", promotion=" + promotion + ", employee=" + employee + ", customer=" + customer + ", orderDetail=" + orderDetail + '}';
     }
+
+    
 
     
     

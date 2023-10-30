@@ -1,6 +1,7 @@
 package gui.menu;
 
 import com.formdev.flatlaf.FlatClientProperties;
+import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.formdev.flatlaf.ui.FlatUIUtils;
 import com.formdev.flatlaf.util.UIScale;
 import java.awt.Component;
@@ -10,7 +11,6 @@ import java.awt.Insets;
 import java.awt.LayoutManager;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
@@ -105,7 +105,7 @@ public class Menu extends JPanel {
                 + "background:$Menu.background;"
                 + "arc:10");
         header = new JLabel(headerName);
-        header.setIcon(new ImageIcon(getClass().getResource("/imgs/menu/logo.png")));
+        header.setIcon(new FlatSVGIcon("imgs/icon.svg"));
         header.setIconTextGap(20);
         header.putClientProperty(FlatClientProperties.STYLE, ""
                 + "border: 5,5,5,5;"

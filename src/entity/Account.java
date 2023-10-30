@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 /**
  *
- * @author macbookk
+ * @author KienTran
  */
 public class Account {
     
@@ -43,6 +43,10 @@ public class Account {
 
     public Account(String passWord, Employee employee) throws Exception {
         setPassWord(passWord);
+        setEmployee(employee);
+    }
+    
+    public Account(Employee employee) throws Exception {
         setEmployee(employee);
     }
 

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.sql.*;
 import database.ConnectDB;
 import entity.*;
+import enums.PromotionType;
 import java.util.Date;
 
 /**
@@ -31,7 +32,7 @@ public class Promotion_DAO implements DAOBase<Promotion>{
                 double discount = rs.getDouble("discount");
                 Date startedDate = rs.getDate("startedDate");
                 Date endedDate = rs.getDate("endedDate");
-                promo = new Promotion(promotionID, startedDate, endedDate, type, discount);
+                promo = new Promotion(promotionID, startedDate, endedDate, PromotionType.values()[type], discount);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -52,7 +53,7 @@ public class Promotion_DAO implements DAOBase<Promotion>{
                 double discount = rs.getDouble("discount");
                 Date startedDate = rs.getDate("startedDate");
                 Date endedDate = rs.getDate("endedDate");
-                Promotion promo = new Promotion(promotionID, startedDate, endedDate, type, discount);
+                Promotion promo = new Promotion(promotionID, startedDate, endedDate, PromotionType.values()[type], discount);
                 result.add(promo);
             }
         } catch (Exception e) {
@@ -86,7 +87,7 @@ public class Promotion_DAO implements DAOBase<Promotion>{
             PreparedStatement st = ConnectDB.conn.prepareStatement("INSERT INTO Promotion"
                     + "VALUES(?,?,?,?,?)");
             st.setString(1, promo.getPromotionID());
-            st.setInt(2, promo.getType());
+            st.setInt(2, promo.getType().getValue());
             st.setDouble(3, promo.getDiscount());
             st.setDate(4, new java.sql.Date(promo.getStartedDate().getTime()));
             st.setDate(5, new java.sql.Date(promo.getEndedDate().getTime()));

@@ -139,6 +139,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 
         setLayout(new java.awt.BorderLayout());
 
+        splitPane_main.setResizeWeight(0.7);
         splitPane_main.setMinimumSize(new java.awt.Dimension(1305, 768));
 
         pnl_left.setMinimumSize(new java.awt.Dimension(400, 59));

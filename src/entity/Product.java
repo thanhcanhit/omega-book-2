@@ -4,6 +4,8 @@
  */
 package entity;
 
+import enums.Type;
+import enums.BookType;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
@@ -16,7 +18,7 @@ public class Product {
     protected String productID;
     protected String name;
     protected Double costPrice;
-    protected Byte[] image;
+    protected byte[] image;
     protected Double VAT;
     protected Integer inventory;
     protected Double price;
@@ -33,7 +35,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(String productID, String name, Double costPrice, Byte[] image, Double VAT, Integer inventory, Type type) throws Exception {
+    public Product(String productID, String name, Double costPrice, Double price, byte[] image, Double VAT, Integer inventory, Type type) throws Exception {
         setProductID(productID);
         setName(name);
         setCostPrice(costPrice);
@@ -41,7 +43,7 @@ public class Product {
         setVAT(VAT);
         setInventory(inventory);
         setType(type);
-        setPrice();
+        this.price = price;
     }
 
     public Product(String productID) throws Exception {
@@ -53,7 +55,7 @@ public class Product {
     }
 
     private void setProductID(String productID) throws Exception {
-        String regex = "^SP[1-3][0-9]{2}[0-9]{4}$";
+        String regex = "^SP[1-3]\\d{2}\\d\\d{4}$";
         Pattern pattern = Pattern.compile(regex);
 
         if (!pattern.matcher(productID).matches()) {
@@ -85,11 +87,11 @@ public class Product {
         this.costPrice = costPrice;
     }
 
-    public Byte[] getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public final void setImage(Byte[] image) {
+    public final void setImage(byte[] image) {
         this.image = image;
     }
 
@@ -131,7 +133,7 @@ public class Product {
 //      Xác định tỉ lệ lợi nhuận của sản phẩm
         if (this.type == Type.BOOK) {
             Book bookInstance = (Book) this;
-            if (bookInstance.getBookOrigin() == BookOrigin.FOREIGN) {
+            if (bookInstance.getBookOrigin() == BookType.FOREIGN) {
                 rate = 1.6;
             } else {
                 rate = 1.4;

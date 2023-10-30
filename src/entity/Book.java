@@ -4,6 +4,9 @@
  */
 package entity;
 
+import enums.Type;
+import enums.BookCategory;
+import enums.BookType;
 import java.time.LocalDate;
 
 /**
@@ -20,7 +23,7 @@ public final class Book extends Product {
     private Boolean isHardCover;
     private String language;
     private String translator;
-    private BookOrigin bookOrigin;
+    private BookType bookOrigin;
     private BookCategory bookCategory;
 
 //    Hằng báo lỗi
@@ -38,8 +41,8 @@ public final class Book extends Product {
         super(ProductID);
     }
 
-    public Book(String author, String publisher, Integer publishYear, String description, Integer pageQuantity, Boolean isHardCover, String language, String translator, BookOrigin bookOrigin, BookCategory bookCategory, String productID, String name, Double costPrice, Byte[] image, Double VAT, Integer inventory, Type type) throws Exception {
-        super(productID, name, costPrice, image, VAT, inventory, type);
+    public Book(String author, String publisher, Integer publishYear, String description, Integer pageQuantity, Boolean isHardCover, String language, String translator, BookType bookOrigin, BookCategory bookCategory, String productID, String name, Double costPrice, Double price, byte[] image, Double VAT, Integer inventory, Type type) throws Exception {
+        super(productID, name, costPrice, price, image, VAT, inventory, type);
         setAuthor(author);
         setPublisher(publisher);
         setPublishYear(publishYear);
@@ -117,7 +120,7 @@ public final class Book extends Product {
     }
 
     public void setLanguage(String language) throws Exception {
-        if (language.isBlank()) {
+        if (language != null && language.isBlank()) {
             throw new Exception(LANGUAGE_EMPTY);
         }
         this.language = language;
@@ -135,11 +138,11 @@ public final class Book extends Product {
         this.translator = translator;
     }
 
-    public BookOrigin getBookOrigin() {
+    public BookType getBookOrigin() {
         return bookOrigin;
     }
 
-    public void setBookOrigin(BookOrigin bookOrigin) {
+    public void setBookOrigin(BookType bookOrigin) {
         this.bookOrigin = bookOrigin;
     }
 

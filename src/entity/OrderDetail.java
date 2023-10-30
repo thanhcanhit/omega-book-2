@@ -6,11 +6,13 @@ package entity;
 
 /**
  *
- * @author macbookk
+ * @author KienTran
  */
 public final class OrderDetail {
     private final String QUANTITY_ERROR="Số lượng sản phẩm không được nhỏ hơn 1 !";
     private final String PRICE_ERROR="Giá bán phải lớn hơn giá nhập, không được rỗng và lớn hơn 0 !";
+    private final String ORDER_ERROR="Hoá đơn không được rỗng !";
+    private final String PRODUCT_ERROR="Sản phẩm không được rỗng !";
     
     private Order order;
     private Product product;
@@ -22,16 +24,24 @@ public final class OrderDetail {
         return order;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setOrder(Order order) throws Exception {
+        if(order!=null)
+            this.order = order;
+        else
+            throw new Exception(ORDER_ERROR);
+            
     }
 
     public Product getProduct() {
         return product;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProduct(Product product) throws Exception{
+        if(product!=null)
+            this.product = product;
+        else
+            throw new Exception(PRODUCT_ERROR);
+                    
     }
 
     
@@ -82,10 +92,12 @@ public final class OrderDetail {
         this.price = price;
         this.lineTotal=lineTotal;
     }
+
     @Override
     public String toString() {
-        return "OrderDetail{" + "quantity=" + quantity + ", price=" + price + ", lineTotal=" + lineTotal + '}';
+        return "OrderDetail{" + "QUANTITY_ERROR=" + QUANTITY_ERROR + ", PRICE_ERROR=" + PRICE_ERROR + ", ORDER_ERROR=" + ORDER_ERROR + ", PRODUCT_ERROR=" + PRODUCT_ERROR + ", order=" + order + ", product=" + product + ", quantity=" + quantity + ", price=" + price + ", lineTotal=" + lineTotal + '}';
     }
+    
     
     
 }

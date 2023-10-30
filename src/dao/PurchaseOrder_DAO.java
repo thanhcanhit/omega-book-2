@@ -11,9 +11,8 @@ import java.sql.*;
 import database.ConnectDB;
 import entity.Employee;
 import entity.PurchaseOrderDetail;
-import entity.PurchaseOrderStatus;
+import enums.PurchaseOrderStatus;
 import entity.Supplier;
-import static main.Application.employee;
 
 /**
  *
@@ -65,7 +64,6 @@ public class PurchaseOrder_DAO implements DAOBase<PurchaseOrder>{
                 Date receiveDate = rs.getDate("receiveDate");
                 int status = rs.getInt("status");
                 String note = rs.getString("note");
-                Double total = rs.getDouble("total");
                 String supplierID = rs.getString("supplierID");
                 String employeeID = rs.getString("employeeID");
 

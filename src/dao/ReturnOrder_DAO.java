@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import database.ConnectDB;
 import entity.Employee;
 import entity.Order;
+import enums.ReturnOrderStatus;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -37,7 +38,7 @@ public class ReturnOrder_DAO implements DAOBase<ReturnOrder>{
                 String employeeID = rs.getString("employeeID");
                 Order order = new Order(orderID);
                 Employee employee = new Employee(employeeID);
-                returnOrder = new ReturnOrder(orderDate, status, returnOrderID, employee, order, true);
+                returnOrder = new ReturnOrder(orderDate, ReturnOrderStatus.values()[status], returnOrderID, employee, order, true);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,7 +62,7 @@ public class ReturnOrder_DAO implements DAOBase<ReturnOrder>{
                 //boolean type = rs.getBoolean("type");
                 Order order = new Order(orderID);
                 Employee employee = new Employee(employeeID);
-                ReturnOrder returnOrder = new ReturnOrder(orderDate, status, returnOrderID, employee, order, true);
+                ReturnOrder returnOrder = new ReturnOrder(orderDate, ReturnOrderStatus.values()[status], returnOrderID, employee, order, true);
                 result.add(returnOrder);
             }
         } catch (Exception e) {
@@ -83,7 +84,7 @@ public class ReturnOrder_DAO implements DAOBase<ReturnOrder>{
                     + "VALUES (?,?,?,?,?)"); //+ "VALUES (?,?,?,?,?,?)");
             st.setString(1, returnOrder.getReturnOrderID());
             st.setString(2, returnOrder.getOrder().getOrderID());
-            st.setInt(3, returnOrder.getStatus());
+            st.setInt(3, returnOrder.getStatus().getValue());
             st.setDate(4, new java.sql.Date(returnOrder.getOrderDate().getTime()));
             st.setString(5, returnOrder.getEmployee().getEmployeeID());
             //st.setBoolean(6, returnOrder.isType());
@@ -102,7 +103,7 @@ public class ReturnOrder_DAO implements DAOBase<ReturnOrder>{
                     + "SET status = ?, orderDate = ? "  //+ "SET status = ?, orderDate = ?, type = ?"
                     + "WHERE returnOrderID = ?"); 
             int i= 1;
-            st.setInt(i++, returnOrder.getStatus());
+            st.setInt(i++, returnOrder.getStatus().getValue());
             st.setDate(i++, new java.sql.Date(returnOrder.getOrderDate().getTime()));
             st.setString(i++, id);
             //st.setBoolean(i++, returnOrder.isType());
