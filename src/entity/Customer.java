@@ -134,7 +134,7 @@ public class Customer implements Serializable {
         } else if (score < 10000) {
             rank = "Vàng";
         } else {
-            rank = "Không";
+            rank = "Kim cương";
         }
     }
 

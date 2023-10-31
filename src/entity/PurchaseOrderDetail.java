@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package entity;
 
 /**
@@ -54,9 +51,10 @@ public class PurchaseOrderDetail {
     }
 
     public void setQuantity(int quantity) throws Exception{
-        if(quantity >= 0)
-            this.quantity = quantity;
-        throw new Exception(QUANTITY_ERROR);
+        if(quantity < 0)
+            throw new Exception(QUANTITY_ERROR);
+        this.quantity = quantity;
+        
     }
 
     public double getCostPrice() {
@@ -64,9 +62,10 @@ public class PurchaseOrderDetail {
     }
 
     public void setCostPrice(double costPrice) throws Exception{
-        if(costPrice >= 0)
-            this.costPrice = costPrice;
-        throw new Exception(COSTPRICE_ERROR);
+        if(costPrice < 0)
+            throw new Exception(COSTPRICE_ERROR);
+        this.costPrice = costPrice;
+        
     }
 
     public double getLineTotal() {
@@ -84,8 +83,9 @@ public class PurchaseOrderDetail {
 
     public void setPurchaseOrder(PurchaseOrder purchaseOrder) throws Exception {
         if(purchaseOrder != null)
-            this.purchaseOrder = purchaseOrder;
-        throw new Exception(ORDERID_EMPTY);
+            throw new Exception(ORDERID_EMPTY);
+        this.purchaseOrder = purchaseOrder;
+        
     }
 
     @Override

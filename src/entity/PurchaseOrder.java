@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package entity;
 import enums.PurchaseOrderStatus;
 import java.time.LocalDate;
@@ -25,6 +22,7 @@ public class PurchaseOrder {
     private Supplier supplier;
     private Employee employee;
     private ArrayList<PurchaseOrderDetail> purchaseOrderDetailList;
+    private double total;
 
     public PurchaseOrder(String purchaseOrderID, Date orderDate, Date receiveDate, String note, PurchaseOrderStatus status, Supplier supplier, Employee employee, ArrayList<PurchaseOrderDetail> purchaseOrderDetailList) throws Exception {
         setPurchaseOrderID(purchaseOrderID);
@@ -60,11 +58,9 @@ public class PurchaseOrder {
     }
 
     public void setPurchaseOrderID(String purchaseOrderID) throws Exception{
-        if(!purchaseOrderID.trim().equals(""))
-            this.purchaseOrderID = purchaseOrderID;
-        else {
+        if(purchaseOrderID.trim().equals(""))
             throw new Exception(ID_EMPTY);
-        }
+        this.purchaseOrderID = purchaseOrderID;
     }
 
     public Date getOrderDate() {
@@ -72,11 +68,9 @@ public class PurchaseOrder {
     }
 
     public void setOrderDate(Date orderDate) throws Exception {
-        if(orderDate.before(java.sql.Date.valueOf(LocalDate.now())))
-            this.orderDate = orderDate;
-        else{
+        if(orderDate.after(java.sql.Date.valueOf(LocalDate.now())))
             throw new Exception(ORDERDATE_ERORR);
-        }
+        this.orderDate = orderDate;
     }
 
     public Date getReceiveDate() {
@@ -84,11 +78,9 @@ public class PurchaseOrder {
     }
 
     public void setReceiveDate(Date receiveDate) throws Exception {
-        if(receiveDate.after(orderDate))
-            this.receiveDate = receiveDate;
-        else {
+        if(receiveDate.before(orderDate))
             throw new Exception(RECEIVEDATE_ERORR);
-        }
+        this.receiveDate = receiveDate;
     }
 
     public String getNote() {
@@ -129,6 +121,16 @@ public class PurchaseOrder {
 
     public void setPurchaseOrderDetailList(ArrayList<PurchaseOrderDetail> purchaseOrderDetailList) {
         this.purchaseOrderDetailList = purchaseOrderDetailList;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal() {
+        for (PurchaseOrderDetail purchaseOrderDetail : purchaseOrderDetailList) {
+            this.total+= purchaseOrderDetail.getLineTotal();
+        }
     }
     
     @Override
