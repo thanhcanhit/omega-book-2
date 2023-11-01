@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -76,8 +77,8 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         tblModel_customer = new DefaultTableModel(new String[]{"Mã", "Tên khách hàng", "Ngày sinh", "Giới tính", "Hạng"
         }, 0);
     }
-    
-    public void reloadForm(){
+
+    public void reloadForm() {
         txt_customerID.setText("");
         txt_name.setText("");
         txt_phoneNumber.setText("");
@@ -87,7 +88,7 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         txt_address.setText("");
         rad_men.setSelected(true);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -193,7 +194,7 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         pnl_filterGender.add(lbl_filterGender);
 
         cbo_filterGender.setFont(cbo_filterGender.getFont().deriveFont((float)14));
-        cbo_filterGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "...", "Nam", "Nữ" }));
+        cbo_filterGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Nam", "Nữ" }));
         pnl_filterGender.add(cbo_filterGender);
 
         pnl_filterCustomer.add(pnl_filterGender);
@@ -207,7 +208,7 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         pnl_filterRank.add(lbl_filterRank);
 
         cbo_filterRank.setFont(cbo_filterRank.getFont().deriveFont((float)14));
-        cbo_filterRank.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "...", "Bạc", "Vàng", "Kim Cương" }));
+        cbo_filterRank.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Bạc", "Vàng", "Kim Cương" }));
         cbo_filterRank.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbo_filterRankActionPerformed(evt);
@@ -226,7 +227,7 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         pnl_filterGender1.add(lbl_filterGender1);
 
         cbo_filterGender1.setFont(cbo_filterGender1.getFont().deriveFont((float)14));
-        cbo_filterGender1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "...", "Dưới 18 tuổi", "Từ 18 đến 40 tuổi", "Trên 40 tuổi" }));
+        cbo_filterGender1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Dưới 18 tuổi", "Từ 18 đến 40 tuổi", "Trên 40 tuổi" }));
         cbo_filterGender1.setToolTipText("");
         pnl_filterGender1.add(cbo_filterGender1);
 
@@ -487,9 +488,16 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
     private void btn_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchActionPerformed
         // TODO add your handling code here:
         Customer customer = customer_BUS.searchByPhoneNumber(txt_searchForPhone.getText().trim());
-        ArrayList<Customer> list = new ArrayList<>();
-        list.add(customer);
-        renderCustomerTable(list);
+        if (customer == null) {
+            JOptionPane.showConfirmDialog(null, "Khách hàng chưa phải là thành viên");
+            txt_searchForPhone.setFocusable(true);
+        } else {
+            ArrayList<Customer> list = new ArrayList<>();
+            list.add(customer);
+            renderCustomerTable(list);
+            txt_searchForPhone.setText("");
+        }
+
     }//GEN-LAST:event_btn_searchActionPerformed
 
     private void cbo_filterRankActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbo_filterRankActionPerformed
@@ -534,25 +542,25 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
     private void btn_reloadFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reloadFormActionPerformed
         // TODO add your handling code here:
         reloadForm();
-       
+
     }//GEN-LAST:event_btn_reloadFormActionPerformed
 
-    private Customer getValueForm() throws Exception{
+    private Customer getValueForm() throws Exception {
         String customerID = txt_customerID.getText();
         String name = txt_name.getText();
         Date dateOfBirthf = date_dateOfBirth.getDate();
         String address = txt_address.getText();
         String numberPhone = txt_phoneNumber.getText().trim();
         boolean gender;
-        if(rad_men.isSelected()){
+        if (rad_men.isSelected()) {
             gender = true;
-        }else {
+        } else {
             gender = false;
         }
         int score = Integer.parseInt(txt_score.getText());
-        return  new Customer(customerID, name, gender, dateOfBirthf, score, numberPhone, address);
+        return new Customer(customerID, name, gender, dateOfBirthf, score, numberPhone, address);
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_create;
