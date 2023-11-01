@@ -13,12 +13,14 @@ import entity.Employee;
 import entity.PurchaseOrderDetail;
 import enums.PurchaseOrderStatus;
 import entity.Supplier;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
  * @author KienTran
  */
-public class PurchaseOrder_DAO implements DAOBase<PurchaseOrder>{
+public class PurchaseOrder_DAO implements DAOBase<PurchaseOrder> {
 
     @Override
     public PurchaseOrder getOne(String id) {
@@ -29,7 +31,7 @@ public class PurchaseOrder_DAO implements DAOBase<PurchaseOrder>{
             st.setString(1, id);
             ResultSet rs = st.executeQuery();
 
-            if(rs.next()) {
+            if (rs.next()) {
 
                 Date orderDate = rs.getDate("orderDate");
                 Date receiveDate = rs.getDate("receiveDate");
@@ -40,8 +42,8 @@ public class PurchaseOrder_DAO implements DAOBase<PurchaseOrder>{
 
                 ArrayList<PurchaseOrderDetail> purchaseOrderDetail = new PurchaseOrderDetail_DAO().getAll(id);
 
-                result = new PurchaseOrder(id, orderDate, receiveDate, note, PurchaseOrderStatus.values()[status],new Supplier(supplierID), new Employee(employeeID),purchaseOrderDetail);
-            
+                result = new PurchaseOrder(id, orderDate, receiveDate, note, PurchaseOrderStatus.values()[status], new Supplier(supplierID), new Employee(employeeID), purchaseOrderDetail);
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -59,7 +61,7 @@ public class PurchaseOrder_DAO implements DAOBase<PurchaseOrder>{
 
             while (rs.next()) {
                 String purchaseOrderID = rs.getString("purchaseOrderID");
-                
+
                 Date orderDate = rs.getDate("orderDate");
                 Date receiveDate = rs.getDate("receiveDate");
                 int status = rs.getInt("status");
@@ -69,19 +71,50 @@ public class PurchaseOrder_DAO implements DAOBase<PurchaseOrder>{
 
                 ArrayList<PurchaseOrderDetail> purchaseOrderDetail = new PurchaseOrderDetail_DAO().getAll(purchaseOrderID);
 
-                result.add(new PurchaseOrder(purchaseOrderID, orderDate, receiveDate, note, PurchaseOrderStatus.values()[status],new Supplier(supplierID), new Employee(employeeID),purchaseOrderDetail));
+                result.add(new PurchaseOrder(purchaseOrderID, orderDate, receiveDate, note, PurchaseOrderStatus.values()[status], new Supplier(supplierID), new Employee(employeeID), purchaseOrderDetail));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return result;
-                
+
     }
 
     @Override
     public String generateID() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String result = "DN";
+        LocalDate time = LocalDate.now();
+        DateTimeFormatter dateFormater = DateTimeFormatter.ofPattern("MMyyyy");
+
+        result += dateFormater.format(time);
+
+        String query = """
+                       select top 1 * from PurchaseOrder
+                       where purchaseOrderID like ?
+                       order by purchaseOrderID desc
+                       """;
+
+        try {
+            PreparedStatement st = ConnectDB.conn.prepareStatement(query);
+            st.setString(1, result + "%");
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                String lastID = rs.getString("purchaseOrderID");
+                String sNumber = lastID.substring(lastID.length() - 2);
+                int num = Integer.parseInt(sNumber) + 1;
+                result += String.format("%02d", num);
+            } else {
+                result += String.format("%02d", 0);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
+
+    ;
 
     @Override
     public Boolean create(PurchaseOrder object) {
@@ -96,13 +129,8 @@ public class PurchaseOrder_DAO implements DAOBase<PurchaseOrder>{
             st.setString(5, object.getNote());
             st.setString(7, object.getEmployee().getEmployeeID());
             st.setString(6, object.getSupplier().getSupplierID());
-            
-            n = st.executeUpdate();
 
-            for (PurchaseOrderDetail purchaseOrderDetai : object.getPurchaseOrderDetailList()) {
-                purchaseOrderDetai.setPurchaseOrder(object);
-                new PurchaseOrderDetail_DAO().create(purchaseOrderDetai);
-            }
+            n = st.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -119,6 +147,5 @@ public class PurchaseOrder_DAO implements DAOBase<PurchaseOrder>{
     public Boolean delete(String id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
 
 }
