@@ -45,6 +45,17 @@ public class Product {
         setType(type);
         this.price = price;
     }
+    
+    public Product(String productID, String name, Double costPrice, byte[] image, Double VAT, Integer inventory, Type type) throws Exception {
+        setProductID(productID);
+        setName(name);
+        setCostPrice(costPrice);
+        setImage(image);
+        setVAT(VAT);
+        setInventory(inventory);
+        setType(type);
+        setPrice();
+    }
 
     public Product(String productID) throws Exception {
         setProductID(productID);
@@ -106,7 +117,7 @@ public class Product {
         this.VAT = VAT;
     }
 
-    public int getInventory() {
+    public Integer getInventory() {
         return inventory;
     }
 

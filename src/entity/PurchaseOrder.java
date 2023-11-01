@@ -1,19 +1,20 @@
-
 package entity;
+
 import enums.PurchaseOrderStatus;
 import java.time.LocalDate;
 import java.util.*;
+
 /**
  *
  * @author Nhu Tam
  */
 public class PurchaseOrder {
-    
+
     /* Hằng báo lỗi*/
     public static final String ID_EMPTY = "Mã đơn nhập không được phép rỗng";
     public static final String ORDERDATE_ERORR = "Ngày tạo đơn nhập không hợp lệ";
     public static final String RECEIVEDATE_ERORR = "Ngày nhập không hợp lệ";
-    
+
     private String purchaseOrderID;
     private Date orderDate;
     private Date receiveDate;
@@ -34,6 +35,7 @@ public class PurchaseOrder {
         setEmployee(employee);
         setPurchaseOrderDetailList(purchaseOrderDetailList);
     }
+
     public PurchaseOrder(String purchaseOrderID, Date orderDate, Date receiveDate, String note, PurchaseOrderStatus status, Supplier supplier, Employee employee, ArrayList<PurchaseOrderDetail> purchaseOrderDetailList, Double total) throws Exception {
         setPurchaseOrderID(purchaseOrderID);
         setOrderDate(orderDate);
@@ -43,8 +45,8 @@ public class PurchaseOrder {
         setSupplier(supplier);
         setEmployee(employee);
         setPurchaseOrderDetailList(purchaseOrderDetailList);
+        this.total = total;
     }
-    
 
     public PurchaseOrder(String purchaseOrderID) throws Exception {
         setPurchaseOrderID(purchaseOrderID);
@@ -57,9 +59,10 @@ public class PurchaseOrder {
         return purchaseOrderID;
     }
 
-    public void setPurchaseOrderID(String purchaseOrderID) throws Exception{
-        if(purchaseOrderID.trim().equals(""))
+    public void setPurchaseOrderID(String purchaseOrderID) throws Exception {
+        if (purchaseOrderID.trim().equals("")) {
             throw new Exception(ID_EMPTY);
+        }
         this.purchaseOrderID = purchaseOrderID;
     }
 
@@ -68,8 +71,9 @@ public class PurchaseOrder {
     }
 
     public void setOrderDate(Date orderDate) throws Exception {
-        if(orderDate.after(java.sql.Date.valueOf(LocalDate.now())))
+        if (orderDate.after(java.sql.Date.valueOf(LocalDate.now()))) {
             throw new Exception(ORDERDATE_ERORR);
+        }
         this.orderDate = orderDate;
     }
 
@@ -78,8 +82,9 @@ public class PurchaseOrder {
     }
 
     public void setReceiveDate(Date receiveDate) throws Exception {
-        if(receiveDate.before(orderDate))
+        if (receiveDate.before(orderDate)) {
             throw new Exception(RECEIVEDATE_ERORR);
+        }
         this.receiveDate = receiveDate;
     }
 
@@ -121,18 +126,19 @@ public class PurchaseOrder {
 
     public void setPurchaseOrderDetailList(ArrayList<PurchaseOrderDetail> purchaseOrderDetailList) {
         this.purchaseOrderDetailList = purchaseOrderDetailList;
+        setTotal();
     }
 
     public double getTotal() {
         return total;
     }
 
-    public void setTotal() {
+    private void setTotal() {
         for (PurchaseOrderDetail purchaseOrderDetail : purchaseOrderDetailList) {
-            this.total+= purchaseOrderDetail.getLineTotal();
+            this.total += purchaseOrderDetail.getLineTotal();
         }
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 5;
@@ -160,6 +166,4 @@ public class PurchaseOrder {
         return "PurchaseOrder{" + "purchaseOrderID=" + purchaseOrderID + ", orderDate=" + orderDate + ", receiveDate=" + receiveDate + ", note=" + note + ", status=" + status + ", supplier=" + supplier + ", employee=" + employee + ", purchaseOrderDetailList=" + purchaseOrderDetailList + '}';
     }
 
-    
-    
 }
