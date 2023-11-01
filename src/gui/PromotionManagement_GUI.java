@@ -112,6 +112,7 @@ public class PromotionManagement_GUI extends javax.swing.JPanel {
 
         add(pnl_searchPromotion, java.awt.BorderLayout.NORTH);
 
+        pnl_listPromotion.setMaximumSize(new java.awt.Dimension(1000, 2147483647));
         pnl_listPromotion.setPreferredSize(new java.awt.Dimension(800, 432));
         pnl_listPromotion.setLayout(new java.awt.BorderLayout());
 
@@ -151,18 +152,15 @@ public class PromotionManagement_GUI extends javax.swing.JPanel {
 
         pnl_promotionNew.setAlignmentX(0.0F);
         pnl_promotionNew.setAlignmentY(0.0F);
-        pnl_promotionNew.setMaximumSize(new java.awt.Dimension(300, 32767));
+        pnl_promotionNew.setMaximumSize(new java.awt.Dimension(366, 32767));
         pnl_promotionNew.setMinimumSize(new java.awt.Dimension(300, 192));
         pnl_promotionNew.setPreferredSize(new java.awt.Dimension(300, 190));
         pnl_promotionNew.setLayout(new javax.swing.BoxLayout(pnl_promotionNew, javax.swing.BoxLayout.Y_AXIS));
 
         pnl_inforPromo.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-        pnl_inforPromo.setMaximumSize(new java.awt.Dimension(600, 2147483647));
-        pnl_inforPromo.setMinimumSize(new java.awt.Dimension(350, 263));
-        pnl_inforPromo.setPreferredSize(new java.awt.Dimension(400, 283));
+        pnl_inforPromo.setMinimumSize(new java.awt.Dimension(300, 263));
         pnl_inforPromo.setLayout(new java.awt.BorderLayout());
 
-        pnl_txtInforPromo.setMaximumSize(new java.awt.Dimension(600, 210));
         pnl_txtInforPromo.setLayout(new javax.swing.BoxLayout(pnl_txtInforPromo, javax.swing.BoxLayout.Y_AXIS));
 
         pnl_promoID.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
@@ -259,7 +257,6 @@ public class PromotionManagement_GUI extends javax.swing.JPanel {
 
         pnl_inforPromo.add(pnl_txtInforPromo, java.awt.BorderLayout.CENTER);
 
-        pnl_buttonPromo.setMaximumSize(new java.awt.Dimension(600, 50));
         pnl_buttonPromo.setMinimumSize(new java.awt.Dimension(100, 50));
         pnl_buttonPromo.setPreferredSize(new java.awt.Dimension(1261, 50));
         pnl_buttonPromo.setLayout(new javax.swing.BoxLayout(pnl_buttonPromo, javax.swing.BoxLayout.LINE_AXIS));
