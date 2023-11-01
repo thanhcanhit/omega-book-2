@@ -3,16 +3,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package entity;
+
 import java.io.*;
 import java.text.*;
-import java.time.LocalDate;
 import java.util.*;
 import java.util.regex.Pattern;
+
 /**
  *
  * @author Nhu Tam
  */
-public class Customer implements Serializable{
+public class Customer implements Serializable {
     /*Hằng báo lỗi*/
     public static final String ID_EMPTY = "Mã khách hàng không được phép rỗng";
     public static final String NAME_EMPTY = "Họ tên không được phép rỗng";
@@ -22,7 +23,7 @@ public class Customer implements Serializable{
     public static final String ADDRESS_EMPTY = "Mã địa chỉ không được phép rỗng";
     public static final String SCORE_ERROR = "Điểm tích luỹ không được nhỏ hơn không";
 //    public static final String RANK_EMPTY = "Hạng không được phép rỗng";
-    
+
     private String customerID;
     private String name;
     private int score;
@@ -32,7 +33,7 @@ public class Customer implements Serializable{
     private String rank;
     private String address;
 
-    public Customer(String customerID, String name, boolean gender, Date dateOfBirth, int score, String phoneNumber, String rank, String address) throws Exception {
+    public Customer(String customerID, String name, boolean gender, Date dateOfBirth, int score, String phoneNumber, String address) throws Exception {
         setCustomerID(customerID);
         setName(name);
         setGender(gender);
@@ -55,9 +56,11 @@ public class Customer implements Serializable{
     }
 
     public void setCustomerID(String customerID) throws Exception {
-        if(customerID.trim().equals(""))
+        if (!customerID.trim().equals("")) {
+            this.customerID = customerID;
+        } else {
             throw new Exception(ID_EMPTY);
-        this.customerID = customerID;
+        }
     }
 
     public String getName() {
@@ -65,9 +68,11 @@ public class Customer implements Serializable{
     }
 
     public void setName(String name) throws Exception {
-        if(name.trim().equals(""))
+        if (!name.trim().equals("")) {
+            this.name = name;
+        } else {
             throw new Exception(NAME_EMPTY);
-        this.name = name;
+        }
     }
 
     public int getScore() {
@@ -75,9 +80,11 @@ public class Customer implements Serializable{
     }
 
     public void setScore(int score) throws Exception {
-        if(score < 0) 
+        if (score >= 0) {
+            this.score = +score;
+        } else {
             throw new Exception(SCORE_ERROR);
-        this.score =+ score;
+        }
     }
 
     public boolean isGender() {
@@ -93,9 +100,12 @@ public class Customer implements Serializable{
     }
 
     public void setDateOfBirth(Date dateOfBirth) throws Exception {
-        if(dateOfBirth.after(java.sql.Date.valueOf(LocalDate.now()))) 
+        Date current = new Date();
+        if (dateOfBirth.compareTo(current) < 0) {
+            this.dateOfBirth = dateOfBirth;
+        } else {
             throw new Exception(DATEBIRTH_ERROR);
-        this.dateOfBirth = dateOfBirth;
+        }
     }
 
     public String getPhoneNumber() {
@@ -104,9 +114,12 @@ public class Customer implements Serializable{
 
     public void setPhoneNumber(String phoneNumber) throws Exception {
         String patternPhone = "^(09|03|08|07|05|02)\\d{8}$";
-        if(!Pattern.matches(patternPhone, phoneNumber)) 
+        if (Pattern.matches(patternPhone, phoneNumber)) {
+            this.phoneNumber = phoneNumber;
+        } else {
             throw new Exception(PHONENUMBER_ERROR);
-        this.phoneNumber = phoneNumber;
+        }
+
     }
 
     public String getRank() {
@@ -114,14 +127,15 @@ public class Customer implements Serializable{
     }
 
     public void setRank() {
-        if(score < 1000)
+        if (score < 1000) {
             rank = "Không";
-        else if(score < 10000)
+        } else if (score < 10000) {
             rank = "Bạc";
-        else if(score <  10000)
+        } else if (score < 10000) {
             rank = "Vàng";
-        else
+        } else {
             rank = "Kim cương";
+        }
     }
 
     public String getAddress() {
@@ -129,17 +143,20 @@ public class Customer implements Serializable{
     }
 
     public void setAddress(String address) throws Exception {
-        if(address == null)
+        if (address != null) {
+            this.address = address;
+        } else {
             throw new Exception(ADDRESS_EMPTY);
-        this.address = address;
+        }
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 79 * hash + Objects.hashCode(this.customerID);
         return hash;
     }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -158,12 +175,13 @@ public class Customer implements Serializable{
     @Override
     public String toString() {
         String genderString = "Nam";
-        if(gender)
+        if (gender) {
             genderString = "Nữ";
+        }
         String dateFormat = DateFormat.getInstance().format(dateOfBirth);
-        return customerID + "," + name + "," + genderString + "," +
-                dateFormat + "," + phoneNumber + "," + score + "," + 
-                rank + "," + address; 
+        return customerID + "," + name + "," + genderString + ","
+                + dateFormat + "," + phoneNumber + "," + score + ","
+                + rank + "," + address;
     }
-    
+
 }
