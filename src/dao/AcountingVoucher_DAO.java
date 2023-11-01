@@ -17,9 +17,9 @@ import java.util.ArrayList;
  *
  * @author Hoàng Khang
  */
-public class AccountingVoucher_DAO implements interfaces.DAOBase<AcountingVoucher> {
+public class AcountingVoucher_DAO implements interfaces.DAOBase<AcountingVoucher> {
 
-    public AccountingVoucher_DAO() {
+    public AcountingVoucher_DAO() {
     }
 
     @Override
