@@ -141,16 +141,14 @@ public class Application extends javax.swing.JFrame {
 
 //        Fake loading
 //        new Welcome_GUI().setVisible(true);
-        
-        
 //        Connect db
         try {
             ConnectDB.connect();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Không thể kết nối đến database!", "Vui lòng kiểm tra", JOptionPane.DEFAULT_OPTION);
+            JOptionPane.showMessageDialog(null, "Không thể kết nối đến database!", "Không thể khởi động ứng dụng", JOptionPane.DEFAULT_OPTION);
             System.exit(0);
         }
-        
+
 //        Delay render
 //        Timer timer = new Timer(2500, (ActionEvent evt) -> {
 //            java.awt.EventQueue.invokeLater(() -> {
@@ -161,6 +159,7 @@ public class Application extends javax.swing.JFrame {
 //        timer.start();
         app = new Application();
         app.setVisible(true);
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
