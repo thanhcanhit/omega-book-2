@@ -216,7 +216,7 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
         txt_employeeCashCount1.setEditable(false);
         txt_employeeCashCount1.setFont(txt_employeeCashCount1.getFont().deriveFont((float)16));
         txt_employeeCashCount1.setText("NV02220032022");
-        txt_employeeCashCount1.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(0, 10, 0, 0)));
+        txt_employeeCashCount1.setBorder(javax.swing.BorderFactory.createCompoundBorder(null, javax.swing.BorderFactory.createEmptyBorder(0, 10, 0, 0)));
         txt_employeeCashCount1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         txt_employeeCashCount1.setFocusable(false);
         txt_employeeCashCount1.setMaximumSize(new java.awt.Dimension(2147483647, 50));
@@ -244,7 +244,7 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
         txt_employeeCashCount1Name.setEditable(false);
         txt_employeeCashCount1Name.setFont(txt_employeeCashCount1Name.getFont().deriveFont((float)16));
         txt_employeeCashCount1Name.setText("Lê Hoàng Khang");
-        txt_employeeCashCount1Name.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(0, 10, 0, 0)));
+        txt_employeeCashCount1Name.setBorder(javax.swing.BorderFactory.createCompoundBorder(null, javax.swing.BorderFactory.createEmptyBorder(0, 10, 0, 0)));
         txt_employeeCashCount1Name.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         txt_employeeCashCount1Name.setFocusable(false);
         txt_employeeCashCount1Name.setPreferredSize(new java.awt.Dimension(100, 22));
@@ -269,10 +269,9 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
         lbl_employeeCashCount2.setPreferredSize(new java.awt.Dimension(145, 16));
         pnl_employeeCashCount2.add(lbl_employeeCashCount2);
 
-        txt_employeeCashCount2.setEditable(false);
         txt_employeeCashCount2.setFont(txt_employeeCashCount2.getFont().deriveFont((float)16));
         txt_employeeCashCount2.setText("NV02220032022");
-        txt_employeeCashCount2.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(0, 10, 0, 0)));
+        txt_employeeCashCount2.setBorder(javax.swing.BorderFactory.createCompoundBorder(null, javax.swing.BorderFactory.createEmptyBorder(0, 10, 0, 0)));
         txt_employeeCashCount2.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         txt_employeeCashCount2.setFocusable(false);
         txt_employeeCashCount2.setMaximumSize(new java.awt.Dimension(2147483647, 250));
@@ -309,7 +308,7 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
         txt_employeeCashCount1Name1.setEditable(false);
         txt_employeeCashCount1Name1.setFont(txt_employeeCashCount1Name1.getFont().deriveFont((float)16));
         txt_employeeCashCount1Name1.setText("Trần Đình Kiên");
-        txt_employeeCashCount1Name1.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(0, 10, 0, 0)));
+        txt_employeeCashCount1Name1.setBorder(javax.swing.BorderFactory.createCompoundBorder(null, javax.swing.BorderFactory.createEmptyBorder(0, 10, 0, 0)));
         txt_employeeCashCount1Name1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         txt_employeeCashCount1Name1.setFocusable(false);
         txt_employeeCashCount1Name1.setMaximumSize(new java.awt.Dimension(2147483647, 250));
@@ -350,6 +349,7 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
+        scr_cashCounts.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chi tiết kiểm tiền", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18)), javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 5))); // NOI18N
         scr_cashCounts.setMinimumSize(new java.awt.Dimension(1200, 16));
 
         tbl_cashCounts.setFont(tbl_cashCounts.getFont().deriveFont(tbl_cashCounts.getFont().getStyle() & ~java.awt.Font.BOLD, 22));

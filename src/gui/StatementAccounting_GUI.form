@@ -192,13 +192,7 @@
                             </Property>
                             <Property name="text" type="java.lang.String" value="KTI0018102023"/>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                              <Border info="org.netbeans.modules.form.compat2.border.CompoundBorderInfo">
-                                <CompoundBorder>
-                                  <Border PropertyName="outside" info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
-                                    <MatteColorBorder bottom="1" left="0" right="0" top="0"/>
-                                  </Border>
-                                </CompoundBorder>
-                              </Border>
+                              <Border info="null"/>
                             </Property>
                             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                               <Color id="Text Cursor"/>
@@ -255,13 +249,7 @@
                             </Property>
                             <Property name="text" type="java.lang.String" value="NV010020232300 - L&#xea; Ho&#xe0;ng Khang"/>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                              <Border info="org.netbeans.modules.form.compat2.border.CompoundBorderInfo">
-                                <CompoundBorder>
-                                  <Border PropertyName="outside" info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
-                                    <MatteColorBorder bottom="1" left="0" right="0" top="0"/>
-                                  </Border>
-                                </CompoundBorder>
-                              </Border>
+                              <Border info="null"/>
                             </Property>
                             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                               <Color id="Text Cursor"/>
@@ -320,13 +308,7 @@
                             </Property>
                             <Property name="text" type="java.lang.String" value="NV020020032022 - Nguy&#x1ec5;n Thanh C&#x1ea3;nh"/>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                              <Border info="org.netbeans.modules.form.compat2.border.CompoundBorderInfo">
-                                <CompoundBorder>
-                                  <Border PropertyName="outside" info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
-                                    <MatteColorBorder bottom="1" left="0" right="0" top="0"/>
-                                  </Border>
-                                </CompoundBorder>
-                              </Border>
+                              <Border info="null"/>
                             </Property>
                             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                               <Color id="Text Cursor"/>
@@ -394,13 +376,7 @@
                             <Property name="horizontalAlignment" type="int" value="4"/>
                             <Property name="text" type="java.lang.String" value="0"/>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                              <Border info="org.netbeans.modules.form.compat2.border.CompoundBorderInfo">
-                                <CompoundBorder>
-                                  <Border PropertyName="outside" info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
-                                    <MatteColorBorder bottom="1" left="0" right="0" top="0"/>
-                                  </Border>
-                                </CompoundBorder>
-                              </Border>
+                              <Border info="null"/>
                             </Property>
                             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                               <Color id="Text Cursor"/>
@@ -457,13 +433,7 @@
                             <Property name="horizontalAlignment" type="int" value="4"/>
                             <Property name="text" type="java.lang.String" value="0"/>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                              <Border info="org.netbeans.modules.form.compat2.border.CompoundBorderInfo">
-                                <CompoundBorder>
-                                  <Border PropertyName="outside" info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
-                                    <MatteColorBorder bottom="1" left="0" right="0" top="0"/>
-                                  </Border>
-                                </CompoundBorder>
-                              </Border>
+                              <Border info="null"/>
                             </Property>
                             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                               <Color id="Text Cursor"/>
@@ -520,13 +490,7 @@
                             <Property name="horizontalAlignment" type="int" value="4"/>
                             <Property name="text" type="java.lang.String" value="0"/>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                              <Border info="org.netbeans.modules.form.compat2.border.CompoundBorderInfo">
-                                <CompoundBorder>
-                                  <Border PropertyName="outside" info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
-                                    <MatteColorBorder bottom="1" left="0" right="0" top="0"/>
-                                  </Border>
-                                </CompoundBorder>
-                              </Border>
+                              <Border info="null"/>
                             </Property>
                             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                               <Color id="Text Cursor"/>
@@ -583,13 +547,7 @@
                             <Property name="horizontalAlignment" type="int" value="4"/>
                             <Property name="text" type="java.lang.String" value="0"/>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                              <Border info="org.netbeans.modules.form.compat2.border.CompoundBorderInfo">
-                                <CompoundBorder>
-                                  <Border PropertyName="outside" info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
-                                    <MatteColorBorder bottom="1" left="0" right="0" top="0"/>
-                                  </Border>
-                                </CompoundBorder>
-                              </Border>
+                              <Border info="null"/>
                             </Property>
                             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                               <Color id="Text Cursor"/>
@@ -649,13 +607,7 @@
                             <Property name="horizontalAlignment" type="int" value="4"/>
                             <Property name="text" type="java.lang.String" value="0"/>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                              <Border info="org.netbeans.modules.form.compat2.border.CompoundBorderInfo">
-                                <CompoundBorder>
-                                  <Border PropertyName="outside" info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
-                                    <MatteColorBorder bottom="1" left="0" right="0" top="0"/>
-                                  </Border>
-                                </CompoundBorder>
-                              </Border>
+                              <Border info="null"/>
                             </Property>
                             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                               <Color id="Text Cursor"/>
@@ -734,7 +686,7 @@
                 </Container>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="jPanel1">
+            <Container class="javax.swing.JPanel" name="pnl_cashCount">
               <Properties>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[1300, 56]"/>
@@ -753,6 +705,21 @@
               <SubComponents>
                 <Container class="javax.swing.JScrollPane" name="scr_cashCounts">
                   <Properties>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.CompoundBorderInfo">
+                        <CompoundBorder>
+                          <Border PropertyName="outside" info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                            <TitledBorder title="Chi ti&#xea;&#x301;t ki&#xea;&#x309;m ti&#xea;&#x300;n">
+                              <Font PropertyName="font" name="Segoe UI" size="18" style="0"/>
+                              <Color PropertyName="color" blue="99" green="66" red="0" type="rgb"/>
+                            </TitledBorder>
+                          </Border>
+                          <Border PropertyName="inside" info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+                            <EmptyBorder bottom="1" left="5" right="5" top="1"/>
+                          </Border>
+                        </CompoundBorder>
+                      </Border>
+                    </Property>
                     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[1200, 16]"/>
                     </Property>
