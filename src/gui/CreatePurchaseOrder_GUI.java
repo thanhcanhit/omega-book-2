@@ -3,18 +3,224 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package gui;
+
+import bus.CreatePurchaseOrder_BUS;
 import com.formdev.flatlaf.FlatClientProperties;
+import entity.Product;
+import entity.PurchaseOrder;
+import entity.PurchaseOrderDetail;
+import entity.Supplier;
+import java.awt.event.KeyEvent;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.event.TableModelEvent;
+import javax.swing.table.DefaultTableModel;
+import main.Application;
+import raven.toast.Notifications;
 
 /**
  *
  * @author thanhcanhit
  */
 public class CreatePurchaseOrder_GUI extends javax.swing.JPanel {
+
     /**
      * Creates new form Sales_GUI
      */
+    private CreatePurchaseOrder_BUS bus;
+
+    //
+    private PurchaseOrder purchaseOrder;
+    private ArrayList<PurchaseOrderDetail> cart;
+    private DefaultTableModel tblModel_cart;
+    private DefaultComboBoxModel cmbModel_suplier;
+
     public CreatePurchaseOrder_GUI() {
         initComponents();
+        init();
+    }
+
+    private void init() {
+        bus = new CreatePurchaseOrder_BUS();
+        try {
+            purchaseOrder = bus.createNewPurchaseOrder();
+            txt_orderID.setText(purchaseOrder.getPurchaseOrderID());
+            txt_orderID.setEditable(false);
+        } catch (Exception ex) {
+            Notifications.getInstance().show(Notifications.Type.ERROR, 5000, "Không thể tạo hóa đơn mới, vui lòng thử lại lúc khác");
+        }
+
+//        table
+        cart = new ArrayList<>();
+        tblModel_cart = new DefaultTableModel(new String[]{"Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Đơn giá nhập", "Thành tiền"}, 50);
+        tbl_cart.setModel(tblModel_cart);
+        tbl_cart.getModel().addTableModelListener((TableModelEvent evt) -> {
+            int row = evt.getFirstRow();
+            int col = evt.getColumn();
+//              Không xử lí nếu row hoặc col = -1 và col không phải là ô nhập số lượng
+            if (row == -1 || col == -1 && col != 2) {
+                return;
+            }
+
+            int newValue = Integer.parseInt(tblModel_cart.getValueAt(row, col).toString());
+            PurchaseOrderDetail current = cart.get(row);
+
+            try {
+                if (current.getProduct().getInventory() >= newValue) {
+                    current.setQuantity(newValue);
+                    renderCartTable();
+                } else {
+//                    Trả về giá trị cũ
+                    tbl_cart.setValueAt(current.getQuantity(), row, col);
+                    Notifications.getInstance().show(Notifications.Type.ERROR, "Số lượng sản phẩm không đủ!");
+                }
+
+//                Focus lại ô search
+                toogleChangeToSearch();
+            } catch (Exception ex) {
+                Notifications.getInstance().show(Notifications.Type.ERROR, "Không thể cập nhật số lượng mới!");
+            }
+        });
+        renderCartTable();
+
+//        form
+        txt_orderDate.setEditable(false);
+        txt_orderDate.setText(LocalDate.now().toString());
+        renderSuplier();
+    }
+
+    private void renderCartTable() {
+        tblModel_cart.setRowCount(0);
+
+        double total = 0.0;
+        for (PurchaseOrderDetail item : cart) {
+            Object[] newRow = new Object[]{item.getProduct().getProductID(), item.getProduct().getName(), item.getQuantity(), item.getCostPrice(), item.getLineTotal()};
+            total += item.getLineTotal();
+            tblModel_cart.addRow(newRow);
+        }
+
+        lbl_total.setText("Tổng tiền: " + utilities.FormatNumber.toVND(total));
+    }
+
+    private void renderSuplier() {
+        Object[] items = bus.getAllSuplier().stream().map((suplier) -> String.format("(%s) %s", suplier.getSupplierID(), suplier.getName())).toArray();
+        cmbModel_suplier = new DefaultComboBoxModel(items);
+        cmb_suplier.setModel(cmbModel_suplier);
+    }
+
+    private String getSuplierID() {
+        Pattern pattern = Pattern.compile("\\(([^\\)]+)\\)");
+        Matcher matcher = pattern.matcher(cmbModel_suplier.getSelectedItem().toString());
+
+        if (matcher.find()) {
+            String id = matcher.group(0);
+            id = id.replaceAll("\\(", "");
+            id = id.replaceAll("\\)", "");
+            System.out.println(id);
+            return id;
+        }
+        return null;
+    }
+
+    private void toggleChangeQuantity() {
+        txt_search.setText("");
+        int row = cart.size() - 1;
+        tbl_cart.requestFocus();
+        tbl_cart.changeSelection(row, 2, false, false);
+        tbl_cart.setColumnSelectionInterval(2, 2);
+        tbl_cart.setRowSelectionInterval(row, row);
+        tbl_cart.editCellAt(row, 2);
+    }
+
+    private void toogleChangeToSearch() {
+        txt_search.requestFocus();
+    }
+
+    private void rerender() {
+        Application.showForm(new CreatePurchaseOrder_GUI());
+        toogleChangeToSearch();
+    }
+
+    private void handleAddItem() {
+        String productID = txt_search.getText();
+        //        Nếu chưa điền mã sẽ cảnh báo
+        if (productID.isBlank()) {
+            Notifications.getInstance().show(Notifications.Type.WARNING, "Vui lòng điền mã sản phẩm");
+            return;
+        }
+
+//        Kiểm tra xem trong giỏ hàng đã có sản phẩm đó hay chưa
+        try {
+            for (PurchaseOrderDetail detail : cart) {
+//                Nếu tìm thấy thì tăng số lượng lên 1 và thoát
+                if (detail.getProduct().getProductID().equals(productID)) {
+                    if (detail.getProduct().getInventory() > detail.getQuantity()) {
+                        detail.setQuantity(detail.getQuantity() + 1);
+                        renderCartTable();
+                    } else {
+                        Notifications.getInstance().show(Notifications.Type.ERROR, "Số lượng sản phẩm không đủ!");
+                    }
+                    return;
+                }
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(CreatePurchaseOrder_GUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+//        Nếu chưa có trong giỏ hàng
+        Product item = bus.getProduct(productID);
+        if (item == null) {
+            Notifications.getInstance().show(Notifications.Type.INFO, "Không tìm thấy sản phẩm có mã " + productID);
+        } else {
+            try {
+//                Thêm vào giỏi hàng
+                PurchaseOrderDetail newLine = new PurchaseOrderDetail(this.purchaseOrder, item, 1, item.getCostPrice());
+                cart.add(newLine);
+                renderCartTable();
+
+//                Hỗ trợ người dùng nhập liệu
+                toggleChangeQuantity();
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                Notifications.getInstance().show(Notifications.Type.ERROR, "Có lỗi xảy ra khi thêm sản phẩm " + productID);
+            }
+        }
+    }
+
+    private void handleCreateOrder() {
+        //         Nếu chưa có sản phẩm sẽ cảnh báo
+        if (cart.isEmpty()) {
+            Notifications.getInstance().show(Notifications.Type.WARNING, "Bạn chưa thêm sản phẩm vào danh sách!");
+            return;
+        }
+
+        try {
+            Notifications.getInstance().show(Notifications.Type.INFO, "Đang lưu trữ hóa đơn...");
+            purchaseOrder.setSupplier(new Supplier(getSuplierID()));
+            purchaseOrder.setPurchaseOrderDetailList(cart);
+            purchaseOrder.setNote(txa_description.getText());
+//            Để tạm để xử lí sau
+            purchaseOrder.setReceiveDate(java.sql.Date.valueOf(LocalDate.now()));
+
+            boolean isSaved = bus.saveToDatabase(purchaseOrder);
+
+            if (isSaved) {
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đã tạo thành công đơn nhập " + purchaseOrder.getPurchaseOrderID());
+//                Rerender panel
+                rerender();
+            } else {
+                Notifications.getInstance().show(Notifications.Type.ERROR, "Có lỗi xảy ra khi lưu đơn nhập vào cơ sở dữ liệu" + purchaseOrder.getPurchaseOrderID());
+            }
+        } catch (Exception ex) {
+            Notifications.getInstance().show(Notifications.Type.ERROR, "Không thể tạo đơn nhập " + purchaseOrder.getPurchaseOrderID() + ": " + ex.getMessage());
+        }
     }
 
     /**
@@ -35,21 +241,24 @@ public class CreatePurchaseOrder_GUI extends javax.swing.JPanel {
         scr_cart = new javax.swing.JScrollPane();
         tbl_cart = new javax.swing.JTable();
         pnl_cartFooter = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lbl_total = new javax.swing.JLabel();
         pnl_right = new javax.swing.JPanel();
         pnl_info = new javax.swing.JPanel();
         pnl_orderInfo = new javax.swing.JPanel();
-        pnl_orderDate = new javax.swing.JPanel();
-        lbl_orderDate = new javax.swing.JLabel();
-        txt_orderDate = new javax.swing.JTextField();
+        pnl_orderID = new javax.swing.JPanel();
+        lbl_orderID = new javax.swing.JLabel();
+        txt_orderID = new javax.swing.JTextField();
         pnl_orderPaymentMethod = new javax.swing.JPanel();
         lbl_suplier = new javax.swing.JLabel();
         cmb_suplier = new javax.swing.JComboBox<>();
+        pnl_orderDate = new javax.swing.JPanel();
+        lbl_orderDate = new javax.swing.JLabel();
+        txt_orderDate = new javax.swing.JTextField();
         pnl_orderCustomerGive = new javax.swing.JPanel();
         pnl_container = new javax.swing.JPanel();
         lbl_description = new javax.swing.JLabel();
         scr_description = new javax.swing.JScrollPane();
-        txt_description = new javax.swing.JTextArea();
+        txa_description = new javax.swing.JTextArea();
         pnl_btnGroup = new javax.swing.JPanel();
         btn_cancle = new javax.swing.JButton();
         btn_create = new javax.swing.JButton();
@@ -67,6 +276,11 @@ public class CreatePurchaseOrder_GUI extends javax.swing.JPanel {
         pnl_header.setLayout(new javax.swing.BoxLayout(pnl_header, javax.swing.BoxLayout.LINE_AXIS));
 
         txt_search.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Mã sản phẩm");
+        txt_search.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_searchKeyPressed(evt);
+            }
+        });
         pnl_header.add(txt_search);
 
         btn_search.setText("Thêm");
@@ -76,6 +290,11 @@ public class CreatePurchaseOrder_GUI extends javax.swing.JPanel {
         btn_search.putClientProperty(FlatClientProperties.STYLE,""
             + "background:$Menu.background;"
             + "foreground:$Menu.foreground;");
+        btn_search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_searchActionPerformed(evt);
+            }
+        });
         pnl_header.add(btn_search);
 
         pnl_left.add(pnl_header, java.awt.BorderLayout.NORTH);
@@ -100,11 +319,11 @@ public class CreatePurchaseOrder_GUI extends javax.swing.JPanel {
         pnl_cartFooter.setPreferredSize(new java.awt.Dimension(800, 60));
         pnl_cartFooter.setLayout(new java.awt.BorderLayout());
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel1.setText("Tổng tiền");
-        jLabel1.setToolTipText("");
-        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        pnl_cartFooter.add(jLabel1, java.awt.BorderLayout.CENTER);
+        lbl_total.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        lbl_total.setText("Tổng tiền");
+        lbl_total.setToolTipText("");
+        lbl_total.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        pnl_cartFooter.add(lbl_total, java.awt.BorderLayout.CENTER);
 
         pnl_cart.add(pnl_cartFooter, java.awt.BorderLayout.PAGE_END);
 
@@ -118,8 +337,37 @@ public class CreatePurchaseOrder_GUI extends javax.swing.JPanel {
         pnl_info.setLayout(new javax.swing.BoxLayout(pnl_info, javax.swing.BoxLayout.Y_AXIS));
 
         pnl_orderInfo.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin đơn nhập"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        pnl_orderInfo.setMaximumSize(new java.awt.Dimension(2147483647, 300));
         pnl_orderInfo.setPreferredSize(new java.awt.Dimension(500, 400));
         pnl_orderInfo.setLayout(new javax.swing.BoxLayout(pnl_orderInfo, javax.swing.BoxLayout.Y_AXIS));
+
+        pnl_orderID.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        pnl_orderID.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        pnl_orderID.setPreferredSize(new java.awt.Dimension(561, 40));
+        pnl_orderID.setLayout(new javax.swing.BoxLayout(pnl_orderID, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_orderID.setText("Mã hóa đơn");
+        lbl_orderID.setPreferredSize(new java.awt.Dimension(130, 40));
+        pnl_orderID.add(lbl_orderID);
+
+        txt_orderID.setPreferredSize(new java.awt.Dimension(64, 40));
+        pnl_orderID.add(txt_orderID);
+
+        pnl_orderInfo.add(pnl_orderID);
+
+        pnl_orderPaymentMethod.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        pnl_orderPaymentMethod.setMaximumSize(new java.awt.Dimension(32836, 40));
+        pnl_orderPaymentMethod.setPreferredSize(new java.awt.Dimension(561, 40));
+        pnl_orderPaymentMethod.setLayout(new javax.swing.BoxLayout(pnl_orderPaymentMethod, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_suplier.setText("Nhà cung cấp");
+        lbl_suplier.setPreferredSize(new java.awt.Dimension(130, 40));
+        pnl_orderPaymentMethod.add(lbl_suplier);
+
+        cmb_suplier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tiền mặt", "ATM" }));
+        pnl_orderPaymentMethod.add(cmb_suplier);
+
+        pnl_orderInfo.add(pnl_orderPaymentMethod);
 
         pnl_orderDate.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
         pnl_orderDate.setMaximumSize(new java.awt.Dimension(2147483647, 40));
@@ -140,20 +388,6 @@ public class CreatePurchaseOrder_GUI extends javax.swing.JPanel {
 
         pnl_orderInfo.add(pnl_orderDate);
 
-        pnl_orderPaymentMethod.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
-        pnl_orderPaymentMethod.setMaximumSize(new java.awt.Dimension(32836, 40));
-        pnl_orderPaymentMethod.setPreferredSize(new java.awt.Dimension(561, 40));
-        pnl_orderPaymentMethod.setLayout(new javax.swing.BoxLayout(pnl_orderPaymentMethod, javax.swing.BoxLayout.LINE_AXIS));
-
-        lbl_suplier.setText("Nhà cung cấp");
-        lbl_suplier.setPreferredSize(new java.awt.Dimension(130, 40));
-        pnl_orderPaymentMethod.add(lbl_suplier);
-
-        cmb_suplier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tiền mặt", "ATM" }));
-        pnl_orderPaymentMethod.add(cmb_suplier);
-
-        pnl_orderInfo.add(pnl_orderPaymentMethod);
-
         pnl_orderCustomerGive.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
         pnl_orderCustomerGive.setMaximumSize(new java.awt.Dimension(32767, 120));
         pnl_orderCustomerGive.setPreferredSize(new java.awt.Dimension(561, 100));
@@ -168,9 +402,13 @@ public class CreatePurchaseOrder_GUI extends javax.swing.JPanel {
 
         pnl_orderCustomerGive.add(pnl_container);
 
-        txt_description.setColumns(20);
-        txt_description.setRows(5);
-        scr_description.setViewportView(txt_description);
+        txa_description.setColumns(20);
+        txa_description.setRows(10);
+        txa_description.setTabSize(4);
+        txa_description.setWrapStyleWord(true);
+        txa_description.setMinimumSize(new java.awt.Dimension(13, 200));
+        txa_description.setPreferredSize(new java.awt.Dimension(232, 200));
+        scr_description.setViewportView(txa_description);
 
         pnl_orderCustomerGive.add(scr_description);
 
@@ -185,12 +423,22 @@ public class CreatePurchaseOrder_GUI extends javax.swing.JPanel {
         pnl_btnGroup.setLayout(new java.awt.GridLayout(1, 2, 5, 5));
 
         btn_cancle.setText("HỦY");
+        btn_cancle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cancleActionPerformed(evt);
+            }
+        });
         pnl_btnGroup.add(btn_cancle);
 
         btn_create.setText("TẠO ĐƠN NHẬP");
         btn_create.putClientProperty(FlatClientProperties.STYLE,""
             + "background:$Menu.background;"
             + "foreground:$Menu.foreground;");
+        btn_create.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_createActionPerformed(evt);
+            }
+        });
         pnl_btnGroup.add(btn_create);
 
         pnl_right.add(pnl_btnGroup, java.awt.BorderLayout.SOUTH);
@@ -201,8 +449,32 @@ public class CreatePurchaseOrder_GUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_orderDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_orderDateActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_txt_orderDateActionPerformed
+
+    private void btn_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchActionPerformed
+        handleAddItem();
+    }//GEN-LAST:event_btn_searchActionPerformed
+
+    private void btn_createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_createActionPerformed
+        handleCreateOrder();
+    }//GEN-LAST:event_btn_createActionPerformed
+
+    private void txt_searchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_searchKeyPressed
+//        Bắt sự kiện bấm enter
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            handleAddItem();
+        }
+    }//GEN-LAST:event_txt_searchKeyPressed
+
+    private void btn_cancleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancleActionPerformed
+        if (JOptionPane.showConfirmDialog(this, "Bạn có muốn hủy hóa đơn " + purchaseOrder.getPurchaseOrderID(), "Xác nhận hủy hóa đơn", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            // Tạo lại trang mới
+            rerender();
+            Notifications.getInstance().show(Notifications.Type.INFO, "Đã hủy thành công hóa đơn");
+        }
+
+    }//GEN-LAST:event_btn_cancleActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -210,10 +482,11 @@ public class CreatePurchaseOrder_GUI extends javax.swing.JPanel {
     private javax.swing.JButton btn_create;
     private javax.swing.JButton btn_search;
     private javax.swing.JComboBox<String> cmb_suplier;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lbl_description;
     private javax.swing.JLabel lbl_orderDate;
+    private javax.swing.JLabel lbl_orderID;
     private javax.swing.JLabel lbl_suplier;
+    private javax.swing.JLabel lbl_total;
     private javax.swing.JPanel pnl_btnGroup;
     private javax.swing.JPanel pnl_cart;
     private javax.swing.JPanel pnl_cartFooter;
@@ -223,6 +496,7 @@ public class CreatePurchaseOrder_GUI extends javax.swing.JPanel {
     private javax.swing.JPanel pnl_left;
     private javax.swing.JPanel pnl_orderCustomerGive;
     private javax.swing.JPanel pnl_orderDate;
+    private javax.swing.JPanel pnl_orderID;
     private javax.swing.JPanel pnl_orderInfo;
     private javax.swing.JPanel pnl_orderPaymentMethod;
     private javax.swing.JPanel pnl_right;
@@ -230,8 +504,9 @@ public class CreatePurchaseOrder_GUI extends javax.swing.JPanel {
     private javax.swing.JScrollPane scr_description;
     private javax.swing.JSplitPane splitPane_main;
     private javax.swing.JTable tbl_cart;
-    private javax.swing.JTextArea txt_description;
+    private javax.swing.JTextArea txa_description;
     private javax.swing.JTextField txt_orderDate;
+    private javax.swing.JTextField txt_orderID;
     private javax.swing.JTextField txt_search;
     // End of variables declaration//GEN-END:variables
 }
