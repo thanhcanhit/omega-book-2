@@ -19,13 +19,13 @@ public class Customer_DAO implements interfaces.DAOBase<Customer> {
     }
 
     @Override
-    public Customer getOne(String id) {
+    public Customer getOne(String customerID) {
         Customer customer = null;
         try {
-            String sql = "SELECT * FROM Customer WHERE cutomerID = ?";
+            String sql = "SELECT * FROM Customer WHERE customerID = ?";
             PreparedStatement preparedStatement = ConnectDB.conn.prepareStatement(sql);
-            preparedStatement.setString(1, id);
-            
+            preparedStatement.setString(1, customerID);
+
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
@@ -34,16 +34,42 @@ public class Customer_DAO implements interfaces.DAOBase<Customer> {
                 boolean gender = resultSet.getBoolean("gender");
                 Date dateOfBirth = resultSet.getDate("dateOfBirth");
                 String phoneNumber = resultSet.getString("phoneNumber");
-                String rank = resultSet.getString("rank");
                 String address = resultSet.getString("address");
 
-                customer = new Customer(id, name, gender, dateOfBirth, score, phoneNumber, rank, address);
+                customer = new Customer(customerID, name, gender, dateOfBirth, score, phoneNumber, address);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return customer;
     }
+    
+      public Customer getOneByNumberPhone(String phoneNumber) {
+        Customer customer = null;
+        try {
+            String sql = "SELECT * FROM Customer WHERE phoneNumber = ?";
+            PreparedStatement preparedStatement = ConnectDB.conn.prepareStatement(sql);
+            preparedStatement.setString(1, phoneNumber);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                String customerID = resultSet.getString("customerID");
+                String name = resultSet.getString("name");
+                int score = resultSet.getInt("score");
+                boolean gender = resultSet.getBoolean("gender");
+                Date dateOfBirth = resultSet.getDate("dateOfBirth");
+                String address = resultSet.getString("address");
+
+                customer = new Customer(customerID, name, gender, dateOfBirth, score, phoneNumber, address);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return customer;
+    }
+    
+    
 
     @Override
     public ArrayList<Customer> getAll() {
@@ -53,16 +79,15 @@ public class Customer_DAO implements interfaces.DAOBase<Customer> {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM Customer");
 
             while (resultSet.next()) {
-                String customerID = resultSet.getString("cutomerID");
+                String customerID = resultSet.getString("customerID");
                 String name = resultSet.getString("name");
                 int score = resultSet.getInt("score");
                 boolean gender = resultSet.getBoolean("gender");
                 Date dateOfBirth = resultSet.getDate("dateOfBirth");
                 String phoneNumber = resultSet.getString("phoneNumber");
-                String rank = resultSet.getString("rank");
                 String address = resultSet.getString("address");
 
-                Customer customer = new Customer(customerID, name, gender, dateOfBirth, score, phoneNumber, rank, address);
+                Customer customer = new Customer(customerID, name, gender, dateOfBirth, score, phoneNumber, address);
                 result.add(customer);
             }
         } catch (Exception e) {
@@ -76,11 +101,29 @@ public class Customer_DAO implements interfaces.DAOBase<Customer> {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    public String getMaxSequence(String code) {
+    try {
+        code += "%";
+        String sql = "  SELECT TOP 1  * FROM Customer WHERE customerID LIKE '"+code+"' ORDER BY customerID DESC;";
+        PreparedStatement st = ConnectDB.conn.prepareStatement(sql);
+        ResultSet rs = st.executeQuery();
+        if (rs.next()) {
+            String customerID = rs.getString("customerID");
+            System.out.println(customerID);
+            return customerID;
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return null;
+}
+
+
     @Override
     public Boolean create(Customer object) {
         try {
-            String sql = "INSERT INTO Customer (cutomerID, name, dateOfBirth, gender, phoneNumber, score, rank, address) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO Customer (customerID, name, dateOfBirth, gender, phoneNumber, score, address) "
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = ConnectDB.conn.prepareStatement(sql);
 
             preparedStatement.setString(1, object.getCustomerID());
@@ -89,8 +132,7 @@ public class Customer_DAO implements interfaces.DAOBase<Customer> {
             preparedStatement.setBoolean(4, object.isGender());
             preparedStatement.setString(5, object.getPhoneNumber());
             preparedStatement.setInt(6, object.getScore());
-            preparedStatement.setString(7, object.getRank());
-            preparedStatement.setString(8, object.getAddress());
+            preparedStatement.setString(7, object.getAddress());
 
             int rowsAffected = preparedStatement.executeUpdate();
 
@@ -104,8 +146,8 @@ public class Customer_DAO implements interfaces.DAOBase<Customer> {
     @Override
     public Boolean update(String id, Customer newObject) {
         try {
-            String sql = "UPDATE Customer SET name=?, dateOfBirth=?, gender=?, phoneNumber=?, score=?, rank=?, address=? "
-                    + "WHERE cutomerID=?";
+            String sql = "UPDATE Customer SET name=?, dateOfBirth=?, gender=?, phoneNumber=?, score=?,  address=? "
+                    + "WHERE customerID=?";
             PreparedStatement preparedStatement = ConnectDB.conn.prepareStatement(sql);
 
             preparedStatement.setString(1, newObject.getName());
@@ -113,9 +155,8 @@ public class Customer_DAO implements interfaces.DAOBase<Customer> {
             preparedStatement.setBoolean(3, newObject.isGender());
             preparedStatement.setString(4, newObject.getPhoneNumber());
             preparedStatement.setInt(5, newObject.getScore());
-            preparedStatement.setString(6, newObject.getRank());
-            preparedStatement.setString(7, newObject.getAddress());
-            preparedStatement.setString(8, id);
+            preparedStatement.setString(6, newObject.getAddress());
+            preparedStatement.setString(7, id);
 
             int rowsAffected = preparedStatement.executeUpdate();
             return rowsAffected > 0;
