@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package entity;
 
 import java.util.Objects;
@@ -39,11 +36,9 @@ public class Supplier {
     }
 
     public void setSupplierID(String supplierID) throws Exception {
-        if(!supplierID.trim().equals("")) {
-            this.supplierID = supplierID;
-        } else {
+        if(supplierID.trim().equals("")) 
             throw new Exception(ID_EMPTY);
-        }
+        this.supplierID = supplierID;
     }
 
     public String getName() {
@@ -51,11 +46,9 @@ public class Supplier {
     }
 
     public void setName(String name) throws Exception {
-        if(!name.trim().equals("")) {
-            this.name = name;
-        } else {
+        if(name.trim().equals("")) 
             throw new Exception(NAME_EMPTY);
-        }
+        this.name = name;
     }
 
     public String getAddress() {
@@ -63,11 +56,9 @@ public class Supplier {
     }
 
     public void setAddress(String address) throws Exception {
-        if(address != null) {
-            this.address = address;
-        } else {
+        if(address.trim().equals("")) 
             throw new Exception(ADDRESS_EMPTY);
-        }
+        this.address = address;
     }
 
     @Override

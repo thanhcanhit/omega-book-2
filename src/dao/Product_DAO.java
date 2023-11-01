@@ -24,12 +24,12 @@ import java.util.logging.Logger;
  * @author thanhcanhit
  */
 public class Product_DAO implements DAOBase<Product> {
-    
+
     @Override
     public Product getOne(String id) {
         Product result = null;
         try {
-            PreparedStatement st = ConnectDB.conn.prepareStatement("Select name, costPrice, image, VAT, price, productType from Product where productID = ?");
+            PreparedStatement st = ConnectDB.conn.prepareStatement("Select * from Product where productID = ?");
             st.setString(1, id);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
@@ -42,7 +42,7 @@ public class Product_DAO implements DAOBase<Product> {
         }
         return result;
     }
-    
+
     @Override
     public ArrayList<Product> getAll() {
         ArrayList<Product> result = new ArrayList<>();
@@ -57,6 +57,23 @@ public class Product_DAO implements DAOBase<Product> {
             e.printStackTrace();
         }
         return result;
+    }
+
+    public int getLength() {
+        int length = 0;
+
+        try {
+            Statement st = ConnectDB.conn.createStatement();
+            ResultSet rs = st.executeQuery("select length = count(*) from Product");
+
+            if (rs.next()) {
+                length = rs.getInt("length");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return length;
     }
 
     /**
@@ -75,7 +92,7 @@ public class Product_DAO implements DAOBase<Product> {
                        """;
         int offsetQuantity = (page - 1) * 50;
         try {
-            
+
             PreparedStatement st = ConnectDB.conn.prepareStatement(query);
             st.setInt(1, offsetQuantity);
             ResultSet rs = st.executeQuery();
@@ -87,16 +104,16 @@ public class Product_DAO implements DAOBase<Product> {
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (Exception ex) {
-            Logger.getLogger(Account_DAO.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
         return result;
     }
-    
+
     @Override
     public String generateID() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
     @Override
     public Boolean create(Product object
     ) {
@@ -122,14 +139,14 @@ public class Product_DAO implements DAOBase<Product> {
         try {
             PreparedStatement st = ConnectDB.conn.prepareStatement(query);
             setParams(object, st);
-            
+
             n = st.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return n > 0;
     }
-    
+
     @Override
     public Boolean update(String id, Product newObject
     ) {
@@ -141,13 +158,13 @@ public class Product_DAO implements DAOBase<Product> {
             query = """
                     UPDATE [dbo].[Product]
                     SET [productID] = ?,[productType] = ?,[bookType] = ?,[bookCategory] = ?,[name] = ?,[author] = ?,[price] = ?,[costPirce] = ?,[img] = ?,[publishYear] = ?,[publisher] = ?,[pageQuantity] = ?,[isHardCover] = ?,[description] = ?,[language] = ?,[translater] = ?,[VAT] = ?,[inventory] = ?
-                    WHERE where productID = ?
+                    WHERE productID = ?
                     """;
         } else if (newObject.getType() == Type.STATIONERY) {
             query = """
                     UPDATE [dbo].[Product]
                     SET [productID] = ?,[productType] = ?,[stationaryType] = ?,[name] = ?,[price] = ?,[costPirce] = ?,[img] = ?,[weight] = ?,[color] = ?,[material] = ?,[origin] = ?,[brandID] = ?,[VAT] = ?,[inventory] = ?
-                    WHERE where productID = ?;
+                    WHERE productID = ?;
                     """;
         }
 
@@ -156,14 +173,35 @@ public class Product_DAO implements DAOBase<Product> {
             PreparedStatement st = ConnectDB.conn.prepareStatement(query);
             int currentIndex = setParams(newObject, st) + 1;
             st.setString(currentIndex, id);
-            
+
             n = st.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return n > 0;
     }
-    
+
+    public boolean updateInventory(String productID, int inventory) {
+        int n = 0;
+
+        String query = """
+                    UPDATE [dbo].[Product]
+                    SET [inventory] = ?
+                    WHERE productID = ?
+                    """;
+
+        try {
+            PreparedStatement st = ConnectDB.conn.prepareStatement(query);
+            st.setInt(1, inventory);
+            st.setString(2, productID);
+
+            n = st.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return n > 0;
+    }
+
     @Override
     public Boolean delete(String id
     ) {
@@ -202,7 +240,7 @@ public class Product_DAO implements DAOBase<Product> {
             String translator = rs.getString("translater");
             int bookCategory = rs.getInt("bookCategory");
             int bookType = rs.getInt("bookType");
-            
+
             result = new Book(author, publisher, publishYear, desc, pageQuantity, isHardCover, language, translator, BookType.fromInt(bookType), BookCategory.fromInt(bookCategory), id, name, costPrice, price, image, VAT, inventory, Type.BOOK);
         } else if (Type.BOOK.compare(productType)) {
             String color = rs.getString("color");
@@ -211,10 +249,10 @@ public class Product_DAO implements DAOBase<Product> {
             String origin = rs.getString("origin");
             String brandID = rs.getString("brandID");
             int stationeryType = rs.getInt("stationeryType");
-            
+
             result = new Stationery(color, weight, material, origin, StationeryType.fromInt(stationeryType), new Brand(brandID), id, name, costPrice, price, image, VAT, inventory, Type.STATIONERY);
         }
-        
+
         return result;
     }
 
@@ -268,5 +306,5 @@ public class Product_DAO implements DAOBase<Product> {
         }
         return 0;
     }
-    
+
 }

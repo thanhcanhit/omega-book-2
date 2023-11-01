@@ -73,12 +73,11 @@ public class PurchaseOrderDetail_DAO implements DAOBase<PurchaseOrderDetail>{
         int n = 0;
 
         try {
-            PreparedStatement st = ConnectDB.conn.prepareStatement("INSERT INTO PurchaseOrderDetail(purchaseOrderID, productID, quantity, costPrice, lineTotal) VALUES (?, ?, ?, ?, ?);");
+            PreparedStatement st = ConnectDB.conn.prepareStatement("INSERT INTO PurchaseOrderDetail(purchaseOrderID, productID, quantity, costPrice) VALUES (?, ?, ?, ?);");
             st.setString(1, object.getPurchaseOrder().getPurchaseOrderID());
             st.setString(2, object.getProduct().getProductID());
             st.setInt(3, object.getQuantity()); 
             st.setDouble(4, object.getCostPrice());
-            st.setDouble(5, object.getLineTotal());
           
             n = st.executeUpdate();
         } catch (Exception e) {
