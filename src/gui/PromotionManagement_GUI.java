@@ -56,13 +56,7 @@ public class PromotionManagement_GUI extends javax.swing.JPanel implements Actio
         cmb_statusPromo.setModel(cmbModel_status);
         
         
-        renderPromotionTables(bus.getALLPromotion());
-        
-        
-        
-        
-        
-        
+        renderPromotionTables(bus.getALLPromotion());        
     }
     private void renderCurrentPromotion() {
         txt_promotionID.setText(currentPromotion.getPromotionID());

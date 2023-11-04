@@ -17,6 +17,23 @@ import java.sql.*;
  */
 public class Employee_DAO implements DAOBase<Employee> {
 
+    public static String getMaxSequence(String prefix) {
+        try {
+        prefix += "%";
+        String sql = "  SELECT TOP 1  * FROM Employee WHERE employeeID LIKE '"+prefix+"' ORDER BY employeeID DESC;";
+        PreparedStatement st = ConnectDB.conn.prepareStatement(sql);
+        ResultSet rs = st.executeQuery();
+        if (rs.next()) {
+            String employeeID = rs.getString("employeeID");
+            System.out.println(employeeID);
+            return employeeID;
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return null;
+    }
+
     @Override
     public Employee getOne(String id) {
         Employee employee = null;

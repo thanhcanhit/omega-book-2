@@ -4,7 +4,6 @@
  */
 package bus;
 
-import dao.Product_DAO;
 import dao.Promotion_DAO;
 import entity.Promotion;
 import enums.PromotionType;
