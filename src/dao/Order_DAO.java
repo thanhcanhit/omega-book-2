@@ -226,8 +226,8 @@ public class Order_DAO implements DAOBase<Order> {
                 Double totalDue = rs.getDouble("totalDue");
                 Double subTotal = rs.getDouble("subTotal");
                 Promotion promotion = new Promotion(promotionID);
-                Customer customer = new Customer(customerID);
-                Employee employee = new Employee(employeeID);
+                Customer customer = new Customer_DAO().getOne(customerID);
+                Employee employee = new Employee_DAO().getOne(employeeID);
 
                 Order order = new Order(orderID, orderAt, payment, status, promotion, employee, customer, new OrderDetail_DAO().getAll(orderID), subTotal, totalDue);
                 result.add(order);

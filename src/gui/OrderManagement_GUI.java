@@ -4,21 +4,157 @@
  */
 package gui;
 
+
+
+import bus.OrderManagement_BUS;
+import bus.ProductManagement_BUS;
 import com.formdev.flatlaf.FlatClientProperties;
+import entity.Customer;
+import entity.Order;
+import entity.OrderDetail;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import utilities.FormatNumber;
+import utilities.SVGIcon;
 
 /**
  *
  * @author KienTran
  */
 public class OrderManagement_GUI extends javax.swing.JPanel {
+    
+    private OrderManagement_BUS bus;
+    
+    private DefaultTableModel tblModel_order;
+    private DefaultTableModel tblModel_orderDetail;
+
+    private int currentPage;
+    private int lastPage;
+
+    
 
     /**
      * Creates new form OrderManagement_GUI
      */
     public OrderManagement_GUI() {
         initComponents();
+        init();
+        alterTable();
+        
+        
     }
 
+     public void init() {
+        bus = new OrderManagement_BUS();
+
+        tblModel_order = new DefaultTableModel(new String[]{"Mã hoá đơn", "Nhân viên", "Khách hàng", "Ngày mua", "Thành tiền"}, 0);
+        tbl_order.setModel(tblModel_order);
+        tbl_order.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
+            int rowIndex = tbl_order.getSelectedRow();
+            if (rowIndex != -1) {
+                String id = tblModel_order.getValueAt(rowIndex, 0).toString();
+                Order order;
+                try {
+                    order = bus.getOrder(id);
+                    renderOrderDetailTable(bus.getOrderDetailList(id));
+                    renderInfomationOrder(order);
+                } catch (Exception ex) {
+                    Logger.getLogger(OrderManagement_GUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+            }
+            return;
+ 
+        });
+
+        tblModel_orderDetail = new DefaultTableModel(new String[]{"Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Đơn giá", "Tổng tiền"}, 0);
+        tbl_orderDetail.setModel(tblModel_orderDetail);
+        tbl_orderDetail.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
+            int rowIndex = tbl_orderDetail.getSelectedRow();
+            if (rowIndex == -1) {
+                return;
+            }
+        });
+        this.currentPage = 1;
+        this.lastPage = bus.getLastPage();
+        renderCurrentPage();
+    }
+
+    
+    private void renderCurrentPage() {
+        lbl_pageNumber.setText(currentPage + "/" + lastPage);
+        renderOrdersTable(bus.getDataOfPage(currentPage));
+
+//      Toggle button
+        btn_previous.setEnabled(currentPage != 1);
+        btn_next.setEnabled(currentPage != lastPage);
+    }
+    
+    private void renderOrdersTable(ArrayList<Order> orderList) {
+        tblModel_order.setRowCount(0);
+        for (Order order : orderList) {
+            Object[] newRow = new Object[]{order.getOrderID(),order.getEmployee().getName(),order.getCustomer().getCustomerID(),order.getOrderAt(), FormatNumber.toVND(order.getSubTotal())};
+            tblModel_order.addRow(newRow);
+        }
+    }
+    private void renderOrderDetailTable(ArrayList<OrderDetail> list) {
+        tblModel_orderDetail.setRowCount(0);
+        for (OrderDetail orderDetail : list) {
+            ProductManagement_BUS productBUS = new  ProductManagement_BUS();
+            Object[] newRow = new Object[]{orderDetail.getProduct().getProductID(),productBUS.getProduct(orderDetail.getProduct().getProductID()).getName(),orderDetail.getQuantity(),orderDetail.getPrice(), FormatNumber.toVND(orderDetail.getLineTotal())};
+
+            tblModel_orderDetail.addRow(newRow);
+        }
+    }
+    public void renderInfomationOrder(Order order) {
+        Customer customer = bus.getCustomer(order.getCustomer().getCustomerID());
+        txt_customerName.setText(customer.getName());
+        txt_phone.setText(customer.getPhoneNumber());
+        txt_total.setText(FormatNumber.toVND(order.getSubTotal()));
+
+    }
+     public void alterTable() {
+        DefaultTableCellRenderer rightAlign = new DefaultTableCellRenderer();
+        rightAlign.setHorizontalAlignment(JLabel.RIGHT);
+
+        tbl_order.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tbl_order.getColumnModel().getColumn(0).setPreferredWidth(100);
+        tbl_order.getColumnModel().getColumn(1).setPreferredWidth(200);
+        tbl_order.getColumnModel().getColumn(2).setPreferredWidth(200);
+        tbl_order.getColumnModel().getColumn(3).setPreferredWidth(100);
+        tbl_order.getColumnModel().getColumn(4).setPreferredWidth(100);
+        tbl_order.getColumnModel().getColumn(4).setCellRenderer(rightAlign);
+        tbl_order.setDefaultEditor(Object.class, null);
+
+        tbl_orderDetail.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tbl_orderDetail.getColumnModel().getColumn(0).setPreferredWidth(100);
+        tbl_orderDetail.getColumnModel().getColumn(1).setPreferredWidth(200);
+        tbl_orderDetail.getColumnModel().getColumn(2).setPreferredWidth(80);
+        tbl_orderDetail.getColumnModel().getColumn(2).setCellRenderer(rightAlign);
+        tbl_orderDetail.getColumnModel().getColumn(3).setPreferredWidth(100);
+        tbl_orderDetail.getColumnModel().getColumn(3).setCellRenderer(rightAlign);
+        tbl_orderDetail.getColumnModel().getColumn(4).setPreferredWidth(100);
+        tbl_orderDetail.getColumnModel().getColumn(4).setCellRenderer(rightAlign);
+        tbl_orderDetail.setDefaultEditor(Object.class, null);
+
+    }
+    
+    public boolean validateFields(){
+        return true;
+    }
+   
+    
+ 
+
+     
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,7 +170,7 @@ public class OrderManagement_GUI extends javax.swing.JPanel {
         txt_orderID = new javax.swing.JTextField();
         pnl_orderStatusFilter = new javax.swing.JPanel();
         lbl_orderStatusFilter = new javax.swing.JLabel();
-        cmb_orderStatusFilter = new javax.swing.JComboBox<>();
+        cmb_orderPriceFilter = new javax.swing.JComboBox<>();
         pnl_orderDate = new javax.swing.JPanel();
         lbl_orderDate = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
@@ -57,6 +193,10 @@ public class OrderManagement_GUI extends javax.swing.JPanel {
         pnl_center = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_order = new javax.swing.JTable();
+        pnl_cartFooter = new javax.swing.JPanel();
+        btn_previous = new javax.swing.JButton();
+        lbl_pageNumber = new javax.swing.JLabel();
+        btn_next = new javax.swing.JButton();
         pnl_infomation = new javax.swing.JPanel();
         pnl_orderDetail = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -101,11 +241,11 @@ public class OrderManagement_GUI extends javax.swing.JPanel {
         lbl_orderStatusFilter.setPreferredSize(new java.awt.Dimension(140, 150));
         pnl_orderStatusFilter.add(lbl_orderStatusFilter);
 
-        cmb_orderStatusFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "< 100.000VNĐ", "> 100.000VNĐ && < 5.000VNĐ", "> 500.000VNĐ && < 1.000.000VNĐ", "> 1.000.000VNĐ", " " }));
-        cmb_orderStatusFilter.setMaximumSize(new java.awt.Dimension(160, 32767));
-        cmb_orderStatusFilter.setMinimumSize(null);
-        cmb_orderStatusFilter.setPreferredSize(new java.awt.Dimension(30, 30));
-        pnl_orderStatusFilter.add(cmb_orderStatusFilter);
+        cmb_orderPriceFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả","Dưới 100.000VNĐ", "Trên 100.000VNĐ & Dưới 500.000VNĐ", "Trên 500.000VNĐ & Dưới 1.000.000VNĐ", "Trên 1.000.000VNĐ" }));
+        cmb_orderPriceFilter.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cmb_orderPriceFilter.setMaximumSize(new java.awt.Dimension(160, 32767));
+        cmb_orderPriceFilter.setPreferredSize(new java.awt.Dimension(30, 30));
+        pnl_orderStatusFilter.add(cmb_orderPriceFilter);
 
         pnl_header.add(pnl_orderStatusFilter);
 
@@ -133,9 +273,16 @@ public class OrderManagement_GUI extends javax.swing.JPanel {
         pnl_searchButton.setLayout(new java.awt.BorderLayout());
 
         btn_search.setText("Tìm kiếm");
+        btn_search.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_search.putClientProperty(FlatClientProperties.STYLE, "background: $Menu.background;"
             + "foreground:$Menu.foreground;"
         );
+        btn_search.setIcon(SVGIcon.getPrimarySVGIcon("imgs/orderManagement/searchButtonOM.svg"));
+        btn_search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_searchActionPerformed(evt);
+            }
+        });
         pnl_searchButton.add(btn_search, java.awt.BorderLayout.CENTER);
         pnl_searchButton.add(filler1, java.awt.BorderLayout.LINE_START);
 
@@ -150,6 +297,11 @@ public class OrderManagement_GUI extends javax.swing.JPanel {
 
         txt_customerID.setMinimumSize(null);
         txt_customerID.setPreferredSize(new java.awt.Dimension(30, 30));
+        txt_customerID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_customerIDActionPerformed(evt);
+            }
+        });
         pnl_customerFilter.add(txt_customerID);
 
         pnl_header.add(pnl_customerFilter);
@@ -193,6 +345,13 @@ public class OrderManagement_GUI extends javax.swing.JPanel {
         pnl_refreshButton.setLayout(new java.awt.BorderLayout());
 
         btn_refresh.setText("Làm mới");
+        btn_refresh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_refresh.setIcon(SVGIcon.getSVGIcon("imgs/orderManagement/refreshButtonOM.svg"));
+        btn_refresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_refreshActionPerformed(evt);
+            }
+        });
         pnl_refreshButton.add(btn_refresh, java.awt.BorderLayout.CENTER);
         pnl_refreshButton.add(filler2, java.awt.BorderLayout.LINE_START);
 
@@ -205,36 +364,36 @@ public class OrderManagement_GUI extends javax.swing.JPanel {
         pnl_center.setMinimumSize(new java.awt.Dimension(600, 40));
         pnl_center.setLayout(new java.awt.BorderLayout());
 
-        tbl_order.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Mã hoá đơn", "Nhân viên", "Khách hàng", "Ngày mua", "Thành tiền"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Double.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
         tbl_order.setMinimumSize(new java.awt.Dimension(400, 80));
         jScrollPane1.setViewportView(tbl_order);
 
         pnl_center.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        pnl_cartFooter.setPreferredSize(new java.awt.Dimension(800, 40));
+
+        btn_previous.setText("Trang trước");
+        btn_previous.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_previousActionPerformed(evt);
+            }
+        });
+        pnl_cartFooter.add(btn_previous);
+
+        lbl_pageNumber.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        lbl_pageNumber.setText("1/10");
+        lbl_pageNumber.setToolTipText("");
+        lbl_pageNumber.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        pnl_cartFooter.add(lbl_pageNumber);
+
+        btn_next.setText("Trang tiếp");
+        btn_next.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_nextActionPerformed(evt);
+            }
+        });
+        pnl_cartFooter.add(btn_next);
+
+        pnl_center.add(pnl_cartFooter, java.awt.BorderLayout.PAGE_END);
 
         splitPane.setLeftComponent(pnl_center);
 
@@ -246,32 +405,6 @@ public class OrderManagement_GUI extends javax.swing.JPanel {
         pnl_orderDetail.setIgnoreRepaint(true);
         pnl_orderDetail.setLayout(new java.awt.BorderLayout());
 
-        tbl_orderDetail.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Đơn giá", "Tổng tiền"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
         jScrollPane2.setViewportView(tbl_orderDetail);
 
         pnl_orderDetail.add(jScrollPane2, java.awt.BorderLayout.CENTER);
@@ -358,11 +491,83 @@ public class OrderManagement_GUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_totalActionPerformed
 
+    private void btn_previousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_previousActionPerformed
+        this.currentPage--;
+        renderCurrentPage();
+    }//GEN-LAST:event_btn_previousActionPerformed
+
+    private void btn_nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nextActionPerformed
+        this.currentPage++;
+        renderCurrentPage();
+    }//GEN-LAST:event_btn_nextActionPerformed
+
+    private void btn_refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_refreshActionPerformed
+ 
+        txt_customerID.setText("");
+        txt_customerPhone.setText("");
+        txt_orderID.setText("");
+        txt_phone.setText("");
+        txt_customerName.setText("");
+        txt_total.setText("");
+        cmb_orderPriceFilter.setSelectedIndex(0);
+        
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        jDateChooser1.setDate(cal.getTime());
+
+        cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+        jDateChooser2.setDate(cal.getTime());
+        
+        init();alterTable();
+    }//GEN-LAST:event_btn_refreshActionPerformed
+
+    private void btn_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchActionPerformed
+        // TODO add your handling code here:
+         txt_phone.setText("");
+        txt_customerName.setText("");
+        txt_total.setText("");
+        if (validateFields()) {
+            String priceFrom, priceTo;
+            String oderID = txt_orderID.getText();
+            String customerID = txt_customerID.getText();
+            String phone = txt_customerPhone.getText();
+            if(cmb_orderPriceFilter.getSelectedIndex()==0){
+                 priceFrom = "";
+                 priceTo = "";
+            }else if(cmb_orderPriceFilter.getSelectedIndex()==1){
+                 priceFrom = "";
+                priceTo = "100000";
+            }else if(cmb_orderPriceFilter.getSelectedIndex()==2){
+                priceFrom = "100000";
+                priceTo = "500000";
+            }else if(cmb_orderPriceFilter.getSelectedIndex()==3){
+                priceFrom = "500000";
+                priceTo = "1000000";
+            }else{
+                priceFrom = "1000000";
+                priceTo = "";
+            }
+               
+            Date begin = jDateChooser1.getDate();
+            
+            Date end = jDateChooser2.getDate();
+            ArrayList<Order> list = bus.orderListWithFilter(oderID, customerID, phone, priceFrom, priceTo, begin, end);
+
+            renderOrdersTable(list);
+        }
+    }//GEN-LAST:event_btn_searchActionPerformed
+
+    private void txt_customerIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_customerIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_customerIDActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_next;
+    private javax.swing.JButton btn_previous;
     private javax.swing.JButton btn_refresh;
     private javax.swing.JButton btn_search;
-    private javax.swing.JComboBox<String> cmb_orderStatusFilter;
+    private javax.swing.JComboBox<String> cmb_orderPriceFilter;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
     private com.toedter.calendar.JDateChooser jDateChooser1;
@@ -377,7 +582,9 @@ public class OrderManagement_GUI extends javax.swing.JPanel {
     private javax.swing.JLabel lbl_orderDateTo;
     private javax.swing.JLabel lbl_orderID;
     private javax.swing.JLabel lbl_orderStatusFilter;
+    private javax.swing.JLabel lbl_pageNumber;
     private javax.swing.JLabel lbl_phone;
+    private javax.swing.JPanel pnl_cartFooter;
     private javax.swing.JPanel pnl_center;
     private javax.swing.JPanel pnl_customerFilter;
     private javax.swing.JPanel pnl_customerName;

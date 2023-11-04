@@ -144,8 +144,10 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "Employee{" + '}';
+        return "Employee{" + "employeeID=" + employeeID + ", citizenIdentification=" + citizenIdentification + ", role=" + role + ", status=" + status + ", name=" + name + ", phoneNumber=" + phoneNumber + ", gender=" + gender + ", dateOfBirth=" + dateOfBirth + ", address=" + address + ", store=" + store + '}';
     }
+
+    
 
     @Override
     public int hashCode() {
