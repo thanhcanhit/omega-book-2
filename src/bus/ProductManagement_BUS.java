@@ -6,6 +6,9 @@ package bus;
 
 import dao.Product_DAO;
 import entity.Product;
+import enums.BookCategory;
+import enums.StationeryType;
+import enums.Type;
 import java.util.ArrayList;
 
 /**
@@ -30,4 +33,27 @@ public class ProductManagement_BUS {
         return result;
     }
 
+    public ArrayList<Product> searchById(String searchQuery) {
+        return productDAO.findById(searchQuery);
+    }
+
+    public ArrayList<Product> filter(String name, Boolean isEmpty, int type, int detailType) {
+//      Nếu không lọc loại sản phẩm
+        if (type == 0) {
+            return productDAO.filter(name, isEmpty, null, null, null);
+        }
+
+//      Nếu không lọc loại chi tiết sản phẩm      
+        if (detailType == 0) {
+            return productDAO.filter(name, isEmpty, Type.fromInt(type), null, null);
+        }
+
+//      Có loại sản phẩm và loại chi tiết
+        if (Type.fromInt(type) == Type.BOOK) {
+            return productDAO.filter(name, isEmpty, Type.BOOK, BookCategory.fromInt(detailType), null);
+        } else {
+            return productDAO.filter(name, isEmpty, Type.STATIONERY, null, StationeryType.fromInt(detailType));
+        }
+
+    }
 }
