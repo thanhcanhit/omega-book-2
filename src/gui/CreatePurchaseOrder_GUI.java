@@ -13,8 +13,6 @@ import entity.Supplier;
 import java.awt.event.KeyEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.DefaultComboBoxModel;
@@ -70,7 +68,14 @@ public class CreatePurchaseOrder_GUI extends javax.swing.JPanel {
 
             int newValue = Integer.parseInt(tblModel_cart.getValueAt(row, col).toString());
             PurchaseOrderDetail current = cart.get(row);
-
+            
+//            Nếu số lượng mới bằng 0 thì xóa khỏi giỏ hàng
+            if (newValue == 0 && JOptionPane.showConfirmDialog(this, "Xóa sản phẩm " + current.getProduct().getProductID() + " ra khỏi giỏ hàng", "Xóa sản phẩm khỏi giỏ", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                cart.remove(current);
+                renderCartTable();
+                return;
+            }
+            
             try {
                 if (current.getProduct().getInventory() >= newValue) {
                     current.setQuantity(newValue);
@@ -147,51 +152,59 @@ public class CreatePurchaseOrder_GUI extends javax.swing.JPanel {
         toogleChangeToSearch();
     }
 
-    private void handleAddItem() {
-        String productID = txt_search.getText();
-        //        Nếu chưa điền mã sẽ cảnh báo
-        if (productID.isBlank()) {
-            Notifications.getInstance().show(Notifications.Type.WARNING, "Vui lòng điền mã sản phẩm");
-            return;
-        }
-
-//        Kiểm tra xem trong giỏ hàng đã có sản phẩm đó hay chưa
-        try {
-            for (PurchaseOrderDetail detail : cart) {
-//                Nếu tìm thấy thì tăng số lượng lên 1 và thoát
-                if (detail.getProduct().getProductID().equals(productID)) {
-                    if (detail.getProduct().getInventory() > detail.getQuantity()) {
-                        detail.setQuantity(detail.getQuantity() + 1);
-                        renderCartTable();
-                    } else {
-                        Notifications.getInstance().show(Notifications.Type.ERROR, "Số lượng sản phẩm không đủ!");
-                    }
-                    return;
-                }
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(CreatePurchaseOrder_GUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+    private void addItemToCart(String productID) {
 //        Nếu chưa có trong giỏ hàng
         Product item = bus.getProduct(productID);
         if (item == null) {
             Notifications.getInstance().show(Notifications.Type.INFO, "Không tìm thấy sản phẩm có mã " + productID);
         } else {
             try {
-//                Thêm vào giỏi hàng
+//                Thêm vào giỏ hàng
                 PurchaseOrderDetail newLine = new PurchaseOrderDetail(this.purchaseOrder, item, 1, item.getCostPrice());
                 cart.add(newLine);
                 renderCartTable();
-
-//                Hỗ trợ người dùng nhập liệu
                 toggleChangeQuantity();
-
             } catch (Exception ex) {
                 ex.printStackTrace();
                 Notifications.getInstance().show(Notifications.Type.ERROR, "Có lỗi xảy ra khi thêm sản phẩm " + productID);
             }
         }
+    }
+
+    private void increateItemInCart(PurchaseOrderDetail detail) {
+        try {
+            if (detail.getProduct().getInventory() > detail.getQuantity()) {
+                detail.setQuantity(detail.getQuantity() + 1);
+                renderCartTable();
+            } else {
+                Notifications.getInstance().show(Notifications.Type.ERROR, "Số lượng sản phẩm không đủ!");
+            }
+        } catch (Exception e) {
+            Notifications.getInstance().show(Notifications.Type.ERROR, "Không thể tăng số lượng: " + e.getMessage());
+        }
+
+    }
+
+    private void handleAddItem() {
+        String productID = txt_search.getText();
+
+        //  Nếu chưa điền mã sẽ cảnh báo
+        if (productID.isBlank()) {
+            Notifications.getInstance().show(Notifications.Type.WARNING, "Vui lòng điền mã sản phẩm");
+            return;
+        }
+
+//        Kiểm tra xem trong giỏ hàng đã có sản phẩm đó hay chưa
+        for (PurchaseOrderDetail detail : cart) {
+//                Nếu tìm thấy thì tăng số lượng lên 1 và thoát
+            if (detail.getProduct().getProductID().equals(productID)) {
+                increateItemInCart(detail);
+                return;
+            }
+        }
+
+//       Nếu chưa có thì thêm mới vào cart 
+        addItemToCart(productID);
     }
 
     private void handleCreateOrder() {

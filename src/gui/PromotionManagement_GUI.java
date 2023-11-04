@@ -4,20 +4,88 @@
  */
 package gui;
 
+import bus.PromotionManagament_BUS;
 import com.formdev.flatlaf.FlatClientProperties;
+import entity.Promotion;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Như Tâm
  */
-public class PromotionManagement_GUI extends javax.swing.JPanel {
+public class PromotionManagement_GUI extends javax.swing.JPanel implements ActionListener{
 
     /**
      * Creates new form PromotionManagement_GUI
      */
+    private PromotionManagament_BUS bus;
+    private Promotion currentPromotion = null;
+    //Model
+    private DefaultTableModel tblModel_promotion;
+    private DefaultComboBoxModel cmbModel_type;
+    private DefaultComboBoxModel cmbModel_status;
+
     public PromotionManagement_GUI() {
         initComponents();
+        init();
     }
+
+    private void init() {
+        bus = new PromotionManagament_BUS();
+        //model
+        tblModel_promotion = new DefaultTableModel(new String[]{"Mã khuyến mãi", "Loại", "Ngày bắt đầu", "Ngày kết thúc", "Trạng thái"}, 0);
+        tbl_inforPromo.setModel(tblModel_promotion);
+        tbl_inforPromo.getSelectionModel().addListSelectionListener((e) -> {
+            int rowIndex = tbl_inforPromo.getSelectedRow();
+            if(rowIndex == -1)
+                return;
+            
+            String promotionID = tblModel_promotion.getValueAt(rowIndex, 0).toString();
+            this.currentPromotion = bus.getPromotion(promotionID);
+            renderCurrentPromotion();
+        });
+        //combobox
+        cmbModel_type = new DefaultComboBoxModel(new String[] {"Loại", "Số tiền", "Phần trăm"});
+        cmb_typePromo.setModel(cmbModel_type);
+        cmbModel_status = new DefaultComboBoxModel(new String[] {"Trạng thái", "Đang diễn ra", "Đã kết thúc"});
+        cmb_statusPromo.setModel(cmbModel_status);
+        
+        
+        renderPromotionTables(bus.getALLPromotion());        
+    }
+    private void renderCurrentPromotion() {
+        txt_promotionID.setText(currentPromotion.getPromotionID());
+        if(currentPromotion.getType().getValue() == 1)
+            rdb_price.setSelected(true);
+        else
+            rdb_percent.setSelected(true);
+        txt_discountPromo.setText(currentPromotion.getDiscount() + "");
+        txt_startDatePromo.setText(currentPromotion.getStartedDate().toString());
+        txt_endDatePromo.setText(currentPromotion.getEndedDate().toString());
+    }
+    
+    private void renderPromotionTables(ArrayList<Promotion> promotionList) {
+        tblModel_promotion.setRowCount(0);
+        String status, type;
+        for (Promotion promotion : promotionList) {
+            if(promotion.getEndedDate().after(java.sql.Date.valueOf(LocalDate.now())))
+                status = "Còn hạn";
+            else 
+                status = "Hết hạn";
+            if(promotion.getType().getValue() == 1)
+                type = "Tiền";
+            else
+                type = "Phần trăm";
+            String[] newRow = {promotion.getPromotionID(), type, promotion.getStartedDate().toString(), promotion.getEndedDate().toString(), status};
+            tblModel_promotion.addRow(newRow);
+        }
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,6 +96,7 @@ public class PromotionManagement_GUI extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        group_typePromo = new javax.swing.ButtonGroup();
         pnl_searchPromotion = new javax.swing.JPanel();
         pnl_txtSearchPromo = new javax.swing.JPanel();
         txt_searchPromo = new javax.swing.JTextField();
@@ -49,7 +118,9 @@ public class PromotionManagement_GUI extends javax.swing.JPanel {
         txt_promotionID = new javax.swing.JTextField();
         pnl_typePromo = new javax.swing.JPanel();
         lbl_typePromo = new javax.swing.JLabel();
-        txt_typePromo = new javax.swing.JTextField();
+        pnl_rdbTypePromo = new javax.swing.JPanel();
+        rdb_percent = new javax.swing.JRadioButton();
+        rdb_price = new javax.swing.JRadioButton();
         pnl_discountPromo = new javax.swing.JPanel();
         lbl_discountPromo = new javax.swing.JLabel();
         txt_discountPromo = new javax.swing.JTextField();
@@ -99,7 +170,7 @@ public class PromotionManagement_GUI extends javax.swing.JPanel {
 
         pnl_filterPromo.setMaximumSize(new java.awt.Dimension(500, 50));
         pnl_filterPromo.setMinimumSize(new java.awt.Dimension(300, 32));
-        pnl_filterPromo.setPreferredSize(new java.awt.Dimension(300, 50));
+        pnl_filterPromo.setPreferredSize(new java.awt.Dimension(400, 50));
         pnl_filterPromo.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         cmb_typePromo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Loại" }));
@@ -198,10 +269,24 @@ public class PromotionManagement_GUI extends javax.swing.JPanel {
         lbl_typePromo.setPreferredSize(new java.awt.Dimension(95, 16));
         pnl_typePromo.add(lbl_typePromo);
 
-        txt_typePromo.setMaximumSize(new java.awt.Dimension(2147483647, 30));
-        txt_typePromo.setMinimumSize(new java.awt.Dimension(64, 30));
-        txt_typePromo.setPreferredSize(new java.awt.Dimension(71, 30));
-        pnl_typePromo.add(txt_typePromo);
+        pnl_rdbTypePromo.setMaximumSize(new java.awt.Dimension(32767, 40));
+        pnl_rdbTypePromo.setPreferredSize(new java.awt.Dimension(100, 30));
+        pnl_rdbTypePromo.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+
+        group_typePromo.add(rdb_percent);
+        rdb_percent.setText("Phần trăm");
+        pnl_rdbTypePromo.add(rdb_percent);
+
+        group_typePromo.add(rdb_price);
+        rdb_price.setText("Tiền");
+        rdb_price.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdb_priceActionPerformed(evt);
+            }
+        });
+        pnl_rdbTypePromo.add(rdb_price);
+
+        pnl_typePromo.add(pnl_rdbTypePromo);
 
         pnl_txtInforPromo.add(pnl_typePromo);
 
@@ -308,6 +393,10 @@ public class PromotionManagement_GUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_promotionIDActionPerformed
 
+    private void rdb_priceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdb_priceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rdb_priceActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_createPromo;
@@ -315,6 +404,7 @@ public class PromotionManagement_GUI extends javax.swing.JPanel {
     private javax.swing.JButton btn_searchPromo;
     private javax.swing.JComboBox<String> cmb_statusPromo;
     private javax.swing.JComboBox<String> cmb_typePromo;
+    private javax.swing.ButtonGroup group_typePromo;
     private javax.swing.JLabel lbl_discountPromo;
     private javax.swing.JLabel lbl_endDatePromo;
     private javax.swing.JLabel lbl_promotionID;
@@ -332,11 +422,14 @@ public class PromotionManagement_GUI extends javax.swing.JPanel {
     private javax.swing.JPanel pnl_promoID;
     private javax.swing.JPanel pnl_promotionInfor;
     private javax.swing.JPanel pnl_promotionNew;
+    private javax.swing.JPanel pnl_rdbTypePromo;
     private javax.swing.JPanel pnl_searchPromotion;
     private javax.swing.JPanel pnl_startDatePromo;
     private javax.swing.JPanel pnl_txtInforPromo;
     private javax.swing.JPanel pnl_txtSearchPromo;
     private javax.swing.JPanel pnl_typePromo;
+    private javax.swing.JRadioButton rdb_percent;
+    private javax.swing.JRadioButton rdb_price;
     private javax.swing.JSplitPane slp_promotion;
     private javax.swing.JScrollPane src_inforPromo;
     private javax.swing.JTable tbl_inforPromo;
@@ -345,6 +438,13 @@ public class PromotionManagement_GUI extends javax.swing.JPanel {
     private javax.swing.JTextField txt_promotionID;
     private javax.swing.JTextField txt_searchPromo;
     private javax.swing.JTextField txt_startDatePromo;
-    private javax.swing.JTextField txt_typePromo;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    
+
 }

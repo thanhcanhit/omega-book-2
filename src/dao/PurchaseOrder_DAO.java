@@ -114,8 +114,6 @@ public class PurchaseOrder_DAO implements DAOBase<PurchaseOrder> {
         return result;
     }
 
-    ;
-
     @Override
     public Boolean create(PurchaseOrder object) {
         int n = 0;

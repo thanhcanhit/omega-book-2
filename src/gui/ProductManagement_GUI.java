@@ -8,7 +8,10 @@ import bus.ProductManagement_BUS;
 import com.formdev.flatlaf.FlatClientProperties;
 import entity.Book;
 import entity.Product;
+import entity.Stationery;
 import enums.Type;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
@@ -16,6 +19,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
+import raven.toast.Notifications;
 import utilities.FormatNumber;
 import utilities.SVGIcon;
 
@@ -54,9 +58,8 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         bus = new ProductManagement_BUS();
 
 //        Frame
-        fileChooser_productImg = new javax.swing.JFileChooser();
-        fileChooser_productImg.setCurrentDirectory(new File(System.getProperty("user.home")));
-
+//        fileChooser_productImg = new javax.swing.JFileChooser();
+//        fileChooser_productImg.setCurrentDirectory(new File(System.getProperty("user.home")));
 //        Table model
         tblModel_products = new DefaultTableModel(new String[]{"Mã sản phẩm", "Tên sản phẩm", "Giá nhập", "Giá bán", "Số lượng tồn"}, 50);
         tbl_products.setModel(tblModel_products);
@@ -76,9 +79,8 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         this.currentPage = 1;
         this.lastPage = bus.getLastPage();
         renderCurrentPage();
-
 //        Combobox model
-        cmbModel_type = new DefaultComboBoxModel(new String[]{"Sách", "Văn phòng phẩm"});
+        cmbModel_type = new DefaultComboBoxModel(new String[]{"Tất cả", "Sách", "Văn phòng phẩm"});
         cmbModel_bookCategory = new DefaultComboBoxModel(new String[]{"Văn học", "Kinh tế", "Tâm lý - kỹ năng sống", "Thiếu nhi", "Nuôi dạy con", "Tiểu sử - hồi ký", "Sách giáo khoa - tham khảo", "Sách học ngoại ngữ"});
         cmbModel_stationeryType = new DefaultComboBoxModel(new String[]{"Bút - viết", "Dụng cụ học sinh", "Dụng cụ văn phòng", "Dụng cụ vẽ", "Sản phẩm về giấy", "Sản phẩm khác"});
         cmb_type.setModel(cmbModel_type);
@@ -87,8 +89,12 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         renderComboboxType();
 
 //      Product detail
-        pnl_bookDetail.setVisible(true);
-        pnl_stationeryDetail.setVisible(false);
+        scr_bookDetail.setVisible(false);
+        scr_stationeryDetail.setVisible(false);
+
+        cmb_productType.addActionListener((ActionEvent e) -> {
+            toggleProductDetail();
+        });
     }
 
     private void renderCurrentProduct() {
@@ -100,15 +106,11 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         txt_productVAT.setText(currentProduct.getVAT().toString());
         txt_productInventory.setText(currentProduct.getInventory().toString());
         cmb_productType.setSelectedItem(currentProduct.getType() == Type.BOOK ? "Sách" : "Văn phòng phẩm");
-        lbl_productImg.setIcon(new ImageIcon(currentProduct.getImage()));
-        lbl_productImg.setText("");
+//        lbl_productImg.setIcon(new ImageIcon(currentProduct.getImage()));
+//        lbl_productImg.setText("");
 
 //        Update detail form
-        boolean isBook = currentProduct.getType() == Type.BOOK;
-        pnl_bookDetail.setVisible(isBook);
-        pnl_stationeryDetail.setVisible(!isBook);
-
-        if (isBook) {
+        if (currentProduct.getType() == Type.BOOK) {
             Book book = (Book) currentProduct;
             txt_bookAuthor.setText(book.getAuthor());
             txt_bookLanguage.setText(book.getLanguage() == null ? "Tiếng Việt" : "Tiếng Anh");
@@ -118,6 +120,13 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
             txt_bookQuantityPage.setText(book.getPageQuantity().toString());
             cmb_bookCategory.setSelectedIndex(book.getBookCategory().getValue() - 1);
             cmb_bookHardCover.setSelectedIndex(book.getIsHardCover() ? 0 : 1);
+        } else {
+            Stationery stationery = (Stationery) currentProduct;
+            txt_stationeryColor.setText(stationery.getColor());
+            txt_stationeryOrigin.setText(stationery.getOrigin());
+            txt_stationeryWeight.setText(stationery.getWeight().toString());
+            cmb_stationeryType.setSelectedIndex(stationery.getStationeryType().getValue() - 1);
+            cmb_stationeryBrand.setSelectedItem(stationery.getBrand().getBrandID());
         }
     }
 
@@ -126,13 +135,16 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         renderProductsTable(bus.getDataOfPage(currentPage));
 
 //      Toggle button
-        btn_previous.setEnabled(currentPage != 1);
-        btn_next.setEnabled(currentPage != lastPage);
+        btn_previous.setEnabled(currentPage > 1);
+        btn_next.setEnabled(currentPage < lastPage);
     }
 
     private void renderProductsTable(ArrayList<Product> productList) {
         tblModel_products.setRowCount(0);
         for (Product product : productList) {
+            if (product == null) {
+                continue;
+            }
             Object[] newRow = new Object[]{product.getProductID(), product.getName(), FormatNumber.toVND(product.getCostPrice()), FormatNumber.toVND(product.getPrice()), product.getInventory()};
             tblModel_products.addRow(newRow);
         }
@@ -141,13 +153,32 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
     private void renderComboboxType() {
         String currentType = cmbModel_type.getSelectedItem().toString();
 
-        if (currentType.equals(cmbModel_type.getElementAt(0))) {
-            cmbModel_subType = new DefaultComboBoxModel(new String[]{"Văn học", "Kinh tế", "Tâm lý - kỹ năng sống", "Thiếu nhi", "Nuôi dạy con", "Tiểu sử - hồi ký", "Sách giáo khoa - tham khảo", "Sách học ngoại ngữ"});
-        } else if (currentType.equals(cmbModel_type.getElementAt(1))) {
-            cmbModel_subType = new DefaultComboBoxModel(new String[]{"Bút - viết", "Dụng cụ học sinh", "Dụng cụ văn phòng", "Dụng cụ vẽ", "Sản phẩm về giấy", "Sản phẩm khác"});
+        cmb_typeDetail.setEnabled(!currentType.equals("Tất cả"));
+        switch (currentType) {
+            case "Tất cả":
+                return;
+            case "Sách":
+                cmbModel_subType = new DefaultComboBoxModel(new String[]{"Tất cả", "Văn học", "Kinh tế", "Tâm lý - kỹ năng sống", "Thiếu nhi", "Nuôi dạy con", "Tiểu sử - hồi ký", "Sách giáo khoa - tham khảo", "Sách học ngoại ngữ"});
+                cmb_typeDetail.setModel(cmbModel_subType);
+                break;
+            case "Văn phòng phẩm":
+                cmbModel_subType = new DefaultComboBoxModel(new String[]{"Tất cả", "Bút - viết", "Dụng cụ học sinh", "Dụng cụ văn phòng", "Dụng cụ vẽ", "Sản phẩm về giấy", "Sản phẩm khác"});
+                cmb_typeDetail.setModel(cmbModel_subType);
+                break;
+            default:
+                break;
         }
 
-        cmb_typeDetail.setModel(cmbModel_subType);
+    }
+
+    private void toggleProductDetail() {
+        int selectionIndex = cmb_productType.getSelectedIndex();
+        boolean isBook = selectionIndex == 0;
+        scr_bookDetail.setVisible(isBook);
+        scr_stationeryDetail.setVisible(!isBook);
+
+        pnl_rightCenter.revalidate();
+        pnl_rightCenter.repaint();
     }
 
     /**
@@ -184,12 +215,17 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         scr_cart = new javax.swing.JScrollPane();
         tbl_products = new javax.swing.JTable();
         pnl_cartFooter = new javax.swing.JPanel();
+        btn_reset = new javax.swing.JButton();
         btn_previous = new javax.swing.JButton();
         lbl_pageNumber = new javax.swing.JLabel();
         btn_next = new javax.swing.JButton();
         pnl_right = new javax.swing.JPanel();
-        scr_detail = new javax.swing.JScrollPane();
+        pnl_control = new javax.swing.JPanel();
+        btn_clear = new javax.swing.JButton();
+        btn_update = new javax.swing.JButton();
+        btn_add = new javax.swing.JButton();
         pnl_rightCenter = new javax.swing.JPanel();
+        scr_productInfo = new javax.swing.JScrollPane();
         pnl_productInfo = new javax.swing.JPanel();
         pnl_productTop = new javax.swing.JPanel();
         pnl_productTopLeft = new javax.swing.JPanel();
@@ -201,6 +237,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         lbl_productId = new javax.swing.JLabel();
         txt_productId = new javax.swing.JTextField();
         pnl_container1 = new javax.swing.JPanel();
+        pnl_containerName = new javax.swing.JPanel();
         lbl_productName = new javax.swing.JLabel();
         scr_productName = new javax.swing.JScrollPane();
         txa_productName = new javax.swing.JTextArea();
@@ -221,6 +258,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         lbl_productType = new javax.swing.JLabel();
         cmb_productType = new javax.swing.JComboBox<>();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
+        scr_bookDetail = new javax.swing.JScrollPane();
         pnl_bookDetail = new javax.swing.JPanel();
         pnl_bookAuthor = new javax.swing.JPanel();
         lbl_bookAuthor = new javax.swing.JLabel();
@@ -255,6 +293,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         lbl_bookDescription = new javax.swing.JLabel();
         scr_productName1 = new javax.swing.JScrollPane();
         txa_bookDescription = new javax.swing.JTextArea();
+        scr_stationeryDetail = new javax.swing.JScrollPane();
         pnl_stationeryDetail = new javax.swing.JPanel();
         pnl_stationery = new javax.swing.JPanel();
         pnl_container23 = new javax.swing.JPanel();
@@ -272,10 +311,6 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         pnl_container28 = new javax.swing.JPanel();
         lbl_stationeryBrand = new javax.swing.JLabel();
         cmb_stationeryBrand = new javax.swing.JComboBox<>();
-        pnl_control = new javax.swing.JPanel();
-        btn_clear = new javax.swing.JButton();
-        btn_update = new javax.swing.JButton();
-        btn_add = new javax.swing.JButton();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -306,6 +341,11 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         btn_search.putClientProperty(FlatClientProperties.STYLE,""
             + "background:$Menu.background;"
             + "foreground:$Menu.foreground;");
+        btn_search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_searchActionPerformed(evt);
+            }
+        });
         pnl_search.add(btn_search);
 
         pnl_header.add(pnl_search);
@@ -364,7 +404,6 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         lbl_typeDetail.setPreferredSize(new java.awt.Dimension(110, 35));
         pnl_typeDetail.add(lbl_typeDetail);
 
-        cmb_typeDetail.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Wibu", "Anime" }));
         cmb_typeDetail.setMinimumSize(new java.awt.Dimension(100, 22));
         pnl_typeDetail.add(cmb_typeDetail);
 
@@ -382,6 +421,11 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         btn_filter.putClientProperty(FlatClientProperties.STYLE,""
             + "background:$Menu.background;"
             + "foreground:$Menu.foreground;");
+        btn_filter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_filterActionPerformed(evt);
+            }
+        });
         pnl_container21.add(btn_filter);
 
         pnl_filter.add(pnl_container21);
@@ -393,22 +437,19 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         pnl_cart.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Danh sách sản phẩm"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         pnl_cart.setLayout(new java.awt.BorderLayout());
 
-        tbl_products.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"SP0001", "Thiên tài bên trái, kẻ điên bên phải", "1", "100000", "100000"},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Mã sản phẩm", "Tên sản phẩm", "Giá nhập", "Giá bán", "Số lượng tồn"
-            }
-        ));
         scr_cart.setViewportView(tbl_products);
 
         pnl_cart.add(scr_cart, java.awt.BorderLayout.CENTER);
 
         pnl_cartFooter.setPreferredSize(new java.awt.Dimension(800, 40));
+
+        btn_reset.setText("Tải lại trang");
+        btn_reset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_resetActionPerformed(evt);
+            }
+        });
+        pnl_cartFooter.add(btn_reset);
 
         btn_previous.setText("Trang trước");
         btn_previous.addActionListener(new java.awt.event.ActionListener() {
@@ -443,17 +484,31 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         pnl_right.setPreferredSize(new java.awt.Dimension(400, 768));
         pnl_right.setLayout(new java.awt.BorderLayout());
 
-        scr_detail.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        scr_detail.setAutoscrolls(true);
-        scr_detail.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        scr_detail.setViewportView(pnl_rightCenter);
+        pnl_control.setPreferredSize(new java.awt.Dimension(281, 50));
+        pnl_control.setLayout(new java.awt.GridLayout(1, 3));
 
-        pnl_rightCenter.setMinimumSize(new java.awt.Dimension(420, 800));
+        btn_clear.setText("Xóa trắng");
+        btn_clear.setToolTipText("");
+        pnl_control.add(btn_clear);
+
+        btn_update.setText("Cập nhật");
+        pnl_control.add(btn_update);
+
+        btn_add.setText("Thêm sản phẩm mới");
+        btn_add.setActionCommand("");
+        btn_add.setIcon(SVGIcon.getSVGIcon("imgs/menu/1.svg"));
+        pnl_control.add(btn_add);
+
+        pnl_right.add(pnl_control, java.awt.BorderLayout.SOUTH);
+
+        pnl_rightCenter.setMinimumSize(new java.awt.Dimension(420, 2000));
         pnl_rightCenter.setName(""); // NOI18N
         pnl_rightCenter.setPreferredSize(new java.awt.Dimension(400, 600));
         pnl_rightCenter.setLayout(new javax.swing.BoxLayout(pnl_rightCenter, javax.swing.BoxLayout.Y_AXIS));
 
-        pnl_productInfo.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin sản phẩm"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        scr_productInfo.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin sản phẩm"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        scr_productInfo.setMinimumSize(new java.awt.Dimension(400, 400));
+
         pnl_productInfo.setPreferredSize(new java.awt.Dimension(400, 400));
         pnl_productInfo.setLayout(new javax.swing.BoxLayout(pnl_productInfo, javax.swing.BoxLayout.Y_AXIS));
 
@@ -487,6 +542,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         pnl_orderId.setPreferredSize(new java.awt.Dimension(561, 40));
         pnl_orderId.setLayout(new javax.swing.BoxLayout(pnl_orderId, javax.swing.BoxLayout.Y_AXIS));
 
+        pnl_container.setMaximumSize(new java.awt.Dimension(2147483647, 40));
         pnl_container.setPreferredSize(new java.awt.Dimension(100, 40));
         pnl_container.setLayout(new javax.swing.BoxLayout(pnl_container, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -502,11 +558,18 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         pnl_container1.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 5, 0));
         pnl_container1.setMinimumSize(new java.awt.Dimension(200, 110));
         pnl_container1.setPreferredSize(new java.awt.Dimension(279, 140));
-        pnl_container1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
+        pnl_container1.setLayout(new javax.swing.BoxLayout(pnl_container1, javax.swing.BoxLayout.Y_AXIS));
 
+        pnl_containerName.setMaximumSize(new java.awt.Dimension(32767, 40));
+        pnl_containerName.setLayout(new java.awt.GridLayout(1, 0));
+
+        lbl_productName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lbl_productName.setText("Tên sản phẩm");
+        lbl_productName.setMaximumSize(new java.awt.Dimension(74, 49));
         lbl_productName.setPreferredSize(new java.awt.Dimension(100, 25));
-        pnl_container1.add(lbl_productName);
+        pnl_containerName.add(lbl_productName);
+
+        pnl_container1.add(pnl_containerName);
 
         scr_productName.setMinimumSize(new java.awt.Dimension(100, 100));
 
@@ -551,7 +614,6 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         pnl_container4.setLayout(new javax.swing.BoxLayout(pnl_container4, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_productPrice.setText("Giá bán");
-        lbl_productPrice.setMaximumSize(null);
         lbl_productPrice.setMinimumSize(new java.awt.Dimension(110, 30));
         lbl_productPrice.setPreferredSize(new java.awt.Dimension(110, 40));
         pnl_container4.add(lbl_productPrice);
@@ -568,7 +630,6 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         pnl_container5.setLayout(new javax.swing.BoxLayout(pnl_container5, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_productInventory.setText("Tồn kho");
-        lbl_productInventory.setMaximumSize(null);
         lbl_productInventory.setMinimumSize(new java.awt.Dimension(110, 30));
         lbl_productInventory.setPreferredSize(new java.awt.Dimension(110, 40));
         pnl_container5.add(lbl_productInventory);
@@ -585,7 +646,6 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         pnl_container6.setLayout(new javax.swing.BoxLayout(pnl_container6, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_productVAT.setText("VAT");
-        lbl_productVAT.setMaximumSize(null);
         lbl_productVAT.setMinimumSize(new java.awt.Dimension(110, 30));
         lbl_productVAT.setPreferredSize(new java.awt.Dimension(110, 40));
         pnl_container6.add(lbl_productVAT);
@@ -616,10 +676,13 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 
         pnl_productInfo.add(pnl_productCenter);
 
-        pnl_rightCenter.add(pnl_productInfo);
+        scr_productInfo.setViewportView(pnl_productInfo);
+
+        pnl_rightCenter.add(scr_productInfo);
         pnl_rightCenter.add(filler1);
 
-        pnl_bookDetail.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin chi tiết sách"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        scr_bookDetail.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin chi tiết sách"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+
         pnl_bookDetail.setPreferredSize(new java.awt.Dimension(400, 400));
         pnl_bookDetail.setLayout(new javax.swing.BoxLayout(pnl_bookDetail, javax.swing.BoxLayout.Y_AXIS));
 
@@ -678,7 +741,6 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         lbl_bookCategory1.setPreferredSize(new java.awt.Dimension(110, 40));
         pnl_container18.add(lbl_bookCategory1);
 
-        cmb_bookCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Trinh thám" }));
         cmb_bookCategory.setMaximumSize(new java.awt.Dimension(9999, 40));
         cmb_bookCategory.setMinimumSize(new java.awt.Dimension(100, 35));
         cmb_bookCategory.setPreferredSize(new java.awt.Dimension(120, 30));
@@ -707,11 +769,11 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         pnl_container12.setPreferredSize(new java.awt.Dimension(100, 35));
         pnl_container12.setLayout(new javax.swing.BoxLayout(pnl_container12, javax.swing.BoxLayout.LINE_AXIS));
 
-        lbl_bookHardCover.setText("Bìa cứng");
+        lbl_bookHardCover.setText("Loại bìa");
         lbl_bookHardCover.setPreferredSize(new java.awt.Dimension(100, 40));
         pnl_container12.add(lbl_bookHardCover);
 
-        cmb_bookHardCover.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Có", "Không" }));
+        cmb_bookHardCover.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bìa cứng", "Bìa mềm" }));
         cmb_bookHardCover.setMaximumSize(new java.awt.Dimension(9999, 40));
         cmb_bookHardCover.setMinimumSize(new java.awt.Dimension(100, 35));
         cmb_bookHardCover.setPreferredSize(new java.awt.Dimension(100, 30));
@@ -750,11 +812,11 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         pnl_container17.setPreferredSize(new java.awt.Dimension(100, 35));
         pnl_container17.setLayout(new javax.swing.BoxLayout(pnl_container17, javax.swing.BoxLayout.LINE_AXIS));
 
-        lbl_bookType.setText("Danh mục");
+        lbl_bookType.setText("Nguồn gốc");
         lbl_bookType.setPreferredSize(new java.awt.Dimension(110, 40));
         pnl_container17.add(lbl_bookType);
 
-        cmb_bookType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nội", "Ngoại" }));
+        cmb_bookType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Trong nước", "Nước ngoài" }));
         cmb_bookType.setMaximumSize(new java.awt.Dimension(9999, 40));
         cmb_bookType.setMinimumSize(new java.awt.Dimension(100, 35));
         cmb_bookType.setPreferredSize(new java.awt.Dimension(100, 30));
@@ -764,9 +826,9 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 
         pnl_bookDetail.add(pnl_bookCenter);
 
-        pnl_container7.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        pnl_container7.setMinimumSize(new java.awt.Dimension(200, 110));
-        pnl_container7.setPreferredSize(new java.awt.Dimension(279, 140));
+        pnl_container7.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 20, 0));
+        pnl_container7.setMinimumSize(new java.awt.Dimension(200, 70));
+        pnl_container7.setPreferredSize(new java.awt.Dimension(279, 120));
         pnl_container7.setLayout(new javax.swing.BoxLayout(pnl_container7, javax.swing.BoxLayout.Y_AXIS));
 
         pnl_container16.setLayout(new java.awt.GridLayout(1, 0));
@@ -781,7 +843,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 
         txa_bookDescription.setColumns(15);
         txa_bookDescription.setLineWrap(true);
-        txa_bookDescription.setRows(4);
+        txa_bookDescription.setRows(3);
         txa_bookDescription.setTabSize(4);
         scr_productName1.setViewportView(txa_bookDescription);
 
@@ -789,15 +851,23 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 
         pnl_bookDetail.add(pnl_container7);
 
-        pnl_rightCenter.add(pnl_bookDetail);
+        scr_bookDetail.setViewportView(pnl_bookDetail);
 
-        pnl_stationeryDetail.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin chi tiết văn phòng phẩm"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        pnl_rightCenter.add(scr_bookDetail);
+
+        scr_stationeryDetail.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Chi tiết văn phòng phẩm"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        scr_stationeryDetail.setPreferredSize(new java.awt.Dimension(420, 300));
+
+        pnl_stationeryDetail.setMaximumSize(new java.awt.Dimension(899999, 9999));
         pnl_stationeryDetail.setMinimumSize(new java.awt.Dimension(425, 200));
         pnl_stationeryDetail.setPreferredSize(new java.awt.Dimension(400, 300));
         pnl_stationeryDetail.setLayout(new javax.swing.BoxLayout(pnl_stationeryDetail, javax.swing.BoxLayout.Y_AXIS));
 
-        pnl_stationery.setLayout(new java.awt.GridLayout(5, 1, 5, 5));
+        pnl_stationery.setLayout(new javax.swing.BoxLayout(pnl_stationery, javax.swing.BoxLayout.Y_AXIS));
 
+        pnl_container23.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 5, 0));
+        pnl_container23.setMaximumSize(new java.awt.Dimension(899999, 35));
+        pnl_container23.setMinimumSize(new java.awt.Dimension(100, 35));
         pnl_container23.setPreferredSize(new java.awt.Dimension(100, 35));
         pnl_container23.setLayout(new javax.swing.BoxLayout(pnl_container23, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -814,6 +884,9 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 
         pnl_stationery.add(pnl_container23);
 
+        pnl_container24.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 5, 0));
+        pnl_container24.setMaximumSize(new java.awt.Dimension(899999, 35));
+        pnl_container24.setMinimumSize(new java.awt.Dimension(100, 35));
         pnl_container24.setPreferredSize(new java.awt.Dimension(100, 35));
         pnl_container24.setLayout(new javax.swing.BoxLayout(pnl_container24, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -823,7 +896,6 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         lbl_stationeryType.setRequestFocusEnabled(false);
         pnl_container24.add(lbl_stationeryType);
 
-        cmb_stationeryType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bút-viết", "Dụng cụ học sinh" }));
         cmb_stationeryType.setMaximumSize(new java.awt.Dimension(9999, 40));
         cmb_stationeryType.setMinimumSize(new java.awt.Dimension(100, 30));
         cmb_stationeryType.setPreferredSize(new java.awt.Dimension(100, 30));
@@ -831,6 +903,9 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 
         pnl_stationery.add(pnl_container24);
 
+        pnl_container25.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 5, 0));
+        pnl_container25.setMaximumSize(new java.awt.Dimension(899999, 35));
+        pnl_container25.setMinimumSize(new java.awt.Dimension(100, 35));
         pnl_container25.setPreferredSize(new java.awt.Dimension(100, 35));
         pnl_container25.setLayout(new javax.swing.BoxLayout(pnl_container25, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -846,6 +921,9 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 
         pnl_stationery.add(pnl_container25);
 
+        pnl_container26.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 5, 0));
+        pnl_container26.setMaximumSize(new java.awt.Dimension(899999, 35));
+        pnl_container26.setMinimumSize(new java.awt.Dimension(100, 35));
         pnl_container26.setPreferredSize(new java.awt.Dimension(100, 35));
         pnl_container26.setLayout(new javax.swing.BoxLayout(pnl_container26, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -861,7 +939,9 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 
         pnl_stationery.add(pnl_container26);
 
-        pnl_container28.setMinimumSize(new java.awt.Dimension(200, 30));
+        pnl_container28.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 5, 0));
+        pnl_container28.setMaximumSize(new java.awt.Dimension(899999, 35));
+        pnl_container28.setMinimumSize(new java.awt.Dimension(100, 35));
         pnl_container28.setPreferredSize(new java.awt.Dimension(100, 35));
         pnl_container28.setLayout(new javax.swing.BoxLayout(pnl_container28, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -881,28 +961,11 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 
         pnl_stationeryDetail.add(pnl_stationery);
 
-        pnl_rightCenter.add(pnl_stationeryDetail);
+        scr_stationeryDetail.setViewportView(pnl_stationeryDetail);
 
-        scr_detail.setViewportView(pnl_rightCenter);
+        pnl_rightCenter.add(scr_stationeryDetail);
 
-        pnl_right.add(scr_detail, java.awt.BorderLayout.CENTER);
-
-        pnl_control.setPreferredSize(new java.awt.Dimension(281, 50));
-        pnl_control.setLayout(new java.awt.GridLayout(1, 3));
-
-        btn_clear.setText("Xóa trắng");
-        btn_clear.setToolTipText("");
-        pnl_control.add(btn_clear);
-
-        btn_update.setText("Cập nhật");
-        pnl_control.add(btn_update);
-
-        btn_add.setText("Thêm sản phẩm mới");
-        btn_add.setActionCommand("");
-        btn_add.setIcon(SVGIcon.getSVGIcon("imgs/menu/1.svg"));
-        pnl_control.add(btn_add);
-
-        pnl_right.add(pnl_control, java.awt.BorderLayout.SOUTH);
+        pnl_right.add(pnl_rightCenter, java.awt.BorderLayout.CENTER);
 
         splitPane_main.setRightComponent(pnl_right);
 
@@ -933,6 +996,45 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btn_selectImgActionPerformed
 
+    private void btn_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchActionPerformed
+        String searchQuery = txt_search.getText();
+        if (searchQuery.isBlank()) {
+            Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng điền mã sản phẩm");
+            return;
+        }
+        renderProductsTable(bus.searchById(searchQuery));
+        disablePage();
+    }//GEN-LAST:event_btn_searchActionPerformed
+
+    private void btn_resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_resetActionPerformed
+        enablePage();
+    }//GEN-LAST:event_btn_resetActionPerformed
+
+    private void btn_filterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_filterActionPerformed
+        String queryName = txt_name.getText();
+        Boolean isEmpty = chk_empty.isSelected();
+        int type = cmb_type.getSelectedIndex();
+        int detailType = cmb_typeDetail.getSelectedIndex();
+
+        System.out.println("type " + type + "\n Detail " + detailType);
+
+        renderProductsTable(bus.filter(queryName, isEmpty, type, detailType));
+        disablePage();
+    }//GEN-LAST:event_btn_filterActionPerformed
+
+    public void enablePage() {
+        currentPage = 1;
+        btn_next.setEnabled(true);
+        btn_previous.setEnabled(false);
+        renderCurrentPage();
+    }
+
+    public void disablePage() {
+        btn_next.setEnabled(false);
+        btn_previous.setEnabled(false);
+        lbl_pageNumber.setVisible(false);
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_add;
@@ -940,6 +1042,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
     private javax.swing.JButton btn_filter;
     private javax.swing.JButton btn_next;
     private javax.swing.JButton btn_previous;
+    private javax.swing.JButton btn_reset;
     private javax.swing.JButton btn_search;
     private javax.swing.JButton btn_selectImg;
     private javax.swing.JButton btn_update;
@@ -1009,6 +1112,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
     private javax.swing.JPanel pnl_container5;
     private javax.swing.JPanel pnl_container6;
     private javax.swing.JPanel pnl_container7;
+    private javax.swing.JPanel pnl_containerName;
     private javax.swing.JPanel pnl_control;
     private javax.swing.JPanel pnl_empty;
     private javax.swing.JPanel pnl_filter;
@@ -1028,10 +1132,12 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
     private javax.swing.JPanel pnl_stationeryDetail;
     private javax.swing.JPanel pnl_type;
     private javax.swing.JPanel pnl_typeDetail;
+    private javax.swing.JScrollPane scr_bookDetail;
     private javax.swing.JScrollPane scr_cart;
-    private javax.swing.JScrollPane scr_detail;
+    private javax.swing.JScrollPane scr_productInfo;
     private javax.swing.JScrollPane scr_productName;
     private javax.swing.JScrollPane scr_productName1;
+    private javax.swing.JScrollPane scr_stationeryDetail;
     private javax.swing.JSplitPane splitPane_main;
     private javax.swing.JTable tbl_products;
     private javax.swing.JTextArea txa_bookDescription;

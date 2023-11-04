@@ -4,7 +4,12 @@
  */
 package gui;
 
+import bus.EmployeeManagament_BUS;
 import com.formdev.flatlaf.FlatClientProperties;
+import entity.Employee;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -12,13 +17,78 @@ import com.formdev.flatlaf.FlatClientProperties;
  */
 public class EmployeeManagement_GUI extends javax.swing.JPanel {
 
+    private EmployeeManagament_BUS bus;
+    private DefaultTableModel tblModel_employee;
+    private Employee currentEmployee;
+    private DefaultComboBoxModel cmbModel_role;
+    private DefaultComboBoxModel cmbModel_status;
+
     /**
      * Creates new form EmployeeManagement_GUI
      */
     public EmployeeManagement_GUI() {
         initComponents();
+        init();
     }
-
+    
+    private void init() {
+        bus = new EmployeeManagament_BUS();
+        //model
+        tblModel_employee = new DefaultTableModel(new String[] {"Mã nhân viên", "Tên nhân viên", "Ngày sinh", "Chức vụ"}, 0);
+        tbl_employeeInfor.setModel(tblModel_employee);
+        tbl_employeeInfor.getSelectionModel().addListSelectionListener((e) -> {
+            int rowIndex = tbl_employeeInfor.getSelectedRow();
+            if(rowIndex == -1)
+                return;
+            
+            String employeeID = tblModel_employee.getValueAt(rowIndex, 0).toString();
+            this.currentEmployee = bus.getEmployee(employeeID);
+            renderCurrentEmployee();
+        });
+        //combobox
+        cmbModel_role = new DefaultComboBoxModel(new String[]{"Chức vụ", "Nhân viên Bán Hàng", "Cửa hàng trưởng", "Giám sát viên"});
+        cmb_roleEmp.setModel(cmbModel_role);
+        cmbModel_status = new DefaultComboBoxModel(new String[]{"Trạng thái", "Đang làm việc", "Đã nghỉ"});
+        cmb_statusEmp.setModel(cmbModel_status);
+        renderEmployeeTable(bus.getAllEmployee());
+        
+    }
+    private void renderCurrentEmployee() {
+        txt_empID.setText(currentEmployee.getEmployeeID());
+        txt_name.setText(currentEmployee.getName());
+        txt_addressEmp.setText(currentEmployee.getAddress());
+        if(currentEmployee.isGender())
+            rdb_male.setSelected(true);
+        else
+            rdb_female.setSelected(true);
+        txt_phoneNumberEmp.setText(currentEmployee.getPhoneNumber());
+        txt_citizenIDEmp.setText(currentEmployee.getCitizenIdentification());
+        txt_password.setText("");
+        if(currentEmployee.isStatus())
+            rdb_woking.setSelected(true);
+        else
+            rdb_stopWorking.setSelected(true);
+        if(currentEmployee.getRole().equals("Nhân Viên Bán Hàng"))
+            rdb_saler.setSelected(true);
+        else if(currentEmployee.getRole().equals("Cửa Hàng Trưởng"))
+            rdb_manager.setSelected(true);
+        else
+            rdb_supervisor.setSelected(true);
+        
+    }
+    
+    private void renderEmployeeTable(ArrayList<Employee> employeeList) {
+        tblModel_employee.setRowCount(0);
+        String status;
+        for (Employee employee : employeeList) {
+            if(employee.isStatus())
+                status = "Đang làm việc";
+            else
+                status = "Đã nghỉ";
+            String[] newRow = {employee.getEmployeeID(), employee.getName(), employee.getDateOfBirth().toString(), status};
+            tblModel_employee.addRow(newRow);
+        }        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,6 +99,8 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
     private void initComponents() {
 
         group_gender = new javax.swing.ButtonGroup();
+        group_statusEmp = new javax.swing.ButtonGroup();
+        group_roleEmp = new javax.swing.ButtonGroup();
         pnl_topEmp = new javax.swing.JPanel();
         pnl_searchEmp = new javax.swing.JPanel();
         txt_searchEmp = new javax.swing.JTextField();
@@ -56,8 +128,14 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         pnl_genderEmp = new javax.swing.JPanel();
         lbl_genderEmp = new javax.swing.JLabel();
         pnl_genderRadioEmp = new javax.swing.JPanel();
-        rad_female = new javax.swing.JRadioButton();
-        rad_male = new javax.swing.JRadioButton();
+        rdb_female = new javax.swing.JRadioButton();
+        rdb_male = new javax.swing.JRadioButton();
+        pnl_roleEmp = new javax.swing.JPanel();
+        lbl_roleEmp = new javax.swing.JLabel();
+        pnl_rdbRoleEmp = new javax.swing.JPanel();
+        rdb_saler = new javax.swing.JRadioButton();
+        rdb_manager = new javax.swing.JRadioButton();
+        rdb_supervisor = new javax.swing.JRadioButton();
         pnl_phoneNumberEmp = new javax.swing.JPanel();
         lbl_phoneNumberEmp = new javax.swing.JLabel();
         txt_phoneNumberEmp = new javax.swing.JTextField();
@@ -66,7 +144,9 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         txt_citizenIDEmp = new javax.swing.JTextField();
         pnl_statusEmp = new javax.swing.JPanel();
         lbl_statusEmp = new javax.swing.JLabel();
-        txt_statusEmp = new javax.swing.JTextField();
+        pnl_statusRadioEmp = new javax.swing.JPanel();
+        rdb_woking = new javax.swing.JRadioButton();
+        rdb_stopWorking = new javax.swing.JRadioButton();
         pnl_password = new javax.swing.JPanel();
         lbl_password = new javax.swing.JLabel();
         txt_password = new javax.swing.JTextField();
@@ -131,12 +211,13 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
 
         pnl_centerEmp.setLayout(new javax.swing.BoxLayout(pnl_centerEmp, javax.swing.BoxLayout.LINE_AXIS));
 
+        spl_inforEmp.setResizeWeight(0.6);
+
         scr_tableInforEmp.setMinimumSize(new java.awt.Dimension(400, 20));
         scr_tableInforEmp.setPreferredSize(new java.awt.Dimension(800, 402));
 
         tbl_employeeInfor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"NV020032023001", "Hồ  Thị Như Tâm", "03-11-2003", null},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null}
@@ -153,8 +234,7 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
-        tbl_employeeInfor.setPreferredSize(new java.awt.Dimension(600, 80));
-        tbl_employeeInfor.setShowGrid(true);
+        tbl_employeeInfor.setShowGrid(false);
         scr_tableInforEmp.setViewportView(tbl_employeeInfor);
         if (tbl_employeeInfor.getColumnModel().getColumnCount() > 0) {
             tbl_employeeInfor.getColumnModel().getColumn(1).setResizable(false);
@@ -164,7 +244,8 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         spl_inforEmp.setLeftComponent(scr_tableInforEmp);
 
         pnl_inforDetailEmp.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông Tin"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-        pnl_inforDetailEmp.setPreferredSize(new java.awt.Dimension(200, 100));
+        pnl_inforDetailEmp.setMinimumSize(new java.awt.Dimension(200, 379));
+        pnl_inforDetailEmp.setPreferredSize(new java.awt.Dimension(250, 100));
         pnl_inforDetailEmp.setLayout(new java.awt.BorderLayout());
 
         pnl_txtInforEmp.setLayout(new javax.swing.BoxLayout(pnl_txtInforEmp, javax.swing.BoxLayout.Y_AXIS));
@@ -181,7 +262,6 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         pnl_empID.add(lbl_empID);
 
         txt_empID.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txt_empID.setText("NV020032023001");
         txt_empID.setBorder(null);
         txt_empID.setEnabled(false);
         txt_empID.setMaximumSize(new java.awt.Dimension(2147483647, 30));
@@ -234,25 +314,56 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         pnl_genderRadioEmp.setPreferredSize(new java.awt.Dimension(103, 30));
         pnl_genderRadioEmp.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
 
-        group_gender.add(rad_female);
-        rad_female.setSelected(true);
-        rad_female.setText("Nữ");
-        rad_female.setEnabled(false);
-        rad_female.addActionListener(new java.awt.event.ActionListener() {
+        group_gender.add(rdb_female);
+        rdb_female.setText("Nữ");
+        rdb_female.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rad_femaleActionPerformed(evt);
+                rdb_femaleActionPerformed(evt);
             }
         });
-        pnl_genderRadioEmp.add(rad_female);
+        pnl_genderRadioEmp.add(rdb_female);
 
-        group_gender.add(rad_male);
-        rad_male.setText("Nam");
-        rad_male.setEnabled(false);
-        pnl_genderRadioEmp.add(rad_male);
+        group_gender.add(rdb_male);
+        rdb_male.setText("Nam");
+        pnl_genderRadioEmp.add(rdb_male);
 
         pnl_genderEmp.add(pnl_genderRadioEmp);
 
         pnl_txtInforEmp.add(pnl_genderEmp);
+
+        pnl_roleEmp.setMaximumSize(new java.awt.Dimension(32815, 80));
+        pnl_roleEmp.setPreferredSize(new java.awt.Dimension(183, 80));
+        pnl_roleEmp.setLayout(new javax.swing.BoxLayout(pnl_roleEmp, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_roleEmp.setText("Chức vụ:");
+        lbl_roleEmp.setPreferredSize(lbl_empID.getPreferredSize());
+        pnl_roleEmp.add(lbl_roleEmp);
+
+        pnl_rdbRoleEmp.setMaximumSize(new java.awt.Dimension(32767, 80));
+        pnl_rdbRoleEmp.setMinimumSize(new java.awt.Dimension(103, 30));
+        pnl_rdbRoleEmp.setPreferredSize(new java.awt.Dimension(103, 80));
+        pnl_rdbRoleEmp.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEADING, 5, 0));
+
+        group_roleEmp.add(rdb_saler);
+        rdb_saler.setText("Nhân viên bán hàng");
+        rdb_saler.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdb_salerActionPerformed(evt);
+            }
+        });
+        pnl_rdbRoleEmp.add(rdb_saler);
+
+        group_roleEmp.add(rdb_manager);
+        rdb_manager.setText("Cửa hàng trưởng");
+        pnl_rdbRoleEmp.add(rdb_manager);
+
+        group_roleEmp.add(rdb_supervisor);
+        rdb_supervisor.setText("Giám sát viên");
+        pnl_rdbRoleEmp.add(rdb_supervisor);
+
+        pnl_roleEmp.add(pnl_rdbRoleEmp);
+
+        pnl_txtInforEmp.add(pnl_roleEmp);
 
         pnl_phoneNumberEmp.setMaximumSize(new java.awt.Dimension(2147483647, 40));
         pnl_phoneNumberEmp.setPreferredSize(new java.awt.Dimension(230, 40));
@@ -292,10 +403,26 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         lbl_statusEmp.setPreferredSize(lbl_empID.getPreferredSize());
         pnl_statusEmp.add(lbl_statusEmp);
 
-        txt_statusEmp.setMaximumSize(new java.awt.Dimension(2147483647, 30));
-        txt_statusEmp.setMinimumSize(new java.awt.Dimension(64, 30));
-        txt_statusEmp.setPreferredSize(new java.awt.Dimension(64, 30));
-        pnl_statusEmp.add(txt_statusEmp);
+        pnl_statusRadioEmp.setMaximumSize(new java.awt.Dimension(32767, 30));
+        pnl_statusRadioEmp.setMinimumSize(new java.awt.Dimension(103, 30));
+        pnl_statusRadioEmp.setPreferredSize(new java.awt.Dimension(103, 30));
+        pnl_statusRadioEmp.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
+
+        group_statusEmp.add(rdb_woking);
+        rdb_woking.setSelected(true);
+        rdb_woking.setText("Đang làm việc");
+        rdb_woking.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdb_wokingActionPerformed(evt);
+            }
+        });
+        pnl_statusRadioEmp.add(rdb_woking);
+
+        group_statusEmp.add(rdb_stopWorking);
+        rdb_stopWorking.setText("Đã nghỉ");
+        pnl_statusRadioEmp.add(rdb_stopWorking);
+
+        pnl_statusEmp.add(pnl_statusRadioEmp);
 
         pnl_txtInforEmp.add(pnl_statusEmp);
 
@@ -360,9 +487,17 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_searchEmpActionPerformed
 
-    private void rad_femaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rad_femaleActionPerformed
+    private void rdb_femaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdb_femaleActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_rad_femaleActionPerformed
+    }//GEN-LAST:event_rdb_femaleActionPerformed
+
+    private void rdb_wokingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdb_wokingActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rdb_wokingActionPerformed
+
+    private void rdb_salerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdb_salerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rdb_salerActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_addEmp;
@@ -371,6 +506,8 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cmb_roleEmp;
     private javax.swing.JComboBox<String> cmb_statusEmp;
     private javax.swing.ButtonGroup group_gender;
+    private javax.swing.ButtonGroup group_roleEmp;
+    private javax.swing.ButtonGroup group_statusEmp;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lbl_addressEmp;
@@ -381,6 +518,7 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
     private javax.swing.JLabel lbl_password;
     private javax.swing.JLabel lbl_phoneNumberEmp;
     private javax.swing.JLabel lbl_reloadEmp;
+    private javax.swing.JLabel lbl_roleEmp;
     private javax.swing.JLabel lbl_statusEmp;
     private javax.swing.JPanel pnl_addressEmp;
     private javax.swing.JPanel pnl_btnEmp;
@@ -396,12 +534,20 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
     private javax.swing.JPanel pnl_nameEmp;
     private javax.swing.JPanel pnl_password;
     private javax.swing.JPanel pnl_phoneNumberEmp;
+    private javax.swing.JPanel pnl_rdbRoleEmp;
+    private javax.swing.JPanel pnl_roleEmp;
     private javax.swing.JPanel pnl_searchEmp;
     private javax.swing.JPanel pnl_statusEmp;
+    private javax.swing.JPanel pnl_statusRadioEmp;
     private javax.swing.JPanel pnl_topEmp;
     private javax.swing.JPanel pnl_txtInforEmp;
-    private javax.swing.JRadioButton rad_female;
-    private javax.swing.JRadioButton rad_male;
+    private javax.swing.JRadioButton rdb_female;
+    private javax.swing.JRadioButton rdb_male;
+    private javax.swing.JRadioButton rdb_manager;
+    private javax.swing.JRadioButton rdb_saler;
+    private javax.swing.JRadioButton rdb_stopWorking;
+    private javax.swing.JRadioButton rdb_supervisor;
+    private javax.swing.JRadioButton rdb_woking;
     private javax.swing.JScrollPane scr_tableInforEmp;
     private javax.swing.JSplitPane spl_inforEmp;
     private javax.swing.JTable tbl_employeeInfor;
@@ -412,6 +558,9 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
     private javax.swing.JTextField txt_password;
     private javax.swing.JTextField txt_phoneNumberEmp;
     private javax.swing.JTextField txt_searchEmp;
-    private javax.swing.JTextField txt_statusEmp;
     // End of variables declaration//GEN-END:variables
+
+    
+
+    
 }
