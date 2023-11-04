@@ -70,7 +70,6 @@ public class CashCount_DAO implements interfaces.DAOBase<CashCount> {
             while (resultSet.next()) {
                 double value = resultSet.getDouble("value");
                 int quantity = resultSet.getInt("quantity");
-                double total = resultSet.getDouble("total");
 
                 CashCount cashCount = new CashCount(quantity, value);
                 cashCounts.add(cashCount);
@@ -94,13 +93,12 @@ public class CashCount_DAO implements interfaces.DAOBase<CashCount> {
     
     public Boolean create(CashCount cashCount, String cashCountSheetID) {
     try {
-        String sql = "INSERT INTO CashCount (cashCountSheetID, value, quantity, total) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO CashCount (cashCountSheetID, value, quantity) VALUES (?, ?, ?)";
         PreparedStatement preparedStatement = ConnectDB.conn.prepareStatement(sql);
 
         preparedStatement.setString(1, cashCountSheetID);
         preparedStatement.setDouble(2, cashCount.getValue());
         preparedStatement.setInt(3, cashCount.getQuantity());
-        preparedStatement.setDouble(4, cashCount.getTotal());
 
         int rowsAffected = preparedStatement.executeUpdate();
         if (rowsAffected > 0) {
