@@ -42,7 +42,6 @@ public final class Stationery extends Product {
         setStationeryType(stationeryType);
         setBrand(brand);
     }
-    
 
     public String getColor() {
         return color;
@@ -77,14 +76,14 @@ public final class Stationery extends Product {
         this.material = material;
     }
 
-    public String getOrigin() throws Exception {
-        if (origin.isBlank()) {
-            throw new Exception(ORIGIN_EMPTY);
-        }
+    public String getOrigin() {
         return origin;
     }
 
-    public void setOrigin(String origin) {
+    public void setOrigin(String origin) throws Exception {
+        if (origin == null || origin.isBlank()) {
+            throw new Exception(ORIGIN_EMPTY);
+        }
         this.origin = origin;
     }
 

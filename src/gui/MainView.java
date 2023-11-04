@@ -26,6 +26,8 @@ import main.Application;
  */
 public class MainView extends JLayeredPane {
 
+    private final Sales_GUI salesForm = new Sales_GUI();
+
     public MainView() {
         init();
     }
@@ -49,7 +51,6 @@ public class MainView extends JLayeredPane {
         add(btn_menu);
         add(menu);
         add(pnl_body);
-
     }
 
     @Override
@@ -70,7 +71,7 @@ public class MainView extends JLayeredPane {
         menu.addMenuEvent((int index, int subIndex, MenuAction action) -> {
             switch (index) {
                 case 0:
-                    Application.showMainView();
+                    Application.showForm(salesForm);
                     break;
                 case 1:
                     switch (subIndex) {
