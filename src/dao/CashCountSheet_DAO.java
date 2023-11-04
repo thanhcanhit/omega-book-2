@@ -17,8 +17,8 @@ import java.sql.*;
  */
 public class CashCountSheet_DAO implements interfaces.DAOBase<CashCountSheet> {
 
-    private CashCount_DAO cashCount_DAO;
-    private CashCountSheetDetail_DAO cashCountSheetDetail_DAO;
+    private CashCount_DAO cashCount_DAO = new CashCount_DAO();
+    private CashCountSheetDetail_DAO cashCountSheetDetail_DAO = new CashCountSheetDetail_DAO();
 
     @Override
     public CashCountSheet getOne(String id) {
@@ -74,17 +74,33 @@ public class CashCountSheet_DAO implements interfaces.DAOBase<CashCountSheet> {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    public String getMaxSequence(String code) {
+        try {
+            code += "%";
+            String sql = "SELECT TOP 1  * FROM CashCountSheet WHERE cashCountSheetID LIKE '" + code + "' ORDER BY cashCountSheetID DESC";
+            PreparedStatement st = ConnectDB.conn.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                String cashCountSheetID = rs.getString("cashCountSheetID");
+                return cashCountSheetID;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     @Override
-    public Boolean create(CashCountSheet cashCountSheet) {
+    public Boolean create(CashCountSheet cashCountSheet
+    ) {
         try {
             // Thêm bản ghi vào bảng CashCountSheet
-            String cashCountSheetSql = "INSERT INTO CashCountSheet (cashCountSheetID, startedDate, endedDate, total) VALUES (?, ?, ?, ?)";
+            String cashCountSheetSql = "INSERT INTO CashCountSheet (cashCountSheetID, startedDate, endedDate) VALUES (?, ?, ?)";
             PreparedStatement cashCountSheetStatement = ConnectDB.conn.prepareStatement(cashCountSheetSql);
 
             cashCountSheetStatement.setString(1, cashCountSheet.getCashCountSheetID());
             cashCountSheetStatement.setDate(2, new java.sql.Date(cashCountSheet.getCreatedDate().getTime()));
             cashCountSheetStatement.setDate(3, new java.sql.Date(cashCountSheet.getEndedDate().getTime()));
-            cashCountSheetStatement.setDouble(4, cashCountSheet.getTotal());
 
             int cashCountSheetRowsAffected = cashCountSheetStatement.executeUpdate();
 
@@ -109,12 +125,14 @@ public class CashCountSheet_DAO implements interfaces.DAOBase<CashCountSheet> {
     }
 
     @Override
-    public Boolean update(String id, CashCountSheet newObject) {
+    public Boolean update(String id, CashCountSheet newObject
+    ) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public Boolean delete(String id) {
+    public Boolean delete(String id
+    ) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

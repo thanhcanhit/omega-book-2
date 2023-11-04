@@ -60,7 +60,7 @@ public class CashCountSheetDetail_DAO implements interfaces.DAOBase<CashCountShe
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                boolean index = resultSet.getBoolean("index");
+                boolean index = resultSet.getBoolean("auditorIndex");
                 String employeeID = resultSet.getString("employeeID");
 
                 Employee employee = new Employee(employeeID);
@@ -84,7 +84,7 @@ public class CashCountSheetDetail_DAO implements interfaces.DAOBase<CashCountShe
     @Override
    public Boolean create(CashCountSheetDetail cashCountSheetDetail) {
     try {
-        String sql = "INSERT INTO CashCountSheetDetail (index, cashCountSheetID, employeeID) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO CashCountSheetDetail (auditorIndex, cashCountSheetID, employeeID) VALUES (?, ?, ?)";
         PreparedStatement preparedStatement = ConnectDB.conn.prepareStatement(sql);
 
         preparedStatement.setBoolean(1, cashCountSheetDetail.getIndex());
