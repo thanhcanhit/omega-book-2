@@ -53,7 +53,7 @@ public class Employee_DAO implements DAOBase<Employee> {
             Statement st = ConnectDB.conn.createStatement();
             ResultSet rs = st.executeQuery("Select * from Employee");
             while (rs.next()) {
-                String employeeID = rs.getString("Employee");
+                String employeeID = rs.getString("employeeID");
                 String name = rs.getString("name");
                 String role = rs.getString("role");
                 Boolean status = rs.getBoolean("status");

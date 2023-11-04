@@ -89,7 +89,7 @@ public class Employee {
         if (name.isEmpty()) {
             throw new IllegalArgumentException("Họ tên không được rỗng!");
         }
-        if (!name.matches("[a-zA-Z\\p{InCombiningDiacriticalMarks} ]+")) {
+        if (!name.matches("^[\\p{L} ]+$")) {
             throw new IllegalArgumentException("Họ tên chỉ được chứa kí tự chữ và khoảng trắng!");
         }
         this.name = name;
