@@ -4,7 +4,11 @@
  */
 package gui;
 
+import bus.PromotionManagament_BUS;
 import com.formdev.flatlaf.FlatClientProperties;
+import entity.Promotion;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,8 +19,45 @@ public class PromotionManagement_GUI extends javax.swing.JPanel {
     /**
      * Creates new form PromotionManagement_GUI
      */
+    private PromotionManagament_BUS bus;
+    private Promotion currentPromotion = null;
+    //Model
+    private DefaultTableModel tblModel_promotion;
+    private DefaultComboBoxModel cmbModel_type;
+    private DefaultComboBoxModel cmbModel_status;
+
     public PromotionManagement_GUI() {
         initComponents();
+        init();
+    }
+
+    private void init() {
+        bus = new PromotionManagament_BUS();
+        //model
+        tblModel_promotion = new DefaultTableModel(new String[]{"Mã khuyến mãi", "Loại", "Ngày bắt đầu", "Ngày kết thúc", "Trạng thái"}, 0);
+        tbl_inforPromo.setModel(tblModel_promotion);
+        tbl_inforPromo.getSelectionModel().addListSelectionListener((e) -> {
+            int rowIndex = tbl_inforPromo.getSelectedRow();
+            if(rowIndex == -1)
+                return;
+            
+            String promotionID = tblModel_promotion.getValueAt(rowIndex, 0).toString();
+            this.currentPromotion = bus.getPromotion(promotionID);
+            renderCurrentPromotion();
+        });
+        //combobox
+        cmbModel_type = new DefaultComboBoxModel(new String[] {"Loại", "Số tiền", "Phần trăm"});
+        cmb_typePromo.setModel(cmbModel_type);
+        cmbModel_status = new DefaultComboBoxModel(new String[] {"Trạng thái", "Đang diễn ra", "Đã kết thúc"});
+        cmb_statusPromo.setModel(cmbModel_status);
+        
+        
+        
+        
+        
+    }
+    private void renderCurrentPromotion() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     /**
@@ -99,7 +140,7 @@ public class PromotionManagement_GUI extends javax.swing.JPanel {
 
         pnl_filterPromo.setMaximumSize(new java.awt.Dimension(500, 50));
         pnl_filterPromo.setMinimumSize(new java.awt.Dimension(300, 32));
-        pnl_filterPromo.setPreferredSize(new java.awt.Dimension(300, 50));
+        pnl_filterPromo.setPreferredSize(new java.awt.Dimension(400, 50));
         pnl_filterPromo.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         cmb_typePromo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Loại" }));
@@ -347,4 +388,7 @@ public class PromotionManagement_GUI extends javax.swing.JPanel {
     private javax.swing.JTextField txt_startDatePromo;
     private javax.swing.JTextField txt_typePromo;
     // End of variables declaration//GEN-END:variables
+
+    
+
 }
