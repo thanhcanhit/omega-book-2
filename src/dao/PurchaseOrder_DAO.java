@@ -42,13 +42,10 @@ public class PurchaseOrder_DAO implements DAOBase<PurchaseOrder> {
 
                 ArrayList<PurchaseOrderDetail> purchaseOrderDetail = new PurchaseOrderDetail_DAO().getAll(id);
 
-<<<<<<< HEAD
+
                 result = new PurchaseOrder(id, orderDate, receiveDate, note, PurchaseOrderStatus.fromInt(status),new Supplier(supplierID), new Employee(employeeID),purchaseOrderDetail);
             
-=======
-                result = new PurchaseOrder(id, orderDate, receiveDate, note, PurchaseOrderStatus.values()[status], new Supplier(supplierID), new Employee(employeeID), purchaseOrderDetail);
 
->>>>>>> f7e52fa96de4feabe73c5f9647b0907b428cb1a4
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -76,11 +73,9 @@ public class PurchaseOrder_DAO implements DAOBase<PurchaseOrder> {
 
                 ArrayList<PurchaseOrderDetail> purchaseOrderDetail = new PurchaseOrderDetail_DAO().getAll(purchaseOrderID);
 
-<<<<<<< HEAD
+
                 result.add(new PurchaseOrder(purchaseOrderID, orderDate, receiveDate, note, PurchaseOrderStatus.fromInt(status),new Supplier(supplierID), new Employee(employeeID),purchaseOrderDetail));
-=======
-                result.add(new PurchaseOrder(purchaseOrderID, orderDate, receiveDate, note, PurchaseOrderStatus.values()[status], new Supplier(supplierID), new Employee(employeeID), purchaseOrderDetail));
->>>>>>> f7e52fa96de4feabe73c5f9647b0907b428cb1a4
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -140,6 +135,8 @@ public class PurchaseOrder_DAO implements DAOBase<PurchaseOrder> {
             st.setString(6, object.getSupplier().getSupplierID());
 
             n = st.executeUpdate();
+            
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
