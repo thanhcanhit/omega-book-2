@@ -201,9 +201,4 @@ public final class Order {
     public String toString() {
         return "Order{" + "orderID=" + orderID + ", orderAt=" + orderAt + ", status=" + status + ", subTotal=" + subTotal + ", totalDue=" + totalDue + ", payment=" + payment + ", promotion=" + promotion + ", employee=" + employee + ", customer=" + customer + ", orderDetail=" + orderDetail + '}';
     }
-
-    
-
-    
-    
 }

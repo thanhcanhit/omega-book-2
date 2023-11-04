@@ -16,6 +16,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -86,7 +88,36 @@ public class Order_DAO implements DAOBase<Order> {
 
     @Override
     public String generateID() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String result = "HD";
+        LocalDate time = LocalDate.now();
+        DateTimeFormatter dateFormater = DateTimeFormatter.ofPattern("ddMMyyyy");
+
+        result += dateFormater.format(time);
+
+        String query = """
+                       select top 1 * from PurchaseOrder
+                       where purchaseOrderID like ?
+                       order by purchaseOrderID desc
+                       """;
+
+        try {
+            PreparedStatement st = ConnectDB.conn.prepareStatement(query);
+            st.setString(1, result + "%");
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                String lastID = rs.getString("purchaseOrderID");
+                String sNumber = lastID.substring(lastID.length() - 2);
+                int num = Integer.parseInt(sNumber) + 1;
+                result += String.format("%02d", num);
+            } else {
+                result += String.format("%02d", 0);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
     @Override
@@ -157,8 +188,9 @@ public class Order_DAO implements DAOBase<Order> {
     }
 
     /**
-     * @param accoutingVoucherID  Mã phiếu kết toán
-     * @return ArrayList<Order> Danh sách hóa đơn đã được kết toán trong phiếu kết toán
+     * @param accoutingVoucherID Mã phiếu kết toán
+     * @return ArrayList<Order> Danh sách hóa đơn đã được kết toán trong
+     * phiếu kết toán
      * @author Hoàng Khang
      */
     public ArrayList<Order> getAllOrderInAcountingVoucher(String acountingVoucherID) {
@@ -194,9 +226,11 @@ public class Order_DAO implements DAOBase<Order> {
     }
 
     /**
-     * Phương thức thực hiện việc cập nhật mã phiếu kết toán cho một hóa đơn
+     * Phương thức thực hiện việc cập nhật mã phiếu kết toán cho một
+     * hóa đơn
+     *
      * @param orderID Mã hóa đơn
-     * @param  acountingVoucherID Mã phiếu kết toán
+     * @param acountingVoucherID Mã phiếu kết toán
      * @author Hoàng Khang
      */
     public boolean updateOrderAcountingVoucher(String orderID, String acountingVoucherID) {

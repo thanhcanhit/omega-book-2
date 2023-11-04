@@ -33,7 +33,6 @@ public class Application extends javax.swing.JFrame {
     public static Application app;
     private final MainView mainForm;
     private final Login_GUI loginForm;
-    private static final Sales_GUI salesForm = new Sales_GUI();
     public static Employee employee = null;
 
     public Application() {
@@ -63,10 +62,6 @@ public class Application extends javax.swing.JFrame {
                 }
             }
         });
-    }
-
-    public static void showMainView() {
-        app.mainForm.showForm(salesForm);
     }
 
     public static void showForm(Component component) {
@@ -137,7 +132,6 @@ public class Application extends javax.swing.JFrame {
         FlatLaf.registerCustomDefaultsSource("theme");
         UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 15));
         FlatMacLightLaf.setup();
-        app = new Application();
 
 //        Fake loading
 //        new Welcome_GUI().setVisible(true);
