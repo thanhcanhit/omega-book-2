@@ -14,6 +14,7 @@ import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -250,7 +251,7 @@ public class Sales_GUI extends javax.swing.JPanel {
         }
 
 //        Tính toán các giá trị gợi ý dựa vào mảng số tiền
-        Integer[] roundValue = new Integer[]{1000, 2000, 5000, 20000, 50000, 100000};
+        Integer[] roundValue = new Integer[]{1000, 5000, 10000, 20000, 50000, 100000};
 //        Loại bỏ giá trị trùng lắp
         Set<Double> values = new HashSet<>();
         IntStream.range(0, roundValue.length).forEach(index -> {
@@ -390,9 +391,9 @@ public class Sales_GUI extends javax.swing.JPanel {
 
         try {
             Notifications.getInstance().show(Notifications.Type.INFO, "Đang lưu trữ hóa đơn...");
-////            Để tạm để xử lí sau
-            LocalDate now = LocalDate.now();
-            order.setOrderAt(Date.from(now.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+
+            java.sql.Timestamp now = java.sql.Timestamp.valueOf(LocalDateTime.now());
+            order.setOrderAt(now);
             order.setPayment(cmb_orderPaymentMethod.getSelectedIndex() == 1);
 //                Tạm thời
             order.setPromotion(null);

@@ -40,6 +40,7 @@ public class Sales_BUS {
         Order order = new Order(orderDAO.generateID());
         order.setStatus(false);
         order.setEmployee(new Employee("NV019982020001"));
+//        Chỉ hiển thị ngày lập, khi lưu sẽ lấy thời gian tại lúc bấm thanh toán
         LocalDate now = LocalDate.now();
         order.setOrderAt(Date.from(now.atStartOfDay(ZoneId.systemDefault()).toInstant()));
         return order;
