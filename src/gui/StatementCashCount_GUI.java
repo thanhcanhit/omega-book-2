@@ -6,6 +6,7 @@ package gui;
 
 import bus.StatementCashCount_BUS;
 import com.formdev.flatlaf.FlatClientProperties;
+import dao.CashCountSheet_DAO;
 import entity.CashCount;
 import entity.Employee;
 import java.text.DecimalFormat;
@@ -41,12 +42,15 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
     private Employee employee1 = statementCashCount_BUS.getEmployeeByID("NV019982020001");
     private Employee employee2;
     private Date createAt;
+    
+     private CashCountSheet_DAO cashCountSheet_DAO = new CashCountSheet_DAO();
 
     public StatementCashCount_GUI() {
         initTableModel();
         initComponents();
         initInfo(employee1);
         alterTable();
+        System.out.println("Á" + cashCountSheet_DAO.getOne("KTI041120230005").getCreatedDate());
 
         tbl_cashCounts.getModel().addTableModelListener(new TableModelListener() {
             @Override
@@ -485,14 +489,13 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
 
     private void btn_saveCashCountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saveCashCountActionPerformed
         // TODO add your handling code here:
-        Date date = new Date();
         if (employee2 == null) {
             Notifications.getInstance().show(Notifications.Type.ERROR, "Chưa có nhân viên đồng kiểm!");
         } else {
             ArrayList<Employee> employees = new ArrayList<>();
             employees.add(employee1);
             employees.add(employee2);
-            statementCashCount_BUS.createCashCountSheet(getValueInTable(), employees, date);
+            statementCashCount_BUS.createCashCountSheet(getValueInTable(), employees, createAt);
             Notifications.getInstance().show(Notifications.Type.INFO, "Tạo phiếu kiểm tiền thành công");
         }
 

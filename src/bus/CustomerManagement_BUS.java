@@ -9,6 +9,7 @@ import dao.Customer_DAO;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -63,18 +64,88 @@ public class CustomerManagement_BUS {
         Customer customer = new Customer(generateID(dateOfBirth, gender), name, gender, dateOfBirth, 0, numberPhone, address);
         customer_DAO.create(customer);
     }
-    
+
     public void updateCustomer(Customer customer, String customerID) throws Exception {
         customer_DAO.update(customerID, customer);
     }
-    
-    
-    public Customer searchByPhoneNumber(String phoneNumber){
+
+    public Customer searchByPhoneNumber(String phoneNumber) {
         ArrayList<Customer> list = customer_DAO.getAll();
         for (Customer customer : list) {
-            if(customer.getPhoneNumber().equals(phoneNumber))
+            if (customer.getPhoneNumber().equals(phoneNumber)) {
                 return customer;
+            }
         }
         return null;
     }
+
+    public ArrayList<Customer> filterCustomer(String gender, String rank, String age) {
+        ArrayList<Customer> list = customer_DAO.getAll();
+        ArrayList<Customer> listRemove = new ArrayList<>();
+        if (gender.equals("Nam")) {
+            for (Customer customer : list) {
+                if (!customer.isGender()) {
+                    listRemove.add(customer);
+                }
+            }
+            list.removeAll(listRemove);
+        }
+        if (gender.equals("Nữ")) {
+            for (Customer customer : list) {
+                if (customer.isGender()) {
+                    listRemove.add(customer);
+                }
+            }
+            list.removeAll(listRemove);
+        }
+        if (!rank.equals("Tất cả")) {
+            for (Customer customer : list) {
+                if (!customer.getRank().equals(rank)) {
+                    listRemove.add(customer);
+                }
+            }
+            list.removeAll(listRemove);
+        }
+
+        if (!age.equals("Tất cả")) {
+            if (age.equals("Dưới 18 tuổi")) {
+                for (Customer customer : list) {
+                    if (getAge(customer.getDateOfBirth()) > 18) {
+                        listRemove.add(customer);
+                    }
+                }
+                list.removeAll(listRemove);
+            } else if (age.equals("Trên 40 tuổi")) {
+                for (Customer customer : list) {
+                    if (getAge(customer.getDateOfBirth()) < 40) {
+                        listRemove.add(customer);
+                    }
+                }
+                list.removeAll(listRemove);
+            } else if (age.equals("Từ 18 đến 40 tuổi")) {
+                for (Customer customer : list) {
+                    if (getAge(customer.getDateOfBirth()) > 40 || getAge(customer.getDateOfBirth()) < 18) {
+                        listRemove.add(customer);
+                    }
+                }
+                list.removeAll(listRemove);
+            }
+
+        }
+
+        return list;
+    }
+
+    /**
+     * Phương thức tính tuổi
+     *
+     * @param dateOfBirth Ngày sinh của đối tượng
+     * @return Số tuổi của đối tượng
+     */
+    public int getAge(Date dateOfBirth) {
+        long diffInMillies = Math.abs(new Date().getTime() - dateOfBirth.getTime());
+        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+        return (int) (diff / 365);
+    }
+
 }

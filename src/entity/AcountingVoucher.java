@@ -44,6 +44,11 @@ public class AcountingVoucher {
         this.accountingVoucherID = accountingVoucherID;
     }
 
+    public AcountingVoucher(Date endedDate) {
+        this.endedDate = endedDate;
+    }
+
+    
     public String getAcountingVoucherID() {
         return accountingVoucherID;
     }

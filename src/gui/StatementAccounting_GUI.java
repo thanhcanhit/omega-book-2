@@ -4,10 +4,12 @@
  */
 package gui;
 
-import bus.AcountingVoucher_BUS;
+import bus.StatementAcounting_BUS;
 import com.formdev.flatlaf.FlatClientProperties;
 import entity.AcountingVoucher;
 import entity.Employee;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
@@ -16,6 +18,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import raven.toast.Notifications;
+import utilities.FormatNumber;
 
 /**
  *
@@ -25,15 +28,19 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
 
     private DefaultTableModel tbl_modalCashCounts = new DefaultTableModel();
     private double sum = 0;
+     private Employee employee1;
     private Employee employee2;
-    private AcountingVoucher_BUS acountingVoucher_BUS = new AcountingVoucher_BUS();
+    private StatementAcounting_BUS acountingVoucher_BUS = new StatementAcounting_BUS();
+    private Date endDate;
 
     /**
      * Creates new form Statement_GUI
      */
     public StatementAccounting_GUI() {
+        endDate = new Date();
         initTableModel();
         initComponents();
+        initForm();
         alterTable();
 
         tbl_cashCounts.getModel().addTableModelListener(new TableModelListener() {
@@ -45,13 +52,13 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
                     TableModel model = (TableModel) e.getSource();
                     try {
                         int quantity = Integer.parseInt(model.getValueAt(row, column).toString());
-                        int denomination = Integer.parseInt(model.getValueAt(row, 1).toString().replace(".", ""));
-                        int total = quantity * denomination;
+                        double denomination = Integer.parseInt(model.getValueAt(row, 1).toString().replace(".", ""));
+                        double total = quantity * denomination;
 
                         sum += total;
-                        txt_difference.setText(Double.toString(sum - 1765000));
-                        txt_total.setText(Double.toString(sum));
-                        model.setValueAt(total, row, 3); // Tổng
+                        txt_difference.setText(FormatNumber.toVND(sum - 1765000));
+                        txt_total.setText(FormatNumber.toVND(sum));
+                        model.setValueAt(FormatNumber.toVND(total), row, 3); // Tổng
                     } catch (NumberFormatException ex) {
                         model.setValueAt(0, row, column);
                         JOptionPane.showMessageDialog(null, "Số lượng không hợp lệ");
@@ -60,6 +67,14 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
             }
 
         });
+    }
+    
+    public void initForm(){
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        String start = formatter.format(acountingVoucher_BUS.getLastAcounting(endDate));
+        String end = formatter.format(endDate);
+        
+        txt_timeAccounting.setText(start + " - " + end);
     }
 
     public void alterTable() {
@@ -458,11 +473,11 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
 
         pnl_cashCount.add(scr_cashCounts, java.awt.BorderLayout.CENTER);
 
-        pnl_total.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 800, 1, 5));
+        pnl_total.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 1, 5));
         pnl_total.setMaximumSize(new java.awt.Dimension(2147483647, 70));
         pnl_total.setMinimumSize(new java.awt.Dimension(149, 40));
         pnl_total.setPreferredSize(new java.awt.Dimension(160, 45));
-        pnl_total.setLayout(new javax.swing.BoxLayout(pnl_total, javax.swing.BoxLayout.LINE_AXIS));
+        pnl_total.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
         lbl_total.setFont(lbl_total.getFont().deriveFont(lbl_total.getFont().getStyle() | java.awt.Font.BOLD, 28));
         lbl_total.setText("Tổng:");
@@ -472,10 +487,10 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
         txt_total.setFont(txt_total.getFont().deriveFont(txt_total.getFont().getStyle() | java.awt.Font.BOLD, 26));
         txt_total.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txt_total.setText("0");
-        txt_total.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 0)));
+        txt_total.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 0)));
         txt_total.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         txt_total.setEnabled(false);
-        txt_total.setPreferredSize(new java.awt.Dimension(100, 22));
+        txt_total.setPreferredSize(new java.awt.Dimension(200, 22));
         txt_total.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_totalActionPerformed(evt);
@@ -538,13 +553,18 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
     }//GEN-LAST:event_txt_totalActionPerformed
 
     private void btn_addEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addEmployeeActionPerformed
-        String id = JOptionPane.showInputDialog(null, "Nhập mã nhân viên");
-        Employee e = acountingVoucher_BUS.isEmployeePresent(id.trim());
+        String id = JOptionPane.showInputDialog("Nhập mã nhân viên");
+        Employee e = acountingVoucher_BUS.getEmployeeByID(id);
         if (e == null) {
             JOptionPane.showConfirmDialog(jSplitPane1, "Nhân viên không tồn tại.");
         } else {
-            employee2 = e;
-            txt_employeeAccounting2.setText(e.getEmployeeID() + " - " + e.getName());
+            if (e.equals(employee1)) {
+                JOptionPane.showConfirmDialog(jSplitPane1, "Nhân viên chứng kiến không được là nhân viên kiểm!");
+            } else {
+                employee2 = e;
+                txt_employeeAccounting2.setText(employee2.getEmployeeID() + " - " + employee2.getName());
+            }
+
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_addEmployeeActionPerformed
