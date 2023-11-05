@@ -38,7 +38,7 @@ public class ReturnOrder_DAO implements DAOBase<ReturnOrder>{
                 String employeeID = rs.getString("employeeID");
                 Order order = new Order(orderID);
                 Employee employee = new Employee(employeeID);
-                returnOrder = new ReturnOrder(orderDate, ReturnOrderStatus.values()[status], returnOrderID, employee, order, true);
+                returnOrder = new ReturnOrder(orderDate, ReturnOrderStatus.fromInt(status), returnOrderID, employee, order, true);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,7 +62,7 @@ public class ReturnOrder_DAO implements DAOBase<ReturnOrder>{
                 //boolean type = rs.getBoolean("type");
                 Order order = new Order(orderID);
                 Employee employee = new Employee(employeeID);
-                ReturnOrder returnOrder = new ReturnOrder(orderDate, ReturnOrderStatus.values()[status], returnOrderID, employee, order, true);
+                ReturnOrder returnOrder = new ReturnOrder(orderDate, ReturnOrderStatus.fromInt(status), returnOrderID, employee, order, true);
                 result.add(returnOrder);
             }
         } catch (Exception e) {

@@ -4,19 +4,123 @@
  */
 package gui;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import org.knowm.xchart.*;
+import org.knowm.xchart.style.Styler.LegendPosition;
+import org.knowm.xchart.style.colors.XChartSeriesColors;
+import org.knowm.xchart.style.lines.SeriesLines;
+import org.knowm.xchart.style.markers.SeriesMarkers;
+
 /**
  *
  * @author KienTran
  */
-public class StatisticProduct_GUI extends javax.swing.JPanel {
-
+public final class StatisticProduct_GUI extends javax.swing.JPanel{
+    private DefaultTableModel tblModel_product;
+    private final XChartPanel<XYChart> chartPanel ;
+        
     /**
      * Creates new form StatisticProduct_GUI
      */
     public StatisticProduct_GUI() {
+        initTableModel();
         initComponents();
+        alterTable();
+        chartPanel = new XChartPanel<>(getChart());
+        //Sự kiện nhấp chuột vào biểu đồ lấy dữ liệu x và y 
+        chartPanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int x = e.getX();
+                int y = e.getY();
+                System.out.println("Clicked at (" + x + ", " + y + ")");
+            }
+        });
+
+        pnl_center.add(chartPanel);
+        pnl_center.revalidate();
+        pnl_center.repaint();
+        
+    }
+     public void initTableModel() {
+
+        tblModel_product = new DefaultTableModel(new String[]{"Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Giá tiền", "Tổng doanh thu"
+        }, 0);
+
+    }
+     public void alterTable() {
+        DefaultTableCellRenderer rightAlign = new DefaultTableCellRenderer();
+        rightAlign.setHorizontalAlignment(JLabel.RIGHT);
+
+        tbl_topProduct.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tbl_topProduct.getColumnModel().getColumn(0).setPreferredWidth(100);
+        tbl_topProduct.getColumnModel().getColumn(1).setPreferredWidth(200);
+        tbl_topProduct.getColumnModel().getColumn(2).setPreferredWidth(80);
+        
+        tbl_topProduct.getColumnModel().getColumn(2).setCellRenderer(rightAlign);
+        tbl_topProduct.getColumnModel().getColumn(3).setPreferredWidth(100);
+        
+        tbl_topProduct.getColumnModel().getColumn(3).setCellRenderer(rightAlign);
+        tbl_topProduct.getColumnModel().getColumn(4).setPreferredWidth(100);
+        tbl_topProduct.getColumnModel().getColumn(4).setCellRenderer(rightAlign);
+        tbl_topProduct.setDefaultEditor(Object.class, null);
     }
 
+    public XYChart getChart() {
+ 
+    // Create Chart
+    XYChart chart = new XYChartBuilder().width(800).height(600).title("").xAxisTitle("Sản phẩm").yAxisTitle("Doanh thu").build();
+ 
+    // Customize Chart
+    chart.getStyler().setPlotBackgroundColor(Color.WHITE);
+    chart.getStyler().setPlotGridLinesColor(new Color(255, 255, 255));
+    chart.getStyler().setChartBackgroundColor(Color.WHITE);
+    chart.getStyler().setLegendBackgroundColor(Color.WHITE);
+    chart.getStyler().setChartFontColor(Color.BLACK);
+    chart.getStyler().setChartTitleBoxBackgroundColor(new Color(0, 222, 0));
+    chart.getStyler().setChartTitleBoxVisible(true);
+    chart.getStyler().setChartTitleBoxBorderColor(Color.BLACK);
+    chart.getStyler().setPlotGridLinesVisible(false);
+ 
+    chart.getStyler().setAxisTickPadding(20);
+ 
+    chart.getStyler().setAxisTickMarkLength(15);
+ 
+    chart.getStyler().setPlotMargin(20);
+ 
+    chart.getStyler().setChartTitleFont(new Font(Font.MONOSPACED, Font.BOLD, 24));
+    chart.getStyler().setLegendFont(new Font(Font.SERIF, Font.PLAIN, 18));
+    chart.getStyler().setLegendPosition(LegendPosition.InsideSE);
+    chart.getStyler().setLegendSeriesLineLength(12);
+    chart.getStyler().setAxisTitleFont(new Font(Font.SANS_SERIF, Font.BOLD, 18));
+    chart.getStyler().setAxisTickLabelsFont(new Font(Font.SERIF, Font.BOLD, 11));
+    chart.getStyler().setDatePattern("dd-MMM");
+    chart.getStyler().setDecimalPattern("#0.000");
+    chart.getStyler().setLocale(Locale.GERMAN);
+ 
+    // generates linear data
+    List<Integer> xData = Arrays.asList(1, 2, 3, 4, 5);
+    List<Integer> yData = Arrays.asList(10, 15, 7, 9, 12);
+ 
+    // Series
+    XYSeries series = chart.addSeries("Data", xData, yData);
+    series.setLineColor(XChartSeriesColors.BLUE);
+    series.setMarkerColor(Color.RED);
+    series.setMarker(SeriesMarkers.CIRCLE);
+    series.setLineStyle(SeriesLines.SOLID);
+
+
+    return chart;
+  }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -100,25 +204,7 @@ public class StatisticProduct_GUI extends javax.swing.JPanel {
         pnl_tableTopProduct.setBorder(javax.swing.BorderFactory.createTitledBorder("Danh sách sản phẩm bán trong ngày"));
         pnl_tableTopProduct.setLayout(new java.awt.BorderLayout());
 
-        tbl_topProduct.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Mã sản phẩm", "Tên sản phẩm", "Số lượng ", "Giá tiền ", "Tổng doanh thu"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        tbl_topProduct.setModel(tblModel_product);
         scr_tableProduct.setViewportView(tbl_topProduct);
 
         pnl_tableTopProduct.add(scr_tableProduct, java.awt.BorderLayout.CENTER);

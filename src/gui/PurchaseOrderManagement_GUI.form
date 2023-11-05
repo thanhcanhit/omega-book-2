@@ -73,16 +73,10 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTable" name="tbl_orderDetail">
+                    <Component class="javax.swing.JTable" name="tbl_purchaseOrderDetail">
                       <Properties>
-                        <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="5" rowCount="4">
-                            <Column editable="true" title="M&#xe3; s&#x1ea3;n ph&#x1ea9;m" type="java.lang.String"/>
-                            <Column editable="true" title="T&#xea;n s&#x1ea3;n ph&#x1ea9;m" type="java.lang.String"/>
-                            <Column editable="true" title="S&#x1ed1; l&#x1b0;&#x1ee3;ng" type="java.lang.Integer"/>
-                            <Column editable="true" title="Gi&#xe1; nh&#x1ead;p" type="java.lang.Double"/>
-                            <Column editable="true" title="T&#x1ed5;ng ti&#x1ec1;n" type="java.lang.Double"/>
-                          </Table>
+                        <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="tblModel_purchaseOrderDetail" type="code"/>
                         </Property>
                       </Properties>
                     </Component>
@@ -144,6 +138,9 @@
                             <EmptyBorder bottom="1" left="30" right="1" top="1"/>
                           </Border>
                         </Property>
+                        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                          <Color id="Hand Cursor"/>
+                        </Property>
                         <Property name="iconTextGap" type="int" value="8"/>
                         <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                           <Dimension value="[50, 0]"/>
@@ -158,6 +155,9 @@
                             <EmptyBorder bottom="1" left="30" right="1" top="1"/>
                           </Border>
                         </Property>
+                        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                          <Color id="Hand Cursor"/>
+                        </Property>
                         <Property name="iconTextGap" type="int" value="8"/>
                         <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                           <Dimension value="[50, 0]"/>
@@ -171,6 +171,9 @@
                           <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
                             <EmptyBorder bottom="1" left="30" right="1" top="1"/>
                           </Border>
+                        </Property>
+                        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                          <Color id="Hand Cursor"/>
                         </Property>
                         <Property name="iconTextGap" type="int" value="8"/>
                         <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -394,9 +397,12 @@
                     <Component class="javax.swing.JButton" name="btn_submit">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="X&#xe1;c nh&#x1ead;n"/>
+                        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                          <Color id="Hand Cursor"/>
+                        </Property>
                       </Properties>
                       <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_submit.putClientProperty(FlatClientProperties.STYLE, &quot;background:$Menu.background;&quot;+&quot;foreground:$Menu.foreground;&quot;);"/>
+                        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_submit.putClientProperty(FlatClientProperties.STYLE, &quot;background:$Menu.background;&quot;+&quot;foreground:$Menu.foreground;&quot;);&#xa;btn_submit.setIcon(SVGIcon.getPrimarySVGIcon(&quot;imgs/orderManagement/confirmButtonPOM.svg&quot;));"/>
                       </AuxValues>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -451,13 +457,8 @@
               <SubComponents>
                 <Component class="javax.swing.JTable" name="tbl_purchaseOrder">
                   <Properties>
-                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="4" rowCount="4">
-                        <Column editable="false" title="M&#xe3; &#x111;&#x1a1;n nh&#x1ead;p h&#xe0;ng" type="java.lang.String"/>
-                        <Column editable="false" title="M&#xe3; nh&#xe0; cung c&#x1ea5;p " type="java.lang.String"/>
-                        <Column editable="false" title="Ng&#xe0;y &#x111;&#x1eb7;t" type="java.lang.Object"/>
-                        <Column editable="false" title="Ng&#xe0;y nh&#x1ead;n" type="java.lang.Object"/>
-                      </Table>
+                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="tblModel_purchaseOrder" type="code"/>
                     </Property>
                     <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[800, 80]"/>

@@ -28,7 +28,7 @@ public class Order_DAO implements DAOBase<Order> {
     public Order getOne(String id) {
         Order order = null;
         try {
-            String sql = "SELECT * FROM Order WHERE orderID = ?";
+            String sql = "SELECT * FROM [Order] WHERE orderID = ?";
             PreparedStatement preparedStatement = ConnectDB.conn.prepareStatement(sql);
             preparedStatement.setString(1, id);
 
@@ -43,11 +43,8 @@ public class Order_DAO implements DAOBase<Order> {
                 String promotionID = resultSet.getString("promotionID");
                 Double totalDue = resultSet.getDouble("totalDue");
                 Double subTotal = resultSet.getDouble("subTotal");
-                Promotion promotion = new Promotion(promotionID);
-                Customer customer = new Customer(customerID);
-                Employee employee = new Employee(employeeID);
 
-                order = new Order(id, orderAt, payment, status, promotion, employee, customer, new OrderDetail_DAO().getAll(id), subTotal, totalDue);
+                order = new Order(id, orderAt, payment, status, new Promotion(promotionID), new Employee(employeeID), new Customer(customerID), new OrderDetail_DAO().getAll(id), subTotal, totalDue);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -60,7 +57,7 @@ public class Order_DAO implements DAOBase<Order> {
         ArrayList<Order> result = new ArrayList<>();
         try {
             Statement statement = ConnectDB.conn.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM Order");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM [Order]");
 
             while (resultSet.next()) {
                 String orderID = resultSet.getString("orderID");
@@ -72,11 +69,8 @@ public class Order_DAO implements DAOBase<Order> {
                 String promotionID = resultSet.getString("promotionID");
                 Double totalDue = resultSet.getDouble("totalDue");
                 Double subTotal = resultSet.getDouble("subTotal");
-                Promotion promotion = new Promotion(promotionID);
-                Customer customer = new Customer(customerID);
-                Employee employee = new Employee(employeeID);
 
-                Order order = new Order(orderID, orderAt, payment, status, promotion, employee, customer, new OrderDetail_DAO().getAll(orderID), subTotal, totalDue);
+                Order order = new Order(orderID, orderAt, payment, status, new Promotion_DAO().getOne(promotionID), new Employee_DAO().getOne(employeeID), new Customer_DAO().getOne(customerID), new OrderDetail_DAO().getAll(orderID), subTotal, totalDue);
                 result.add(order);
             }
         } catch (Exception e) {
@@ -179,6 +173,65 @@ public class Order_DAO implements DAOBase<Order> {
             e.printStackTrace();
         }
         return n > 0;
+    }
+    
+    public int getLength() {
+        int length = 0;
+
+        try {
+            Statement st = ConnectDB.conn.createStatement();
+            ResultSet rs = st.executeQuery("select length = count(*) from [Order]");
+
+            if (rs.next()) {
+                length = rs.getInt("length");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return length;
+    }
+    
+  
+    
+    public ArrayList<Order> getPage(int page) {
+        ArrayList<Order> result = new ArrayList<>();
+        String query = """
+                       select * from [Order]
+                       order by orderID
+                       offset ? rows
+                       FETCH NEXT 50 ROWS ONLY
+                       """;
+        int offsetQuantity = (page - 1) * 50;
+        try {
+
+            PreparedStatement st = ConnectDB.conn.prepareStatement(query);
+            st.setInt(1, offsetQuantity);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                String orderID = rs.getString("orderID");
+                boolean status = rs.getBoolean("status");
+                Date orderAt = rs.getDate("orderAt");
+                boolean payment = rs.getBoolean("payment");
+                String employeeID = rs.getString("employeeID");
+                String customerID = rs.getString("customerID");
+                String promotionID = rs.getString("promotionID");
+                Double totalDue = rs.getDouble("totalDue");
+                Double subTotal = rs.getDouble("subTotal");
+                Promotion promotion = new Promotion(promotionID);
+                Customer customer = new Customer_DAO().getOne(customerID);
+                Employee employee = new Employee_DAO().getOne(employeeID);
+
+                Order order = new Order(orderID, orderAt, payment, status, promotion, employee, customer, new OrderDetail_DAO().getAll(orderID), subTotal, totalDue);
+                result.add(order);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return result;
     }
 
     /**
