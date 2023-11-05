@@ -83,6 +83,10 @@ public final class Order {
      * đơn-Khuyến mãi)
      */
     private void setTotalDue() {
+        if (promotion == null) {
+            this.totalDue = this.subTotal;
+            return;
+        }
         this.totalDue = subTotal - ((promotion.getType() == promotion.getType().PERCENT) ? (promotion.getDiscount() * (subTotal)) : promotion.getDiscount());
     }
 
@@ -104,6 +108,8 @@ public final class Order {
         } else {
             throw new Exception(ORDERDETAIL_ERROR);
         }
+        setSubTotal();
+        setTotalDue();
     }
 
     public Promotion getPromotion() {

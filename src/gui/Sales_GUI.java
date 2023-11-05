@@ -395,6 +395,7 @@ public class Sales_GUI extends javax.swing.JPanel {
             java.sql.Timestamp now = java.sql.Timestamp.valueOf(LocalDateTime.now());
             order.setOrderAt(now);
             order.setPayment(cmb_orderPaymentMethod.getSelectedIndex() == 1);
+            order.setStatus(true);
 //                Tạm thời
             order.setPromotion(null);
             order.setOrderDetail(cart);
