@@ -6,22 +6,31 @@ package gui;
 
 import bus.ProductManagement_BUS;
 import com.formdev.flatlaf.FlatClientProperties;
+import database.ConnectDB;
 import entity.Book;
 import entity.Product;
 import entity.Stationery;
 import enums.Type;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 import raven.toast.Notifications;
 import utilities.FormatNumber;
 import utilities.SVGIcon;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -58,8 +67,9 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         bus = new ProductManagement_BUS();
 
 //        Frame
-//        fileChooser_productImg = new javax.swing.JFileChooser();
-//        fileChooser_productImg.setCurrentDirectory(new File(System.getProperty("user.home")));
+        fileChooser_productImg = new javax.swing.JFileChooser();
+        fileChooser_productImg.setCurrentDirectory(new File(System.getProperty("user.home")));
+
 //        Table model
         tblModel_products = new DefaultTableModel(new String[]{"Mã sản phẩm", "Tên sản phẩm", "Giá nhập", "Giá bán", "Số lượng tồn"}, 50);
         tbl_products.setModel(tblModel_products);
@@ -521,7 +531,6 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         lbl_productImg.putClientProperty(FlatClientProperties.STYLE,""
             + "background:$Menu.background;");
         lbl_productImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_productImg.setText("Hình ảnh sản phẩm");
         pnl_productTopLeft.add(lbl_productImg, java.awt.BorderLayout.CENTER);
 
         btn_selectImg.setText("Chọn hình ảnh");
@@ -991,10 +1000,60 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         int isSelected = fileChooser_productImg.showOpenDialog(this);
 //        Nếu người dùng có chọn file
         if (isSelected == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = fileChooser_productImg.getSelectedFile();
-            System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+            File fileSelected = fileChooser_productImg.getSelectedFile();
+            String path = fileSelected.getPath();
+
+            if (path.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Hãy chọn hình ảnh trước khi lưu.");
+                return;
+            }
+            try {
+
+                // Lấy dữ liệu hình ảnh từ database
+                byte[] imageBytes = getImageBytes(fileSelected);
+
+//                Hiển thị preview
+                ImageIcon imageIcon1 = new ImageIcon(path);
+                // Tạo đối tượng ImageIcon
+                ImageIcon imageIcon = new ImageIcon(imageBytes);
+
+// Lấy đối tượng Image từ đối tượng ImageIcon
+                Image image = imageIcon.getImage();
+
+// Thay đổi kích thước hình ảnh
+                Image scaledImage = image.getScaledInstance(lbl_productImg.getWidth(), lbl_productImg.getHeight(), Image.SCALE_SMOOTH);
+
+// Tạo lại đối tượng ImageIcon với kích thước mới
+                imageIcon = new ImageIcon(scaledImage);
+
+                lbl_productImg.setIcon(imageIcon);
+                lbl_productImg.revalidate();
+                lbl_productImg.repaint();
+            } catch (Exception e) {
+
+            }
+
+//            try {
+//                File file = new File(currentImgPath);
+//                byte[] imageBytes = getImageBytes(file);
+//                PreparedStatement statement = ConnectDB.conn.prepareStatement("insert into test(id, img) values (?, ?)");
+//                statement.setString(1, "CC ");
+//                statement.setBytes(2, imageBytes);
+//                statement.executeUpdate();
+//
+//                JOptionPane.showMessageDialog(this, "Lưu hình ảnh thành công.");
+//            } catch (SQLException e1) {
+//                JOptionPane.showMessageDialog(this, e1.getMessage());
+//            } catch (IOException ex) {
+//                Logger.getLogger(ProductManagement_GUI.class.getName()).log(Level.SEVERE, null, ex);
+//            }
         }
     }//GEN-LAST:event_btn_selectImgActionPerformed
+
+    private static byte[] getImageBytes(File file) throws IOException {
+        BufferedImage image = ImageIO.read(file);
+        return ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
+    }
 
     private void btn_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchActionPerformed
         String searchQuery = txt_search.getText();

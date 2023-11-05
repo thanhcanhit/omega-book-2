@@ -8,7 +8,6 @@ import database.ConnectDB;
 import entity.Customer;
 import entity.Employee;
 import entity.Order;
-import entity.OrderDetail;
 import entity.Promotion;
 import interfaces.DAOBase;
 import java.sql.Date;
@@ -93,11 +92,10 @@ public class Order_DAO implements DAOBase<Order> {
         DateTimeFormatter dateFormater = DateTimeFormatter.ofPattern("ddMMyyyy");
 
         result += dateFormater.format(time);
-
         String query = """
-                       select top 1 * from PurchaseOrder
-                       where purchaseOrderID like ?
-                       order by purchaseOrderID desc
+                       select top 1 * from [Order]
+                       where orderID like ?
+                       order by orderID desc
                        """;
 
         try {
@@ -106,12 +104,12 @@ public class Order_DAO implements DAOBase<Order> {
             ResultSet rs = st.executeQuery();
 
             if (rs.next()) {
-                String lastID = rs.getString("purchaseOrderID");
+                String lastID = rs.getString("orderID");
                 String sNumber = lastID.substring(lastID.length() - 2);
                 int num = Integer.parseInt(sNumber) + 1;
-                result += String.format("%02d", num);
+                result += String.format("%04d", num);
             } else {
-                result += String.format("%02d", 0);
+                result += String.format("%04d", 0);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -123,7 +121,7 @@ public class Order_DAO implements DAOBase<Order> {
     @Override
     public Boolean create(Order object) {
         try {
-            String sql = "INSERT INTO Order (orderID, payment, status, orderAt, employeeID, customerID, promotionID, totalDue, subTotal) "
+            String sql = "INSERT INTO [Order] (orderID, payment, status, orderAt, employeeID, customerID, promotionID, totalDue, subTotal) "
                     + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = ConnectDB.conn.prepareStatement(sql);
 
@@ -133,15 +131,11 @@ public class Order_DAO implements DAOBase<Order> {
             preparedStatement.setDate(4, new java.sql.Date(object.getOrderAt().getTime()));
             preparedStatement.setString(5, object.getEmployee().getEmployeeID());
             preparedStatement.setString(6, object.getCustomer().getCustomerID());
-            preparedStatement.setString(7, object.getPromotion().getPromotionID());
+            preparedStatement.setString(7, object.getPromotion() == null ? null : object.getPromotion().getPromotionID());
             preparedStatement.setDouble(8, object.getTotalDue());
             preparedStatement.setDouble(9, object.getSubTotal());
 
             int rowsAffected = preparedStatement.executeUpdate();
-            for (OrderDetail orderDetail : object.getOrderDetail()) {
-                orderDetail.setOrder(object);
-                new OrderDetail_DAO().create(orderDetail);
-            }
             return rowsAffected > 0;
         } catch (Exception e) {
             e.printStackTrace();

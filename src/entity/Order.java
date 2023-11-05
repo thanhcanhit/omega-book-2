@@ -4,7 +4,6 @@
  */
 package entity;
 
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
@@ -14,13 +13,14 @@ import java.util.Objects;
  * @author KienTran
  */
 public final class Order {
+
     private final String ORDERID_ERROR = "Mã hoá đơn không hợp lệ !";
-    private final String ORDERAT_ERROR ="Ngày tạo hoá đơn không hợp lệ !";
-    private final String PROMOTION_ERROR="Khuyến mãi không được rỗng !";
-    private final String EMPLOYEE_ERROR="Nhân viên không được rỗng !";
-    private final String CUSTOMER_ERROR="Khách hàng không được rỗng !";
-    private final String ORDERDETAIL_ERROR="Chi tiết hoá đơn không được rỗng !";
-    
+    private final String ORDERAT_ERROR = "Ngày tạo hoá đơn không hợp lệ !";
+    private final String PROMOTION_ERROR = "Khuyến mãi không được rỗng !";
+    private final String EMPLOYEE_ERROR = "Nhân viên không được rỗng !";
+    private final String CUSTOMER_ERROR = "Khách hàng không được rỗng !";
+    private final String ORDERDETAIL_ERROR = "Chi tiết hoá đơn không được rỗng !";
+
     private String orderID;
     private Date orderAt;
     private boolean status;
@@ -39,33 +39,31 @@ public final class Order {
     public void setPayment(boolean payment) {
         this.payment = payment;
     }
-    
-    
 
     public ArrayList<OrderDetail> getOrderDetail() {
         return orderDetail;
     }
 
-    
     public String getOrderID() {
         return orderID;
     }
 
-    public void setOrderID(String orderID) throws Exception{
-       
+    public void setOrderID(String orderID) throws Exception {
+
         this.orderID = orderID;
-        
+
     }
 
     public Date getOrderAt() {
         return orderAt;
     }
 
-    public void setOrderAt(Date orderAt) throws Exception{
-        if(orderAt!=null)
+    public void setOrderAt(Date orderAt) throws Exception {
+        if (orderAt != null) {
             this.orderAt = orderAt;
-        else
+        } else {
             throw new Exception(ORDERAT_ERROR);
+        }
     }
 
     public boolean isStatus() {
@@ -75,19 +73,19 @@ public final class Order {
     public void setStatus(boolean status) {
         this.status = status;
     }
-    
+
     public double getTotalDue() {
         return totalDue;
     }
 
     /**
-     * Tiền thanh toán = Tổng hóa đơn – Khuyến mãi + Phần trăm thuế*(Tổng hóa đơn-Khuyến mãi)
+     * Tiền thanh toán = Tổng hóa đơn – Khuyến mãi + Phần trăm thuế*(Tổng hóa
+     * đơn-Khuyến mãi)
      */
     private void setTotalDue() {
-        this.totalDue = subTotal - ((promotion.getType() == promotion.getType().PERCENT) ? (promotion.getDiscount()*(subTotal)) : promotion.getDiscount()) ;
+        this.totalDue = subTotal - ((promotion.getType() == promotion.getType().PERCENT) ? (promotion.getDiscount() * (subTotal)) : promotion.getDiscount());
     }
-    
-    
+
     public double getSubTotal() {
         return subTotal;
     }
@@ -97,28 +95,23 @@ public final class Order {
         for (OrderDetail cthd : orderDetail) {
             result += cthd.getLineTotal();
         }
-        this.subTotal=result;
+        this.subTotal = result;
     }
 
-    
-
-    public void setOrderDetail(ArrayList<OrderDetail> orderDetail) throws Exception{
-        if(!orderDetail.isEmpty())
+    public void setOrderDetail(ArrayList<OrderDetail> orderDetail) throws Exception {
+        if (!orderDetail.isEmpty()) {
             this.orderDetail = orderDetail;
-        else
+        } else {
             throw new Exception(ORDERDETAIL_ERROR);
+        }
     }
-
 
     public Promotion getPromotion() {
         return promotion;
     }
 
     public void setPromotion(Promotion promotion) throws Exception {
-        if(promotion!=null)
-            this.promotion = promotion;
-        else
-            throw new Exception(PROMOTION_ERROR);
+        this.promotion = promotion;
     }
 
     public Employee getEmployee() {
@@ -126,24 +119,26 @@ public final class Order {
     }
 
     public void setEmployee(Employee employee) throws Exception {
-        if(employee!=null)
+        if (employee != null) {
             this.employee = employee;
-        else
+        } else {
             throw new Exception(EMPLOYEE_ERROR);
+        }
     }
 
     public Customer getCustomer() {
         return customer;
     }
 
-    public void setCustomer(Customer customer) throws Exception{
-        if(customer!=null)
+    public void setCustomer(Customer customer) throws Exception {
+        if (customer != null) {
             this.customer = customer;
-        else
+        } else {
             throw new Exception(CUSTOMER_ERROR);
+        }
     }
 
-    public Order(String orderID, Date orderAt,boolean payment, boolean status, Promotion promotion, Employee employee, Customer customer, ArrayList<OrderDetail> orderDetail) throws Exception {
+    public Order(String orderID, Date orderAt, boolean payment, boolean status, Promotion promotion, Employee employee, Customer customer, ArrayList<OrderDetail> orderDetail) throws Exception {
         setStatus(status);
         setSubTotal();
         setTotalDue();
@@ -153,19 +148,20 @@ public final class Order {
         setPayment(payment);
         setPromotion(promotion);
         setOrderID(orderID);
-        
+
     }
-    public Order(String orderID, Date orderAt,boolean payment, boolean status, Promotion promotion, Employee employee, Customer customer, ArrayList<OrderDetail> orderDetail, double  subTotal, double toTalDue) {
+
+    public Order(String orderID, Date orderAt, boolean payment, boolean status, Promotion promotion, Employee employee, Customer customer, ArrayList<OrderDetail> orderDetail, double subTotal, double toTalDue) {
         this.orderID = orderID;
         this.orderAt = orderAt;
         this.status = status;
-        this.subTotal= subTotal;
-        this.totalDue= toTalDue;
+        this.subTotal = subTotal;
+        this.totalDue = toTalDue;
         this.promotion = promotion;
-        this.payment=payment;
+        this.payment = payment;
         this.employee = employee;
         this.customer = customer;
-        this.orderDetail=orderDetail;
+        this.orderDetail = orderDetail;
     }
 
     public Order() {
