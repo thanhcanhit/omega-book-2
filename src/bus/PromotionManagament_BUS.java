@@ -21,7 +21,7 @@ public class PromotionManagament_BUS {
     public PromotionManagament_BUS() {
     }
     
-    public ArrayList<Promotion> getALLPromotion(){
+    public ArrayList<Promotion> getAllPromotion(){
         ArrayList<Promotion> promotionList = new Promotion_DAO().getAll();
         return promotionList;
     }
@@ -67,5 +67,21 @@ public class PromotionManagament_BUS {
     public Promotion getPromotion(String promotionID) {
         return promotion_DAO.getOne(promotionID);
 
+    }
+
+    public ArrayList<Promotion> searchById(String searchQuery) {
+        return promotion_DAO.findById(searchQuery);
+    }
+
+    public ArrayList<Promotion> filter(int type, int status) {
+        return promotion_DAO.filter(type, status);
+    }
+
+    public boolean addNewPromotion(Promotion newPromotion) {
+        return promotion_DAO.create(newPromotion);
+    }
+
+    public boolean removePromotion(String promotionID) {
+        return promotion_DAO.delete(promotionID);
     }
 }

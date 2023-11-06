@@ -6,10 +6,18 @@ package gui;
 
 import bus.EmployeeManagament_BUS;
 import com.formdev.flatlaf.FlatClientProperties;
+import entity.Account;
 import entity.Employee;
+import entity.Store;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultButtonModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
+import raven.toast.Notifications;
 
 /**
  *
@@ -22,6 +30,9 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
     private Employee currentEmployee;
     private DefaultComboBoxModel cmbModel_role;
     private DefaultComboBoxModel cmbModel_status;
+    private DefaultComboBoxModel cmbModel_roleInfo;
+    private DefaultButtonModel btnModel_gender;
+    private DefaultButtonModel btnModel_status;
 
     /**
      * Creates new form EmployeeManagement_GUI
@@ -48,8 +59,15 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         //combobox
         cmbModel_role = new DefaultComboBoxModel(new String[]{"Chức vụ", "Nhân viên Bán Hàng", "Cửa hàng trưởng", "Giám sát viên"});
         cmb_roleEmp.setModel(cmbModel_role);
+        cmbModel_roleInfo = new DefaultComboBoxModel(new String[]{"Nhân viên Bán Hàng", "Cửa hàng trưởng", "Giám sát viên"});
+        cmb_roleInfoEmp.setModel(cmbModel_roleInfo);
         cmbModel_status = new DefaultComboBoxModel(new String[]{"Trạng thái", "Đang làm việc", "Đã nghỉ"});
         cmb_statusEmp.setModel(cmbModel_status);
+        //radio button
+        group_gender.add(rdb_male);
+        group_gender.add(rdb_female);
+        group_statusEmp.add(rdb_woking);
+        group_statusEmp.add(rdb_stopWorking);
         renderEmployeeTable(bus.getAllEmployee());
         
     }
@@ -63,18 +81,17 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
             rdb_female.setSelected(true);
         txt_phoneNumberEmp.setText(currentEmployee.getPhoneNumber());
         txt_citizenIDEmp.setText(currentEmployee.getCitizenIdentification());
-        txt_password.setText("");
         if(currentEmployee.isStatus())
             rdb_woking.setSelected(true);
         else
             rdb_stopWorking.setSelected(true);
         if(currentEmployee.getRole().equals("Nhân Viên Bán Hàng"))
-            rdb_saler.setSelected(true);
+            cmbModel_roleInfo.setSelectedItem("Nhân Viên Bán Hàng");
         else if(currentEmployee.getRole().equals("Cửa Hàng Trưởng"))
-            rdb_manager.setSelected(true);
+            cmbModel_roleInfo.setSelectedItem("Cửa Hàng Trưởng");
         else
-            rdb_supervisor.setSelected(true);
-        
+            cmbModel_roleInfo.setSelectedItem("Giám Sát Viên");
+        txt_storeID.setText(currentEmployee.getStore().getStoreID());
     }
     
     private void renderEmployeeTable(ArrayList<Employee> employeeList) {
@@ -89,6 +106,124 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
             tblModel_employee.addRow(newRow);
         }        
     }
+    private void renderEmployeeInfor() {
+        txt_empID.setText("");
+        txt_name.setText("");
+        txt_addressEmp.setText("");
+        group_gender.clearSelection();
+        txt_phoneNumberEmp.setText("");
+        txt_citizenIDEmp.setText("");
+        group_statusEmp.clearSelection();
+        cmbModel_roleInfo.setSelectedItem("Nhân Viên Bán Hàng");
+        chooseDateOfBirth.setDate(java.sql.Date.valueOf(LocalDate.now()));
+        chooseDateStart.setDate(java.sql.Date.valueOf(LocalDate.now()));
+        txt_storeID.setText("");
+    }
+    private boolean validEmployee() {
+        if(txt_name.getText().equals("")) {
+            Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng nhập điền tên nhân viên");
+            txt_name.requestFocus();
+            return false;
+        }
+        if(txt_addressEmp.getText().equals("")) {
+            Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng nhập địa chỉ nhân viên");
+            txt_addressEmp.requestFocus();
+            return false;
+        }
+        if(txt_phoneNumberEmp.getText().equals("")) {
+            Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng nhập SDT tên nhân viên");
+            txt_phoneNumberEmp.requestFocus();
+            return false;
+        }
+        if(txt_citizenIDEmp.getText().equals("")) {
+            Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng nhập mã CCCD của nhân viên");
+            txt_citizenIDEmp.requestFocus();
+            return false;
+        }
+        if(group_gender.isSelected(btnModel_gender)) {
+            Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng chọn giới tính nhân viên");
+            return false;
+        }
+        if(group_statusEmp.isSelected(btnModel_status)) {
+            Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng chọn trạng thái làm việc của nhân viên");
+            return false;
+        }
+        return true;
+    }
+    private Employee getCurrentValue() throws Exception {
+        String name = txt_name.getText();
+        String phoneNumber = txt_phoneNumberEmp.getText();
+        String address = txt_addressEmp.getText();
+        String citizenID = txt_citizenIDEmp.getText();
+        String role = (String) cmb_roleInfoEmp.getSelectedItem();
+        boolean gender = false;
+        if(rdb_male.isSelected())
+            gender = true;
+        boolean status = false;
+        if(rdb_woking.isSelected())
+            status = true;
+        Date dateOfBirth = chooseDateOfBirth.getDate();
+        Date dateStart = chooseDateStart.getDate();
+        String employeeID = txt_empID.getText();
+        String storeID = txt_storeID.getText();
+        
+        Store store = new Store(storeID);
+        Employee employee = new Employee(employeeID, citizenID, role, status, name, phoneNumber, gender, dateOfBirth, address, store);
+        //Account account = new Account(employee);
+        return employee;
+    }
+    private Employee getNewValue() throws Exception {
+        String name = txt_name.getText();
+        String phoneNumber = txt_phoneNumberEmp.getText();
+        String address = txt_addressEmp.getText();
+        String citizenID = txt_citizenIDEmp.getText();
+        String role = (String) cmb_roleInfoEmp.getSelectedItem();
+        boolean gender = false;
+        if(rdb_male.isSelected())
+            gender = true;
+        boolean status = false;
+        if(rdb_woking.isSelected())
+            status = true;
+        Date dateOfBirth = chooseDateOfBirth.getDate();
+        Date dateStart = chooseDateStart.getDate();
+        String employeeID = bus.generateID(gender, dateOfBirth, dateStart);
+        String storeID = txt_storeID.getText();
+        
+        Store store = new Store(storeID);
+        Employee employee = new Employee(employeeID, citizenID, role, status, name, phoneNumber, gender, dateOfBirth, address, store);
+        //Account account = new Account(employee);
+        return employee;
+    }
+    private void addEmployee() throws Exception {
+        Employee newEmployee = getNewValue();
+        try {
+            if(bus.addNewEmployee(newEmployee)) {
+                bus.createNewAccount(newEmployee);
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, "Thêm thành công");
+                renderEmployeeTable(bus.getAllEmployee());
+                renderEmployeeInfor();
+            }
+            else
+                Notifications.getInstance().show(Notifications.Type.ERROR, "Thêm không thành công");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    private void updateEmployee() throws Exception {
+        Employee newEmployee = getCurrentValue();
+        try {
+            if(bus.updateEmployee(newEmployee)) {
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, "Cập nhật thông tin thành công");
+                renderEmployeeTable(bus.getAllEmployee());
+                renderEmployeeInfor();
+            }
+            else
+                Notifications.getInstance().show(Notifications.Type.ERROR, "Cập nhật không thành công");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -109,7 +244,8 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         pnl_cmb = new javax.swing.JPanel();
         cmb_roleEmp = new javax.swing.JComboBox<>();
         cmb_statusEmp = new javax.swing.JComboBox<>();
-        lbl_reloadEmp = new javax.swing.JLabel();
+        btn_searchFilterEmp = new javax.swing.JButton();
+        btn_reloadEmp = new javax.swing.JButton();
         pnl_centerEmp = new javax.swing.JPanel();
         spl_inforEmp = new javax.swing.JSplitPane();
         scr_tableInforEmp = new javax.swing.JScrollPane();
@@ -130,26 +266,31 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         pnl_genderRadioEmp = new javax.swing.JPanel();
         rdb_female = new javax.swing.JRadioButton();
         rdb_male = new javax.swing.JRadioButton();
+        pnl_dateOfBirth = new javax.swing.JPanel();
+        lbl_dateOfBirth = new javax.swing.JLabel();
+        pnl_chooseDateOfBirth = new javax.swing.JPanel();
+        chooseDateOfBirth = new com.toedter.calendar.JDateChooser();
         pnl_roleEmp = new javax.swing.JPanel();
         lbl_roleEmp = new javax.swing.JLabel();
-        pnl_rdbRoleEmp = new javax.swing.JPanel();
-        rdb_saler = new javax.swing.JRadioButton();
-        rdb_manager = new javax.swing.JRadioButton();
-        rdb_supervisor = new javax.swing.JRadioButton();
+        cmb_roleInfoEmp = new javax.swing.JComboBox<>();
         pnl_phoneNumberEmp = new javax.swing.JPanel();
         lbl_phoneNumberEmp = new javax.swing.JLabel();
         txt_phoneNumberEmp = new javax.swing.JTextField();
         pnl_citizenIDEmp = new javax.swing.JPanel();
         lbl_citizenID = new javax.swing.JLabel();
         txt_citizenIDEmp = new javax.swing.JTextField();
+        pnl_dateStart = new javax.swing.JPanel();
+        lbl_dateStart = new javax.swing.JLabel();
+        pnl_chooseDateStart = new javax.swing.JPanel();
+        chooseDateStart = new com.toedter.calendar.JDateChooser();
         pnl_statusEmp = new javax.swing.JPanel();
         lbl_statusEmp = new javax.swing.JLabel();
         pnl_statusRadioEmp = new javax.swing.JPanel();
         rdb_woking = new javax.swing.JRadioButton();
         rdb_stopWorking = new javax.swing.JRadioButton();
-        pnl_password = new javax.swing.JPanel();
-        lbl_password = new javax.swing.JLabel();
-        txt_password = new javax.swing.JTextField();
+        pnl_storeID = new javax.swing.JPanel();
+        lbl_storeID = new javax.swing.JLabel();
+        txt_storeID = new javax.swing.JTextField();
         pnl_btnEmp = new javax.swing.JPanel();
         pnl_buttonEmp = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -184,14 +325,19 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         btn_searchEmp.putClientProperty(FlatClientProperties.STYLE,""
             + "background:$Menu.background;"
             + "foreground:$Menu.foreground;");
+        btn_searchEmp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_searchEmpActionPerformed(evt);
+            }
+        });
         pnl_btnSearchEmp.add(btn_searchEmp, java.awt.BorderLayout.CENTER);
 
         pnl_searchEmp.add(pnl_btnSearchEmp);
 
         pnl_topEmp.add(pnl_searchEmp);
 
-        pnl_cmb.setMaximumSize(new java.awt.Dimension(600, 32767));
-        pnl_cmb.setPreferredSize(new java.awt.Dimension(600, 100));
+        pnl_cmb.setMaximumSize(new java.awt.Dimension(500, 32767));
+        pnl_cmb.setPreferredSize(new java.awt.Dimension(500, 100));
         pnl_cmb.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 17));
 
         cmb_roleEmp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chức vụ", "NV Bán Hàng", "Cửa Hàng Trưởng", "Kiểm Sát Viên" }));
@@ -202,8 +348,23 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         cmb_statusEmp.setPreferredSize(new java.awt.Dimension(128, 32));
         pnl_cmb.add(cmb_statusEmp);
 
-        lbl_reloadEmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/employee/reload_employee.png"))); // NOI18N
-        pnl_cmb.add(lbl_reloadEmp);
+        btn_searchFilterEmp.setText("Lọc");
+        btn_searchFilterEmp.setMaximumSize(new java.awt.Dimension(72, 40));
+        btn_searchFilterEmp.setPreferredSize(new java.awt.Dimension(72, 40));
+        btn_searchFilterEmp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_searchFilterEmpActionPerformed(evt);
+            }
+        });
+        pnl_cmb.add(btn_searchFilterEmp);
+
+        btn_reloadEmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/employee/reload_employee.png"))); // NOI18N
+        btn_reloadEmp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_reloadEmpActionPerformed(evt);
+            }
+        });
+        pnl_cmb.add(btn_reloadEmp);
 
         pnl_topEmp.add(pnl_cmb);
 
@@ -258,11 +419,10 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         lbl_empID.setText("Mã NV:");
         lbl_empID.setMaximumSize(new java.awt.Dimension(45, 16));
         lbl_empID.setMinimumSize(new java.awt.Dimension(45, 16));
-        lbl_empID.setPreferredSize(new java.awt.Dimension(80, 16));
+        lbl_empID.setPreferredSize(new java.awt.Dimension(100, 16));
         pnl_empID.add(lbl_empID);
 
         txt_empID.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txt_empID.setBorder(null);
         txt_empID.setEnabled(false);
         txt_empID.setMaximumSize(new java.awt.Dimension(2147483647, 30));
         txt_empID.setMinimumSize(new java.awt.Dimension(64, 30));
@@ -331,37 +491,40 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
 
         pnl_txtInforEmp.add(pnl_genderEmp);
 
-        pnl_roleEmp.setMaximumSize(new java.awt.Dimension(32815, 80));
-        pnl_roleEmp.setPreferredSize(new java.awt.Dimension(183, 80));
+        pnl_dateOfBirth.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        pnl_dateOfBirth.setPreferredSize(new java.awt.Dimension(230, 40));
+        pnl_dateOfBirth.setLayout(new javax.swing.BoxLayout(pnl_dateOfBirth, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_dateOfBirth.setText("Ngày sinh:");
+        lbl_dateOfBirth.setPreferredSize(lbl_empID.getPreferredSize());
+        pnl_dateOfBirth.add(lbl_dateOfBirth);
+
+        pnl_chooseDateOfBirth.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
+        pnl_chooseDateOfBirth.setMaximumSize(new java.awt.Dimension(32767, 40));
+        pnl_chooseDateOfBirth.setPreferredSize(new java.awt.Dimension(100, 30));
+        pnl_chooseDateOfBirth.setLayout(new java.awt.GridLayout(1, 0));
+
+        chooseDateOfBirth.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        chooseDateOfBirth.setPreferredSize(new java.awt.Dimension(148, 30));
+        pnl_chooseDateOfBirth.add(chooseDateOfBirth);
+
+        pnl_dateOfBirth.add(pnl_chooseDateOfBirth);
+
+        pnl_txtInforEmp.add(pnl_dateOfBirth);
+
+        pnl_roleEmp.setMaximumSize(new java.awt.Dimension(32815, 40));
+        pnl_roleEmp.setPreferredSize(new java.awt.Dimension(183, 40));
         pnl_roleEmp.setLayout(new javax.swing.BoxLayout(pnl_roleEmp, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_roleEmp.setText("Chức vụ:");
         lbl_roleEmp.setPreferredSize(lbl_empID.getPreferredSize());
         pnl_roleEmp.add(lbl_roleEmp);
 
-        pnl_rdbRoleEmp.setMaximumSize(new java.awt.Dimension(32767, 80));
-        pnl_rdbRoleEmp.setMinimumSize(new java.awt.Dimension(103, 30));
-        pnl_rdbRoleEmp.setPreferredSize(new java.awt.Dimension(103, 80));
-        pnl_rdbRoleEmp.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEADING, 5, 0));
-
-        group_roleEmp.add(rdb_saler);
-        rdb_saler.setText("Nhân viên bán hàng");
-        rdb_saler.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdb_salerActionPerformed(evt);
-            }
-        });
-        pnl_rdbRoleEmp.add(rdb_saler);
-
-        group_roleEmp.add(rdb_manager);
-        rdb_manager.setText("Cửa hàng trưởng");
-        pnl_rdbRoleEmp.add(rdb_manager);
-
-        group_roleEmp.add(rdb_supervisor);
-        rdb_supervisor.setText("Giám sát viên");
-        pnl_rdbRoleEmp.add(rdb_supervisor);
-
-        pnl_roleEmp.add(pnl_rdbRoleEmp);
+        cmb_roleInfoEmp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nhân Viên Bán Hàng", "Cửa Hàng Trưởng", "Giám Sát Viên" }));
+        cmb_roleInfoEmp.setMaximumSize(new java.awt.Dimension(32767, 40));
+        cmb_roleInfoEmp.setMinimumSize(new java.awt.Dimension(144, 30));
+        cmb_roleInfoEmp.setPreferredSize(new java.awt.Dimension(144, 30));
+        pnl_roleEmp.add(cmb_roleInfoEmp);
 
         pnl_txtInforEmp.add(pnl_roleEmp);
 
@@ -395,6 +558,24 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
 
         pnl_txtInforEmp.add(pnl_citizenIDEmp);
 
+        pnl_dateStart.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        pnl_dateStart.setPreferredSize(new java.awt.Dimension(230, 40));
+        pnl_dateStart.setLayout(new javax.swing.BoxLayout(pnl_dateStart, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_dateStart.setText("Ngày vào làm:");
+        lbl_dateStart.setPreferredSize(lbl_empID.getPreferredSize());
+        pnl_dateStart.add(lbl_dateStart);
+
+        pnl_chooseDateStart.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
+        pnl_chooseDateStart.setMaximumSize(new java.awt.Dimension(32767, 40));
+        pnl_chooseDateStart.setPreferredSize(new java.awt.Dimension(100, 30));
+        pnl_chooseDateStart.setLayout(new java.awt.GridLayout(1, 0, 3, 3));
+        pnl_chooseDateStart.add(chooseDateStart);
+
+        pnl_dateStart.add(pnl_chooseDateStart);
+
+        pnl_txtInforEmp.add(pnl_dateStart);
+
         pnl_statusEmp.setMaximumSize(new java.awt.Dimension(2147483647, 40));
         pnl_statusEmp.setPreferredSize(new java.awt.Dimension(230, 40));
         pnl_statusEmp.setLayout(new javax.swing.BoxLayout(pnl_statusEmp, javax.swing.BoxLayout.LINE_AXIS));
@@ -409,7 +590,6 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         pnl_statusRadioEmp.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
 
         group_statusEmp.add(rdb_woking);
-        rdb_woking.setSelected(true);
         rdb_woking.setText("Đang làm việc");
         rdb_woking.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -426,20 +606,20 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
 
         pnl_txtInforEmp.add(pnl_statusEmp);
 
-        pnl_password.setMaximumSize(new java.awt.Dimension(2147483647, 40));
-        pnl_password.setPreferredSize(new java.awt.Dimension(230, 40));
-        pnl_password.setLayout(new javax.swing.BoxLayout(pnl_password, javax.swing.BoxLayout.LINE_AXIS));
+        pnl_storeID.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        pnl_storeID.setPreferredSize(new java.awt.Dimension(230, 40));
+        pnl_storeID.setLayout(new javax.swing.BoxLayout(pnl_storeID, javax.swing.BoxLayout.LINE_AXIS));
 
-        lbl_password.setText("Mật khẩu:");
-        lbl_password.setPreferredSize(lbl_empID.getPreferredSize());
-        pnl_password.add(lbl_password);
+        lbl_storeID.setText("Chi nhánh CH:");
+        lbl_storeID.setPreferredSize(lbl_empID.getPreferredSize());
+        pnl_storeID.add(lbl_storeID);
 
-        txt_password.setMaximumSize(new java.awt.Dimension(2147483647, 30));
-        txt_password.setMinimumSize(new java.awt.Dimension(64, 30));
-        txt_password.setPreferredSize(new java.awt.Dimension(64, 30));
-        pnl_password.add(txt_password);
+        txt_storeID.setMaximumSize(new java.awt.Dimension(2147483647, 30));
+        txt_storeID.setMinimumSize(new java.awt.Dimension(64, 30));
+        txt_storeID.setPreferredSize(new java.awt.Dimension(64, 30));
+        pnl_storeID.add(txt_storeID);
 
-        pnl_txtInforEmp.add(pnl_password);
+        pnl_txtInforEmp.add(pnl_storeID);
 
         pnl_inforDetailEmp.add(pnl_txtInforEmp, java.awt.BorderLayout.CENTER);
 
@@ -458,6 +638,11 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         btn_addEmp.putClientProperty(FlatClientProperties.STYLE,""
             + "background:$Menu.background;"
             + "foreground:$Menu.foreground;");
+        btn_addEmp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_addEmpActionPerformed(evt);
+            }
+        });
         jPanel1.add(btn_addEmp, java.awt.BorderLayout.CENTER);
 
         pnl_buttonEmp.add(jPanel1);
@@ -468,6 +653,11 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         btn_updateEmp.putClientProperty(FlatClientProperties.STYLE,""
             + "background:$Menu.background;"
             + "foreground:$Menu.foreground;");
+        btn_updateEmp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_updateEmpActionPerformed(evt);
+            }
+        });
         jPanel2.add(btn_updateEmp, java.awt.BorderLayout.CENTER);
 
         pnl_buttonEmp.add(jPanel2);
@@ -495,15 +685,58 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_rdb_wokingActionPerformed
 
-    private void rdb_salerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdb_salerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rdb_salerActionPerformed
+    private void btn_searchEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchEmpActionPerformed
+        String searchQuery = txt_searchEmp.getText();
+        if (searchQuery.isBlank()) {
+            Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng điền mã nhân viên");
+            return;
+        }
+        renderEmployeeTable(bus.searchById(searchQuery));
+        //disablePage();
+    }//GEN-LAST:event_btn_searchEmpActionPerformed
+
+    private void btn_searchFilterEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchFilterEmpActionPerformed
+        int role = cmb_roleEmp.getSelectedIndex();
+        int status = cmb_statusEmp.getSelectedIndex();
+        renderEmployeeTable(bus.filter(role, status));
+    }//GEN-LAST:event_btn_searchFilterEmpActionPerformed
+
+    private void btn_reloadEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reloadEmpActionPerformed
+        renderEmployeeTable(bus.getAllEmployee());
+        renderEmployeeInfor();
+    }//GEN-LAST:event_btn_reloadEmpActionPerformed
+
+    private void btn_addEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addEmpActionPerformed
+        if(validEmployee() == false) {
+            Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng nhập thông tin nhân viên để thêm");
+           return;
+        }
+        else
+            try {
+                addEmployee();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_btn_addEmpActionPerformed
+
+    private void btn_updateEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_updateEmpActionPerformed
+        try {
+            updateEmployee();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_btn_updateEmpActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_addEmp;
+    private javax.swing.JButton btn_reloadEmp;
     private javax.swing.JButton btn_searchEmp;
+    private javax.swing.JButton btn_searchFilterEmp;
     private javax.swing.JButton btn_updateEmp;
+    private com.toedter.calendar.JDateChooser chooseDateOfBirth;
+    private com.toedter.calendar.JDateChooser chooseDateStart;
     private javax.swing.JComboBox<String> cmb_roleEmp;
+    private javax.swing.JComboBox<String> cmb_roleInfoEmp;
     private javax.swing.JComboBox<String> cmb_statusEmp;
     private javax.swing.ButtonGroup group_gender;
     private javax.swing.ButtonGroup group_roleEmp;
@@ -512,41 +745,42 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lbl_addressEmp;
     private javax.swing.JLabel lbl_citizenID;
+    private javax.swing.JLabel lbl_dateOfBirth;
+    private javax.swing.JLabel lbl_dateStart;
     private javax.swing.JLabel lbl_empID;
     private javax.swing.JLabel lbl_genderEmp;
     private javax.swing.JLabel lbl_name;
-    private javax.swing.JLabel lbl_password;
     private javax.swing.JLabel lbl_phoneNumberEmp;
-    private javax.swing.JLabel lbl_reloadEmp;
     private javax.swing.JLabel lbl_roleEmp;
     private javax.swing.JLabel lbl_statusEmp;
+    private javax.swing.JLabel lbl_storeID;
     private javax.swing.JPanel pnl_addressEmp;
     private javax.swing.JPanel pnl_btnEmp;
     private javax.swing.JPanel pnl_btnSearchEmp;
     private javax.swing.JPanel pnl_buttonEmp;
     private javax.swing.JPanel pnl_centerEmp;
+    private javax.swing.JPanel pnl_chooseDateOfBirth;
+    private javax.swing.JPanel pnl_chooseDateStart;
     private javax.swing.JPanel pnl_citizenIDEmp;
     private javax.swing.JPanel pnl_cmb;
+    private javax.swing.JPanel pnl_dateOfBirth;
+    private javax.swing.JPanel pnl_dateStart;
     private javax.swing.JPanel pnl_empID;
     private javax.swing.JPanel pnl_genderEmp;
     private javax.swing.JPanel pnl_genderRadioEmp;
     private javax.swing.JPanel pnl_inforDetailEmp;
     private javax.swing.JPanel pnl_nameEmp;
-    private javax.swing.JPanel pnl_password;
     private javax.swing.JPanel pnl_phoneNumberEmp;
-    private javax.swing.JPanel pnl_rdbRoleEmp;
     private javax.swing.JPanel pnl_roleEmp;
     private javax.swing.JPanel pnl_searchEmp;
     private javax.swing.JPanel pnl_statusEmp;
     private javax.swing.JPanel pnl_statusRadioEmp;
+    private javax.swing.JPanel pnl_storeID;
     private javax.swing.JPanel pnl_topEmp;
     private javax.swing.JPanel pnl_txtInforEmp;
     private javax.swing.JRadioButton rdb_female;
     private javax.swing.JRadioButton rdb_male;
-    private javax.swing.JRadioButton rdb_manager;
-    private javax.swing.JRadioButton rdb_saler;
     private javax.swing.JRadioButton rdb_stopWorking;
-    private javax.swing.JRadioButton rdb_supervisor;
     private javax.swing.JRadioButton rdb_woking;
     private javax.swing.JScrollPane scr_tableInforEmp;
     private javax.swing.JSplitPane spl_inforEmp;
@@ -555,10 +789,12 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
     private javax.swing.JTextField txt_citizenIDEmp;
     private javax.swing.JTextField txt_empID;
     private javax.swing.JTextField txt_name;
-    private javax.swing.JTextField txt_password;
     private javax.swing.JTextField txt_phoneNumberEmp;
     private javax.swing.JTextField txt_searchEmp;
+    private javax.swing.JTextField txt_storeID;
     // End of variables declaration//GEN-END:variables
+
+    
 
     
 
