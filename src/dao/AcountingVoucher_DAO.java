@@ -7,11 +7,13 @@ package dao;
 import database.ConnectDB;
 import entity.AcountingVoucher;
 import entity.CashCountSheet;
-import entity.Customer;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.*;
+
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -33,16 +35,36 @@ public class AcountingVoucher_DAO implements interfaces.DAOBase<AcountingVoucher
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                Date createdDate = resultSet.getDate("createdDate");
-                Date endedDate = resultSet.getDate("endedDate");
+
+                Timestamp startTimestamp = resultSet.getTimestamp("startedDate");
+                Timestamp endTimestamp = resultSet.getTimestamp("endedDate");
+
+                Date startDate = new java.sql.Date(startTimestamp.getTime());
+                Date endDate = new java.sql.Date(endTimestamp.getTime());
                 String cashCountSheetID = resultSet.getString("cashCountSheetID");
 
-                acountingVoucher = new AcountingVoucher(acountingVoucherID, createdDate, endedDate, new CashCountSheet(cashCountSheetID), new Order_DAO().getAllOrderInAcountingVoucher(acountingVoucherID));
+                acountingVoucher = new AcountingVoucher(acountingVoucherID, startDate, endDate, new CashCountSheet(cashCountSheetID), new Order_DAO().getAllOrderInAcountingVoucher(acountingVoucherID));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return acountingVoucher;
+    }
+
+    public String getMaxSequence(String code) {
+        try {
+            code += "%";
+            String sql = "SELECT TOP 1  * FROM CashCountSheet WHERE cashCountSheetID LIKE '" + code + "' ORDER BY cashCountSheetID DESC";
+            PreparedStatement st = ConnectDB.conn.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                String acountingVoucherID = rs.getString("acountingVoucherID");
+                return acountingVoucherID;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
@@ -57,11 +79,15 @@ public class AcountingVoucher_DAO implements interfaces.DAOBase<AcountingVoucher
 
             while (resultSet.next()) {
                 String acountingVoucherID = resultSet.getString("acountingVoucherID");
-                Date createdDate = resultSet.getDate("createdDate");
-                Date endedDate = resultSet.getDate("endedDate");
+                Timestamp startTimestamp = resultSet.getTimestamp("startedDate");
+                Timestamp endTimestamp = resultSet.getTimestamp("endedDate");
+
+                Date startDate = new java.sql.Date(startTimestamp.getTime());
+                Date endDate = new java.sql.Date(endTimestamp.getTime());
+
                 String cashCountSheetID = resultSet.getString("cashCountSheetID");
 
-                AcountingVoucher acountingVoucher = new AcountingVoucher(acountingVoucherID, createdDate, endedDate, new CashCountSheet(cashCountSheetID), new Order_DAO().getAllOrderInAcountingVoucher(acountingVoucherID));
+                AcountingVoucher acountingVoucher = new AcountingVoucher(acountingVoucherID, startDate, endDate, new CashCountSheet(cashCountSheetID), new Order_DAO().getAllOrderInAcountingVoucher(acountingVoucherID));
 
                 acountingVouchers.add(acountingVoucher);
             }
@@ -84,8 +110,12 @@ public class AcountingVoucher_DAO implements interfaces.DAOBase<AcountingVoucher
             PreparedStatement preparedStatement = ConnectDB.conn.prepareStatement(sql);
 
             preparedStatement.setString(1, acountingVoucher.getAcountingVoucherID());
-            preparedStatement.setDate(2, new java.sql.Date(acountingVoucher.getCreatedDate().getTime()));
-            preparedStatement.setDate(3, new java.sql.Date(acountingVoucher.getEndedDate().getTime()));
+            Timestamp end = new Timestamp(acountingVoucher.getCreatedDate().getTime());
+            preparedStatement.setTimestamp(3, end);
+
+            Timestamp start = new Timestamp(acountingVoucher.getCreatedDate().getTime());
+            preparedStatement.setTimestamp(2, start);
+
             preparedStatement.setString(4, acountingVoucher.getCashCountSheet().getCashCountSheetID());
             int rowsAffected = preparedStatement.executeUpdate();
             if (rowsAffected > 0) {

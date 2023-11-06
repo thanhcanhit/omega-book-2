@@ -4,42 +4,48 @@
  */
 package bus;
 
+import dao.Customer_DAO;
 import dao.OrderDetail_DAO;
 import dao.Order_DAO;
 import dao.Product_DAO;
+import entity.Customer;
 import entity.Employee;
 import entity.Order;
 import entity.OrderDetail;
 import entity.Product;
-import entity.PurchaseOrder;
-import entity.PurchaseOrderDetail;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.sql.Date;
-
 
 /**
  *
  * @author thanhcanhit
  */
 public class Sales_BUS {
+
     private final Order_DAO orderDAO = new Order_DAO();
     private final OrderDetail_DAO orderDetailDAO = new OrderDetail_DAO();
     private final Product_DAO productDAO = new Product_DAO();
-    
-     public Product getProduct(String id) {
+    private final Customer_DAO customerDAO = new Customer_DAO();
+
+    public Product getProduct(String id) {
         return productDAO.getOne(id);
     }
 
-    public Order CreateNewOrder() throws Exception{
+    public Customer getCustomerByPhone(String phone) {
+        return customerDAO.getByPhone(phone);
+    }
+
+    public Order CreateNewOrder() throws Exception {
         Order order = new Order(orderDAO.generateID());
         order.setStatus(false);
-        order.setEmployee(new Employee("NV001"));
+        order.setEmployee(new Employee("NV019982020001"));
+//        Chỉ hiển thị ngày lập, khi lưu sẽ lấy thời gian tại lúc bấm thanh toán
         LocalDate now = LocalDate.now();
         order.setOrderAt(Date.from(now.atStartOfDay(ZoneId.systemDefault()).toInstant()));
         return order;
     }
-    
+
     public boolean saveToDatabase(Order order) {
         if (!orderDAO.create(order)) {
             return false;
@@ -47,6 +53,9 @@ public class Sales_BUS {
         for (OrderDetail detail : order.getOrderDetail()) {
             if (!orderDetailDAO.create(detail)) {
                 return false;
+            } else {
+//                Giảm số lượng tồn kho
+                decreaseProductInventory(detail.getProduct(), detail.getQuantity());
             }
         }
 

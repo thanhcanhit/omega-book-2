@@ -4,17 +4,48 @@
  */
 package gui;
 
+import java.awt.Color;
+import org.knowm.xchart.PieChart;
+import org.knowm.xchart.PieChartBuilder;
+import org.knowm.xchart.XChartPanel;
+
 /**
  *
  * @author Hoàng Khang
  */
 public class StatisticCustomer_GUI extends javax.swing.JPanel {
 
+    private XChartPanel<PieChart> pieChartPanel;
+
     /**
      * Creates new form StatisticCustomer_GUI
      */
     public StatisticCustomer_GUI() {
         initComponents();
+        pieChartPanel = new XChartPanel<>(initPieChart());
+        pnl_chart.add(pieChartPanel);
+    }
+
+    public PieChart initPieChart() {
+
+        // Create Chart
+        PieChart chart = new PieChartBuilder().width(800).height(600).title("Biểu đồ biểu diễn tỉ lệ khách hàng theo nhóm tuổi và giới tính").build();
+
+        // Customize Chart
+        Color[] sliceColors = new Color[]{new Color(129, 143, 180), new Color(230, 105, 62), new Color(162, 197, 121), new Color(197, 168, 86), new Color(255, 223, 223), new Color(174, 222, 252)};
+        chart.getStyler().setPlotBackgroundColor(Color.WHITE);
+        chart.getStyler().setChartBackgroundColor(Color.WHITE);
+        chart.getStyler().setSeriesColors(sliceColors);
+
+        // Series
+        chart.addSeries("Nam dưới 18 tuổi", 24);
+        chart.addSeries("Nam từ 18 đến 40 tuổi", 21);
+        chart.addSeries("Nam trên 40 tuổi", 30);
+        chart.addSeries("Nữ dưới 18 tuổi", 10);
+        chart.addSeries("Nữ từ 18 đến 40 tuổi", 23);
+        chart.addSeries("Nữ trên 40 tuổi", 17);
+
+        return chart;
     }
 
     /**
@@ -75,20 +106,8 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         setLayout(new java.awt.BorderLayout());
 
         pnl_chart.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thống kê theo nhóm khách hàng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14)), javax.swing.BorderFactory.createEmptyBorder(20, 1, 1, 1))); // NOI18N
-        pnl_chart.setMaximumSize(null);
         pnl_chart.setPreferredSize(new java.awt.Dimension(200, 0));
-
-        javax.swing.GroupLayout pnl_chartLayout = new javax.swing.GroupLayout(pnl_chart);
-        pnl_chart.setLayout(pnl_chartLayout);
-        pnl_chartLayout.setHorizontalGroup(
-            pnl_chartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1070, Short.MAX_VALUE)
-        );
-        pnl_chartLayout.setVerticalGroup(
-            pnl_chartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
+        pnl_chart.setLayout(new javax.swing.BoxLayout(pnl_chart, javax.swing.BoxLayout.LINE_AXIS));
         add(pnl_chart, java.awt.BorderLayout.CENTER);
 
         pnl_header.setLayout(new javax.swing.BoxLayout(pnl_header, javax.swing.BoxLayout.Y_AXIS));

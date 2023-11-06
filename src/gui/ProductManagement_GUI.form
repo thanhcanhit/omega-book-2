@@ -522,7 +522,6 @@
                                 <Component class="javax.swing.JLabel" name="lbl_productImg">
                                   <Properties>
                                     <Property name="horizontalAlignment" type="int" value="0"/>
-                                    <Property name="text" type="java.lang.String" value="H&#xec;nh &#x1ea3;nh s&#x1ea3;n ph&#x1ea9;m"/>
                                   </Properties>
                                   <AuxValues>
                                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="lbl_productImg.putClientProperty(FlatClientProperties.STYLE,&quot;&quot;&#xa;                + &quot;background:$Menu.background;&quot;);"/>

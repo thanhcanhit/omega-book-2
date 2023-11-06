@@ -5,19 +5,58 @@
 package gui;
 
 import com.formdev.flatlaf.FlatClientProperties;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+
+import utilities.SVGIcon;
 
 /**
  *
  * @author KienTran
  */
 public class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
-
+    private DefaultTableModel tblModel_purchaseOrder;
+    private DefaultTableModel tblModel_purchaseOrderDetail;
     /**
      * Creates new form PurchaseOrderManagement_GUI
      */
     public PurchaseOrderManagement_GUI() {
-        
+        initTableModel();
         initComponents();
+        alterTable();
+    }
+     public void initTableModel() {
+
+        tblModel_purchaseOrder = new DefaultTableModel(new String[]{"Mã đơn nhập", "Nhà cung cấp", "Ngày đặt", "Ngày nhận"
+        }, 0);
+
+        tblModel_purchaseOrderDetail = new DefaultTableModel(new String[]{"Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Giá nhập", "Tổng tiền"
+        }, 0);
+    }
+     public void alterTable() {
+        DefaultTableCellRenderer rightAlign = new DefaultTableCellRenderer();
+        rightAlign.setHorizontalAlignment(JLabel.RIGHT);
+
+        tbl_purchaseOrder.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tbl_purchaseOrder.getColumnModel().getColumn(0).setPreferredWidth(100);
+        tbl_purchaseOrder.getColumnModel().getColumn(1).setPreferredWidth(200);
+        tbl_purchaseOrder.getColumnModel().getColumn(2).setPreferredWidth(100);
+        tbl_purchaseOrder.getColumnModel().getColumn(3).setPreferredWidth(100);
+        tbl_purchaseOrder.setDefaultEditor(Object.class, null);
+
+        tbl_purchaseOrderDetail.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tbl_purchaseOrderDetail.getColumnModel().getColumn(0).setPreferredWidth(100);
+        tbl_purchaseOrderDetail.getColumnModel().getColumn(1).setPreferredWidth(200);
+        tbl_purchaseOrderDetail.getColumnModel().getColumn(2).setPreferredWidth(80);
+        tbl_purchaseOrderDetail.getColumnModel().getColumn(2).setCellRenderer(rightAlign);
+        tbl_purchaseOrderDetail.getColumnModel().getColumn(3).setPreferredWidth(100);
+        tbl_purchaseOrderDetail.getColumnModel().getColumn(3).setCellRenderer(rightAlign);
+        tbl_purchaseOrderDetail.getColumnModel().getColumn(4).setPreferredWidth(100);
+        tbl_purchaseOrderDetail.getColumnModel().getColumn(4).setCellRenderer(rightAlign);
+        tbl_purchaseOrderDetail.setDefaultEditor(Object.class, null);
+
     }
 
     /**
@@ -33,7 +72,7 @@ public class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
         pnl_right = new javax.swing.JPanel();
         pnl_purchaseOrderDetail = new javax.swing.JPanel();
         scr_orderDetail = new javax.swing.JScrollPane();
-        tbl_orderDetail = new javax.swing.JTable();
+        tbl_purchaseOrderDetail = new javax.swing.JTable();
         pnl_purchaseOrderInfo = new javax.swing.JPanel();
         pnl_status = new javax.swing.JPanel();
         lbl_status = new javax.swing.JLabel();
@@ -70,26 +109,8 @@ public class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
         pnl_purchaseOrderDetail.setBorder(javax.swing.BorderFactory.createTitledBorder("Chi tiết đơn nhập hàng:"));
         pnl_purchaseOrderDetail.setLayout(new java.awt.BorderLayout());
 
-        tbl_orderDetail.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Giá nhập", "Tổng tiền"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        scr_orderDetail.setViewportView(tbl_orderDetail);
+        tbl_purchaseOrderDetail.setModel(tblModel_purchaseOrderDetail);
+        scr_orderDetail.setViewportView(tbl_purchaseOrderDetail);
 
         pnl_purchaseOrderDetail.add(scr_orderDetail, java.awt.BorderLayout.CENTER);
 
@@ -110,18 +131,21 @@ public class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
 
         rad_notReceiver.setText("Chưa nhận");
         rad_notReceiver.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 30, 1, 1));
+        rad_notReceiver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         rad_notReceiver.setIconTextGap(8);
         rad_notReceiver.setSize(new java.awt.Dimension(50, 0));
         pnl_status.add(rad_notReceiver);
 
         rad_receiver.setText("Đã nhận");
         rad_receiver.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 30, 1, 1));
+        rad_receiver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         rad_receiver.setIconTextGap(8);
         rad_receiver.setSize(new java.awt.Dimension(50, 0));
         pnl_status.add(rad_receiver);
 
         rad_decline.setText("Đã huỷ");
         rad_decline.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 30, 1, 1));
+        rad_decline.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         rad_decline.setIconTextGap(8);
         rad_decline.setSize(new java.awt.Dimension(50, 0));
         pnl_status.add(rad_decline);
@@ -224,7 +248,9 @@ public class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
         pnl_control.setLayout(new java.awt.BorderLayout());
 
         btn_submit.setText("Xác nhận");
+        btn_submit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_submit.putClientProperty(FlatClientProperties.STYLE, "background:$Menu.background;"+"foreground:$Menu.foreground;");
+        btn_submit.setIcon(SVGIcon.getPrimarySVGIcon("imgs/orderManagement/confirmButtonPOM.svg"));
         pnl_control.add(btn_submit, java.awt.BorderLayout.CENTER);
 
         pnl_purchaseOrderInfo.add(pnl_control);
@@ -240,32 +266,7 @@ public class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
 
         scr_purchaseOrder.setPreferredSize(new java.awt.Dimension(800, 402));
 
-        tbl_purchaseOrder.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Mã đơn nhập hàng", "Mã nhà cung cấp ", "Ngày đặt", "Ngày nhận"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        tbl_purchaseOrder.setModel(tblModel_purchaseOrder);
         tbl_purchaseOrder.setSize(new java.awt.Dimension(800, 80));
         scr_purchaseOrder.setViewportView(tbl_purchaseOrder);
 
@@ -314,8 +315,8 @@ public class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
     private javax.swing.JScrollPane scr_orderDetail;
     private javax.swing.JScrollPane scr_purchaseOrder;
     private javax.swing.JSplitPane splitPane;
-    private javax.swing.JTable tbl_orderDetail;
     private javax.swing.JTable tbl_purchaseOrder;
+    private javax.swing.JTable tbl_purchaseOrderDetail;
     private javax.swing.JTextArea txa_note1;
     private javax.swing.JTextField txt_orderDate;
     private javax.swing.JTextField txt_subTotal;

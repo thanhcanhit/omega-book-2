@@ -42,7 +42,9 @@ public class PurchaseOrder_DAO implements DAOBase<PurchaseOrder> {
 
                 ArrayList<PurchaseOrderDetail> purchaseOrderDetail = new PurchaseOrderDetail_DAO().getAll(id);
 
-                result = new PurchaseOrder(id, orderDate, receiveDate, note, PurchaseOrderStatus.values()[status], new Supplier(supplierID), new Employee(employeeID), purchaseOrderDetail);
+
+                result = new PurchaseOrder(id, orderDate, receiveDate, note, PurchaseOrderStatus.fromInt(status),new Supplier(supplierID), new Employee(employeeID),purchaseOrderDetail);
+            
 
             }
         } catch (Exception e) {
@@ -71,7 +73,9 @@ public class PurchaseOrder_DAO implements DAOBase<PurchaseOrder> {
 
                 ArrayList<PurchaseOrderDetail> purchaseOrderDetail = new PurchaseOrderDetail_DAO().getAll(purchaseOrderID);
 
-                result.add(new PurchaseOrder(purchaseOrderID, orderDate, receiveDate, note, PurchaseOrderStatus.values()[status], new Supplier(supplierID), new Employee(employeeID), purchaseOrderDetail));
+
+                result.add(new PurchaseOrder(purchaseOrderID, orderDate, receiveDate, note, PurchaseOrderStatus.fromInt(status),new Supplier(supplierID), new Employee(employeeID),purchaseOrderDetail));
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -129,6 +133,8 @@ public class PurchaseOrder_DAO implements DAOBase<PurchaseOrder> {
             st.setString(6, object.getSupplier().getSupplierID());
 
             n = st.executeUpdate();
+            
+            
         } catch (Exception e) {
             e.printStackTrace();
         }

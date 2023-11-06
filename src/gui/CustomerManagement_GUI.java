@@ -111,9 +111,9 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         pnl_filterRank = new javax.swing.JPanel();
         lbl_filterRank = new javax.swing.JLabel();
         cbo_filterRank = new javax.swing.JComboBox<>();
-        pnl_filterGender1 = new javax.swing.JPanel();
+        pnl_filterAge = new javax.swing.JPanel();
         lbl_filterGender1 = new javax.swing.JLabel();
-        cbo_filterGender1 = new javax.swing.JComboBox<>();
+        cbo_filterAge = new javax.swing.JComboBox<>();
         btn_filter = new javax.swing.JButton();
         jSplitPane1 = new javax.swing.JSplitPane();
         pnl_info = new javax.swing.JPanel();
@@ -208,7 +208,7 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         pnl_filterRank.add(lbl_filterRank);
 
         cbo_filterRank.setFont(cbo_filterRank.getFont().deriveFont((float)14));
-        cbo_filterRank.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Bạc", "Vàng", "Kim Cương" }));
+        cbo_filterRank.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Chưa có", "Bạc", "Vàng", "Kim cương" }));
         cbo_filterRank.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbo_filterRankActionPerformed(evt);
@@ -218,24 +218,29 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
 
         pnl_filterCustomer.add(pnl_filterRank);
 
-        pnl_filterGender1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 10));
-        pnl_filterGender1.setLayout(new javax.swing.BoxLayout(pnl_filterGender1, javax.swing.BoxLayout.LINE_AXIS));
+        pnl_filterAge.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 10));
+        pnl_filterAge.setLayout(new javax.swing.BoxLayout(pnl_filterAge, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_filterGender1.setFont(lbl_filterGender1.getFont().deriveFont((float)14));
         lbl_filterGender1.setText("Độ tuổi: ");
         lbl_filterGender1.setMaximumSize(new java.awt.Dimension(40, 20));
-        pnl_filterGender1.add(lbl_filterGender1);
+        pnl_filterAge.add(lbl_filterGender1);
 
-        cbo_filterGender1.setFont(cbo_filterGender1.getFont().deriveFont((float)14));
-        cbo_filterGender1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Dưới 18 tuổi", "Từ 18 đến 40 tuổi", "Trên 40 tuổi" }));
-        cbo_filterGender1.setToolTipText("");
-        pnl_filterGender1.add(cbo_filterGender1);
+        cbo_filterAge.setFont(cbo_filterAge.getFont().deriveFont((float)14));
+        cbo_filterAge.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Dưới 18 tuổi", "Từ 18 đến 40 tuổi", "Trên 40 tuổi" }));
+        cbo_filterAge.setToolTipText("");
+        pnl_filterAge.add(cbo_filterAge);
 
-        pnl_filterCustomer.add(pnl_filterGender1);
+        pnl_filterCustomer.add(pnl_filterAge);
 
         pnl_searchCustomer.add(pnl_filterCustomer);
 
         btn_filter.setText("Lọc");
+        btn_filter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_filterActionPerformed(evt);
+            }
+        });
         pnl_searchCustomer.add(btn_filter);
 
         add(pnl_searchCustomer, java.awt.BorderLayout.NORTH);
@@ -263,7 +268,9 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
 
         txt_customerID.setEditable(false);
         txt_customerID.setFont(txt_customerID.getFont().deriveFont((float)16));
-        txt_customerID.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 0)));
+        txt_customerID.setToolTipText("");
+        txt_customerID.setBorder(javax.swing.BorderFactory.createCompoundBorder(null, javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 0)));
+        txt_customerID.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         txt_customerID.setFocusable(false);
         txt_customerID.setMaximumSize(new java.awt.Dimension(2147483647, 40));
         txt_customerID.setMinimumSize(new java.awt.Dimension(64, 30));
@@ -545,6 +552,15 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btn_reloadFormActionPerformed
 
+    private void btn_filterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_filterActionPerformed
+        // TODO add your handling code here:
+        String gender = cbo_filterGender.getSelectedItem().toString();
+        String rank = cbo_filterRank.getSelectedItem().toString();
+        String age = cbo_filterAge.getSelectedItem().toString();
+        ArrayList<Customer> listFilter = customer_BUS.filterCustomer(gender, rank, age);
+        renderCustomerTable(listFilter);
+    }//GEN-LAST:event_btn_filterActionPerformed
+
     private Customer getValueForm() throws Exception {
         String customerID = txt_customerID.getText();
         String name = txt_name.getText();
@@ -559,6 +575,7 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         }
         int score = Integer.parseInt(txt_score.getText());
         return new Customer(customerID, name, gender, dateOfBirthf, score, numberPhone, address);
+        
     }
 
 
@@ -569,8 +586,8 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
     private javax.swing.JButton btn_reloadForm;
     private javax.swing.JButton btn_search;
     private javax.swing.JButton btn_update;
+    private javax.swing.JComboBox<String> cbo_filterAge;
     private javax.swing.JComboBox<String> cbo_filterGender;
-    private javax.swing.JComboBox<String> cbo_filterGender1;
     private javax.swing.JComboBox<String> cbo_filterRank;
     private com.toedter.calendar.JDateChooser date_dateOfBirth;
     private javax.swing.ButtonGroup grp_gender;
@@ -592,9 +609,9 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
     private javax.swing.JPanel pnl_address;
     private javax.swing.JPanel pnl_customerID;
     private javax.swing.JPanel pnl_dateOfBirth;
+    private javax.swing.JPanel pnl_filterAge;
     private javax.swing.JPanel pnl_filterCustomer;
     private javax.swing.JPanel pnl_filterGender;
-    private javax.swing.JPanel pnl_filterGender1;
     private javax.swing.JPanel pnl_filterRank;
     private javax.swing.JPanel pnl_gender;
     private javax.swing.JPanel pnl_genderGr;

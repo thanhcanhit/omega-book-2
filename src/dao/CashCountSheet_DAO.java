@@ -11,6 +11,7 @@ import entity.CashCountSheetDetail;
 import java.util.ArrayList;
 import java.sql.*;
 
+
 /**
  *
  * @author Hoàng Khang
@@ -32,9 +33,13 @@ public class CashCountSheet_DAO implements interfaces.DAOBase<CashCountSheet> {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                Date startedDate = resultSet.getDate("startedDate");
-                Date endedDate = resultSet.getDate("endedDate");
-                cashCountSheet = new CashCountSheet(id, new CashCount_DAO().getAll(id), new CashCountSheetDetail_DAO().getAllCashCountSheetDetailInCashCountSheet(id), endedDate, endedDate);
+                Timestamp startTimestamp = resultSet.getTimestamp("startedDate");
+                Timestamp endTimestamp = resultSet.getTimestamp("endedDate");
+                
+                Date startDate = new Date(startTimestamp.getTime());
+                Date endDate = new Date(endTimestamp.getTime());
+
+                cashCountSheet = new CashCountSheet(id, new CashCount_DAO().getAll(id), new CashCountSheetDetail_DAO().getAllCashCountSheetDetailInCashCountSheet(id), startDate, endDate);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -55,10 +60,12 @@ public class CashCountSheet_DAO implements interfaces.DAOBase<CashCountSheet> {
 
             while (resultSet.next()) {
                 String cashCountSheetID = resultSet.getString("cashCountSheetID");
-                Date startedDate = resultSet.getDate("startedDate");
-                Date endedDate = resultSet.getDate("endedDate");
-
-                CashCountSheet cashCountSheet = new CashCountSheet(cashCountSheetID, new CashCount_DAO().getAll(cashCountSheetID), new CashCountSheetDetail_DAO().getAllCashCountSheetDetailInCashCountSheet(cashCountSheetID), endedDate, endedDate);
+                Timestamp startTimestamp = resultSet.getTimestamp("startedDate");
+                Timestamp endTimestamp = resultSet.getTimestamp("endedDate");
+                
+                Date startDate = new Date(startTimestamp.getTime());
+                Date endDate = new Date(endTimestamp.getTime());
+                CashCountSheet cashCountSheet = new CashCountSheet(cashCountSheetID, new CashCount_DAO().getAll(cashCountSheetID), new CashCountSheetDetail_DAO().getAllCashCountSheetDetailInCashCountSheet(cashCountSheetID), startDate, endDate);
 
                 cashCountSheets.add(cashCountSheet);
             }
@@ -97,27 +104,22 @@ public class CashCountSheet_DAO implements interfaces.DAOBase<CashCountSheet> {
             // Thêm bản ghi vào bảng CashCountSheet
             String cashCountSheetSql = "INSERT INTO CashCountSheet (cashCountSheetID, startedDate, endedDate) VALUES (?, ?, ?)";
             PreparedStatement cashCountSheetStatement = ConnectDB.conn.prepareStatement(cashCountSheetSql);
-
             cashCountSheetStatement.setString(1, cashCountSheet.getCashCountSheetID());
-            cashCountSheetStatement.setDate(2, new java.sql.Date(cashCountSheet.getCreatedDate().getTime()));
-            cashCountSheetStatement.setDate(3, new java.sql.Date(cashCountSheet.getEndedDate().getTime()));
-
+            Timestamp end = new Timestamp(cashCountSheet.getEndedDate().getTime());
+            cashCountSheetStatement.setTimestamp(2, end);
+            Timestamp start = new Timestamp(cashCountSheet.getCreatedDate().getTime());
+            cashCountSheetStatement.setTimestamp(3, start);
             int cashCountSheetRowsAffected = cashCountSheetStatement.executeUpdate();
-
-            // Thêm bản ghi vào bảng CashCount
             for (CashCount cashCount : cashCountSheet.getCashCountList()) {
                 cashCount_DAO.create(cashCount, cashCountSheet.getCashCountSheetID());
             }
-
             // Thêm bản ghi vào bảng CashCountSheetDetail
             for (CashCountSheetDetail cashCountSheetDetail : cashCountSheet.getCashCountSheetDetailList()) {
                 cashCountSheetDetail_DAO.create(cashCountSheetDetail);
             }
-
             // Nếu tất cả các bảng đều thêm bản ghi thành công
             if (cashCountSheetRowsAffected > 0) {
-                return true;
-            }
+                return true;            }
         } catch (Exception e) {
             e.printStackTrace();
         }

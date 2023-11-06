@@ -6,6 +6,7 @@ package gui;
 
 import bus.CreatePurchaseOrder_BUS;
 import com.formdev.flatlaf.FlatClientProperties;
+import entity.Employee;
 import entity.Product;
 import entity.PurchaseOrder;
 import entity.PurchaseOrderDetail;
@@ -68,14 +69,14 @@ public class CreatePurchaseOrder_GUI extends javax.swing.JPanel {
 
             int newValue = Integer.parseInt(tblModel_cart.getValueAt(row, col).toString());
             PurchaseOrderDetail current = cart.get(row);
-            
+
 //            Nếu số lượng mới bằng 0 thì xóa khỏi giỏ hàng
             if (newValue == 0 && JOptionPane.showConfirmDialog(this, "Xóa sản phẩm " + current.getProduct().getProductID() + " ra khỏi giỏ hàng", "Xóa sản phẩm khỏi giỏ", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 cart.remove(current);
                 renderCartTable();
                 return;
             }
-            
+
             try {
                 if (current.getProduct().getInventory() >= newValue) {
                     current.setQuantity(newValue);
@@ -217,6 +218,8 @@ public class CreatePurchaseOrder_GUI extends javax.swing.JPanel {
         try {
             Notifications.getInstance().show(Notifications.Type.INFO, "Đang lưu trữ hóa đơn...");
             purchaseOrder.setSupplier(new Supplier(getSuplierID()));
+//            Temp
+            purchaseOrder.setEmployee(new Employee("NV019982020001"));
             purchaseOrder.setPurchaseOrderDetailList(cart);
             purchaseOrder.setNote(txa_description.getText());
 //            Để tạm để xử lí sau

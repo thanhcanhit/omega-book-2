@@ -4,19 +4,63 @@
  */
 package gui;
 
+import java.awt.Color;
+import java.util.Arrays;
+import org.knowm.xchart.*;
+import org.knowm.xchart.style.Styler.LegendPosition;
+
 /**
  *
  * @author KienTran
  */
 public class StatisticSales_GUI extends javax.swing.JPanel {
-
+    private XChartPanel<PieChart> pieChartPanel;
+    private XChartPanel<CategoryChart> categoryChartPanel;
     /**
      * Creates new form StatisticSales_GUI
      */
     public StatisticSales_GUI() {
         initComponents();
+        pieChartPanel = new XChartPanel<>(getPieChart());
+        categoryChartPanel = new XChartPanel<>(getCategoryChart());
+        pnl_productTypeStatistic.add(pieChartPanel);
+        pnl_center.add(categoryChartPanel);
     }
+    public CategoryChart getCategoryChart() {
+ 
+    // Create Chart
+    CategoryChart chart = new CategoryChartBuilder().width(800).height(600).title("").xAxisTitle("Ngày").yAxisTitle("Doanh thu").build();
+ 
+    // Customize Chart
+    chart.getStyler().setLegendPosition(LegendPosition.InsideNW);
+    chart.getStyler().setPlotBackgroundColor(Color.WHITE);
+    chart.getStyler().setChartBackgroundColor(Color.WHITE);
+    chart.getStyler().setSeriesColors(new Color[]{new Color(71, 118, 185)});
+ 
+    // Series
+    chart.addSeries("data", Arrays.asList(new Integer[] {  1, 2, 3, 4, 5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31 }), 
+            Arrays.asList(new Integer[] {13, 24, 13, 43, 5,246,7,8,922,10,11,522,413,14,15,56,17,118,19,20,21,22,23,24,25,26,27,228,229,30,311}));
+ 
+    return chart;
+  }
 
+    public PieChart getPieChart() {
+ 
+    // Create Chart
+    PieChart chart = new PieChartBuilder().width(800).height(600).title(getClass().getSimpleName()).build();
+ 
+    // Customize Chart
+    Color[] sliceColors = new Color[] { new Color(224, 68, 14), new Color(230, 105, 62) };
+    chart.getStyler().setPlotBackgroundColor(Color.WHITE);
+    chart.getStyler().setChartBackgroundColor(Color.WHITE);
+    chart.getStyler().setSeriesColors(sliceColors);
+ 
+    // Series
+    chart.addSeries("Book", 24);
+    chart.addSeries("Category", 21);
+ 
+    return chart;
+  }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

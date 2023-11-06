@@ -16,7 +16,7 @@ import java.sql.*;
  *
  * @author KienTran
  */
-public class OrderDetail_DAO implements DAOBase<OrderDetail>{
+public class OrderDetail_DAO implements DAOBase<OrderDetail> {
 
     @Override
     public OrderDetail getOne(String id) {
@@ -27,10 +27,11 @@ public class OrderDetail_DAO implements DAOBase<OrderDetail>{
     public ArrayList<OrderDetail> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    public ArrayList<OrderDetail> getAll(String id){
+
+    public ArrayList<OrderDetail> getAll(String id) {
         ArrayList<OrderDetail> result = new ArrayList<OrderDetail>();
         try {
-            PreparedStatement st = ConnectDB.conn.prepareStatement("select * from OrderDetail where orderID = ?");
+            PreparedStatement st = ConnectDB.conn.prepareStatement("select * from [OrderDetail] where orderID = ?");
             st.setString(1, id);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
@@ -42,6 +43,7 @@ public class OrderDetail_DAO implements DAOBase<OrderDetail>{
                 int quantity = rs.getInt("quantity");
                 Double lineTotal = rs.getDouble("lineTotal");
                 OrderDetail orderDetail = new OrderDetail(order, product, quantity, price, lineTotal);
+      
                 result.add(orderDetail);
             }
         } catch (Exception e) {
@@ -57,13 +59,13 @@ public class OrderDetail_DAO implements DAOBase<OrderDetail>{
 
     @Override
     public Boolean create(OrderDetail object) {
-         int n = 0;
+        int n = 0;
         try {
             PreparedStatement st = ConnectDB.conn.prepareStatement("insert into OrderDetail (orderID, productID, price, quantity, lineTotal) values (?, ?, ?, ?, ?)");
             st.setString(1, object.getOrder().getOrderID());
             st.setString(2, object.getProduct().getProductID());
             st.setDouble(3, object.getPrice());
-            st.setInt(4,object.getQuantity() );
+            st.setInt(4, object.getQuantity());
             st.setDouble(5, object.getLineTotal());
             n = st.executeUpdate();
         } catch (Exception e) {
@@ -89,5 +91,5 @@ public class OrderDetail_DAO implements DAOBase<OrderDetail>{
         }
         return n > 0;
     }
-    
+
 }
