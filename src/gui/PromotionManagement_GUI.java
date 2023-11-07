@@ -191,6 +191,7 @@ public class PromotionManagement_GUI extends javax.swing.JPanel implements Actio
         cmb_typePromo = new javax.swing.JComboBox<>();
         cmb_statusPromo = new javax.swing.JComboBox<>();
         btn_searchFilterPromo = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         slp_promotion = new javax.swing.JSplitPane();
         pnl_listPromotion = new javax.swing.JPanel();
         pnl_promotionInfor = new javax.swing.JPanel();
@@ -265,22 +266,36 @@ public class PromotionManagement_GUI extends javax.swing.JPanel implements Actio
         pnl_filterPromo.setMaximumSize(new java.awt.Dimension(500, 50));
         pnl_filterPromo.setMinimumSize(new java.awt.Dimension(300, 32));
         pnl_filterPromo.setPreferredSize(new java.awt.Dimension(400, 50));
-        pnl_filterPromo.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
+        pnl_filterPromo.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         cmb_typePromo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Loại" }));
+        cmb_typePromo.setMaximumSize(new java.awt.Dimension(32767, 30));
+        cmb_typePromo.setPreferredSize(new java.awt.Dimension(72, 30));
         pnl_filterPromo.add(cmb_typePromo);
 
         cmb_statusPromo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Trạng thái", "Đang diễn ra", "Đã kết thúc" }));
+        cmb_statusPromo.setMaximumSize(new java.awt.Dimension(32767, 30));
+        cmb_statusPromo.setPreferredSize(new java.awt.Dimension(101, 30));
         pnl_filterPromo.add(cmb_statusPromo);
 
         btn_searchFilterPromo.setText("Lọc");
         btn_searchFilterPromo.setActionCommand("");
+        btn_searchFilterPromo.setMaximumSize(new java.awt.Dimension(72, 30));
+        btn_searchFilterPromo.setPreferredSize(new java.awt.Dimension(72, 30));
         btn_searchFilterPromo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_searchFilterPromoActionPerformed(evt);
             }
         });
         pnl_filterPromo.add(btn_searchFilterPromo);
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/employee/reload_employee.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        pnl_filterPromo.add(jButton1);
 
         pnl_searchPromotion.add(pnl_filterPromo);
 
@@ -541,6 +556,10 @@ public class PromotionManagement_GUI extends javax.swing.JPanel implements Actio
                 ex.printStackTrace();
             }
     }//GEN-LAST:event_btn_createPromoActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        renderPromotionTables(bus.getAllPromotion());
+    }//GEN-LAST:event_jButton1ActionPerformed
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -553,6 +572,7 @@ public class PromotionManagement_GUI extends javax.swing.JPanel implements Actio
     private javax.swing.JComboBox<String> cmb_statusPromo;
     private javax.swing.JComboBox<String> cmb_typePromo;
     private javax.swing.ButtonGroup group_typePromo;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel lbl_discountPromo;
     private javax.swing.JLabel lbl_endDatePromo;
     private javax.swing.JLabel lbl_promotionID;
