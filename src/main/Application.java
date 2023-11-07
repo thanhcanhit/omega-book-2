@@ -1,5 +1,6 @@
 package main;
 
+import bus.Login_BUS;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.extras.FlatAnimatedLafChange;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
@@ -11,6 +12,7 @@ import gui.Login_GUI;
 import gui.MainView;
 import gui.Sales_GUI;
 import gui.Welcome_GUI;
+import gui.menu.Menu;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -85,6 +87,7 @@ public class Application extends javax.swing.JFrame {
 
 //        Update state
         Application.employee = employee;
+        MainView.rerenderMenuByEmployee();
         Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đăng nhập vào hệ thống thành công");
     }
 

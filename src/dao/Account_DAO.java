@@ -40,6 +40,24 @@ public class Account_DAO implements DAOBase<Account> {
         return result;
     }
 
+    public boolean validateAccount(String id, String password) {
+        boolean isValid = false;
+        try {
+            PreparedStatement st = ConnectDB.conn.prepareStatement("Select * from Account where employeeID = ? and password = ?");
+            st.setString(1, id);
+            st.setString(2, password);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                isValid = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception ex) {
+            Logger.getLogger(Account_DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return isValid;
+    }
+
     @Override
     public ArrayList<Account> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

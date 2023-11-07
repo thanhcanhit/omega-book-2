@@ -1,16 +1,16 @@
 package gui;
 
+import bus.Login_BUS;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.util.UIScale;
+import entity.Employee;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Insets;
 import java.awt.LayoutManager;
-import java.awt.Toolkit;
 import main.Application;
+import raven.toast.Notifications;
 
 /**
  *
@@ -18,18 +18,11 @@ import main.Application;
  */
 public class Login_GUI extends javax.swing.JPanel {
 
+    private final Login_BUS bus = new Login_BUS();
+
     public Login_GUI() {
         initComponents();
         init();
-    }
-
-    @Override
-    protected void paintComponent(Graphics g) {
-
-        super.paintComponent(g);
-//        Image background = Toolkit.getDefaultToolkit().createImage(getClass().getResource("/imgs/login/background.png"));
-//        g.drawImage(background, 0, 0, this);
-
     }
 
     private void init() {
@@ -49,7 +42,9 @@ public class Login_GUI extends javax.swing.JPanel {
                 + "borderWidth:0;"
                 + "focusWidth:0");
         txt_user.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Mã nhân viên của bạn");
+        txt_user.setText("NV120032023003");
         txt_password.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Nhập vào mật khẩu của bạn");
+        txt_password.setText("Lehoangkhang");
     }
 
     @SuppressWarnings("unchecked")
@@ -142,7 +137,16 @@ public class Login_GUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmdLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdLoginActionPerformed
-        Application.login(null);
+        String id = txt_user.getText();
+        String password = String.copyValueOf(txt_password.getPassword());
+
+        Employee currentEmployee = bus.login(id, password);
+
+        if (currentEmployee != null) {
+            Application.login(currentEmployee);
+        } else {
+            Notifications.getInstance().show(Notifications.Type.WARNING, "Tài khoản hoặc mật khẩu bạn nhập vào không chính xác");
+        }
     }//GEN-LAST:event_cmdLoginActionPerformed
 
     private class LoginFormLayout implements LayoutManager {

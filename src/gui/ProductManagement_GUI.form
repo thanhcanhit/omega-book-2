@@ -937,12 +937,18 @@
                         </CompoundBorder>
                       </Border>
                     </Property>
+                    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[300, 300]"/>
+                    </Property>
                   </Properties>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
                     <Container class="javax.swing.JPanel" name="pnl_bookDetail">
                       <Properties>
+                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[300, 500]"/>
+                        </Property>
                         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                           <Dimension value="[400, 400]"/>
                         </Property>
@@ -1063,6 +1069,52 @@
                             </Component>
                           </SubComponents>
                         </Container>
+                        <Container class="javax.swing.JPanel" name="pnl_container17">
+                          <Properties>
+                            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                              <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+                                <EmptyBorder bottom="5" left="0" right="0" top="0"/>
+                              </Border>
+                            </Property>
+                            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[100, 35]"/>
+                            </Property>
+                          </Properties>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
+                          <SubComponents>
+                            <Component class="javax.swing.JLabel" name="lbl_bookType">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Ngu&#x1ed3;n g&#x1ed1;c"/>
+                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[110, 40]"/>
+                                </Property>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JComboBox" name="cmb_bookType">
+                              <Properties>
+                                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                                  <StringArray count="2">
+                                    <StringItem index="0" value="Trong n&#x1b0;&#x1edb;c"/>
+                                    <StringItem index="1" value="Ngo&#xe0;i n&#x1b0;&#x1edb;c"/>
+                                  </StringArray>
+                                </Property>
+                                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[9999, 40]"/>
+                                </Property>
+                                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[100, 35]"/>
+                                </Property>
+                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[100, 30]"/>
+                                </Property>
+                              </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                              </AuxValues>
+                            </Component>
+                          </SubComponents>
+                        </Container>
                         <Container class="javax.swing.JPanel" name="pnl_container18">
                           <Properties>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -1081,7 +1133,7 @@
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="Danh m&#x1ee5;c"/>
                                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[40, 16]"/>
+                                  <Dimension value="[40, 40]"/>
                                 </Property>
                                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                                   <Dimension value="[40, 30]"/>
@@ -1097,10 +1149,10 @@
                                   <Dimension value="[9999, 40]"/>
                                 </Property>
                                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[100, 35]"/>
+                                  <Dimension value="[100, 40]"/>
                                 </Property>
                                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[120, 30]"/>
+                                  <Dimension value="[120, 35]"/>
                                 </Property>
                               </Properties>
                               <AuxValues>
@@ -1119,7 +1171,7 @@
                           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
                             <Property name="columns" type="int" value="2"/>
                             <Property name="horizontalGap" type="int" value="5"/>
-                            <Property name="rows" type="int" value="4"/>
+                            <Property name="rows" type="int" value="2"/>
                             <Property name="verticalGap" type="int" value="5"/>
                           </Layout>
                           <SubComponents>
@@ -1261,56 +1313,10 @@
                                 </Component>
                               </SubComponents>
                             </Container>
-                            <Container class="javax.swing.JPanel" name="pnl_container17">
-                              <Properties>
-                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[100, 35]"/>
-                                </Property>
-                              </Properties>
-
-                              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
-                              <SubComponents>
-                                <Component class="javax.swing.JLabel" name="lbl_bookType">
-                                  <Properties>
-                                    <Property name="text" type="java.lang.String" value="Ngu&#x1ed3;n g&#x1ed1;c"/>
-                                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                      <Dimension value="[110, 40]"/>
-                                    </Property>
-                                  </Properties>
-                                </Component>
-                                <Component class="javax.swing.JComboBox" name="cmb_bookType">
-                                  <Properties>
-                                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                                      <StringArray count="2">
-                                        <StringItem index="0" value="Trong n&#x1b0;&#x1edb;c"/>
-                                        <StringItem index="1" value="N&#x1b0;&#x1edb;c ngo&#xe0;i"/>
-                                      </StringArray>
-                                    </Property>
-                                    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                      <Dimension value="[9999, 40]"/>
-                                    </Property>
-                                    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                      <Dimension value="[100, 35]"/>
-                                    </Property>
-                                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                      <Dimension value="[100, 30]"/>
-                                    </Property>
-                                  </Properties>
-                                  <AuxValues>
-                                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                                  </AuxValues>
-                                </Component>
-                              </SubComponents>
-                            </Container>
                           </SubComponents>
                         </Container>
                         <Container class="javax.swing.JPanel" name="pnl_container7">
                           <Properties>
-                            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                              <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
-                                <EmptyBorder bottom="20" left="0" right="0" top="0"/>
-                              </Border>
-                            </Property>
                             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                               <Dimension value="[200, 70]"/>
                             </Property>
@@ -1319,11 +1325,14 @@
                             </Property>
                           </Properties>
 
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout">
-                            <Property name="axis" type="int" value="1"/>
-                          </Layout>
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
                           <SubComponents>
                             <Container class="javax.swing.JPanel" name="pnl_container16">
+                              <Constraints>
+                                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
+                                  <BorderConstraints direction="North"/>
+                                </Constraint>
+                              </Constraints>
 
                               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
                                 <Property name="columns" type="int" value="0"/>
@@ -1340,7 +1349,7 @@
                                 </Component>
                               </SubComponents>
                             </Container>
-                            <Container class="javax.swing.JScrollPane" name="scr_productName1">
+                            <Container class="javax.swing.JScrollPane" name="scr_productDescription">
                               <Properties>
                                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                                   <Dimension value="[100, 100]"/>
@@ -1349,6 +1358,11 @@
                               <AuxValues>
                                 <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                               </AuxValues>
+                              <Constraints>
+                                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
+                                  <BorderConstraints direction="Center"/>
+                                </Constraint>
+                              </Constraints>
 
                               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                               <SubComponents>
@@ -1358,6 +1372,9 @@
                                     <Property name="lineWrap" type="boolean" value="true"/>
                                     <Property name="rows" type="int" value="3"/>
                                     <Property name="tabSize" type="int" value="4"/>
+                                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                                      <Border info="null"/>
+                                    </Property>
                                   </Properties>
                                 </Component>
                               </SubComponents>
