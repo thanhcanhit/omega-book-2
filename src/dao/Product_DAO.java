@@ -110,6 +110,23 @@ public class Product_DAO implements DAOBase<Product> {
 
         return length;
     }
+     public boolean updateQuantity( String productID, int quantity) {
+        int n = 0;
+
+        try {
+            Product product = getOne(productID);
+            int newQuantity = product.getInventory()+quantity;
+
+            PreparedStatement st = ConnectDB.conn.prepareStatement("UPDATE Product SET quantity = ? WHERE productID = ? ;");
+            st.setInt(1, newQuantity);
+            st.setString(2, productID);
+            n = st.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return n > 0;
+    }
 
     /**
      * Dùng cho logic chia trang Số phần tử 1 trang là 50
@@ -471,5 +488,103 @@ public class Product_DAO implements DAOBase<Product> {
         }
         return 0;
     }
+    
+    
+    public ArrayList<Product> getTop10Product(Date date) {
 
+        ArrayList<Product> result = new ArrayList<>();
+
+        try {
+            PreparedStatement st = ConnectDB.conn.prepareStatement("""
+                                                                   select top 10 productID
+                                                                    from OrderDetail as od join [Order] as o on od.orderID = o.orderID
+                                                                    where CONVERT(varchar, orderAt, 23) = ?
+                                                                    group by productID
+                                                                    order by SUM(quantity) desc""");
+            st.setDate(1, date);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                String productID = rs.getString(1);
+                result.add(
+                      getOne(productID));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+    
+     public int getQuantitySale(String productID,Date date) {
+        int result = 0;
+
+        try {
+            PreparedStatement st = ConnectDB.conn.prepareStatement("""
+                                                                   select SUM(quantity) as sl
+                                                                   from OrderDetail as od join Order as o on od.orderID = o.orderID
+                                                                   where CONVERT(varchar, orderAt, 23) = ? and productID = ?
+                                                                   group by productID 
+                                                                   order by SUM(quantity) desc""");
+            st.setDate(1, date);
+            st.setString(2, productID);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                result = rs.getInt("sl");
+   
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+    public double getTotalProduct(String productID, Date date) {
+        try {
+            PreparedStatement st = ConnectDB.conn.prepareStatement("""
+                                                                   select sum(od.lineTotal)
+                                                                   from OrderDetail as od join Order as o on od.orderID = o.orderID
+                                                                   where productID = ? and CONVERT(varchar, orderAt, 23) = ?
+                                                                   group by productID                                               
+                                                                   """);
+            st.setString(1, productID);
+            st.setDate(2, date);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return rs.getDouble(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
+    public double[] getTotalInMonth(int month, int year) {
+        double[] result = new double[31];
+
+        for (int i = 0; i < result.length; i++) {
+            result[i] = 0;
+        }
+
+        ;
+
+        try {
+            PreparedStatement st = ConnectDB.conn.prepareStatement("select DAY(orderAt) as day, sum(totalDue) as total from Order where YEAR(orderAt) = ? and MONTH(orderAt) = ? group by MONTH(orderAt)");
+            st.setInt(2, month);
+            st.setInt(1,year);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                int day = rs.getInt("day");
+                double total = rs.getDouble("total");
+
+                result[day - 1] = total;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
 }
