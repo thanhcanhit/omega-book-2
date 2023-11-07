@@ -128,7 +128,6 @@ public class CreatePurchaseOrder_GUI extends javax.swing.JPanel {
             String id = matcher.group(0);
             id = id.replaceAll("\\(", "");
             id = id.replaceAll("\\)", "");
-            System.out.println(id);
             return id;
         }
         return null;
@@ -317,17 +316,6 @@ public class CreatePurchaseOrder_GUI extends javax.swing.JPanel {
 
         pnl_cart.setLayout(new java.awt.BorderLayout());
 
-        tbl_cart.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"SP0001", "Thiên tài bên trái, kẻ điên bên phải", "1", "100000", "100000"},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Đơn giá", "Thành tiền"
-            }
-        ));
         scr_cart.setViewportView(tbl_cart);
 
         pnl_cart.add(scr_cart, java.awt.BorderLayout.CENTER);
