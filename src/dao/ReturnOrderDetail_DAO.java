@@ -30,8 +30,8 @@ public class ReturnOrderDetail_DAO implements DAOBase<ReturnOrderDetail>{
             while (rs.next()) {
                 returnOrderID = rs.getString("returnOrderID");
                 productID = rs.getString("productID");
-                //int quantity = rs.getInt("quantity");
-                returnOrderDetail = new ReturnOrderDetail(returnOrderID, productID);
+                int quantity = rs.getInt("quantity");
+                returnOrderDetail = new ReturnOrderDetail(returnOrderID, productID, quantity);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -49,8 +49,8 @@ public class ReturnOrderDetail_DAO implements DAOBase<ReturnOrderDetail>{
             while (rs.next()) {                
                 String returnOrderID = rs.getString("returnOrderID");
                 String productID = rs.getString("productID");
-                //int quantity = rs.getInt("quantity");
-                ReturnOrderDetail returnOrderDetail = new ReturnOrderDetail(returnOrderID, productID);
+                int quantity = rs.getInt("quantity");
+                ReturnOrderDetail returnOrderDetail = new ReturnOrderDetail(returnOrderID, productID, quantity);
                 result.add(returnOrderDetail);
             }
         } catch (Exception e) {
@@ -80,6 +80,26 @@ public class ReturnOrderDetail_DAO implements DAOBase<ReturnOrderDetail>{
         return n > 0;
     }
 
+    public ArrayList<ReturnOrderDetail> getAllForOrderReturnID(String id) {
+        System.out.println(id);
+        ArrayList result = new ArrayList<>();
+        try {
+            PreparedStatement st = ConnectDB.conn.prepareStatement("SELECT * FROM ReturnOrderDetail "
+                    + "WHERE returnOrderID = ?");
+            st.setString(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                String productID = rs.getString("productID");
+                int quantity = rs.getInt("quantity");
+                ReturnOrderDetail returnOrderDetail = new ReturnOrderDetail(id, productID, quantity);
+                result.add(returnOrderDetail);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    
     @Override
     public Boolean update(String id, ReturnOrderDetail newObject) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
