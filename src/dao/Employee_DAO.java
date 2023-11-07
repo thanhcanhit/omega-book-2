@@ -5,6 +5,7 @@
 package dao;
 
 import database.ConnectDB;
+import entity.Account;
 import entity.Employee;
 import entity.Store;
 import interfaces.DAOBase;
@@ -100,8 +101,8 @@ public class Employee_DAO implements DAOBase<Employee> {
         int n = 0;
         try {
             PreparedStatement st = ConnectDB.conn.prepareStatement("INSERT INTO [dbo].[Employee]"
-                    + "([employeeID],[name],[role],[status],[dateOfBirth],[gender],[phoneNumber],[citizenIddentification],[address],[storeID])"
-                    + "VALUES (? ,?  ,?  ,?  ,?  ,?  ,?)");
+                    + "([employeeID],[name],[role],[status],[dateOfBirth],[gender],[phoneNumber],[citizenIdentification],[address],[storeID])"
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             st.setString(1, object.getEmployeeID());
             st.setString(2, object.getName());
             st.setString(3, object.getRole());
@@ -132,7 +133,7 @@ public class Employee_DAO implements DAOBase<Employee> {
                     + "      ,[dateOfBirth] = ?"
                     + "      ,[gender] = ?"
                     + "      ,[phoneNumber] = ?"
-                    + "      ,[citizenIddentification] = ?"
+                    + "      ,[citizenIdentification] = ?"
                     + "      ,[address] = ?"
                     + "      ,[storeID] = ?"
                     + " WHERE employeeID = ?");
@@ -159,5 +160,94 @@ public class Employee_DAO implements DAOBase<Employee> {
     public Boolean delete(String id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
+    public ArrayList<Employee> findById(String searchQuery) {
+        ArrayList<Employee> result = new ArrayList<>();
+        String query = """
+                       SELECT * FROM Employee
+                       where employeeID LIKE ?
+                       """;
+        try {
 
+            PreparedStatement st = ConnectDB.conn.prepareStatement(query);
+            st.setString(1, searchQuery + "%");
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                if (rs != null) {
+                    result.add(getEmployeeData(rs));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return result;
+    }
+    
+    public ArrayList<Employee> filter(int role, int status) {
+        ArrayList<Employee> result = new ArrayList<>();
+//        Index tự động tăng phụ thuộc vào số lượng biến số có
+        int index = 1;
+        String query = "select * from Employee WHERE name like '%'";
+//        Xét chức vụ nhân viên
+        if (role != 0)
+            query += " and role = ?";
+//            Xét trạng thái làm việc
+        if (status != 0)
+            query += " and status = ?";
+        try {
+            PreparedStatement st = ConnectDB.conn.prepareStatement(query);
+            //st.setString(index++, name + "%");
+            if(role == 1)
+                st.setString(index++, "Nhân Viên Bán Hàng");
+            else if(role == 2)
+                st.setString(index++, "Cửa Hàng Trưởng");
+            else if(role == 3)
+                st.setString(index++, "Giám Sát Viên");
+            if(status == 1)
+                st.setInt(index++, 1);
+            else if(status == 2)
+                st.setInt(index++, 0);
+
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                if (rs != null) {
+                    result.add(getEmployeeData(rs));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return result;
+    }
+    
+    private Employee getEmployeeData(ResultSet rs) throws SQLException, Exception {
+        Employee result = null;
+        //Lấy thông tin tổng quát của lớp employee
+        String employeeID = rs.getString("employeeID");
+        String name = rs.getString("name");
+        String role = rs.getString("role");
+        boolean status = rs.getBoolean("status");
+        Date dateOfBirth = rs.getDate("dateOfBirth");
+        boolean gender = rs.getBoolean("gender");
+        String phoneNumber = rs.getString("phoneNumber");
+        String citizenID = rs.getString("citizenIdentification");
+        String address = rs.getString("address");
+        String storeId = rs.getString("storeID");
+        
+        Store store = new Store(storeId);
+        result = new Employee(employeeID, citizenID, role, status, name, phoneNumber, gender, dateOfBirth, address, store);
+        return result;
+    }
+
+    public boolean createAccount(Employee employee) throws Exception {
+        Account_DAO account_dao = new Account_DAO();
+        Account account = new Account(employee);
+        if(account_dao.create(account))
+            return true;
+        return false;
+    }
 }

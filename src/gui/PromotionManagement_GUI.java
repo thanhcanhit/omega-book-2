@@ -1,25 +1,33 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+* Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+* Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+*/
 package gui;
 
 import bus.PromotionManagament_BUS;
 import com.formdev.flatlaf.FlatClientProperties;
+import database.ConnectDB;
 import entity.Promotion;
+import enums.PromotionType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ButtonModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import raven.toast.Notifications;
 
 /**
  *
  * @author Như Tâm
  */
 public class PromotionManagement_GUI extends javax.swing.JPanel implements ActionListener{
-
+    
     /**
      * Creates new form PromotionManagement_GUI
      */
@@ -29,12 +37,13 @@ public class PromotionManagement_GUI extends javax.swing.JPanel implements Actio
     private DefaultTableModel tblModel_promotion;
     private DefaultComboBoxModel cmbModel_type;
     private DefaultComboBoxModel cmbModel_status;
-
+    private ButtonModel btnModel_type;
+    
     public PromotionManagement_GUI() {
         initComponents();
         init();
     }
-
+    
     private void init() {
         bus = new PromotionManagament_BUS();
         //model
@@ -54,19 +63,30 @@ public class PromotionManagement_GUI extends javax.swing.JPanel implements Actio
         cmb_typePromo.setModel(cmbModel_type);
         cmbModel_status = new DefaultComboBoxModel(new String[] {"Trạng thái", "Đang diễn ra", "Đã kết thúc"});
         cmb_statusPromo.setModel(cmbModel_status);
+        //button group
+        group_typePromo.add(rdb_price);
+        group_typePromo.add(rdb_percent);
         
         
-        renderPromotionTables(bus.getALLPromotion());        
+        renderPromotionTables(bus.getAllPromotion());
     }
     private void renderCurrentPromotion() {
         txt_promotionID.setText(currentPromotion.getPromotionID());
         if(currentPromotion.getType().getValue() == 1)
             rdb_price.setSelected(true);
-        else
+        else if(currentPromotion.getType().getValue() == 0)
             rdb_percent.setSelected(true);
         txt_discountPromo.setText(currentPromotion.getDiscount() + "");
-        txt_startDatePromo.setText(currentPromotion.getStartedDate().toString());
-        txt_endDatePromo.setText(currentPromotion.getEndedDate().toString());
+        chooseStartDate.setDate(currentPromotion.getStartedDate());
+        chooseEndDate.setDate(currentPromotion.getEndedDate());
+        
+    }
+    private void renderPromotionInfor() {
+        txt_promotionID.setText("");
+        group_typePromo.clearSelection();
+        txt_discountPromo.setText("");
+        chooseStartDate.setDate(java.sql.Date.valueOf(LocalDate.now()));
+        chooseEndDate.setDate(java.sql.Date.valueOf(LocalDate.now()));
     }
     
     private void renderPromotionTables(ArrayList<Promotion> promotionList) {
@@ -75,7 +95,7 @@ public class PromotionManagement_GUI extends javax.swing.JPanel implements Actio
         for (Promotion promotion : promotionList) {
             if(promotion.getEndedDate().after(java.sql.Date.valueOf(LocalDate.now())))
                 status = "Còn hạn";
-            else 
+            else
                 status = "Hết hạn";
             if(promotion.getType().getValue() == 1)
                 type = "Tiền";
@@ -86,7 +106,72 @@ public class PromotionManagement_GUI extends javax.swing.JPanel implements Actio
         }
     }
     
-
+    private boolean validPromotion() {
+        if(txt_discountPromo.getText().equals("")) {
+            Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng nhập giá trị khuyến mãi");
+            txt_discountPromo.requestFocus();
+            return false;
+        }
+        if(chooseEndDate.getDate().before(chooseStartDate.getDate())) {
+            Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng chọn ngày kết thúc sau ngày bắt đầu");
+            return false;
+        }
+        if(group_typePromo.isSelected(btnModel_type)) {
+            Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng chọn loại khuyến mãi");
+            return false;
+        }
+        return true;
+    }
+    private Promotion getCurrentValue() throws Exception{
+        double discount = Double.parseDouble(txt_discountPromo.getText());
+        int type;
+        if(rdb_price.isSelected() == true)
+            type = 1;
+        else
+            type = 0;
+        Date startedDate = chooseStartDate.getDate();
+        Date endedDate = chooseEndDate.getDate();
+        String promotionID = txt_promotionID.getText();
+        
+        Promotion promotion = new Promotion(promotionID, startedDate, endedDate, PromotionType.fromInt(type), discount);
+        return promotion;
+    }
+    private Promotion getNewValue() throws Exception {
+        double discount = Double.parseDouble(txt_discountPromo.getText());
+        int type;
+        if(rdb_price.isSelected() == true)
+            type = 1;
+        else
+            type = 0;
+        Date startedDate = chooseStartDate.getDate();
+        Date endedDate = chooseEndDate.getDate();
+        String promotionID = bus.generateID(PromotionType.fromInt(type), startedDate, endedDate);
+        
+        Promotion promotion = new Promotion(promotionID, startedDate, endedDate, PromotionType.fromInt(type), discount);
+        return promotion;
+    }
+    
+    private void addPromotion() throws Exception {
+        Promotion newPromotion = getNewValue();
+        try {
+            if(bus.addNewPromotion(newPromotion)) {
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, "Thêm thành công");
+                renderPromotionTables(bus.getAllPromotion());
+                renderPromotionInfor();
+            }
+            else
+                Notifications.getInstance().show(Notifications.Type.ERROR, "Thêm không thành công");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    private void removePromotion(String promotionID) throws Exception {
+        if(bus.removePromotion(promotionID))
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đã xoá khuyến mãi " + promotionID);
+        else
+            Notifications.getInstance().show(Notifications.Type.ERROR, "Xoá không thành công");
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -105,6 +190,8 @@ public class PromotionManagement_GUI extends javax.swing.JPanel implements Actio
         pnl_filterPromo = new javax.swing.JPanel();
         cmb_typePromo = new javax.swing.JComboBox<>();
         cmb_statusPromo = new javax.swing.JComboBox<>();
+        btn_searchFilterPromo = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         slp_promotion = new javax.swing.JSplitPane();
         pnl_listPromotion = new javax.swing.JPanel();
         pnl_promotionInfor = new javax.swing.JPanel();
@@ -126,10 +213,12 @@ public class PromotionManagement_GUI extends javax.swing.JPanel implements Actio
         txt_discountPromo = new javax.swing.JTextField();
         pnl_startDatePromo = new javax.swing.JPanel();
         lbl_startDatePromo = new javax.swing.JLabel();
-        txt_startDatePromo = new javax.swing.JTextField();
+        pnl_chooseStartDate = new javax.swing.JPanel();
+        chooseStartDate = new com.toedter.calendar.JDateChooser();
         pnl_endDatePromo = new javax.swing.JPanel();
         lbl_endDatePromo = new javax.swing.JLabel();
-        txt_endDatePromo = new javax.swing.JTextField();
+        pnl_chooseDateEnd = new javax.swing.JPanel();
+        chooseEndDate = new com.toedter.calendar.JDateChooser();
         pnl_buttonPromo = new javax.swing.JPanel();
         pnl_btnCreatePromo = new javax.swing.JPanel();
         btn_createPromo = new javax.swing.JButton();
@@ -164,20 +253,49 @@ public class PromotionManagement_GUI extends javax.swing.JPanel implements Actio
         btn_searchPromo.setMaximumSize(new java.awt.Dimension(39, 23));
         btn_searchPromo.setMinimumSize(new java.awt.Dimension(39, 23));
         btn_searchPromo.setPreferredSize(new java.awt.Dimension(39, 23));
+        btn_searchPromo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_searchPromoActionPerformed(evt);
+            }
+        });
         pnl_buttonSearchPromo.add(btn_searchPromo, java.awt.BorderLayout.CENTER);
 
         pnl_searchPromotion.add(pnl_buttonSearchPromo);
 
+        pnl_filterPromo.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 3, 3, 3));
         pnl_filterPromo.setMaximumSize(new java.awt.Dimension(500, 50));
         pnl_filterPromo.setMinimumSize(new java.awt.Dimension(300, 32));
         pnl_filterPromo.setPreferredSize(new java.awt.Dimension(400, 50));
         pnl_filterPromo.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         cmb_typePromo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Loại" }));
+        cmb_typePromo.setMaximumSize(new java.awt.Dimension(32767, 30));
+        cmb_typePromo.setPreferredSize(new java.awt.Dimension(72, 30));
         pnl_filterPromo.add(cmb_typePromo);
 
         cmb_statusPromo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Trạng thái", "Đang diễn ra", "Đã kết thúc" }));
+        cmb_statusPromo.setMaximumSize(new java.awt.Dimension(32767, 30));
+        cmb_statusPromo.setPreferredSize(new java.awt.Dimension(101, 30));
         pnl_filterPromo.add(cmb_statusPromo);
+
+        btn_searchFilterPromo.setText("Lọc");
+        btn_searchFilterPromo.setActionCommand("");
+        btn_searchFilterPromo.setMaximumSize(new java.awt.Dimension(72, 30));
+        btn_searchFilterPromo.setPreferredSize(new java.awt.Dimension(72, 30));
+        btn_searchFilterPromo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_searchFilterPromoActionPerformed(evt);
+            }
+        });
+        pnl_filterPromo.add(btn_searchFilterPromo);
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/employee/reload_employee.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        pnl_filterPromo.add(jButton1);
 
         pnl_searchPromotion.add(pnl_filterPromo);
 
@@ -315,15 +433,12 @@ public class PromotionManagement_GUI extends javax.swing.JPanel implements Actio
         lbl_startDatePromo.setPreferredSize(new java.awt.Dimension(95, 16));
         pnl_startDatePromo.add(lbl_startDatePromo);
 
-        txt_startDatePromo.setMaximumSize(new java.awt.Dimension(2147483647, 30));
-        txt_startDatePromo.setMinimumSize(new java.awt.Dimension(64, 30));
-        txt_startDatePromo.setPreferredSize(new java.awt.Dimension(64, 30));
-        txt_startDatePromo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_startDatePromoActionPerformed(evt);
-            }
-        });
-        pnl_startDatePromo.add(txt_startDatePromo);
+        pnl_chooseStartDate.setMaximumSize(new java.awt.Dimension(32767, 30));
+        pnl_chooseStartDate.setPreferredSize(new java.awt.Dimension(100, 30));
+        pnl_chooseStartDate.setLayout(new java.awt.GridLayout());
+        pnl_chooseStartDate.add(chooseStartDate);
+
+        pnl_startDatePromo.add(pnl_chooseStartDate);
 
         pnl_txtInforPromo.add(pnl_startDatePromo);
 
@@ -333,10 +448,12 @@ public class PromotionManagement_GUI extends javax.swing.JPanel implements Actio
         lbl_endDatePromo.setText("Ngày kết thúc:");
         pnl_endDatePromo.add(lbl_endDatePromo);
 
-        txt_endDatePromo.setMaximumSize(new java.awt.Dimension(2147483647, 30));
-        txt_endDatePromo.setMinimumSize(new java.awt.Dimension(64, 30));
-        txt_endDatePromo.setPreferredSize(new java.awt.Dimension(64, 30));
-        pnl_endDatePromo.add(txt_endDatePromo);
+        pnl_chooseDateEnd.setMaximumSize(new java.awt.Dimension(32767, 30));
+        pnl_chooseDateEnd.setPreferredSize(new java.awt.Dimension(10, 30));
+        pnl_chooseDateEnd.setLayout(new java.awt.GridLayout());
+        pnl_chooseDateEnd.add(chooseEndDate);
+
+        pnl_endDatePromo.add(pnl_chooseDateEnd);
 
         pnl_txtInforPromo.add(pnl_endDatePromo);
 
@@ -352,6 +469,11 @@ public class PromotionManagement_GUI extends javax.swing.JPanel implements Actio
         btn_createPromo.putClientProperty(FlatClientProperties.STYLE,""
             + "background:$Menu.background;"
             + "foreground:$Menu.foreground;");
+        btn_createPromo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_createPromoActionPerformed(evt);
+            }
+        });
         pnl_btnCreatePromo.add(btn_createPromo, java.awt.BorderLayout.CENTER);
 
         pnl_buttonPromo.add(pnl_btnCreatePromo);
@@ -380,31 +502,77 @@ public class PromotionManagement_GUI extends javax.swing.JPanel implements Actio
 
         add(slp_promotion, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void btn_removePromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_removePromoActionPerformed
-        // TODO add your handling code here:
+        String promotionID = txt_promotionID.getText();
+        if (JOptionPane.showConfirmDialog(null,
+                "Bạn thật sự muốn xoá khuyến mãi " + promotionID + " không?", "Xoá khuyến mãi?",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            try {
+                //                    Xoá
+                removePromotion(promotionID);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            renderPromotionTables(bus.getAllPromotion());
+        }
+        else
+            Notifications.getInstance().show(Notifications.Type.INFO, "Đã huỷ thao tác!");
     }//GEN-LAST:event_btn_removePromoActionPerformed
-
-    private void txt_startDatePromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_startDatePromoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_startDatePromoActionPerformed
-
+    
     private void txt_promotionIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_promotionIDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_promotionIDActionPerformed
-
+    
     private void rdb_priceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdb_priceActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rdb_priceActionPerformed
+    
+    private void btn_searchPromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchPromoActionPerformed
+        String searchQuery = txt_searchPromo.getText();
+        if (searchQuery.isBlank()) {
+            Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng điền mã khuyến mãi");
+            return;
+        }
+        renderPromotionTables(bus.searchById(searchQuery));
+    }//GEN-LAST:event_btn_searchPromoActionPerformed
+    
+    private void btn_searchFilterPromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchFilterPromoActionPerformed
+        int type = cmb_typePromo.getSelectedIndex();
+        int status = cmb_statusPromo.getSelectedIndex();
+        renderPromotionTables(bus.filter(type, status));
+    }//GEN-LAST:event_btn_searchFilterPromoActionPerformed
+    
+    private void btn_createPromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_createPromoActionPerformed
+        if(validPromotion() == false) {
+            Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng nhập thông tin khuyến mãi để thêm");
+            return;
+        }
+        else
+            try {
+                addPromotion();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+    }//GEN-LAST:event_btn_createPromoActionPerformed
 
-
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        renderPromotionTables(bus.getAllPromotion());
+    }//GEN-LAST:event_jButton1ActionPerformed
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_createPromo;
     private javax.swing.JButton btn_removePromo;
+    private javax.swing.JButton btn_searchFilterPromo;
     private javax.swing.JButton btn_searchPromo;
+    private com.toedter.calendar.JDateChooser chooseEndDate;
+    private com.toedter.calendar.JDateChooser chooseStartDate;
     private javax.swing.JComboBox<String> cmb_statusPromo;
     private javax.swing.JComboBox<String> cmb_typePromo;
     private javax.swing.ButtonGroup group_typePromo;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel lbl_discountPromo;
     private javax.swing.JLabel lbl_endDatePromo;
     private javax.swing.JLabel lbl_promotionID;
@@ -414,6 +582,8 @@ public class PromotionManagement_GUI extends javax.swing.JPanel implements Actio
     private javax.swing.JPanel pnl_btnRemovePromo;
     private javax.swing.JPanel pnl_buttonPromo;
     private javax.swing.JPanel pnl_buttonSearchPromo;
+    private javax.swing.JPanel pnl_chooseDateEnd;
+    private javax.swing.JPanel pnl_chooseStartDate;
     private javax.swing.JPanel pnl_discountPromo;
     private javax.swing.JPanel pnl_endDatePromo;
     private javax.swing.JPanel pnl_filterPromo;
@@ -434,17 +604,14 @@ public class PromotionManagement_GUI extends javax.swing.JPanel implements Actio
     private javax.swing.JScrollPane src_inforPromo;
     private javax.swing.JTable tbl_inforPromo;
     private javax.swing.JTextField txt_discountPromo;
-    private javax.swing.JTextField txt_endDatePromo;
     private javax.swing.JTextField txt_promotionID;
     private javax.swing.JTextField txt_searchPromo;
-    private javax.swing.JTextField txt_startDatePromo;
     // End of variables declaration//GEN-END:variables
-
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
     
-
+    
 }

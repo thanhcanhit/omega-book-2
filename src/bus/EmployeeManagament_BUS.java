@@ -5,6 +5,7 @@
 package bus;
 
 import dao.Employee_DAO;
+import entity.Account;
 import entity.Employee;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -52,5 +53,27 @@ public class EmployeeManagament_BUS {
     }
     public Employee getEmployee(String employeeID) {
         return dao.getOne(employeeID);
+    }
+    public ArrayList<Employee> searchById(String searchQuery) {
+        return dao.findById(searchQuery);
+    }
+    public ArrayList<Employee> filter(int role, int status) {
+        return dao.filter(role, status);
+    }
+
+    public boolean addNewEmployee(Employee employee) {
+        return dao.create(employee);
+    }
+
+//    public String getPassword(Employee employee) throws Exception {
+//        return dao.getPassword(employee);
+//    }
+
+    public boolean createNewAccount(Employee employee) throws Exception {
+        return dao.createAccount(employee);
+    }
+
+    public boolean updateEmployee(Employee newEmployee) {
+        return dao.update(newEmployee.getEmployeeID(), newEmployee);
     }
 }
