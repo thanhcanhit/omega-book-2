@@ -137,9 +137,15 @@ public class MainView extends JLayeredPane {
                 case 8:
                     switch (subIndex) {
                         case 1:
-                            Application.showForm(new StatementCashCount_GUI());
+                            Application.showForm(new ViewCashCountSheetList_GUI());
                             break;
                         case 2:
+                            Application.showForm(new ViewAcountingList_GUI());
+                            break;
+                        case 3:
+                            Application.showForm(new StatementCashCount_GUI());
+                            break;
+                        case 4:
                             Application.showForm(new StatementAccounting_GUI());
                             break;
                         default:

@@ -93,8 +93,6 @@ public class Menu extends JPanel {
             roleIndex = Menu.STORE_HIGH_MANAGER;
         }
 
-        System.out.println(roleIndex);
-
         for (String banItem : getBanList(roleIndex)) {
             if (banItem.equals(menuItemName)) {
                 return true;
