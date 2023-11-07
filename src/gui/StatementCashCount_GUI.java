@@ -50,7 +50,6 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
         initComponents();
         initInfo(employee1);
         alterTable();
-        System.out.println("Á" + cashCountSheet_DAO.getOne("KTI041120230005").getCreatedDate());
 
         tbl_cashCounts.getModel().addTableModelListener(new TableModelListener() {
             @Override

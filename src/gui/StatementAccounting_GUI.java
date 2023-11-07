@@ -5,10 +5,16 @@
 package gui;
 
 import bus.StatementAcounting_BUS;
+import bus.StatementCashCount_BUS;
 import com.formdev.flatlaf.FlatClientProperties;
 import entity.AcountingVoucher;
+import entity.CashCount;
+import entity.CashCountSheet;
+import entity.CashCountSheetDetail;
 import entity.Employee;
+import entity.Order;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -28,16 +34,22 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
 
     private DefaultTableModel tbl_modalCashCounts = new DefaultTableModel();
     private double sum = 0;
-     private Employee employee1;
+    private Employee employee1 = new Employee("NV120032023002");
     private Employee employee2;
     private StatementAcounting_BUS acountingVoucher_BUS = new StatementAcounting_BUS();
-    private Date endDate;
+    private Date endDate = new Date();
+    private ArrayList<Order> listOrder;
+    private AcountingVoucher acountingVoucher;
+    private StatementCashCount_BUS statementCashCount_BUS = new StatementCashCount_BUS();
+    double sale = 0;
+    double payViaATM = 0;
+    double withdraw = 0;
+    double difference = 0;
 
     /**
      * Creates new form Statement_GUI
      */
     public StatementAccounting_GUI() {
-        endDate = new Date();
         initTableModel();
         initComponents();
         initForm();
@@ -55,9 +67,10 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
                         double denomination = Integer.parseInt(model.getValueAt(row, 1).toString().replace(".", ""));
                         double total = quantity * denomination;
 
-                        sum += total;
-                        txt_difference.setText(FormatNumber.toVND(sum - 1765000));
+                        sum = acountingVoucher_BUS.getTotal(getValueInTable());
+                        txt_difference.setText(FormatNumber.toVND(sum - withdraw - 1765000));
                         txt_total.setText(FormatNumber.toVND(sum));
+                        txt_totalMoney.setText(FormatNumber.toVND(sum));
                         model.setValueAt(FormatNumber.toVND(total), row, 3); // Tổng
                     } catch (NumberFormatException ex) {
                         model.setValueAt(0, row, column);
@@ -68,20 +81,38 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
 
         });
     }
-    
-    public void initForm(){
+
+    public void initForm() {
+        //Lấy thời gian kết thúc phiếu kết toán trước đó (Thời gian bắt đầu lần kết toán này)
+        Date start = acountingVoucher_BUS.getLastAcounting().getEndedDate();
+
+        //Hiển thị thời gian bắt đầu -> kết thúc kết toán
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        String start = formatter.format(acountingVoucher_BUS.getLastAcounting(endDate));
-        String end = formatter.format(endDate);
-        
-        txt_timeAccounting.setText(start + " - " + end);
+        String endStr = formatter.format(endDate);
+        String startStr = formatter.format(start);
+        txt_timeAccounting.setText(startStr + " - " + endStr);
+
+        //Hiển thị mã phiếu kết toán
+        txt_acountingVoucherID.setText(acountingVoucher_BUS.generateID(endDate));
+
+        listOrder = acountingVoucher_BUS.getAllOrderInAcounting(acountingVoucher_BUS.getLastAcounting().getEndedDate(), endDate);
+        sale = acountingVoucher_BUS.getSale(listOrder);
+        payViaATM = acountingVoucher_BUS.getPayViaATM(listOrder);
+        withdraw = sale - payViaATM;
+        difference = 0 - withdraw - 1765000;
+
+        txt_saleAccounting.setText(FormatNumber.toVND(sale));
+        txt_payViaATM.setText(FormatNumber.toVND(payViaATM));
+        txt_withdraw.setText(FormatNumber.toVND(withdraw));
+        txt_difference.setText(FormatNumber.toVND(difference));
+
     }
 
     public void alterTable() {
         DefaultTableCellRenderer rightAlign = new DefaultTableCellRenderer();
         rightAlign.setHorizontalAlignment(JLabel.RIGHT);
 
-////        Align
+        //Align
         tbl_cashCounts.getColumnModel().getColumn(1).setCellRenderer(rightAlign);
         tbl_cashCounts.getColumnModel().getColumn(2).setCellRenderer(rightAlign);
         tbl_cashCounts.getColumnModel().getColumn(3).setCellRenderer(rightAlign);
@@ -92,6 +123,51 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
         // Products
         tbl_modalCashCounts = new DefaultTableModel(new Object[]{"STT", "Mệnh giá", "Số lượng", "Tổng"
         }, 0);
+    }
+
+    /**
+     * Lấy giá trị phiếu kiểm tiền trong bảng
+     *
+     * @return
+     */
+    public ArrayList<CashCount> getValueInTable() {
+        DefaultTableModel tableModel = (DefaultTableModel) tbl_cashCounts.getModel();
+        int rowCount = tableModel.getRowCount();
+
+        ArrayList<CashCount> cashCounts = new ArrayList<>();
+        for (int i = 0; i < rowCount; i++) {
+            String valueStr = (String) tableModel.getValueAt(i, 1);
+            String quantityStr = (String) tableModel.getValueAt(i, 2);
+            double value = Double.parseDouble(valueStr.replace(".", "").replace(",", "."));
+            int quantity;
+            if (quantityStr == null || quantityStr.equals("0")) {
+                quantity = 0;
+            } else {
+                quantity = Integer.parseInt(quantityStr.trim());
+            }
+            if (quantity > 0) {
+                cashCounts.add(new CashCount(quantity, value));
+            }
+        }
+        for (CashCount cashCount : cashCounts) {
+            System.out.println("Quantity: " + cashCount.getQuantity() + ", Value: " + cashCount.getValue());
+        }
+        return cashCounts;
+    }
+
+    /**
+     * Tạo phiếu kiểm tiền dựa trên thông tin có sẵn
+     *
+     * @return
+     */
+    public CashCountSheet getCashCountSheet() {
+        String cashCountSheetID = statementCashCount_BUS.generateID(endDate);
+        ArrayList<CashCount> cashCounts = getValueInTable();
+        ArrayList<CashCountSheetDetail> listEmployee = new ArrayList<>();
+        listEmployee.add(new CashCountSheetDetail(true, employee1, new CashCountSheet(cashCountSheetID)));
+        listEmployee.add(new CashCountSheetDetail(false, employee2, new CashCountSheet(cashCountSheetID)));
+        return new CashCountSheet(cashCountSheetID, cashCounts, listEmployee, endDate, new Date());
+
     }
 
     /**
@@ -111,9 +187,9 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
         pnl_accountingInfoHeader = new javax.swing.JPanel();
         txt_timeAccounting = new javax.swing.JTextField();
         pnl_accountingInfoBody = new javax.swing.JPanel();
-        pnl_cashCountInAccounting = new javax.swing.JPanel();
-        lbl_cashCountInAccounting = new javax.swing.JLabel();
-        txt_cashCountInAccounting = new javax.swing.JTextField();
+        pnl_acountingVoucherID = new javax.swing.JPanel();
+        lbl_acountingVoucherID = new javax.swing.JLabel();
+        txt_acountingVoucherID = new javax.swing.JTextField();
         pnl_employeeAcounting1 = new javax.swing.JPanel();
         lbl_employeeAccounting1 = new javax.swing.JLabel();
         txt_employeeAccounting1 = new javax.swing.JTextField();
@@ -191,32 +267,32 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
 
         pnl_accountingInfoBody.setLayout(new javax.swing.BoxLayout(pnl_accountingInfoBody, javax.swing.BoxLayout.Y_AXIS));
 
-        pnl_cashCountInAccounting.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
-        pnl_cashCountInAccounting.setMaximumSize(new java.awt.Dimension(2147483647, 40));
-        pnl_cashCountInAccounting.setLayout(new javax.swing.BoxLayout(pnl_cashCountInAccounting, javax.swing.BoxLayout.LINE_AXIS));
+        pnl_acountingVoucherID.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        pnl_acountingVoucherID.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        pnl_acountingVoucherID.setLayout(new javax.swing.BoxLayout(pnl_acountingVoucherID, javax.swing.BoxLayout.LINE_AXIS));
 
-        lbl_cashCountInAccounting.setFont(lbl_cashCountInAccounting.getFont().deriveFont((float)16));
-        lbl_cashCountInAccounting.setText("Phiếu kiểm:");
-        lbl_cashCountInAccounting.setPreferredSize(new java.awt.Dimension(100, 16));
-        pnl_cashCountInAccounting.add(lbl_cashCountInAccounting);
+        lbl_acountingVoucherID.setFont(lbl_acountingVoucherID.getFont().deriveFont((float)16));
+        lbl_acountingVoucherID.setText("Mã phiếu:");
+        lbl_acountingVoucherID.setPreferredSize(new java.awt.Dimension(100, 16));
+        pnl_acountingVoucherID.add(lbl_acountingVoucherID);
 
-        txt_cashCountInAccounting.setEditable(false);
-        txt_cashCountInAccounting.setFont(txt_cashCountInAccounting.getFont().deriveFont((float)16));
-        txt_cashCountInAccounting.setText("KTI0018102023");
-        txt_cashCountInAccounting.setBorder(null);
-        txt_cashCountInAccounting.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        txt_cashCountInAccounting.setFocusAccelerator('n');
-        txt_cashCountInAccounting.setFocusable(false);
-        txt_cashCountInAccounting.setMaximumSize(new java.awt.Dimension(2147483647, 40));
-        txt_cashCountInAccounting.setPreferredSize(new java.awt.Dimension(100, 22));
-        txt_cashCountInAccounting.addActionListener(new java.awt.event.ActionListener() {
+        txt_acountingVoucherID.setEditable(false);
+        txt_acountingVoucherID.setFont(txt_acountingVoucherID.getFont().deriveFont((float)16));
+        txt_acountingVoucherID.setText("KTI0018102023");
+        txt_acountingVoucherID.setBorder(null);
+        txt_acountingVoucherID.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txt_acountingVoucherID.setFocusAccelerator('n');
+        txt_acountingVoucherID.setFocusable(false);
+        txt_acountingVoucherID.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        txt_acountingVoucherID.setPreferredSize(new java.awt.Dimension(100, 22));
+        txt_acountingVoucherID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_cashCountInAccountingActionPerformed(evt);
+                txt_acountingVoucherIDActionPerformed(evt);
             }
         });
-        pnl_cashCountInAccounting.add(txt_cashCountInAccounting);
+        pnl_acountingVoucherID.add(txt_acountingVoucherID);
 
-        pnl_accountingInfoBody.add(pnl_cashCountInAccounting);
+        pnl_accountingInfoBody.add(pnl_acountingVoucherID);
 
         pnl_employeeAcounting1.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
         pnl_employeeAcounting1.setMaximumSize(new java.awt.Dimension(2147483647, 40));
@@ -517,6 +593,9 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
 
     private void btn_accountingConformActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_accountingConformActionPerformed
         // TODO add your handling code here:
+        System.out.println(endDate);
+
+        acountingVoucher_BUS.createAcountingVoucher(getCashCountSheet(), endDate);
         Notifications.getInstance().show(Notifications.Type.SUCCESS, "Tạo phiếu kết toán thành công");
     }//GEN-LAST:event_btn_accountingConformActionPerformed
 
@@ -544,9 +623,9 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_timeAccountingActionPerformed
 
-    private void txt_cashCountInAccountingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_cashCountInAccountingActionPerformed
+    private void txt_acountingVoucherIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_acountingVoucherIDActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_cashCountInAccountingActionPerformed
+    }//GEN-LAST:event_txt_acountingVoucherIDActionPerformed
 
     private void txt_totalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_totalActionPerformed
         // TODO add your handling code here:
@@ -574,7 +653,7 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
     private javax.swing.JButton btn_accountingConform;
     private javax.swing.JButton btn_addEmployee;
     private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JLabel lbl_cashCountInAccounting;
+    private javax.swing.JLabel lbl_acountingVoucherID;
     private javax.swing.JLabel lbl_difference;
     private javax.swing.JLabel lbl_employeeAccounting1;
     private javax.swing.JLabel lbl_employeeAccounting2;
@@ -588,8 +667,8 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
     private javax.swing.JPanel pnl_accountingConfirm;
     private javax.swing.JPanel pnl_accountingInfoBody;
     private javax.swing.JPanel pnl_accountingInfoHeader;
+    private javax.swing.JPanel pnl_acountingVoucherID;
     private javax.swing.JPanel pnl_cashCount;
-    private javax.swing.JPanel pnl_cashCountInAccounting;
     private javax.swing.JPanel pnl_center;
     private javax.swing.JPanel pnl_difference;
     private javax.swing.JPanel pnl_employeeAcounting1;
@@ -603,7 +682,7 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
     private javax.swing.JPanel pnl_withdraw;
     private javax.swing.JScrollPane scr_cashCounts;
     private javax.swing.JTable tbl_cashCounts;
-    private javax.swing.JTextField txt_cashCountInAccounting;
+    private javax.swing.JTextField txt_acountingVoucherID;
     private javax.swing.JTextField txt_difference;
     private javax.swing.JTextField txt_employeeAccounting1;
     private javax.swing.JTextField txt_employeeAccounting2;
