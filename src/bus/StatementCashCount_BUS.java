@@ -30,19 +30,7 @@ public class StatementCashCount_BUS {
     public Employee getEmployeeByID(String id) {
         return employee_DAO.getOne(id);
     }
-    
-    public Employee isEmployeePresent(String id) {
-        System.out.println(id);
-        Employee emp = new Employee(id.trim());
-        ArrayList<Employee> list = employee_DAO.getAll();
-        for (Employee e : list) {
-            if (e.equals(emp)) {
-                return e; // Nhân viên được kiểm tra nằm trong danh sách
-            }
-        }
-        return null; // Nhân viên không nằm trong danh sách
-    }
-    
+
     public void createCashCountSheet(ArrayList<CashCount> cashCountList, ArrayList<Employee> employees, Date start) {
         Date end = new Date();
         CashCountSheet cashCountSheet = new CashCountSheet(generateID(start));
@@ -59,13 +47,6 @@ public class StatementCashCount_BUS {
         System.out.println(cashCountSheet.getCashCountSheetDetailList().get(0));
         
         cashCountSheet_DAO.create(cashCountSheet);
-        
-//        for (CashCount cashCount : cashCountSheet.getCashCountList()) {
-//            cashCount_DAO.create(cashCount, cashCountSheet.getCashCountSheetID());
-//        }
-//        for (CashCountSheetDetail cashCountSheetDetail : cashCountSheet.getCashCountSheetDetailList()) {
-//            cashCountSheetDetail_DAO.create(cashCountSheetDetail);
-//        }
         
     }
     

@@ -43,8 +43,34 @@ public class Customer_DAO implements interfaces.DAOBase<Customer> {
         }
         return customer;
     }
-    
-      public Customer getOneByNumberPhone(String phoneNumber) {
+
+    public Customer getByPhone(String phone) {
+        Customer customer = null;
+        try {
+            String sql = "SELECT * FROM Customer WHERE phoneNumber = ?";
+            PreparedStatement preparedStatement = ConnectDB.conn.prepareStatement(sql);
+            preparedStatement.setString(1, phone);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                String customerID = resultSet.getString("customerID");
+                String name = resultSet.getString("name");
+                int score = resultSet.getInt("score");
+                boolean gender = resultSet.getBoolean("gender");
+                Date dateOfBirth = resultSet.getDate("dateOfBirth");
+                String phoneNumber = resultSet.getString("phoneNumber");
+                String address = resultSet.getString("address");
+
+                customer = new Customer(customerID, name, gender, dateOfBirth, score, phoneNumber, address);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return customer;
+    }
+
+    public Customer getOneByNumberPhone(String phoneNumber) {
         Customer customer = null;
         try {
             String sql = "SELECT * FROM Customer WHERE phoneNumber = ?";
@@ -68,8 +94,6 @@ public class Customer_DAO implements interfaces.DAOBase<Customer> {
         }
         return customer;
     }
-    
-    
 
     @Override
     public ArrayList<Customer> getAll() {
@@ -102,22 +126,21 @@ public class Customer_DAO implements interfaces.DAOBase<Customer> {
     }
 
     public String getMaxSequence(String code) {
-    try {
-        code += "%";
-        String sql = "  SELECT TOP 1  * FROM Customer WHERE customerID LIKE '"+code+"' ORDER BY customerID DESC;";
-        PreparedStatement st = ConnectDB.conn.prepareStatement(sql);
-        ResultSet rs = st.executeQuery();
-        if (rs.next()) {
-            String customerID = rs.getString("customerID");
-            System.out.println(customerID);
-            return customerID;
+        try {
+            code += "%";
+            String sql = "  SELECT TOP 1  * FROM Customer WHERE customerID LIKE '" + code + "' ORDER BY customerID DESC;";
+            PreparedStatement st = ConnectDB.conn.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                String customerID = rs.getString("customerID");
+                System.out.println(customerID);
+                return customerID;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return null;
     }
-    return null;
-}
-
 
     @Override
     public Boolean create(Customer object) {

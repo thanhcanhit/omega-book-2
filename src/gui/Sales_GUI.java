@@ -4,27 +4,32 @@
  */
 package gui;
 
-import bus.CreatePurchaseOrder_BUS;
-import bus.ProductManagement_BUS;
 import bus.Sales_BUS;
 import com.formdev.flatlaf.FlatClientProperties;
+import entity.Customer;
 import entity.Order;
 import entity.OrderDetail;
 import entity.Product;
-import entity.PurchaseOrderDetail;
-import entity.Supplier;
-import java.awt.event.ActionEvent;
+import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
+import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import javax.swing.DefaultComboBoxModel;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.IntStream;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
-import javax.swing.event.ListSelectionEvent;
+import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.DateFormatter;
 import main.Application;
 import raven.toast.Notifications;
 
@@ -41,12 +46,12 @@ public class Sales_GUI extends javax.swing.JPanel {
 
     //
     private Order order;
+    private Customer customer = null;
     private ArrayList<OrderDetail> cart;
     private DefaultTableModel tblModel_cart;
-    private DefaultComboBoxModel cmbModel_suplier;
 
-//    Utilities
-    DateTimeFormatter dateFormater = DateTimeFormatter.ofPattern("mm-dd/MM/yyyy");
+//    state
+    private Double total = 0.0;
 
     public Sales_GUI() {
         initComponents();
@@ -72,6 +77,7 @@ public class Sales_GUI extends javax.swing.JPanel {
         cart = new ArrayList<>();
         tblModel_cart = new DefaultTableModel(new String[]{"Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Giá bán", "Thành tiền"}, 0);
         tbl_cart.setModel(tblModel_cart);
+//        Sự kiện nhập giá trị item trong bảng
         tbl_cart.getModel().addTableModelListener((TableModelEvent evt) -> {
             int row = evt.getFirstRow();
             int col = evt.getColumn();
@@ -106,31 +112,182 @@ public class Sales_GUI extends javax.swing.JPanel {
                 } catch (Exception ex) {
                     Notifications.getInstance().show(Notifications.Type.ERROR, "Không thể cập nhật số lượng mới!");
                 }
-            } catch (Exception e) {
+            } catch (HeadlessException | NumberFormatException e) {
                 Notifications.getInstance().show(Notifications.Type.INFO, "Số lượng không hợp lệ");
                 renderCartTable();
             }
 
         });
         renderCartTable();
-//
-////        form
-//        txt_orderDate.setEditable(false);
-//        txt_orderDate.setText(LocalDate.now().toString());
-//        renderSuplier();
+
+//        form
+        txt_customerName.setEditable(false);
+        txt_customerRank.setEditable(false);
+        txt_orderCustomerReturn.setEditable(false);
+        chk_defaultCustomer.addActionListener(((e) -> {
+            if (chk_defaultCustomer.isSelected()) {
+                disableCustomerForm();
+            } else {
+                enableCustomerForm();
+            }
+        }));
+
+//        Sự kiện thay đổi phương thức thanh toán
+        cmb_orderPaymentMethod.addItemListener(((e) -> {
+            int index = cmb_orderPaymentMethod.getSelectedIndex();
+            if (index == 1) {
+                disableUserCash();
+            } else {
+                enableUserCash();
+            }
+        }));
+
+//        Gắn sự kiện cho các nút option
+        JButton[] options = new JButton[]{btn_option1, btn_option2, btn_option3, btn_option4, btn_option5, btn_option6};
+        for (JButton option : options) {
+            option.addActionListener((var e) -> {
+//                Chuyển từ 1k thành 1000
+                String value = option.getText();
+                value = value.substring(0, value.indexOf("k"));
+                Double dValue = 1000 * Double.parseDouble(value);
+                txt_orderCustomerGive.setText(dValue.toString());
+            });
+        }
+
+//        Sự kiện onChange text
+        txt_orderCustomerGive.getDocument().addDocumentListener(new DocumentListener() {
+            private void updateCustomerReturn() {
+                try {
+                    Double customerGive = Double.valueOf(txt_orderCustomerGive.getText());
+                    txt_orderCustomerReturn.setText(String.valueOf(customerGive - total));
+                } catch (Exception ex) {
+
+                }
+            }
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateCustomerReturn();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateCustomerReturn();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updateCustomerReturn();
+            }
+        });
+    }
+
+    private void enableUserCash() {
+        JButton[] items = new JButton[]{btn_option1, btn_option2, btn_option3, btn_option4, btn_option5, btn_option6};
+        for (JButton item : items) {
+            item.setEnabled(true);
+        }
+        txt_orderCustomerGive.setEnabled(true);
+        txt_orderCustomerReturn.setEnabled(true);
+        renderCustomerCash();
+    }
+
+    private void disableUserCash() {
+        JButton[] items = new JButton[]{btn_option1, btn_option2, btn_option3, btn_option4, btn_option5, btn_option6};
+        for (JButton item : items) {
+            item.setText("-");
+            item.setEnabled(false);
+        }
+
+        txt_orderCustomerGive.setText("");
+        txt_orderCustomerGive.setEnabled(false);
+        txt_orderCustomerReturn.setText("");
+        txt_orderCustomerReturn.setEnabled(false);
+    }
+
+    private void enableCustomerForm() {
+        JTextField[] items = new JTextField[]{txt_customerPhone, txt_customerRank, txt_customerName
+        };
+
+        for (JTextField item : items) {
+            item.setText("");
+            item.setEnabled(true);
+        }
+    }
+
+    private void disableCustomerForm() {
+        JTextField[] items = new JTextField[]{txt_customerPhone, txt_customerRank, txt_customerName
+        };
+
+        for (JTextField item : items) {
+            item.setText("");
+            item.setEnabled(false);
+        }
     }
 
     private void renderCartTable() {
         tblModel_cart.setRowCount(0);
 
-        double total = 0.0;
+        double totalTemp = 0.0;
         for (OrderDetail item : cart) {
             Object[] newRow = new Object[]{item.getProduct().getProductID(), item.getProduct().getName(), item.getQuantity(), item.getPrice(), item.getLineTotal()};
-            total += item.getLineTotal();
+            totalTemp += item.getLineTotal();
             tblModel_cart.addRow(newRow);
         }
 
-        lbl_total.setText("Tổng tiền: " + utilities.FormatNumber.toVND(total));
+        lbl_total.setText("Tổng tiền: " + utilities.FormatNumber.toVND(totalTemp));
+        this.total = totalTemp;
+        renderCustomerCash();
+    }
+
+    public void renderCustomerCash() {
+
+//        Mảng các nút chọn
+        JButton[] options = new JButton[]{btn_option1, btn_option2, btn_option3, btn_option4, btn_option5, btn_option6};
+
+        if (total == 0) {
+            Arrays.stream(options).forEach(item -> item.setText("-"));
+            return;
+        }
+
+//        Tính toán các giá trị gợi ý dựa vào mảng số tiền
+        Integer[] roundValue = new Integer[]{1000, 5000, 10000, 20000, 50000, 100000};
+//        Loại bỏ giá trị trùng lắp
+        Set<Double> values = new HashSet<>();
+        IntStream.range(0, roundValue.length).forEach(index -> {
+            values.add(total + (roundValue[index] - total % roundValue[index]));
+        });
+
+//        Sort set
+        List<Double> list = new ArrayList<>(values);
+        Collections.sort(list);
+
+//        Gán giá trị cho các nút
+        int index = 0;
+
+//      Khi tổng tiền không lẻ dưới 1000 thì nút đầu sẽ trở thành tổng tiền
+        if (index == 0 && Math.round(total) % 1000 == 0) {
+            options[index].setText(String.format("%.0fk", total / 1000));
+            index++;
+        }
+
+        for (Double value : list) {
+            options[index].setText(String.format("%.0fk", value / 1000));
+            options[index].setVisible(true);
+            index++;
+        }
+
+//        Ẩn đi các nút không có giá trị
+        for (; index < options.length; index++) {
+            options[index].setVisible(false);
+            options[index].setText("0");
+        }
+
+//        rerender
+        for (JButton item : options) {
+            item.revalidate();
+            item.repaint();
+        }
     }
 
     private void toggleChangeQuantity() {
@@ -146,6 +303,21 @@ public class Sales_GUI extends javax.swing.JPanel {
     private void rerender() {
         Application.showForm(new Sales_GUI());
 //        toogleChangeToSearch();
+    }
+
+    private void getCustomer(String phone) {
+        customer = bus.getCustomerByPhone(phone);
+        if (customer == null) {
+            Notifications.getInstance().show(Notifications.Type.INFO, "Không tìm thấy khách hàng có số điện thoại \"" + phone + "\"");
+        } else {
+            Notifications.getInstance().show(Notifications.Type.INFO, "Đã thêm khách hàng " + customer.getName());
+            renderCustomer();
+        }
+    }
+
+    private void renderCustomer() {
+        txt_customerName.setText(customer.getName());
+        txt_customerRank.setText(customer.getRank());
     }
 
     private void addItemToCart(String productID) {
@@ -204,6 +376,13 @@ public class Sales_GUI extends javax.swing.JPanel {
     }
 
     private void handleCreateOrder() {
+
+        //         Nếu chưa có khách hàng sẽ cảnh báo
+        if (!chk_defaultCustomer.isSelected() && this.customer == null) {
+            Notifications.getInstance().show(Notifications.Type.WARNING, "Bạn chưa thêm thông tin khách hàng");
+            return;
+        }
+
         //         Nếu chưa có sản phẩm sẽ cảnh báo
         if (cart.isEmpty()) {
             Notifications.getInstance().show(Notifications.Type.WARNING, "Bạn chưa thêm sản phẩm vào danh sách!");
@@ -212,21 +391,28 @@ public class Sales_GUI extends javax.swing.JPanel {
 
         try {
             Notifications.getInstance().show(Notifications.Type.INFO, "Đang lưu trữ hóa đơn...");
-//            order.setSupplier(new Supplier(getSuplierID()));
-//            purchaseOrder.setPurchaseOrderDetailList(cart);
-//            purchaseOrder.setNote(txa_description.getText());
-////            Để tạm để xử lí sau
-//            purchaseOrder.setReceiveDate(java.sql.Date.valueOf(LocalDate.now()));
-//
-//            boolean isSaved = bus.saveToDatabase(purchaseOrder);
 
-//            if (isSaved) {
-//                Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đã tạo thành công đơn nhập " + order.getOrderID());
-////                Rerender panel
-//                rerender();
-//            } else {
-//                Notifications.getInstance().show(Notifications.Type.ERROR, "Có lỗi xảy ra khi lưu đơn nhập vào cơ sở dữ liệu" + order.getOrderID());
-//            }
+            java.sql.Timestamp now = java.sql.Timestamp.valueOf(LocalDateTime.now());
+            order.setOrderAt(now);
+            order.setPayment(cmb_orderPaymentMethod.getSelectedIndex() == 1);
+            order.setStatus(true);
+//                Tạm thời
+            order.setPromotion(null);
+            order.setOrderDetail(cart);
+            if (chk_defaultCustomer.isSelected()) {
+                order.setCustomer(new Customer("KH198210013"));
+            } else {
+                order.setCustomer(customer);
+            }
+            boolean isSaved = bus.saveToDatabase(order);
+
+            if (isSaved) {
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đã tạo thành công đơn nhập " + order.getOrderID());
+//                Rerender panel
+                rerender();
+            } else {
+                Notifications.getInstance().show(Notifications.Type.ERROR, "Có lỗi xảy ra khi lưu đơn nhập vào cơ sở dữ liệu" + order.getOrderID());
+            }
         } catch (Exception ex) {
             Notifications.getInstance().show(Notifications.Type.ERROR, "Không thể tạo đơn nhập " + order.getOrderID() + ": " + ex.getMessage());
         }
@@ -289,6 +475,9 @@ public class Sales_GUI extends javax.swing.JPanel {
         btn_option1 = new javax.swing.JButton();
         btn_option2 = new javax.swing.JButton();
         btn_option3 = new javax.swing.JButton();
+        btn_option4 = new javax.swing.JButton();
+        btn_option5 = new javax.swing.JButton();
+        btn_option6 = new javax.swing.JButton();
         pnl_orderCustomerReturn = new javax.swing.JPanel();
         lbl_orderCustomerReturn = new javax.swing.JLabel();
         txt_orderCustomerReturn = new javax.swing.JTextField();
@@ -339,17 +528,6 @@ public class Sales_GUI extends javax.swing.JPanel {
 
         pnl_cart.setLayout(new java.awt.BorderLayout());
 
-        tbl_cart.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"SP0001", "Thiên tài bên trái, kẻ điên bên phải", "1", "100000", "100000"},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Đơn giá", "Thành tiền"
-            }
-        ));
         scr_cart.setViewportView(tbl_cart);
 
         pnl_cart.add(scr_cart, java.awt.BorderLayout.CENTER);
@@ -406,6 +584,11 @@ public class Sales_GUI extends javax.swing.JPanel {
                 txt_customerPhoneActionPerformed(evt);
             }
         });
+        txt_customerPhone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_customerPhoneKeyPressed(evt);
+            }
+        });
         pnl_customerPhone.add(txt_customerPhone);
 
         pnl_customerInfo.add(pnl_customerPhone);
@@ -458,7 +641,7 @@ public class Sales_GUI extends javax.swing.JPanel {
         pnl_info.add(filler1);
 
         pnl_orderInfo.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin hóa đơn"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-        pnl_orderInfo.setMaximumSize(new java.awt.Dimension(100019, 380));
+        pnl_orderInfo.setMaximumSize(new java.awt.Dimension(100019, 420));
         pnl_orderInfo.setPreferredSize(new java.awt.Dimension(500, 300));
         pnl_orderInfo.setLayout(new javax.swing.BoxLayout(pnl_orderInfo, javax.swing.BoxLayout.Y_AXIS));
 
@@ -590,18 +773,46 @@ public class Sales_GUI extends javax.swing.JPanel {
         pnl_orderInfo.add(pnl_orderCustomerGive);
 
         pnl_orderCustomerGiveOptions.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        pnl_orderCustomerGiveOptions.setMaximumSize(new java.awt.Dimension(99999, 40));
+        pnl_orderCustomerGiveOptions.setMaximumSize(new java.awt.Dimension(99999, 80));
         pnl_orderCustomerGiveOptions.setPreferredSize(new java.awt.Dimension(561, 60));
-        pnl_orderCustomerGiveOptions.setLayout(new java.awt.GridLayout(1, 3, 5, 0));
+        pnl_orderCustomerGiveOptions.setLayout(new java.awt.GridLayout(2, 3, 5, 5));
 
         btn_option1.setText("Gợi ý 1");
+        btn_option1.setMaximumSize(new java.awt.Dimension(72, 40));
+        btn_option1.setMinimumSize(new java.awt.Dimension(72, 35));
+        btn_option1.setPreferredSize(new java.awt.Dimension(72, 35));
         pnl_orderCustomerGiveOptions.add(btn_option1);
 
         btn_option2.setText("Gợi ý 2");
+        btn_option2.setMaximumSize(new java.awt.Dimension(72, 40));
+        btn_option2.setMinimumSize(new java.awt.Dimension(72, 35));
+        btn_option2.setPreferredSize(new java.awt.Dimension(72, 35));
         pnl_orderCustomerGiveOptions.add(btn_option2);
 
         btn_option3.setText("Gợi ý 3");
+        btn_option3.setMaximumSize(new java.awt.Dimension(72, 40));
+        btn_option3.setMinimumSize(new java.awt.Dimension(72, 35));
+        btn_option3.setPreferredSize(new java.awt.Dimension(72, 35));
         pnl_orderCustomerGiveOptions.add(btn_option3);
+
+        btn_option4.setText("Gợi ý 4");
+        btn_option4.setMaximumSize(new java.awt.Dimension(72, 40));
+        btn_option4.setMinimumSize(new java.awt.Dimension(72, 35));
+        btn_option4.setPreferredSize(new java.awt.Dimension(72, 35));
+        pnl_orderCustomerGiveOptions.add(btn_option4);
+
+        btn_option5.setText("Gợi ý 5");
+        btn_option5.setMaximumSize(new java.awt.Dimension(72, 40));
+        btn_option5.setMinimumSize(new java.awt.Dimension(72, 35));
+        btn_option5.setPreferredSize(new java.awt.Dimension(72, 35));
+        pnl_orderCustomerGiveOptions.add(btn_option5);
+        btn_option5.getAccessibleContext().setAccessibleName("Gợi ý 5");
+
+        btn_option6.setText("Gợi ý 6");
+        btn_option6.setMaximumSize(new java.awt.Dimension(72, 40));
+        btn_option6.setMinimumSize(new java.awt.Dimension(72, 35));
+        btn_option6.setPreferredSize(new java.awt.Dimension(72, 35));
+        pnl_orderCustomerGiveOptions.add(btn_option6);
 
         pnl_orderInfo.add(pnl_orderCustomerGiveOptions);
 
@@ -664,6 +875,11 @@ public class Sales_GUI extends javax.swing.JPanel {
         btn_submit.putClientProperty(FlatClientProperties.STYLE,""
             + "background:$Menu.background;"
             + "foreground:$Menu.foreground;");
+        btn_submit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_submitActionPerformed(evt);
+            }
+        });
         pnl_btnMain.add(btn_submit, java.awt.BorderLayout.CENTER);
 
         pnl_control.add(pnl_btnMain);
@@ -731,12 +947,26 @@ public class Sales_GUI extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txt_searchKeyPressed
 
+    private void btn_submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_submitActionPerformed
+        handleCreateOrder();
+    }//GEN-LAST:event_btn_submitActionPerformed
+
+    private void txt_customerPhoneKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_customerPhoneKeyPressed
+        String phoneInput = txt_customerPhone.getText();
+        if (phoneInput.length() == 10) {
+            getCustomer(phoneInput);
+        }
+    }//GEN-LAST:event_txt_customerPhoneKeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_cancle;
     private javax.swing.JButton btn_option1;
     private javax.swing.JButton btn_option2;
     private javax.swing.JButton btn_option3;
+    private javax.swing.JButton btn_option4;
+    private javax.swing.JButton btn_option5;
+    private javax.swing.JButton btn_option6;
     private javax.swing.JButton btn_promotion;
     private javax.swing.JButton btn_save;
     private javax.swing.JButton btn_search;
