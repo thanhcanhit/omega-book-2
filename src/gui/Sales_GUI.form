@@ -697,6 +697,7 @@
                         </Component>
                         <Component class="javax.swing.JButton" name="btn_option2">
                           <Properties>
+                            <Property name="mnemonic" type="int" value="50"/>
                             <Property name="text" type="java.lang.String" value="G&#x1ee3;i &#xfd; 2"/>
                             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                               <Dimension value="[72, 40]"/>

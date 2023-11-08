@@ -159,7 +159,7 @@ public class PurchaseOrder_DAO implements DAOBase<PurchaseOrder> {
             if(status==1){
                 PurchaseOrder purchaseOrder = getOne(id);
                 for (PurchaseOrderDetail pod : purchaseOrder.getPurchaseOrderDetailList()) {
-                    new Product_DAO().updateQuantity(pod.getProduct().getProductID(),pod.getQuantity());
+                    new Product_DAO().updateInventory(pod.getProduct().getProductID(),pod.getQuantity());
                 }
             }
 

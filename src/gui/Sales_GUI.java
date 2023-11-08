@@ -103,10 +103,11 @@ public class Sales_GUI extends javax.swing.JPanel {
                         tbl_cart.setValueAt(current.getQuantity(), row, col);
                         Notifications.getInstance().show(Notifications.Type.ERROR, "Số lượng sản phẩm không đủ!");
                     }
+                    
+                    System.out.println(current.getProduct().getInventory() + " cc: " + newValue);
 
-//                Focus lại ô search
-//                toogleChangeToSearch();
                 } catch (Exception ex) {
+                    ex.printStackTrace();
                     Notifications.getInstance().show(Notifications.Type.ERROR, "Không thể cập nhật số lượng mới!");
                 }
             } catch (HeadlessException | NumberFormatException e) {
@@ -265,7 +266,6 @@ public class Sales_GUI extends javax.swing.JPanel {
 //      Khi tổng tiền không lẻ dưới 1000 thì nút đầu sẽ trở thành tổng tiền
         if (index == 0 && Math.round(total) % 1000 == 0) {
             options[index].setText(String.format("%.0fk", total / 1000));
-            index++;
         }
 
         for (Double value : list) {
@@ -742,6 +742,7 @@ public class Sales_GUI extends javax.swing.JPanel {
         btn_option1.setPreferredSize(new java.awt.Dimension(72, 35));
         pnl_orderCustomerGiveOptions.add(btn_option1);
 
+        btn_option2.setMnemonic('2');
         btn_option2.setText("Gợi ý 2");
         btn_option2.setMaximumSize(new java.awt.Dimension(72, 40));
         btn_option2.setMinimumSize(new java.awt.Dimension(72, 35));

@@ -79,7 +79,7 @@ public class Product_DAO implements DAOBase<Product> {
 
         return length;
     }
-     public boolean updateQuantity( String productID, int quantity) {
+     public boolean updateInventory( String productID, int quantity) {
         int n = 0;
 
         try {
