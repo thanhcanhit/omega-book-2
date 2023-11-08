@@ -45,7 +45,7 @@ public class Product {
         setType(type);
         this.price = price;
     }
-    
+
     public Product(String productID, String name, Double costPrice, byte[] image, Double VAT, Integer inventory, Type type) throws Exception {
         setProductID(productID);
         setName(name);
@@ -65,7 +65,7 @@ public class Product {
         return productID;
     }
 
-    private void setProductID(String productID) throws Exception {
+    public void setProductID(String productID) throws Exception {
         String regex = "^SP[1-3]\\d{2}\\d\\d{4}$";
         Pattern pattern = Pattern.compile(regex);
 
