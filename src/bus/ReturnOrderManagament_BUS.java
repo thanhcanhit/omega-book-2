@@ -86,4 +86,8 @@ public class ReturnOrderManagament_BUS {
     public boolean createNew(ReturnOrder newReturnOrder) {
         return dao.create(newReturnOrder);
     }
+
+    public ArrayList<Order> searchByOrderId(String orderID) {
+        return new Order_DAO().findById(orderID);
+    }
 }
