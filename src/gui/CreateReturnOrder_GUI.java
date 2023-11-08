@@ -9,6 +9,7 @@ import com.formdev.flatlaf.FlatClientProperties;
 import entity.Employee;
 import entity.Order;
 import entity.OrderDetail;
+import entity.Product;
 import entity.ReturnOrder;
 import enums.ReturnOrderStatus;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ import raven.toast.Notifications;
  * @author Như Tâm
  */
 public class CreateReturnOrder_GUI extends javax.swing.JPanel {
-
+    
     private ReturnOrderManagament_BUS bus;
     private Order order;
     private Employee employee = new Employee();
@@ -59,7 +60,7 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
         });
         //radio button
         
-        renderOrderTable(bus.getAllOrder());
+        //renderOrderTable(bus.getAllOrder());
         
     }
     
@@ -72,9 +73,16 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
         String productID = tblModel_orderDetail.getValueAt(rowIndex, 1).toString();
         int quantity = Integer.parseInt(tblModel_orderDetail.getValueAt(rowIndex, 3).toString());
         String nameProduct = bus.getNameProduct(productID);
-            
+        
         String[] newRow = {productID, nameProduct, quantity+ ""};
-        tblModel_product.addRow(newRow);
+        for (int i = 0; i < tblModel_product.getRowCount(); i++) {
+            System.out.println(tblModel_product.getValueAt(i, 0).toString() + "," + productID);
+            if(tblModel_product.getValueAt(i, 0).toString().equals(productID))
+                Notifications.getInstance().show(Notifications.Type.WARNING, "Sản phẩm " + productID + " đã được thêm");
+            else
+                tblModel_product.addRow(newRow);
+        }
+        
     }
     private void renderOrderDetail(String orderID) {
         tblModel_orderDetail.setRowCount(0);
@@ -190,6 +198,11 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
         btn_searchOrder.putClientProperty(FlatClientProperties.STYLE,""
             + "background:$Menu.background;"
             + "foreground:$Menu.foreground;");
+        btn_searchOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_searchOrderActionPerformed(evt);
+            }
+        });
         pnl_buttonSearchOrder.add(btn_searchOrder, java.awt.BorderLayout.CENTER);
 
         pnl_searchOrder.add(pnl_buttonSearchOrder);
@@ -355,7 +368,7 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
 
         pnl_chooseDateReturn.setMaximumSize(new java.awt.Dimension(32767, 30));
         pnl_chooseDateReturn.setPreferredSize(new java.awt.Dimension(100, 30));
-        pnl_chooseDateReturn.setLayout(new java.awt.GridLayout());
+        pnl_chooseDateReturn.setLayout(new java.awt.GridLayout(1, 0));
         pnl_chooseDateReturn.add(chooseDateReturn);
 
         pnl_returnOrderDate.add(pnl_chooseDateReturn);
@@ -483,18 +496,30 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
 
         add(spl_createReturnOrder, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void btn_createReturnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_createReturnOrderActionPerformed
         createNewReturnOrder();
     }//GEN-LAST:event_btn_createReturnOrderActionPerformed
-
+    
     private void btn_addProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addProductActionPerformed
+        int rowIndex = tbl_product.getSelectedRow();
+        
         try {
             renderProductTable();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+
     }//GEN-LAST:event_btn_addProductActionPerformed
+    
+    private void btn_searchOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchOrderActionPerformed
+        String orderID = txt_searchOrder.getText();
+        if(orderID.isBlank()) {
+            Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng nhập mã hoá đơn để tìm");
+            return;
+        } else
+            renderOrderTable(bus.searchByOrderId(orderID));
+    }//GEN-LAST:event_btn_searchOrderActionPerformed
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -548,5 +573,5 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
     private javax.swing.JTextField txt_returnOrderID;
     private javax.swing.JTextField txt_searchOrder;
     // End of variables declaration//GEN-END:variables
-
+    
 }

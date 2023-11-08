@@ -510,7 +510,7 @@ public class PromotionManagement_GUI extends javax.swing.JPanel implements Actio
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             try {
-                //                    Xoá
+                // Xoá
                 removePromotion(promotionID);
             } catch (Exception ex) {
                 ex.printStackTrace();
