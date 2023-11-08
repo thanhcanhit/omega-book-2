@@ -4,11 +4,22 @@
  */
 package gui;
 
+import bus.PurchaseOrderManagement_BUS;
 import com.formdev.flatlaf.FlatClientProperties;
+import entity.PurchaseOrder;
+import entity.PurchaseOrderDetail;
+import enums.PurchaseOrderStatus;
+import java.util.ArrayList;
+import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import raven.toast.Notifications;
 import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import utilities.FormatNumber;
 
 import utilities.SVGIcon;
 
@@ -16,34 +27,114 @@ import utilities.SVGIcon;
  *
  * @author KienTran
  */
-public class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
+public final class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
+
+    private PurchaseOrderManagement_BUS bus;
+
     private DefaultTableModel tblModel_purchaseOrder;
     private DefaultTableModel tblModel_purchaseOrderDetail;
+
     /**
      * Creates new form PurchaseOrderManagement_GUI
      */
     public PurchaseOrderManagement_GUI() {
-        initTableModel();
         initComponents();
+        init();
         alterTable();
     }
-     public void initTableModel() {
 
-        tblModel_purchaseOrder = new DefaultTableModel(new String[]{"Mã đơn nhập", "Nhà cung cấp", "Ngày đặt", "Ngày nhận"
-        }, 0);
+    public final void init() {
+        bus = new PurchaseOrderManagement_BUS();
+        
+        ButtonGroup buttonGroup = new ButtonGroup();
+        buttonGroup.add(rad_decline);
+        buttonGroup.add(rad_notReceiver);
+        buttonGroup.add(rad_receiver);
 
-        tblModel_purchaseOrderDetail = new DefaultTableModel(new String[]{"Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Giá nhập", "Tổng tiền"
-        }, 0);
+        tblModel_purchaseOrder = new DefaultTableModel(new String[]{"Mã đơn nhập", "Nhân viên", "Nhà cung cấp", "Ngày đặt", "Ngày nhận"}, 0);
+        tbl_purchaseOrder.setModel(tblModel_purchaseOrder);
+        tbl_purchaseOrder.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
+            int rowIndex = tbl_purchaseOrder.getSelectedRow();
+            if (rowIndex != -1) {
+                String id = tblModel_purchaseOrder.getValueAt(rowIndex, 0).toString();
+                PurchaseOrder purchaseOrder;
+                try {
+                    purchaseOrder = bus.getPurchaseOrder(id);
+                    renderPurchaseOrderDetailTable(bus.getPurchaseOrderDetailList(id));
+                    renderInfomationPurchaseOrder(purchaseOrder);
+
+                } catch (Exception ex) {
+
+                }
+
+            }
+            return;
+
+        });
+
+        tblModel_purchaseOrderDetail = new DefaultTableModel(new String[]{"Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Đơn giá", "Tổng tiền"}, 0);
+        tbl_purchaseOrderDetail.setModel(tblModel_purchaseOrderDetail);
+        tbl_purchaseOrderDetail.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
+            int rowIndex = tbl_purchaseOrderDetail.getSelectedRow();
+            if (rowIndex == -1) {
+                return;
+            }
+        });
+        renderPruchaseOrdersTable(bus.getAll());
+        System.out.println(bus.getAll());
+
     }
-     public void alterTable() {
+
+    private void renderPruchaseOrdersTable(ArrayList<PurchaseOrder> purchaseOrderList) {
+        tblModel_purchaseOrder.setRowCount(0);
+        for (PurchaseOrder po : purchaseOrderList) {
+            Object[] newRow = new Object[]{po.getPurchaseOrderID(), po.getEmployee().getName(), po.getSupplier().getSupplierID(), po.getOrderDate(), po.getReceiveDate()};
+            tblModel_purchaseOrder.addRow(newRow);
+        }
+    }
+
+    private void renderPurchaseOrderDetailTable(ArrayList<PurchaseOrderDetail> list) {
+        tblModel_purchaseOrderDetail.setRowCount(0);
+        for (PurchaseOrderDetail pod : list) {
+
+            Object[] newRow = new Object[]{pod.getProduct().getProductID(), pod.getProduct().getName(), pod.getQuantity(), pod.getCostPrice(), FormatNumber.toVND(pod.getLineTotal())};
+
+            tblModel_purchaseOrderDetail.addRow(newRow);
+        }
+    }
+
+    public void renderInfomationPurchaseOrder(PurchaseOrder purchaseOrder) {
+        txt_orderDate.setText(purchaseOrder.getOrderDate().toString());
+        txt_supplierName.setText(purchaseOrder.getSupplier().getName());
+        txa_note.setText(purchaseOrder.getNote());
+
+        txt_subTotal.setText(FormatNumber.toVND(purchaseOrder.getTotal()));
+
+        rad_notReceiver.setSelected(purchaseOrder.getStatus() == PurchaseOrderStatus.PENDING);
+        rad_receiver.setSelected(purchaseOrder.getStatus() == PurchaseOrderStatus.SUCCESS);
+        rad_decline.setSelected(purchaseOrder.getStatus() == PurchaseOrderStatus.CANCEL);
+        if(rad_receiver.isSelected()){
+            rad_notReceiver.setEnabled(false);
+        }
+        if(rad_decline.isSelected()){
+            rad_notReceiver.setEnabled(false);
+            rad_receiver.setEnabled(false);
+        }
+
+
+    }
+
+    public void alterTable() {
         DefaultTableCellRenderer rightAlign = new DefaultTableCellRenderer();
         rightAlign.setHorizontalAlignment(JLabel.RIGHT);
 
         tbl_purchaseOrder.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-        tbl_purchaseOrder.getColumnModel().getColumn(0).setPreferredWidth(100);
+        tbl_purchaseOrder.getColumnModel().getColumn(0).setPreferredWidth(150);
         tbl_purchaseOrder.getColumnModel().getColumn(1).setPreferredWidth(200);
-        tbl_purchaseOrder.getColumnModel().getColumn(2).setPreferredWidth(100);
-        tbl_purchaseOrder.getColumnModel().getColumn(3).setPreferredWidth(100);
+        tbl_purchaseOrder.getColumnModel().getColumn(2).setPreferredWidth(200);
+        tbl_purchaseOrder.getColumnModel().getColumn(3).setPreferredWidth(150);
+        tbl_purchaseOrder.getColumnModel().getColumn(4).setPreferredWidth(150);
+        tbl_purchaseOrder.getColumnModel().getColumn(4).setCellRenderer(rightAlign);
         tbl_purchaseOrder.setDefaultEditor(Object.class, null);
 
         tbl_purchaseOrderDetail.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -57,6 +148,10 @@ public class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
         tbl_purchaseOrderDetail.getColumnModel().getColumn(4).setCellRenderer(rightAlign);
         tbl_purchaseOrderDetail.setDefaultEditor(Object.class, null);
 
+    }
+
+    public boolean validateFields() {
+        return true;
     }
 
     /**
@@ -89,7 +184,7 @@ public class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
         lbl_note = new javax.swing.JLabel();
         pnl_note = new javax.swing.JPanel();
         scr_note = new javax.swing.JScrollPane();
-        txa_note1 = new javax.swing.JTextArea();
+        txa_note = new javax.swing.JTextArea();
         pnl_total = new javax.swing.JPanel();
         lbl_subTotal = new javax.swing.JLabel();
         txt_subTotal = new javax.swing.JTextField();
@@ -109,7 +204,6 @@ public class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
         pnl_purchaseOrderDetail.setBorder(javax.swing.BorderFactory.createTitledBorder("Chi tiết đơn nhập hàng:"));
         pnl_purchaseOrderDetail.setLayout(new java.awt.BorderLayout());
 
-        tbl_purchaseOrderDetail.setModel(tblModel_purchaseOrderDetail);
         scr_orderDetail.setViewportView(tbl_purchaseOrderDetail);
 
         pnl_purchaseOrderDetail.add(scr_orderDetail, java.awt.BorderLayout.CENTER);
@@ -141,6 +235,11 @@ public class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
         rad_receiver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         rad_receiver.setIconTextGap(8);
         rad_receiver.setSize(new java.awt.Dimension(50, 0));
+        rad_receiver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rad_receiverActionPerformed(evt);
+            }
+        });
         pnl_status.add(rad_receiver);
 
         rad_decline.setText("Đã huỷ");
@@ -197,7 +296,7 @@ public class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
         pnl_noteLabel.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         pnl_noteLabel.setMaximumSize(new java.awt.Dimension(1000, 30));
         pnl_noteLabel.setMinimumSize(new java.awt.Dimension(49, 5));
-        pnl_noteLabel.setPreferredSize(new java.awt.Dimension(49, 30));
+        pnl_noteLabel.setPreferredSize(new java.awt.Dimension(49, 40));
         pnl_noteLabel.setLayout(new javax.swing.BoxLayout(pnl_noteLabel, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_note.setText("Ghi chú:");
@@ -212,11 +311,11 @@ public class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
         scr_note.setMinimumSize(new java.awt.Dimension(16, 120));
         scr_note.setPreferredSize(new java.awt.Dimension(244, 120));
 
-        txa_note1.setColumns(20);
-        txa_note1.setRows(5);
-        txa_note1.setMinimumSize(new java.awt.Dimension(13, 120));
-        txa_note1.setPreferredSize(new java.awt.Dimension(232, 120));
-        scr_note.setViewportView(txa_note1);
+        txa_note.setColumns(20);
+        txa_note.setRows(5);
+        txa_note.setMinimumSize(new java.awt.Dimension(13, 100));
+        txa_note.setPreferredSize(new java.awt.Dimension(232, 120));
+        scr_note.setViewportView(txa_note);
 
         pnl_note.add(scr_note);
 
@@ -224,6 +323,7 @@ public class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
 
         pnl_total.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         pnl_total.setMaximumSize(new java.awt.Dimension(1000, 100));
+        pnl_total.setPreferredSize(new java.awt.Dimension(199, 50));
         pnl_total.setLayout(new javax.swing.BoxLayout(pnl_total, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_subTotal.setText("Tổng tiền:");
@@ -251,6 +351,11 @@ public class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
         btn_submit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_submit.putClientProperty(FlatClientProperties.STYLE, "background:$Menu.background;"+"foreground:$Menu.foreground;");
         btn_submit.setIcon(SVGIcon.getPrimarySVGIcon("imgs/orderManagement/confirmButtonPOM.svg"));
+        btn_submit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_submitActionPerformed(evt);
+            }
+        });
         pnl_control.add(btn_submit, java.awt.BorderLayout.CENTER);
 
         pnl_purchaseOrderInfo.add(pnl_control);
@@ -266,7 +371,6 @@ public class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
 
         scr_purchaseOrder.setPreferredSize(new java.awt.Dimension(800, 402));
 
-        tbl_purchaseOrder.setModel(tblModel_purchaseOrder);
         tbl_purchaseOrder.setSize(new java.awt.Dimension(800, 80));
         scr_purchaseOrder.setViewportView(tbl_purchaseOrder);
 
@@ -288,6 +392,47 @@ public class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
     private void txt_subTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_subTotalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_subTotalActionPerformed
+
+    private void rad_receiverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rad_receiverActionPerformed
+
+    }//GEN-LAST:event_rad_receiverActionPerformed
+
+    private void btn_submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_submitActionPerformed
+        // TODO add your handling code here:
+        if (rad_receiver.isSelected()) {
+            if (JOptionPane.showConfirmDialog(this, "Đơn hàng này đã được nhận?", "Xác nhận đã nhận hàng", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                int row = tbl_purchaseOrder.getSelectedRow();
+                if (row != -1) {
+                    String ID = tbl_purchaseOrder.getValueAt(row, 0).toString();
+                    bus.updateStatus(ID, 1);
+                    rad_notReceiver.setSelected(false);
+                    rad_decline.setEnabled(true);
+                    Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đã cập nhật trạng thái thành công !");
+                    this.invalidate();
+                    this.repaint();
+
+                }
+            } else {
+                rad_notReceiver.setSelected(true);
+            }
+        }
+        if (rad_decline.isSelected()) {
+            if (JOptionPane.showConfirmDialog(this, "Bạn có chắc sẽ huỷ đơn hàng?", "Xác nhận huỷ đơn hàng", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                int row = tbl_purchaseOrder.getSelectedRow();
+                if (row != -1) {
+                    String ID = tbl_purchaseOrder.getValueAt(row, 0).toString();
+                    bus.updateStatus(ID, 2);
+                    rad_notReceiver.setEnabled(false);
+                    rad_receiver.setSelected(false);
+                    rad_notReceiver.setSelected(false);
+                    rad_receiver.setEnabled(false);
+                    Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đã cập nhật trạng thái thành công !");
+                     this.invalidate();
+                    this.repaint();
+                }
+            }
+        }
+    }//GEN-LAST:event_btn_submitActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -317,7 +462,7 @@ public class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
     private javax.swing.JSplitPane splitPane;
     private javax.swing.JTable tbl_purchaseOrder;
     private javax.swing.JTable tbl_purchaseOrderDetail;
-    private javax.swing.JTextArea txa_note1;
+    private javax.swing.JTextArea txa_note;
     private javax.swing.JTextField txt_orderDate;
     private javax.swing.JTextField txt_subTotal;
     private javax.swing.JTextField txt_supplierName;

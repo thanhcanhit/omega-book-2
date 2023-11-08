@@ -34,8 +34,7 @@ public class PurchaseOrderDetail_DAO implements DAOBase<PurchaseOrderDetail>{
                 String productID = rs.getString("productID");
                 int quantity = rs.getInt("Quantity");
                 Double costPrice = rs.getDouble("costPrice");
-                Double lineTotal = rs.getDouble("lineTotal");
-                result.add(new PurchaseOrderDetail(new PurchaseOrder(id), new Product(productID), quantity, costPrice, lineTotal));
+                result.add(new PurchaseOrderDetail(new PurchaseOrder(id), new Product(productID), quantity, costPrice, quantity*costPrice));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -52,8 +51,7 @@ public class PurchaseOrderDetail_DAO implements DAOBase<PurchaseOrderDetail>{
                 String productID = rs.getString("productID");
                 int quantity = rs.getInt("Quantity");
                 Double costPrice = rs.getDouble("costPrice");
-                Double lineTotal = rs.getDouble("lineTotal");
-                result.add(new PurchaseOrderDetail(new PurchaseOrder(id), new Product(productID), quantity, costPrice, lineTotal));
+                result.add(new PurchaseOrderDetail(new PurchaseOrder(id), new Product_DAO().getOne(productID), quantity, costPrice, quantity*costPrice));
             }
                    
         }catch(Exception e){
