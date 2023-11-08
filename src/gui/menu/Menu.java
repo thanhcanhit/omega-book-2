@@ -4,7 +4,6 @@ import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.formdev.flatlaf.ui.FlatUIUtils;
 import com.formdev.flatlaf.util.UIScale;
-import entity.Employee;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -31,20 +30,20 @@ public class Menu extends JPanel {
     public static JLabel lbl_currentEmployee;
     private static final String menuItems[][] = {
         {"Bán hàng"},
-        {"Đơn hàng", "Quản lí đơn bán", "Quản lí đơn nhập", "Tạo đơn nhập"},
+        {"Đơn hàng", "Tạo đơn nhập", "Quản lí đơn bán", "Quản lí đơn nhập"},
         {"Đổi trả", "Quản lí đơn đổi trả", "Tạo đơn đổi trả",},
         {"Khuyến mãi"},
         {"Sản phẩm"},
         {"Nhân viên"},
         {"Khách hàng"},
         {"Thống kê", "Thống kê doanh thu", "Thống kê sản phẩm", "Thống kê khách hàng"},
-        {"Báo cáo", "Danh sách phiếu kiểm tiền", "Danh sách phiếu kết toán", "Kiểm tiền", "Kết toán"},
+        {"Báo cáo", "Kiểm tiền", "Kết toán", "Danh sách phiếu kiểm tiền", "Danh sách phiếu kết toán"},
         {"Đăng xuất"}
     };
 
 //    row col
     private static final int employeeItemsBan[][] = {
-        {1, 3},
+        {1, 1},
         {2, 0}, {2, 1}, {2, 2},
         {3, 0},
         {5, 0}};

@@ -80,13 +80,13 @@ public class MainView extends JLayeredPane {
                 case 1:
                     switch (subIndex) {
                         case 1:
-                            Application.showForm(new OrderManagement_GUI());
+                            Application.showForm(new CreatePurchaseOrder_GUI());
                             break;
                         case 2:
-                            Application.showForm(new PurchaseOrderManagement_GUI());
+                            Application.showForm(new OrderManagement_GUI());
                             break;
                         case 3:
-                            Application.showForm(new CreatePurchaseOrder_GUI());
+                            Application.showForm(new PurchaseOrderManagement_GUI());
                             break;
                         default:
                             action.cancel();
@@ -96,10 +96,10 @@ public class MainView extends JLayeredPane {
                 case 2:
                     switch (subIndex) {
                         case 1:
-                            Application.showForm(new ReturnOrderManagemant_GUI());
+                            Application.showForm(new CreateReturnOrder_GUI());
                             break;
                         case 2:
-                            Application.showForm(new CreateReturnOrder_GUI());
+                            Application.showForm(new ReturnOrderManagemant_GUI());
                             break;
                         default:
                             action.cancel();
@@ -137,16 +137,16 @@ public class MainView extends JLayeredPane {
                 case 8:
                     switch (subIndex) {
                         case 1:
-                            Application.showForm(new ViewCashCountSheetList_GUI());
-                            break;
-                        case 2:
-                            Application.showForm(new ViewAcountingList_GUI());
-                            break;
-                        case 3:
                             Application.showForm(new StatementCashCount_GUI());
                             break;
-                        case 4:
+                        case 2:
                             Application.showForm(new StatementAccounting_GUI());
+                            break;
+                        case 3:
+                            Application.showForm(new ViewCashCountSheetList_GUI());
+                            break;
+                        case 4:
+                            Application.showForm(new ViewAcountingVoucherList_GUI());
                             break;
                         default:
                             action.cancel();

@@ -37,6 +37,17 @@ public class ProductManagement_BUS {
         return productDAO.findById(searchQuery);
     }
 
+    public boolean updateProduct(String id, Product product) {
+        return productDAO.update(id, product);
+    }
+    
+    public boolean createProduct(Product productWithoutId) {
+          String id = "SP";
+          
+//        productDAO.create();
+        return true;
+    }
+
     public ArrayList<Product> filter(String name, Boolean isEmpty, int type, int detailType) {
 //      Nếu không lọc loại sản phẩm
         if (type == 0) {
