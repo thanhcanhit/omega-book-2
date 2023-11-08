@@ -418,7 +418,7 @@ public class Product_DAO implements DAOBase<Product> {
     }
     
     
-    public ArrayList<Product> getTop10Product(Date date) {
+    public ArrayList<Product> getTop10Product(String date) {
 
         ArrayList<Product> result = new ArrayList<>();
 
@@ -429,7 +429,31 @@ public class Product_DAO implements DAOBase<Product> {
                                                                     where CONVERT(varchar, orderAt, 23) = ?
                                                                     group by productID
                                                                     order by SUM(quantity) desc""");
-            st.setDate(1, date);
+            st.setString(1, date);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                String productID = rs.getString(1);
+                result.add(
+                      getOne(productID));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+    public ArrayList<Product> getTopProductInDay(String date) {
+
+        ArrayList<Product> result = new ArrayList<>();
+
+        try {
+            PreparedStatement st = ConnectDB.conn.prepareStatement("""
+                                                                   select productID
+                                                                    from OrderDetail as od join [Order] as o on od.orderID = o.orderID
+                                                                    where CONVERT(varchar, orderAt, 23) = ?
+                                                                    group by productID""");
+            st.setString(1, date);
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
@@ -444,17 +468,17 @@ public class Product_DAO implements DAOBase<Product> {
         return result;
     }
     
-     public int getQuantitySale(String productID,Date date) {
+     public int getQuantitySale(String productID,String date) {
         int result = 0;
 
         try {
             PreparedStatement st = ConnectDB.conn.prepareStatement("""
                                                                    select SUM(quantity) as sl
-                                                                   from OrderDetail as od join Order as o on od.orderID = o.orderID
+                                                                   from OrderDetail as od join [Order] as o on od.orderID = o.orderID
                                                                    where CONVERT(varchar, orderAt, 23) = ? and productID = ?
                                                                    group by productID 
                                                                    order by SUM(quantity) desc""");
-            st.setDate(1, date);
+            st.setString(1, date);
             st.setString(2, productID);
             ResultSet rs = st.executeQuery();
 
@@ -468,16 +492,16 @@ public class Product_DAO implements DAOBase<Product> {
 
         return result;
     }
-    public double getTotalProduct(String productID, Date date) {
+    public double getTotalProduct(String productID, String date) {
         try {
             PreparedStatement st = ConnectDB.conn.prepareStatement("""
                                                                    select sum(od.lineTotal)
-                                                                   from OrderDetail as od join Order as o on od.orderID = o.orderID
+                                                                   from OrderDetail as od join [Order] as o on od.orderID = o.orderID
                                                                    where productID = ? and CONVERT(varchar, orderAt, 23) = ?
                                                                    group by productID                                               
                                                                    """);
             st.setString(1, productID);
-            st.setDate(2, date);
+            st.setString(2, date);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 return rs.getDouble(1);
