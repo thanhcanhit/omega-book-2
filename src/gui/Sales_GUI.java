@@ -12,10 +12,7 @@ import entity.OrderDetail;
 import entity.Product;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
-import java.sql.Date;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -392,6 +389,7 @@ public class Sales_GUI extends javax.swing.JPanel {
         try {
             Notifications.getInstance().show(Notifications.Type.INFO, "Đang lưu trữ hóa đơn...");
 
+            order.setEmployee(Application.employee);
             java.sql.Timestamp now = java.sql.Timestamp.valueOf(LocalDateTime.now());
             order.setOrderAt(now);
             order.setPayment(cmb_orderPaymentMethod.getSelectedIndex() == 1);
@@ -400,6 +398,7 @@ public class Sales_GUI extends javax.swing.JPanel {
             order.setPromotion(null);
             order.setOrderDetail(cart);
             if (chk_defaultCustomer.isSelected()) {
+//                Khách hàng mặc định
                 order.setCustomer(new Customer("KH198210013"));
             } else {
                 order.setCustomer(customer);
@@ -579,11 +578,6 @@ public class Sales_GUI extends javax.swing.JPanel {
         txt_customerPhone.setMaximumSize(new java.awt.Dimension(99999, 35));
         txt_customerPhone.setMinimumSize(new java.awt.Dimension(100, 35));
         txt_customerPhone.setPreferredSize(new java.awt.Dimension(30, 30));
-        txt_customerPhone.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_customerPhoneActionPerformed(evt);
-            }
-        });
         txt_customerPhone.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txt_customerPhoneKeyPressed(evt);
@@ -606,11 +600,6 @@ public class Sales_GUI extends javax.swing.JPanel {
         txt_customerName.setMaximumSize(new java.awt.Dimension(99999, 35));
         txt_customerName.setMinimumSize(new java.awt.Dimension(100, 35));
         txt_customerName.setPreferredSize(new java.awt.Dimension(30, 30));
-        txt_customerName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_customerNameActionPerformed(evt);
-            }
-        });
         pnl_customerName.add(txt_customerName);
 
         pnl_customerInfo.add(pnl_customerName);
@@ -628,11 +617,6 @@ public class Sales_GUI extends javax.swing.JPanel {
         txt_customerRank.setMaximumSize(new java.awt.Dimension(99999, 35));
         txt_customerRank.setMinimumSize(new java.awt.Dimension(100, 35));
         txt_customerRank.setPreferredSize(new java.awt.Dimension(30, 30));
-        txt_customerRank.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_customerRankActionPerformed(evt);
-            }
-        });
         pnl_customerRank.add(txt_customerRank);
 
         pnl_customerInfo.add(pnl_customerRank);
@@ -657,11 +641,6 @@ public class Sales_GUI extends javax.swing.JPanel {
         txt_orderId.setMaximumSize(new java.awt.Dimension(99999, 35));
         txt_orderId.setMinimumSize(new java.awt.Dimension(100, 35));
         txt_orderId.setPreferredSize(new java.awt.Dimension(30, 30));
-        txt_orderId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_orderIdActionPerformed(evt);
-            }
-        });
         pnl_orderId.add(txt_orderId);
 
         pnl_orderInfo.add(pnl_orderId);
@@ -679,11 +658,6 @@ public class Sales_GUI extends javax.swing.JPanel {
         txt_orderDate.setMaximumSize(new java.awt.Dimension(99999, 35));
         txt_orderDate.setMinimumSize(new java.awt.Dimension(100, 35));
         txt_orderDate.setPreferredSize(new java.awt.Dimension(30, 30));
-        txt_orderDate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_orderDateActionPerformed(evt);
-            }
-        });
         pnl_orderDate.add(txt_orderDate);
 
         pnl_orderInfo.add(pnl_orderDate);
@@ -701,11 +675,6 @@ public class Sales_GUI extends javax.swing.JPanel {
         txt_orderDiscount.setMaximumSize(new java.awt.Dimension(99999, 35));
         txt_orderDiscount.setMinimumSize(new java.awt.Dimension(100, 35));
         txt_orderDiscount.setPreferredSize(new java.awt.Dimension(30, 30));
-        txt_orderDiscount.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_orderDiscountActionPerformed(evt);
-            }
-        });
         pnl_discount.add(txt_orderDiscount);
 
         pnl_orderInfo.add(pnl_discount);
@@ -723,11 +692,6 @@ public class Sales_GUI extends javax.swing.JPanel {
         txt_orderPay.setMaximumSize(new java.awt.Dimension(99999, 35));
         txt_orderPay.setMinimumSize(new java.awt.Dimension(100, 35));
         txt_orderPay.setPreferredSize(new java.awt.Dimension(30, 30));
-        txt_orderPay.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_orderPayActionPerformed(evt);
-            }
-        });
         pnl_orderPay.add(txt_orderPay);
 
         pnl_orderInfo.add(pnl_orderPay);
@@ -763,11 +727,6 @@ public class Sales_GUI extends javax.swing.JPanel {
         txt_orderCustomerGive.setMaximumSize(new java.awt.Dimension(99999, 35));
         txt_orderCustomerGive.setMinimumSize(new java.awt.Dimension(100, 35));
         txt_orderCustomerGive.setPreferredSize(new java.awt.Dimension(30, 30));
-        txt_orderCustomerGive.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_orderCustomerGiveActionPerformed(evt);
-            }
-        });
         pnl_orderCustomerGive.add(txt_orderCustomerGive);
 
         pnl_orderInfo.add(pnl_orderCustomerGive);
@@ -806,7 +765,6 @@ public class Sales_GUI extends javax.swing.JPanel {
         btn_option5.setMinimumSize(new java.awt.Dimension(72, 35));
         btn_option5.setPreferredSize(new java.awt.Dimension(72, 35));
         pnl_orderCustomerGiveOptions.add(btn_option5);
-        btn_option5.getAccessibleContext().setAccessibleName("Gợi ý 5");
 
         btn_option6.setText("Gợi ý 6");
         btn_option6.setMaximumSize(new java.awt.Dimension(72, 40));
@@ -828,11 +786,6 @@ public class Sales_GUI extends javax.swing.JPanel {
         txt_orderCustomerReturn.setMaximumSize(new java.awt.Dimension(99999, 35));
         txt_orderCustomerReturn.setMinimumSize(new java.awt.Dimension(100, 35));
         txt_orderCustomerReturn.setPreferredSize(new java.awt.Dimension(30, 30));
-        txt_orderCustomerReturn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_orderCustomerReturnActionPerformed(evt);
-            }
-        });
         pnl_orderCustomerReturn.add(txt_orderCustomerReturn);
 
         pnl_orderInfo.add(pnl_orderCustomerReturn);
@@ -890,42 +843,6 @@ public class Sales_GUI extends javax.swing.JPanel {
 
         add(splitPane_main);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txt_customerPhoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_customerPhoneActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_customerPhoneActionPerformed
-
-    private void txt_customerNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_customerNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_customerNameActionPerformed
-
-    private void txt_customerRankActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_customerRankActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_customerRankActionPerformed
-
-    private void txt_orderIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_orderIdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_orderIdActionPerformed
-
-    private void txt_orderDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_orderDateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_orderDateActionPerformed
-
-    private void txt_orderDiscountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_orderDiscountActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_orderDiscountActionPerformed
-
-    private void txt_orderPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_orderPayActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_orderPayActionPerformed
-
-    private void txt_orderCustomerGiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_orderCustomerGiveActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_orderCustomerGiveActionPerformed
-
-    private void txt_orderCustomerReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_orderCustomerReturnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_orderCustomerReturnActionPerformed
 
     private void btn_cancleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancleActionPerformed
         if (JOptionPane.showConfirmDialog(this, "Bạn có muốn hủy hóa đơn " + order.getOrderID(), "Xác nhận hủy hóa đơn", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {

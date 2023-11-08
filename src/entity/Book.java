@@ -41,8 +41,24 @@ public final class Book extends Product {
         super(ProductID);
     }
 
+//    Truyền tất cả, dùng khi đọc đối tượng từ db
     public Book(String author, String publisher, Integer publishYear, String description, Integer pageQuantity, Boolean isHardCover, String language, String translator, BookType bookOrigin, BookCategory bookCategory, String productID, String name, Double costPrice, Double price, byte[] image, Double VAT, Integer inventory, Type type) throws Exception {
         super(productID, name, costPrice, price, image, VAT, inventory, type);
+        setAuthor(author);
+        setPublisher(publisher);
+        setPublishYear(publishYear);
+        setDescription(description);
+        setPageQuantity(pageQuantity);
+        setIsHardCover(isHardCover);
+        setLanguage(language);
+        setTranslator(translator);
+        setBookOrigin(bookOrigin);
+        setBookCategory(bookCategory);
+    }
+
+//    Không truyền price, dùng khi tạo đối tượng mới
+    public Book(String author, String publisher, Integer publishYear, String description, Integer pageQuantity, Boolean isHardCover, String language, String translator, BookType bookOrigin, BookCategory bookCategory, String productID, String name, Double costPrice, byte[] image, Double VAT, Integer inventory, Type type) throws Exception {
+        super(productID, name, costPrice, image, VAT, inventory, type);
         setAuthor(author);
         setPublisher(publisher);
         setPublishYear(publishYear);

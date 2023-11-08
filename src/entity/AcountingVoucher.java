@@ -34,8 +34,9 @@ public class AcountingVoucher {
         setOrderList(orderList);
         setPayViaATM(orderList);
         setWithDraw();
-        setDifference();
         setCashCountSheet(cashCountSheet);
+        setDifference();
+        
     }
     
     

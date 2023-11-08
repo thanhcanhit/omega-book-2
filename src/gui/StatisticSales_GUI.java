@@ -5,44 +5,81 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
 import org.knowm.xchart.*;
 import org.knowm.xchart.style.Styler.LegendPosition;
+import org.knowm.xchart.style.colors.XChartSeriesColors;
+import org.knowm.xchart.style.lines.SeriesLines;
+import org.knowm.xchart.style.markers.SeriesMarkers;
 
 /**
  *
  * @author KienTran
  */
 public class StatisticSales_GUI extends javax.swing.JPanel {
-    private XChartPanel<PieChart> pieChartPanel;
-    private XChartPanel<CategoryChart> categoryChartPanel;
+    private final XChartPanel<PieChart> pieChartPanel;
+    private final XChartPanel<XYChart> categoryChartPanel ;
     /**
      * Creates new form StatisticSales_GUI
      */
     public StatisticSales_GUI() {
         initComponents();
         pieChartPanel = new XChartPanel<>(getPieChart());
-        categoryChartPanel = new XChartPanel<>(getCategoryChart());
         pnl_productTypeStatistic.add(pieChartPanel);
+        
+        categoryChartPanel = new XChartPanel<>(getChart());
         pnl_center.add(categoryChartPanel);
     }
-    public CategoryChart getCategoryChart() {
+    public XYChart getChart() {
  
     // Create Chart
-    CategoryChart chart = new CategoryChartBuilder().width(800).height(600).title("").xAxisTitle("Ngày").yAxisTitle("Doanh thu").build();
+    XYChart chart = new XYChartBuilder().width(800).height(600).title("").xAxisTitle("Ngày").yAxisTitle("Doanh thu").build();
  
     // Customize Chart
-    chart.getStyler().setLegendPosition(LegendPosition.InsideNW);
     chart.getStyler().setPlotBackgroundColor(Color.WHITE);
+    chart.getStyler().setPlotGridLinesColor(new Color(255, 255, 255));
     chart.getStyler().setChartBackgroundColor(Color.WHITE);
-    chart.getStyler().setSeriesColors(new Color[]{new Color(71, 118, 185)});
+    chart.getStyler().setLegendBackgroundColor(Color.WHITE);
+    chart.getStyler().setChartFontColor(Color.BLACK);
+    chart.getStyler().setChartTitleBoxBackgroundColor(new Color(0, 222, 0));
+    chart.getStyler().setChartTitleBoxVisible(true);
+    chart.getStyler().setChartTitleBoxBorderColor(Color.BLACK);
+    chart.getStyler().setPlotGridLinesVisible(false);
+ 
+    chart.getStyler().setAxisTickPadding(20);
+ 
+    chart.getStyler().setAxisTickMarkLength(15);
+ 
+    chart.getStyler().setPlotMargin(20);
+ 
+    chart.getStyler().setChartTitleFont(new Font(Font.MONOSPACED, Font.BOLD, 24));
+    chart.getStyler().setLegendFont(new Font(Font.SERIF, Font.PLAIN, 18));
+    chart.getStyler().setLegendPosition(LegendPosition.InsideSE);
+    chart.getStyler().setLegendSeriesLineLength(12);
+    chart.getStyler().setAxisTitleFont(new Font(Font.SANS_SERIF, Font.BOLD, 18));
+    chart.getStyler().setAxisTickLabelsFont(new Font(Font.SERIF, Font.BOLD, 11));
+    chart.getStyler().setDatePattern("dd-MMM");
+    chart.getStyler().setDecimalPattern("#0.000");
+    chart.getStyler().setLocale(Locale.GERMAN);
+ 
+    // generates linear data
+    List<Integer> xData = Arrays.asList( 1, 2, 3, 4, 5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31 );
+    List<Integer> yData = Arrays.asList(13, 24, 13, 43, 5,246,7,8,922,10,11,522,413,14,15,56,17,118,19,20,21,22,23,24,25,26,27,228,229,30,311);
  
     // Series
-    chart.addSeries("data", Arrays.asList(new Integer[] {  1, 2, 3, 4, 5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31 }), 
-            Arrays.asList(new Integer[] {13, 24, 13, 43, 5,246,7,8,922,10,11,522,413,14,15,56,17,118,19,20,21,22,23,24,25,26,27,228,229,30,311}));
- 
+    XYSeries series = chart.addSeries("Data", xData, yData);
+    series.setLineColor(XChartSeriesColors.BLUE);
+    series.setMarkerColor(Color.RED);
+    series.setMarker(SeriesMarkers.CIRCLE);
+    series.setLineStyle(SeriesLines.SOLID);
+
+
     return chart;
   }
+    
 
     public PieChart getPieChart() {
  

@@ -6,18 +6,31 @@ package gui;
 
 import bus.ProductManagement_BUS;
 import com.formdev.flatlaf.FlatClientProperties;
+import dao.Account_DAO;
 import database.ConnectDB;
 import entity.Book;
+import entity.Brand;
 import entity.Product;
 import entity.Stationery;
+import enums.BookCategory;
+import enums.BookType;
+import enums.StationeryType;
 import enums.Type;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
+import java.awt.image.WritableRaster;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -26,11 +39,13 @@ import javax.swing.table.DefaultTableModel;
 import raven.toast.Notifications;
 import utilities.FormatNumber;
 import utilities.SVGIcon;
-import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import main.Application;
 
 /**
  *
@@ -116,8 +131,19 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         txt_productVAT.setText(currentProduct.getVAT().toString());
         txt_productInventory.setText(currentProduct.getInventory().toString());
         cmb_productType.setSelectedItem(currentProduct.getType() == Type.BOOK ? "Sách" : "Văn phòng phẩm");
-//        lbl_productImg.setIcon(new ImageIcon(currentProduct.getImage()));
-//        lbl_productImg.setText("");
+        if (currentProduct.getImage() != null) {
+            ImageIcon imageIcon = new ImageIcon(currentProduct.getImage());
+            Image image = imageIcon.getImage();
+            Image scaledImage = image.getScaledInstance(lbl_productImg.getWidth(), -1, Image.SCALE_SMOOTH | Image.SCALE_AREA_AVERAGING);
+
+            // Tạo lại đối tượng ImageIcon với kích thước mới
+            imageIcon = new ImageIcon(scaledImage);
+            lbl_productImg.setIcon(imageIcon);
+            lbl_productImg.setText("");
+        } else {
+            lbl_productImg.setIcon(null);
+            lbl_productImg.setText("Không có hình ảnh mô tả");
+        }
 
 //        Update detail form
         if (currentProduct.getType() == Type.BOOK) {
@@ -130,11 +156,13 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
             txt_bookQuantityPage.setText(book.getPageQuantity().toString());
             cmb_bookCategory.setSelectedIndex(book.getBookCategory().getValue() - 1);
             cmb_bookHardCover.setSelectedIndex(book.getIsHardCover() ? 0 : 1);
+            cmb_bookType.setSelectedIndex(book.getBookOrigin().getValue() - 1);
         } else {
             Stationery stationery = (Stationery) currentProduct;
             txt_stationeryColor.setText(stationery.getColor());
             txt_stationeryOrigin.setText(stationery.getOrigin());
             txt_stationeryWeight.setText(stationery.getWeight().toString());
+            txt_stationeryMaterial.setText(stationery.getMaterial());
             cmb_stationeryType.setSelectedIndex(stationery.getStationeryType().getValue() - 1);
             cmb_stationeryBrand.setSelectedItem(stationery.getBrand().getBrandID());
         }
@@ -268,6 +296,27 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         lbl_productType = new javax.swing.JLabel();
         cmb_productType = new javax.swing.JComboBox<>();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
+        scr_stationeryDetail = new javax.swing.JScrollPane();
+        pnl_stationeryDetail = new javax.swing.JPanel();
+        pnl_stationery = new javax.swing.JPanel();
+        pnl_container23 = new javax.swing.JPanel();
+        lbl_stationeryColor = new javax.swing.JLabel();
+        txt_stationeryColor = new javax.swing.JTextField();
+        pnl_container24 = new javax.swing.JPanel();
+        lbl_stationeryType = new javax.swing.JLabel();
+        cmb_stationeryType = new javax.swing.JComboBox<>();
+        pnl_container25 = new javax.swing.JPanel();
+        lbl_stationeryOrigin = new javax.swing.JLabel();
+        txt_stationeryOrigin = new javax.swing.JTextField();
+        pnl_container26 = new javax.swing.JPanel();
+        lbl_stationeryWeight = new javax.swing.JLabel();
+        txt_stationeryWeight = new javax.swing.JTextField();
+        pnl_container27 = new javax.swing.JPanel();
+        lbl_stationeryMaterial = new javax.swing.JLabel();
+        txt_stationeryMaterial = new javax.swing.JTextField();
+        pnl_container28 = new javax.swing.JPanel();
+        lbl_stationeryBrand = new javax.swing.JLabel();
+        cmb_stationeryBrand = new javax.swing.JComboBox<>();
         scr_bookDetail = new javax.swing.JScrollPane();
         pnl_bookDetail = new javax.swing.JPanel();
         pnl_bookAuthor = new javax.swing.JPanel();
@@ -279,6 +328,9 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         pnl_container15 = new javax.swing.JPanel();
         lbl_bookTranslator = new javax.swing.JLabel();
         txt_bookTranslator = new javax.swing.JTextField();
+        pnl_container17 = new javax.swing.JPanel();
+        lbl_bookType = new javax.swing.JLabel();
+        cmb_bookType = new javax.swing.JComboBox<>();
         pnl_container18 = new javax.swing.JPanel();
         lbl_bookCategory1 = new javax.swing.JLabel();
         cmb_bookCategory = new javax.swing.JComboBox<>();
@@ -295,32 +347,11 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         pnl_container14 = new javax.swing.JPanel();
         lbl_bookLanguage = new javax.swing.JLabel();
         txt_bookLanguage = new javax.swing.JTextField();
-        pnl_container17 = new javax.swing.JPanel();
-        lbl_bookType = new javax.swing.JLabel();
-        cmb_bookType = new javax.swing.JComboBox<>();
         pnl_container7 = new javax.swing.JPanel();
         pnl_container16 = new javax.swing.JPanel();
         lbl_bookDescription = new javax.swing.JLabel();
-        scr_productName1 = new javax.swing.JScrollPane();
+        scr_productDescription = new javax.swing.JScrollPane();
         txa_bookDescription = new javax.swing.JTextArea();
-        scr_stationeryDetail = new javax.swing.JScrollPane();
-        pnl_stationeryDetail = new javax.swing.JPanel();
-        pnl_stationery = new javax.swing.JPanel();
-        pnl_container23 = new javax.swing.JPanel();
-        lbl_stationeryColor = new javax.swing.JLabel();
-        txt_stationeryColor = new javax.swing.JTextField();
-        pnl_container24 = new javax.swing.JPanel();
-        lbl_stationeryType = new javax.swing.JLabel();
-        cmb_stationeryType = new javax.swing.JComboBox<>();
-        pnl_container25 = new javax.swing.JPanel();
-        lbl_stationeryOrigin = new javax.swing.JLabel();
-        txt_stationeryOrigin = new javax.swing.JTextField();
-        pnl_container26 = new javax.swing.JPanel();
-        lbl_stationeryWeight = new javax.swing.JLabel();
-        txt_stationeryWeight = new javax.swing.JTextField();
-        pnl_container28 = new javax.swing.JPanel();
-        lbl_stationeryBrand = new javax.swing.JLabel();
-        cmb_stationeryBrand = new javax.swing.JComboBox<>();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -499,14 +530,29 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 
         btn_clear.setText("Xóa trắng");
         btn_clear.setToolTipText("");
+        btn_clear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_clearActionPerformed(evt);
+            }
+        });
         pnl_control.add(btn_clear);
 
         btn_update.setText("Cập nhật");
+        btn_update.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_updateActionPerformed(evt);
+            }
+        });
         pnl_control.add(btn_update);
 
         btn_add.setText("Thêm sản phẩm mới");
         btn_add.setActionCommand("");
         btn_add.setIcon(SVGIcon.getSVGIcon("imgs/menu/1.svg"));
+        btn_add.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_addActionPerformed(evt);
+            }
+        });
         pnl_control.add(btn_add);
 
         pnl_right.add(pnl_control, java.awt.BorderLayout.SOUTH);
@@ -517,6 +563,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         pnl_rightCenter.setLayout(new javax.swing.BoxLayout(pnl_rightCenter, javax.swing.BoxLayout.Y_AXIS));
 
         scr_productInfo.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin sản phẩm"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        scr_productInfo.setMaximumSize(new java.awt.Dimension(32767, 500));
         scr_productInfo.setMinimumSize(new java.awt.Dimension(400, 400));
 
         pnl_productInfo.setPreferredSize(new java.awt.Dimension(400, 400));
@@ -530,6 +577,8 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 
         lbl_productImg.putClientProperty(FlatClientProperties.STYLE,""
             + "background:$Menu.background;");
+        lbl_productImg.setFont(lbl_productImg.getFont().deriveFont((lbl_productImg.getFont().getStyle() | java.awt.Font.ITALIC)));
+        lbl_productImg.setForeground(new java.awt.Color(153, 153, 153));
         lbl_productImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         pnl_productTopLeft.add(lbl_productImg, java.awt.BorderLayout.CENTER);
 
@@ -690,181 +739,8 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         pnl_rightCenter.add(scr_productInfo);
         pnl_rightCenter.add(filler1);
 
-        scr_bookDetail.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin chi tiết sách"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-
-        pnl_bookDetail.setPreferredSize(new java.awt.Dimension(400, 400));
-        pnl_bookDetail.setLayout(new javax.swing.BoxLayout(pnl_bookDetail, javax.swing.BoxLayout.Y_AXIS));
-
-        pnl_bookAuthor.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 5, 0));
-        pnl_bookAuthor.setPreferredSize(new java.awt.Dimension(100, 35));
-        pnl_bookAuthor.setLayout(new javax.swing.BoxLayout(pnl_bookAuthor, javax.swing.BoxLayout.LINE_AXIS));
-
-        lbl_bookAuthor.setText("Tác giả");
-        lbl_bookAuthor.setPreferredSize(new java.awt.Dimension(110, 40));
-        pnl_bookAuthor.add(lbl_bookAuthor);
-
-        txt_bookAuthor.setMaximumSize(new java.awt.Dimension(9999, 40));
-        txt_bookAuthor.setMinimumSize(new java.awt.Dimension(100, 35));
-        txt_bookAuthor.setPreferredSize(new java.awt.Dimension(100, 30));
-        pnl_bookAuthor.add(txt_bookAuthor);
-
-        pnl_bookDetail.add(pnl_bookAuthor);
-
-        pnl_bookPublisher.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 5, 0));
-        pnl_bookPublisher.setPreferredSize(new java.awt.Dimension(100, 35));
-        pnl_bookPublisher.setLayout(new javax.swing.BoxLayout(pnl_bookPublisher, javax.swing.BoxLayout.LINE_AXIS));
-
-        lbl_bookPublisher.setText("NXB");
-        lbl_bookPublisher.setPreferredSize(new java.awt.Dimension(110, 40));
-        pnl_bookPublisher.add(lbl_bookPublisher);
-
-        txt_bookPublisher.setMaximumSize(new java.awt.Dimension(9999, 40));
-        txt_bookPublisher.setMinimumSize(new java.awt.Dimension(100, 35));
-        txt_bookPublisher.setPreferredSize(new java.awt.Dimension(100, 30));
-        pnl_bookPublisher.add(txt_bookPublisher);
-
-        pnl_bookDetail.add(pnl_bookPublisher);
-
-        pnl_container15.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 5, 0));
-        pnl_container15.setPreferredSize(new java.awt.Dimension(100, 35));
-        pnl_container15.setLayout(new javax.swing.BoxLayout(pnl_container15, javax.swing.BoxLayout.LINE_AXIS));
-
-        lbl_bookTranslator.setText("Dịch giả");
-        lbl_bookTranslator.setPreferredSize(new java.awt.Dimension(110, 40));
-        pnl_container15.add(lbl_bookTranslator);
-
-        txt_bookTranslator.setMaximumSize(new java.awt.Dimension(9999, 40));
-        txt_bookTranslator.setMinimumSize(new java.awt.Dimension(100, 35));
-        txt_bookTranslator.setPreferredSize(new java.awt.Dimension(100, 30));
-        pnl_container15.add(txt_bookTranslator);
-
-        pnl_bookDetail.add(pnl_container15);
-
-        pnl_container18.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 5, 0));
-        pnl_container18.setPreferredSize(new java.awt.Dimension(100, 35));
-        pnl_container18.setLayout(new javax.swing.BoxLayout(pnl_container18, javax.swing.BoxLayout.LINE_AXIS));
-
-        lbl_bookCategory1.setText("Danh mục");
-        lbl_bookCategory1.setMaximumSize(new java.awt.Dimension(40, 16));
-        lbl_bookCategory1.setMinimumSize(new java.awt.Dimension(40, 30));
-        lbl_bookCategory1.setPreferredSize(new java.awt.Dimension(110, 40));
-        pnl_container18.add(lbl_bookCategory1);
-
-        cmb_bookCategory.setMaximumSize(new java.awt.Dimension(9999, 40));
-        cmb_bookCategory.setMinimumSize(new java.awt.Dimension(100, 35));
-        cmb_bookCategory.setPreferredSize(new java.awt.Dimension(120, 30));
-        pnl_container18.add(cmb_bookCategory);
-
-        pnl_bookDetail.add(pnl_container18);
-
-        pnl_bookCenter.setMinimumSize(new java.awt.Dimension(300, 135));
-        pnl_bookCenter.setLayout(new java.awt.GridLayout(4, 2, 5, 5));
-
-        pnl_container11.setPreferredSize(new java.awt.Dimension(100, 35));
-        pnl_container11.setLayout(new javax.swing.BoxLayout(pnl_container11, javax.swing.BoxLayout.LINE_AXIS));
-
-        lbl_bookPublishDate.setText("Năm xuất bản");
-        lbl_bookPublishDate.setToolTipText("");
-        lbl_bookPublishDate.setPreferredSize(new java.awt.Dimension(110, 40));
-        pnl_container11.add(lbl_bookPublishDate);
-
-        txt_bookPublishDate.setMaximumSize(new java.awt.Dimension(9999, 40));
-        txt_bookPublishDate.setMinimumSize(new java.awt.Dimension(100, 35));
-        txt_bookPublishDate.setPreferredSize(new java.awt.Dimension(100, 30));
-        pnl_container11.add(txt_bookPublishDate);
-
-        pnl_bookCenter.add(pnl_container11);
-
-        pnl_container12.setPreferredSize(new java.awt.Dimension(100, 35));
-        pnl_container12.setLayout(new javax.swing.BoxLayout(pnl_container12, javax.swing.BoxLayout.LINE_AXIS));
-
-        lbl_bookHardCover.setText("Loại bìa");
-        lbl_bookHardCover.setPreferredSize(new java.awt.Dimension(100, 40));
-        pnl_container12.add(lbl_bookHardCover);
-
-        cmb_bookHardCover.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bìa cứng", "Bìa mềm" }));
-        cmb_bookHardCover.setMaximumSize(new java.awt.Dimension(9999, 40));
-        cmb_bookHardCover.setMinimumSize(new java.awt.Dimension(100, 35));
-        cmb_bookHardCover.setPreferredSize(new java.awt.Dimension(100, 30));
-        pnl_container12.add(cmb_bookHardCover);
-
-        pnl_bookCenter.add(pnl_container12);
-
-        pnl_container13.setPreferredSize(new java.awt.Dimension(100, 35));
-        pnl_container13.setLayout(new javax.swing.BoxLayout(pnl_container13, javax.swing.BoxLayout.LINE_AXIS));
-
-        lbl_bookQuantityPage.setText("Số trang");
-        lbl_bookQuantityPage.setPreferredSize(new java.awt.Dimension(110, 40));
-        pnl_container13.add(lbl_bookQuantityPage);
-
-        txt_bookQuantityPage.setMaximumSize(new java.awt.Dimension(9999, 40));
-        txt_bookQuantityPage.setMinimumSize(new java.awt.Dimension(100, 35));
-        txt_bookQuantityPage.setPreferredSize(new java.awt.Dimension(100, 30));
-        pnl_container13.add(txt_bookQuantityPage);
-
-        pnl_bookCenter.add(pnl_container13);
-
-        pnl_container14.setPreferredSize(new java.awt.Dimension(100, 35));
-        pnl_container14.setLayout(new javax.swing.BoxLayout(pnl_container14, javax.swing.BoxLayout.LINE_AXIS));
-
-        lbl_bookLanguage.setText("Ngôn ngữ");
-        lbl_bookLanguage.setPreferredSize(new java.awt.Dimension(100, 40));
-        pnl_container14.add(lbl_bookLanguage);
-
-        txt_bookLanguage.setMaximumSize(new java.awt.Dimension(9999, 40));
-        txt_bookLanguage.setMinimumSize(new java.awt.Dimension(100, 35));
-        txt_bookLanguage.setPreferredSize(new java.awt.Dimension(100, 30));
-        pnl_container14.add(txt_bookLanguage);
-
-        pnl_bookCenter.add(pnl_container14);
-
-        pnl_container17.setPreferredSize(new java.awt.Dimension(100, 35));
-        pnl_container17.setLayout(new javax.swing.BoxLayout(pnl_container17, javax.swing.BoxLayout.LINE_AXIS));
-
-        lbl_bookType.setText("Nguồn gốc");
-        lbl_bookType.setPreferredSize(new java.awt.Dimension(110, 40));
-        pnl_container17.add(lbl_bookType);
-
-        cmb_bookType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Trong nước", "Nước ngoài" }));
-        cmb_bookType.setMaximumSize(new java.awt.Dimension(9999, 40));
-        cmb_bookType.setMinimumSize(new java.awt.Dimension(100, 35));
-        cmb_bookType.setPreferredSize(new java.awt.Dimension(100, 30));
-        pnl_container17.add(cmb_bookType);
-
-        pnl_bookCenter.add(pnl_container17);
-
-        pnl_bookDetail.add(pnl_bookCenter);
-
-        pnl_container7.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 20, 0));
-        pnl_container7.setMinimumSize(new java.awt.Dimension(200, 70));
-        pnl_container7.setPreferredSize(new java.awt.Dimension(279, 120));
-        pnl_container7.setLayout(new javax.swing.BoxLayout(pnl_container7, javax.swing.BoxLayout.Y_AXIS));
-
-        pnl_container16.setLayout(new java.awt.GridLayout(1, 0));
-
-        lbl_bookDescription.setText("Mô tả");
-        lbl_bookDescription.setPreferredSize(new java.awt.Dimension(100, 20));
-        pnl_container16.add(lbl_bookDescription);
-
-        pnl_container7.add(pnl_container16);
-
-        scr_productName1.setMinimumSize(new java.awt.Dimension(100, 100));
-
-        txa_bookDescription.setColumns(15);
-        txa_bookDescription.setLineWrap(true);
-        txa_bookDescription.setRows(3);
-        txa_bookDescription.setTabSize(4);
-        scr_productName1.setViewportView(txa_bookDescription);
-
-        pnl_container7.add(scr_productName1);
-
-        pnl_bookDetail.add(pnl_container7);
-
-        scr_bookDetail.setViewportView(pnl_bookDetail);
-
-        pnl_rightCenter.add(scr_bookDetail);
-
         scr_stationeryDetail.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Chi tiết văn phòng phẩm"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        scr_stationeryDetail.setMinimumSize(new java.awt.Dimension(300, 300));
         scr_stationeryDetail.setPreferredSize(new java.awt.Dimension(420, 300));
 
         pnl_stationeryDetail.setMaximumSize(new java.awt.Dimension(899999, 9999));
@@ -948,6 +824,24 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 
         pnl_stationery.add(pnl_container26);
 
+        pnl_container27.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 5, 0));
+        pnl_container27.setMaximumSize(new java.awt.Dimension(899999, 35));
+        pnl_container27.setMinimumSize(new java.awt.Dimension(100, 35));
+        pnl_container27.setPreferredSize(new java.awt.Dimension(100, 35));
+        pnl_container27.setLayout(new javax.swing.BoxLayout(pnl_container27, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_stationeryMaterial.setText("Chất liệu");
+        lbl_stationeryMaterial.setPreferredSize(new java.awt.Dimension(110, 30));
+        lbl_stationeryMaterial.setRequestFocusEnabled(false);
+        pnl_container27.add(lbl_stationeryMaterial);
+
+        txt_stationeryMaterial.setMaximumSize(new java.awt.Dimension(9999, 40));
+        txt_stationeryMaterial.setMinimumSize(new java.awt.Dimension(100, 30));
+        txt_stationeryMaterial.setPreferredSize(new java.awt.Dimension(100, 30));
+        pnl_container27.add(txt_stationeryMaterial);
+
+        pnl_stationery.add(pnl_container27);
+
         pnl_container28.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 5, 0));
         pnl_container28.setMaximumSize(new java.awt.Dimension(899999, 35));
         pnl_container28.setMinimumSize(new java.awt.Dimension(100, 35));
@@ -973,6 +867,183 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         scr_stationeryDetail.setViewportView(pnl_stationeryDetail);
 
         pnl_rightCenter.add(scr_stationeryDetail);
+
+        scr_bookDetail.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin chi tiết sách"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        scr_bookDetail.setMinimumSize(new java.awt.Dimension(300, 300));
+
+        pnl_bookDetail.setMinimumSize(new java.awt.Dimension(300, 500));
+        pnl_bookDetail.setPreferredSize(new java.awt.Dimension(400, 400));
+        pnl_bookDetail.setLayout(new javax.swing.BoxLayout(pnl_bookDetail, javax.swing.BoxLayout.Y_AXIS));
+
+        pnl_bookAuthor.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 5, 0));
+        pnl_bookAuthor.setPreferredSize(new java.awt.Dimension(100, 35));
+        pnl_bookAuthor.setLayout(new javax.swing.BoxLayout(pnl_bookAuthor, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_bookAuthor.setText("Tác giả");
+        lbl_bookAuthor.setPreferredSize(new java.awt.Dimension(110, 40));
+        pnl_bookAuthor.add(lbl_bookAuthor);
+
+        txt_bookAuthor.setMaximumSize(new java.awt.Dimension(9999, 40));
+        txt_bookAuthor.setMinimumSize(new java.awt.Dimension(100, 35));
+        txt_bookAuthor.setPreferredSize(new java.awt.Dimension(100, 30));
+        pnl_bookAuthor.add(txt_bookAuthor);
+
+        pnl_bookDetail.add(pnl_bookAuthor);
+
+        pnl_bookPublisher.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 5, 0));
+        pnl_bookPublisher.setPreferredSize(new java.awt.Dimension(100, 35));
+        pnl_bookPublisher.setLayout(new javax.swing.BoxLayout(pnl_bookPublisher, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_bookPublisher.setText("NXB");
+        lbl_bookPublisher.setPreferredSize(new java.awt.Dimension(110, 40));
+        pnl_bookPublisher.add(lbl_bookPublisher);
+
+        txt_bookPublisher.setMaximumSize(new java.awt.Dimension(9999, 40));
+        txt_bookPublisher.setMinimumSize(new java.awt.Dimension(100, 35));
+        txt_bookPublisher.setPreferredSize(new java.awt.Dimension(100, 30));
+        pnl_bookPublisher.add(txt_bookPublisher);
+
+        pnl_bookDetail.add(pnl_bookPublisher);
+
+        pnl_container15.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 5, 0));
+        pnl_container15.setPreferredSize(new java.awt.Dimension(100, 35));
+        pnl_container15.setLayout(new javax.swing.BoxLayout(pnl_container15, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_bookTranslator.setText("Dịch giả");
+        lbl_bookTranslator.setPreferredSize(new java.awt.Dimension(110, 40));
+        pnl_container15.add(lbl_bookTranslator);
+
+        txt_bookTranslator.setMaximumSize(new java.awt.Dimension(9999, 40));
+        txt_bookTranslator.setMinimumSize(new java.awt.Dimension(100, 35));
+        txt_bookTranslator.setPreferredSize(new java.awt.Dimension(100, 30));
+        pnl_container15.add(txt_bookTranslator);
+
+        pnl_bookDetail.add(pnl_container15);
+
+        pnl_container17.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 5, 0));
+        pnl_container17.setPreferredSize(new java.awt.Dimension(100, 35));
+        pnl_container17.setLayout(new javax.swing.BoxLayout(pnl_container17, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_bookType.setText("Nguồn gốc");
+        lbl_bookType.setPreferredSize(new java.awt.Dimension(110, 40));
+        pnl_container17.add(lbl_bookType);
+
+        cmb_bookType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Trong nước", "Ngoài nước" }));
+        cmb_bookType.setMaximumSize(new java.awt.Dimension(9999, 40));
+        cmb_bookType.setMinimumSize(new java.awt.Dimension(100, 35));
+        cmb_bookType.setPreferredSize(new java.awt.Dimension(100, 30));
+        pnl_container17.add(cmb_bookType);
+
+        pnl_bookDetail.add(pnl_container17);
+
+        pnl_container18.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 5, 0));
+        pnl_container18.setPreferredSize(new java.awt.Dimension(100, 35));
+        pnl_container18.setLayout(new javax.swing.BoxLayout(pnl_container18, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_bookCategory1.setText("Danh mục");
+        lbl_bookCategory1.setMaximumSize(new java.awt.Dimension(40, 40));
+        lbl_bookCategory1.setMinimumSize(new java.awt.Dimension(40, 30));
+        lbl_bookCategory1.setPreferredSize(new java.awt.Dimension(110, 40));
+        pnl_container18.add(lbl_bookCategory1);
+
+        cmb_bookCategory.setMaximumSize(new java.awt.Dimension(9999, 40));
+        cmb_bookCategory.setMinimumSize(new java.awt.Dimension(100, 40));
+        cmb_bookCategory.setPreferredSize(new java.awt.Dimension(120, 35));
+        pnl_container18.add(cmb_bookCategory);
+
+        pnl_bookDetail.add(pnl_container18);
+
+        pnl_bookCenter.setMinimumSize(new java.awt.Dimension(300, 135));
+        pnl_bookCenter.setLayout(new java.awt.GridLayout(2, 2, 5, 5));
+
+        pnl_container11.setPreferredSize(new java.awt.Dimension(100, 35));
+        pnl_container11.setLayout(new javax.swing.BoxLayout(pnl_container11, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_bookPublishDate.setText("Năm xuất bản");
+        lbl_bookPublishDate.setToolTipText("");
+        lbl_bookPublishDate.setPreferredSize(new java.awt.Dimension(110, 40));
+        pnl_container11.add(lbl_bookPublishDate);
+
+        txt_bookPublishDate.setMaximumSize(new java.awt.Dimension(9999, 40));
+        txt_bookPublishDate.setMinimumSize(new java.awt.Dimension(100, 35));
+        txt_bookPublishDate.setPreferredSize(new java.awt.Dimension(100, 30));
+        pnl_container11.add(txt_bookPublishDate);
+
+        pnl_bookCenter.add(pnl_container11);
+
+        pnl_container12.setPreferredSize(new java.awt.Dimension(100, 35));
+        pnl_container12.setLayout(new javax.swing.BoxLayout(pnl_container12, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_bookHardCover.setText("Loại bìa");
+        lbl_bookHardCover.setPreferredSize(new java.awt.Dimension(100, 40));
+        pnl_container12.add(lbl_bookHardCover);
+
+        cmb_bookHardCover.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bìa cứng", "Bìa mềm" }));
+        cmb_bookHardCover.setMaximumSize(new java.awt.Dimension(9999, 40));
+        cmb_bookHardCover.setMinimumSize(new java.awt.Dimension(100, 35));
+        cmb_bookHardCover.setPreferredSize(new java.awt.Dimension(100, 30));
+        pnl_container12.add(cmb_bookHardCover);
+
+        pnl_bookCenter.add(pnl_container12);
+
+        pnl_container13.setPreferredSize(new java.awt.Dimension(100, 35));
+        pnl_container13.setLayout(new javax.swing.BoxLayout(pnl_container13, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_bookQuantityPage.setText("Số trang");
+        lbl_bookQuantityPage.setPreferredSize(new java.awt.Dimension(110, 40));
+        pnl_container13.add(lbl_bookQuantityPage);
+
+        txt_bookQuantityPage.setMaximumSize(new java.awt.Dimension(9999, 40));
+        txt_bookQuantityPage.setMinimumSize(new java.awt.Dimension(100, 35));
+        txt_bookQuantityPage.setPreferredSize(new java.awt.Dimension(100, 30));
+        pnl_container13.add(txt_bookQuantityPage);
+
+        pnl_bookCenter.add(pnl_container13);
+
+        pnl_container14.setPreferredSize(new java.awt.Dimension(100, 35));
+        pnl_container14.setLayout(new javax.swing.BoxLayout(pnl_container14, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_bookLanguage.setText("Ngôn ngữ");
+        lbl_bookLanguage.setPreferredSize(new java.awt.Dimension(100, 40));
+        pnl_container14.add(lbl_bookLanguage);
+
+        txt_bookLanguage.setMaximumSize(new java.awt.Dimension(9999, 40));
+        txt_bookLanguage.setMinimumSize(new java.awt.Dimension(100, 35));
+        txt_bookLanguage.setPreferredSize(new java.awt.Dimension(100, 30));
+        pnl_container14.add(txt_bookLanguage);
+
+        pnl_bookCenter.add(pnl_container14);
+
+        pnl_bookDetail.add(pnl_bookCenter);
+
+        pnl_container7.setMinimumSize(new java.awt.Dimension(200, 70));
+        pnl_container7.setPreferredSize(new java.awt.Dimension(279, 120));
+        pnl_container7.setLayout(new java.awt.BorderLayout());
+
+        pnl_container16.setLayout(new java.awt.GridLayout(1, 0));
+
+        lbl_bookDescription.setText("Mô tả");
+        lbl_bookDescription.setPreferredSize(new java.awt.Dimension(100, 20));
+        pnl_container16.add(lbl_bookDescription);
+
+        pnl_container7.add(pnl_container16, java.awt.BorderLayout.NORTH);
+
+        scr_productDescription.setMinimumSize(new java.awt.Dimension(100, 100));
+
+        txa_bookDescription.setColumns(15);
+        txa_bookDescription.setLineWrap(true);
+        txa_bookDescription.setRows(3);
+        txa_bookDescription.setTabSize(4);
+        txa_bookDescription.setBorder(null);
+        scr_productDescription.setViewportView(txa_bookDescription);
+
+        pnl_container7.add(scr_productDescription, java.awt.BorderLayout.CENTER);
+
+        pnl_bookDetail.add(pnl_container7);
+
+        scr_bookDetail.setViewportView(pnl_bookDetail);
+
+        pnl_rightCenter.add(scr_bookDetail);
 
         pnl_right.add(pnl_rightCenter, java.awt.BorderLayout.CENTER);
 
@@ -1009,50 +1080,27 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
             }
             try {
 
-                // Lấy dữ liệu hình ảnh từ database
+                // Chuyển đổi hình ảnh
                 byte[] imageBytes = getImageBytes(fileSelected);
-
-//                Hiển thị preview
-                ImageIcon imageIcon1 = new ImageIcon(path);
-                // Tạo đối tượng ImageIcon
                 ImageIcon imageIcon = new ImageIcon(imageBytes);
-
-// Lấy đối tượng Image từ đối tượng ImageIcon
                 Image image = imageIcon.getImage();
+                Image scaledImage = image.getScaledInstance(lbl_productImg.getWidth(), -1, Image.SCALE_SMOOTH | Image.SCALE_AREA_AVERAGING);
 
-// Thay đổi kích thước hình ảnh
-                Image scaledImage = image.getScaledInstance(lbl_productImg.getWidth(), lbl_productImg.getHeight(), Image.SCALE_SMOOTH);
-
-// Tạo lại đối tượng ImageIcon với kích thước mới
+                // Tạo lại đối tượng ImageIcon với kích thước mới
                 imageIcon = new ImageIcon(scaledImage);
 
                 lbl_productImg.setIcon(imageIcon);
                 lbl_productImg.revalidate();
                 lbl_productImg.repaint();
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
-
-//            try {
-//                File file = new File(currentImgPath);
-//                byte[] imageBytes = getImageBytes(file);
-//                PreparedStatement statement = ConnectDB.conn.prepareStatement("insert into test(id, img) values (?, ?)");
-//                statement.setString(1, "CC ");
-//                statement.setBytes(2, imageBytes);
-//                statement.executeUpdate();
-//
-//                JOptionPane.showMessageDialog(this, "Lưu hình ảnh thành công.");
-//            } catch (SQLException e1) {
-//                JOptionPane.showMessageDialog(this, e1.getMessage());
-//            } catch (IOException ex) {
-//                Logger.getLogger(ProductManagement_GUI.class.getName()).log(Level.SEVERE, null, ex);
-//            }
         }
     }//GEN-LAST:event_btn_selectImgActionPerformed
 
     private static byte[] getImageBytes(File file) throws IOException {
-        BufferedImage image = ImageIO.read(file);
-        return ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
+        byte[] fileContent = Files.readAllBytes(file.toPath());
+        return fileContent;
     }
 
     private void btn_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchActionPerformed
@@ -1075,11 +1123,240 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         int type = cmb_type.getSelectedIndex();
         int detailType = cmb_typeDetail.getSelectedIndex();
 
-        System.out.println("type " + type + "\n Detail " + detailType);
-
         renderProductsTable(bus.filter(queryName, isEmpty, type, detailType));
         disablePage();
     }//GEN-LAST:event_btn_filterActionPerformed
+
+    private void btn_clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clearActionPerformed
+        clearAllValue();
+    }//GEN-LAST:event_btn_clearActionPerformed
+
+    private void btn_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_updateActionPerformed
+        System.out.println(revertObjectFromForm());
+        Product newData = revertObjectFromForm();
+        if (bus.updateProduct(currentProduct.getProductID(), newData)) {
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, "Cập nhật thông tin sản phẩm thành công!");
+            renderCurrentProduct();
+            renderCurrentPage();
+        } else {
+            Notifications.getInstance().show(Notifications.Type.ERROR, "Cập nhật thông tin sản phẩm thất bại!");
+        }
+    }//GEN-LAST:event_btn_updateActionPerformed
+
+    private void btn_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addActionPerformed
+        Product product = revertObjectFromForm();
+        if (bus.createProduct(product)) {
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, "Thêm thông tin sản phẩm thành công!");
+            renderCurrentPage();
+        } else {
+            Notifications.getInstance().show(Notifications.Type.ERROR, "Thêm thông tin sản phẩm thất bại!");
+        }
+    }//GEN-LAST:event_btn_addActionPerformed
+
+    public void clearAllValue() {
+        JTextField[] txt_list = new JTextField[]{txt_productId, txt_productCostPrice, txt_productPrice, txt_productInventory, txt_productVAT, txt_bookAuthor, txt_bookLanguage, txt_bookPublishDate, txt_bookPublisher, txt_bookQuantityPage, txt_bookTranslator, txt_stationeryColor, txt_stationeryOrigin, txt_stationeryWeight};
+
+        for (JTextField item : txt_list) {
+            item.setText("");
+        }
+
+        JTextArea[] txa_list = new JTextArea[]{txa_productName, txa_bookDescription};
+        for (JTextArea item : txa_list) {
+            item.setText("");
+        }
+
+        cmb_productType.setSelectedIndex(0);
+        cmb_bookCategory.setSelectedIndex(0);
+        cmb_bookType.setSelectedIndex(0);
+        cmb_bookHardCover.setSelectedIndex(0);
+        cmb_stationeryBrand.setSelectedIndex(0);
+        cmb_stationeryType.setSelectedIndex(0);
+    }
+
+    public void showMessageFocus(String message, JComponent item) {
+        Notifications.getInstance().show(Notifications.Type.ERROR, 5000, message);
+        item.requestFocus();
+
+//        Nếu là ô input thì selectAll
+        if (item instanceof JTextField) {
+            ((JTextField) (item)).selectAll();
+        }
+        if (item instanceof JTextArea) {
+            ((JTextArea) (item)).selectAll();
+        }
+
+    }
+
+    public boolean validateForm() {
+//        Validate all input form
+
+        String name = txa_productName.getText();
+        if (name.isBlank()) {
+            showMessageFocus("Tên sản phẩm không được rỗng", txa_productName);
+            return false;
+        }
+
+        try {
+            double costPrice = Double.parseDouble(txt_productCostPrice.getText());
+            if (costPrice <= 0) {
+                showMessageFocus("Giá nhập phải lớn hơn 0", txt_productCostPrice);
+                return false;
+            }
+        } catch (Exception e) {
+            showMessageFocus("Giá nhập phải là số thực (ex: 520.44)", txt_productCostPrice);
+            return false;
+        }
+
+        try {
+            int inventory = Integer.parseInt(txt_productInventory.getText());
+            if (inventory < 0) {
+                showMessageFocus("Sản phẩm tồn kho phải lớn hơn hoặc bằng 0", txt_productInventory);
+                return false;
+            }
+        } catch (Exception e) {
+            showMessageFocus("Sản phẩm tồn kho phải là số nguyên (ex: 1, 20, 500)", txt_productInventory);
+            return false;
+        }
+
+        try {
+            double vat = Double.parseDouble(txt_productVAT.getText());
+            if (vat < 0) {
+                showMessageFocus("VAT phải lớn hơn hoặc bằng 0", txt_productVAT);
+                return false;
+            }
+        } catch (Exception e) {
+            showMessageFocus("VAT phải là số thực (ex: 5.0, 10.0)", txt_productVAT);
+            return false;
+        }
+
+        Type type = Type.fromInt(cmb_productType.getSelectedIndex() + 1);
+        if (type == Type.BOOK) {
+            String author = txt_bookAuthor.getText();
+            if (author.isBlank()) {
+                showMessageFocus("Tác giả sách không được rỗng", txt_bookAuthor);
+                return false;
+            }
+
+            try {
+                int publishYear = Integer.parseInt(txt_bookPublishDate.getText());
+//                Thieeus coi lai dieu kien
+                if (publishYear < 1900) {
+                    showMessageFocus("Năm xuất bản sách phải lớn hơn hoặc bằng 0", txt_bookPublishDate);
+                    return false;
+                }
+            } catch (Exception e) {
+                showMessageFocus("Năm xuất bản sách phải là số nguyên", txt_bookPublishDate);
+                return false;
+            }
+
+            String publisher = txt_bookPublisher.getText();
+            if (publisher.isBlank()) {
+                showMessageFocus("Nhà xuất bản sách không được rỗng", txt_bookPublisher);
+                return false;
+            }
+
+            try {
+                int pageQuantity = Integer.parseInt(txt_bookQuantityPage.getText());
+                if (pageQuantity < 0) {
+                    showMessageFocus("Số trang sách phải lớn hơn 0", txt_bookQuantityPage);
+                    return false;
+                }
+            } catch (Exception e) {
+                showMessageFocus("Số trang sách phải là số nguyên", txt_bookQuantityPage);
+                return false;
+            }
+        } else if (type == Type.STATIONERY) {
+            String origin = txt_stationeryOrigin.getText();
+            if (origin.isBlank()) {
+                showMessageFocus("Xuất xứ văn phòng phẩm không được rỗng", txt_stationeryOrigin);
+                return false;
+            }
+            String color = txt_stationeryColor.getText();
+            if (color.isBlank()) {
+                showMessageFocus("Màu sắc văn phòng phẩm không được rỗng", txt_stationeryColor);
+                return false;
+            }
+            String material = txt_stationeryMaterial.getText();
+            if (material.isBlank()) {
+                showMessageFocus("Chất liệu văn phòng phẩm không được rỗng", txt_stationeryMaterial);
+                return false;
+            }
+            try {
+                Double weight = Double.valueOf(txt_stationeryWeight.getText());
+                if (weight <= 0) {
+                    showMessageFocus("Trọng lượng phải lớn hơn 0", txt_stationeryWeight);
+                    return false;
+                }
+            } catch (Exception e) {
+                showMessageFocus("Trọng lượng phải là số thực (ex: 5.0, 10.0)", txt_stationeryWeight);
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public Product revertObjectFromForm() {
+//        Kiểm tra dữ liệu trước khi lấy
+        if (!validateForm()) {
+            return null;
+        }
+
+        Product proc = null;
+
+        String id = txt_productId.getText();
+        String name = txa_productName.getText();
+        double costPrice = Double.parseDouble(txt_productCostPrice.getText());
+        int inventory = Integer.parseInt(txt_productInventory.getText());
+        double vat = Double.parseDouble(txt_productVAT.getText());
+        byte[] image = null;
+        try {
+            if (fileChooser_productImg.getSelectedFile() != null) {
+                image = getImageBytes(fileChooser_productImg.getSelectedFile());
+            }
+        } catch (IOException ex) {
+
+            System.out.println("File revert error");
+        }
+
+        Type type = Type.fromInt(cmb_productType.getSelectedIndex() + 1);
+
+        System.out.println(type);
+        if (type == Type.BOOK) {
+            String author = txt_bookAuthor.getText();
+            String translator = txt_bookTranslator.getText();
+            int publishYear = Integer.parseInt(txt_bookPublishDate.getText());
+            String publisher = txt_bookPublisher.getText();
+            String language = txt_bookLanguage.getText();
+            int pageQuantity = Integer.parseInt(txt_bookQuantityPage.getText());
+            String description = txa_bookDescription.getText();
+            BookCategory category = BookCategory.fromInt(cmb_bookCategory.getSelectedIndex() + 1);
+            BookType bookType = BookType.fromInt(cmb_bookType.getSelectedIndex() + 1);
+            boolean isHardCover = cmb_bookHardCover.getSelectedIndex() == 0;
+
+            try {
+                proc = new Book(author, publisher, publishYear, description, pageQuantity, isHardCover, language, translator.isBlank() ? null : translator, bookType, category, id, name, costPrice, image, vat, inventory, type);
+            } catch (Exception e) {
+                Notifications.getInstance().show(Notifications.Type.ERROR, "Không thể tạo mới sản phẩm sách này");
+                e.printStackTrace();
+            }
+        } else if (type == Type.STATIONERY) {
+            String origin = txt_stationeryOrigin.getText();
+            String color = txt_stationeryColor.getText();
+            String material = txt_stationeryMaterial.getText();
+            Double weight = Double.valueOf(txt_stationeryWeight.getText());
+//            Nhớ Convert to brand object
+//            String brand = cmb_stationeryBrand.getSelectedItem().toString();
+            StationeryType stationeryType = StationeryType.fromInt(cmb_stationeryType.getSelectedIndex());
+
+            try {
+                proc = new Stationery(color, weight, material, origin, stationeryType, new Brand("idsss"), id, name, costPrice, image, vat, inventory, type);
+            } catch (Exception ex) {
+                Notifications.getInstance().show(Notifications.Type.ERROR, "Không thể tạo mới sản phẩm văn phòng phẩm này");
+                ex.printStackTrace();
+            }
+        }
+        return proc;
+    }
 
     public void enablePage() {
         currentPage = 1;
@@ -1137,6 +1414,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
     private javax.swing.JLabel lbl_productVAT;
     private javax.swing.JLabel lbl_stationeryBrand;
     private javax.swing.JLabel lbl_stationeryColor;
+    private javax.swing.JLabel lbl_stationeryMaterial;
     private javax.swing.JLabel lbl_stationeryOrigin;
     private javax.swing.JLabel lbl_stationeryType;
     private javax.swing.JLabel lbl_stationeryWeight;
@@ -1165,6 +1443,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
     private javax.swing.JPanel pnl_container24;
     private javax.swing.JPanel pnl_container25;
     private javax.swing.JPanel pnl_container26;
+    private javax.swing.JPanel pnl_container27;
     private javax.swing.JPanel pnl_container28;
     private javax.swing.JPanel pnl_container3;
     private javax.swing.JPanel pnl_container4;
@@ -1193,9 +1472,9 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
     private javax.swing.JPanel pnl_typeDetail;
     private javax.swing.JScrollPane scr_bookDetail;
     private javax.swing.JScrollPane scr_cart;
+    private javax.swing.JScrollPane scr_productDescription;
     private javax.swing.JScrollPane scr_productInfo;
     private javax.swing.JScrollPane scr_productName;
-    private javax.swing.JScrollPane scr_productName1;
     private javax.swing.JScrollPane scr_stationeryDetail;
     private javax.swing.JSplitPane splitPane_main;
     private javax.swing.JTable tbl_products;
@@ -1215,6 +1494,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
     private javax.swing.JTextField txt_productVAT;
     private javax.swing.JTextField txt_search;
     private javax.swing.JTextField txt_stationeryColor;
+    private javax.swing.JTextField txt_stationeryMaterial;
     private javax.swing.JTextField txt_stationeryOrigin;
     private javax.swing.JTextField txt_stationeryWeight;
     // End of variables declaration//GEN-END:variables

@@ -21,6 +21,8 @@ import java.util.List;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import raven.toast.Notifications;
+import utilities.SVGIcon;
 
 /**
  *
@@ -91,9 +93,20 @@ public class MenuItem extends JPanel {
                 + "foreground:$Menu.lineColor");
         for (int i = 0; i < menus.length; i++) {
             JButton menuItem = createButtonItem(menus[i]);
+//            Nếu không có quyền sử dụng sẽ disable
+            boolean isBan = Menu.isBan(menus[i]);
+//            if (isBan) {
+//                menuItem.setEnabled(!isBan);
+//            }
             menuItem.setHorizontalAlignment(menuItem.getComponentOrientation().isLeftToRight() ? JButton.LEADING : JButton.TRAILING);
+
             if (i == 0) {
-                menuItem.setIcon(getIcon());
+//                Chuyển thành icon bị khóa nếu tài khoản không có quyền
+                if (isBan) {
+                    menuItem.setIcon(SVGIcon.getSVGIcon("imgs/menu/lock.svg"));
+                } else {
+                    menuItem.setIcon(getIcon());
+                }
                 menuItem.addActionListener((ActionEvent e) -> {
                     if (menus.length > 1) {
                         if (menu.isMenuFull()) {
@@ -102,13 +115,24 @@ public class MenuItem extends JPanel {
                             popup.show(MenuItem.this, (int) MenuItem.this.getWidth() + UIScale.scale(5), UIScale.scale(menuItemHeight) / 2);
                         }
                     } else {
-                        menu.runEvent(menuIndex, 0);
+                        if (isBan) {
+                            Notifications.getInstance().show(Notifications.Type.INFO, "Tài khoản của bạn không thể sử dụng chức năng này");
+                        } else {
+                            menu.runEvent(menuIndex, 0);
+                        }
                     }
                 });
             } else {
                 final int subIndex = i;
+                if (isBan) {
+                    menuItem.setIcon(SVGIcon.getSVGIcon("imgs/menu/lock.svg"));
+                }
                 menuItem.addActionListener((ActionEvent e) -> {
-                    menu.runEvent(menuIndex, subIndex);
+                    if (isBan) {
+                        Notifications.getInstance().show(Notifications.Type.INFO, "Tài khoản của bạn không thể sử dụng chức năng này");
+                    } else {
+                        menu.runEvent(menuIndex, subIndex);
+                    }
                 });
             }
             add(menuItem);

@@ -43,6 +43,17 @@ public final class Stationery extends Product {
         setBrand(brand);
     }
 
+//    Không truyền price, dùng khi khởi tạo đối tượng
+    public Stationery(String color, Double weight, String material, String origin, StationeryType stationeryType, Brand brand, String productID, String name, Double costPrice, byte[] image, Double VAT, Integer inventory, Type type) throws Exception {
+        super(productID, name, costPrice, image, VAT, inventory, type);
+        setColor(color);
+        setWeight(weight);
+        setMaterial(material);
+        setOrigin(origin);
+        setStationeryType(stationeryType);
+        setBrand(brand);
+    }
+
     public String getColor() {
         return color;
     }

@@ -59,7 +59,7 @@ public class PurchaseOrder_DAO implements DAOBase<PurchaseOrder> {
 
         try {
             Statement st = ConnectDB.conn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM PurchaseOrder;");
+            ResultSet rs = st.executeQuery("SELECT * FROM PurchaseOrder ");
 
             while (rs.next()) {
                 String purchaseOrderID = rs.getString("purchaseOrderID");
@@ -74,7 +74,7 @@ public class PurchaseOrder_DAO implements DAOBase<PurchaseOrder> {
                 ArrayList<PurchaseOrderDetail> purchaseOrderDetail = new PurchaseOrderDetail_DAO().getAll(purchaseOrderID);
 
 
-                result.add(new PurchaseOrder(purchaseOrderID, orderDate, receiveDate, note, PurchaseOrderStatus.fromInt(status),new Supplier(supplierID), new Employee(employeeID),purchaseOrderDetail));
+                result.add(new PurchaseOrder(purchaseOrderID, orderDate, receiveDate, note, PurchaseOrderStatus.fromInt(status),new Supplier_DAO().getOne(supplierID), new Employee_DAO().getOne(employeeID),purchaseOrderDetail));
 
             }
         } catch (Exception e) {
@@ -145,6 +145,30 @@ public class PurchaseOrder_DAO implements DAOBase<PurchaseOrder> {
     @Override
     public Boolean update(String id, PurchaseOrder newObject) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+   
+    }
+    
+    public Boolean updateStatus(String id, int status){
+        int n = 0;
+
+        try {
+            PreparedStatement st = ConnectDB.conn.prepareStatement("update PurchaseOrder set status = ? where purchaseOrderID = ?");
+            st.setString(2, id);
+            st.setInt(1, status);
+
+            if(status==1){
+                PurchaseOrder purchaseOrder = getOne(id);
+                for (PurchaseOrderDetail pod : purchaseOrder.getPurchaseOrderDetailList()) {
+                    new Product_DAO().updateQuantity(pod.getProduct().getProductID(),pod.getQuantity());
+                }
+            }
+
+            n = st.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return n > 0;
     }
 
     @Override

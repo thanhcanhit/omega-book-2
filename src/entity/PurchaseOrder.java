@@ -8,7 +8,7 @@ import java.util.*;
  *
  * @author Nhu Tam
  */
-public class PurchaseOrder {
+public final class PurchaseOrder {
 
     /* Hằng báo lỗi*/
     public static final String ID_EMPTY = "Mã đơn nhập không được phép rỗng";

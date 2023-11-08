@@ -67,6 +67,10 @@ public class MainView extends JLayeredPane {
         btn_menu.setIcon(new FlatSVGIcon("imgs/menu/" + icon, 0.8f));
     }
 
+    public static void rerenderMenuByEmployee() {
+        menu.rerender();
+    }
+
     private void initMenuEvent() {
         menu.addMenuEvent((int index, int subIndex, MenuAction action) -> {
             switch (index) {
@@ -76,13 +80,13 @@ public class MainView extends JLayeredPane {
                 case 1:
                     switch (subIndex) {
                         case 1:
-                            Application.showForm(new OrderManagement_GUI());
+                            Application.showForm(new CreatePurchaseOrder_GUI());
                             break;
                         case 2:
-                            Application.showForm(new PurchaseOrderManagement_GUI());
+                            Application.showForm(new OrderManagement_GUI());
                             break;
                         case 3:
-                            Application.showForm(new CreatePurchaseOrder_GUI());
+                            Application.showForm(new PurchaseOrderManagement_GUI());
                             break;
                         default:
                             action.cancel();
@@ -92,10 +96,10 @@ public class MainView extends JLayeredPane {
                 case 2:
                     switch (subIndex) {
                         case 1:
-                            Application.showForm(new ReturnOrderManagemant_GUI());
+                            Application.showForm(new CreateReturnOrder_GUI());
                             break;
                         case 2:
-                            Application.showForm(new CreateReturnOrder_GUI());
+                            Application.showForm(new ReturnOrderManagemant_GUI());
                             break;
                         default:
                             action.cancel();
@@ -137,6 +141,12 @@ public class MainView extends JLayeredPane {
                             break;
                         case 2:
                             Application.showForm(new StatementAccounting_GUI());
+                            break;
+                        case 3:
+                            Application.showForm(new ViewCashCountSheetList_GUI());
+                            break;
+                        case 4:
+                            Application.showForm(new ViewAcountingVoucherList_GUI());
                             break;
                         default:
                             action.cancel();
@@ -183,7 +193,7 @@ public class MainView extends JLayeredPane {
         menu.setSelectedMenu(index, subIndex);
     }
 
-    private Menu menu;
+    private static Menu menu;
     private JPanel pnl_body;
     private JButton btn_menu;
 
