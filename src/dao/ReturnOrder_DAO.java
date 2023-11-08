@@ -10,9 +10,11 @@ import java.util.ArrayList;
 import database.ConnectDB;
 import entity.Employee;
 import entity.Order;
+import entity.ReturnOrderDetail;
 import enums.ReturnOrderStatus;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
 
@@ -21,6 +23,23 @@ import java.util.Date;
  * @author Như Tâm
  */
 public class ReturnOrder_DAO implements DAOBase<ReturnOrder>{
+
+    public static String getMaxSequence(String prefix) {
+        try {
+        prefix += "%";
+        String sql = "  SELECT TOP 1  * FROM ReturnOrder WHERE returnOrderID LIKE '"+prefix+"' ORDER BY returnOrderID DESC;";
+        PreparedStatement st = ConnectDB.conn.prepareStatement(sql);
+        ResultSet rs = st.executeQuery();
+        if (rs.next()) {
+            String returnOrderID = rs.getString("returnOrderID");
+            System.out.println(returnOrderID);
+            return returnOrderID;
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return null;
+    }
 
     @Override
     public ReturnOrder getOne(String id) {
@@ -80,14 +99,14 @@ public class ReturnOrder_DAO implements DAOBase<ReturnOrder>{
     public Boolean create(ReturnOrder returnOrder) {
         int n = 0;
         try {
-            PreparedStatement st = ConnectDB.conn.prepareStatement("INSERT INTO ReturnOrder "
-                    + "VALUES (?,?,?,?,?)"); //+ "VALUES (?,?,?,?,?,?)");
+            PreparedStatement st = ConnectDB.conn.prepareStatement("INSERT INTO ReturnOrder(returnOrderID, orderID, status, orderDate, employeeID, type) "
+                    + "VALUES (?, ?, ?, ?, ?, ?)"); 
             st.setString(1, returnOrder.getReturnOrderID());
             st.setString(2, returnOrder.getOrder().getOrderID());
             st.setInt(3, returnOrder.getStatus().getValue());
             st.setDate(4, new java.sql.Date(returnOrder.getOrderDate().getTime()));
             st.setString(5, returnOrder.getEmployee().getEmployeeID());
-            //st.setBoolean(6, returnOrder.isType());
+            st.setBoolean(6, returnOrder.isType());
             n = st.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -100,13 +119,13 @@ public class ReturnOrder_DAO implements DAOBase<ReturnOrder>{
         int n = 0;
         try {
             PreparedStatement st = ConnectDB.conn.prepareStatement("UPDATE ReturnOrder "
-                    + "SET status = ?, orderDate = ? "  //+ "SET status = ?, orderDate = ?, type = ?"
+                    + "SET status = ?, orderDate = ?, type = ? "
                     + "WHERE returnOrderID = ?"); 
-            int i= 1;
+            int i = 1;
             st.setInt(i++, returnOrder.getStatus().getValue());
             st.setDate(i++, new java.sql.Date(returnOrder.getOrderDate().getTime()));
+            st.setBoolean(i++, returnOrder.isType());
             st.setString(i++, id);
-            //st.setBoolean(i++, returnOrder.isType());
             n = st.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -118,5 +137,87 @@ public class ReturnOrder_DAO implements DAOBase<ReturnOrder>{
     public Boolean delete(String id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    public Order getOrder(String orderID) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+//    public ArrayList<ReturnOrderDetail> getAllReturnOrderDetail(String returnOrderID) {
+//        return new ReturnOrderDetail_DAO().getAllForOrderReturnID(returnOrderID);
+//    }
+
+    public ArrayList<ReturnOrder> findById(String returnOrderID) {
+        ArrayList<ReturnOrder> result = new ArrayList<>();
+        String query = """
+                       SELECT * FROM ReturnOrder
+                       where returnOrdeID LIKE ?
+                       """;
+        try {
+
+            PreparedStatement st = ConnectDB.conn.prepareStatement(query);
+            st.setString(1, returnOrderID + "%");
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                if (rs != null) {
+                    result.add(getReturnOrderData(rs));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return result;
+    }
+
+    private ReturnOrder getReturnOrderData(ResultSet rs) throws SQLException {
+        ReturnOrder result = null;
+
+        //Lấy thông tin tổng quát của lớp ReturnOrder
+        String returnOderID = rs.getString("returnOrderID");
+        boolean type = rs.getBoolean("type");
+        int status = rs.getInt("status");
+        Date orderDate = rs.getDate("orderDate");
+        String orderID = rs.getString("orderID");
+        String employeeID = rs.getString("employeeID");
+        Order order = new Order(orderID);
+        Employee employee = new Employee(employeeID);
+        result = new ReturnOrder(orderDate, ReturnOrderStatus.fromInt(status), returnOderID, employee, order, type);
+        return result;
+    }
     
+    public ArrayList<ReturnOrder> filter(int type, int status) {
+        ArrayList<ReturnOrder> result = new ArrayList<>();
+//        Index tự động tăng phụ thuộc vào số lượng biến số có
+        int index = 1;
+        String query = "select * from ReturnOrder WHERE returnOrderID like '%'";
+//        Xét loại đơn đổi trả
+        if (type != 0)
+            query += " and type = ?";
+//            Xét trạng thái khuyến mãi
+        if (status != 0)
+            query += " and status = ?";
+        try {
+            PreparedStatement st = ConnectDB.conn.prepareStatement(query);
+            if(type == 1)
+                st.setInt(index++, 1);
+            else if(type == 2)
+                st.setInt(index++, 0);
+            if(status == 1)
+                st.setInt(index++, 1);
+            else if(status == 2)
+                st.setInt(index++, 0);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                if (rs != null) {
+                    result.add(getReturnOrderData(rs));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return result;
+    }
 }

@@ -9,7 +9,6 @@ import dao.OrderDetail_DAO;
 import dao.Order_DAO;
 import dao.Product_DAO;
 import entity.Customer;
-import entity.Employee;
 import entity.Order;
 import entity.OrderDetail;
 import entity.Product;
@@ -39,7 +38,6 @@ public class Sales_BUS {
     public Order CreateNewOrder() throws Exception {
         Order order = new Order(orderDAO.generateID());
         order.setStatus(false);
-        order.setEmployee(new Employee("NV019982020001"));
 //        Chỉ hiển thị ngày lập, khi lưu sẽ lấy thời gian tại lúc bấm thanh toán
         LocalDate now = LocalDate.now();
         order.setOrderAt(Date.from(now.atStartOfDay(ZoneId.systemDefault()).toInstant()));

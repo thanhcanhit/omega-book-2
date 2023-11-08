@@ -18,11 +18,12 @@ public class ReturnOrderDetail {
     
     private String returnOrderID;
     private String productID;
-//    private int quantity;
+    private int quantity;
 
-    public ReturnOrderDetail(String returnOrderID, String productID) throws Exception {
+    public ReturnOrderDetail(String returnOrderID, String productID, int quantity) throws Exception {
         setReturnOrderID(returnOrderID);
         setProductID(productID);
+        setQuantity(quantity);
     }
 
     public ReturnOrderDetail() {
@@ -33,9 +34,10 @@ public class ReturnOrderDetail {
     }
 
     public void setReturnOrderID(String returnOrderID) throws Exception {
-        if(!returnOrderID.equals(""))
-            this.returnOrderID = returnOrderID;
-        throw new Exception(ORDERID_EMPTY);
+        if(returnOrderID.equals(""))
+            throw new Exception(ORDERID_EMPTY);
+        this.returnOrderID = returnOrderID;
+        
     }
 
     public String getProductID() {
@@ -43,18 +45,19 @@ public class ReturnOrderDetail {
     }
 
     public void setProductID(String productID) throws Exception {
-        if(!productID.equals(""))
-            this.productID = productID;
-        throw new Exception(PRODUCT_EMPTY);
+        if(productID.equals(""))
+            throw new Exception(PRODUCT_EMPTY);
+        this.productID = productID;
+        
     }
 
-//    public int getQuantity() {
-//        return quantity;
-//    }
-//
-//    public void setQuantity(int quantity) {
-//        this.quantity = quantity;
-//    }
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
     
 
     @Override
@@ -85,7 +88,9 @@ public class ReturnOrderDetail {
 
     @Override
     public String toString() {
-        return "ReturnOrderDetail{" + "returnOrderID=" + returnOrderID + ", productID=" + productID + '}';
+        return "ReturnOrderDetail{" + "returnOrderID=" + returnOrderID + ", productID=" + productID + ", quantity=" + quantity + '}';
     }
+
+    
     
 }

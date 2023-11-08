@@ -4,6 +4,7 @@ import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.formdev.flatlaf.ui.FlatUIUtils;
 import com.formdev.flatlaf.util.UIScale;
+import entity.Employee;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -15,13 +16,20 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import main.Application;
 
 /**
  *
  * @author thanhcanhit
  */
 public class Menu extends JPanel {
-    private final String menuItems[][] = {
+
+    public static final int STORE_EMPLOYEE = 0;
+    public static final int STORE_MANAGER = 1;
+    public static final int STORE_HIGH_MANAGER = 2;
+
+    public static JLabel lbl_currentEmployee;
+    private static final String menuItems[][] = {
         {"Bán hàng"},
         {"Đơn hàng", "Quản lí đơn bán", "Quản lí đơn nhập", "Tạo đơn nhập"},
         {"Đổi trả", "Quản lí đơn đổi trả", "Tạo đơn đổi trả",},
@@ -30,36 +38,22 @@ public class Menu extends JPanel {
         {"Nhân viên"},
         {"Khách hàng"},
         {"Thống kê", "Thống kê doanh thu", "Thống kê sản phẩm", "Thống kê khách hàng"},
-        {"Báo cáo", "Kiểm tiền", "Kết toán"},
+        {"Báo cáo", "Danh sách phiếu kiểm tiền", "Danh sách phiếu kết toán", "Kiểm tiền", "Kết toán"},
         {"Đăng xuất"}
     };
 
-    private final String employeeItems[][] = {
-        {"Bán hàng"},
-        {"Đơn hàng", "Quản lí đơn bán", "Quản lí đơn nhập"},
-        {"Sản phẩm"},
-        {"Khách hàng"},
-        {"Thống kê", "Thống kê doanh thu", "Thống kê sản phẩm"},
-        {"Báo cáo", "Kiểm tiền", "Kết toán"},
-        {"Đăng xuất"}
+//    row col
+    private static final int employeeItemsBan[][] = {
+        {1, 3},
+        {2, 0}, {2, 1}, {2, 2},
+        {3, 0},
+        {5, 0}};
+
+    private static final int storeManagerItemsBan[][] = {
+        {3, 0}
     };
 
-    private final String storeManagerItems[][] = {
-        {"Bán hàng"},
-        {"Đơn hàng", "Quản lí đơn bán", "Quản lí đơn nhập", "Tạo đơn nhập"},
-        {"Đổi trả", "Quản lí đơn đổi trả", "Tạo đơn đổi trả",},
-        {"Sản phẩm"},
-        {"Nhân viên"},
-        {"Khách hàng"},
-        {"Thống kê", "Thống kê doanh thu", "Thống kê sản phẩm"},
-        {"Báo cáo", "Kiểm tiền", "Kết toán"},
-        {"Đăng xuất"}
-    };
-
-    private final String storeHighManagerItems[][] = {
-        {"Khuyến mãi"},
-        {"Đăng xuất"}
-    };
+    private static final int storeHighManagerItemsBan[][] = {};
 
     public boolean isMenuFull() {
         return menuFull;
@@ -68,19 +62,69 @@ public class Menu extends JPanel {
     public void setMenuFull(boolean menuFull) {
         this.menuFull = menuFull;
         if (menuFull) {
-            header.setText(headerName);
-            header.setHorizontalAlignment(getComponentOrientation().isLeftToRight() ? JLabel.LEFT : JLabel.RIGHT);
+            lbl_header.setText(headerName);
+            lbl_header.setHorizontalAlignment(getComponentOrientation().isLeftToRight() ? JLabel.LEFT : JLabel.RIGHT);
         } else {
-            header.setText("");
-            header.setHorizontalAlignment(JLabel.CENTER);
+            lbl_header.setText("");
+            lbl_header.setHorizontalAlignment(JLabel.CENTER);
         }
-        for (Component com : panelMenu.getComponents()) {
+        for (Component com : pnl_menu.getComponents()) {
             if (com instanceof MenuItem) {
                 ((MenuItem) com).setFull(menuFull);
             }
         }
         lightDarkMode.setMenuFull(menuFull);
         toolBarAccentColor.setMenuFull(menuFull);
+    }
+
+    public static boolean isBan(String menuItemName) {
+//        Nếu nhân viên rỗng thì cấm tất cả
+        if (Application.employee == null) {
+            return true;
+        }
+
+//        Xác định xem tài khoản thuộc loại nào để ban
+        int roleIndex = Menu.STORE_EMPLOYEE;
+        String roleName = Application.employee.getRole();
+
+        if (roleName.equalsIgnoreCase("Cửa hàng trưởng")) {
+            roleIndex = Menu.STORE_MANAGER;
+        } else if (roleName.equalsIgnoreCase("Giám sát viên")) {
+            roleIndex = Menu.STORE_HIGH_MANAGER;
+        }
+
+        for (String banItem : getBanList(roleIndex)) {
+            if (banItem.equals(menuItemName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static ArrayList<String> getBanList(int role) {
+        ArrayList<String> banList = new ArrayList<>();
+        int[][] itemsBan;
+        switch (role) {
+            case STORE_EMPLOYEE:
+                itemsBan = employeeItemsBan;
+                break;
+            case STORE_MANAGER:
+                itemsBan = storeManagerItemsBan;
+                break;
+            case STORE_HIGH_MANAGER:
+                itemsBan = storeHighManagerItemsBan;
+                break;
+            default:
+                itemsBan = employeeItemsBan;
+        }
+
+        for (int[] item : itemsBan) {
+            int row = item[0];
+            int col = item[1];
+            banList.add(menuItems[row][col]);
+        }
+
+        return banList;
     }
 
     private final List<MenuEvent> events = new ArrayList<>();
@@ -98,31 +142,36 @@ public class Menu extends JPanel {
         init();
     }
 
+    public void rerender() {
+        this.removeAll();
+        init();
+    }
+
     private void init() {
         setLayout(new MenuLayout());
         putClientProperty(FlatClientProperties.STYLE, ""
                 + "border:20,2,2,2;"
                 + "background:$Menu.background;"
                 + "arc:10");
-        header = new JLabel(headerName);
-        header.setIcon(new FlatSVGIcon("imgs/icon.svg"));
-        header.setIconTextGap(20);
-        header.putClientProperty(FlatClientProperties.STYLE, ""
+        lbl_header = new JLabel(headerName);
+        lbl_header.setIcon(new FlatSVGIcon("imgs/icon.svg"));
+        lbl_header.setIconTextGap(20);
+        lbl_header.putClientProperty(FlatClientProperties.STYLE, ""
                 + "border: 5,5,5,5;"
                 + "font:$Menu.header.font;"
                 + "foreground:$Menu.foreground");
 
         //  Menu
-        scroll = new JScrollPane();
-        panelMenu = new JPanel(new MenuItemLayout(this));
-        panelMenu.putClientProperty(FlatClientProperties.STYLE, ""
+        scr_main = new JScrollPane();
+        pnl_menu = new JPanel(new MenuItemLayout(this));
+        pnl_menu.putClientProperty(FlatClientProperties.STYLE, ""
                 + "border:5,5,5,5;"
                 + "background:$Menu.background");
 
-        scroll.setViewportView(panelMenu);
-        scroll.putClientProperty(FlatClientProperties.STYLE, ""
+        scr_main.setViewportView(pnl_menu);
+        scr_main.putClientProperty(FlatClientProperties.STYLE, ""
                 + "border:null");
-        JScrollBar vscroll = scroll.getVerticalScrollBar();
+        JScrollBar vscroll = scr_main.getVerticalScrollBar();
         vscroll.setUnitIncrement(10);
         vscroll.putClientProperty(FlatClientProperties.STYLE, ""
                 + "width:$Menu.scroll.width;"
@@ -134,25 +183,26 @@ public class Menu extends JPanel {
         lightDarkMode = new LightDarkMode();
         toolBarAccentColor = new ToolBarAccentColor(this);
         toolBarAccentColor.setVisible(FlatUIUtils.getUIBoolean("AccentControl.show", false));
-        add(header);
-        add(scroll);
+        add(lbl_header);
+        add(scr_main);
         add(lightDarkMode);
         add(toolBarAccentColor);
     }
 
     private void createMenu() {
-        JLabel user = createTitle(" Chủ tịch: Nguyễn Thanh Cảnh ");
-        panelMenu.add(user);
+        String title = Application.employee == null ? " Chủ tịch Cảnh " : String.format(" %s. %s ", Application.employee.getRole(), Application.employee.getName());
+        lbl_currentEmployee = createTitle(title);
+        pnl_menu.add(lbl_currentEmployee);
 
 //        Render danh sách menu phía bên trên
         int index = 0;
         for (String[] menuItemName : menuItems) {
             String menuName = menuItemName[0];
             if (menuName.startsWith("~") && menuName.endsWith("~")) {
-                panelMenu.add(createTitle(menuName));
+                pnl_menu.add(createTitle(menuName));
             } else {
                 MenuItem menuItem = new MenuItem(this, menuItemName, index++, events);
-                panelMenu.add(menuItem);
+                pnl_menu.add(menuItem);
             }
         }
     }
@@ -171,9 +221,9 @@ public class Menu extends JPanel {
     }
 
     protected void setSelected(int index, int subIndex) {
-        int size = panelMenu.getComponentCount();
+        int size = pnl_menu.getComponentCount();
         for (int i = 0; i < size; i++) {
-            Component com = panelMenu.getComponent(i);
+            Component com = pnl_menu.getComponent(i);
             if (com instanceof MenuItem) {
                 MenuItem item = (MenuItem) com;
                 if (item.getMenuIndex() == index) {
@@ -200,7 +250,7 @@ public class Menu extends JPanel {
     }
 
     public void hideMenuItem() {
-        for (Component com : panelMenu.getComponents()) {
+        for (Component com : pnl_menu.getComponents()) {
             if (com instanceof MenuItem) {
                 ((MenuItem) com).hideMenuItem();
             }
@@ -228,9 +278,9 @@ public class Menu extends JPanel {
         return menuMinWidth;
     }
 
-    private JLabel header;
-    private JScrollPane scroll;
-    private JPanel panelMenu;
+    private JLabel lbl_header;
+    private JScrollPane scr_main;
+    private JPanel pnl_menu;
     private LightDarkMode lightDarkMode;
     private ToolBarAccentColor toolBarAccentColor;
 
@@ -269,14 +319,14 @@ public class Menu extends JPanel {
                 int width = parent.getWidth() - (insets.left + insets.right);
                 int height = parent.getHeight() - (insets.top + insets.bottom);
                 int iconWidth = width;
-                int iconHeight = header.getPreferredSize().height;
+                int iconHeight = lbl_header.getPreferredSize().height;
                 int hgap = menuFull ? sheaderFullHgap : 0;
                 int accentColorHeight = 0;
                 if (toolBarAccentColor.isVisible()) {
                     accentColorHeight = toolBarAccentColor.getPreferredSize().height + gap;
                 }
 
-                header.setBounds(x + hgap, y, iconWidth - (hgap * 2), iconHeight);
+                lbl_header.setBounds(x + hgap, y, iconWidth - (hgap * 2), iconHeight);
                 int ldgap = UIScale.scale(10);
                 int ldWidth = width - ldgap * 2;
                 int ldHeight = lightDarkMode.getPreferredSize().height;
@@ -287,7 +337,7 @@ public class Menu extends JPanel {
                 int menuy = y + iconHeight + gap;
                 int menuWidth = width;
                 int menuHeight = height - (iconHeight + gap) - (ldHeight + ldgap * 2) - (accentColorHeight);
-                scroll.setBounds(menux, menuy, menuWidth, menuHeight);
+                scr_main.setBounds(menux, menuy, menuWidth, menuHeight);
 
                 lightDarkMode.setBounds(ldx, ldy, ldWidth, ldHeight);
 

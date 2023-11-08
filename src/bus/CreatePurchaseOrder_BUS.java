@@ -18,6 +18,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
+import main.Application;
 
 /**
  *
@@ -41,7 +42,7 @@ public class CreatePurchaseOrder_BUS {
     public PurchaseOrder createNewPurchaseOrder() throws Exception {
         PurchaseOrder order = new PurchaseOrder(purchaseOrderDAO.generateID());
         order.setStatus(PurchaseOrderStatus.PENDING);
-        order.setEmployee(new Employee("NV001"));
+        order.setEmployee(Application.employee);
         LocalDate now = LocalDate.now();
         order.setOrderDate(Date.from(now.atStartOfDay(ZoneId.systemDefault()).toInstant()));
         return order;

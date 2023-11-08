@@ -36,7 +36,7 @@ public class AcountingVoucher_DAO implements interfaces.DAOBase<AcountingVoucher
 
             if (resultSet.next()) {
 
-                Timestamp startTimestamp = resultSet.getTimestamp("startedDate");
+                Timestamp startTimestamp = resultSet.getTimestamp("createdDate");
                 Timestamp endTimestamp = resultSet.getTimestamp("endedDate");
 
                 Date startDate = new java.sql.Date(startTimestamp.getTime());
@@ -54,7 +54,7 @@ public class AcountingVoucher_DAO implements interfaces.DAOBase<AcountingVoucher
     public String getMaxSequence(String code) {
         try {
             code += "%";
-            String sql = "SELECT TOP 1  * FROM CashCountSheet WHERE cashCountSheetID LIKE '" + code + "' ORDER BY cashCountSheetID DESC";
+            String sql = "SELECT TOP 1  * FROM AcountingVoucher WHERE acountingVoucherID LIKE '" + code + "' ORDER BY acountingVoucherID DESC";
             PreparedStatement st = ConnectDB.conn.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
@@ -110,7 +110,7 @@ public class AcountingVoucher_DAO implements interfaces.DAOBase<AcountingVoucher
             PreparedStatement preparedStatement = ConnectDB.conn.prepareStatement(sql);
 
             preparedStatement.setString(1, acountingVoucher.getAcountingVoucherID());
-            Timestamp end = new Timestamp(acountingVoucher.getCreatedDate().getTime());
+            Timestamp end = new Timestamp(acountingVoucher.getEndedDate().getTime());
             preparedStatement.setTimestamp(3, end);
 
             Timestamp start = new Timestamp(acountingVoucher.getCreatedDate().getTime());

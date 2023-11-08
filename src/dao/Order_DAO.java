@@ -241,7 +241,7 @@ public class Order_DAO implements DAOBase<Order> {
     public ArrayList<Order> getAllOrderInAcountingVoucher(String acountingVoucherID) {
         ArrayList<Order> result = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM [Order] WHERE accountinggVoucherID = ?";
+            String sql = "SELECT * FROM [Order] WHERE acountingVoucherID = ?";
             PreparedStatement preparedStatement = ConnectDB.conn.prepareStatement(sql);
             preparedStatement.setString(1, acountingVoucherID);
             
@@ -253,7 +253,7 @@ public class Order_DAO implements DAOBase<Order> {
                 Date orderAt = resultSet.getDate("orderAt");
                 boolean payment = resultSet.getBoolean("payment");
                 String employeeID = resultSet.getString("employeeID");
-                String customerID = resultSet.getString("cutomerID");
+                String customerID = resultSet.getString("customerID");
                 String promotionID = resultSet.getString("promotionID");
                 Double totalDue = resultSet.getDouble("totalDue");
                 Double subTotal = resultSet.getDouble("subTotal");
@@ -280,7 +280,7 @@ public class Order_DAO implements DAOBase<Order> {
      */
     public boolean updateOrderAcountingVoucher(String orderID, String acountingVoucherID) {
         try {
-            String sql = "UPDATE [Order] SET accountinggVoucherID = ? WHERE orderID = ?";
+            String sql = "UPDATE [Order] SET acountingVoucherID = ? WHERE orderID = ?";
             PreparedStatement preparedStatement = ConnectDB.conn.prepareStatement(sql);
             preparedStatement.setString(1, acountingVoucherID);
             preparedStatement.setString(2, orderID);

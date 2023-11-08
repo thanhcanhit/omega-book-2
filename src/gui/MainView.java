@@ -67,6 +67,10 @@ public class MainView extends JLayeredPane {
         btn_menu.setIcon(new FlatSVGIcon("imgs/menu/" + icon, 0.8f));
     }
 
+    public static void rerenderMenuByEmployee() {
+        menu.rerender();
+    }
+
     private void initMenuEvent() {
         menu.addMenuEvent((int index, int subIndex, MenuAction action) -> {
             switch (index) {
@@ -133,9 +137,15 @@ public class MainView extends JLayeredPane {
                 case 8:
                     switch (subIndex) {
                         case 1:
-                            Application.showForm(new StatementCashCount_GUI());
+                            Application.showForm(new ViewCashCountSheetList_GUI());
                             break;
                         case 2:
+                            Application.showForm(new ViewAcountingList_GUI());
+                            break;
+                        case 3:
+                            Application.showForm(new StatementCashCount_GUI());
+                            break;
+                        case 4:
                             Application.showForm(new StatementAccounting_GUI());
                             break;
                         default:
@@ -183,7 +193,7 @@ public class MainView extends JLayeredPane {
         menu.setSelectedMenu(index, subIndex);
     }
 
-    private Menu menu;
+    private static Menu menu;
     private JPanel pnl_body;
     private JButton btn_menu;
 

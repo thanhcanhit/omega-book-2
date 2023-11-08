@@ -405,7 +405,7 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         spl_inforEmp.setLeftComponent(scr_tableInforEmp);
 
         pnl_inforDetailEmp.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông Tin"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-        pnl_inforDetailEmp.setMinimumSize(new java.awt.Dimension(200, 379));
+        pnl_inforDetailEmp.setMinimumSize(new java.awt.Dimension(400, 379));
         pnl_inforDetailEmp.setPreferredSize(new java.awt.Dimension(250, 100));
         pnl_inforDetailEmp.setLayout(new java.awt.BorderLayout());
 
