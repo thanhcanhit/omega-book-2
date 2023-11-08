@@ -31,7 +31,7 @@ public class OrderDetail_DAO implements DAOBase<OrderDetail> {
     public ArrayList<OrderDetail> getAll(String id) {
         ArrayList<OrderDetail> result = new ArrayList<OrderDetail>();
         try {
-            PreparedStatement st = ConnectDB.conn.prepareStatement("select * from OrderDetail where orderID = ?");
+            PreparedStatement st = ConnectDB.conn.prepareStatement("select * from [OrderDetail] where orderID = ?");
             st.setString(1, id);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
@@ -43,6 +43,7 @@ public class OrderDetail_DAO implements DAOBase<OrderDetail> {
                 int quantity = rs.getInt("quantity");
                 Double lineTotal = rs.getDouble("lineTotal");
                 OrderDetail orderDetail = new OrderDetail(order, product, quantity, price, lineTotal);
+      
                 result.add(orderDetail);
             }
         } catch (Exception e) {

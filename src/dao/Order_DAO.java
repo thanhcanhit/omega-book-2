@@ -8,6 +8,7 @@ import database.ConnectDB;
 import entity.Customer;
 import entity.Employee;
 import entity.Order;
+import entity.OrderDetail;
 import entity.Promotion;
 import interfaces.DAOBase;
 import java.sql.Date;
@@ -290,6 +291,56 @@ public class Order_DAO implements DAOBase<Order> {
             e.printStackTrace();
             return false;
         }
+    }
+
+    /**
+     * Phương thức thực hiện việc lấy ra các hoá đơn theo mã hoá đơn
+     *
+     * @param orderID Mã hóa đơn
+     * @author Như Tâm
+     */
+    public ArrayList<Order> findById(String orderID) {
+        ArrayList<Order> result = new ArrayList<>();
+        String query = """
+                       SELECT * FROM [dbo].[Order]
+                       where orderID LIKE ?
+                       """;
+        try {
+
+            PreparedStatement st = ConnectDB.conn.prepareStatement(query);
+            st.setString(1, orderID + "%");
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                if (rs != null) {
+                    result.add(getOrderData(rs));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return result;
+    }
+
+    private Order getOrderData(ResultSet rs) throws Exception {
+        Order result = null;
+
+        //Lấy thông tin tổng quát của lớp order
+        String orderID = rs.getString("orderID");
+        String employeeID = rs.getString("employeeID");
+        String customerID = rs.getString("customerID");
+        Date orderAt = rs.getDate("orderAt");
+        boolean status = rs.getBoolean("status");
+        boolean payment = rs.getBoolean("payment");
+        double subTotal = rs.getDouble("subTotal");
+        double totalDue = rs.getDouble("totalDue");
+        ArrayList<OrderDetail> orderDetailList = new OrderDetail_DAO().getAll(orderID);
+        Employee employee = new Employee(employeeID);
+        Customer customer = new Customer(customerID);
+   
+        result = new Order(orderID, orderAt, status, subTotal, totalDue, payment, employee, customer, orderDetailList);
+        return result;
     }
     
 }
