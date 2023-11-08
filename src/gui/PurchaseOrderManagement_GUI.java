@@ -81,7 +81,6 @@ public final class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
             }
         });
         renderPruchaseOrdersTable(bus.getAll());
-        System.out.println(bus.getAll());
 
     }
 
@@ -97,7 +96,7 @@ public final class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
         tblModel_purchaseOrderDetail.setRowCount(0);
         for (PurchaseOrderDetail pod : list) {
 
-            Object[] newRow = new Object[]{pod.getProduct().getProductID(), pod.getProduct().getName(), pod.getQuantity(), pod.getCostPrice(), FormatNumber.toVND(pod.getLineTotal())};
+            Object[] newRow = new Object[]{pod.getProduct().getProductID(), pod.getProduct().getName(), pod.getQuantity(), FormatNumber.toVND(pod.getCostPrice()), FormatNumber.toVND(pod.getLineTotal())};
 
             tblModel_purchaseOrderDetail.addRow(newRow);
         }
@@ -115,10 +114,16 @@ public final class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
         rad_decline.setSelected(purchaseOrder.getStatus() == PurchaseOrderStatus.CANCEL);
         if(rad_receiver.isSelected()){
             rad_notReceiver.setEnabled(false);
+            rad_decline.setEnabled(false);
+                    
         }
         if(rad_decline.isSelected()){
             rad_notReceiver.setEnabled(false);
             rad_receiver.setEnabled(false);
+        }
+        if(rad_notReceiver.isSelected()){
+            rad_receiver.setEnabled(true);
+            rad_decline.setEnabled(true);
         }
 
 

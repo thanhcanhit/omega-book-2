@@ -47,7 +47,6 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel{
     }
      public void init() {
         bus = new StatisticProduct_BUS();
-        date_statisticProduct.setDateFormatString("yyyy-mm-dd");
         tblModel_product = new DefaultTableModel(new String[]{"Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Giá tiền", "Tổng doanh thu"
         }, 0);
         tbl_topProduct.setModel(tblModel_product);
@@ -81,22 +80,16 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel{
         pnl_center.add(chartPanel);
         pnl_center.revalidate();
         pnl_center.repaint();
-        date_statisticProduct.addPropertyChangeListener(new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent e) {
-                if ("date".equals(e.getPropertyName())) {
-                    Date selectedDate = (Date) e.getNewValue();
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                    String formattedDate = dateFormat.format(selectedDate);
-                    
-                    renderProductTable(bus.getTopProductInDay(formattedDate),formattedDate);
-                }
+        date_statisticProduct.addPropertyChangeListener((PropertyChangeEvent e) -> {
+            if ("date".equals(e.getPropertyName())) {
+                Date selectedDate = (Date) e.getNewValue();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                String formattedDate = dateFormat.format(selectedDate);
+                renderProductTable(bus.getTopProductInDay(formattedDate),formattedDate);
             }
         });
 
-//        Date date = date_statisticProduct.getDate();
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//        String formattedDate = dateFormat.format(date);
+
 
 
     }
@@ -104,7 +97,7 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel{
     private void renderProductTable(ArrayList<Product> productList, String date) {
         tblModel_product.setRowCount(0);
         for (Product p : productList) {
-            Object[] newRow = new Object[]{p.getProductID(), p.getName(),bus.getQuantitySale(p.getProductID(), date), p.getCostPrice(), FormatNumber.toVND(bus.getTotalProduct(p.getProductID(), date))};
+            Object[] newRow = new Object[]{p.getProductID(), p.getName(),bus.getQuantitySale(p.getProductID(), date),FormatNumber.toVND(p.getCostPrice()), FormatNumber.toVND(bus.getTotalProduct(p.getProductID(), date))};
             tblModel_product.addRow(newRow);
         }
     }
@@ -217,7 +210,7 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel{
         pnl_control.setLayout(new javax.swing.BoxLayout(pnl_control, javax.swing.BoxLayout.LINE_AXIS));
         pnl_control.add(filler26);
 
-        date_statisticProduct.setDateFormatString("dd,mm,yyyy ");
+        date_statisticProduct.setDateFormatString("dd/MM/yyyy");
         date_statisticProduct.setMaximumSize(new java.awt.Dimension(180, 40));
         date_statisticProduct.setPreferredSize(new java.awt.Dimension(155, 30));
         pnl_control.add(date_statisticProduct);
