@@ -170,6 +170,18 @@ public final class Order {
         this.orderDetail = orderDetail;
     }
 
+    public Order(String orderID, Date orderAt, boolean status, double subTotal, double totalDue, boolean payment, Employee employee, Customer customer, ArrayList<OrderDetail> orderDetail) throws Exception {
+        setOrderID(orderID);
+        setOrderAt(orderAt);
+        setStatus(status);
+        //setSubTotal();
+        //setTotalDue();
+        setPayment(payment);
+        setEmployee(employee);
+        setCustomer(customer);
+        setOrderDetail(orderDetail);
+    }
+    
     public Order() {
     }
 
