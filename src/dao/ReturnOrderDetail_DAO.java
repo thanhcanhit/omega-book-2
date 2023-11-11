@@ -8,6 +8,8 @@ import entity.ReturnOrderDetail;
 import interfaces.DAOBase;
 import java.util.ArrayList;
 import database.ConnectDB;
+import entity.Product;
+import entity.ReturnOrder;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -31,7 +33,9 @@ public class ReturnOrderDetail_DAO implements DAOBase<ReturnOrderDetail>{
                 returnOrderID = rs.getString("returnOrderID");
                 productID = rs.getString("productID");
                 int quantity = rs.getInt("quantity");
-                returnOrderDetail = new ReturnOrderDetail(returnOrderID, productID, quantity);
+                ReturnOrder returnOrder = new ReturnOrder(returnOrderID);
+                Product product = new Product(productID);
+                returnOrderDetail = new ReturnOrderDetail(returnOrder, product, quantity);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -50,7 +54,9 @@ public class ReturnOrderDetail_DAO implements DAOBase<ReturnOrderDetail>{
                 String returnOrderID = rs.getString("returnOrderID");
                 String productID = rs.getString("productID");
                 int quantity = rs.getInt("quantity");
-                ReturnOrderDetail returnOrderDetail = new ReturnOrderDetail(returnOrderID, productID, quantity);
+                ReturnOrder returnOrder = new ReturnOrder(returnOrderID);
+                Product product = new Product(productID);
+                ReturnOrderDetail returnOrderDetail = new ReturnOrderDetail(returnOrder, product, quantity);
                 result.add(returnOrderDetail);
             }
         } catch (Exception e) {
@@ -68,11 +74,11 @@ public class ReturnOrderDetail_DAO implements DAOBase<ReturnOrderDetail>{
     public Boolean create(ReturnOrderDetail returnOrderDetail) {
         int n = 0;
         try {
-            PreparedStatement st = ConnectDB.conn.prepareStatement("INSERT INTO ReturnOrderDetail "
-                    + "VALUES (?,?)"); // + "VALUES (?,?,?)");
-            st.setString(1, returnOrderDetail.getReturnOrderID());
-            st.setString(2, returnOrderDetail.getProductID());
-            //st.setString(3, returnOrderDetail.getQuantity());
+            PreparedStatement st = ConnectDB.conn.prepareStatement("INSERT INTO ReturnOrderDetail(returnOrderID, productID, quantity)  "
+                    + "VALUES (?,?, ?)");
+            st.setString(1, returnOrderDetail.getReturnOrder().getReturnOrderID());
+            st.setString(2, returnOrderDetail.getProduct().getProductID());
+            st.setInt(3, returnOrderDetail.getQuantity());
             n = st.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -91,7 +97,9 @@ public class ReturnOrderDetail_DAO implements DAOBase<ReturnOrderDetail>{
             while (rs.next()) {
                 String productID = rs.getString("productID");
                 int quantity = rs.getInt("quantity");
-                ReturnOrderDetail returnOrderDetail = new ReturnOrderDetail(id, productID, quantity);
+                Product product = new Product(productID);
+                ReturnOrder returnOrder = new ReturnOrder(id);
+                ReturnOrderDetail returnOrderDetail = new ReturnOrderDetail(returnOrder, product, quantity);
                 result.add(returnOrderDetail);
             }
         } catch (Exception e) {

@@ -12,11 +12,13 @@ import entity.Promotion;
 import entity.ReturnOrder;
 import entity.ReturnOrderDetail;
 import enums.ReturnOrderStatus;
+import java.awt.event.KeyEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
+import main.Application;
 import raven.toast.Notifications;
 
 /**
@@ -73,6 +75,9 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
             rdb_admit.setSelected(true);
         else if(currentReturnOrder.getStatus().getValue() == 2)
             rdb_deny.setSelected(true);
+        else
+            group_statusReturnOrder.clearSelection();
+        //0-exchange; 1-return
         if(currentReturnOrder.isType())
             rdb_return.setSelected(true);
         else
@@ -83,7 +88,7 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
         tblModel_product.setRowCount(0);
         ArrayList<ReturnOrderDetail> detailList = bus.getAllReturnOrderDetail(returnOrderID);
         for (ReturnOrderDetail returnOrderDetail : detailList) {
-            String[] newRow = {returnOrderDetail.getProductID(), returnOrderDetail.getQuantity() + ""};
+            String[] newRow = {returnOrderDetail.getProduct().getProductID(), returnOrderDetail.getQuantity() + ""};
             tblModel_product.addRow(newRow);
         }
     }
@@ -198,6 +203,11 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
 
         txt_searchReturnOrder.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Nhập mã đơn đổi trả");
         txt_searchReturnOrder.setPreferredSize(new java.awt.Dimension(500, 22));
+        txt_searchReturnOrder.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_searchReturnOrderKeyPressed(evt);
+            }
+        });
         pnl_searchRerturnOrder.add(txt_searchReturnOrder);
         pnl_searchRerturnOrder.add(filler6);
 
@@ -479,6 +489,17 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
     private void btn_refeshReturnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_refeshReturnOrderActionPerformed
         renderReturnOrderTables(bus.getAllReturnOrder());
     }//GEN-LAST:event_btn_refeshReturnOrderActionPerformed
+
+    private void txt_searchReturnOrderKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_searchReturnOrderKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            String returnOrderID = txt_searchReturnOrder.getText();
+            if(txt_searchReturnOrder.equals("")) {
+                Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng nhập mã hoá đơn cần tìm");
+                return;
+            }
+            renderReturnOrderTables(bus.searchById(returnOrderID));
+        }
+    }//GEN-LAST:event_txt_searchReturnOrderKeyPressed
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
