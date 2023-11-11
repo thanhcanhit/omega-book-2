@@ -30,11 +30,13 @@ public class Promotion_DAO implements DAOBase<Promotion>{
             
             while (rs.next()) {                
                 String promotionID = rs.getString("promotionID");
-                int type = rs.getInt("type");
+                int typeDiscount = rs.getInt("typeDiscount");
+                int promotionType = rs.getInt("promotionType");
                 double discount = rs.getDouble("discount");
                 Date startedDate = rs.getDate("startedDate");
                 Date endedDate = rs.getDate("endedDate");
-                promo = new Promotion(promotionID, startedDate, endedDate, PromotionType.fromInt(type), discount);
+                
+                promo = new Promotion(promotionID, startedDate, endedDate, PromotionType.fromInt(promotionType), discount);
             }
         } catch (Exception e) {
             e.printStackTrace();

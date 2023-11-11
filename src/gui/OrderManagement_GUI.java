@@ -636,7 +636,6 @@ public class OrderManagement_GUI extends javax.swing.JPanel {
             Date end = jDateChooser2.getDate();
             end.setHours(23);
             end.setMinutes(59);
-            System.out.println(begin + ";" + end);
             ArrayList<Order> list = bus.orderListWithFilter(oderID, customerID, phone, priceFrom, priceTo, begin, end);
 
             renderOrdersTable(list);

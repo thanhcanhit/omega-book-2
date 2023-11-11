@@ -20,6 +20,26 @@ public final class OrderDetail {
     private int quantity;
     private double price;
     private double lineTotal;
+    private double VAT  ;
+    private double seasonalDiscount;
+
+    public double getVAT() {
+        return VAT;
+    }
+
+    public void setVAT(double VAT) {
+        this.VAT = VAT;
+    }
+
+    public double getSeasonalDiscount() {
+        return seasonalDiscount;
+    }
+
+    public void setSeasonalDiscount(double seasonalDiscount) {
+        this.seasonalDiscount = seasonalDiscount;
+    }
+    
+    
     
     public Order getOrder() {
         return order;
@@ -77,27 +97,33 @@ public final class OrderDetail {
         return lineTotal;
     }
     
+    
     private void setLineTotal() {
-        this.lineTotal = this.price * this.quantity;
+        //Tổng tiền trên 1 dòng = giá của sản phẩm + VAT * số lượng sản phẩm - tổng tiền giảm giá 
+        this.lineTotal = ((this.price + this.VAT*this.price ) * this.quantity) -this.seasonalDiscount ;
     }
     
     public OrderDetail() {
     }
     
-    public OrderDetail(Order order, Product product, int quantity, double price) throws Exception {
+    public OrderDetail(Order order, Product product, int quantity, double price,  double VAT,double seasonalDiscount) throws Exception {
         setOrder(order);
         setProduct(product);
         setQuantity(quantity);
         setPrice(price);
         setLineTotal();
+        setSeasonalDiscount(seasonalDiscount);
+        setVAT(VAT);
     }
     
-    public OrderDetail(Order order, Product product, int quantity, double price, double lineTotal) {
+    public OrderDetail(Order order, Product product, int quantity, double price, double lineTotal,double VAT, double seasonalDiscount) {
         this.order = order;
         this.product = product;
         this.quantity = quantity;
         this.price = price;
         this.lineTotal = lineTotal;
+        this.VAT= VAT;
+        this.seasonalDiscount=seasonalDiscount;
     }
     
     @Override
