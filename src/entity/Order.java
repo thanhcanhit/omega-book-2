@@ -157,8 +157,6 @@ public final class Order {
 
     public Order(String orderID, Date orderAt, boolean payment, boolean status, Promotion promotion, Employee employee, Customer customer, ArrayList<OrderDetail> orderDetail, double moneyGiven) throws Exception {
         setStatus(status);
-        setSubTotal();
-        setTotalDue();
         setOrderAt(orderAt);
         setCustomer(customer);
         setOrderDetail(orderDetail);
@@ -166,6 +164,8 @@ public final class Order {
         setPromotion(promotion);
         setOrderID(orderID);
         setMoneyGiven(moneyGiven);
+        setSubTotal();
+        setTotalDue();
 
     }
 
@@ -187,12 +187,12 @@ public final class Order {
         setOrderID(orderID);
         setOrderAt(orderAt);
         setStatus(status);
-        setSubTotal();
-        setTotalDue();
         setPayment(payment);
         setEmployee(employee);
         setCustomer(customer);
         setOrderDetail(orderDetail);
+        setSubTotal();
+        setTotalDue();
         setMoneyGiven(moneyGiven);
     }
     

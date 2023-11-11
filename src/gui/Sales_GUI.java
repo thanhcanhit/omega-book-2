@@ -53,10 +53,10 @@ public class Sales_GUI extends javax.swing.JPanel {
 
 //    state
     private Double total = 0.0;
+    private Double discount = 0.0;
     private boolean isOldOrder = false;
 
     public Sales_GUI() {
-        System.out.println("new");
         initComponents();
         init();
     }
@@ -65,6 +65,7 @@ public class Sales_GUI extends javax.swing.JPanel {
         bus = new Sales_BUS();
         txt_orderId.setEditable(false);
         txt_orderDate.setEditable(false);
+        txt_orderPay.setEditable(false);
         try {
             defaultCustomer = new Customer("KH000000000");
         } catch (Exception ex) {
@@ -82,7 +83,7 @@ public class Sales_GUI extends javax.swing.JPanel {
 
 //        table
         cart = new ArrayList<>();
-        tblModel_cart = new DefaultTableModel(new String[]{"Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Giá bán", "Thành tiền"}, 0) {
+        tblModel_cart = new DefaultTableModel(new String[]{"Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Giá bán", "VAT", "Tiền giảm", "Thành tiền"}, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
 //                Chỉ cho cột 2 tức là Số lượng mới sửa được
@@ -92,7 +93,7 @@ public class Sales_GUI extends javax.swing.JPanel {
                 return false;
             }
 
-        };;
+        };
         tbl_cart.setModel(tblModel_cart);
 //        Sự kiện nhập giá trị item trong bảng
         tbl_cart.getModel().addTableModelListener((TableModelEvent evt) -> {
@@ -248,6 +249,7 @@ public class Sales_GUI extends javax.swing.JPanel {
             item.setText("");
             item.setEnabled(false);
         }
+        txt_customerName.setText("Tài khoản mặc định");
     }
 
     private void renderCartTable() {
@@ -255,13 +257,14 @@ public class Sales_GUI extends javax.swing.JPanel {
 
         double totalTemp = 0.0;
         for (OrderDetail item : cart) {
-            Object[] newRow = new Object[]{item.getProduct().getProductID(), item.getProduct().getName(), item.getQuantity(), item.getPrice(), item.getLineTotal()};
+            Object[] newRow = new Object[]{item.getProduct().getProductID(), item.getProduct().getName(), item.getQuantity(), item.getPrice(), item.getVAT(), item.getSeasonalDiscount(), item.getLineTotal()};
             totalTemp += item.getLineTotal();
             tblModel_cart.addRow(newRow);
         }
 
         lbl_total.setText("Tổng tiền: " + utilities.FormatNumber.toVND(totalTemp));
         this.total = totalTemp;
+        txt_orderPay.setText(utilities.FormatNumber.toVND(total - discount));
         renderCustomerCash();
     }
 
@@ -351,7 +354,7 @@ public class Sales_GUI extends javax.swing.JPanel {
 
     private void renderCustomer() {
 //        CHUA CO ID MAC DINH
-        if (customer.getCustomerID().equals("MACDINH")) {
+        if (customer.getCustomerID().equals("KH000000000")) {
             chk_defaultCustomer.setSelected(true);
             disableCustomerForm();
             return;
@@ -368,7 +371,8 @@ public class Sales_GUI extends javax.swing.JPanel {
         } else {
             try {
 //                Thêm vào giỏ hàng
-                OrderDetail newLine = new OrderDetail(order, item, 1, item.getPrice(),0, 0);
+//  Nhớ lấy giảm giá hiện có
+                OrderDetail newLine = new OrderDetail(order, item, 1, item.getPrice(), item.getVAT(), 0);
                 cart.add(newLine);
                 renderCartTable();
                 toggleChangeQuantity();
@@ -415,7 +419,7 @@ public class Sales_GUI extends javax.swing.JPanel {
         addItemToCart(productID);
     }
 
-    private boolean orderValidate() {
+    private boolean orderValidate(boolean checkCustomerGive) {
 
         //         Nếu chưa có khách hàng sẽ cảnh báo
         if (!chk_defaultCustomer.isSelected() && this.customer == null) {
@@ -428,17 +432,23 @@ public class Sales_GUI extends javax.swing.JPanel {
             Notifications.getInstance().show(Notifications.Type.WARNING, "Bạn chưa thêm sản phẩm vào danh sách!");
             return false;
         }
+
+        //         Nếu chưa có sản phẩm sẽ cảnh báo
+        if (checkCustomerGive && txt_orderCustomerGive.getText().isEmpty()) {
+            Notifications.getInstance().show(Notifications.Type.WARNING, "Vui lòng nhập số tiền khách đã đưa!");
+            return false;
+        }
         return true;
     }
 
     private void handleCreateOrder() {
 
-        if (!orderValidate()) {
+        if (!orderValidate(true)) {
             return;
         }
 
         try {
-            boolean isSaved = isOldOrder ? updateOrder(isOldOrder) : saveOrder(false);
+            boolean isSaved = isOldOrder ? updateOrder(isOldOrder) : saveOrder(true);
 
             if (isSaved) {
                 Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đã tạo thành công đơn hàng" + order.getOrderID());
@@ -536,7 +546,6 @@ public class Sales_GUI extends javax.swing.JPanel {
         frame_savedOrder.setTitle("Xử lí đơn lưu tạm");
         frame_savedOrder.setAlwaysOnTop(true);
         frame_savedOrder.setMinimumSize(new java.awt.Dimension(600, 400));
-        frame_savedOrder.setPreferredSize(new java.awt.Dimension(600, 400));
         frame_savedOrder.setResizable(false);
         frame_savedOrder.setType(java.awt.Window.Type.POPUP);
 
@@ -968,8 +977,19 @@ public class Sales_GUI extends javax.swing.JPanel {
         if (JOptionPane.showConfirmDialog(this, "Bạn có muốn hủy hóa đơn " + order.getOrderID(), "Xác nhận hủy hóa đơn", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             // Tạo lại trang mới
 
+            if (isOldOrder) {
+                boolean isDeleted = bus.deleteOrder(order.getOrderID());
+
+                if (isDeleted) {
+                    Notifications.getInstance().show(Notifications.Type.INFO, "Đã hủy thành công hóa đơn lưu tạm");
+                } else {
+                    Notifications.getInstance().show(Notifications.Type.ERROR, "Không thể hủy đơn lưu tạm");
+                }
+            } else {
+                Notifications.getInstance().show(Notifications.Type.INFO, "Đã hủy thành công hóa đơn");
+            }
+
             rerender();
-            Notifications.getInstance().show(Notifications.Type.INFO, "Đã hủy thành công hóa đơn");
         }
 
     }//GEN-LAST:event_btn_cancleActionPerformed
@@ -1039,6 +1059,7 @@ public class Sales_GUI extends javax.swing.JPanel {
 
             if (isDeleted) {
                 Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đã xóa thành công đơn lưu tạm " + orderID);
+                renderSavedOrderTable();
             } else {
                 Notifications.getInstance().show(Notifications.Type.ERROR, "Không thể xóa đơn lưu tạm " + orderID + " lỗi không xác định");
             }
@@ -1052,7 +1073,12 @@ public class Sales_GUI extends javax.swing.JPanel {
             order.setEmployee(Application.employee);
             java.sql.Timestamp now = java.sql.Timestamp.valueOf(LocalDateTime.now());
             order.setOrderAt(now);
-            order.setPayment(cmb_orderPaymentMethod.getSelectedIndex() == 1);
+            boolean isATMPayment = cmb_orderPaymentMethod.getSelectedIndex() == 1;
+            order.setPayment(isATMPayment);
+
+            if (isATMPayment) {
+                order.setMoneyGiven(order.getSubTotal());
+            }
             order.setStatus(isCompleted);
 
 //                Tạm thời
@@ -1064,6 +1090,7 @@ public class Sales_GUI extends javax.swing.JPanel {
             } else {
                 order.setCustomer(customer);
             }
+            System.out.println(order.getMoneyGiven());
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -1079,7 +1106,13 @@ public class Sales_GUI extends javax.swing.JPanel {
             order.setEmployee(Application.employee);
             java.sql.Timestamp now = java.sql.Timestamp.valueOf(LocalDateTime.now());
             order.setOrderAt(now);
-            order.setPayment(cmb_orderPaymentMethod.getSelectedIndex() == 1);
+
+            boolean isATMPayment = cmb_orderPaymentMethod.getSelectedIndex() == 1;
+            order.setPayment(isATMPayment);
+
+            if (isATMPayment) {
+                order.setMoneyGiven(order.getSubTotal());
+            }
 //            Đã hoàn thành hay chưa
             order.setStatus(isComplete);
 
@@ -1092,6 +1125,8 @@ public class Sales_GUI extends javax.swing.JPanel {
             } else {
                 order.setCustomer(customer);
             }
+            order.setStatus(isComplete);
+            System.out.println(order.getMoneyGiven());
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -1100,7 +1135,7 @@ public class Sales_GUI extends javax.swing.JPanel {
         return bus.saveToDatabase(order);
     }
     private void btn_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saveActionPerformed
-        if (!orderValidate()) {
+        if (!orderValidate(false)) {
             return;
         }
 
@@ -1134,7 +1169,20 @@ public class Sales_GUI extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_saveActionPerformed
 
     private void btn_savedOrderDeleteAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_savedOrderDeleteAllActionPerformed
-        // TODO add your handling code here:
+        int rows = tbl_savedOrder.getRowCount();
+        if (JOptionPane.showConfirmDialog(frame_savedOrder, "Bạn có muốn xóa toàn bộ đơn hàng đã lưu tạm này (Không thể phục hồi)?", "Xóa đơn lưu tạm", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            for (int row = 0; row < rows; row++) {
+                String orderID = tbl_savedOrder.getValueAt(row, 0).toString();
+                boolean isDeleted = bus.deleteOrder(orderID);
+                if (isDeleted) {
+                    Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đã xóa thành công toàn bộ đơn lưu tạm " + orderID);
+                    renderSavedOrderTable();
+                } else {
+                    Notifications.getInstance().show(Notifications.Type.ERROR, "Không thể xóa đơn lưu tạm " + orderID + " lỗi không xác định");
+                }
+            }
+
+        }
     }//GEN-LAST:event_btn_savedOrderDeleteAllActionPerformed
 
     private void renderSavedOrderTable() {
@@ -1143,7 +1191,6 @@ public class Sales_GUI extends javax.swing.JPanel {
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
-
         };
 
         for (Order item : bus.getSavedOrders()) {

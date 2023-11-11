@@ -24,20 +24,20 @@ import java.util.logging.Logger;
  * @author thanhcanhit
  */
 public class Sales_BUS {
-
+    
     private final Order_DAO orderDAO = new Order_DAO();
     private final OrderDetail_DAO orderDetailDAO = new OrderDetail_DAO();
     private final Product_DAO productDAO = new Product_DAO();
     private final Customer_DAO customerDAO = new Customer_DAO();
-
+    
     public Product getProduct(String id) {
         return productDAO.getOne(id);
     }
-
+    
     public Customer getCustomerByPhone(String phone) {
         return customerDAO.getByPhone(phone);
     }
-
+    
     public Order CreateNewOrder() throws Exception {
         Order order = new Order(orderDAO.generateID());
         order.setStatus(false);
@@ -46,12 +46,12 @@ public class Sales_BUS {
         order.setOrderAt(Date.from(now.atStartOfDay(ZoneId.systemDefault()).toInstant()));
         return order;
     }
-
+    
     public boolean saveToDatabase(Order order) {
         if (!orderDAO.create(order)) {
             return false;
         }
-
+        
         for (OrderDetail detail : order.getOrderDetail()) {
             if (!orderDetailDAO.create(detail)) {
                 return false;
@@ -62,10 +62,10 @@ public class Sales_BUS {
                 }
             }
         }
-
+        
         return true;
     }
-
+    
     public boolean updateInDatabase(Order order) {
         if (!orderDAO.update(order.getOrderID(), order)) {
             return false;
@@ -75,7 +75,7 @@ public class Sales_BUS {
         if (!orderDetailDAO.delete(order.getOrderID())) {
             return false;
         }
-
+        
         for (OrderDetail detail : order.getOrderDetail()) {
             if (!orderDetailDAO.create(detail)) {
                 return false;
@@ -88,12 +88,12 @@ public class Sales_BUS {
         }
         return true;
     }
-
+    
     public boolean decreaseProductInventory(Product product, int quantity) {
         int newInventory = product.getInventory() - quantity;
         return productDAO.updateInventory(product.getProductID(), newInventory);
     }
-
+    
     public boolean increaseProductInventory(Product product, int quantity) {
         int newInventory = product.getInventory() + quantity;
         return productDAO.updateInventory(product.getProductID(), newInventory);
@@ -108,20 +108,26 @@ public class Sales_BUS {
             try {
                 Customer fullInfoCustomer = customerDAO.getOne(item.getCustomer().getCustomerID());
                 item.setCustomer(fullInfoCustomer);
+                
             } catch (Exception ex) {
                 Logger.getLogger(Sales_BUS.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
+        
         return result;
     }
-
+    
     public Order getOrder(String id) {
         Order result = orderDAO.getOne(id);
         try {
 //            Lấy thông tin khách hàng
             Customer fullInfoCustomer = customerDAO.getOne(result.getCustomer().getCustomerID());
             result.setCustomer(fullInfoCustomer);
+
+//                Lấy thông tin sản phẩm
+            for (OrderDetail item : result.getOrderDetail()) {
+                item.setProduct(productDAO.getOne(item.getProduct().getProductID()));
+            }
         } catch (Exception ex) {
             Logger.getLogger(Sales_BUS.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();
@@ -129,7 +135,7 @@ public class Sales_BUS {
         }
         return result;
     }
-
+    
     public boolean deleteOrder(String id) {
         return orderDAO.delete(id);
     }
