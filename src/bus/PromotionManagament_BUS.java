@@ -4,7 +4,9 @@
  */
 package bus;
 
+import dao.Product_DAO;
 import dao.Promotion_DAO;
+import entity.Product;
 import entity.Promotion;
 import enums.PromotionType;
 import java.text.SimpleDateFormat;
@@ -87,5 +89,9 @@ public class PromotionManagament_BUS {
 
     public boolean removePromotion(String promotionID) {
         return promotion_DAO.delete(promotionID);
+    }
+
+    public ArrayList<Product> searchProductById(String searchQuery) {
+        return new Product_DAO().findById(searchQuery);
     }
 }

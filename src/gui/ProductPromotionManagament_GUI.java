@@ -465,10 +465,10 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
     private void btn_searchProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchProductActionPerformed
         String searchQuery = txt_searchProduct.getText();
         if (searchQuery.isBlank()) {
-            Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng điền mã khuyến mãi");
+            Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng điền mã sản phẩm");
             return;
         }
-        renderPromotionTables(bus.searchById(searchQuery));
+        renderPromotionTables(bus.searchProductById(searchQuery));
     }//GEN-LAST:event_btn_searchProductActionPerformed
 
     private void btn_searchFilterPromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchFilterPromoActionPerformed
