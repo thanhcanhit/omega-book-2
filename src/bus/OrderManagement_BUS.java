@@ -78,7 +78,7 @@ public class OrderManagement_BUS {
     public ArrayList<Order> orderListWithFilter(String orderID, String customerID, String phoneNumber, String priceFrom, String priceTo, Date orderFrom, Date orderTo) {
         ArrayList<Order> list = orderDAO.getAll();
         ArrayList<Order> xoa = new ArrayList<>();
-
+       
         if (phoneNumber.trim().length() > 0) {
             for (Order order : list) {
                 Order od = orderDAO.getOne(order.getOrderID());
@@ -138,10 +138,11 @@ public class OrderManagement_BUS {
         xoa.clear();
 
         for (Order order : list) {
-            if (order.getOrderAt().after(orderTo)) {
+            if (order.getOrderAt().after(orderTo) ) {
                 xoa.add(order);
             }
         }
+        xoa.clear();
         list.removeAll(xoa);
 
         return list;
