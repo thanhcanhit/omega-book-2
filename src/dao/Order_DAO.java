@@ -121,8 +121,8 @@ public class Order_DAO implements DAOBase<Order> {
     @Override
     public Boolean create(Order object) {
         try {
-            String sql = "INSERT INTO [Order] (orderID, payment, status, orderAt, employeeID, customerID, promotionID, totalDue, subTotal) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO [Order] (orderID, payment, status, orderAt, employeeID, customerID, promotionID, totalDue, subTotal, moneyGiven) "
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = ConnectDB.conn.prepareStatement(sql);
 
             preparedStatement.setString(1, object.getOrderID());
@@ -134,6 +134,8 @@ public class Order_DAO implements DAOBase<Order> {
             preparedStatement.setString(7, object.getPromotion() == null ? null : object.getPromotion().getPromotionID());
             preparedStatement.setDouble(8, object.getTotalDue());
             preparedStatement.setDouble(9, object.getSubTotal());
+            
+            preparedStatement.setDouble(10, object.getMoneyGiven());
 
             int rowsAffected = preparedStatement.executeUpdate();
             return rowsAffected > 0;
