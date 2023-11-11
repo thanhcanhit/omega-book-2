@@ -17,7 +17,6 @@ public class Welcome_GUI extends javax.swing.JFrame {
 
     private int value = 0;
     private static int dots = 0;
-    private final JFrame frame = this;
 
     /**
      * Creates new form Welcome_GUI
@@ -40,7 +39,7 @@ public class Welcome_GUI extends javax.swing.JFrame {
         }).start();
 
         Timer timer = new Timer(2500, (ActionEvent evt) -> {
-            frame.dispose();
+            this.dispose();
         });
         timer.setRepeats(false);
         timer.start();
@@ -86,7 +85,6 @@ public class Welcome_GUI extends javax.swing.JFrame {
         pnl_container.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbl_header.setFont(lbl_header.getFont().deriveFont(lbl_header.getFont().getStyle() | java.awt.Font.BOLD, 32));
-        lbl_header.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/menu/logo.png"))); // NOI18N
         lbl_header.setText("Omega Book");
         lbl_header.setIconTextGap(12);
         lbl_header.putClientProperty(FlatClientProperties.STYLE, "foreground:$Menu.foreground;");

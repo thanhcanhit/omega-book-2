@@ -6,8 +6,6 @@ package gui;
 
 import bus.ProductManagement_BUS;
 import com.formdev.flatlaf.FlatClientProperties;
-import dao.Account_DAO;
-import database.ConnectDB;
 import entity.Book;
 import entity.Brand;
 import entity.Product;
@@ -18,19 +16,10 @@ import enums.StationeryType;
 import enums.Type;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
-import java.awt.image.WritableRaster;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -39,13 +28,16 @@ import javax.swing.table.DefaultTableModel;
 import raven.toast.Notifications;
 import utilities.FormatNumber;
 import utilities.SVGIcon;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import main.Application;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -85,8 +77,44 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         fileChooser_productImg = new javax.swing.JFileChooser();
         fileChooser_productImg.setCurrentDirectory(new File(System.getProperty("user.home")));
 
-//        Table model
-        tblModel_products = new DefaultTableModel(new String[]{"Mã sản phẩm", "Tên sản phẩm", "Giá nhập", "Giá bán", "Số lượng tồn"}, 50);
+//        Table
+        initTable();
+
+//        Page
+        this.lastPage = bus.getLastPage();
+        this.currentPage = 1;
+        renderCurrentPage();
+
+//        Combobox model
+        initCombobox();
+
+//      Product detail
+        scr_bookDetail.setVisible(false);
+        scr_stationeryDetail.setVisible(false);
+
+        cmb_productType.addActionListener((ActionEvent e) -> {
+            toggleProductDetail();
+        });
+    }
+
+    private void formatTable() {
+        DefaultTableCellRenderer rightAlign = new DefaultTableCellRenderer();
+        rightAlign.setHorizontalAlignment(JLabel.RIGHT);
+
+//        Align
+        TableColumnModel columnModel = tbl_products.getColumnModel();
+        for (int index : new Integer[]{2, 3, 4}) {
+            columnModel.getColumn(index).setCellRenderer(rightAlign);
+        }
+    }
+
+    private void initTable() {
+        tblModel_products = new DefaultTableModel(new String[]{"Mã sản phẩm", "Tên sản phẩm", "Giá nhập", "Giá bán", "Số lượng tồn"}, 50) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         tbl_products.setModel(tblModel_products);
         tbl_products.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
             int rowIndex = tbl_products.getSelectedRow();
@@ -100,11 +128,10 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 
         });
 
-//        Page
-        this.currentPage = 1;
-        this.lastPage = bus.getLastPage();
-        renderCurrentPage();
-//        Combobox model
+        formatTable();
+    }
+
+    private void initCombobox() {
         cmbModel_type = new DefaultComboBoxModel(new String[]{"Tất cả", "Sách", "Văn phòng phẩm"});
         cmbModel_bookCategory = new DefaultComboBoxModel(new String[]{"Văn học", "Kinh tế", "Tâm lý - kỹ năng sống", "Thiếu nhi", "Nuôi dạy con", "Tiểu sử - hồi ký", "Sách giáo khoa - tham khảo", "Sách học ngoại ngữ"});
         cmbModel_stationeryType = new DefaultComboBoxModel(new String[]{"Bút - viết", "Dụng cụ học sinh", "Dụng cụ văn phòng", "Dụng cụ vẽ", "Sản phẩm về giấy", "Sản phẩm khác"});
@@ -112,14 +139,6 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         cmb_stationeryType.setModel(cmbModel_stationeryType);
         cmb_bookCategory.setModel(cmbModel_bookCategory);
         renderComboboxType();
-
-//      Product detail
-        scr_bookDetail.setVisible(false);
-        scr_stationeryDetail.setVisible(false);
-
-        cmb_productType.addActionListener((ActionEvent e) -> {
-            toggleProductDetail();
-        });
     }
 
     private void renderCurrentProduct() {
@@ -478,6 +497,9 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         pnl_cart.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Danh sách sản phẩm"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         pnl_cart.setLayout(new java.awt.BorderLayout());
 
+        tbl_products.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tbl_products.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tbl_products.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr_cart.setViewportView(tbl_products);
 
         pnl_cart.add(scr_cart, java.awt.BorderLayout.CENTER);
@@ -563,16 +585,18 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         pnl_rightCenter.setLayout(new javax.swing.BoxLayout(pnl_rightCenter, javax.swing.BoxLayout.Y_AXIS));
 
         scr_productInfo.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin sản phẩm"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-        scr_productInfo.setMaximumSize(new java.awt.Dimension(32767, 500));
+        scr_productInfo.setMaximumSize(new java.awt.Dimension(32767, 800));
         scr_productInfo.setMinimumSize(new java.awt.Dimension(400, 400));
 
-        pnl_productInfo.setPreferredSize(new java.awt.Dimension(400, 400));
+        pnl_productInfo.setMinimumSize(new java.awt.Dimension(400, 500));
+        pnl_productInfo.setPreferredSize(new java.awt.Dimension(400, 500));
         pnl_productInfo.setLayout(new javax.swing.BoxLayout(pnl_productInfo, javax.swing.BoxLayout.Y_AXIS));
 
-        pnl_productTop.setMinimumSize(new java.awt.Dimension(400, 170));
-        pnl_productTop.setPreferredSize(new java.awt.Dimension(400, 170));
+        pnl_productTop.setMinimumSize(new java.awt.Dimension(400, 250));
+        pnl_productTop.setPreferredSize(new java.awt.Dimension(400, 250));
         pnl_productTop.setLayout(new java.awt.GridLayout(1, 0));
 
+        pnl_productTopLeft.setMinimumSize(new java.awt.Dimension(109, 150));
         pnl_productTopLeft.setLayout(new java.awt.BorderLayout());
 
         lbl_productImg.putClientProperty(FlatClientProperties.STYLE,""
@@ -580,6 +604,8 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         lbl_productImg.setFont(lbl_productImg.getFont().deriveFont((lbl_productImg.getFont().getStyle() | java.awt.Font.ITALIC)));
         lbl_productImg.setForeground(new java.awt.Color(153, 153, 153));
         lbl_productImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_productImg.setMaximumSize(new java.awt.Dimension(200, 200));
+        lbl_productImg.setMinimumSize(new java.awt.Dimension(200, 200));
         pnl_productTopLeft.add(lbl_productImg, java.awt.BorderLayout.CENTER);
 
         btn_selectImg.setText("Chọn hình ảnh");
@@ -608,6 +634,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         lbl_productId.setPreferredSize(new java.awt.Dimension(100, 25));
         pnl_container.add(lbl_productId);
 
+        txt_productId.setEditable(false);
         txt_productId.setText(" SP01221232");
         pnl_container.add(txt_productId);
 
@@ -1132,10 +1159,11 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_clearActionPerformed
 
     private void btn_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_updateActionPerformed
-        System.out.println(revertObjectFromForm());
+
         Product newData = revertObjectFromForm();
         if (bus.updateProduct(currentProduct.getProductID(), newData)) {
             Notifications.getInstance().show(Notifications.Type.SUCCESS, "Cập nhật thông tin sản phẩm thành công!");
+            currentProduct = bus.getProduct(currentProduct.getProductID());
             renderCurrentProduct();
             renderCurrentPage();
         } else {

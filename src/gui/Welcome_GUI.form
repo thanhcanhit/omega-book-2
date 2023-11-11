@@ -64,9 +64,6 @@
                 <Font bold="true" component="lbl_header" property="font" relativeSize="false" size="32"/>
               </FontInfo>
             </Property>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imgs/menu/logo.png"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Omega Book"/>
             <Property name="iconTextGap" type="int" value="12"/>
           </Properties>

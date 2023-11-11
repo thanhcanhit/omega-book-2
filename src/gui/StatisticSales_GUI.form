@@ -118,7 +118,7 @@
                         <AuxValue name="classDetails" type="java.lang.String" value="Box.Filler.HorizontalStrut"/>
                       </AuxValues>
                     </Component>
-                    <Component class="com.toedter.calendar.JMonthChooser" name="month_statistrcSales">
+                    <Component class="com.toedter.calendar.JMonthChooser" name="month_statisticSales">
                       <Properties>
                         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                           <Dimension value="[120, 27]"/>
@@ -414,7 +414,7 @@
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JTextField" name="txt_orderQuantity3">
+                    <Component class="javax.swing.JTextField" name="txt_total">
                       <Properties>
                         <Property name="editable" type="boolean" value="false"/>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -469,7 +469,7 @@
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JTextField" name="txt_orderQuantity4">
+                    <Component class="javax.swing.JTextField" name="txt_target">
                       <Properties>
                         <Property name="editable" type="boolean" value="false"/>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -484,6 +484,30 @@
                           <Dimension value="[50, 30]"/>
                         </Property>
                       </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Container class="javax.swing.JPanel" name="jPanel6">
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JLabel" name="jLabel1">
+                      <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Helvetica Neue" size="14" style="0"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="(Ch&#x1ec9; ti&#xea;u th&#xe1;ng: 50.000.000 VN&#x110;)"/>
+                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                          <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+                            <EmptyBorder bottom="50" left="10" right="1" top="80"/>
+                          </Border>
+                        </Property>
+                      </Properties>
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
+                          <BorderConstraints direction="Center"/>
+                        </Constraint>
+                      </Constraints>
                     </Component>
                   </SubComponents>
                 </Container>
