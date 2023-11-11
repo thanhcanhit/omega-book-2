@@ -175,5 +175,27 @@ public class PurchaseOrder_DAO implements DAOBase<PurchaseOrder> {
     public Boolean delete(String id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    public int getNumberOfPurchaseOrderInMonth(int month, int year){
+        int result=0;
+
+
+        try {
+            PreparedStatement st = ConnectDB.conn.prepareStatement("select count(purchaseOrderID) as sl from [PurchaseOrder] where YEAR(receiveDate) = ? and Month(receiveDate) = ? ");
+            st.setInt(1, year);
+            st.setInt(2, month);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                int sl = rs.getInt("sl");
+                result=sl;
+
+                
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
 
 }

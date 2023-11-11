@@ -98,7 +98,7 @@ public final class Order {
             this.totalDue = this.subTotal;
             return;
         }
-        this.totalDue = subTotal - ((promotion.getType() == promotion.getType().PERCENT) ? (promotion.getDiscount() * (subTotal)) : promotion.getDiscount());
+        this.totalDue = subTotal - ((promotion.getTypeDiscount() == promotion.getTypeDiscount().PERCENT) ? (promotion.getDiscount() * (subTotal)) : promotion.getDiscount());
     }
 
     public double getSubTotal() {

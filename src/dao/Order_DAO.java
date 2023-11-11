@@ -385,10 +385,51 @@ public class Order_DAO implements DAOBase<Order> {
 
         return result;
     }
+    public int getNumberOfOrderInMonth(int month, int year){
+        int result=0;
 
-    public double[] getTotalInMonth(int month, int year) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+
+        try {
+            PreparedStatement st = ConnectDB.conn.prepareStatement("select count(orderID) as sl from [Order] where YEAR(orderAt) = ? and Month(orderAt) = ? ");
+            st.setInt(1, year);
+            st.setInt(2, month);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                int sl = rs.getInt("sl");
+                result=sl;
+
+                
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
+    public double getTotalInMonth(int month, int year){
+        double result=0;
+
+
+        try {
+            PreparedStatement st = ConnectDB.conn.prepareStatement("select sum(totalDue) as total from [Order] where YEAR(orderAt) = ? and Month(orderAt) = ? ");
+            st.setInt(1, year);
+            st.setInt(2, month);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                int total = rs.getInt("total");
+                result=total;
+
+                
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
     
 
 
