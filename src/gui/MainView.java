@@ -178,10 +178,10 @@ public class MainView extends JLayeredPane {
                             Application.showForm(new JPanel());
                             break;
                         case 3:
-                            Application.showForm(new JPanel());
+                            Application.showForm(new SupplierManagement_GUI());
                             break;
                         case 4:
-                            Application.showForm(new JPanel());
+                            Application.showForm(new BrandManagement_GUI());
                             break;
                         default:
                             action.cancel();

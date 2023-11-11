@@ -41,7 +41,7 @@ public final class Brand {
     }
 
     public void setBrandID(String brandID) throws Exception {
-        String regex = "^TH[0-9]{3}$";
+        String regex = "^TH[0-9]{4}$";
         Pattern pattern = Pattern.compile(regex);
 
         if (!pattern.matcher(brandID).matches()) {

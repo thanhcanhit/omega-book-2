@@ -25,29 +25,24 @@ public class BrandManagement_BUS {
     public Brand getOne(String brandID) {
         return brand_DAO.getOne(brandID);
     }
-    
-    public String generateID() {
-        //Khởi tạo mã Thương hiệu TH
-        String prefix = "TH";
-        //Tìm mã có tiền tố là code và xxxx lớn nhất
-        String maxID = brand_DAO.getMaxSequence(prefix);
-        if (maxID == null) {
-            prefix += "0000";
-        } else {
-            String lastFourChars = maxID.substring(maxID.length() - 4);
-            int num = Integer.parseInt(lastFourChars);
-            num++;
-            prefix += String.format("%04d", num);
+    public ArrayList<Brand> search(String id){
+            ArrayList<Brand> list = new ArrayList<>();
+            for(Brand brand:brand_DAO.getAll()){
+                if(brand.getBrandID().equals(id)){
+                    list.add(brand);
+                }
+            }
+            return list;
         }
-        return prefix;
-    }
     
-    public void createCustomer(String name, String country) throws Exception {
-        Brand brand = new Brand(generateID(), name, country);
+    
+    
+    public void create(String name, String country) throws Exception {
+        Brand brand = new Brand(brand_DAO.generateID(), name, country);
         brand_DAO.create(brand);
     }
     
-    public void updateCustomer(Brand brand, String brandID) throws Exception {
+    public void update(Brand brand, String brandID) throws Exception {
         brand_DAO.update(brandID, brand);
     }
 }

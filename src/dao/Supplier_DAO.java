@@ -60,7 +60,32 @@ public class Supplier_DAO implements DAOBase<Supplier>{
 
     @Override
     public String generateID() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String result = "NCC";
+
+        String query = """
+                       select top 1 * from Supplier
+                       where supplierID like ?
+                       order by supplierID desc
+                       """;
+
+        try {
+            PreparedStatement st = ConnectDB.conn.prepareStatement(query);
+            st.setString(1, result + "%");
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                String lastID = rs.getString("supplierID");
+                String sNumber = lastID.substring(lastID.length() - 2);
+                int num = Integer.parseInt(sNumber) + 1;
+                result += String.format("%04d", num);
+            } else {
+                result += String.format("%04d", 0);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
     @Override
@@ -84,12 +109,12 @@ public class Supplier_DAO implements DAOBase<Supplier>{
         int n = 0;
         try {
             PreparedStatement st = ConnectDB.conn.prepareStatement("UPDATE Supplier "
-                    + "SET name = ?, address = ?"
+                    + "SET name = ?, address = ? "
                     + "WHERE supplierID = ?");
-            int i = 1;
-            st.setString(i++, supplier.getName());
-            st.setString(i++, supplier.getAddress());
-            st.setString(i++, id);
+            
+            st.setString(1, supplier.getName());
+            st.setString(2, supplier.getAddress());
+            st.setString(3, id);
             n = st.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

@@ -62,7 +62,32 @@ public class Brand_DAO implements DAOBase<Brand> {
 
     @Override
     public String generateID() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String result = "TH";
+
+        String query = """
+                       select top 1 * from Brand 
+                       where brandID like ?
+                       order by brandID desc
+                       """;
+
+        try {
+            PreparedStatement st = ConnectDB.conn.prepareStatement(query);
+            st.setString(1, result + "%");
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                String lastID = rs.getString("brandID");
+                String sNumber = lastID.substring(lastID.length() - 2);
+                int num = Integer.parseInt(sNumber) + 1;
+                result += String.format("%04d", num);
+            } else {
+                result += String.format("%04d", 0);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
     @Override
@@ -86,7 +111,7 @@ public class Brand_DAO implements DAOBase<Brand> {
          int n = 0;
         try {
             PreparedStatement st = ConnectDB.conn.prepareStatement("UPDATE Brand "
-                    + "SET name = ?, country = ?"
+                    + "SET name = ?, country = ? "
                     + "WHERE brandID = ?");
             int i = 1;
             st.setString(i++, brand.getName());
