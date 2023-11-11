@@ -81,10 +81,10 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
     private void initComponents() {
 
         pnl_searchPromotion = new javax.swing.JPanel();
-        pnl_txtSearchPromo = new javax.swing.JPanel();
-        txt_searchPromo = new javax.swing.JTextField();
-        pnl_buttonSearchPromo = new javax.swing.JPanel();
-        btn_searchPromo = new javax.swing.JButton();
+        pnl_txtSearchProduct = new javax.swing.JPanel();
+        txt_searchProduct = new javax.swing.JTextField();
+        pnl_buttonSearchProduct = new javax.swing.JPanel();
+        btn_searchProduct = new javax.swing.JButton();
         pnl_filterPromo = new javax.swing.JPanel();
         cmb_typePromo = new javax.swing.JComboBox<>();
         cmb_statusPromo = new javax.swing.JComboBox<>();
@@ -134,35 +134,35 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
         pnl_searchPromotion.setPreferredSize(new java.awt.Dimension(700, 50));
         pnl_searchPromotion.setLayout(new javax.swing.BoxLayout(pnl_searchPromotion, javax.swing.BoxLayout.X_AXIS));
 
-        pnl_txtSearchPromo.setLayout(new javax.swing.BoxLayout(pnl_txtSearchPromo, javax.swing.BoxLayout.LINE_AXIS));
+        pnl_txtSearchProduct.setLayout(new javax.swing.BoxLayout(pnl_txtSearchProduct, javax.swing.BoxLayout.LINE_AXIS));
 
-        txt_searchPromo.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Nhập mã khuyến mãi");
-        txt_searchPromo.addKeyListener(new java.awt.event.KeyAdapter() {
+        txt_searchProduct.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Nhập mã khuyến mãi");
+        txt_searchProduct.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txt_searchPromoKeyPressed(evt);
+                txt_searchProductKeyPressed(evt);
             }
         });
-        pnl_txtSearchPromo.add(txt_searchPromo);
+        pnl_txtSearchProduct.add(txt_searchProduct);
 
-        pnl_searchPromotion.add(pnl_txtSearchPromo);
+        pnl_searchPromotion.add(pnl_txtSearchProduct);
 
-        pnl_buttonSearchPromo.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        pnl_buttonSearchPromo.setMaximumSize(new java.awt.Dimension(100, 2147483647));
-        pnl_buttonSearchPromo.setPreferredSize(new java.awt.Dimension(100, 23));
-        pnl_buttonSearchPromo.setLayout(new java.awt.BorderLayout());
+        pnl_buttonSearchProduct.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        pnl_buttonSearchProduct.setMaximumSize(new java.awt.Dimension(100, 2147483647));
+        pnl_buttonSearchProduct.setPreferredSize(new java.awt.Dimension(100, 23));
+        pnl_buttonSearchProduct.setLayout(new java.awt.BorderLayout());
 
-        btn_searchPromo.setText("Tìm kiếm");
-        btn_searchPromo.setMaximumSize(new java.awt.Dimension(39, 23));
-        btn_searchPromo.setMinimumSize(new java.awt.Dimension(39, 23));
-        btn_searchPromo.setPreferredSize(new java.awt.Dimension(39, 23));
-        btn_searchPromo.addActionListener(new java.awt.event.ActionListener() {
+        btn_searchProduct.setText("Tìm kiếm");
+        btn_searchProduct.setMaximumSize(new java.awt.Dimension(39, 23));
+        btn_searchProduct.setMinimumSize(new java.awt.Dimension(39, 23));
+        btn_searchProduct.setPreferredSize(new java.awt.Dimension(39, 23));
+        btn_searchProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_searchPromoActionPerformed(evt);
+                btn_searchProductActionPerformed(evt);
             }
         });
-        pnl_buttonSearchPromo.add(btn_searchPromo, java.awt.BorderLayout.CENTER);
+        pnl_buttonSearchProduct.add(btn_searchProduct, java.awt.BorderLayout.CENTER);
 
-        pnl_searchPromotion.add(pnl_buttonSearchPromo);
+        pnl_searchPromotion.add(pnl_buttonSearchProduct);
 
         pnl_filterPromo.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 3, 3, 3));
         pnl_filterPromo.setMaximumSize(new java.awt.Dimension(500, 50));
@@ -213,10 +213,10 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
         pnl_promotionInfor.setLayout(new java.awt.BorderLayout());
 
         slp_inforPromo.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
-        slp_inforPromo.setResizeWeight(0.5);
+        slp_inforPromo.setResizeWeight(0.3);
 
         src_product.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        src_product.setPreferredSize(new java.awt.Dimension(452, 300));
+        src_product.setPreferredSize(new java.awt.Dimension(452, 200));
 
         tbl_product.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -451,25 +451,25 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
         add(slp_promotion, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txt_searchPromoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_searchPromoKeyPressed
+    private void txt_searchProductKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_searchProductKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            String searchQuery = txt_searchPromo.getText();
+            String searchQuery = txt_searchProduct.getText();
             if (searchQuery.isBlank()) {
                 Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng điền mã khuyến mãi");
                 return;
             }
             renderPromotionTables(bus.searchById(searchQuery));
         }
-    }//GEN-LAST:event_txt_searchPromoKeyPressed
+    }//GEN-LAST:event_txt_searchProductKeyPressed
 
-    private void btn_searchPromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchPromoActionPerformed
-        String searchQuery = txt_searchPromo.getText();
+    private void btn_searchProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchProductActionPerformed
+        String searchQuery = txt_searchProduct.getText();
         if (searchQuery.isBlank()) {
             Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng điền mã khuyến mãi");
             return;
         }
         renderPromotionTables(bus.searchById(searchQuery));
-    }//GEN-LAST:event_btn_searchPromoActionPerformed
+    }//GEN-LAST:event_btn_searchProductActionPerformed
 
     private void btn_searchFilterPromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchFilterPromoActionPerformed
         int type = cmb_typePromo.getSelectedIndex();
@@ -528,7 +528,7 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
     private javax.swing.JButton btn_createPromo;
     private javax.swing.JButton btn_removePromo;
     private javax.swing.JButton btn_searchFilterPromo;
-    private javax.swing.JButton btn_searchPromo;
+    private javax.swing.JButton btn_searchProduct;
     private com.toedter.calendar.JDateChooser chooseEndDate;
     private com.toedter.calendar.JDateChooser chooseStartDate;
     private javax.swing.JComboBox<String> cmb_statusPromo;
@@ -541,7 +541,7 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
     private javax.swing.JLabel lbl_startDatePromo;
     private javax.swing.JLabel lbl_typePromo;
     private javax.swing.JPanel pnl_buttonPromo;
-    private javax.swing.JPanel pnl_buttonSearchPromo;
+    private javax.swing.JPanel pnl_buttonSearchProduct;
     private javax.swing.JPanel pnl_categoryProduct;
     private javax.swing.JPanel pnl_chooseDateEnd;
     private javax.swing.JPanel pnl_chooseStartDate;
@@ -556,7 +556,7 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
     private javax.swing.JPanel pnl_searchPromotion;
     private javax.swing.JPanel pnl_startDatePromo;
     private javax.swing.JPanel pnl_txtInforPromo;
-    private javax.swing.JPanel pnl_txtSearchPromo;
+    private javax.swing.JPanel pnl_txtSearchProduct;
     private javax.swing.JPanel pnl_typePromo;
     private javax.swing.JRadioButton rdb_percent;
     private javax.swing.JRadioButton rdb_price;
@@ -568,7 +568,7 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
     private javax.swing.JTable tbl_product;
     private javax.swing.JTable tbl_productPromo;
     private javax.swing.JTextField txt_promotionID;
-    private javax.swing.JTextField txt_searchPromo;
+    private javax.swing.JTextField txt_searchProduct;
     // End of variables declaration//GEN-END:variables
 
     private void renderCurrentPromotion() {
