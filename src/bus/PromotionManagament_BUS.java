@@ -4,10 +4,13 @@
  */
 package bus;
 
+import dao.ProductPromotionDetail_DAO;
 import dao.Product_DAO;
 import dao.Promotion_DAO;
 import entity.Product;
+import entity.ProductPromotionDetail;
 import entity.Promotion;
+import enums.DiscountType;
 import enums.PromotionType;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,22 +43,24 @@ public class PromotionManagament_BUS {
         return promotion_DAO.getOne(promotionID);
     }
     
-    public String generateID(PromotionType promotionType, Date started, Date ended) {
+    public String generateID(PromotionType promotionType, DiscountType typeDiscount, Date ended) {
         //Khởi tạo mã khuyến mãi KM
         String prefix = "KM";
-        //Kí tự tiếp theo là loại KM
+        //Kí tự tiếp theo là loại giảm giá
+        if(typeDiscount.compare(1))
+            prefix += 1;
+        else
+            prefix += 0;
+        //Kí tự tiếp theo là loại khuyến mãi
         if(promotionType.compare(1))
             prefix += 1;
         else
             prefix += 0;
-        //4 kí tự tiếp theo là ngày tháng bắt đầu
+        //8 kí tự tiếp theo là ngày tháng kết thúc
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
-        simpleDateFormat.applyPattern("ddMM");
-        String formatStared = simpleDateFormat.format(started);
+        simpleDateFormat.applyPattern("ddMMyyyy");
         String formatEnded = simpleDateFormat.format(ended);
         
-        prefix += formatStared;
-        //4 kí tự tiếp theo là ngày tháng kết thúc
         prefix += formatEnded;
         //Tìm mã có tiền tố là code và xxxx lớn nhất
         String maxID = promotion_DAO.getMaxSequence(prefix);
@@ -70,9 +75,9 @@ public class PromotionManagament_BUS {
         return prefix;
     }
     
-    public void createPromotion() throws Exception {
-    
-    }
+//    public boolean createPromotion(Promotion promo) throws Exception {
+//        return promotion_DAO.create(promo);
+//    }
 
     public Promotion getPromotion(String promotionID) {
         return promotion_DAO.getOne(promotionID);
@@ -88,7 +93,7 @@ public class PromotionManagament_BUS {
     }
 
     public boolean addNewPromotion(Promotion newPromotion) {
-        return promotion_DAO.create(newPromotion);
+        return promotion_DAO.createForProduct(newPromotion);
     }
 
     public boolean removePromotion(String promotionID) {
@@ -98,6 +103,21 @@ public class PromotionManagament_BUS {
     public ArrayList<Product> searchProductById(String searchQuery) {
         return new Product_DAO().findById(searchQuery);
     }
+    public ArrayList<Promotion> searchForOrderById(String searchQuery) {
+        return promotion_DAO.findForOrderById(searchQuery);
+    }
+
+    public Product getProduct(String productID) {
+        return new Product_DAO().getOne(productID);
+    }
+
+    public void createProductPromotionDetail(Promotion newPromotion, ArrayList<ProductPromotionDetail> cart) {
+        for (ProductPromotionDetail productPromotionDetail : cart) {
+            productPromotionDetail.setPromotion(newPromotion);
+            new ProductPromotionDetail_DAO().create(productPromotionDetail);
+        }
+    }
+
 
     
 }

@@ -75,7 +75,6 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
         renderPromotionTables(bus.getAllPromotionForOrder());
     }
     private void renderCurrentPromotion() {
-        System.out.println(currentPromotion.getCondition().getValue());
         txt_promotionID.setText(currentPromotion.getPromotionID());
         if(currentPromotion.getTypeDiscount().getValue() == 1)
             rdb_price.setSelected(true);
@@ -88,6 +87,7 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
         
     }
     private void renderPromotionInfor() {
+        txt_searchPromo.setText("");
         txt_promotionID.setText("");
         group_typePromo.clearSelection();
         txt_discountPromo.setText("");
@@ -160,7 +160,7 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
             type = 0;
         Date startedDate = chooseStartDate.getDate();
         Date endedDate = chooseEndDate.getDate();
-        String promotionID = bus.generateID(PromotionType.fromInt(type), startedDate, endedDate);
+        String promotionID = bus.generateID(PromotionType.ORDER, DiscountType.fromInt(type), endedDate);
         int rankCus = cmb_rankCus.getSelectedIndex();
              
         Promotion promotion = new Promotion(promotionID, startedDate, endedDate, PromotionType.ORDER, DiscountType.fromInt(type), discount, PromotionRankCustomer.fromInt(rankCus));
@@ -172,7 +172,7 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
         try {
             if(bus.addNewPromotion(newPromotion)) {
                 Notifications.getInstance().show(Notifications.Type.SUCCESS, "Thêm thành công");
-                renderPromotionTables(bus.getAllPromotion());
+                renderPromotionTables(bus.getAllPromotionForOrder());
                 renderPromotionInfor();
             }
             else
@@ -578,7 +578,7 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
             Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng điền mã khuyến mãi");
             return;
         }
-        renderPromotionTables(bus.searchById(searchQuery));
+        renderPromotionTables(bus.searchForOrderById(searchQuery));
     }//GEN-LAST:event_btn_searchPromoActionPerformed
     
     private void btn_searchFilterPromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchFilterPromoActionPerformed
@@ -601,7 +601,7 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
     }//GEN-LAST:event_btn_createPromoActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        renderPromotionTables(bus.getAllPromotion());
+        renderPromotionTables(bus.getAllPromotionForOrder());
         renderPromotionInfor();
     }//GEN-LAST:event_jButton1ActionPerformed
 

@@ -96,7 +96,7 @@ public final class Brand {
 
     @Override
     public String toString() {
-        return "Brand{" + "brandID=" + brandID + ", name=" + name + ", country=" + country + '}';
+        return String.format("(%s) %s", brandID, name);
     }
 
 }

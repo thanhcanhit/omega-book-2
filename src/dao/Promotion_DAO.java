@@ -203,6 +203,24 @@ public class Promotion_DAO implements DAOBase<Promotion>{
         return n > 0;
     }
 
+    public Boolean createForProduct(Promotion promo) {
+        int n = 0;
+        try {
+            PreparedStatement st = ConnectDB.conn.prepareStatement("insert into Promotion"
+                    + "([promotionID], [typeDiscount], [promotionType], [discount], [startedDate], [endedDate])"
+                    + "VALUES(?, ?, ?, ?, ?, ?)");
+            st.setString(1, promo.getPromotionID());
+            st.setInt(2, promo.getTypeDiscount().getValue());
+            st.setInt(3, promo.getTypePromotion().getValue());
+            st.setDouble(4, promo.getDiscount());
+            st.setDate(5, new java.sql.Date(promo.getStartedDate().getTime()));
+            st.setDate(6, new java.sql.Date(promo.getEndedDate().getTime()));
+            n = st.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return n > 0;
+    }
     @Override
     public Boolean update(String id, Promotion newObject) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -296,6 +314,29 @@ public class Promotion_DAO implements DAOBase<Promotion>{
             e.printStackTrace();
         } catch (Exception ex) {
             ex.printStackTrace();
+        }
+        return result;
+    }
+
+    public ArrayList<Promotion> findForOrderById(String searchQuery) {
+        ArrayList<Promotion> result = new ArrayList<>();
+        try {
+            PreparedStatement st = ConnectDB.conn.prepareStatement("SELECT * FROM Promotion WHERE promotionType = 1 "
+                    + "and promotionID like '%?'");
+            st.setString(1, searchQuery);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {                
+                String promotionID = rs.getString("promotionID");
+                int typeDiscount = rs.getInt("typeDiscount");
+                double discount = rs.getDouble("discount");
+                Date startedDate = rs.getDate("startedDate");
+                Date endedDate = rs.getDate("endedDate");
+                int rankCustomer = rs.getInt("condition");
+                Promotion promo = new Promotion(promotionID, startedDate, endedDate, PromotionType.ORDER, DiscountType.fromInt(typeDiscount), discount, PromotionRankCustomer.fromInt(rankCustomer));
+                result.add(promo);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return result;
     }

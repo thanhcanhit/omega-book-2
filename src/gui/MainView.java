@@ -61,8 +61,7 @@ public class MainView extends JLayeredPane {
 
     public void refreshSalesForm() {
         salesForm = new Sales_GUI();
-        salesForm.revalidate();
-        salesForm.repaint();
+        Application.showForm(salesForm);
     }
 
     private void initMenuArrowIcon() {

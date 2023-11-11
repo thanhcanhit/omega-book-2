@@ -96,8 +96,18 @@ public class ProductPromotionDetail_DAO implements DAOBase<ProductPromotionDetai
     }
 
     @Override
-    public Boolean create(ProductPromotionDetail object) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Boolean create(ProductPromotionDetail productPromotionDetail) {
+        int n = 0;
+        try {
+            PreparedStatement st = ConnectDB.conn.prepareStatement("INSERT INTO ProductPromotionDetail(promotionID, productID)  "
+                    + "VALUES (?,?)");
+            st.setString(1, productPromotionDetail.getPromotion().getPromotionID());
+            st.setString(2, productPromotionDetail.getProduct().getProductID());
+            n = st.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return n > 0;
     }
 
     @Override
