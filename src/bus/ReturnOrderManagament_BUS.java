@@ -11,6 +11,7 @@ import dao.ReturnOrderDetail_DAO;
 import dao.ReturnOrder_DAO;
 import entity.Order;
 import entity.OrderDetail;
+import entity.Product;
 import entity.ReturnOrder;
 import entity.ReturnOrderDetail;
 import java.text.SimpleDateFormat;
@@ -67,7 +68,7 @@ public class ReturnOrderManagament_BUS {
         String prefix = "HDT";
         //8 kí tự tiếp theo là ngày tháng năm lập đơn đổi trả
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
-        simpleDateFormat.applyPattern("ddmmyyyy");
+        simpleDateFormat.applyPattern("ddMMyyyy");
         String formatDate = simpleDateFormat.format(returnDate);        
         prefix += formatDate;
         //Tìm mã có tiền tố là code và xxxx lớn nhất
@@ -89,5 +90,16 @@ public class ReturnOrderManagament_BUS {
 
     public ArrayList<Order> searchByOrderId(String orderID) {
         return new Order_DAO().findById(orderID);
+    }
+
+    public Product getProduct(String productID) {
+        return new Product_DAO().getOne(productID);
+    }
+
+    public void createReturnOrderDetail(ReturnOrder newReturnOrder, ArrayList<ReturnOrderDetail> cart) {
+        for (ReturnOrderDetail returnOrderDetail : cart) {
+            returnOrderDetail.setReturnOrder(newReturnOrder);
+            new ReturnOrderDetail_DAO().create(returnOrderDetail);
+        }
     }
 }

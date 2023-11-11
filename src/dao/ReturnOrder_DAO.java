@@ -52,12 +52,13 @@ public class ReturnOrder_DAO implements DAOBase<ReturnOrder>{
             while (rs.next()) {                
                 String returnOrderID = rs.getString("returnOrderID");
                 String orderID = rs.getString("orderID");
+                boolean type = rs.getBoolean("type");
                 int status = rs.getInt("status");
                 Date orderDate = rs.getDate("orderDate");
                 String employeeID = rs.getString("employeeID");
                 Order order = new Order(orderID);
                 Employee employee = new Employee(employeeID);
-                returnOrder = new ReturnOrder(orderDate, ReturnOrderStatus.fromInt(status), returnOrderID, employee, order, true);
+                returnOrder = new ReturnOrder(orderDate, ReturnOrderStatus.fromInt(status), returnOrderID, employee, order, type);
             }
         } catch (Exception e) {
             e.printStackTrace();
