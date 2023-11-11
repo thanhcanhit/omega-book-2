@@ -31,6 +31,17 @@ public final class Order {
     private Employee employee;
     private Customer customer;
     private ArrayList<OrderDetail> orderDetail;
+    private double moneyGiven;
+
+    public double getMoneyGiven() {
+        return moneyGiven;
+    }
+
+    public void setMoneyGiven(double moneyGiven) {
+        this.moneyGiven = moneyGiven;
+    }
+    
+    
 
     public boolean isPayment() {
         return payment;
@@ -144,7 +155,7 @@ public final class Order {
         }
     }
 
-    public Order(String orderID, Date orderAt, boolean payment, boolean status, Promotion promotion, Employee employee, Customer customer, ArrayList<OrderDetail> orderDetail) throws Exception {
+    public Order(String orderID, Date orderAt, boolean payment, boolean status, Promotion promotion, Employee employee, Customer customer, ArrayList<OrderDetail> orderDetail, double moneyGiven) throws Exception {
         setStatus(status);
         setSubTotal();
         setTotalDue();
@@ -154,10 +165,11 @@ public final class Order {
         setPayment(payment);
         setPromotion(promotion);
         setOrderID(orderID);
+        setMoneyGiven(moneyGiven);
 
     }
 
-    public Order(String orderID, Date orderAt, boolean payment, boolean status, Promotion promotion, Employee employee, Customer customer, ArrayList<OrderDetail> orderDetail, double subTotal, double toTalDue) {
+    public Order(String orderID, Date orderAt, boolean payment, boolean status, Promotion promotion, Employee employee, Customer customer, ArrayList<OrderDetail> orderDetail, double subTotal, double toTalDue, double moneyGiven) {
         this.orderID = orderID;
         this.orderAt = orderAt;
         this.status = status;
@@ -168,18 +180,20 @@ public final class Order {
         this.employee = employee;
         this.customer = customer;
         this.orderDetail = orderDetail;
+        this.moneyGiven = moneyGiven;
     }
 
-    public Order(String orderID, Date orderAt, boolean status, double subTotal, double totalDue, boolean payment, Employee employee, Customer customer, ArrayList<OrderDetail> orderDetail) throws Exception {
+    public Order(String orderID, Date orderAt, boolean status, double subTotal, double totalDue, boolean payment, Employee employee, Customer customer, ArrayList<OrderDetail> orderDetail, double moneyGiven) throws Exception {
         setOrderID(orderID);
         setOrderAt(orderAt);
         setStatus(status);
-        //setSubTotal();
-        //setTotalDue();
+        setSubTotal();
+        setTotalDue();
         setPayment(payment);
         setEmployee(employee);
         setCustomer(customer);
         setOrderDetail(orderDetail);
+        setMoneyGiven(moneyGiven);
     }
     
     public Order() {

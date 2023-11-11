@@ -45,8 +45,10 @@ public class Order_DAO implements DAOBase<Order> {
                 String promotionID = resultSet.getString("promotionID");
                 Double totalDue = resultSet.getDouble("totalDue");
                 Double subTotal = resultSet.getDouble("subTotal");
+                
+                Double moneyGiven = resultSet.getDouble("moneyGiven");
 
-                order = new Order(id, orderAt, payment, status, new Promotion(promotionID), new Employee(employeeID), new Customer(customerID), new OrderDetail_DAO().getAll(id), subTotal, totalDue);
+                order = new Order(id, orderAt, payment, status, new Promotion(promotionID), new Employee(employeeID), new Customer(customerID), new OrderDetail_DAO().getAll(id), subTotal, totalDue, moneyGiven);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -71,8 +73,10 @@ public class Order_DAO implements DAOBase<Order> {
                 String promotionID = resultSet.getString("promotionID");
                 Double totalDue = resultSet.getDouble("totalDue");
                 Double subTotal = resultSet.getDouble("subTotal");
+                
+                Double moneyGiven = resultSet.getDouble("moneyGiven");
 
-                Order order = new Order(orderID, orderAt, payment, status, new Promotion_DAO().getOne(promotionID), new Employee_DAO().getOne(employeeID), new Customer_DAO().getOne(customerID), new OrderDetail_DAO().getAll(orderID), subTotal, totalDue);
+                Order order = new Order(orderID, orderAt, payment, status, new Promotion_DAO().getOne(promotionID), new Employee_DAO().getOne(employeeID), new Customer_DAO().getOne(customerID), new OrderDetail_DAO().getAll(orderID), subTotal, totalDue, moneyGiven);
                 result.add(order);
             }
         } catch (Exception e) {
@@ -117,8 +121,8 @@ public class Order_DAO implements DAOBase<Order> {
     @Override
     public Boolean create(Order object) {
         try {
-            String sql = "INSERT INTO [Order] (orderID, payment, status, orderAt, employeeID, customerID, promotionID, totalDue, subTotal) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO [Order] (orderID, payment, status, orderAt, employeeID, customerID, promotionID, totalDue, subTotal, moneyGiven) "
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = ConnectDB.conn.prepareStatement(sql);
 
             preparedStatement.setString(1, object.getOrderID());
@@ -130,6 +134,8 @@ public class Order_DAO implements DAOBase<Order> {
             preparedStatement.setString(7, object.getPromotion() == null ? null : object.getPromotion().getPromotionID());
             preparedStatement.setDouble(8, object.getTotalDue());
             preparedStatement.setDouble(9, object.getSubTotal());
+            
+            preparedStatement.setDouble(10, object.getMoneyGiven());
 
             int rowsAffected = preparedStatement.executeUpdate();
             return rowsAffected > 0;
@@ -142,7 +148,7 @@ public class Order_DAO implements DAOBase<Order> {
     @Override
     public Boolean update(String id, Order newObject) {
         try {
-            String sql = "UPDATE Order SET payment=?, status=?, orderAt=?, employeeID=?, customerID=?, promotionID=?, totalDue=?, subTotal=?  "
+            String sql = "UPDATE Order SET payment=?, status=?, orderAt=?, employeeID=?, customerID=?, promotionID=?, totalDue=?, subTotal=?, moneyGiven=?  "
                     + "WHERE orderID=?";
             PreparedStatement preparedStatement = ConnectDB.conn.prepareStatement(sql);
             preparedStatement.setBoolean(1, newObject.isPayment());
@@ -153,7 +159,8 @@ public class Order_DAO implements DAOBase<Order> {
             preparedStatement.setString(6, newObject.getPromotion().getPromotionID());
             preparedStatement.setDouble(7, newObject.getTotalDue());
             preparedStatement.setDouble(8, newObject.getSubTotal());
-            preparedStatement.setString(9, id);
+            preparedStatement.setDouble(9, newObject.getMoneyGiven());
+            preparedStatement.setString(10, id);
 
             int rowsAffected = preparedStatement.executeUpdate();
             return rowsAffected > 0;
@@ -219,11 +226,13 @@ public class Order_DAO implements DAOBase<Order> {
                 String promotionID = rs.getString("promotionID");
                 Double totalDue = rs.getDouble("totalDue");
                 Double subTotal = rs.getDouble("subTotal");
+                
+                Double moneyGiven = rs.getDouble("moneyGiven");
                 Promotion promotion = new Promotion(promotionID);
                 Customer customer = new Customer_DAO().getOne(customerID);
                 Employee employee = new Employee_DAO().getOne(employeeID);
 
-                Order order = new Order(orderID, orderAt, payment, status, promotion, employee, customer, new OrderDetail_DAO().getAll(orderID), subTotal, totalDue);
+                Order order = new Order(orderID, orderAt, payment, status, promotion, employee, customer, new OrderDetail_DAO().getAll(orderID), subTotal, totalDue, moneyGiven);
                 result.add(order);
             }
         } catch (SQLException e) {
@@ -259,11 +268,12 @@ public class Order_DAO implements DAOBase<Order> {
                 String promotionID = resultSet.getString("promotionID");
                 Double totalDue = resultSet.getDouble("totalDue");
                 Double subTotal = resultSet.getDouble("subTotal");
+                Double moneyGiven = resultSet.getDouble("moneyGiven");
                 Promotion promotion = new Promotion(promotionID);
                 Customer customer = new Customer(customerID);
                 Employee employee = new Employee(employeeID);
 
-                Order order = new Order(orderID, orderAt, payment, status, promotion, employee, customer, new OrderDetail_DAO().getAll(orderID), subTotal, totalDue);
+                Order order = new Order(orderID, orderAt, payment, status, promotion, employee, customer, new OrderDetail_DAO().getAll(orderID), subTotal, totalDue, moneyGiven);
                 result.add(order);
             }
         } catch (Exception e) {
@@ -336,10 +346,12 @@ public class Order_DAO implements DAOBase<Order> {
         boolean payment = rs.getBoolean("payment");
         double subTotal = rs.getDouble("subTotal");
         double totalDue = rs.getDouble("totalDue");
+        
+        Double moneyGiven = rs.getDouble("moneyGiven");
         ArrayList<OrderDetail> orderDetailList = new OrderDetail_DAO().getAll(orderID);
         Employee employee = new Employee(employeeID);
         Customer customer = new Customer(customerID);
-        result = new Order(orderID, orderAt, status, subTotal, totalDue, payment, employee, customer, orderDetailList);
+        result = new Order(orderID, orderAt, status, subTotal, totalDue, payment, employee, customer, orderDetailList,moneyGiven);
         return result;
     }
 

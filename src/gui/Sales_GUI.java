@@ -21,6 +21,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -47,12 +49,14 @@ public class Sales_GUI extends javax.swing.JPanel {
     private Customer customer = null;
     private ArrayList<OrderDetail> cart;
     private DefaultTableModel tblModel_cart;
+    private Customer defaultCustomer;
 
 //    state
     private Double total = 0.0;
     private boolean isOldOrder = false;
 
     public Sales_GUI() {
+        System.out.println("new");
         initComponents();
         init();
     }
@@ -61,6 +65,11 @@ public class Sales_GUI extends javax.swing.JPanel {
         bus = new Sales_BUS();
         txt_orderId.setEditable(false);
         txt_orderDate.setEditable(false);
+        try {
+            defaultCustomer = new Customer("KH000000000");
+        } catch (Exception ex) {
+            Logger.getLogger(Sales_GUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
 //        Khởi tạo hóa đơn
         try {
@@ -170,6 +179,7 @@ public class Sales_GUI extends javax.swing.JPanel {
                 try {
                     Double customerGive = Double.valueOf(txt_orderCustomerGive.getText());
                     txt_orderCustomerReturn.setText(String.valueOf(customerGive - total));
+                    order.setMoneyGiven(customerGive);
                 } catch (Exception ex) {
 
                 }
@@ -358,7 +368,7 @@ public class Sales_GUI extends javax.swing.JPanel {
         } else {
             try {
 //                Thêm vào giỏ hàng
-                OrderDetail newLine = new OrderDetail(order, item, 1, item.getPrice());
+                OrderDetail newLine = new OrderDetail(order, item, 1, item.getPrice(),0, 0);
                 cart.add(newLine);
                 renderCartTable();
                 toggleChangeQuantity();
@@ -1050,7 +1060,7 @@ public class Sales_GUI extends javax.swing.JPanel {
             order.setOrderDetail(cart);
             if (chk_defaultCustomer.isSelected()) {
 //                Khách hàng mặc định
-                order.setCustomer(new Customer("KH198210013"));
+                order.setCustomer(defaultCustomer);
             } else {
                 order.setCustomer(customer);
             }
@@ -1078,7 +1088,7 @@ public class Sales_GUI extends javax.swing.JPanel {
             order.setOrderDetail(cart);
             if (chk_defaultCustomer.isSelected()) {
 //                Khách hàng mặc định
-                order.setCustomer(new Customer("KH198210013"));
+                order.setCustomer(defaultCustomer);
             } else {
                 order.setCustomer(customer);
             }

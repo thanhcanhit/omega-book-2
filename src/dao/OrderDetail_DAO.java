@@ -42,7 +42,9 @@ public class OrderDetail_DAO implements DAOBase<OrderDetail> {
                 Double price = rs.getDouble("price");
                 int quantity = rs.getInt("quantity");
                 Double lineTotal = rs.getDouble("lineTotal");
-                OrderDetail orderDetail = new OrderDetail(order, product, quantity, price, lineTotal);
+                Double VAT = rs.getDouble("VAT");
+                Double seasonalDiscount = rs.getDouble("seasonalDiscount");
+                OrderDetail orderDetail = new OrderDetail(order, product, quantity, price, lineTotal,VAT,seasonalDiscount);
       
                 result.add(orderDetail);
             }
@@ -61,12 +63,15 @@ public class OrderDetail_DAO implements DAOBase<OrderDetail> {
     public Boolean create(OrderDetail object) {
         int n = 0;
         try {
-            PreparedStatement st = ConnectDB.conn.prepareStatement("insert into OrderDetail (orderID, productID, price, quantity, lineTotal) values (?, ?, ?, ?, ?)");
+            PreparedStatement st = ConnectDB.conn.prepareStatement("insert into OrderDetail (orderID, productID, price, quantity, lineTotal, VAT, seasonalDiscount) values (?, ?, ?, ?, ?,?,?)");
             st.setString(1, object.getOrder().getOrderID());
             st.setString(2, object.getProduct().getProductID());
             st.setDouble(3, object.getPrice());
             st.setInt(4, object.getQuantity());
             st.setDouble(5, object.getLineTotal());
+            st.setDouble(6, object.getVAT());
+            st.setDouble(7,object.getSeasonalDiscount());
+            
             n = st.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
