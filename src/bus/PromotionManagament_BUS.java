@@ -4,9 +4,11 @@
  */
 package bus;
 
+import dao.ProductPromotionDetail_DAO;
 import dao.Product_DAO;
 import dao.Promotion_DAO;
 import entity.Product;
+import entity.ProductPromotionDetail;
 import entity.Promotion;
 import enums.DiscountType;
 import enums.PromotionType;
@@ -73,9 +75,9 @@ public class PromotionManagament_BUS {
         return prefix;
     }
     
-    public void createPromotion() throws Exception {
-    
-    }
+//    public boolean createPromotion(Promotion promo) throws Exception {
+//        return promotion_DAO.create(promo);
+//    }
 
     public Promotion getPromotion(String promotionID) {
         return promotion_DAO.getOne(promotionID);
@@ -91,7 +93,7 @@ public class PromotionManagament_BUS {
     }
 
     public boolean addNewPromotion(Promotion newPromotion) {
-        return promotion_DAO.create(newPromotion);
+        return promotion_DAO.createForProduct(newPromotion);
     }
 
     public boolean removePromotion(String promotionID) {
@@ -101,6 +103,21 @@ public class PromotionManagament_BUS {
     public ArrayList<Product> searchProductById(String searchQuery) {
         return new Product_DAO().findById(searchQuery);
     }
+    public ArrayList<Promotion> searchForOrderById(String searchQuery) {
+        return promotion_DAO.findForOrderById(searchQuery);
+    }
+
+    public Product getProduct(String productID) {
+        return new Product_DAO().getOne(productID);
+    }
+
+    public void createProductPromotionDetail(Promotion newPromotion, ArrayList<ProductPromotionDetail> cart) {
+        for (ProductPromotionDetail productPromotionDetail : cart) {
+            productPromotionDetail.setPromotion(newPromotion);
+            new ProductPromotionDetail_DAO().create(productPromotionDetail);
+        }
+    }
+
 
     
 }

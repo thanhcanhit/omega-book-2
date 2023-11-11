@@ -567,7 +567,7 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
         }
         else {
             ReturnOrder newReturnOrder = getNewValues();
-        createNewReturnOrder(newReturnOrder);
+            createNewReturnOrder(newReturnOrder);
         }
         
     }//GEN-LAST:event_btn_createReturnOrderActionPerformed

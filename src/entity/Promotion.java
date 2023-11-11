@@ -58,6 +58,16 @@ public final class Promotion {
         setDiscount(discount);
         setCondition(condition);
     }
+
+    public Promotion(String promotionID, Date startedDate, Date endedDate, PromotionType typePromotion, DiscountType typeDiscount, double discount) throws Exception {
+        setPromotionID(promotionID);
+        setStartedDate(startedDate);
+        setEndedDate(endedDate);
+        setTypePromotion(typePromotion);
+        setTypeDiscount(typeDiscount);
+        setDiscount(discount);
+    }
+    
     //constructor theo mã khuyến mãi
     public Promotion(String promotionID) throws Exception {
         setPromotionID(promotionID);
