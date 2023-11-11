@@ -13,7 +13,9 @@ import java.beans.PropertyChangeListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
@@ -27,13 +29,13 @@ import utilities.FormatNumber;
  *
  * @author KienTran
  */
-public final class StatisticProduct_GUI extends javax.swing.JPanel{
+public final class StatisticProduct_GUI extends javax.swing.JPanel {
+
     private DefaultTableModel tblModel_product;
     private StatisticProduct_BUS bus;
-            
-    
+
     private XChartPanel<CategoryChart> chartPanel;
-        
+
     /**
      * Creates new form StatisticProduct_GUI
      */
@@ -42,10 +44,9 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel{
         init();
         alterTable();
 
-        
-        
     }
-     public void init() {
+
+    public void init() {
         bus = new StatisticProduct_BUS();
         tblModel_product = new DefaultTableModel(new String[]{"Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Giá tiền", "Tổng doanh thu"
         }, 0);
@@ -66,43 +67,51 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel{
             return;
 
         });
-        chartPanel = new XChartPanel<>(getChart());
-        //Sự kiện nhấp chuột vào biểu đồ lấy dữ liệu x và y 
-        chartPanel.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                int x = e.getX();
-                int y = e.getY();
-                System.out.println("Clicked at (" + x + ", " + y + ")");
-            }
-        });
 
+        
+        
+        Date date = date_statisticProduct.getDate();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String formatDate = format.format(date);
+        chartPanel = new XChartPanel<>(getChart());
         pnl_center.add(chartPanel);
-        pnl_center.revalidate();
-        pnl_center.repaint();
+        renderProductTable(bus.getTopProductInDay(formatDate), formatDate);
         date_statisticProduct.addPropertyChangeListener((PropertyChangeEvent e) -> {
-            if ("date".equals(e.getPropertyName())) {
+            if ("date".equals(e.getPropertyName())) { 
                 Date selectedDate = (Date) e.getNewValue();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String formattedDate = dateFormat.format(selectedDate);
-                renderProductTable(bus.getTopProductInDay(formattedDate),formattedDate);
+                renderProductTable(bus.getTopProductInDay(formattedDate), formattedDate);  
+                chartPanel = new XChartPanel<>(getChart());
+                pnl_center.add(chartPanel);
+                chartPanel.updateUI();
+
             }
         });
 
-
-
+        
+        
+//        //Sự kiện nhấp chuột vào biểu đồ lấy dữ liệu x và y 
+//        chartPanel.addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                int x = e.getX();
+//                int y = e.getY();
+//                System.out.println("Clicked at (" + x + ", " + y + ")");
+//            }
+//        });
 
     }
-    
+
     private void renderProductTable(ArrayList<Product> productList, String date) {
         tblModel_product.setRowCount(0);
         for (Product p : productList) {
-            Object[] newRow = new Object[]{p.getProductID(), p.getName(),bus.getQuantitySale(p.getProductID(), date),FormatNumber.toVND(p.getCostPrice()), FormatNumber.toVND(bus.getTotalProduct(p.getProductID(), date))};
+            Object[] newRow = new Object[]{p.getProductID(), p.getName(), bus.getQuantitySale(p.getProductID(), date), FormatNumber.toVND(p.getCostPrice()), FormatNumber.toVND(bus.getTotalProduct(p.getProductID(), date))};
             tblModel_product.addRow(newRow);
         }
     }
-     
-     public void alterTable() {
+
+    public void alterTable() {
         DefaultTableCellRenderer rightAlign = new DefaultTableCellRenderer();
         rightAlign.setHorizontalAlignment(JLabel.RIGHT);
 
@@ -110,10 +119,10 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel{
         tbl_topProduct.getColumnModel().getColumn(0).setPreferredWidth(100);
         tbl_topProduct.getColumnModel().getColumn(1).setPreferredWidth(200);
         tbl_topProduct.getColumnModel().getColumn(2).setPreferredWidth(80);
-        
+
         tbl_topProduct.getColumnModel().getColumn(2).setCellRenderer(rightAlign);
         tbl_topProduct.getColumnModel().getColumn(3).setPreferredWidth(100);
-        
+
         tbl_topProduct.getColumnModel().getColumn(3).setCellRenderer(rightAlign);
         tbl_topProduct.getColumnModel().getColumn(4).setPreferredWidth(150);
         tbl_topProduct.getColumnModel().getColumn(4).setCellRenderer(rightAlign);
@@ -121,22 +130,43 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel{
     }
 
     public CategoryChart getChart() {
- 
-    // Create Chart
-    CategoryChart chart = new CategoryChartBuilder().width(800).height(600).title("").xAxisTitle("Mã sản phẩm").yAxisTitle("Số lượng bán").build();
- 
-    // Customize Chart
-    chart.getStyler().setLegendPosition(LegendPosition.InsideNW);
-    chart.getStyler().setPlotBackgroundColor(Color.WHITE);
-    chart.getStyler().setChartBackgroundColor(Color.WHITE);
-    chart.getStyler().setSeriesColors(new Color[]{new Color(71, 118, 185)});
- 
-    // Series
-    chart.addSeries("data", Arrays.asList(new String[] { "SP1","SP2","SP3","SP4","SP5","SP6","SP7","SP8","SP9","SP10"}), 
-            Arrays.asList(new Integer[] {13, 24, 13, 43, 5,246,7,8,102,12}));
- 
-    return chart;
-  }
+
+        // Create Chart
+        CategoryChart chart = new CategoryChartBuilder().width(800).height(600).title("").xAxisTitle("Mã sản phẩm").yAxisTitle("Số lượng bán").build();
+
+        // Customize Chart
+        chart.getStyler().setLegendPosition(LegendPosition.InsideNW);
+        chart.getStyler().setPlotBackgroundColor(Color.WHITE);
+        chart.getStyler().setChartBackgroundColor(Color.WHITE);
+        chart.getStyler().setSeriesColors(new Color[]{new Color(71, 118, 185)});
+
+        // Series
+        Date date = date_statisticProduct.getDate();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String formatDate = format.format(date);
+        
+        ArrayList listProductQuantity = new ArrayList<>();
+       
+        ArrayList listProductID = new ArrayList<>();
+        
+        for(Product product :  bus.getTop10Product(formatDate)){
+            listProductID.add(product.getProductID());
+        }
+        for(Object id: listProductID){
+            listProductQuantity.add(bus.getQuantitySale((String) id, formatDate));
+        }
+        if (listProductID.isEmpty() || listProductQuantity.isEmpty()) {
+            List<String> defaultProductID = Arrays.asList(" "," ", " ");
+            List<Integer> defaultProductQuantity = Arrays.asList(0, 0, 0);
+
+            chart.addSeries("data", defaultProductID, defaultProductQuantity);
+        } else {
+            chart.addSeries("data", listProductID, listProductQuantity);
+        }
+
+        return chart;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -211,6 +241,7 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel{
         pnl_control.add(filler26);
 
         date_statisticProduct.setDateFormatString("dd/MM/yyyy");
+        date_statisticProduct.setDate(Calendar.getInstance().getTime());
         date_statisticProduct.setMaximumSize(new java.awt.Dimension(180, 40));
         date_statisticProduct.setPreferredSize(new java.awt.Dimension(155, 30));
         pnl_control.add(date_statisticProduct);

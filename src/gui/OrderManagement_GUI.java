@@ -1,5 +1,83 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs:    @Override
+    protected void computeTime() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    protected void computeFields() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void add(int field, int amount) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void roll(int field, boolean up) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public int getMinimum(int field) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public int getMaximum(int field) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public int getGreatestMinimum(int field) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public int getLeastMaximum(int field) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    @Override
+    protected void computeTime() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    protected void computeFields() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void add(int field, int amount) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void roll(int field, boolean up) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public int getMinimum(int field) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public int getMaximum(int field) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public int getGreatestMinimum(int field) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public int getLeastMaximum(int field) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+//nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package gui;
@@ -250,9 +328,9 @@ public class OrderManagement_GUI extends javax.swing.JPanel {
         pnl_header.add(pnl_orderStatusFilter);
 
         pnl_orderDate.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        pnl_orderDate.setMaximumSize(new java.awt.Dimension(200, 2147483647));
+        pnl_orderDate.setMaximumSize(new java.awt.Dimension(20000, 2147483647));
         pnl_orderDate.setMinimumSize(new java.awt.Dimension(200, 200));
-        pnl_orderDate.setPreferredSize(new java.awt.Dimension(200, 43));
+        pnl_orderDate.setPreferredSize(new java.awt.Dimension(300, 43));
         pnl_orderDate.setLayout(new javax.swing.BoxLayout(pnl_orderDate, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_orderDate.setText("Từ ngày: ");
@@ -261,15 +339,17 @@ public class OrderManagement_GUI extends javax.swing.JPanel {
         pnl_orderDate.add(lbl_orderDate);
 
         jDateChooser1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 60));
-        jDateChooser1.setMinimumSize(new java.awt.Dimension(216, 30));
-        jDateChooser1.setPreferredSize(new java.awt.Dimension(130, 30));
+        jDateChooser1.setDateFormatString("dd/MM/yyyy");
+        jDateChooser1.setDate(Calendar.getInstance().getTime());
+        jDateChooser1.setMinimumSize(new java.awt.Dimension(150, 30));
+        jDateChooser1.setPreferredSize(new java.awt.Dimension(100, 30));
         pnl_orderDate.add(jDateChooser1);
 
         pnl_header.add(pnl_orderDate);
 
         pnl_searchButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 10, 8, 10));
-        pnl_searchButton.setMaximumSize(new java.awt.Dimension(100, 2147483647));
-        pnl_searchButton.setPreferredSize(new java.awt.Dimension(100, 100));
+        pnl_searchButton.setMaximumSize(new java.awt.Dimension(800, 2147483647));
+        pnl_searchButton.setPreferredSize(new java.awt.Dimension(80, 100));
         pnl_searchButton.setLayout(new java.awt.BorderLayout());
 
         btn_search.setText("Tìm kiếm");
@@ -322,9 +402,9 @@ public class OrderManagement_GUI extends javax.swing.JPanel {
         pnl_header.add(pnl_customerPhone);
 
         pnl_orderDateTo.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        pnl_orderDateTo.setMaximumSize(new java.awt.Dimension(200, 2147483647));
+        pnl_orderDateTo.setMaximumSize(new java.awt.Dimension(200000, 2147483647));
         pnl_orderDateTo.setMinimumSize(new java.awt.Dimension(200, 200));
-        pnl_orderDateTo.setPreferredSize(new java.awt.Dimension(200, 43));
+        pnl_orderDateTo.setPreferredSize(new java.awt.Dimension(300, 43));
         pnl_orderDateTo.setLayout(new javax.swing.BoxLayout(pnl_orderDateTo, javax.swing.BoxLayout.LINE_AXIS));
 
         lbl_orderDateTo.setText("Đến ngày:");
@@ -333,15 +413,17 @@ public class OrderManagement_GUI extends javax.swing.JPanel {
         pnl_orderDateTo.add(lbl_orderDateTo);
 
         jDateChooser2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 60));
-        jDateChooser2.setMinimumSize(new java.awt.Dimension(216, 30));
-        jDateChooser2.setPreferredSize(new java.awt.Dimension(130, 30));
+        jDateChooser2.setDateFormatString("dd/MM/yyyy");
+        jDateChooser2.setDate(Calendar.getInstance().getTime());
+        jDateChooser2.setMinimumSize(new java.awt.Dimension(100, 30));
+        jDateChooser2.setPreferredSize(new java.awt.Dimension(100, 30));
         pnl_orderDateTo.add(jDateChooser2);
 
         pnl_header.add(pnl_orderDateTo);
 
         pnl_refreshButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 10, 8, 10));
-        pnl_refreshButton.setMaximumSize(new java.awt.Dimension(100, 2147483647));
-        pnl_refreshButton.setPreferredSize(new java.awt.Dimension(100, 100));
+        pnl_refreshButton.setMaximumSize(new java.awt.Dimension(800, 2147483647));
+        pnl_refreshButton.setPreferredSize(new java.awt.Dimension(80, 100));
         pnl_refreshButton.setLayout(new java.awt.BorderLayout());
 
         btn_refresh.setText("Làm mới");
@@ -549,8 +631,12 @@ public class OrderManagement_GUI extends javax.swing.JPanel {
             }
                
             Date begin = jDateChooser1.getDate();
-            
+            begin.setHours(0);
+            begin.setMinutes(0);
             Date end = jDateChooser2.getDate();
+            end.setHours(23);
+            end.setMinutes(59);
+            System.out.println(begin + ";" + end);
             ArrayList<Order> list = bus.orderListWithFilter(oderID, customerID, phone, priceFrom, priceTo, begin, end);
 
             renderOrdersTable(list);
