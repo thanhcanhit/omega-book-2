@@ -95,9 +95,7 @@ public class MenuItem extends JPanel {
             JButton menuItem = createButtonItem(menus[i]);
 //            Nếu không có quyền sử dụng sẽ disable
             boolean isBan = Menu.isBan(menus[i]);
-//            if (isBan) {
-//                menuItem.setEnabled(!isBan);
-//            }
+
             menuItem.setHorizontalAlignment(menuItem.getComponentOrientation().isLeftToRight() ? JButton.LEADING : JButton.TRAILING);
 
             if (i == 0) {

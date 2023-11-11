@@ -26,7 +26,7 @@ import main.Application;
  */
 public class MainView extends JLayeredPane {
 
-    private final Sales_GUI salesForm = new Sales_GUI();
+    private Sales_GUI salesForm = new Sales_GUI();
 
     public MainView() {
         init();
@@ -57,6 +57,10 @@ public class MainView extends JLayeredPane {
     public void applyComponentOrientation(ComponentOrientation o) {
         super.applyComponentOrientation(o);
         initMenuArrowIcon();
+    }
+
+    public void refreshSalesForm() {
+        salesForm = new Sales_GUI();
     }
 
     private void initMenuArrowIcon() {
@@ -107,7 +111,17 @@ public class MainView extends JLayeredPane {
                     }
                     break;
                 case 3:
-                    Application.showForm(new PromotionManagement_GUI());
+                    switch (subIndex) {
+                        case 1:
+                            Application.showForm(new JPanel());
+                            break;
+                        case 2:
+                            Application.showForm(new PromotionManagement_GUI());
+                            break;
+                        default:
+                            action.cancel();
+                            break;
+                    }
                     break;
                 case 4:
                     Application.showForm(new ProductManagement_GUI());
@@ -154,6 +168,25 @@ public class MainView extends JLayeredPane {
                     }
                     break;
                 case 9:
+                    switch (subIndex) {
+                        case 1:
+                            Application.showForm(new JPanel());
+                            break;
+                        case 2:
+                            Application.showForm(new JPanel());
+                            break;
+                        case 3:
+                            Application.showForm(new JPanel());
+                            break;
+                        case 4:
+                            Application.showForm(new JPanel());
+                            break;
+                        default:
+                            action.cancel();
+                            break;
+                    }
+                    break;
+                case 10:
                     if (JOptionPane.showConfirmDialog(this, "Bạn có thật sự muốn đăng xuất", "Xác nhận hành động", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                         Application.logout();
                     }

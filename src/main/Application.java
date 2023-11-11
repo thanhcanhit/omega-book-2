@@ -69,7 +69,11 @@ public class Application extends javax.swing.JFrame {
         component.applyComponentOrientation(app.getComponentOrientation());
         app.mainForm.showForm(component);
     }
-
+    
+    public static void refreshMainView() {
+        app.mainForm.refreshSalesForm();
+    }
+    
     public static void setSelectedMenu(int index, int subIndex) {
         app.mainForm.setSelectedMenu(index, subIndex);
     }
@@ -136,7 +140,7 @@ public class Application extends javax.swing.JFrame {
         FlatMacLightLaf.setup();
 
 //        Fake loading
-//        new Welcome_GUI().setVisible(true);
+        new Welcome_GUI().setVisible(true);
 //        Connect db
         try {
             ConnectDB.connect();
@@ -146,15 +150,14 @@ public class Application extends javax.swing.JFrame {
         }
 
 //        Delay render
-//        Timer timer = new Timer(2500, (ActionEvent evt) -> {
-//            java.awt.EventQueue.invokeLater(() -> {
-//                app.setVisible(true);
-//            });
-//        });
-//        timer.setRepeats(false);
-//        timer.start();
+        Timer timer = new Timer(2500, (ActionEvent evt) -> {
+            java.awt.EventQueue.invokeLater(() -> {
+                app.setVisible(true);
+            });
+        });
+        timer.setRepeats(false);
+        timer.start();
         app = new Application();
-        app.setVisible(true);
 
     }
 
