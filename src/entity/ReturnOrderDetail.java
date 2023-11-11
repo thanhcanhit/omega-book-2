@@ -13,42 +13,41 @@ import java.util.Objects;
 public class ReturnOrderDetail {
     
     /* Hằng báo lỗi*/
-    public static final String ORDERID_EMPTY = "Mã hoá đơn không được phép rỗng";
-    public static final String PRODUCT_EMPTY = "Mã sản phẩm không được phép rỗng";
+    public static final String ORDERID_EMPTY = "Hoá đơn không được phép rỗng";
+    public static final String PRODUCT_EMPTY = "Sản phẩm không được phép rỗng";
     
-    private String returnOrderID;
-    private String productID;
+    private ReturnOrder returnOrder;
+    private Product product;
     private int quantity;
 
-    public ReturnOrderDetail(String returnOrderID, String productID, int quantity) throws Exception {
-        setReturnOrderID(returnOrderID);
-        setProductID(productID);
-        setQuantity(quantity);
+    public ReturnOrderDetail(ReturnOrder returnOrder, Product product, int quantity) {
+        this.returnOrder = returnOrder;
+        this.product = product;
+        this.quantity = quantity;
     }
+
+    public ReturnOrderDetail(Product product, int quantity) {
+        this.product = product;
+        this.quantity = quantity;
+    }    
 
     public ReturnOrderDetail() {
     }
 
-    public String getReturnOrderID() {
-        return returnOrderID;
+    public ReturnOrder getReturnOrder() {
+        return returnOrder;
     }
 
-    public void setReturnOrderID(String returnOrderID) throws Exception {
-        if(returnOrderID.equals(""))
-            throw new Exception(ORDERID_EMPTY);
-        this.returnOrderID = returnOrderID;
-        
+    public void setReturnOrder(ReturnOrder returnOrder) {
+        this.returnOrder = returnOrder;
     }
 
-    public String getProductID() {
-        return productID;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProductID(String productID) throws Exception {
-        if(productID.equals(""))
-            throw new Exception(PRODUCT_EMPTY);
-        this.productID = productID;
-        
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public int getQuantity() {
@@ -58,13 +57,12 @@ public class ReturnOrderDetail {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-    
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 79 * hash + Objects.hashCode(this.returnOrderID);
-        hash = 79 * hash + Objects.hashCode(this.productID);
+        int hash = 7;
+        hash = 67 * hash + Objects.hashCode(this.returnOrder);
+        hash = 67 * hash + Objects.hashCode(this.product);
         return hash;
     }
 
@@ -80,17 +78,15 @@ public class ReturnOrderDetail {
             return false;
         }
         final ReturnOrderDetail other = (ReturnOrderDetail) obj;
-        if (!Objects.equals(this.returnOrderID, other.returnOrderID)) {
+        if (!Objects.equals(this.returnOrder, other.returnOrder)) {
             return false;
         }
-        return Objects.equals(this.productID, other.productID);
+        return Objects.equals(this.product, other.product);
     }
 
     @Override
     public String toString() {
-        return "ReturnOrderDetail{" + "returnOrderID=" + returnOrderID + ", productID=" + productID + ", quantity=" + quantity + '}';
+        return "ReturnOrderDetail{" + "returnOrder=" + returnOrder + ", product=" + product + ", quantity=" + quantity + '}';
     }
-
-    
     
 }

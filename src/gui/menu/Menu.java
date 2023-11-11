@@ -24,20 +24,19 @@ import main.Application;
 public class Menu extends JPanel {
 
     public static final int STORE_EMPLOYEE = 0;
-    public static final int STORE_MANAGER = 1;
-    public static final int STORE_HIGH_MANAGER = 2;
 
     public static JLabel lbl_currentEmployee;
     private static final String menuItems[][] = {
         {"Bán hàng"},
         {"Đơn hàng", "Tạo đơn nhập", "Quản lí đơn bán", "Quản lí đơn nhập"},
-        {"Đổi trả", "Quản lí đơn đổi trả", "Tạo đơn đổi trả",},
-        {"Khuyến mãi"},
+        {"Đổi trả", "Tạo đơn đổi trả", "Quản lí đơn đổi trả"},
+        {"Khuyến mãi", "Khuyến mãi trên hóa đơn", "Khuyến mãi trên loại sản phẩm"},
         {"Sản phẩm"},
         {"Nhân viên"},
         {"Khách hàng"},
         {"Thống kê", "Thống kê doanh thu", "Thống kê sản phẩm", "Thống kê khách hàng"},
         {"Báo cáo", "Kiểm tiền", "Kết toán", "Danh sách phiếu kiểm tiền", "Danh sách phiếu kết toán"},
+        {"Khác", "Quản lí tài khoản", "Quản lí phiên đăng nhập", "Quản lí nhà cung cấp", "Quản lí thương hiệu"},
         {"Đăng xuất"}
     };
 
@@ -45,14 +44,10 @@ public class Menu extends JPanel {
     private static final int employeeItemsBan[][] = {
         {1, 1},
         {2, 0}, {2, 1}, {2, 2},
-        {3, 0},
-        {5, 0}};
-
-    private static final int storeManagerItemsBan[][] = {
-        {3, 0}
+        {3, 0}, {3, 1}, {3, 2},
+        {5, 0},
+        {9, 1}, {9, 2}
     };
-
-    private static final int storeHighManagerItemsBan[][] = {};
 
     public boolean isMenuFull() {
         return menuFull;
@@ -86,10 +81,9 @@ public class Menu extends JPanel {
         int roleIndex = Menu.STORE_EMPLOYEE;
         String roleName = Application.employee.getRole();
 
+//        Nếu cửa hàng trưởng thì cho phép tất cả
         if (roleName.equalsIgnoreCase("Cửa hàng trưởng")) {
-            roleIndex = Menu.STORE_MANAGER;
-        } else if (roleName.equalsIgnoreCase("Giám sát viên")) {
-            roleIndex = Menu.STORE_HIGH_MANAGER;
+            return false;
         }
 
         for (String banItem : getBanList(roleIndex)) {
@@ -106,12 +100,6 @@ public class Menu extends JPanel {
         switch (role) {
             case STORE_EMPLOYEE:
                 itemsBan = employeeItemsBan;
-                break;
-            case STORE_MANAGER:
-                itemsBan = storeManagerItemsBan;
-                break;
-            case STORE_HIGH_MANAGER:
-                itemsBan = storeHighManagerItemsBan;
                 break;
             default:
                 itemsBan = employeeItemsBan;

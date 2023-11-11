@@ -25,6 +25,10 @@ public class PromotionManagament_BUS {
         ArrayList<Promotion> promotionList = new Promotion_DAO().getAll();
         return promotionList;
     }
+    public ArrayList<Promotion> getAllPromotionForCustomer(){
+        ArrayList<Promotion> promotionList = new Promotion_DAO().getAllForCustomer();
+        return promotionList;
+    }
     
     public Promotion getOne(String promotionID) {
         return promotion_DAO.getOne(promotionID);
@@ -40,7 +44,7 @@ public class PromotionManagament_BUS {
             prefix += 0;
         //4 kí tự tiếp theo là ngày tháng bắt đầu
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
-        simpleDateFormat.applyPattern("ddmm");
+        simpleDateFormat.applyPattern("ddMM");
         String formatStared = simpleDateFormat.format(started);
         String formatEnded = simpleDateFormat.format(ended);
         

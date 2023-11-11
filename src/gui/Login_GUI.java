@@ -42,7 +42,7 @@ public class Login_GUI extends javax.swing.JPanel {
                 + "borderWidth:0;"
                 + "focusWidth:0");
         txt_user.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Mã nhân viên của bạn");
-        txt_user.setText("NV120032023003");
+        txt_user.setText("NV120032023002");
         txt_password.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Nhập vào mật khẩu của bạn");
         txt_password.setText("Lehoangkhang");
     }
