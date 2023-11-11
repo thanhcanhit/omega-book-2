@@ -134,8 +134,11 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
         pnl_listPromotion = new javax.swing.JPanel();
         pnl_promotionInfor = new javax.swing.JPanel();
         slp_inforPromo = new javax.swing.JSplitPane();
+        jPanel1 = new javax.swing.JPanel();
         src_product = new javax.swing.JScrollPane();
         tbl_product = new javax.swing.JTable();
+        pnl_btnAddProduct = new javax.swing.JPanel();
+        btn_addProduct = new javax.swing.JButton();
         src_inforProductPromo = new javax.swing.JScrollPane();
         tbl_inforProductPromo = new javax.swing.JTable();
         pnl_promotionNew = new javax.swing.JPanel();
@@ -255,6 +258,8 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
         slp_inforPromo.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
         slp_inforPromo.setResizeWeight(0.3);
 
+        jPanel1.setLayout(new java.awt.BorderLayout());
+
         src_product.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         src_product.setPreferredSize(new java.awt.Dimension(452, 200));
 
@@ -279,7 +284,19 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
         });
         src_product.setViewportView(tbl_product);
 
-        slp_inforPromo.setTopComponent(src_product);
+        jPanel1.add(src_product, java.awt.BorderLayout.CENTER);
+
+        pnl_btnAddProduct.setPreferredSize(new java.awt.Dimension(100, 40));
+        pnl_btnAddProduct.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+
+        btn_addProduct.setText("THÊM SẢN PHẨM");
+        btn_addProduct.setMaximumSize(new java.awt.Dimension(126, 30));
+        btn_addProduct.setPreferredSize(new java.awt.Dimension(126, 30));
+        pnl_btnAddProduct.add(btn_addProduct);
+
+        jPanel1.add(pnl_btnAddProduct, java.awt.BorderLayout.SOUTH);
+
+        slp_inforPromo.setLeftComponent(jPanel1);
 
         src_inforProductPromo.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         src_inforProductPromo.setPreferredSize(new java.awt.Dimension(452, 300));
@@ -500,7 +517,7 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
                 Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng điền mã khuyến mãi");
                 return;
             }
-            renderPromotionTables(bus.searchById(searchQuery));
+            renderPromotionTables(bus.searchProductById(searchQuery));
         }
     }//GEN-LAST:event_txt_searchProductKeyPressed
 
@@ -566,6 +583,7 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_addProduct;
     private javax.swing.JButton btn_clearValue;
     private javax.swing.JButton btn_createPromo;
     private javax.swing.JButton btn_removePromo;
@@ -576,12 +594,14 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cmb_statusPromo;
     private javax.swing.JComboBox<String> cmb_typePromo;
     private javax.swing.JButton jButton1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_categoryProduct;
     private javax.swing.JLabel lbl_endDatePromo;
     private javax.swing.JLabel lbl_promotionID;
     private javax.swing.JLabel lbl_startDatePromo;
     private javax.swing.JLabel lbl_typePromo;
+    private javax.swing.JPanel pnl_btnAddProduct;
     private javax.swing.JPanel pnl_buttonPromo;
     private javax.swing.JPanel pnl_buttonSearchProduct;
     private javax.swing.JPanel pnl_categoryProduct;
