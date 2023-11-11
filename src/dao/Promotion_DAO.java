@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.sql.*;
 import database.ConnectDB;
 import entity.*;
+import enums.BookCategory;
+import enums.PromotionRankCustomer;
 import enums.PromotionType;
 import java.util.Date;
 
@@ -39,7 +41,97 @@ public class Promotion_DAO implements DAOBase<Promotion>{
         }
         return promo;
     }
-
+    
+    public ArrayList<Promotion> getAllForCustomer() {
+        ArrayList<Promotion> result = new ArrayList<>();
+        try {
+            Statement st = ConnectDB.conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM Promotion WHERE isProduct = 0");
+            
+            while (rs.next()) {                
+                String promotionID = rs.getString("promotionID");
+                int type = rs.getInt("type");
+                double discount = rs.getDouble("discount");
+                Date startedDate = rs.getDate("startedDate");
+                Date endedDate = rs.getDate("endedDate");
+                int rankCus = rs.getInt("rankCustomer");
+                Promotion promo = new Promotion(promotionID, startedDate, endedDate, PromotionType.fromInt(type), discount, false, PromotionRankCustomer.fromInt(rankCus));
+                result.add(promo);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    
+    public ArrayList<Promotion> getAllForCustomerFilterRank(int rank) {
+        ArrayList<Promotion> result = new ArrayList<>();
+        try {
+            PreparedStatement st = ConnectDB.conn.prepareStatement("SELECT * FROM Promotion WHERE isProduct = 0 "
+                    + "and rankCustomer = ?");
+            st.setInt(1, rank);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {                
+                String promotionID = rs.getString("promotionID");
+                int type = rs.getInt("type");
+                double discount = rs.getDouble("discount");
+                Date startedDate = rs.getDate("startedDate");
+                Date endedDate = rs.getDate("endedDate");
+                Promotion promo = new Promotion(promotionID, startedDate, endedDate, PromotionType.fromInt(type), discount, false, PromotionRankCustomer.fromInt(rank));
+                result.add(promo);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    
+    public ArrayList<Promotion> getAllForProduct() {
+        ArrayList<Promotion> result = new ArrayList<>();
+        try {
+            Statement st = ConnectDB.conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM Promotion WHERE isProduct = 1");
+            
+            while (rs.next()) {                
+                String promotionID = rs.getString("promotionID");
+                int type = rs.getInt("type");
+                double discount = rs.getDouble("discount");
+                Date startedDate = rs.getDate("startedDate");
+                Date endedDate = rs.getDate("endedDate");
+                Promotion promo = new Promotion(promotionID, startedDate, endedDate, PromotionType.fromInt(type), discount, false);
+                result.add(promo);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    
+    public ArrayList<Promotion> getAllForProductFilter(boolean isBook) {
+        ArrayList<Promotion> result = new ArrayList<>();
+        try {
+            PreparedStatement st = ConnectDB.conn.prepareStatement("SELECT * FROM Promotion WHERE isProduct = 1 "
+                    + "and isBook = ?");
+            st.setBoolean(1, isBook);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {                
+                String promotionID = rs.getString("promotionID");
+                int type = rs.getInt("type");
+                double discount = rs.getDouble("discount");
+                Date startedDate = rs.getDate("startedDate");
+                Date endedDate = rs.getDate("endedDate");
+                Promotion promo = new Promotion(promotionID, startedDate, endedDate, PromotionType.fromInt(type), discount, true, isBook);
+                result.add(promo);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    
+    
+    
+    
     @Override
     public ArrayList<Promotion> getAll() {
         ArrayList<Promotion> result = new ArrayList<>();

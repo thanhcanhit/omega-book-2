@@ -5,7 +5,10 @@
 package entity;
 
 
+import enums.BookCategory;
+import enums.PromotionRankCustomer;
 import enums.PromotionType;
+import enums.StationeryType;
 import java.util.Date;
 
 /**
@@ -23,6 +26,12 @@ public final class Promotion {
     private Date endedDate;
     private PromotionType type;
     private double discount;
+    //Bổ sung thêm biến phân loại __(Như Tâm)
+    private boolean isForProduct;
+    private boolean isForBook;
+    private PromotionRankCustomer rankCustomer;
+    private BookCategory bookCategory;
+    private StationeryType stationeryType;
     
      public String getPromotionID() {
         return promotionID;
@@ -74,6 +83,60 @@ public final class Promotion {
             throw new Exception(DISCOUNT_ERROR);
     }
 
+    // constructor khuyến mãi áp dụng cho từng loại sách __(Như Tâm)
+    public Promotion(String promotionID, Date startedDate, Date endedDate, PromotionType type, double discount, boolean isForProduct, boolean isForBook, BookCategory bookCategory) throws Exception {
+        setPromotionID(promotionID);
+        setStartedDate(startedDate);
+        setEndedDate(endedDate);
+        setDiscount(discount);
+        setType(type);
+        this.isForProduct = isForProduct;
+        this.isForBook = isForBook;
+        this.bookCategory = bookCategory;
+    }
+    // constructor khuyến mãi áp dụng cho sách hoặc văn phòng phẩm nói chung __(Như Tâm)
+    public Promotion(String promotionID, Date startedDate, Date endedDate, PromotionType type, double discount, boolean isForProduct, boolean isForBook) throws Exception {
+        setPromotionID(promotionID);
+        setStartedDate(startedDate);
+        setEndedDate(endedDate);
+        setDiscount(discount);
+        setType(type);
+        this.isForProduct = isForProduct;
+        this.isForBook = isForBook;
+    }
+    
+     // constructor khuyến mãi áp dụng cho sản phẩm nói chung __(Như Tâm)
+    public Promotion(String promotionID, Date startedDate, Date endedDate, PromotionType type, double discount, boolean isForProduct) throws Exception {
+        setPromotionID(promotionID);
+        setStartedDate(startedDate);
+        setEndedDate(endedDate);
+        setDiscount(discount);
+        setType(type);
+        this.isForProduct = isForProduct;
+    }
+    // constructor khuyến mãi áp dụng cho hạng khách hàng __(Như Tâm)
+    public Promotion(String promotionID, Date startedDate, Date endedDate, PromotionType type, double discount, boolean isForProduct, PromotionRankCustomer rankCustomer) throws Exception {
+        setPromotionID(promotionID);
+        setStartedDate(startedDate);
+        setEndedDate(endedDate);
+        setDiscount(discount);
+        setType(type);
+        this.isForProduct = isForProduct;
+        this.rankCustomer = rankCustomer;
+    }
+  
+    // constructor khuyến mãi áp dụng cho từng loại văn phòng phẩm __(Như Tâm)
+    public Promotion(String promotionID, Date startedDate, Date endedDate, PromotionType type, double discount, boolean isForProduct, boolean isForBook, StationeryType stationeryType) throws Exception {
+        setPromotionID(promotionID);
+        setStartedDate(startedDate);
+        setEndedDate(endedDate);
+        setDiscount(discount);
+        setType(type);
+        this.isForProduct = isForProduct;
+        this.isForBook = isForBook;
+        this.stationeryType = stationeryType;
+    }   
+    
     public Promotion() {
     }
     public Promotion(String promotionID) throws Exception{

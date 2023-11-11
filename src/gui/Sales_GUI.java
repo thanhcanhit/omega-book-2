@@ -12,14 +12,15 @@ import entity.OrderDetail;
 import entity.Product;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.IntStream;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -49,6 +50,7 @@ public class Sales_GUI extends javax.swing.JPanel {
 
 //    state
     private Double total = 0.0;
+    private boolean isOldOrder = false;
 
     public Sales_GUI() {
         initComponents();
@@ -63,8 +65,7 @@ public class Sales_GUI extends javax.swing.JPanel {
 //        Khởi tạo hóa đơn
         try {
             order = bus.CreateNewOrder();
-            txt_orderId.setText(order.getOrderID());
-            txt_orderDate.setText(order.getOrderAt().toString());
+            renderOrder();
         } catch (Exception ex) {
             Notifications.getInstance().show(Notifications.Type.ERROR, 5000, "Không thể tạo hóa đơn mới, vui lòng thử lại lúc khác");
             ex.printStackTrace();
@@ -72,7 +73,17 @@ public class Sales_GUI extends javax.swing.JPanel {
 
 //        table
         cart = new ArrayList<>();
-        tblModel_cart = new DefaultTableModel(new String[]{"Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Giá bán", "Thành tiền"}, 0);
+        tblModel_cart = new DefaultTableModel(new String[]{"Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Giá bán", "Thành tiền"}, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+//                Chỉ cho cột 2 tức là Số lượng mới sửa được
+                if (column == 2) {
+                    return true;
+                }
+                return false;
+            }
+
+        };;
         tbl_cart.setModel(tblModel_cart);
 //        Sự kiện nhập giá trị item trong bảng
         tbl_cart.getModel().addTableModelListener((TableModelEvent evt) -> {
@@ -103,7 +114,7 @@ public class Sales_GUI extends javax.swing.JPanel {
                         tbl_cart.setValueAt(current.getQuantity(), row, col);
                         Notifications.getInstance().show(Notifications.Type.ERROR, "Số lượng sản phẩm không đủ!");
                     }
-                    
+
                     System.out.println(current.getProduct().getInventory() + " cc: " + newValue);
 
                 } catch (Exception ex) {
@@ -111,6 +122,7 @@ public class Sales_GUI extends javax.swing.JPanel {
                     Notifications.getInstance().show(Notifications.Type.ERROR, "Không thể cập nhật số lượng mới!");
                 }
             } catch (HeadlessException | NumberFormatException e) {
+                e.printStackTrace();
                 Notifications.getInstance().show(Notifications.Type.INFO, "Số lượng không hợp lệ");
                 renderCartTable();
             }
@@ -203,6 +215,11 @@ public class Sales_GUI extends javax.swing.JPanel {
         txt_orderCustomerReturn.setEnabled(false);
     }
 
+    private void renderOrder() {
+        txt_orderId.setText(order.getOrderID());
+        txt_orderDate.setText(DateTimeFormatter.ofPattern("dd/MM/yyyy").format(LocalDate.now()));
+    }
+
     private void enableCustomerForm() {
         JTextField[] items = new JTextField[]{txt_customerPhone, txt_customerRank, txt_customerName
         };
@@ -244,17 +261,21 @@ public class Sales_GUI extends javax.swing.JPanel {
         JButton[] options = new JButton[]{btn_option1, btn_option2, btn_option3, btn_option4, btn_option5, btn_option6};
 
         if (total == 0) {
-            Arrays.stream(options).forEach(item -> item.setText("-"));
+            Arrays.stream(options).forEach(item -> item.setText("---"));
             return;
         }
 
-//        Tính toán các giá trị gợi ý dựa vào mảng số tiền
-        Integer[] roundValue = new Integer[]{1000, 5000, 10000, 20000, 50000, 100000};
-//        Loại bỏ giá trị trùng lắp
+        Integer[] roundValues = new Integer[]{1000, 5000, 10000, 20000, 50000, 100000};
+
+        if (total > 200000) {
+            roundValues = new Integer[]{10000, 20000, 50000, 100000, 200000, 500000};
+        }
+
+//        Tính toán các giá trị gợi ý dựa vào mảng số tiền + Loại bỏ giá trị trùng lắp
         Set<Double> values = new HashSet<>();
-        IntStream.range(0, roundValue.length).forEach(index -> {
-            values.add(total + (roundValue[index] - total % roundValue[index]));
-        });
+        for (Integer item : roundValues) {
+            values.add(total + (item - total % item));
+        }
 
 //        Sort set
         List<Double> list = new ArrayList<>(values);
@@ -263,19 +284,26 @@ public class Sales_GUI extends javax.swing.JPanel {
 //        Gán giá trị cho các nút
         int index = 0;
 
-//      Khi tổng tiền không lẻ dưới 1000 thì nút đầu sẽ trở thành tổng tiền
-        if (index == 0 && Math.round(total) % 1000 == 0) {
-            options[index].setText(String.format("%.0fk", total / 1000));
-        }
-
         for (Double value : list) {
+//            Vì chỉ có 6 nút nhưng có thể có tới 8 giá trị cho nên sẽ dừng khi có quá nhiều gợi ý
+            if (index >= 6) {
+                break;
+            }
             options[index].setText(String.format("%.0fk", value / 1000));
             options[index].setVisible(true);
             index++;
         }
 
+//      Khi tổng tiền không lẻ dưới 1000 thì nút đầu sẽ trở thành tổng tiền
+        if (Math.round(total) % 1000 == 0) {
+            options[0].setText(String.format("%.0fk", total / 1000));
+        }
+
 //        Ẩn đi các nút không có giá trị
         for (; index < options.length; index++) {
+            if (index >= 6) {
+                break;
+            }
             options[index].setVisible(false);
             options[index].setText("0");
         }
@@ -298,8 +326,7 @@ public class Sales_GUI extends javax.swing.JPanel {
     }
 
     private void rerender() {
-        Application.showForm(new Sales_GUI());
-//        toogleChangeToSearch();
+        Application.refreshMainView();
     }
 
     private void getCustomer(String phone) {
@@ -313,6 +340,12 @@ public class Sales_GUI extends javax.swing.JPanel {
     }
 
     private void renderCustomer() {
+//        CHUA CO ID MAC DINH
+        if (customer.getCustomerID().equals("MACDINH")) {
+            chk_defaultCustomer.setSelected(true);
+            disableCustomerForm();
+            return;
+        }
         txt_customerName.setText(customer.getName());
         txt_customerRank.setText(customer.getRank());
     }
@@ -372,48 +405,40 @@ public class Sales_GUI extends javax.swing.JPanel {
         addItemToCart(productID);
     }
 
-    private void handleCreateOrder() {
+    private boolean orderValidate() {
 
         //         Nếu chưa có khách hàng sẽ cảnh báo
         if (!chk_defaultCustomer.isSelected() && this.customer == null) {
             Notifications.getInstance().show(Notifications.Type.WARNING, "Bạn chưa thêm thông tin khách hàng");
-            return;
+            return false;
         }
 
         //         Nếu chưa có sản phẩm sẽ cảnh báo
         if (cart.isEmpty()) {
             Notifications.getInstance().show(Notifications.Type.WARNING, "Bạn chưa thêm sản phẩm vào danh sách!");
+            return false;
+        }
+        return true;
+    }
+
+    private void handleCreateOrder() {
+
+        if (!orderValidate()) {
             return;
         }
 
         try {
-            Notifications.getInstance().show(Notifications.Type.INFO, "Đang lưu trữ hóa đơn...");
-
-            order.setEmployee(Application.employee);
-            java.sql.Timestamp now = java.sql.Timestamp.valueOf(LocalDateTime.now());
-            order.setOrderAt(now);
-            order.setPayment(cmb_orderPaymentMethod.getSelectedIndex() == 1);
-            order.setStatus(true);
-//                Tạm thời
-            order.setPromotion(null);
-            order.setOrderDetail(cart);
-            if (chk_defaultCustomer.isSelected()) {
-//                Khách hàng mặc định
-                order.setCustomer(new Customer("KH198210013"));
-            } else {
-                order.setCustomer(customer);
-            }
-            boolean isSaved = bus.saveToDatabase(order);
+            boolean isSaved = isOldOrder ? updateOrder(isOldOrder) : saveOrder(false);
 
             if (isSaved) {
-                Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đã tạo thành công đơn nhập " + order.getOrderID());
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đã tạo thành công đơn hàng" + order.getOrderID());
 //                Rerender panel
                 rerender();
             } else {
-                Notifications.getInstance().show(Notifications.Type.ERROR, "Có lỗi xảy ra khi lưu đơn nhập vào cơ sở dữ liệu" + order.getOrderID());
+                Notifications.getInstance().show(Notifications.Type.ERROR, "Có lỗi xảy ra khi lưu đơn hàng vào cơ sở dữ liệu" + order.getOrderID());
             }
         } catch (Exception ex) {
-            Notifications.getInstance().show(Notifications.Type.ERROR, "Không thể tạo đơn nhập " + order.getOrderID() + ": " + ex.getMessage());
+            Notifications.getInstance().show(Notifications.Type.ERROR, "Không thể tạo đơn hàng " + order.getOrderID() + ": " + ex.getMessage());
         }
     }
 
@@ -426,6 +451,14 @@ public class Sales_GUI extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        frame_savedOrder = new javax.swing.JFrame();
+        lbl_savedOrderTitle = new javax.swing.JLabel();
+        scr_savedOrders = new javax.swing.JScrollPane();
+        tbl_savedOrder = new javax.swing.JTable();
+        pnl_savedOrderControl = new javax.swing.JPanel();
+        btn_savedOrderSelect = new javax.swing.JButton();
+        btn_savedOrderDelete = new javax.swing.JButton();
+        btn_savedOrderDeleteAll = new javax.swing.JButton();
         splitPane_main = new javax.swing.JSplitPane();
         pnl_left = new javax.swing.JPanel();
         pnl_header = new javax.swing.JPanel();
@@ -488,6 +521,72 @@ public class Sales_GUI extends javax.swing.JPanel {
         btn_promotion = new javax.swing.JButton();
         pnl_btnMain = new javax.swing.JPanel();
         btn_submit = new javax.swing.JButton();
+
+        frame_savedOrder.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        frame_savedOrder.setTitle("Xử lí đơn lưu tạm");
+        frame_savedOrder.setAlwaysOnTop(true);
+        frame_savedOrder.setMinimumSize(new java.awt.Dimension(600, 400));
+        frame_savedOrder.setPreferredSize(new java.awt.Dimension(600, 400));
+        frame_savedOrder.setResizable(false);
+        frame_savedOrder.setType(java.awt.Window.Type.POPUP);
+
+        lbl_savedOrderTitle.setFont(lbl_savedOrderTitle.getFont().deriveFont(lbl_savedOrderTitle.getFont().getStyle() | java.awt.Font.BOLD, lbl_savedOrderTitle.getFont().getSize()+6));
+        lbl_savedOrderTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_savedOrderTitle.setText("Danh sách hóa đơn đã lưu tạm");
+        lbl_savedOrderTitle.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        frame_savedOrder.getContentPane().add(lbl_savedOrderTitle, java.awt.BorderLayout.NORTH);
+
+        scr_savedOrders.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+
+        tbl_savedOrder.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"1", "2", "3"},
+                {"2", "3", "5"},
+                {"1", "4", "6"},
+                {null, null, null}
+            },
+            new String [] {
+                "Mã hóa đơn", "Tên khách hàng", "Ngày tạo"
+            }
+        ));
+        tbl_savedOrder.setCellEditor(null);
+        tbl_savedOrder.setEditingColumn(0);
+        tbl_savedOrder.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tbl_savedOrder.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        scr_savedOrders.setViewportView(tbl_savedOrder);
+
+        frame_savedOrder.getContentPane().add(scr_savedOrders, java.awt.BorderLayout.CENTER);
+
+        pnl_savedOrderControl.setMinimumSize(new java.awt.Dimension(10, 50));
+
+        btn_savedOrderSelect.setText("Xử lí đơn");
+        btn_submit.putClientProperty(FlatClientProperties.STYLE,""
+            + "background:$Menu.background;"
+            + "foreground:$Menu.foreground;");
+        btn_savedOrderSelect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_savedOrderSelectActionPerformed(evt);
+            }
+        });
+        pnl_savedOrderControl.add(btn_savedOrderSelect);
+
+        btn_savedOrderDelete.setText("Xóa đơn");
+        btn_savedOrderDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_savedOrderDeleteActionPerformed(evt);
+            }
+        });
+        pnl_savedOrderControl.add(btn_savedOrderDelete);
+
+        btn_savedOrderDeleteAll.setText("Xóa toàn bộ đơn lưu tạm");
+        btn_savedOrderDeleteAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_savedOrderDeleteAllActionPerformed(evt);
+            }
+        });
+        pnl_savedOrderControl.add(btn_savedOrderDeleteAll);
+
+        frame_savedOrder.getContentPane().add(pnl_savedOrderControl, java.awt.BorderLayout.SOUTH);
 
         setLayout(new java.awt.GridLayout(1, 0));
 
@@ -802,9 +901,19 @@ public class Sales_GUI extends javax.swing.JPanel {
         pnl_btnGroup.setLayout(new java.awt.GridLayout(2, 2, 5, 5));
 
         btn_save.setText("LƯU TẠM");
+        btn_save.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_saveActionPerformed(evt);
+            }
+        });
         pnl_btnGroup.add(btn_save);
 
         btn_viewSaves.setText("XỨ LÍ ĐƠN LƯU TẠM");
+        btn_viewSaves.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_viewSavesActionPerformed(evt);
+            }
+        });
         pnl_btnGroup.add(btn_viewSaves);
 
         btn_cancle.setText("HỦY");
@@ -848,6 +957,7 @@ public class Sales_GUI extends javax.swing.JPanel {
     private void btn_cancleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancleActionPerformed
         if (JOptionPane.showConfirmDialog(this, "Bạn có muốn hủy hóa đơn " + order.getOrderID(), "Xác nhận hủy hóa đơn", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             // Tạo lại trang mới
+
             rerender();
             Notifications.getInstance().show(Notifications.Type.INFO, "Đã hủy thành công hóa đơn");
         }
@@ -876,7 +986,174 @@ public class Sales_GUI extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txt_customerPhoneKeyPressed
 
+    private void btn_viewSavesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_viewSavesActionPerformed
+//        Căn giữa theo ứng dụng lớn
+        frame_savedOrder.setLocationRelativeTo(Application.app);
+        renderSavedOrderTable();
+        frame_savedOrder.setVisible(true);
+    }//GEN-LAST:event_btn_viewSavesActionPerformed
 
+    private void btn_savedOrderSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_savedOrderSelectActionPerformed
+        if (!cart.isEmpty()) {
+            Notifications.getInstance().show(Notifications.Type.WARNING, 3000, "Đơn hàng hiện tại vẫn chưa xử lí xong, hãy hoàn thành hoặc hủy bỏ đơn hiện tại để xử lí đơn lưu tạm");
+            return;
+        }
+
+        int row = tbl_savedOrder.getSelectedRow();
+
+//        Nếu đang không chọn dòng nào thì thông báo
+        if (row == -1) {
+            Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng chọn hóa đơn muốn xử lí");
+            return;
+        }
+
+        String orderID = tbl_savedOrder.getValueAt(row, 0).toString();
+        isOldOrder = true;
+        loadSavedOrder(orderID);
+        frame_savedOrder.dispose();
+        Notifications.getInstance().show(Notifications.Type.INFO, "Đã tải lên thông tin của hóa đơn " + orderID);
+
+    }//GEN-LAST:event_btn_savedOrderSelectActionPerformed
+
+    private void btn_savedOrderDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_savedOrderDeleteActionPerformed
+        int row = tbl_savedOrder.getSelectedRow();
+
+//        Nếu đang không chọn dòng nào thì thông báo
+        if (row == -1) {
+            Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng chọn hóa đơn muốn xử lí");
+            return;
+        }
+        String orderID = tbl_savedOrder.getValueAt(row, 0).toString();
+        if (JOptionPane.showConfirmDialog(frame_savedOrder, String.format("Bạn có muốn xóa đơn hàng đã lưu tạm này? (%s)", orderID), "Xóa đơn lưu tạm", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            boolean isDeleted = bus.deleteOrder(orderID);
+
+            if (isDeleted) {
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đã xóa thành công đơn lưu tạm " + orderID);
+            } else {
+                Notifications.getInstance().show(Notifications.Type.ERROR, "Không thể xóa đơn lưu tạm " + orderID + " lỗi không xác định");
+            }
+        }
+    }//GEN-LAST:event_btn_savedOrderDeleteActionPerformed
+
+    private boolean updateOrder(boolean isCompleted) {
+
+        Notifications.getInstance().show(Notifications.Type.INFO, "Đang lưu trữ hóa đơn...");
+        try {
+            order.setEmployee(Application.employee);
+            java.sql.Timestamp now = java.sql.Timestamp.valueOf(LocalDateTime.now());
+            order.setOrderAt(now);
+            order.setPayment(cmb_orderPaymentMethod.getSelectedIndex() == 1);
+            order.setStatus(isCompleted);
+
+//                Tạm thời
+            order.setPromotion(null);
+            order.setOrderDetail(cart);
+            if (chk_defaultCustomer.isSelected()) {
+//                Khách hàng mặc định
+                order.setCustomer(new Customer("KH198210013"));
+            } else {
+                order.setCustomer(customer);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return bus.updateInDatabase(order);
+    }
+
+    private boolean saveOrder(boolean isComplete) {
+        Notifications.getInstance().show(Notifications.Type.INFO, "Đang lưu trữ hóa đơn...");
+
+        try {
+            order.setEmployee(Application.employee);
+            java.sql.Timestamp now = java.sql.Timestamp.valueOf(LocalDateTime.now());
+            order.setOrderAt(now);
+            order.setPayment(cmb_orderPaymentMethod.getSelectedIndex() == 1);
+//            Đã hoàn thành hay chưa
+            order.setStatus(isComplete);
+
+//                Tạm thời
+            order.setPromotion(null);
+            order.setOrderDetail(cart);
+            if (chk_defaultCustomer.isSelected()) {
+//                Khách hàng mặc định
+                order.setCustomer(new Customer("KH198210013"));
+            } else {
+                order.setCustomer(customer);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return bus.saveToDatabase(order);
+    }
+    private void btn_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saveActionPerformed
+        if (!orderValidate()) {
+            return;
+        }
+
+        if (JOptionPane.showConfirmDialog(Application.app, "Bạn có muốn lưu tạm hóa đơn này để xử lí sau không?", "Xác nhận lưu tạm", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+
+            //         Nếu chưa có khách hàng sẽ cảnh báo
+            if (!chk_defaultCustomer.isSelected() && this.customer == null) {
+                Notifications.getInstance().show(Notifications.Type.WARNING, "Bạn chưa thêm thông tin khách hàng");
+                return;
+            }
+
+            //         Nếu chưa có sản phẩm sẽ cảnh báo
+            if (cart.isEmpty()) {
+                Notifications.getInstance().show(Notifications.Type.WARNING, "Bạn chưa thêm sản phẩm vào danh sách!");
+                return;
+            }
+
+            try {
+                boolean isSaved = isOldOrder ? updateOrder(false) : saveOrder(false);
+                if (isSaved) {
+                    Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đã lưu tạm thành công đơn hàng " + order.getOrderID());
+//                Rerender panel
+                    rerender();
+                } else {
+                    Notifications.getInstance().show(Notifications.Type.ERROR, "Có lỗi xảy ra khi lưu đơn hàng vào cơ sở dữ liệu" + order.getOrderID());
+                }
+            } catch (Exception ex) {
+                Notifications.getInstance().show(Notifications.Type.ERROR, "Không thể lưu tạm hóa đơn " + order.getOrderID() + ": " + ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_btn_saveActionPerformed
+
+    private void btn_savedOrderDeleteAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_savedOrderDeleteAllActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_savedOrderDeleteAllActionPerformed
+
+    private void renderSavedOrderTable() {
+        DefaultTableModel tblModel_savedOrder = new DefaultTableModel(new String[]{"Mã hóa đơn", "Tên khách hàng", "Ngày tạo"}, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+
+        };
+
+        for (Order item : bus.getSavedOrders()) {
+            tblModel_savedOrder.addRow(new Object[]{item.getOrderID(), item.getCustomer().getName(), item.getOrderAt()});
+        }
+        tbl_savedOrder.setModel(tblModel_savedOrder);
+    }
+
+    private void loadSavedOrder(String id) {
+        Order savedOrder = bus.getOrder(id);
+//        update state
+        order = savedOrder;
+        cart = order.getOrderDetail();
+        customer = order.getCustomer();
+
+//        Update view
+        renderOrder();
+        renderCartTable();
+        renderCustomer();
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_cancle;
     private javax.swing.JButton btn_option1;
@@ -887,12 +1164,16 @@ public class Sales_GUI extends javax.swing.JPanel {
     private javax.swing.JButton btn_option6;
     private javax.swing.JButton btn_promotion;
     private javax.swing.JButton btn_save;
+    private javax.swing.JButton btn_savedOrderDelete;
+    private javax.swing.JButton btn_savedOrderDeleteAll;
+    private javax.swing.JButton btn_savedOrderSelect;
     private javax.swing.JButton btn_search;
     private javax.swing.JButton btn_submit;
     private javax.swing.JButton btn_viewSaves;
     private javax.swing.JCheckBox chk_defaultCustomer;
     private javax.swing.JComboBox<String> cmb_orderPaymentMethod;
     private javax.swing.Box.Filler filler1;
+    private javax.swing.JFrame frame_savedOrder;
     private javax.swing.JLabel lbl_customerName;
     private javax.swing.JLabel lbl_customerPhone;
     private javax.swing.JLabel lbl_customerRank;
@@ -903,6 +1184,7 @@ public class Sales_GUI extends javax.swing.JPanel {
     private javax.swing.JLabel lbl_orderId;
     private javax.swing.JLabel lbl_orderPay;
     private javax.swing.JLabel lbl_orderPaymentMethod;
+    private javax.swing.JLabel lbl_savedOrderTitle;
     private javax.swing.JLabel lbl_total;
     private javax.swing.JPanel pnl_btnGroup;
     private javax.swing.JPanel pnl_btnMain;
@@ -927,9 +1209,12 @@ public class Sales_GUI extends javax.swing.JPanel {
     private javax.swing.JPanel pnl_orderPay;
     private javax.swing.JPanel pnl_orderPaymentMethod;
     private javax.swing.JPanel pnl_right;
+    private javax.swing.JPanel pnl_savedOrderControl;
     private javax.swing.JScrollPane scr_cart;
+    private javax.swing.JScrollPane scr_savedOrders;
     private javax.swing.JSplitPane splitPane_main;
     private javax.swing.JTable tbl_cart;
+    private javax.swing.JTable tbl_savedOrder;
     private javax.swing.JTextField txt_customerName;
     private javax.swing.JTextField txt_customerPhone;
     private javax.swing.JTextField txt_customerRank;

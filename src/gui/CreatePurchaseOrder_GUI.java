@@ -17,9 +17,12 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import main.Application;
 import raven.toast.Notifications;
 
@@ -57,8 +60,20 @@ public class CreatePurchaseOrder_GUI extends javax.swing.JPanel {
 
 //        table
         cart = new ArrayList<>();
-        tblModel_cart = new DefaultTableModel(new String[]{"Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Đơn giá nhập", "Thành tiền"}, 50);
+        tblModel_cart = new DefaultTableModel(new String[]{"Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Đơn giá nhập", "Thành tiền"}, 50) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                if (column == 2) {
+                    return true;
+                }
+
+                return false;
+            }
+
+        };;
         tbl_cart.setModel(tblModel_cart);
+        
+//        Sự thay đổi số lượng sản phẩm
         tbl_cart.getModel().addTableModelListener((TableModelEvent evt) -> {
             int row = evt.getFirstRow();
             int col = evt.getColumn();
@@ -93,6 +108,14 @@ public class CreatePurchaseOrder_GUI extends javax.swing.JPanel {
                 Notifications.getInstance().show(Notifications.Type.ERROR, "Không thể cập nhật số lượng mới!");
             }
         });
+        DefaultTableCellRenderer rightAlign = new DefaultTableCellRenderer();
+        rightAlign.setHorizontalAlignment(JLabel.RIGHT);
+
+//        Align
+        TableColumnModel columnModel = tbl_cart.getColumnModel();
+        for (int index : new Integer[]{2, 3, 4}) {
+            columnModel.getColumn(index).setCellRenderer(rightAlign);
+        }
         renderCartTable();
 
 //        form
