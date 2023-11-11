@@ -116,7 +116,7 @@ public class MainView extends JLayeredPane {
                             Application.showForm(new JPanel());
                             break;
                         case 2:
-                            Application.showForm(new PromotionManagement_GUI());
+                            Application.showForm(new OrderPromotionManagement_GUI());
                             break;
                         default:
                             action.cancel();
