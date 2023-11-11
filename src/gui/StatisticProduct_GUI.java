@@ -17,11 +17,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import org.knowm.xchart.*;
+import org.knowm.xchart.internal.chartpart.Chart;
 import org.knowm.xchart.style.Styler.LegendPosition;
 import utilities.FormatNumber;
 
@@ -57,7 +60,6 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel {
                 String id = tblModel_product.getValueAt(rowIndex, 0).toString();
                 Product product;
                 try {
-//                    product = bus.getProduct(id);
 
                 } catch (Exception ex) {
 
@@ -68,8 +70,6 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel {
 
         });
 
-        
-        
         Date date = date_statisticProduct.getDate();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String formatDate = format.format(date);
@@ -77,29 +77,17 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel {
         pnl_center.add(chartPanel);
         renderProductTable(bus.getTopProductInDay(formatDate), formatDate);
         date_statisticProduct.addPropertyChangeListener((PropertyChangeEvent e) -> {
-            if ("date".equals(e.getPropertyName())) { 
+            if ("date".equals(e.getPropertyName())) {
                 Date selectedDate = (Date) e.getNewValue();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String formattedDate = dateFormat.format(selectedDate);
-                renderProductTable(bus.getTopProductInDay(formattedDate), formattedDate);  
+                renderProductTable(bus.getTopProductInDay(formattedDate), formattedDate);
                 chartPanel = new XChartPanel<>(getChart());
                 pnl_center.add(chartPanel);
                 chartPanel.updateUI();
 
             }
         });
-
-        
-        
-//        //Sự kiện nhấp chuột vào biểu đồ lấy dữ liệu x và y 
-//        chartPanel.addMouseListener(new MouseAdapter() {
-//            @Override
-//            public void mouseClicked(MouseEvent e) {
-//                int x = e.getX();
-//                int y = e.getY();
-//                System.out.println("Clicked at (" + x + ", " + y + ")");
-//            }
-//        });
 
     }
 
@@ -144,7 +132,9 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel {
         Date date = date_statisticProduct.getDate();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String formatDate = format.format(date);
+
         
+
         ArrayList listProductQuantity = new ArrayList<>();
        
         ArrayList listProductID = new ArrayList<>();
@@ -159,11 +149,14 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel {
             List<String> defaultProductID = Arrays.asList(" "," ", " ");
             List<Integer> defaultProductQuantity = Arrays.asList(0, 0, 0);
 
-            chart.addSeries("data", defaultProductID, defaultProductQuantity);
+            chart.addSeries("Doanh thu", defaultProductID, defaultProductQuantity);
         } else {
-            chart.addSeries("data", listProductID, listProductQuantity);
+            chart.addSeries("Doanh thu", listProductID, listProductQuantity);
         }
-
+        
+        
+        
+        
         return chart;
     }
 
