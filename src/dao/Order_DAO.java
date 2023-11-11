@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 
 /**
  *
@@ -341,6 +342,40 @@ public class Order_DAO implements DAOBase<Order> {
    
         result = new Order(orderID, orderAt, status, subTotal, totalDue, payment, employee, customer, orderDetailList);
         return result;
+    }
+    
+
+    public double[] getToTalInMonth(int month,int year) {
+        double[] result = new double[31];
+
+        for (int i = 0; i < result.length; i++) {
+            result[i] = 0;
+        }
+
+
+        try {
+            PreparedStatement st = ConnectDB.conn.prepareStatement("select Day(orderAt) as day, sum(totalDue) as total from [Order] where YEAR(orderAt) = ? and Month(orderAt) = ? group by Day(orderAt)");
+            st.setInt(1, year);
+            st.setInt(2, month);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                int day = rs.getInt("day");
+                double total = rs.getDouble("total");
+
+                result[day - 1] = total;
+
+                
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public double[] getTotalInMonth(int month, int year) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }

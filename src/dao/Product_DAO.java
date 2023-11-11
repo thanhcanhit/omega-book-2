@@ -414,7 +414,7 @@ public class Product_DAO implements DAOBase<Product> {
                                                                     from OrderDetail as od join [Order] as o on od.orderID = o.orderID
                                                                     where CONVERT(varchar, orderAt, 23) = ?
                                                                     group by productID
-                                                                    order by SUM(quantity) desc""");
+                                                                    """);
             st.setString(1, date);
             ResultSet rs = st.executeQuery();
 
@@ -498,31 +498,32 @@ public class Product_DAO implements DAOBase<Product> {
 
         return 0;
     }
-    public double[] getTotalInMonth(int month, int year) {
-        double[] result = new double[31];
-
-        for (int i = 0; i < result.length; i++) {
-            result[i] = 0;
-        }
-
-        ;
-
+    public int getQuantityProductType(int type, int month, int year){
+        int result = 0;
         try {
-            PreparedStatement st = ConnectDB.conn.prepareStatement("select DAY(orderAt) as day, sum(totalDue) as total from Order where YEAR(orderAt) = ? and MONTH(orderAt) = ? group by MONTH(orderAt)");
-            st.setInt(2, month);
-            st.setInt(1,year);
+            PreparedStatement st = ConnectDB.conn.prepareStatement("""
+                                                                   select SUM(quantity) as sl
+                                                                   from OrderDetail as od join [Order] as o on od.orderID = o.orderID join Product p on p.productID=od.productID
+                                                                   where month(orderAt) = ? and year(orderAt) = ? and productType = ?
+                                                                   group by productType 
+                                                                    """);
+            st.setInt(1, month);
+            st.setInt(2, year);
+            st.setInt(3,type);
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
-                int day = rs.getInt("day");
-                double total = rs.getDouble("total");
-
-                result[day - 1] = total;
+                result = rs.getInt("sl");
+   
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         return result;
+        
+        
     }
+    
+    
 }
