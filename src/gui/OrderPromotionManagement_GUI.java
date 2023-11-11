@@ -8,6 +8,8 @@ import bus.PromotionManagament_BUS;
 import com.formdev.flatlaf.FlatClientProperties;
 import database.ConnectDB;
 import entity.Promotion;
+import enums.DiscountType;
+import enums.PromotionRankCustomer;
 import enums.PromotionType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -70,14 +72,16 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
         group_typePromo.add(rdb_percent);
         
         
-        renderPromotionTables(bus.getAllPromotion());
+        renderPromotionTables(bus.getAllPromotionForOrder());
     }
     private void renderCurrentPromotion() {
+        System.out.println(currentPromotion.getCondition().getValue());
         txt_promotionID.setText(currentPromotion.getPromotionID());
-        if(currentPromotion.getType().getValue() == 1)
+        if(currentPromotion.getTypeDiscount().getValue() == 1)
             rdb_price.setSelected(true);
-        else if(currentPromotion.getType().getValue() == 0)
+        else
             rdb_percent.setSelected(true);
+        cmb_rankCus.setSelectedIndex(currentPromotion.getCondition().getValue());
         txt_discountPromo.setText(currentPromotion.getDiscount() + "");
         chooseStartDate.setDate(currentPromotion.getStartedDate());
         chooseEndDate.setDate(currentPromotion.getEndedDate());
@@ -93,17 +97,25 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
     
     private void renderPromotionTables(ArrayList<Promotion> promotionList) {
         tblModel_promotion.setRowCount(0);
-        String status, type;
+        String status, type, rank;
         for (Promotion promotion : promotionList) {
             if(promotion.getEndedDate().after(java.sql.Date.valueOf(LocalDate.now())))
                 status = "Còn hạn";
             else
                 status = "Hết hạn";
-            if(promotion.getType().getValue() == 1)
+            if(promotion.getTypeDiscount().getValue() == 1)
                 type = "Tiền";
             else
                 type = "Phần trăm";
-            String[] newRow = {promotion.getPromotionID(), type, promotion.getStartedDate().toString(), promotion.getEndedDate().toString(), status};
+            if(promotion.getCondition().getValue() == 1)
+                rank = "Bạc";
+            else if(promotion.getCondition().getValue() == 2)
+                rank = "Vàng";
+            else if(promotion.getCondition().getValue() == 3)
+                rank = "Kim cương";
+            else
+                rank = "Chưa có";
+            String[] newRow = {promotion.getPromotionID(), type, status, promotion.getDiscount() +"", rank};
             tblModel_promotion.addRow(newRow);
         }
     }
@@ -134,8 +146,9 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
         Date startedDate = chooseStartDate.getDate();
         Date endedDate = chooseEndDate.getDate();
         String promotionID = txt_promotionID.getText();
-        
-        Promotion promotion = new Promotion(promotionID, startedDate, endedDate, PromotionType.fromInt(type), discount);
+        int rankCus = cmb_rankCus.getSelectedIndex();
+             
+        Promotion promotion = new Promotion(promotionID, startedDate, endedDate, PromotionType.ORDER, DiscountType.fromInt(type), discount, PromotionRankCustomer.fromInt(rankCus));
         return promotion;
     }
     private Promotion getNewValue() throws Exception {
@@ -148,8 +161,9 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
         Date startedDate = chooseStartDate.getDate();
         Date endedDate = chooseEndDate.getDate();
         String promotionID = bus.generateID(PromotionType.fromInt(type), startedDate, endedDate);
-        
-        Promotion promotion = new Promotion(promotionID, startedDate, endedDate, PromotionType.fromInt(type), discount);
+        int rankCus = cmb_rankCus.getSelectedIndex();
+             
+        Promotion promotion = new Promotion(promotionID, startedDate, endedDate, PromotionType.ORDER, DiscountType.fromInt(type), discount, PromotionRankCustomer.fromInt(rankCus));
         return promotion;
     }
     

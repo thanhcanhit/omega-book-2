@@ -324,12 +324,11 @@
                         <Component class="javax.swing.JTable" name="tbl_inforProductPromo">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="5" rowCount="4">
+                              <Table columnCount="4" rowCount="4">
                                 <Column editable="true" title="M&#xe3; KM" type="java.lang.String"/>
                                 <Column editable="true" title="Lo&#x1ea1;i KM" type="java.lang.String"/>
                                 <Column editable="true" title="Gi&#x1ea3;m gi&#xe1;" type="java.lang.Integer"/>
                                 <Column editable="true" title="Tr&#x1ea1;ng th&#xe1;i" type="java.lang.String"/>
-                                <Column editable="true" title="Lo&#x1ea1;i s&#x1ea3;n ph&#x1ea9;m" type="java.lang.String"/>
                               </Table>
                             </Property>
                             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -350,11 +349,6 @@
                                   <Renderer/>
                                 </Column>
                                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
-                                  <Title/>
-                                  <Editor/>
-                                  <Renderer/>
-                                </Column>
-                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                                   <Title/>
                                   <Editor/>
                                   <Renderer/>
@@ -413,7 +407,7 @@
                   </Border>
                 </Property>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[300, 263]"/>
+                  <Dimension value="[400, 263]"/>
                 </Property>
               </Properties>
 
@@ -453,13 +447,13 @@
                           <Properties>
                             <Property name="text" type="java.lang.String" value="M&#xe3; khuy&#x1ebf;n m&#xe3;i:"/>
                             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[95, 16]"/>
+                              <Dimension value="[105, 16]"/>
                             </Property>
                             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                               <Dimension value="[77, 16]"/>
                             </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[95, 16]"/>
+                              <Dimension value="[105, 16]"/>
                             </Property>
                           </Properties>
                         </Component>
@@ -504,13 +498,13 @@
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Lo&#x1ea1;i khuy&#x1ebf;n m&#xe3;i:"/>
                             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[95, 16]"/>
+                              <Dimension value="[105, 16]"/>
                             </Property>
                             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                               <Dimension value="[77, 16]"/>
                             </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[95, 16]"/>
+                              <Dimension value="[105, 16]"/>
                             </Property>
                           </Properties>
                         </Component>
@@ -562,13 +556,13 @@
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Ng&#xe0;y b&#x1eaf;t &#x111;&#x1ea7;u:"/>
                             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[95, 16]"/>
+                              <Dimension value="[105, 16]"/>
                             </Property>
                             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                               <Dimension value="[77, 16]"/>
                             </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[95, 16]"/>
+                              <Dimension value="[105, 16]"/>
                             </Property>
                           </Properties>
                         </Component>
@@ -609,6 +603,12 @@
                         <Component class="javax.swing.JLabel" name="lbl_endDatePromo">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Ng&#xe0;y k&#x1ebf;t th&#xfa;c:"/>
+                            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[105, 16]"/>
+                            </Property>
+                            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[105, 16]"/>
+                            </Property>
                           </Properties>
                         </Component>
                         <Container class="javax.swing.JPanel" name="pnl_chooseDateEnd">
@@ -649,13 +649,13 @@
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Nh&#xf3;m s&#x1ea3;n ph&#x1ea9;m:"/>
                             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[95, 16]"/>
+                              <Dimension value="[105, 16]"/>
                             </Property>
                             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                               <Dimension value="[77, 16]"/>
                             </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[95, 16]"/>
+                              <Dimension value="[105, 16]"/>
                             </Property>
                           </Properties>
                           <Constraints>

@@ -27,8 +27,12 @@ public class PromotionManagament_BUS {
         ArrayList<Promotion> promotionList = new Promotion_DAO().getAll();
         return promotionList;
     }
-    public ArrayList<Promotion> getAllPromotionForCustomer(){
-        ArrayList<Promotion> promotionList = new Promotion_DAO().getAllForCustomer();
+    public ArrayList<Promotion> getAllPromotionForOrder(){
+        ArrayList<Promotion> promotionList = new Promotion_DAO().getAllForOrder();
+        return promotionList;
+    }
+    public ArrayList<Promotion> getAllPromotionForProduct() {
+        ArrayList<Promotion> promotionList = new Promotion_DAO().getAllForProduct();
         return promotionList;
     }
     
@@ -94,4 +98,6 @@ public class PromotionManagament_BUS {
     public ArrayList<Product> searchProductById(String searchQuery) {
         return new Product_DAO().findById(searchQuery);
     }
+
+    
 }

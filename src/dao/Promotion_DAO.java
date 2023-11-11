@@ -10,6 +10,7 @@ import java.sql.*;
 import database.ConnectDB;
 import entity.*;
 import enums.BookCategory;
+import enums.DiscountType;
 import enums.PromotionRankCustomer;
 import enums.PromotionType;
 import java.util.Date;
@@ -29,12 +30,14 @@ public class Promotion_DAO implements DAOBase<Promotion>{
             ResultSet rs = st.executeQuery();
             
             while (rs.next()) {                
-                String promotionID = rs.getString("promotionID");
-                int type = rs.getInt("type");
+                int typeDiscount = rs.getInt("typeDiscount");
+                int typePromotion = rs.getInt("promotionType");
                 double discount = rs.getDouble("discount");
                 Date startedDate = rs.getDate("startedDate");
                 Date endedDate = rs.getDate("endedDate");
-                promo = new Promotion(promotionID, startedDate, endedDate, PromotionType.fromInt(type), discount);
+                int rankCustomer = rs.getInt("condition");
+                ArrayList<ProductPromotionDetail> listDetail = new ProductPromotionDetail_DAO().getAllForPromotion(id);
+                promo = new Promotion(id, startedDate, endedDate, PromotionType.fromInt(typePromotion), DiscountType.fromInt(typeDiscount), discount, PromotionRankCustomer.fromInt(rankCustomer), listDetail);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -42,20 +45,20 @@ public class Promotion_DAO implements DAOBase<Promotion>{
         return promo;
     }
     
-    public ArrayList<Promotion> getAllForCustomer() {
+    public ArrayList<Promotion> getAllForOrder() {
         ArrayList<Promotion> result = new ArrayList<>();
         try {
             Statement st = ConnectDB.conn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM Promotion WHERE isProduct = 0");
+            ResultSet rs = st.executeQuery("SELECT * FROM Promotion WHERE promotionType = 1");
             
-            while (rs.next()) {                
+            while (rs.next()) {  
                 String promotionID = rs.getString("promotionID");
-                int type = rs.getInt("type");
+                int typeDiscount = rs.getInt("typeDiscount");
                 double discount = rs.getDouble("discount");
                 Date startedDate = rs.getDate("startedDate");
                 Date endedDate = rs.getDate("endedDate");
-                int rankCus = rs.getInt("rankCustomer");
-                Promotion promo = new Promotion(promotionID, startedDate, endedDate, PromotionType.fromInt(type), discount, false, PromotionRankCustomer.fromInt(rankCus));
+                int rankCustomer = rs.getInt("condition");
+                Promotion promo = new Promotion(promotionID, startedDate, endedDate, PromotionType.ORDER, DiscountType.fromInt(typeDiscount), discount, PromotionRankCustomer.fromInt(rankCustomer));
                 result.add(promo);
             }
         } catch (Exception e) {
@@ -64,20 +67,20 @@ public class Promotion_DAO implements DAOBase<Promotion>{
         return result;
     }
     
-    public ArrayList<Promotion> getAllForCustomerFilterRank(int rank) {
+    public ArrayList<Promotion> getAllForOrderFilterRank(int rank) {
         ArrayList<Promotion> result = new ArrayList<>();
         try {
-            PreparedStatement st = ConnectDB.conn.prepareStatement("SELECT * FROM Promotion WHERE isProduct = 0 "
-                    + "and rankCustomer = ?");
+            PreparedStatement st = ConnectDB.conn.prepareStatement("SELECT * FROM Promotion WHERE promotionType = 1 "
+                    + "and condition = ?");
             st.setInt(1, rank);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {                
                 String promotionID = rs.getString("promotionID");
-                int type = rs.getInt("type");
+                int typeDiscount = rs.getInt("typeDiscount");
                 double discount = rs.getDouble("discount");
                 Date startedDate = rs.getDate("startedDate");
                 Date endedDate = rs.getDate("endedDate");
-                Promotion promo = new Promotion(promotionID, startedDate, endedDate, PromotionType.fromInt(type), discount, false, PromotionRankCustomer.fromInt(rank));
+                Promotion promo = new Promotion(promotionID, startedDate, endedDate, PromotionType.ORDER, DiscountType.fromInt(typeDiscount), discount, PromotionRankCustomer.fromInt(rank));
                 result.add(promo);
             }
         } catch (Exception e) {
@@ -90,15 +93,17 @@ public class Promotion_DAO implements DAOBase<Promotion>{
         ArrayList<Promotion> result = new ArrayList<>();
         try {
             Statement st = ConnectDB.conn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM Promotion WHERE isProduct = 1");
+            ResultSet rs = st.executeQuery("SELECT * FROM Promotion WHERE promotionType = 0");
             
             while (rs.next()) {                
                 String promotionID = rs.getString("promotionID");
-                int type = rs.getInt("type");
+                int typeDiscount = rs.getInt("typeDiscount");
+                int promotionType = rs.getInt("promotionType");
                 double discount = rs.getDouble("discount");
                 Date startedDate = rs.getDate("startedDate");
                 Date endedDate = rs.getDate("endedDate");
-                Promotion promo = new Promotion(promotionID, startedDate, endedDate, PromotionType.fromInt(type), discount, false);
+                ArrayList<ProductPromotionDetail> listDetail = new ProductPromotionDetail_DAO().getAllForPromotion(promotionID);
+                Promotion promo = new Promotion(promotionID, startedDate, endedDate, PromotionType.fromInt(promotionType), DiscountType.fromInt(typeDiscount), discount, listDetail);
                 result.add(promo);
             }
         } catch (Exception e) {
@@ -107,20 +112,21 @@ public class Promotion_DAO implements DAOBase<Promotion>{
         return result;
     }
     
-    public ArrayList<Promotion> getAllForProductFilter(boolean isBook) {
+    public ArrayList<Promotion> getAllForProductFilterProduct(String productID) {
         ArrayList<Promotion> result = new ArrayList<>();
         try {
-            PreparedStatement st = ConnectDB.conn.prepareStatement("SELECT * FROM Promotion WHERE isProduct = 1 "
-                    + "and isBook = ?");
-            st.setBoolean(1, isBook);
-            ResultSet rs = st.executeQuery();
+            Statement st = ConnectDB.conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM Promotion WHERE promotionType = 0");
+            
             while (rs.next()) {                
                 String promotionID = rs.getString("promotionID");
-                int type = rs.getInt("type");
+                int typeDiscount = rs.getInt("typeDiscount");
+                int promotionType = rs.getInt("promotionType");
                 double discount = rs.getDouble("discount");
                 Date startedDate = rs.getDate("startedDate");
                 Date endedDate = rs.getDate("endedDate");
-                Promotion promo = new Promotion(promotionID, startedDate, endedDate, PromotionType.fromInt(type), discount, true, isBook);
+                ArrayList<ProductPromotionDetail> listDetail = new ProductPromotionDetail_DAO().getAllForProduct(productID);
+                Promotion promo = new Promotion(promotionID, startedDate, endedDate, PromotionType.fromInt(promotionType), DiscountType.fromInt(typeDiscount), discount, listDetail);
                 result.add(promo);
             }
         } catch (Exception e) {
@@ -141,11 +147,15 @@ public class Promotion_DAO implements DAOBase<Promotion>{
             
             while (rs.next()) {                
                 String promotionID = rs.getString("promotionID");
-                int type = rs.getInt("type");
+                int typeDiscount = rs.getInt("typeDiscount");
+                int promotionType = rs.getInt("promotionType");
                 double discount = rs.getDouble("discount");
                 Date startedDate = rs.getDate("startedDate");
                 Date endedDate = rs.getDate("endedDate");
-                Promotion promo = new Promotion(promotionID, startedDate, endedDate, PromotionType.fromInt(type), discount);
+                int rankCustomer = rs.getInt("condition");
+                ArrayList<ProductPromotionDetail> listDetail = new ProductPromotionDetail_DAO().getAllForPromotion(promotionID);
+                
+                Promotion promo = new Promotion(promotionID, startedDate, endedDate, PromotionType.fromInt(promotionType), DiscountType.fromInt(typeDiscount), discount, PromotionRankCustomer.fromInt(rankCustomer), listDetail);
                 result.add(promo);
             }
         } catch (Exception e) {
@@ -176,14 +186,16 @@ public class Promotion_DAO implements DAOBase<Promotion>{
     public Boolean create(Promotion promo) {
         int n = 0;
         try {
-            PreparedStatement st = ConnectDB.conn.prepareStatement("INSERT INTO Promotion"
-                    + "(promotionID, type, discount, startedDate, endedDate)"
-                    + "VALUES(?, ?, ?, ?, ?)");
+            PreparedStatement st = ConnectDB.conn.prepareStatement("insert into Promotion"
+                    + "([promotionID], [typeDiscount], [promotionType], [discount], [startedDate], [endedDate], [condition])"
+                    + "VALUES(?, ?, ?, ?, ?, ?, ?)");
             st.setString(1, promo.getPromotionID());
-            st.setInt(2, promo.getType().getValue());
-            st.setDouble(3, promo.getDiscount());
-            st.setDate(4, new java.sql.Date(promo.getStartedDate().getTime()));
-            st.setDate(5, new java.sql.Date(promo.getEndedDate().getTime()));
+            st.setInt(2, promo.getTypeDiscount().getValue());
+            st.setInt(3, promo.getTypePromotion().getValue());
+            st.setDouble(4, promo.getDiscount());
+            st.setDate(5, new java.sql.Date(promo.getStartedDate().getTime()));
+            st.setDate(6, new java.sql.Date(promo.getEndedDate().getTime()));
+            st.setInt(7, promo.getCondition().getValue());
             n = st.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -241,12 +253,15 @@ public class Promotion_DAO implements DAOBase<Promotion>{
 
         //Lấy thông tin tổng quát của lớp promotion
         String promotionID = rs.getString("promotionID");
-        int type = rs.getInt("type");
+        int typePromotion = rs.getInt("promotionType");
+        int typeDiscount = rs.getInt("typeDiscount");
         double discount = rs.getDouble("discount");
         Date startedDate = rs.getDate("startedDate");
         Date endedDate = rs.getDate("endedDate");
+        int rankCustomer = rs.getInt("condition");
+        ArrayList<ProductPromotionDetail> listDetail = new ProductPromotionDetail_DAO().getAllForPromotion(promotionID);
    
-        result = new Promotion(promotionID, startedDate, endedDate, PromotionType.fromInt(type), discount);
+        result = new Promotion(promotionID, startedDate, endedDate, PromotionType.fromInt(typePromotion), DiscountType.fromInt(typeDiscount), discount, PromotionRankCustomer.fromInt(rankCustomer), listDetail);
         return result;
     }
 
@@ -257,7 +272,7 @@ public class Promotion_DAO implements DAOBase<Promotion>{
         String query = "select * from Promotion WHERE promotionID like '%'";
 //        Xét loại khuyến mãi
         if (type != 0)
-            query += " and type = ?";
+            query += " and typeDiscount = ?";
 //            Xét trạng thái khuyến mãi
         if (status == 1)
             query += " and endedDate > GETDATE()";
