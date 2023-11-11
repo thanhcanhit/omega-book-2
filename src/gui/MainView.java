@@ -114,7 +114,7 @@ public class MainView extends JLayeredPane {
                 case 3:
                     switch (subIndex) {
                         case 1:
-                            Application.showForm(new JPanel());
+                            Application.showForm(new ProductPromotionManagament_GUI());
                             break;
                         case 2:
                             Application.showForm(new OrderPromotionManagement_GUI());

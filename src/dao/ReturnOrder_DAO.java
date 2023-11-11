@@ -221,4 +221,26 @@ public class ReturnOrder_DAO implements DAOBase<ReturnOrder>{
         }
         return result;
     }
+    public int getNumberOfReturnOrderInMonth(int month, int year){
+        int result=0;
+
+
+        try {
+            PreparedStatement st = ConnectDB.conn.prepareStatement("select count(returnOrderID) as sl from [ReturnOrder] where YEAR(orderDate) = ? and Month(orderDate) = ? ");
+            st.setInt(1, year);
+            st.setInt(2, month);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                int sl = rs.getInt("sl");
+                result=sl;
+
+                
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
 }

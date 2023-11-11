@@ -6,9 +6,17 @@ package gui;
 
 import bus.PromotionManagament_BUS;
 import com.formdev.flatlaf.FlatClientProperties;
+import dao.Product_DAO;
+import entity.Product;
+import entity.ProductPromotionDetail;
 import entity.Promotion;
+import enums.DiscountType;
+import enums.PromotionType;
 import java.awt.event.KeyEvent;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -21,12 +29,14 @@ import raven.toast.Notifications;
 public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
 
     private PromotionManagament_BUS bus;
-    private DefaultTableModel tblModel_promotionBook;
-    private DefaultTableModel tblModel_promotionStationery;
     private Promotion currentPromotion;
     private DefaultComboBoxModel cmbModel_type;
     private DefaultComboBoxModel cmbModel_status;
-    private DefaultComboBoxModel cmbModel_rankCus;
+    private DefaultTableModel tblModel_productPromotion;
+    private DefaultTableModel tblModel_product;
+    private ArrayList<ProductPromotionDetail> cart;
+    private ButtonGroup group_typePromo = new ButtonGroup();
+    private DefaultTableModel tblModel_inforProductPromotion;
 
     /**
      * Creates new form PromotionFPManagament_GUI
@@ -38,38 +48,155 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
     
     private void init() {
         bus = new PromotionManagament_BUS();
+        cart = new ArrayList<ProductPromotionDetail>();
         //model
-        tblModel_promotionBook = new DefaultTableModel(new String[]{"Mã khuyến mãi", "Loại",  "Trạng thái", "Loại sách"}, 0);
-        tbl_product.setModel(tblModel_promotionBook);
-        tbl_product.getSelectionModel().addListSelectionListener((e) -> {
-            int rowIndex = tbl_product.getSelectedRow();
-            if(rowIndex == -1)
-                return;
-            
-            String promotionID = tblModel_promotionBook.getValueAt(rowIndex, 0).toString();
-            this.currentPromotion = bus.getPromotion(promotionID);
-            renderCurrentPromotion();
-        });
-        
-        tblModel_promotionStationery = new DefaultTableModel(new String[]{"Mã khuyến mãi", "Loại",  "Trạng thái", "Loại VPP"}, 0);
-        tbl_inforProductPromo.setModel(tblModel_promotionStationery);
-        tbl_product.getSelectionModel().addListSelectionListener((e) -> {
+        tblModel_inforProductPromotion = new DefaultTableModel(new String[]{"Mã khuyến mãi", "Loại", "Giảm giá", "Trạng thái"}, 0);
+        tbl_inforProductPromo.setModel(tblModel_inforProductPromotion);
+        tbl_inforProductPromo.getSelectionModel().addListSelectionListener((e) -> {
             int rowIndex = tbl_inforProductPromo.getSelectedRow();
             if(rowIndex == -1)
                 return;
             
-            String promotionID = tblModel_promotionStationery.getValueAt(rowIndex, 0).toString();
+            String promotionID = tblModel_inforProductPromotion.getValueAt(rowIndex, 0).toString();
             this.currentPromotion = bus.getPromotion(promotionID);
+            renderProductPromotionTables(currentPromotion.getListDetail());
             renderCurrentPromotion();
         });
+        
+        tblModel_product = new DefaultTableModel(new String[]{"Mã sản phẩm", "Tên sản phẩm", "Giá"}, 0);
+        tbl_product.setModel(tblModel_product);
+        tblModel_productPromotion = new DefaultTableModel(new String[] {"Mã sản phẩm", "Tên sản phẩm"}, 0);
+        tbl_productPromo.setModel(tblModel_productPromotion);
+    
         //combobox
         cmbModel_type = new DefaultComboBoxModel(new String[] {"Loại", "Số tiền", "Phần trăm"});
         cmb_typePromo.setModel(cmbModel_type);
         cmbModel_status = new DefaultComboBoxModel(new String[] {"Trạng thái", "Đang diễn ra", "Đã kết thúc"});
         cmb_statusPromo.setModel(cmbModel_status);
         
+        group_typePromo.add(rdb_price);
+        group_typePromo.add(rdb_percent);
         
-        renderPromotionTables(bus.getAllPromotionForCustomer());
+        renderPromotionTables(bus.getAllPromotionForProduct());
+    }
+    private void renderCurrentPromotion() {
+        txt_promotionID.setText(currentPromotion.getPromotionID());
+        if(currentPromotion.getTypeDiscount().getValue() == 1)
+            rdb_price.setSelected(true);
+        else
+            rdb_percent.setSelected(true);
+        txt_discountPromo.setText(currentPromotion.getDiscount() + "");
+        chooseStartDate.setDate(currentPromotion.getStartedDate());
+        chooseEndDate.setDate(currentPromotion.getEndedDate());
+        renderProductPromotionTables(cart);
+    }
+
+    private void renderPromotionTables(ArrayList<Promotion> allPromotionForCustomer) {
+        tblModel_inforProductPromotion.setRowCount(0);
+        String status, type, category;
+        for (Promotion promotion : allPromotionForCustomer) {
+            if(promotion.getEndedDate().after(java.sql.Date.valueOf(LocalDate.now())))
+                status = "Còn hạn";
+            else
+                status = "Hết hạn";
+            if(promotion.getTypeDiscount().getValue() == 1)
+                type = "Tiền";
+            else
+                type = "Phần trăm";
+            String[] newRow = {promotion.getPromotionID(), type, status, promotion.getDiscount() +""};
+            tblModel_inforProductPromotion.addRow(newRow);
+        }
+    }
+
+    private void renderPromotionInfor() {
+        tblModel_product.setRowCount(0);
+        txt_searchProduct.setText("");
+        txt_promotionID.setText("");
+        group_typePromo.clearSelection();
+        txt_discountPromo.setText("");
+        chooseStartDate.setDate(java.sql.Date.valueOf(LocalDate.now()));
+        chooseEndDate.setDate(java.sql.Date.valueOf(LocalDate.now()));
+        tblModel_productPromotion.setRowCount(0);
+    }
+
+    private boolean validProductPromotion() {
+        return true;
+    }
+
+    private Promotion getNewValue() throws Exception {
+        double discount = Double.parseDouble(txt_discountPromo.getText());
+        int type;
+        if(rdb_price.isSelected() == true)
+            type = 1;
+        else
+            type = 0;
+        Date startedDate = chooseStartDate.getDate();
+        Date endedDate = chooseEndDate.getDate();
+        String promotionID = bus.generateID(PromotionType.PRODUCT, DiscountType.fromInt(type), endedDate);
+        Promotion promotion = new Promotion(promotionID, startedDate, endedDate, PromotionType.PRODUCT, DiscountType.fromInt(type), discount);
+        return promotion;
+    }
+    
+    private void addProductPromotion() throws Exception {
+        Promotion newPromotion = getNewValue();
+        try {
+            if(bus.addNewPromotion(newPromotion)) {
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, "Thêm thành công");
+                bus.createProductPromotionDetail(newPromotion, cart);
+                renderPromotionTables(bus.getAllPromotionForProduct());
+            }
+            else
+                Notifications.getInstance().show(Notifications.Type.ERROR, "Thêm không thành công");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void removeProductPromotion(String promotionID) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private void renderProductTables(ArrayList<Product> searchProductById) {
+        tblModel_product.setRowCount(0);
+        for (Product product : searchProductById) {
+            String[] newRow = {product.getProductID(), product.getName(), product.getPrice()+""};
+            tblModel_product.addRow(newRow);
+        }        
+    }
+    private void renderProductPromotionTables(ArrayList<ProductPromotionDetail> detail) {
+        tblModel_productPromotion.setRowCount(0);
+        for (ProductPromotionDetail item : detail) {
+            Object[] newRow = new Object[]{item.getProduct().getProductID(), item.getProduct().getName()};
+            tblModel_productPromotion.addRow(newRow);
+        }
+    }
+    private void handleAddItem(String productID, String nameProduct) {
+//        Kiểm tra xem trong danh sách sản phẩm khuyến mãi đã có sản phẩm đó hay chưa
+        for (ProductPromotionDetail productPromotionDetail : cart) {
+            if(productPromotionDetail.getProduct().getProductID().equals(productID)) {
+                Notifications.getInstance().show(Notifications.Type.WARNING, "Sản phẩm đã được thêm");
+                return;
+            }
+    }
+//       Nếu chưa có thì thêm mới vào cart
+        addItemToCart(productID, nameProduct);
+    }
+    private void addItemToCart(String productID, String nameProduct) {
+        Product item = bus.getProduct(productID);
+        if (item == null) {
+            Notifications.getInstance().show(Notifications.Type.INFO, "Không tìm thấy sản phẩm có mã " + productID);
+        } else {
+            try {
+//                Thêm vào khuyến mãi
+                Product product = new Product_DAO().getOne(productID);
+                ProductPromotionDetail newProductPromotionDetail = new ProductPromotionDetail(product);
+                cart.add(newProductPromotionDetail);
+                renderProductPromotionTables(cart);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                Notifications.getInstance().show(Notifications.Type.ERROR, "Có lỗi xảy ra khi thêm sản phẩm " + productID);
+            }
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -89,13 +216,16 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
         cmb_typePromo = new javax.swing.JComboBox<>();
         cmb_statusPromo = new javax.swing.JComboBox<>();
         btn_searchFilterPromo = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btn_refresh = new javax.swing.JButton();
         slp_promotion = new javax.swing.JSplitPane();
         pnl_listPromotion = new javax.swing.JPanel();
         pnl_promotionInfor = new javax.swing.JPanel();
         slp_inforPromo = new javax.swing.JSplitPane();
+        jPanel1 = new javax.swing.JPanel();
         src_product = new javax.swing.JScrollPane();
         tbl_product = new javax.swing.JTable();
+        pnl_btnAddProduct = new javax.swing.JPanel();
+        btn_addProduct = new javax.swing.JButton();
         src_inforProductPromo = new javax.swing.JScrollPane();
         tbl_inforProductPromo = new javax.swing.JTable();
         pnl_promotionNew = new javax.swing.JPanel();
@@ -109,6 +239,9 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
         pnl_rdbTypePromo = new javax.swing.JPanel();
         rdb_percent = new javax.swing.JRadioButton();
         rdb_price = new javax.swing.JRadioButton();
+        pnl_discountPromo = new javax.swing.JPanel();
+        lbl_discountPromo = new javax.swing.JLabel();
+        txt_discountPromo = new javax.swing.JTextField();
         pnl_startDatePromo = new javax.swing.JPanel();
         lbl_startDatePromo = new javax.swing.JLabel();
         pnl_chooseStartDate = new javax.swing.JPanel();
@@ -119,7 +252,7 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
         chooseEndDate = new com.toedter.calendar.JDateChooser();
         pnl_categoryProduct = new javax.swing.JPanel();
         lbl_categoryProduct = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        scr_productPromo = new javax.swing.JScrollPane();
         tbl_productPromo = new javax.swing.JTable();
         pnl_buttonPromo = new javax.swing.JPanel();
         btn_createPromo = new javax.swing.JButton();
@@ -191,13 +324,13 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
         });
         pnl_filterPromo.add(btn_searchFilterPromo);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/employee/reload_employee.png"))); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_refresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/employee/reload_employee.png"))); // NOI18N
+        btn_refresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_refreshActionPerformed(evt);
             }
         });
-        pnl_filterPromo.add(jButton1);
+        pnl_filterPromo.add(btn_refresh);
 
         pnl_searchPromotion.add(pnl_filterPromo);
 
@@ -214,6 +347,8 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
 
         slp_inforPromo.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
         slp_inforPromo.setResizeWeight(0.3);
+
+        jPanel1.setLayout(new java.awt.BorderLayout());
 
         src_product.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         src_product.setPreferredSize(new java.awt.Dimension(452, 200));
@@ -239,24 +374,41 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
         });
         src_product.setViewportView(tbl_product);
 
-        slp_inforPromo.setTopComponent(src_product);
+        jPanel1.add(src_product, java.awt.BorderLayout.CENTER);
+
+        pnl_btnAddProduct.setPreferredSize(new java.awt.Dimension(100, 40));
+        pnl_btnAddProduct.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+
+        btn_addProduct.setText("THÊM SẢN PHẨM");
+        btn_addProduct.setMaximumSize(new java.awt.Dimension(126, 30));
+        btn_addProduct.setPreferredSize(new java.awt.Dimension(126, 30));
+        btn_addProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_addProductActionPerformed(evt);
+            }
+        });
+        pnl_btnAddProduct.add(btn_addProduct);
+
+        jPanel1.add(pnl_btnAddProduct, java.awt.BorderLayout.SOUTH);
+
+        slp_inforPromo.setLeftComponent(jPanel1);
 
         src_inforProductPromo.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         src_inforProductPromo.setPreferredSize(new java.awt.Dimension(452, 300));
 
         tbl_inforProductPromo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Mã KM", "Loại KM", "Giảm giá", "Trạng thái", "Loại sản phẩm"
+                "Mã KM", "Loại KM", "Giảm giá", "Trạng thái"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -284,7 +436,7 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
         pnl_promotionNew.setLayout(new javax.swing.BoxLayout(pnl_promotionNew, javax.swing.BoxLayout.Y_AXIS));
 
         pnl_inforPromo.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-        pnl_inforPromo.setMinimumSize(new java.awt.Dimension(300, 263));
+        pnl_inforPromo.setMinimumSize(new java.awt.Dimension(400, 263));
         pnl_inforPromo.setLayout(new java.awt.BorderLayout());
 
         pnl_txtInforPromo.setLayout(new javax.swing.BoxLayout(pnl_txtInforPromo, javax.swing.BoxLayout.Y_AXIS));
@@ -295,9 +447,9 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
         pnl_promoID.setLayout(new javax.swing.BoxLayout(pnl_promoID, javax.swing.BoxLayout.X_AXIS));
 
         lbl_promotionID.setText("Mã khuyến mãi:");
-        lbl_promotionID.setMaximumSize(new java.awt.Dimension(95, 16));
+        lbl_promotionID.setMaximumSize(new java.awt.Dimension(105, 16));
         lbl_promotionID.setMinimumSize(new java.awt.Dimension(77, 16));
-        lbl_promotionID.setPreferredSize(new java.awt.Dimension(95, 16));
+        lbl_promotionID.setPreferredSize(new java.awt.Dimension(105, 16));
         pnl_promoID.add(lbl_promotionID);
 
         txt_promotionID.setEditable(false);
@@ -318,9 +470,9 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
         pnl_typePromo.setLayout(new javax.swing.BoxLayout(pnl_typePromo, javax.swing.BoxLayout.X_AXIS));
 
         lbl_typePromo.setText("Loại khuyến mãi:");
-        lbl_typePromo.setMaximumSize(new java.awt.Dimension(95, 16));
+        lbl_typePromo.setMaximumSize(new java.awt.Dimension(105, 16));
         lbl_typePromo.setMinimumSize(new java.awt.Dimension(77, 16));
-        lbl_typePromo.setPreferredSize(new java.awt.Dimension(95, 16));
+        lbl_typePromo.setPreferredSize(new java.awt.Dimension(105, 16));
         pnl_typePromo.add(lbl_typePromo);
 
         pnl_rdbTypePromo.setMaximumSize(new java.awt.Dimension(32767, 40));
@@ -342,13 +494,29 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
 
         pnl_txtInforPromo.add(pnl_typePromo);
 
+        pnl_discountPromo.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        pnl_discountPromo.setLayout(new javax.swing.BoxLayout(pnl_discountPromo, javax.swing.BoxLayout.X_AXIS));
+
+        lbl_discountPromo.setText("Giảm giá:");
+        lbl_discountPromo.setMaximumSize(new java.awt.Dimension(105, 16));
+        lbl_discountPromo.setMinimumSize(new java.awt.Dimension(77, 16));
+        lbl_discountPromo.setPreferredSize(new java.awt.Dimension(105, 16));
+        pnl_discountPromo.add(lbl_discountPromo);
+
+        txt_discountPromo.setMaximumSize(new java.awt.Dimension(2147483647, 30));
+        txt_discountPromo.setMinimumSize(new java.awt.Dimension(64, 30));
+        txt_discountPromo.setPreferredSize(new java.awt.Dimension(64, 30));
+        pnl_discountPromo.add(txt_discountPromo);
+
+        pnl_txtInforPromo.add(pnl_discountPromo);
+
         pnl_startDatePromo.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         pnl_startDatePromo.setLayout(new javax.swing.BoxLayout(pnl_startDatePromo, javax.swing.BoxLayout.X_AXIS));
 
         lbl_startDatePromo.setText("Ngày bắt đầu:");
-        lbl_startDatePromo.setMaximumSize(new java.awt.Dimension(95, 16));
+        lbl_startDatePromo.setMaximumSize(new java.awt.Dimension(105, 16));
         lbl_startDatePromo.setMinimumSize(new java.awt.Dimension(77, 16));
-        lbl_startDatePromo.setPreferredSize(new java.awt.Dimension(95, 16));
+        lbl_startDatePromo.setPreferredSize(new java.awt.Dimension(105, 16));
         pnl_startDatePromo.add(lbl_startDatePromo);
 
         pnl_chooseStartDate.setMaximumSize(new java.awt.Dimension(32767, 30));
@@ -364,6 +532,8 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
         pnl_endDatePromo.setLayout(new javax.swing.BoxLayout(pnl_endDatePromo, javax.swing.BoxLayout.X_AXIS));
 
         lbl_endDatePromo.setText("Ngày kết thúc:");
+        lbl_endDatePromo.setMaximumSize(new java.awt.Dimension(105, 16));
+        lbl_endDatePromo.setPreferredSize(new java.awt.Dimension(105, 16));
         pnl_endDatePromo.add(lbl_endDatePromo);
 
         pnl_chooseDateEnd.setMaximumSize(new java.awt.Dimension(32767, 30));
@@ -379,9 +549,9 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
         pnl_categoryProduct.setLayout(new java.awt.BorderLayout(0, 10));
 
         lbl_categoryProduct.setText("Nhóm sản phẩm:");
-        lbl_categoryProduct.setMaximumSize(new java.awt.Dimension(95, 16));
+        lbl_categoryProduct.setMaximumSize(new java.awt.Dimension(105, 16));
         lbl_categoryProduct.setMinimumSize(new java.awt.Dimension(77, 16));
-        lbl_categoryProduct.setPreferredSize(new java.awt.Dimension(95, 16));
+        lbl_categoryProduct.setPreferredSize(new java.awt.Dimension(105, 16));
         pnl_categoryProduct.add(lbl_categoryProduct, java.awt.BorderLayout.NORTH);
 
         tbl_productPromo.setModel(new javax.swing.table.DefaultTableModel(
@@ -403,9 +573,9 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tbl_productPromo);
+        scr_productPromo.setViewportView(tbl_productPromo);
 
-        pnl_categoryProduct.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        pnl_categoryProduct.add(scr_productPromo, java.awt.BorderLayout.CENTER);
 
         pnl_txtInforPromo.add(pnl_categoryProduct);
 
@@ -458,17 +628,17 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
                 Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng điền mã khuyến mãi");
                 return;
             }
-            renderPromotionTables(bus.searchById(searchQuery));
+            renderProductTables(bus.searchProductById(searchQuery));
         }
     }//GEN-LAST:event_txt_searchProductKeyPressed
 
     private void btn_searchProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchProductActionPerformed
         String searchQuery = txt_searchProduct.getText();
         if (searchQuery.isBlank()) {
-            Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng điền mã khuyến mãi");
+            Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng điền mã sản phẩm");
             return;
         }
-        renderPromotionTables(bus.searchById(searchQuery));
+        renderProductTables(bus.searchProductById(searchQuery));
     }//GEN-LAST:event_btn_searchProductActionPerformed
 
     private void btn_searchFilterPromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchFilterPromoActionPerformed
@@ -477,10 +647,10 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
         renderPromotionTables(bus.filter(type, status));
     }//GEN-LAST:event_btn_searchFilterPromoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btn_refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_refreshActionPerformed
         renderPromotionTables(bus.getAllPromotion());
         renderPromotionInfor();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btn_refreshActionPerformed
 
     private void txt_promotionIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_promotionIDActionPerformed
         // TODO add your handling code here:
@@ -491,13 +661,13 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
     }//GEN-LAST:event_rdb_priceActionPerformed
 
     private void btn_createPromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_createPromoActionPerformed
-        if(validPromotion() == false) {
+        if(validProductPromotion() == false) {
             Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng nhập thông tin khuyến mãi để thêm");
             return;
         }
         else
         try {
-            addPromotion();
+            addProductPromotion();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -511,7 +681,7 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
             JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
         try {
             // Xoá
-            removePromotion(promotionID);
+            //removePromotion(promotionID);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -522,10 +692,25 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
         Notifications.getInstance().show(Notifications.Type.INFO, "Đã huỷ thao tác!");
     }//GEN-LAST:event_btn_removePromoActionPerformed
 
+    private void btn_addProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addProductActionPerformed
+        int rowIndex = tbl_product.getSelectedRow();
+        if(rowIndex == -1) {
+            Notifications.getInstance().show(Notifications.Type.WARNING, "Chưa chọn sản phẩm để thêm");
+            return;
+        }
+        else {
+            String productID = tblModel_product.getValueAt(rowIndex, 0).toString();
+            String nameProduct = tblModel_product.getValueAt(rowIndex, 1).toString();
+            handleAddItem(productID, nameProduct);
+        }
+    }//GEN-LAST:event_btn_addProductActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_addProduct;
     private javax.swing.JButton btn_clearValue;
     private javax.swing.JButton btn_createPromo;
+    private javax.swing.JButton btn_refresh;
     private javax.swing.JButton btn_removePromo;
     private javax.swing.JButton btn_searchFilterPromo;
     private javax.swing.JButton btn_searchProduct;
@@ -533,18 +718,20 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
     private com.toedter.calendar.JDateChooser chooseStartDate;
     private javax.swing.JComboBox<String> cmb_statusPromo;
     private javax.swing.JComboBox<String> cmb_typePromo;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbl_categoryProduct;
+    private javax.swing.JLabel lbl_discountPromo;
     private javax.swing.JLabel lbl_endDatePromo;
     private javax.swing.JLabel lbl_promotionID;
     private javax.swing.JLabel lbl_startDatePromo;
     private javax.swing.JLabel lbl_typePromo;
+    private javax.swing.JPanel pnl_btnAddProduct;
     private javax.swing.JPanel pnl_buttonPromo;
     private javax.swing.JPanel pnl_buttonSearchProduct;
     private javax.swing.JPanel pnl_categoryProduct;
     private javax.swing.JPanel pnl_chooseDateEnd;
     private javax.swing.JPanel pnl_chooseStartDate;
+    private javax.swing.JPanel pnl_discountPromo;
     private javax.swing.JPanel pnl_endDatePromo;
     private javax.swing.JPanel pnl_filterPromo;
     private javax.swing.JPanel pnl_inforPromo;
@@ -560,6 +747,7 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
     private javax.swing.JPanel pnl_typePromo;
     private javax.swing.JRadioButton rdb_percent;
     private javax.swing.JRadioButton rdb_price;
+    private javax.swing.JScrollPane scr_productPromo;
     private javax.swing.JSplitPane slp_inforPromo;
     private javax.swing.JSplitPane slp_promotion;
     private javax.swing.JScrollPane src_inforProductPromo;
@@ -567,31 +755,10 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
     private javax.swing.JTable tbl_inforProductPromo;
     private javax.swing.JTable tbl_product;
     private javax.swing.JTable tbl_productPromo;
+    private javax.swing.JTextField txt_discountPromo;
     private javax.swing.JTextField txt_promotionID;
     private javax.swing.JTextField txt_searchProduct;
     // End of variables declaration//GEN-END:variables
 
-    private void renderCurrentPromotion() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    private void renderPromotionTables(ArrayList<Promotion> allPromotionForCustomer) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    private void renderPromotionInfor() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    private boolean validPromotion() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    private void addPromotion() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    private void removePromotion(String promotionID) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
 }

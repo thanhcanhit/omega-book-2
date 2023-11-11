@@ -24,53 +24,20 @@ public class StatisticSales_BUS {
     private final Product_DAO productDAO = new Product_DAO();
     
     public int getTotalNumberOrder(int month, int year){
-        ArrayList<Order> listOrder =  orderDAO.getAll();
-        int result=0;
-        for(Order order: listOrder){
-            if(order.getOrderAt().getMonth()==month){
-                result+=1;
-            }
-        }
-        return result;
+        return orderDAO.getNumberOfOrderInMonth(month, year);
     }
     public int getTotalNumberPurchaseOrder(int month, int year){
-        ArrayList<PurchaseOrder> listPurchaseOrder =  purchaseOrderDAO.getAll();
-        int result=0;
-        for(PurchaseOrder order: listPurchaseOrder){
-            if(order.getReceiveDate().getMonth()==month){
-                result+=1;
-            }
-        }
-        return result;
+       
+        return purchaseOrderDAO.getNumberOfPurchaseOrderInMonth(month, year);
     }
     public int getTotalNumberReturnOrder(int month, int year){
-        ArrayList<ReturnOrder> listReturnOrder = returnOrderDAO.getAll();
-        int result=0;
-        for(ReturnOrder returnOrder: listReturnOrder){
-            if(returnOrder.getOrderDate().getMonth()==month){
-                result+=1;
-            }
-        }
-        return result;
+        return returnOrderDAO.getNumberOfReturnOrderInMonth(month, year);
     }
     public double getTotalInMonth(int month, int year){
-        ArrayList<Order> listOrder =  orderDAO.getAll();
-        double result=0;
-        for(Order order: listOrder){
-            if(order.getOrderAt().getMonth()==month){
-                result+=order.getTotalDue();
-            }
-        }
-        return result;
+       return orderDAO.getTotalInMonth(month, year);
     }
     public double getTargetInMonth(int month, int year){
-        ArrayList<Order> listOrder =  orderDAO.getAll();
-        double result=0;
-        for(Order order: listOrder){
-            if(order.getOrderAt().getMonth()==month){
-                result+=order.getTotalDue();
-            }
-        }
+        double result = orderDAO.getTotalInMonth(month, year);
         return (result * 100 / 50000000 );
     }
 

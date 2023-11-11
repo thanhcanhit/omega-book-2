@@ -5,22 +5,15 @@
 package gui;
 
 import bus.StatisticSales_BUS;
-import entity.Order;
-import entity.Product;
 import java.awt.Color;
 import java.awt.Font;
 import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import org.knowm.xchart.*;
+import org.knowm.xchart.style.Styler;
 import org.knowm.xchart.style.Styler.LegendPosition;
-import org.knowm.xchart.style.colors.XChartSeriesColors;
 import org.knowm.xchart.style.lines.SeriesLines;
 import org.knowm.xchart.style.markers.SeriesMarkers;
 import utilities.FormatNumber;
@@ -53,42 +46,36 @@ public final class StatisticSales_GUI extends javax.swing.JPanel {
         categoryChartPanel = new XChartPanel<>(getChart());
         pnl_center.add(categoryChartPanel);
         renderInfo();
-        month_statisticSales.addPropertyChangeListener(new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                if ("month".equals(evt.getPropertyName())) {
-                    int month = month_statisticSales.getMonth();
-                    int year = year_statisticSales.getYear();
-                    pnl_productTypeStatistic.remove(pieChartPanel);
-                    categoryChartPanel = new XChartPanel<>(getChart());
-                    pnl_center.add(categoryChartPanel);
-                    categoryChartPanel.updateUI();
-                    
-                    pieChartPanel = new XChartPanel<>(getPieChart());
-                    pnl_productTypeStatistic.add(pieChartPanel);
-                    pieChartPanel.updateUI();
-                    renderInfo();
-                    
-                }
+        month_statisticSales.addPropertyChangeListener((PropertyChangeEvent evt) -> {
+            if ("month".equals(evt.getPropertyName())) {
+                int month = month_statisticSales.getMonth();
+                int year = year_statisticSales.getYear();
+                pnl_productTypeStatistic.remove(pieChartPanel);
+                categoryChartPanel = new XChartPanel<>(getChart());
+                pnl_center.add(categoryChartPanel);
+                categoryChartPanel.updateUI();
+                
+                pieChartPanel = new XChartPanel<>(getPieChart());
+                pnl_productTypeStatistic.add(pieChartPanel);
+                pieChartPanel.updateUI();
+                renderInfo();
+                
             }
         });
-        year_statisticSales.addPropertyChangeListener(new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                if ("year".equals(evt.getPropertyName())) {
-                    int month = month_statisticSales.getMonth();
-                    int year = year_statisticSales.getYear();
-                    pnl_productTypeStatistic.remove(pieChartPanel);
-                    pieChartPanel = new XChartPanel<>(getPieChart());
-                    pnl_productTypeStatistic.add(pieChartPanel);
-                    pieChartPanel.updateUI();
-                    
-                    categoryChartPanel = new XChartPanel<>(getChart());
-                    pnl_center.add(categoryChartPanel);
-                    categoryChartPanel.updateUI();
-                    renderInfo();
-
-                }
+        year_statisticSales.addPropertyChangeListener((PropertyChangeEvent evt) -> {
+            if ("year".equals(evt.getPropertyName())) {
+                int month = month_statisticSales.getMonth();
+                int year = year_statisticSales.getYear();
+                pnl_productTypeStatistic.remove(pieChartPanel);
+                pieChartPanel = new XChartPanel<>(getPieChart());
+                pnl_productTypeStatistic.add(pieChartPanel);
+                pieChartPanel.updateUI();
+                
+                categoryChartPanel = new XChartPanel<>(getChart());
+                pnl_center.add(categoryChartPanel);
+                categoryChartPanel.updateUI();
+                renderInfo();
+                
             }
         });
 
@@ -101,27 +88,28 @@ public final class StatisticSales_GUI extends javax.swing.JPanel {
 
         // Customize Chart
         chart.getStyler().setPlotBackgroundColor(Color.WHITE);
-        chart.getStyler().setPlotGridLinesColor(new Color(255, 255, 255));
+        chart.getStyler().setPlotGridLinesColor(new Color(135, 206, 255));
         chart.getStyler().setChartBackgroundColor(Color.WHITE);
         chart.getStyler().setLegendBackgroundColor(Color.WHITE);
         chart.getStyler().setChartFontColor(Color.BLACK);
-        chart.getStyler().setChartTitleBoxBackgroundColor(new Color(0, 222, 0));
-        chart.getStyler().setChartTitleBoxVisible(true);
+        chart.getStyler().setChartTitleBoxBackgroundColor(new Color(135 ,206 ,255));
+        chart.getStyler().setChartTitleBoxVisible(false);
         chart.getStyler().setChartTitleBoxBorderColor(Color.BLACK);
-        chart.getStyler().setPlotGridLinesVisible(false);
+        chart.getStyler().setPlotGridLinesVisible(true);
+        
 
-        chart.getStyler().setAxisTickPadding(20);
+        chart.getStyler().setAxisTickPadding(15);
 
-        chart.getStyler().setAxisTickMarkLength(15);
+        chart.getStyler().setAxisTickMarkLength(10);
 
-        chart.getStyler().setPlotMargin(20);
+        chart.getStyler().setPlotMargin(15);
 
-        chart.getStyler().setChartTitleFont(new Font(Font.MONOSPACED, Font.BOLD, 24));
-        chart.getStyler().setLegendFont(new Font(Font.SERIF, Font.PLAIN, 18));
+        chart.getStyler().setChartTitleFont(new Font(Font.SANS_SERIF, Font.BOLD, 24));
+        chart.getStyler().setLegendFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
         chart.getStyler().setLegendPosition(LegendPosition.InsideSE);
         chart.getStyler().setLegendSeriesLineLength(12);
         chart.getStyler().setAxisTitleFont(new Font(Font.SANS_SERIF, Font.BOLD, 18));
-        chart.getStyler().setAxisTickLabelsFont(new Font(Font.SERIF, Font.BOLD, 11));
+        chart.getStyler().setAxisTickLabelsFont(new Font(Font.SANS_SERIF, Font.BOLD, 11));
         chart.getStyler().setYAxisDecimalPattern("#,000.0 VNĐ");
         chart.getStyler().setXAxisDecimalPattern("#0");
         chart.getStyler().setLocale(Locale.GERMAN);
@@ -138,10 +126,12 @@ public final class StatisticSales_GUI extends javax.swing.JPanel {
         
         // Series
         XYSeries series = chart.addSeries("Doanh thu",index,total);
-        series.setLineColor(XChartSeriesColors.BLUE);
-        series.setMarkerColor(Color.RED);
+        series.setLineColor(new Color(71, 118, 185));
+        series.setMarkerColor(new Color(205, 85 ,85));
         series.setMarker(SeriesMarkers.CIRCLE);
         series.setLineStyle(SeriesLines.SOLID);
+         chart.getStyler().setLegendPosition(Styler.LegendPosition.InsideNE);
+     
 
         return chart;
     }
@@ -149,10 +139,10 @@ public final class StatisticSales_GUI extends javax.swing.JPanel {
     public PieChart getPieChart() {
 
         // Create Chart
-        PieChart chart = new PieChartBuilder().width(800).height(600).title("Biểu đồ thống kê tỷ lệ sản phẩm").build();
+        PieChart chart = new PieChartBuilder().width(800).height(600).title("").build();
 
         // Customize Chart
-        Color[] sliceColors = new Color[]{new Color(224, 68, 14), new Color(230, 105, 62)};
+        Color[] sliceColors = new Color[]{new Color(191 ,239 ,255), new Color(135 ,206 ,255)};
         chart.getStyler().setPlotBackgroundColor(Color.WHITE);
         chart.getStyler().setChartBackgroundColor(Color.WHITE);
         chart.getStyler().setSeriesColors(sliceColors);
@@ -169,8 +159,8 @@ public final class StatisticSales_GUI extends javax.swing.JPanel {
         txt_orderQuantity.setText(bus.getTotalNumberOrder(month_statisticSales.getMonth()+1, year_statisticSales.getYear())+"");
         txt_returnOrderQuantity.setText(bus.getTotalNumberReturnOrder(month_statisticSales.getMonth()+1, year_statisticSales.getYear())+"");
         txt_purchaseOrderQuanitty.setText(bus.getTotalNumberPurchaseOrder(month_statisticSales.getMonth()+1, year_statisticSales.getYear())+"");
-        txt_total.setText(bus.getTotalInMonth(month_statisticSales.getMonth()+1, year_statisticSales.getYear())+"");
-        txt_target.setText(bus.getTargetInMonth(month_statisticSales.getMonth()+1, year_statisticSales.getYear())+"");
+        txt_total.setText(FormatNumber.toVND(bus.getTotalInMonth(month_statisticSales.getMonth()+1, year_statisticSales.getYear())));
+        txt_target.setText(FormatNumber.toNumberWithCommas(bus.getTargetInMonth(month_statisticSales.getMonth()+1, year_statisticSales.getYear()))+" %");
     }
     /**
      * This method is called from within the constructor to initialize the form.
