@@ -10,6 +10,7 @@ import entity.Employee;
 import java.awt.AWTEvent;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 import main.Application;
 import raven.toast.Notifications;
@@ -27,13 +28,17 @@ public class Login_Form extends javax.swing.JPanel {
      */
     public Login_Form() {
         initComponents();
-        int centerX = (pnl_login.getWidth() - pnl_loginfFrm.getWidth()) / 2;
-        int centerY = (pnl_login.getHeight() - pnl_loginfFrm.getHeight()) / 2;
 
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+        int centerX = (screenWidth - pnl_loginfFrm.getWidth()) / 2;
+        int centerY = (screenHeight - pnl_loginfFrm.getHeight()) / 2;
+        
+        System.out.println(centerX + "-" + centerY);
         // Set the bounds for pnl_center1 to be centered
         pnl_loginfFrm.setBounds(centerX, centerY, pnl_loginfFrm.getWidth(), pnl_loginfFrm.getHeight());
-        this.revalidate();
-        this.repaint();
+
     }
 
     /**
@@ -256,11 +261,15 @@ public class Login_Form extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(30, 0, 10, 0);
         pnl_loginfFrm.add(btn_login, gridBagConstraints);
 
-        pnl_login.add(pnl_loginfFrm, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 250, 400, 350));
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+        int centerX = (screenWidth - 400) / 2;
+        int centerY = (screenHeight - 350) / 2 - 50;
+
+        pnl_login.add(pnl_loginfFrm, new org.netbeans.lib.awtextra.AbsoluteConstraints(centerX, centerY, 400, 350));
         pnl_loginfFrm.getAccessibleContext().setAccessibleDescription("");
-        int centerX = (pnl_login.getWidth() - pnl_loginfFrm.getWidth()) / 2;
-        int centerY = (pnl_login.getHeight() - pnl_loginfFrm.getHeight()) / 2;
-        pnl_login.setBounds(centerX, centerY, pnl_loginfFrm.getWidth(), pnl_loginfFrm.getHeight());
+  
 
         lbl_bachground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/login/background.png"))); // NOI18N
         pnl_login.add(lbl_bachground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -40, 3090, 1880));
