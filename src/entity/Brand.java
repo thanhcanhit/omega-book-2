@@ -4,7 +4,6 @@
  */
 package entity;
 
-import static entity.Product.PRODUCT_ID_INVALID;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
@@ -45,7 +44,7 @@ public final class Brand {
         Pattern pattern = Pattern.compile(regex);
 
         if (!pattern.matcher(brandID).matches()) {
-            throw new Exception(PRODUCT_ID_INVALID);
+            throw new Exception(BRAND_ID_INVALID);
         }
         this.brandID = brandID;
     }

@@ -257,7 +257,7 @@ public class Sales_GUI extends javax.swing.JPanel {
 
         double totalTemp = 0.0;
         for (OrderDetail item : cart) {
-            Object[] newRow = new Object[]{item.getProduct().getProductID(), item.getProduct().getName(), item.getQuantity(), item.getPrice(), item.getVAT(), item.getSeasonalDiscount(), item.getLineTotal()};
+            Object[] newRow = new Object[]{item.getProduct().getProductID(), item.getProduct().getName(), item.getQuantity(), utilities.FormatNumber.toVND(item.getPrice()), item.getVAT(), item.getSeasonalDiscount(), utilities.FormatNumber.toVND(item.getLineTotal())};
             totalTemp += item.getLineTotal();
             tblModel_cart.addRow(newRow);
         }
