@@ -8,17 +8,13 @@ import com.formdev.flatlaf.extras.FlatSVGIcon;
 import database.ConnectDB;
 import entity.Employee;
 import gui.Login_GUI;
-import gui.Login_GUI;
 import gui.MainView;
-import gui.Sales_GUI;
 import gui.Welcome_GUI;
-import gui.menu.Menu;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
-import javax.swing.Icon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -71,11 +67,11 @@ public class Application extends javax.swing.JFrame {
         component.applyComponentOrientation(app.getComponentOrientation());
         app.mainForm.showForm(component);
     }
-    
+
     public static void refreshMainView() {
         app.mainForm.refreshSalesForm();
     }
-    
+
     public static void setSelectedMenu(int index, int subIndex) {
         app.mainForm.setSelectedMenu(index, subIndex);
     }

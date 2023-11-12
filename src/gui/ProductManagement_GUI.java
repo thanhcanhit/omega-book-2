@@ -175,7 +175,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         if (currentProduct.getImage() != null) {
             ImageIcon imageIcon = new ImageIcon(currentProduct.getImage());
             Image image = imageIcon.getImage();
-            Image scaledImage = image.getScaledInstance(lbl_productImg.getWidth(), -1, Image.SCALE_SMOOTH | Image.SCALE_AREA_AVERAGING);
+            Image scaledImage = image.getScaledInstance(lbl_productImg.getWidth(), lbl_productImg.getHeight(), Image.SCALE_SMOOTH | Image.SCALE_AREA_AVERAGING);
 
             // Tạo lại đối tượng ImageIcon với kích thước mới
             imageIcon = new ImageIcon(scaledImage);
