@@ -7,7 +7,7 @@ import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import database.ConnectDB;
 import entity.Employee;
-import gui.Login_Form;
+import gui.Login_GUI;
 import gui.Login_GUI;
 import gui.MainView;
 import gui.Sales_GUI;
@@ -36,7 +36,7 @@ public class Application extends javax.swing.JFrame {
     private final MainView mainForm;
 //    private final Login_GUI loginForm;
     public static Employee employee = null;
-    private final Login_Form loginForm;
+    private final Login_GUI loginForm;
 
     public Application() {
         initComponents();
@@ -46,7 +46,7 @@ public class Application extends javax.swing.JFrame {
         setTitle("Omega Book");
         setIconImage(new FlatSVGIcon("imgs/icon.svg").getImage());
         mainForm = new MainView();
-        loginForm = new Login_Form();
+        loginForm = new Login_GUI();
         setContentPane(loginForm);
         Notifications.getInstance().setJFrame(this);
 

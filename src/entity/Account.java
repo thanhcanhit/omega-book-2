@@ -12,8 +12,9 @@ import java.util.regex.Pattern;
  */
 public class Account {
     
-    private final String PASSWORD_ERROR = "Password không hợp lệ !";
+    private final String PASSWORD_ERROR = "Mật khẩu phải ít nhất 8 kí tự (Bao gồm chữ hoa, chữ thường và số)!";
     private final String EMPLOYEE_ERROR = "Employee không được rỗng !";
+
   
     private String passWord;
     private Employee employee;
@@ -22,12 +23,12 @@ public class Account {
         return passWord;
     }
 
-    public void setPassWord(String passWord) throws Exception{
-        String regex = "^[A-Z][a-zA-Z0-9.,@&*^]{7,}.*\\d.*";
-        if(Pattern.matches(regex, passWord))
+    public void setPassWord(String passWord) throws Exception {
+//        String regex = "^[A-Z][a-zA-Z0-9.,@&*^]{7,}.*\\d.*";
+//        if(Pattern.matches(regex, passWord))
             this.passWord = passWord;
-        else
-            throw new Exception(PASSWORD_ERROR);
+//        else
+//            throw new Exception(PASSWORD_ERROR);
     }
 
     public Employee getEmployee() {
