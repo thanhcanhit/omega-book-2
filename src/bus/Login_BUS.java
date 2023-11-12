@@ -24,7 +24,7 @@ public class Login_BUS {
         Account acc = accountDAO.getOne(id);
         if (acc == null) {
             throw new Exception("Tài khoản không tồn tại!");
-        } else if (PasswordHash.comparePasswords(PasswordHash.hashPassword(password), acc.getPassWord())) {
+        } else if (!PasswordHash.comparePasswords(password, acc.getPassWord())) {
             throw new Exception("Mật khẩu không chính xác!");
         } else {
             return employeeDAO.getOne(acc.getEmployee().getEmployeeID());
@@ -34,7 +34,7 @@ public class Login_BUS {
     public boolean changePassword(Account account, String passNew) throws Exception {
         Account acc = accountDAO.getOne(account.getEmployee().getEmployeeID());
         String regex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d).{8,}$";
-        if(!Pattern.matches(regex, passNew)){
+        if (!Pattern.matches(regex, passNew)) {
             throw new Exception("Mật khẩu phải ít nhất có 8 kí tự, bao gồm chữ hoa, chữ thường và số");
         }
         String passNewHash = PasswordHash.hashPassword(passNew);

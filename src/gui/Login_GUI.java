@@ -172,7 +172,7 @@ public class Login_GUI extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 20, 0, 20);
         pnl_loginForm.add(lbl_passwordLogin, gridBagConstraints);
 
-        pwr_passwordLogin.setText("Lehoangkhang");
+        pwr_passwordLogin.setText("Khang2003");
         pwr_passwordLogin.setMaximumSize(new java.awt.Dimension(2147483647, 22));
         pwr_passwordLogin.putClientProperty(FlatClientProperties.STYLE, ""
             + "showRevealButton:true;"
@@ -470,7 +470,6 @@ public class Login_GUI extends javax.swing.JPanel {
     private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_loginActionPerformed
         String id = txt_accountLogin.getText();
         String password = String.copyValueOf(pwr_passwordLogin.getPassword());
-
         try {
             Employee emp = log_BUS.login(id, password);
             if (emp != null) {

@@ -36,10 +36,10 @@ public class Account {
     }
 
     public void setEmployee(Employee employee) throws Exception{
-        if(employee!=null)
+//        if(employee!=null)
             this.employee = employee;
-        else
-            throw new Exception(EMPLOYEE_ERROR);
+//        else
+//            throw new Exception(EMPLOYEE_ERROR);
     }
 
     public Account(String passWord, Employee employee) throws Exception {
