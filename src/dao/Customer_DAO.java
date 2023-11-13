@@ -133,7 +133,6 @@ public class Customer_DAO implements interfaces.DAOBase<Customer> {
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 String customerID = rs.getString("customerID");
-                System.out.println(customerID);
                 return customerID;
             }
         } catch (SQLException e) {
