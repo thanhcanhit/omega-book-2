@@ -14,10 +14,10 @@ import database.ConnectDB;
  * @author Hoàng Khang
  */
 public class Customer_DAO implements interfaces.DAOBase<Customer> {
-
+    
     public Customer_DAO() {
     }
-
+    
     @Override
     public Customer getOne(String customerID) {
         Customer customer = null;
@@ -25,9 +25,9 @@ public class Customer_DAO implements interfaces.DAOBase<Customer> {
             String sql = "SELECT * FROM Customer WHERE customerID = ?";
             PreparedStatement preparedStatement = ConnectDB.conn.prepareStatement(sql);
             preparedStatement.setString(1, customerID);
-
+            
             ResultSet resultSet = preparedStatement.executeQuery();
-
+            
             if (resultSet.next()) {
                 String name = resultSet.getString("name");
                 int score = resultSet.getInt("score");
@@ -35,7 +35,7 @@ public class Customer_DAO implements interfaces.DAOBase<Customer> {
                 Date dateOfBirth = resultSet.getDate("dateOfBirth");
                 String phoneNumber = resultSet.getString("phoneNumber");
                 String address = resultSet.getString("address");
-
+                
                 customer = new Customer(customerID, name, gender, dateOfBirth, score, phoneNumber, address);
             }
         } catch (Exception e) {
@@ -43,16 +43,16 @@ public class Customer_DAO implements interfaces.DAOBase<Customer> {
         }
         return customer;
     }
-
+    
     public Customer getByPhone(String phone) {
         Customer customer = null;
         try {
             String sql = "SELECT * FROM Customer WHERE phoneNumber = ?";
             PreparedStatement preparedStatement = ConnectDB.conn.prepareStatement(sql);
             preparedStatement.setString(1, phone);
-
+            
             ResultSet resultSet = preparedStatement.executeQuery();
-
+            
             if (resultSet.next()) {
                 String customerID = resultSet.getString("customerID");
                 String name = resultSet.getString("name");
@@ -61,7 +61,7 @@ public class Customer_DAO implements interfaces.DAOBase<Customer> {
                 Date dateOfBirth = resultSet.getDate("dateOfBirth");
                 String phoneNumber = resultSet.getString("phoneNumber");
                 String address = resultSet.getString("address");
-
+                
                 customer = new Customer(customerID, name, gender, dateOfBirth, score, phoneNumber, address);
             }
         } catch (Exception e) {
@@ -69,16 +69,16 @@ public class Customer_DAO implements interfaces.DAOBase<Customer> {
         }
         return customer;
     }
-
+    
     public Customer getOneByNumberPhone(String phoneNumber) {
         Customer customer = null;
         try {
             String sql = "SELECT * FROM Customer WHERE phoneNumber = ?";
             PreparedStatement preparedStatement = ConnectDB.conn.prepareStatement(sql);
             preparedStatement.setString(1, phoneNumber);
-
+            
             ResultSet resultSet = preparedStatement.executeQuery();
-
+            
             if (resultSet.next()) {
                 String customerID = resultSet.getString("customerID");
                 String name = resultSet.getString("name");
@@ -86,7 +86,7 @@ public class Customer_DAO implements interfaces.DAOBase<Customer> {
                 boolean gender = resultSet.getBoolean("gender");
                 Date dateOfBirth = resultSet.getDate("dateOfBirth");
                 String address = resultSet.getString("address");
-
+                
                 customer = new Customer(customerID, name, gender, dateOfBirth, score, phoneNumber, address);
             }
         } catch (Exception e) {
@@ -94,14 +94,14 @@ public class Customer_DAO implements interfaces.DAOBase<Customer> {
         }
         return customer;
     }
-
+    
     @Override
     public ArrayList<Customer> getAll() {
         ArrayList<Customer> result = new ArrayList<>();
         try {
             Statement statement = ConnectDB.conn.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM Customer");
-
+            
             while (resultSet.next()) {
                 String customerID = resultSet.getString("customerID");
                 String name = resultSet.getString("name");
@@ -110,7 +110,7 @@ public class Customer_DAO implements interfaces.DAOBase<Customer> {
                 Date dateOfBirth = resultSet.getDate("dateOfBirth");
                 String phoneNumber = resultSet.getString("phoneNumber");
                 String address = resultSet.getString("address");
-
+                
                 Customer customer = new Customer(customerID, name, gender, dateOfBirth, score, phoneNumber, address);
                 result.add(customer);
             }
@@ -119,12 +119,12 @@ public class Customer_DAO implements interfaces.DAOBase<Customer> {
         }
         return result;
     }
-
+    
     @Override
     public String generateID() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
+    
     public String getMaxSequence(String code) {
         try {
             code += "%";
@@ -141,14 +141,14 @@ public class Customer_DAO implements interfaces.DAOBase<Customer> {
         }
         return null;
     }
-
+    
     @Override
     public Boolean create(Customer object) {
         try {
             String sql = "INSERT INTO Customer (customerID, name, dateOfBirth, gender, phoneNumber, score, address) "
                     + "VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = ConnectDB.conn.prepareStatement(sql);
-
+            
             preparedStatement.setString(1, object.getCustomerID());
             preparedStatement.setString(2, object.getName());
             preparedStatement.setDate(3, new java.sql.Date(object.getDateOfBirth().getTime()));
@@ -156,23 +156,23 @@ public class Customer_DAO implements interfaces.DAOBase<Customer> {
             preparedStatement.setString(5, object.getPhoneNumber());
             preparedStatement.setInt(6, object.getScore());
             preparedStatement.setString(7, object.getAddress());
-
+            
             int rowsAffected = preparedStatement.executeUpdate();
-
+            
             return rowsAffected > 0;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
-
+    
     @Override
     public Boolean update(String id, Customer newObject) {
         try {
             String sql = "UPDATE Customer SET name=?, dateOfBirth=?, gender=?, phoneNumber=?, score=?,  address=? "
                     + "WHERE customerID=?";
             PreparedStatement preparedStatement = ConnectDB.conn.prepareStatement(sql);
-
+            
             preparedStatement.setString(1, newObject.getName());
             preparedStatement.setDate(2, new java.sql.Date(newObject.getDateOfBirth().getTime()));
             preparedStatement.setBoolean(3, newObject.isGender());
@@ -180,16 +180,34 @@ public class Customer_DAO implements interfaces.DAOBase<Customer> {
             preparedStatement.setInt(5, newObject.getScore());
             preparedStatement.setString(6, newObject.getAddress());
             preparedStatement.setString(7, id);
-
+            
             int rowsAffected = preparedStatement.executeUpdate();
             return rowsAffected > 0;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
-
+        
     }
 
+//    Tăng điểm thành viên
+    public boolean increatePoint(String customerID, int pointAddAmount) {
+        try {
+            String sql = "update Customer set score = score + ? where customerID = ?";
+            PreparedStatement preparedStatement = ConnectDB.conn.prepareStatement(sql);
+            
+            preparedStatement.setInt(1, pointAddAmount);
+            preparedStatement.setString(2, customerID);
+            
+            int rowsAffected = preparedStatement.executeUpdate();
+            
+            return rowsAffected > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
     @Override
     public Boolean delete(String id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

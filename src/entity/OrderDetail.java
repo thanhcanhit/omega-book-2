@@ -21,7 +21,7 @@ public final class OrderDetail {
     private double price;
     private double lineTotal;
     private double VAT;
-    private double seasonalDiscount;
+    private double seasonalDiscount = 0;
 
     public double getVAT() {
         return VAT;
@@ -37,6 +37,7 @@ public final class OrderDetail {
 
     public void setSeasonalDiscount(double seasonalDiscount) {
         this.seasonalDiscount = seasonalDiscount;
+        setLineTotal();
     }
 
     public Order getOrder() {
@@ -96,7 +97,7 @@ public final class OrderDetail {
     }
 
     private void setLineTotal() {
-        this.lineTotal = this.price * this.quantity;
+        this.lineTotal = this.price * this.quantity - this.seasonalDiscount;
     }
 
     public OrderDetail() {
