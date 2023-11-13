@@ -40,8 +40,6 @@ public final class Order {
     public void setMoneyGiven(double moneyGiven) {
         this.moneyGiven = moneyGiven;
     }
-    
-    
 
     public boolean isPayment() {
         return payment;
@@ -98,7 +96,7 @@ public final class Order {
             this.totalDue = this.subTotal;
             return;
         }
-        this.totalDue = subTotal - ((promotion.getTypeDiscount() == promotion.getTypeDiscount().PERCENT) ? (promotion.getDiscount() * (subTotal)) : promotion.getDiscount());
+        this.totalDue = subTotal - ((promotion.getTypeDiscount() == promotion.getTypeDiscount().PERCENT) ? (promotion.getDiscount() / 100 * (subTotal)) : promotion.getDiscount());
     }
 
     public double getSubTotal() {
@@ -195,7 +193,7 @@ public final class Order {
         setTotalDue();
         setMoneyGiven(moneyGiven);
     }
-    
+
     public Order() {
     }
 
