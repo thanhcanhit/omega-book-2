@@ -181,7 +181,7 @@ public class Login_GUI extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 20, 0, 20);
         pnl_loginForm.add(lbl_passwordLogin, gridBagConstraints);
 
-        pwr_passwordLogin.setText("Khang2003");
+        pwr_passwordLogin.setText("Lehoangkhang");
         pwr_passwordLogin.setMaximumSize(new java.awt.Dimension(2147483647, 22));
         pwr_passwordLogin.putClientProperty(FlatClientProperties.STYLE, ""
             + "showRevealButton:true;"
@@ -252,7 +252,7 @@ public class Login_GUI extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
         pnl_loginForm.add(lbl_navChangePassword, gridBagConstraints);
 
-        pnl_login.add(pnl_loginForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 80, 400, 350));
+        pnl_login.add(pnl_loginForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 10, 400, 350));
         pnl_loginForm.getAccessibleContext().setAccessibleDescription("");
         int centerX = (pnl_login.getWidth() - pnl_loginForm.getWidth()) / 2;
         int centerY = (pnl_login.getHeight() - pnl_loginForm.getHeight()) / 2;
