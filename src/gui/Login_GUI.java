@@ -38,26 +38,6 @@ public class Login_GUI extends javax.swing.JPanel {
      */
     public Login_GUI() {
         initComponents();
-        setPositionForm();
-        updateSizeBackground();
-        updateSizeBackground();
-    }
-
-    public void setPositionForm() {
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int screenWidth = screenSize.width;
-        int screenHeight = screenSize.height;
-        int centerX = (screenWidth - 400) / 2;
-        int centerY = (screenHeight - 350) / 2 - 50;
-
-        pnl_loginForm.setBounds(centerX, centerY, 400, 350);
-
-        centerX = (screenWidth - 400) / 2;
-        centerY = (screenHeight - 520) / 2 - 50;
-
-        pnl_changePasswordForm.setBounds(centerX, centerY, 400, 520);
-
-        pnl_changePasswordForm.setVisible(false);
     }
 
     public Dimension getScreenSize() {
@@ -119,7 +99,6 @@ public class Login_GUI extends javax.swing.JPanel {
         lbl_navLogin = new javax.swing.JLabel();
         lbl_password = new javax.swing.JLabel();
         pwr_password = new javax.swing.JPasswordField();
-        lbl_background = new javax.swing.JLabel();
 
         fra_ChangePassword.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
@@ -509,10 +488,10 @@ public class Login_GUI extends javax.swing.JPanel {
         // TODO add your handling code here:
         pnl_changePasswordForm.setVisible(false);
         pnl_loginForm.setVisible(true);
-    }//GEN-LAST:event_lbl_navLoginMouseClicked
+    }                                         
 
     private void formAncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_formAncestorResized
-        updateSizeBackground();
+
     }//GEN-LAST:event_formAncestorResized
 
     private void txt_accountLoginActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txt_accountLoginActionPerformed

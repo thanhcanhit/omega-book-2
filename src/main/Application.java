@@ -1,12 +1,16 @@
 package main;
 
+import bus.ShiftsManagemant_BUS;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.extras.FlatAnimatedLafChange;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import dao.Shift_DAO;
 import database.ConnectDB;
+import entity.Account;
 import entity.Employee;
+import entity.Shift;
 import gui.Login_GUI;
 import gui.MainView;
 import gui.Welcome_GUI;
@@ -15,6 +19,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
+import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -30,9 +35,10 @@ public class Application extends javax.swing.JFrame {
 
     public static Application app;
     private final MainView mainForm;
-//    private final Login_GUI loginForm;
     public static Employee employee = null;
     private final Login_GUI loginForm;
+    private static ShiftsManagemant_BUS shift_BUS = new ShiftsManagemant_BUS();
+    private static Shift shift;
 
     public Application() {
         initComponents();
@@ -76,7 +82,7 @@ public class Application extends javax.swing.JFrame {
         app.mainForm.setSelectedMenu(index, subIndex);
     }
 
-    public static void login(Employee employee) {
+    public static void login(Employee employee) throws Exception {
 //        Update UI
         FlatAnimatedLafChange.showSnapshot();
         app.setContentPane(app.mainForm);
@@ -85,14 +91,14 @@ public class Application extends javax.swing.JFrame {
         setSelectedMenu(0, 0);
         SwingUtilities.updateComponentTreeUI(app.mainForm);
         FlatAnimatedLafChange.hideSnapshotWithAnimation();
-
+        shift = new Shift(shift_BUS.renderID(), new Date(), new Account(employee));
 //        Update state
         Application.employee = employee;
         MainView.rerenderMenuByEmployee();
         Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đăng nhập vào hệ thống thành công");
     }
 
-    public static void logout() {
+    public static void logout() throws Exception {
 //        Update UI
         FlatAnimatedLafChange.showSnapshot();
         app.setContentPane(app.loginForm);
@@ -102,6 +108,8 @@ public class Application extends javax.swing.JFrame {
 
 //        Update state
         Application.employee = null;
+        shift.setEndedAt(new Date());
+        shift_BUS.createShifts(shift);
         Notifications.getInstance().show(Notifications.Type.INFO, "Đăng xuất khỏi hệ thống thành công");
     }
 
