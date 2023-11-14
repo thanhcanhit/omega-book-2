@@ -4,12 +4,18 @@
  */
 package bus;
 
+import dao.Brand_DAO;
 import dao.Product_DAO;
+import entity.Book;
+import entity.Brand;
 import entity.Product;
+import entity.Stationery;
 import enums.BookCategory;
 import enums.StationeryType;
 import enums.Type;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,6 +24,7 @@ import java.util.ArrayList;
 public class ProductManagement_BUS {
 
     private final Product_DAO productDAO = new Product_DAO();
+    private final Brand_DAO brandDAO = new Brand_DAO();
 
     public ArrayList<Product> getDataOfPage(int page) {
         return productDAO.getPage(page);
@@ -40,11 +47,33 @@ public class ProductManagement_BUS {
     public boolean updateProduct(String id, Product product) {
         return productDAO.update(id, product);
     }
-    
+
     public boolean createProduct(Product productWithoutId) {
-          String id = "SP";
-          
-//        productDAO.create();
+        String id = "SP";
+//        SPabccxxxx. Trong đó: 
+//      - a: là 1 nếu là sách, 2 nếu là văn phòng phẩm và các sản phẩm khác là 3
+//      - b: 0 văn phòng phẩm 1 sách trong nước, 2 sách ngoại văn
+//        cc: loại sản phẩm
+//      - xxxx: là 4 số nguyên dương
+        id += productWithoutId.getType().getValue();
+        if (productWithoutId.getType() == Type.STATIONERY) {
+            Stationery stationeryInstant = (Stationery) (productWithoutId);
+            id += 0;
+            id += String.format("%02d", stationeryInstant.getStationeryType().getValue());
+        } else {
+            Book bookInstant = (Book) (productWithoutId);
+            id += bookInstant.getBookOrigin().getValue();
+            id += String.format("%02d", bookInstant.getBookCategory().getValue());
+        }
+
+        String finalID = productDAO.generateID(id);
+        try {
+            productWithoutId.setProductID(finalID);
+        } catch (Exception ex) {
+            Logger.getLogger(ProductManagement_BUS.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        productDAO.create(productWithoutId);
         return true;
     }
 
@@ -66,5 +95,9 @@ public class ProductManagement_BUS {
             return productDAO.filter(name, isEmpty, Type.STATIONERY, null, StationeryType.fromInt(detailType));
         }
 
+    }
+
+    public ArrayList<Brand> getAllBrand() {
+        return brandDAO.getAll();
     }
 }

@@ -9,17 +9,10 @@ import com.formdev.flatlaf.FlatClientProperties;
 import dao.CashCountSheet_DAO;
 import entity.CashCount;
 import entity.Employee;
-import java.text.DecimalFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
@@ -27,6 +20,7 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import main.Application;
 import raven.toast.Notifications;
 import utilities.FormatNumber;
 
@@ -39,11 +33,11 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
     private DefaultTableModel tbl_modalCashCounts = new DefaultTableModel();
     private double sum = 0;
     private StatementCashCount_BUS statementCashCount_BUS = new StatementCashCount_BUS();
-    private Employee employee1 = statementCashCount_BUS.getEmployeeByID("NV019982020001");
+    private Employee employee1 = Application.employee;
     private Employee employee2;
     private Date createAt;
-    
-     private CashCountSheet_DAO cashCountSheet_DAO = new CashCountSheet_DAO();
+
+    private CashCountSheet_DAO cashCountSheet_DAO = new CashCountSheet_DAO();
 
     public StatementCashCount_GUI() {
         initTableModel();
@@ -490,6 +484,8 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (employee2 == null) {
             Notifications.getInstance().show(Notifications.Type.ERROR, "Chưa có nhân viên đồng kiểm!");
+            Notifications.getInstance().show(Notifications.Type.ERROR, "Lưu phiếu kiểm tiền không thành công!");
+
         } else {
             ArrayList<Employee> employees = new ArrayList<>();
             employees.add(employee1);
@@ -549,9 +545,7 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
                 cashCounts.add(new CashCount(quantity, value));
             }
         }
-        for (CashCount cashCount : cashCounts) {
-            System.out.println("Quantity: " + cashCount.getQuantity() + ", Value: " + cashCount.getValue());
-        }
+
         return cashCounts;
     }
 

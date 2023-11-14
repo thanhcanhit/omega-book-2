@@ -40,8 +40,6 @@ public final class Order {
     public void setMoneyGiven(double moneyGiven) {
         this.moneyGiven = moneyGiven;
     }
-    
-    
 
     public boolean isPayment() {
         return payment;
@@ -98,7 +96,7 @@ public final class Order {
             this.totalDue = this.subTotal;
             return;
         }
-        this.totalDue = subTotal - ((promotion.getTypeDiscount() == promotion.getTypeDiscount().PERCENT) ? (promotion.getDiscount() * (subTotal)) : promotion.getDiscount());
+        this.totalDue = subTotal - ((promotion.getTypeDiscount() == promotion.getTypeDiscount().PERCENT) ? (promotion.getDiscount() / 100 * (subTotal)) : promotion.getDiscount());
     }
 
     public double getSubTotal() {
@@ -157,8 +155,6 @@ public final class Order {
 
     public Order(String orderID, Date orderAt, boolean payment, boolean status, Promotion promotion, Employee employee, Customer customer, ArrayList<OrderDetail> orderDetail, double moneyGiven) throws Exception {
         setStatus(status);
-        setSubTotal();
-        setTotalDue();
         setOrderAt(orderAt);
         setCustomer(customer);
         setOrderDetail(orderDetail);
@@ -166,6 +162,8 @@ public final class Order {
         setPromotion(promotion);
         setOrderID(orderID);
         setMoneyGiven(moneyGiven);
+        setSubTotal();
+        setTotalDue();
 
     }
 
@@ -182,20 +180,32 @@ public final class Order {
         this.orderDetail = orderDetail;
         this.moneyGiven = moneyGiven;
     }
+    public Order(String orderID, Date orderAt, boolean payment, boolean status, Employee employee, Customer customer, ArrayList<OrderDetail> orderDetail, double subTotal, double toTalDue, double moneyGiven) {
+        this.orderID = orderID;
+        this.orderAt = orderAt;
+        this.status = status;
+        this.subTotal = subTotal;
+        this.totalDue = toTalDue;
+        this.payment = payment;
+        this.employee = employee;
+        this.customer = customer;
+        this.orderDetail = orderDetail;
+        this.moneyGiven = moneyGiven;
+    }
 
     public Order(String orderID, Date orderAt, boolean status, double subTotal, double totalDue, boolean payment, Employee employee, Customer customer, ArrayList<OrderDetail> orderDetail, double moneyGiven) throws Exception {
         setOrderID(orderID);
         setOrderAt(orderAt);
         setStatus(status);
-        setSubTotal();
-        setTotalDue();
         setPayment(payment);
         setEmployee(employee);
         setCustomer(customer);
         setOrderDetail(orderDetail);
+        setSubTotal();
+        setTotalDue();
         setMoneyGiven(moneyGiven);
     }
-    
+
     public Order() {
     }
 

@@ -107,7 +107,7 @@ import utilities.SVGIcon;
  *
  * @author KienTran
  */
-public class OrderManagement_GUI extends javax.swing.JPanel {
+public final class OrderManagement_GUI extends javax.swing.JPanel {
     
     private OrderManagement_BUS bus;
     

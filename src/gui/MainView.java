@@ -61,8 +61,7 @@ public class MainView extends JLayeredPane {
 
     public void refreshSalesForm() {
         salesForm = new Sales_GUI();
-        salesForm.revalidate();
-        salesForm.repaint();
+        Application.showForm(salesForm);
     }
 
     private void initMenuArrowIcon() {
@@ -178,10 +177,10 @@ public class MainView extends JLayeredPane {
                             Application.showForm(new JPanel());
                             break;
                         case 3:
-                            Application.showForm(new JPanel());
+                            Application.showForm(new SupplierManagement_GUI());
                             break;
                         case 4:
-                            Application.showForm(new JPanel());
+                            Application.showForm(new BrandManagement_GUI());
                             break;
                         default:
                             action.cancel();

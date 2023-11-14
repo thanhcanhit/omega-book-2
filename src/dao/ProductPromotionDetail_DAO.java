@@ -11,12 +11,13 @@ import entity.Promotion;
 import interfaces.DAOBase;
 import java.util.ArrayList;
 import java.sql.*;
+import java.time.LocalDate;
 
 /**
  *
  * @author Như Tâm
  */
-public class ProductPromotionDetail_DAO implements DAOBase<ProductPromotionDetail>{
+public class ProductPromotionDetail_DAO implements DAOBase<ProductPromotionDetail> {
 
     public ProductPromotionDetail getOne(String promotionID, String productID) throws Exception {
         ProductPromotionDetail productPromotionDetail = null;
@@ -39,6 +40,7 @@ public class ProductPromotionDetail_DAO implements DAOBase<ProductPromotionDetai
         productPromotionDetail = new ProductPromotionDetail(promotion, product);
         return productPromotionDetail;
     }
+
     public ArrayList<ProductPromotionDetail> getAllForProduct(String productID) {
         ArrayList<ProductPromotionDetail> result = new ArrayList<ProductPromotionDetail>();
         try {
@@ -46,11 +48,11 @@ public class ProductPromotionDetail_DAO implements DAOBase<ProductPromotionDetai
                     + "WHERE productID = ?");
             st.setString(1, productID);
             ResultSet rs = st.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 String promotionID = rs.getString("promotionID");
                 Promotion promotion = new Promotion(promotionID);
                 Product product = new Product(productID);
-                
+
                 ProductPromotionDetail productPromotionDetail = new ProductPromotionDetail(promotion, product);
                 result.add(productPromotionDetail);
             }
@@ -59,18 +61,19 @@ public class ProductPromotionDetail_DAO implements DAOBase<ProductPromotionDetai
         }
         return result;
     }
-        public ArrayList<ProductPromotionDetail> getAllForPromotion(String promotionID) {
+
+    public ArrayList<ProductPromotionDetail> getAllForPromotion(String promotionID) {
         ArrayList<ProductPromotionDetail> result = new ArrayList<ProductPromotionDetail>();
         try {
             PreparedStatement st = ConnectDB.conn.prepareStatement("SELECT * FROM ProductPromotionDetail "
                     + "WHERE promotionID = ?");
             st.setString(1, promotionID);
             ResultSet rs = st.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 String productID = rs.getString("productID");
                 Promotion promotion = new Promotion(promotionID);
                 Product product = new Product(productID);
-                
+
                 ProductPromotionDetail productPromotionDetail = getOne(promotionID, productID);
                 System.out.println(productPromotionDetail.toString());
                 result.add(productPromotionDetail);
@@ -80,6 +83,35 @@ public class ProductPromotionDetail_DAO implements DAOBase<ProductPromotionDetai
         }
         return result;
     }
+
+    public ArrayList<ProductPromotionDetail> getAllForProductAndAvailable(String productID) {
+        ArrayList<ProductPromotionDetail> result = new ArrayList<ProductPromotionDetail>();
+        LocalDate now = LocalDate.now();
+        
+        String query = """
+                       select * 
+                       from ProductPromotionDetail as pd join Promotion as p 
+                       on pd.promotionID = p.promotionID
+                       where endedDate > GETDATE() and productID = ?
+                       """;
+        try {
+            PreparedStatement st = ConnectDB.conn.prepareStatement(query);
+            st.setString(1, productID);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                String promotionID = rs.getString("promotionID");
+                Promotion promotion = new Promotion(promotionID);
+                Product product = new Product(productID);
+
+                ProductPromotionDetail productPromotionDetail = new ProductPromotionDetail(promotion, product);
+                result.add(productPromotionDetail);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     @Override
     public ProductPromotionDetail getOne(String id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -120,5 +152,5 @@ public class ProductPromotionDetail_DAO implements DAOBase<ProductPromotionDetai
     public Boolean delete(String id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
 }

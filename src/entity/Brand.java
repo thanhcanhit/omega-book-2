@@ -4,7 +4,6 @@
  */
 package entity;
 
-import static entity.Product.PRODUCT_ID_INVALID;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
@@ -41,11 +40,11 @@ public final class Brand {
     }
 
     public void setBrandID(String brandID) throws Exception {
-        String regex = "^TH[0-9]{3}$";
+        String regex = "^TH[0-9]{4}$";
         Pattern pattern = Pattern.compile(regex);
 
         if (!pattern.matcher(brandID).matches()) {
-            throw new Exception(PRODUCT_ID_INVALID);
+            throw new Exception(BRAND_ID_INVALID);
         }
         this.brandID = brandID;
     }
@@ -96,7 +95,7 @@ public final class Brand {
 
     @Override
     public String toString() {
-        return "Brand{" + "brandID=" + brandID + ", name=" + name + ", country=" + country + '}';
+        return String.format("(%s) %s", brandID, name);
     }
 
 }

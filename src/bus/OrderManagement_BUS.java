@@ -59,8 +59,11 @@ public class OrderManagement_BUS {
         order.setCustomer(customer);
         Employee employee = getEmployee(order.getEmployee().getEmployeeID());
         order.setEmployee(employee);
-        Promotion promotion = getPromotion(order.getPromotion().getPromotionID());
-        order.setPromotion(promotion);
+        if(getPromotion(order.getPromotion().getPromotionID())!=null){
+             Promotion promotion = getPromotion(order.getPromotion().getPromotionID());
+             order.setPromotion(promotion);
+        }
+       
         return order;
     }
 

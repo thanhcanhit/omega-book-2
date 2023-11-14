@@ -20,6 +20,15 @@ public class CashCountSheet {
     private Date createdDate;
     private Date endedDate;
     private double total;
+    private double difference;
+
+    public double getDifference() {
+        return difference;
+    }
+
+    public void setDifference() {
+        difference = total - 1765000;
+    }
     private ArrayList<CashCountSheetDetail> cashCountSheetDetailList;
 
     public CashCountSheet() {
@@ -35,6 +44,7 @@ public class CashCountSheet {
         this.createdDate = createdDate;
         this.endedDate = endedDate;
         setTotal();
+        setDifference();
         this.cashCountSheetDetailList = cashCountSheetDetailList;
     }
 

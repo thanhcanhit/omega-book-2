@@ -16,8 +16,6 @@ import enums.Type;
 import interfaces.DAOBase;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -79,12 +77,13 @@ public class Product_DAO implements DAOBase<Product> {
 
         return length;
     }
-     public boolean updateInventory( String productID, int quantity) {
+
+    public boolean updateInventory(String productID, int quantity) {
         int n = 0;
 
         try {
             Product product = getOne(productID);
-            int newQuantity = product.getInventory()+quantity;
+            int newQuantity = product.getInventory() + quantity;
 
             PreparedStatement st = ConnectDB.conn.prepareStatement("UPDATE Product SET inventory = ? WHERE productID = ? ;");
             st.setInt(1, newQuantity);
@@ -135,6 +134,34 @@ public class Product_DAO implements DAOBase<Product> {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    public String generateID(String prefix) {
+        String result = prefix;
+        String query = """
+                       select top 1 * from [Product]
+                       where productID like ?
+                       order by ProductID desc
+                       """;
+
+        try {
+            PreparedStatement st = ConnectDB.conn.prepareStatement(query);
+            st.setString(1, result + "%");
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                String lastID = rs.getString("productID");
+                String sNumber = lastID.substring(lastID.length() - 2);
+                int num = Integer.parseInt(sNumber) + 1;
+                result += String.format("%04d", num);
+            } else {
+                result += String.format("%04d", 0);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
     @Override
     public Boolean create(Product object
     ) {
@@ -145,13 +172,13 @@ public class Product_DAO implements DAOBase<Product> {
         if (object.getType() == Type.BOOK) {
             query = """
                     INSERT INTO [dbo].[Product]
-                    ([productID],[productType],[bookType],[bookCategory],[name],[author],[price],[costPirce],[img],[publishYear],[publisher],[pageQuantity],[isHardCover],[description],[language],[translater],[VAT],[inventory])
+                    ([productID],[productType],[bookType],[bookCategory],[name],[author],[price],[costPrice],[img],[publishYear],[publisher],[pageQuantity],[isHardCover],[description],[language],[translater],[VAT],[inventory])
                     VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
                     """;
         } else if (object.getType() == Type.STATIONERY) {
             query = """
                     INSERT INTO [dbo].[Product]
-                    ([productID],[productType],[stationaryType],[name],[price],[costPirce],[img],[weight],[color],[material],[origin],[brandID],[VAT],[inventory])
+                    ([productID],[productType],[stationeryType],[name],[price],[costPirce],[img],[weight],[color],[material],[origin],[brandID],[VAT],[inventory])
                     VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)
                     """;
         }
@@ -184,7 +211,7 @@ public class Product_DAO implements DAOBase<Product> {
         } else if (newObject.getType() == Type.STATIONERY) {
             query = """
                     UPDATE [dbo].[Product]
-                    SET [productID] = ?,[productType] = ?,[stationaryType] = ?,[name] = ?,[price] = ?,[costPrice] = ?,[img] = ?,[weight] = ?,[color] = ?,[material] = ?,[origin] = ?,[brandID] = ?,[VAT] = ?,[inventory] = ?
+                    SET [productID] = ?,[productType] = ?,[stationeryType] = ?,[name] = ?,[price] = ?,[costPrice] = ?,[img] = ?,[weight] = ?,[color] = ?,[material] = ?,[origin] = ?,[brandID] = ?,[VAT] = ?,[inventory] = ?
                     WHERE productID = ?;
                     """;
         }
@@ -201,8 +228,6 @@ public class Product_DAO implements DAOBase<Product> {
         }
         return n > 0;
     }
-
-    
 
     @Override
     public Boolean delete(String id
@@ -402,8 +427,7 @@ public class Product_DAO implements DAOBase<Product> {
         }
         return 0;
     }
-    
-    
+
     public ArrayList<Product> getTop10Product(String date) {
 
         ArrayList<Product> result = new ArrayList<>();
@@ -421,7 +445,7 @@ public class Product_DAO implements DAOBase<Product> {
             while (rs.next()) {
                 String productID = rs.getString(1);
                 result.add(
-                      getOne(productID));
+                        getOne(productID));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -429,6 +453,7 @@ public class Product_DAO implements DAOBase<Product> {
 
         return result;
     }
+
     public ArrayList<Product> getTopProductInDay(String date) {
 
         ArrayList<Product> result = new ArrayList<>();
@@ -445,7 +470,7 @@ public class Product_DAO implements DAOBase<Product> {
             while (rs.next()) {
                 String productID = rs.getString(1);
                 result.add(
-                      getOne(productID));
+                        getOne(productID));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -453,8 +478,8 @@ public class Product_DAO implements DAOBase<Product> {
 
         return result;
     }
-    
-     public int getQuantitySale(String productID,String date) {
+
+    public int getQuantitySale(String productID, String date) {
         int result = 0;
 
         try {
@@ -470,7 +495,7 @@ public class Product_DAO implements DAOBase<Product> {
 
             while (rs.next()) {
                 result = rs.getInt("sl");
-   
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -478,6 +503,7 @@ public class Product_DAO implements DAOBase<Product> {
 
         return result;
     }
+
     public double getTotalProduct(String productID, String date) {
         try {
             PreparedStatement st = ConnectDB.conn.prepareStatement("""
@@ -498,7 +524,8 @@ public class Product_DAO implements DAOBase<Product> {
 
         return 0;
     }
-    public int getQuantityProductType(int type, int month, int year){
+
+    public int getQuantityProductType(int type, int month, int year) {
         int result = 0;
         try {
             PreparedStatement st = ConnectDB.conn.prepareStatement("""
@@ -509,21 +536,19 @@ public class Product_DAO implements DAOBase<Product> {
                                                                     """);
             st.setInt(1, month);
             st.setInt(2, year);
-            st.setInt(3,type);
+            st.setInt(3, type);
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
                 result = rs.getInt("sl");
-   
+
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         return result;
-        
-        
+
     }
-    
-    
+
 }

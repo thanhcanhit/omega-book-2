@@ -7,7 +7,6 @@ package entity;
 import java.io.*;
 import java.text.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -163,14 +162,8 @@ public class Customer implements Serializable {
 
     @Override
     public String toString() {
-        String genderString = "Nam";
-        if (gender) {
-            genderString = "Nữ";
-        }
-        String dateFormat = DateFormat.getInstance().format(dateOfBirth);
-        return customerID + "," + name + "," + genderString + ","
-                + dateFormat + "," + phoneNumber + "," + score + ","
-                + rank + "," + address;
+        
+        return customerID;
     }
 
 }

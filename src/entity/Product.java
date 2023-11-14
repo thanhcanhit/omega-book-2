@@ -158,11 +158,12 @@ public class Product {
         }
 
 //        Kiểm tra dữ liệu hợp lệ không
-        Double priceA = costPrice * rate;
-        if (priceA < 0 || priceA < costPrice) {
+        Double priceWithRate = costPrice * rate;
+        Double priceWithVAT = priceWithRate + (priceWithRate * VAT / 100);
+        if (priceWithVAT < 0 || priceWithVAT < costPrice) {
             throw new Exception(PRICE_INVALID);
         }
-        this.price = priceA;
+        this.price = priceWithVAT;
     }
 
     public Type getType() {

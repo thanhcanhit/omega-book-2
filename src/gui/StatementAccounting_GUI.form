@@ -306,7 +306,7 @@
                                 <Font component="txt_employeeAccounting2" property="font" relativeSize="false" size="16"/>
                               </FontInfo>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="NV020020032022 - Nguy&#x1ec5;n Thanh C&#x1ea3;nh"/>
+                            <Property name="text" type="java.lang.String" value="Ch&#x1b0;a co&#x301;"/>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="null"/>
                             </Property>

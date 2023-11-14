@@ -100,6 +100,21 @@ public class Account_DAO implements DAOBase<Account> {
         return n > 0;
     }
 
+    public Boolean updatePass(String id, String newPass) {
+        int n = 0;
+        try {
+            PreparedStatement st = ConnectDB.conn.prepareStatement("update Account set "
+                    + "password = ? where employeeID = ?");
+            st.setString(1, newPass);
+            st.setString(2, id);
+
+            n = st.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return n > 0;
+    }
+
     @Override
     public Boolean delete(String id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
