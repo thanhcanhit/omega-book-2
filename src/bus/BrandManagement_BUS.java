@@ -6,9 +6,7 @@ package bus;
 
 import dao.Brand_DAO;
 import entity.Brand;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  *
@@ -32,7 +30,7 @@ public class BrandManagement_BUS {
         //Tìm mã có tiền tố là code và xxxx lớn nhất
         String maxID = brand_DAO.getMaxSequence(prefix);
         if (maxID == null) {
-            prefix += "0000";
+            prefix += "000";
         } else {
             String lastFourChars = maxID.substring(maxID.length() - 4);
             int num = Integer.parseInt(lastFourChars);
@@ -42,12 +40,4 @@ public class BrandManagement_BUS {
         return prefix;
     }
     
-    public void createCustomer(String name, String country) throws Exception {
-        Brand brand = new Brand(generateID(), name, country);
-        brand_DAO.create(brand);
-    }
-    
-    public void updateCustomer(Brand brand, String brandID) throws Exception {
-        brand_DAO.update(brandID, brand);
-    }
 }
