@@ -6,9 +6,7 @@ package bus;
 
 import dao.Brand_DAO;
 import entity.Brand;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  *
@@ -25,6 +23,7 @@ public class BrandManagement_BUS {
     public Brand getOne(String brandID) {
         return brand_DAO.getOne(brandID);
     }
+    
     public ArrayList<Brand> search(String id){
             ArrayList<Brand> list = new ArrayList<>();
             for(Brand brand:brand_DAO.getAll()){
@@ -34,9 +33,7 @@ public class BrandManagement_BUS {
             }
             return list;
         }
-    
-    
-    
+       
     public void create(String name, String country) throws Exception {
         Brand brand = new Brand(brand_DAO.generateID(), name, country);
         brand_DAO.create(brand);

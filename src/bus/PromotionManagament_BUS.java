@@ -27,7 +27,7 @@ public class PromotionManagament_BUS {
     }
     
     public ArrayList<Promotion> getAllPromotion(){
-        ArrayList<Promotion> promotionList = new Promotion_DAO().getAll();
+        ArrayList<Promotion> promotionList = promotion_DAO.getAll();
         return promotionList;
     }
     public ArrayList<Promotion> getAllPromotionForOrder(){
@@ -35,7 +35,7 @@ public class PromotionManagament_BUS {
         return promotionList;
     }
     public ArrayList<Promotion> getAllPromotionForProduct() {
-        ArrayList<Promotion> promotionList = new Promotion_DAO().getAllForProduct();
+        ArrayList<Promotion> promotionList = promotion_DAO.getAllForProduct();
         return promotionList;
     }
     
@@ -97,7 +97,7 @@ public class PromotionManagament_BUS {
     }
 
     public boolean removePromotion(String promotionID) {
-        return promotion_DAO.delete(promotionID);
+        return promotion_DAO.updateDate(promotionID);
     }
 
     public ArrayList<Product> searchProductById(String searchQuery) {
@@ -116,6 +116,30 @@ public class PromotionManagament_BUS {
             productPromotionDetail.setPromotion(newPromotion);
             new ProductPromotionDetail_DAO().create(productPromotionDetail);
         }
+    }
+
+    public boolean removeProductPromotionDetail(String promotionID) {
+        return new ProductPromotionDetail_DAO().delete(promotionID);
+    }
+
+    public boolean removeProductPromotionOther(Promotion pm) {
+        return promotion_DAO.updateDateStart(pm);
+    }
+
+    public boolean removeOrderPromotionOther(Promotion pm) {
+        return promotion_DAO.updateDateStart(pm);
+    }
+
+    public boolean addNewOrderPromotion(Promotion newPromotion) {
+        return promotion_DAO.createForOrder(newPromotion);
+    }
+
+    public ArrayList<Promotion> filterForProduct(int type, int status) {
+        return promotion_DAO.filterForProduct(type, status);
+    }
+
+    public ArrayList<Promotion> filterForOrder(int type, int status) {
+        return promotion_DAO.filterForOrder(type, status);
     }
 
 
