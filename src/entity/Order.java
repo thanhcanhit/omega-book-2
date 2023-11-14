@@ -180,6 +180,18 @@ public final class Order {
         this.orderDetail = orderDetail;
         this.moneyGiven = moneyGiven;
     }
+    public Order(String orderID, Date orderAt, boolean payment, boolean status, Employee employee, Customer customer, ArrayList<OrderDetail> orderDetail, double subTotal, double toTalDue, double moneyGiven) {
+        this.orderID = orderID;
+        this.orderAt = orderAt;
+        this.status = status;
+        this.subTotal = subTotal;
+        this.totalDue = toTalDue;
+        this.payment = payment;
+        this.employee = employee;
+        this.customer = customer;
+        this.orderDetail = orderDetail;
+        this.moneyGiven = moneyGiven;
+    }
 
     public Order(String orderID, Date orderAt, boolean status, double subTotal, double totalDue, boolean payment, Employee employee, Customer customer, ArrayList<OrderDetail> orderDetail, double moneyGiven) throws Exception {
         setOrderID(orderID);

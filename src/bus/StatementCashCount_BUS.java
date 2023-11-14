@@ -44,7 +44,6 @@ public class StatementCashCount_BUS {
         cashCountSheet.setCashCountSheetDetailList(cashCountSheetDetails);
         cashCountSheet.setCreatedDate(start);
         cashCountSheet.setEndedDate(end);
-        System.out.println(cashCountSheet.getCashCountSheetDetailList().get(0));
         
         cashCountSheet_DAO.create(cashCountSheet);
         
@@ -56,9 +55,7 @@ public class StatementCashCount_BUS {
         //8 Kí tự tiếp theo là ngày và giờ bắt đầu kiểm tiền
         SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
         String format = dateFormat.format(date);
-        System.out.println(format);
         prefix += format;
-        System.out.println(prefix);
         String maxID = cashCountSheet_DAO.getMaxSequence(prefix);
         if (maxID == null) {
             prefix += "0000";
@@ -68,7 +65,6 @@ public class StatementCashCount_BUS {
             num++;
             prefix += String.format("%04d", num);;
         }
-        System.out.println(prefix);
         return prefix;
     }
 }
