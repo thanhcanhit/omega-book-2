@@ -13,11 +13,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import main.Application;
@@ -38,7 +40,7 @@ public class Login_GUI extends javax.swing.JPanel {
     public Login_GUI() {
         initComponents();
         setPositionForm();
-
+        updateSizeBackground();
     }
 
     public void setPositionForm() {
@@ -56,6 +58,26 @@ public class Login_GUI extends javax.swing.JPanel {
         pnl_changePasswordForm.setBounds(centerX, centerY, 400, 520);
 
         pnl_changePasswordForm.setVisible(false);
+    }
+
+    private void updateSizeBackground() {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+        lbl_background.setBounds(0, 0, screenWidth, screenHeight);
+        updateBackgroundScale();
+        System.out.println("fire");
+        lbl_background.revalidate();
+        lbl_background.repaint();
+    }
+
+    private void updateBackgroundScale() {
+        Image image = ((ImageIcon) (lbl_background.getIcon())).getImage();
+        Image scaledImage = image.getScaledInstance(lbl_background.getWidth(), -1, Image.SCALE_SMOOTH | Image.SCALE_AREA_AVERAGING);
+
+        // Tạo lại đối tượng ImageIcon với kích thước mới
+        ImageIcon imageIcon = new ImageIcon(scaledImage);
+        lbl_background.setIcon(imageIcon);
     }
 
     public boolean checkValueFormChangePassword(String id, String pass, String passNew, String passConfirm) throws Exception {
@@ -110,13 +132,20 @@ public class Login_GUI extends javax.swing.JPanel {
         lbl_navLogin = new javax.swing.JLabel();
         lbl_password = new javax.swing.JLabel();
         pwr_password = new javax.swing.JPasswordField();
-        lbl_bachground = new javax.swing.JLabel();
+        lbl_background = new javax.swing.JLabel();
 
         fra_ChangePassword.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(320, 32767));
         setPreferredSize(new java.awt.Dimension(320, 300));
+        addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
+            public void ancestorMoved(java.awt.event.HierarchyEvent evt) {
+            }
+            public void ancestorResized(java.awt.event.HierarchyEvent evt) {
+                formAncestorResized(evt);
+            }
+        });
         setLayout(new java.awt.CardLayout());
 
         pnl_login.addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
@@ -172,7 +201,7 @@ public class Login_GUI extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 20, 0, 20);
         pnl_loginForm.add(lbl_passwordLogin, gridBagConstraints);
 
-        pwr_passwordLogin.setText("Lehoangkhang");
+        pwr_passwordLogin.setText("Khang2003");
         pwr_passwordLogin.setMaximumSize(new java.awt.Dimension(2147483647, 22));
         pwr_passwordLogin.putClientProperty(FlatClientProperties.STYLE, ""
             + "showRevealButton:true;"
@@ -426,9 +455,12 @@ public class Login_GUI extends javax.swing.JPanel {
 
         pnl_login.add(pnl_changePasswordForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 400, 520));
 
-        lbl_bachground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/login/background.png"))); // NOI18N
-        lbl_bachground.setPreferredSize(new java.awt.Dimension(3000,1789));
-        pnl_login.add(lbl_bachground, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, -40, 3090, 1880));
+        lbl_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/login/background.png"))); // NOI18N
+        lbl_background.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lbl_background.setMaximumSize(new java.awt.Dimension(3000, 1080));
+        lbl_background.setMinimumSize(new java.awt.Dimension(1366, 768));
+        lbl_background.setPreferredSize(new java.awt.Dimension(1366, 768));
+        pnl_login.add(lbl_background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1366, 768));
 
         add(pnl_login, "card4");
     }// </editor-fold>//GEN-END:initComponents
@@ -444,6 +476,10 @@ public class Login_GUI extends javax.swing.JPanel {
         pnl_changePasswordForm.setVisible(false);
         pnl_loginForm.setVisible(true);
     }//GEN-LAST:event_lbl_navLoginMouseClicked
+
+    private void formAncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_formAncestorResized
+        updateSizeBackground();
+    }//GEN-LAST:event_formAncestorResized
 
     private void txt_accountLoginActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txt_accountLoginActionPerformed
         // TODO add your handling code here:
@@ -531,7 +567,7 @@ public class Login_GUI extends javax.swing.JPanel {
     private javax.swing.JFrame fra_ChangePassword;
     private javax.swing.JLabel lbl_account;
     private javax.swing.JLabel lbl_accountLogin;
-    private javax.swing.JLabel lbl_bachground;
+    private javax.swing.JLabel lbl_background;
     private javax.swing.JLabel lbl_navChangePassword;
     private javax.swing.JLabel lbl_navLogin;
     private javax.swing.JLabel lbl_password;
