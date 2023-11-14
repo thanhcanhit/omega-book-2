@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javax.swing.DefaultButtonModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
@@ -46,7 +47,7 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
     private void init() {
         bus = new EmployeeManagament_BUS();
         //model
-        tblModel_employee = new DefaultTableModel(new String[] {"Mã nhân viên", "Tên nhân viên", "Ngày sinh", "Chức vụ"}, 0);
+        tblModel_employee = new DefaultTableModel(new String[] {"Mã nhân viên", "Tên nhân viên", "Ngày sinh", "Trạng thái"}, 0);
         tbl_employeeInfor.setModel(tblModel_employee);
         tbl_employeeInfor.getSelectionModel().addListSelectionListener((e) -> {
             int rowIndex = tbl_employeeInfor.getSelectedRow();
@@ -119,9 +120,14 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         txt_storeID.setText("");
     }
     private boolean validEmployee() {
+        String patternName = "^[A-Z][a-z]+([A-Za-z]+\s)+[a-z]$";
         if(txt_name.getText().equals("")) {
             Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng nhập điền tên nhân viên");
             txt_name.requestFocus();
+            return false;
+        }
+        if(!Pattern.matches(patternName, txt_name.getText())) {
+            Notifications.getInstance().show(Notifications.Type.WARNING, "Tên bắt đầu bằng chữ cái in hoa và chỉ gồm chữ");
             return false;
         }
         if(txt_addressEmp.getText().equals("")) {
