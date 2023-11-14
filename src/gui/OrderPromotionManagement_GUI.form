@@ -140,7 +140,7 @@
                   <Dimension value="[32767, 30]"/>
                 </Property>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[72, 30]"/>
+                  <Dimension value="[85, 30]"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -160,7 +160,7 @@
                   <Dimension value="[32767, 30]"/>
                 </Property>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[101, 30]"/>
+                  <Dimension value="[110, 30]"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -172,10 +172,10 @@
                 <Property name="text" type="java.lang.String" value="L&#x1ecd;c"/>
                 <Property name="actionCommand" type="java.lang.String" value=""/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[72, 30]"/>
+                  <Dimension value="[72, 35]"/>
                 </Property>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[72, 30]"/>
+                  <Dimension value="[72, 35]"/>
                 </Property>
               </Properties>
               <Events>
@@ -405,19 +405,14 @@
                         <Component class="javax.swing.JTextField" name="txt_promotionID">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
-                            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                              <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
-                                <EmptyBorder/>
-                              </Border>
-                            </Property>
                             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[2147483647, 30]"/>
+                              <Dimension value="[2147483647, 40]"/>
                             </Property>
                             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                               <Dimension value="[64, 30]"/>
                             </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[71, 30]"/>
+                              <Dimension value="[71, 40]"/>
                             </Property>
                           </Properties>
                           <Events>
@@ -696,7 +691,7 @@
                       <Dimension value="[100, 50]"/>
                     </Property>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[1261, 100]"/>
+                      <Dimension value="[1261, 50]"/>
                     </Property>
                   </Properties>
                   <Constraints>
@@ -705,9 +700,9 @@
                     </Constraint>
                   </Constraints>
 
-                  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout">
-                    <Property name="horizontalGap" type="int" value="2"/>
-                    <Property name="verticalGap" type="int" value="2"/>
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
+                    <Property name="columns" type="int" value="0"/>
+                    <Property name="rows" type="int" value="1"/>
                   </Layout>
                   <SubComponents>
                     <Component class="javax.swing.JButton" name="btn_createPromo">
@@ -723,11 +718,6 @@
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_createPromo.putClientProperty(FlatClientProperties.STYLE,&quot;&quot;&#xa;                + &quot;background:$Menu.background;&quot;&#xa;                + &quot;foreground:$Menu.foreground;&quot;);"/>
                       </AuxValues>
-                      <Constraints>
-                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
-                          <BorderConstraints direction="South"/>
-                        </Constraint>
-                      </Constraints>
                     </Component>
                     <Component class="javax.swing.JButton" name="btn_removePromo">
                       <Properties>
@@ -740,21 +730,14 @@
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_removePromo.putClientProperty(FlatClientProperties.STYLE,&quot;&quot;&#xa;                + &quot;background:$Menu.background;&quot;&#xa;                + &quot;foreground:$Menu.foreground;&quot;);"/>
                       </AuxValues>
-                      <Constraints>
-                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
-                          <BorderConstraints direction="Center"/>
-                        </Constraint>
-                      </Constraints>
                     </Component>
                     <Component class="javax.swing.JButton" name="btn_clearValue">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="XO&#xc1; TR&#x1eae;NG"/>
                       </Properties>
-                      <Constraints>
-                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
-                          <BorderConstraints direction="West"/>
-                        </Constraint>
-                      </Constraints>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_clearValueActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>

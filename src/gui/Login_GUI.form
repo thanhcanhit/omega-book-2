@@ -21,9 +21,15 @@
       <Dimension value="[320, 300]"/>
     </Property>
   </Properties>
+<<<<<<< HEAD
   <Events>
     <EventHandler event="ancestorResized" listener="java.awt.event.HierarchyBoundsListener" parameters="java.awt.event.HierarchyEvent" handler="formAncestorResized"/>
   </Events>
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 09af3ff730519c13f5aa4ae24d2c5059fd4d4ef0
+>>>>>>> 3f8158e2468374c301efe25d34ef41a12da55e3d
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -2298,11 +2304,16 @@
             </CodeStatement>
           </LayoutCode>
         </Container>
+<<<<<<< HEAD
         <Component class="javax.swing.JLabel" name="lbl_welcome">
+=======
+        <Component class="javax.swing.JLabel" name="lbl_bachground">
+>>>>>>> 3f8158e2468374c301efe25d34ef41a12da55e3d
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Vladimir Script" size="70" style="1"/>
             </Property>
+<<<<<<< HEAD
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
@@ -2311,6 +2322,28 @@
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="410" y="10" width="-1" height="-1"/>
+=======
+            <Property name="verticalAlignment" type="int" value="1"/>
+            <Property name="horizontalTextPosition" type="int" value="4"/>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+<<<<<<< HEAD
+              <Dimension value="[3000, 1080]"/>
+=======
+              <Dimension value="[3090, 1880]"/>
+>>>>>>> 09af3ff730519c13f5aa4ae24d2c5059fd4d4ef0
+            </Property>
+            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[3090, 1880]"/>
+            </Property>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[3090, 1880]"/>
+            </Property>
+            <Property name="verticalTextPosition" type="int" value="1"/>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="0" y="-300" width="-1" height="-1"/>
+>>>>>>> 3f8158e2468374c301efe25d34ef41a12da55e3d
             </Constraint>
           </Constraints>
         </Component>

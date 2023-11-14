@@ -37,7 +37,9 @@ public class OrderManagement_BUS {
     }
 
     public ArrayList<Order> getDataOfPage(int page) {
-        return orderDAO.getPage(page);
+        ArrayList<Order> list = orderDAO.getPage(page);
+        
+        return list;
     }
 
     public Employee getEmployee(String emplpyeeID) {
@@ -59,7 +61,7 @@ public class OrderManagement_BUS {
         order.setCustomer(customer);
         Employee employee = getEmployee(order.getEmployee().getEmployeeID());
         order.setEmployee(employee);
-        if(getPromotion(order.getPromotion().getPromotionID())!=null){
+        if(order.getPromotion()!=null){
              Promotion promotion = getPromotion(order.getPromotion().getPromotionID());
              order.setPromotion(promotion);
         }
@@ -68,7 +70,6 @@ public class OrderManagement_BUS {
     }
 
     public ArrayList<OrderDetail> getOrderDetailList(String orderID) {
-
         return orderDetailDAO.getAll(orderID);
     }
 
@@ -80,6 +81,12 @@ public class OrderManagement_BUS {
 
     public ArrayList<Order> orderListWithFilter(String orderID, String customerID, String phoneNumber, String priceFrom, String priceTo, Date orderFrom, Date orderTo) {
         ArrayList<Order> list = orderDAO.getAll();
+        for(Order order:list){
+            if(order.isStatus()==false)
+            {
+                list.remove(order);
+            }
+        }
         ArrayList<Order> xoa = new ArrayList<>();
        
         if (phoneNumber.trim().length() > 0) {

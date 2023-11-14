@@ -14,9 +14,11 @@ import enums.PromotionType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.regex.Pattern;
 import javax.swing.ButtonModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -40,6 +42,7 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
     private DefaultComboBoxModel cmbModel_status;
     private ButtonModel btnModel_type;
     private DefaultComboBoxModel cmbModel_rankCus;
+    DecimalFormat price = new DecimalFormat("###,### VND");
     
     public OrderPromotionManagement_GUI() {
         initComponents();
@@ -49,7 +52,7 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
     private void init() {
         bus = new PromotionManagament_BUS();
         //model
-        tblModel_promotion = new DefaultTableModel(new String[]{"Mã khuyến mãi", "Loại",  "Trạng thái", "Hạng khách hàng"}, 0);
+        tblModel_promotion = new DefaultTableModel(new String[]{"Mã khuyến mãi", "Loại", "Giảm giá", "Hạng khách hàng", "Trạng thái"}, 0);
         tbl_inforPromo.setModel(tblModel_promotion);
         tbl_inforPromo.getSelectionModel().addListSelectionListener((e) -> {
             int rowIndex = tbl_inforPromo.getSelectedRow();
@@ -71,17 +74,20 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
         group_typePromo.add(rdb_price);
         group_typePromo.add(rdb_percent);
         
-        
         renderPromotionTables(bus.getAllPromotionForOrder());
     }
     private void renderCurrentPromotion() {
         txt_promotionID.setText(currentPromotion.getPromotionID());
-        if(currentPromotion.getTypeDiscount().getValue() == 1)
+        if(currentPromotion.getTypeDiscount().getValue() == 1) {
             rdb_price.setSelected(true);
-        else
+            txt_discountPromo.setText(price.format(currentPromotion.getDiscount()));
+        }
+        else {
             rdb_percent.setSelected(true);
+            txt_discountPromo.setText(currentPromotion.getDiscount()+"");
+        }
         cmb_rankCus.setSelectedIndex(currentPromotion.getCondition().getValue());
-        txt_discountPromo.setText(currentPromotion.getDiscount() + "");
+        
         chooseStartDate.setDate(currentPromotion.getStartedDate());
         chooseEndDate.setDate(currentPromotion.getEndedDate());
         
@@ -97,16 +103,20 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
     
     private void renderPromotionTables(ArrayList<Promotion> promotionList) {
         tblModel_promotion.setRowCount(0);
-        String status, type, rank;
+        String status, type, rank, discount;
         for (Promotion promotion : promotionList) {
             if(promotion.getEndedDate().after(java.sql.Date.valueOf(LocalDate.now())))
                 status = "Còn hạn";
             else
                 status = "Hết hạn";
-            if(promotion.getTypeDiscount().getValue() == 1)
+            if(promotion.getTypeDiscount().getValue() == 1) {
                 type = "Tiền";
-            else
+                discount = price.format(promotion.getDiscount());
+            }
+            else {
                 type = "Phần trăm";
+                discount = promotion.getDiscount()+"";
+            }
             if(promotion.getCondition().getValue() == 1)
                 rank = "Bạc";
             else if(promotion.getCondition().getValue() == 2)
@@ -115,7 +125,7 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
                 rank = "Kim cương";
             else
                 rank = "Chưa có";
-            String[] newRow = {promotion.getPromotionID(), type, status, promotion.getDiscount() +"", rank};
+            String[] newRow = {promotion.getPromotionID(), type, discount, rank, status};
             tblModel_promotion.addRow(newRow);
         }
     }
@@ -123,6 +133,11 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
     private boolean validPromotion() {
         if(txt_discountPromo.getText().equals("")) {
             Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng nhập giá trị khuyến mãi");
+            txt_discountPromo.requestFocus();
+            return false;
+        }
+        if(!Pattern.matches("[0-9]*", txt_discountPromo.getText()) || Double.parseDouble(txt_discountPromo.getText()) < 0) {
+            Notifications.getInstance().show(Notifications.Type.INFO, "Giá trị khuyến mãi chỉ gồm số dương");
             txt_discountPromo.requestFocus();
             return false;
         }
@@ -161,8 +176,7 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
         Date startedDate = chooseStartDate.getDate();
         Date endedDate = chooseEndDate.getDate();
         String promotionID = bus.generateID(PromotionType.ORDER, DiscountType.fromInt(type), endedDate);
-        int rankCus = cmb_rankCus.getSelectedIndex();
-             
+        int rankCus = cmb_rankCus.getSelectedIndex();             
         Promotion promotion = new Promotion(promotionID, startedDate, endedDate, PromotionType.ORDER, DiscountType.fromInt(type), discount, PromotionRankCustomer.fromInt(rankCus));
         return promotion;
     }
@@ -170,7 +184,7 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
     private void addPromotion() throws Exception {
         Promotion newPromotion = getNewValue();
         try {
-            if(bus.addNewPromotion(newPromotion)) {
+            if(bus.addNewOrderPromotion(newPromotion)) {
                 Notifications.getInstance().show(Notifications.Type.SUCCESS, "Thêm thành công");
                 renderPromotionTables(bus.getAllPromotionForOrder());
                 renderPromotionInfor();
@@ -183,9 +197,17 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
     }
     private void removePromotion(String promotionID) throws Exception {
         if(bus.removePromotion(promotionID))
-            Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đã xoá khuyến mãi " + promotionID);
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đã gỡ khuyến mãi " + promotionID);
         else
-            Notifications.getInstance().show(Notifications.Type.ERROR, "Xoá không thành công");
+            Notifications.getInstance().show(Notifications.Type.ERROR, "Gỡ không thành công");
+    }
+    private void removeOrderPromotionOther(Promotion pm) {
+        if(bus.removeOrderPromotionOther(pm)) {
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đã gỡ khuyến mãi " + pm.getPromotionID());
+            renderPromotionTables(bus.getAllPromotionForProduct());
+        }
+        else
+            Notifications.getInstance().show(Notifications.Type.ERROR, "Gỡ không thành công");
     }
     
     /**
@@ -294,18 +316,18 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
 
         cmb_typePromo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Loại" }));
         cmb_typePromo.setMaximumSize(new java.awt.Dimension(32767, 30));
-        cmb_typePromo.setPreferredSize(new java.awt.Dimension(72, 30));
+        cmb_typePromo.setPreferredSize(new java.awt.Dimension(85, 30));
         pnl_filterPromo.add(cmb_typePromo);
 
         cmb_statusPromo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Trạng thái", "Đang diễn ra", "Đã kết thúc" }));
         cmb_statusPromo.setMaximumSize(new java.awt.Dimension(32767, 30));
-        cmb_statusPromo.setPreferredSize(new java.awt.Dimension(101, 30));
+        cmb_statusPromo.setPreferredSize(new java.awt.Dimension(110, 30));
         pnl_filterPromo.add(cmb_statusPromo);
 
         btn_searchFilterPromo.setText("Lọc");
         btn_searchFilterPromo.setActionCommand("");
-        btn_searchFilterPromo.setMaximumSize(new java.awt.Dimension(72, 30));
-        btn_searchFilterPromo.setPreferredSize(new java.awt.Dimension(72, 30));
+        btn_searchFilterPromo.setMaximumSize(new java.awt.Dimension(72, 35));
+        btn_searchFilterPromo.setPreferredSize(new java.awt.Dimension(72, 35));
         btn_searchFilterPromo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_searchFilterPromoActionPerformed(evt);
@@ -389,10 +411,9 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
         pnl_promoID.add(lbl_promotionID);
 
         txt_promotionID.setEditable(false);
-        txt_promotionID.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        txt_promotionID.setMaximumSize(new java.awt.Dimension(2147483647, 30));
+        txt_promotionID.setMaximumSize(new java.awt.Dimension(2147483647, 40));
         txt_promotionID.setMinimumSize(new java.awt.Dimension(64, 30));
-        txt_promotionID.setPreferredSize(new java.awt.Dimension(71, 30));
+        txt_promotionID.setPreferredSize(new java.awt.Dimension(71, 40));
         txt_promotionID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_promotionIDActionPerformed(evt);
@@ -506,8 +527,8 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
         pnl_inforPromo.add(pnl_txtInforPromo, java.awt.BorderLayout.CENTER);
 
         pnl_buttonPromo.setMinimumSize(new java.awt.Dimension(100, 50));
-        pnl_buttonPromo.setPreferredSize(new java.awt.Dimension(1261, 100));
-        pnl_buttonPromo.setLayout(new java.awt.BorderLayout(2, 2));
+        pnl_buttonPromo.setPreferredSize(new java.awt.Dimension(1261, 50));
+        pnl_buttonPromo.setLayout(new java.awt.GridLayout());
 
         btn_createPromo.setText("TẠO MỚI");
         btn_createPromo.setPreferredSize(new java.awt.Dimension(79, 50));
@@ -519,7 +540,7 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
                 btn_createPromoActionPerformed(evt);
             }
         });
-        pnl_buttonPromo.add(btn_createPromo, java.awt.BorderLayout.SOUTH);
+        pnl_buttonPromo.add(btn_createPromo);
 
         btn_removePromo.setText("GỠ ");
         btn_removePromo.setActionCommand("");
@@ -531,10 +552,15 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
                 btn_removePromoActionPerformed(evt);
             }
         });
-        pnl_buttonPromo.add(btn_removePromo, java.awt.BorderLayout.CENTER);
+        pnl_buttonPromo.add(btn_removePromo);
 
         btn_clearValue.setText("XOÁ TRẮNG");
-        pnl_buttonPromo.add(btn_clearValue, java.awt.BorderLayout.WEST);
+        btn_clearValue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_clearValueActionPerformed(evt);
+            }
+        });
+        pnl_buttonPromo.add(btn_clearValue);
 
         pnl_inforPromo.add(pnl_buttonPromo, java.awt.BorderLayout.SOUTH);
 
@@ -547,21 +573,41 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
     
     private void btn_removePromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_removePromoActionPerformed
         String promotionID = txt_promotionID.getText();
-        if (JOptionPane.showConfirmDialog(null,
-                "Bạn thật sự muốn xoá khuyến mãi " + promotionID + " không?", "Xoá khuyến mãi?",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-            try {
-                // Xoá
-                removePromotion(promotionID);
-            } catch (Exception ex) {
-                ex.printStackTrace();
+        Promotion pm = bus.getPromotion(promotionID);
+        if(pm.getStartedDate().after(java.sql.Date.valueOf(LocalDate.now()))) {
+            if (JOptionPane.showConfirmDialog(null,
+            "Bạn thật sự muốn gỡ khuyến mãi " + promotionID + " không? Vẫn chưa đến hạn diễn ra khuyến mãi!", "Gỡ khuyến mãi?",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                try {
+                    // Xoá
+                    removeOrderPromotionOther(pm);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                renderPromotionTables(bus.getAllPromotionForOrder());
+                renderPromotionInfor();
             }
-            renderPromotionTables(bus.getAllPromotion());
-            renderPromotionInfor();
+            else
+                Notifications.getInstance().show(Notifications.Type.INFO, "Đã huỷ thao tác!");
         }
-        else
-            Notifications.getInstance().show(Notifications.Type.INFO, "Đã huỷ thao tác!");
+        else {
+            if (JOptionPane.showConfirmDialog(null,
+            "Bạn thật sự muốn gỡ khuyến mãi " + promotionID + " không?", "Gỡ khuyến mãi?",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                try {
+                    // Xoá
+                    removePromotion(promotionID);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                renderPromotionTables(bus.getAllPromotionForOrder());
+                renderPromotionInfor();
+            }
+            else
+                Notifications.getInstance().show(Notifications.Type.INFO, "Đã huỷ thao tác!");
+        }
     }//GEN-LAST:event_btn_removePromoActionPerformed
     
     private void txt_promotionIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_promotionIDActionPerformed
@@ -584,7 +630,7 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
     private void btn_searchFilterPromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchFilterPromoActionPerformed
         int type = cmb_typePromo.getSelectedIndex();
         int status = cmb_statusPromo.getSelectedIndex();
-        renderPromotionTables(bus.filter(type, status));
+        renderPromotionTables(bus.filterForOrder(type, status));
     }//GEN-LAST:event_btn_searchFilterPromoActionPerformed
     
     private void btn_createPromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_createPromoActionPerformed
@@ -615,6 +661,11 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
             renderPromotionTables(bus.searchById(searchQuery));
         }
     }//GEN-LAST:event_txt_searchPromoKeyPressed
+
+    private void btn_clearValueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clearValueActionPerformed
+        renderPromotionTables(bus.getAllPromotionForOrder());
+        renderPromotionInfor();
+    }//GEN-LAST:event_btn_clearValueActionPerformed
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -13,15 +13,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import main.Application;
@@ -42,6 +38,25 @@ public class Login_GUI extends javax.swing.JPanel {
      */
     public Login_GUI() {
         initComponents();
+        setPositionForm();
+        updateSizeBackground();
+        updateSizeBackground();
+    }
+
+    public void setPositionForm() {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+        int centerX = (screenWidth - 400) / 2;
+        int centerY = (screenHeight - 350) / 2 - 50;
+
+        pnl_loginForm.setBounds(centerX, centerY, 400, 350);
+
+        centerX = (screenWidth - 400) / 2;
+        centerY = (screenHeight - 520) / 2 - 50;
+
+        pnl_changePasswordForm.setBounds(centerX, centerY, 400, 520);
+
         pnl_changePasswordForm.setVisible(false);
     }
 
@@ -104,14 +119,7 @@ public class Login_GUI extends javax.swing.JPanel {
         lbl_navLogin = new javax.swing.JLabel();
         lbl_password = new javax.swing.JLabel();
         pwr_password = new javax.swing.JPasswordField();
-        lbl_welcome = new javax.swing.JLabel();
-        lbl_icon = new javax.swing.JLabel();
-        pnl_info = new javax.swing.JPanel();
-        lbl_developBy = new javax.swing.JLabel();
-        lbl_canh = new javax.swing.JLabel();
-        lbl_khang = new javax.swing.JLabel();
-        lbl_kien = new javax.swing.JLabel();
-        lbl_tam = new javax.swing.JLabel();
+        lbl_background = new javax.swing.JLabel();
 
         fra_ChangePassword.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
@@ -501,10 +509,11 @@ public class Login_GUI extends javax.swing.JPanel {
         // TODO add your handling code here:
         pnl_changePasswordForm.setVisible(false);
         pnl_loginForm.setVisible(true);
-    }// GEN-LAST:event_lbl_navLoginMouseClicked
+    }//GEN-LAST:event_lbl_navLoginMouseClicked
 
-    private void formAncestorResized(java.awt.event.HierarchyEvent evt) {// GEN-FIRST:event_formAncestorResized
-    }// GEN-LAST:event_formAncestorResized
+    private void formAncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_formAncestorResized
+        updateSizeBackground();
+    }//GEN-LAST:event_formAncestorResized
 
     private void txt_accountLoginActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txt_accountLoginActionPerformed
         // TODO add your handling code here:
