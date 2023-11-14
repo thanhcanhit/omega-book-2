@@ -14,11 +14,13 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -42,6 +44,7 @@ public class Login_GUI extends javax.swing.JPanel {
         initComponents();
         setPositionForm();
         updateSizeBackground();
+        updateSizeBackground();
     }
 
     public void setPositionForm() {
@@ -59,6 +62,26 @@ public class Login_GUI extends javax.swing.JPanel {
         pnl_changePasswordForm.setBounds(centerX, centerY, 400, 520);
 
         pnl_changePasswordForm.setVisible(false);
+    }
+
+    private void updateSizeBackground() {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+        lbl_background.setBounds(0, 0, screenWidth, screenHeight);
+        updateBackgroundScale();
+        System.out.println("fire");
+        lbl_background.revalidate();
+        lbl_background.repaint();
+    }
+
+    private void updateBackgroundScale() {
+        Image image = ((ImageIcon) (lbl_background.getIcon())).getImage();
+        Image scaledImage = image.getScaledInstance(lbl_background.getWidth(), -1, Image.SCALE_SMOOTH | Image.SCALE_AREA_AVERAGING);
+
+        // Tạo lại đối tượng ImageIcon với kích thước mới
+        ImageIcon imageIcon = new ImageIcon(scaledImage);
+        lbl_background.setIcon(imageIcon);
     }
 
     private void updateSizeBackground() {
@@ -140,6 +163,13 @@ public class Login_GUI extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(320, 32767));
         setPreferredSize(new java.awt.Dimension(320, 300));
+        addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
+            public void ancestorMoved(java.awt.event.HierarchyEvent evt) {
+            }
+            public void ancestorResized(java.awt.event.HierarchyEvent evt) {
+                formAncestorResized(evt);
+            }
+        });
         addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
             public void ancestorMoved(java.awt.event.HierarchyEvent evt) {
             }
@@ -456,24 +486,12 @@ public class Login_GUI extends javax.swing.JPanel {
 
         pnl_login.add(pnl_changePasswordForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 400, 520));
 
-<<<<<<< HEAD
-        lbl_bachground.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lbl_bachground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/login/background.png"))); // NOI18N
-        lbl_bachground.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        lbl_bachground.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        lbl_bachground.setMaximumSize(new java.awt.Dimension(3090, 1880));
-        lbl_bachground.setMinimumSize(new java.awt.Dimension(3090, 1880));
-        lbl_bachground.setPreferredSize(new java.awt.Dimension(3090, 1880));
-        lbl_bachground.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
-        pnl_login.add(lbl_bachground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -300, -1, -1));
-=======
         lbl_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/login/background.png"))); // NOI18N
         lbl_background.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lbl_background.setMaximumSize(new java.awt.Dimension(3000, 1080));
         lbl_background.setMinimumSize(new java.awt.Dimension(1366, 768));
         lbl_background.setPreferredSize(new java.awt.Dimension(1366, 768));
         pnl_login.add(lbl_background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1366, 768));
->>>>>>> c71fd3b9d9dbc4adf6e907b323a2d08882c20444
 
         add(pnl_login, "card4");
     }// </editor-fold>//GEN-END:initComponents
