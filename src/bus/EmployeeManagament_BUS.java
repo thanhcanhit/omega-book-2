@@ -4,6 +4,7 @@
  */
 package bus;
 
+import dao.Account_DAO;
 import dao.Employee_DAO;
 import entity.Account;
 import entity.Employee;
@@ -17,6 +18,7 @@ import java.util.Date;
  */
 public class EmployeeManagament_BUS {
     private Employee_DAO dao = new Employee_DAO();
+    private Account_DAO accountDAO = new Account_DAO();
     
     public String generateID(boolean gender, Date dateOfBirth, Date dateStart) {
         //Khởi tạo mã nhâm viên NV
@@ -75,5 +77,9 @@ public class EmployeeManagament_BUS {
 
     public boolean updateEmployee(Employee newEmployee) {
         return dao.update(newEmployee.getEmployeeID(), newEmployee);
+    }
+
+    public boolean updatePassword(String id) {
+        return accountDAO.updatePass(id, "985441048ea529312dfb141f8a9e6de3");
     }
 }

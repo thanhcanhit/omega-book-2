@@ -23,6 +23,7 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import main.Application;
 import raven.toast.Notifications;
 import utilities.FormatNumber;
 
@@ -34,7 +35,7 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
 
     private DefaultTableModel tbl_modalCashCounts = new DefaultTableModel();
     private double sum = 0;
-    private Employee employee1 = new Employee("NV120032023002");
+    private Employee employee1 = Application.employee;
     private Employee employee2;
     private StatementAcounting_BUS acountingVoucher_BUS = new StatementAcounting_BUS();
     private Date endDate = new Date();
@@ -149,9 +150,6 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
                 cashCounts.add(new CashCount(quantity, value));
             }
         }
-        for (CashCount cashCount : cashCounts) {
-            System.out.println("Quantity: " + cashCount.getQuantity() + ", Value: " + cashCount.getValue());
-        }
         return cashCounts;
     }
 
@@ -240,7 +238,7 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
 
         jSplitPane1.setResizeWeight(0.9);
 
-        pnl_infomation.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18), new java.awt.Color(0, 102, 153))); // NOI18N
+        pnl_infomation.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         pnl_infomation.setMinimumSize(new java.awt.Dimension(400, 466));
         pnl_infomation.setPreferredSize(new java.awt.Dimension(450, 690));
         pnl_infomation.setLayout(new java.awt.BorderLayout());
@@ -250,6 +248,7 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
         pnl_accountingInfoHeader.setRequestFocusEnabled(false);
         pnl_accountingInfoHeader.setLayout(new javax.swing.BoxLayout(pnl_accountingInfoHeader, javax.swing.BoxLayout.Y_AXIS));
 
+        txt_timeAccounting.setEditable(false);
         txt_timeAccounting.setBackground(null);
         txt_timeAccounting.setFont(txt_timeAccounting.getFont().deriveFont(txt_timeAccounting.getFont().getStyle() | java.awt.Font.BOLD, 20));
         txt_timeAccounting.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -332,7 +331,7 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
 
         txt_employeeAccounting2.setEditable(false);
         txt_employeeAccounting2.setFont(txt_employeeAccounting2.getFont().deriveFont((float)16));
-        txt_employeeAccounting2.setText("NV020020032022 - Nguyễn Thanh Cảnh");
+        txt_employeeAccounting2.setText("Chưa có");
         txt_employeeAccounting2.setBorder(null);
         txt_employeeAccounting2.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         txt_employeeAccounting2.setFocusable(false);
@@ -593,10 +592,16 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
 
     private void btn_accountingConformActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_accountingConformActionPerformed
         // TODO add your handling code here:
-        System.out.println(endDate);
+        if (employee2 != null) {
+            acountingVoucher_BUS.createAcountingVoucher(getCashCountSheet(), endDate);
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, "Tạo phiếu kết toán thành công");
+        } else {
+            Notifications.getInstance().show(Notifications.Type.ERROR, "Chưa có người đồng kiểm!");
+            Notifications.getInstance().show(Notifications.Type.ERROR, "Kết toán thất bại!");
 
-        acountingVoucher_BUS.createAcountingVoucher(getCashCountSheet(), endDate);
-        Notifications.getInstance().show(Notifications.Type.SUCCESS, "Tạo phiếu kết toán thành công");
+        }
+
+
     }//GEN-LAST:event_btn_accountingConformActionPerformed
 
     private void txt_saleAccountingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_saleAccountingActionPerformed

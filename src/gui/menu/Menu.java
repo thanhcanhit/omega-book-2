@@ -36,7 +36,7 @@ public class Menu extends JPanel {
         {"Khách hàng"},
         {"Thống kê", "Thống kê doanh thu", "Thống kê sản phẩm", "Thống kê khách hàng"},
         {"Báo cáo", "Kiểm tiền", "Kết toán", "Danh sách phiếu kiểm tiền", "Danh sách phiếu kết toán"},
-        {"Khác", "Quản lí tài khoản", "Quản lí phiên đăng nhập", "Quản lí nhà cung cấp", "Quản lí thương hiệu"},
+        {"Khác", "Quản lí phiên đăng nhập", "Quản lí nhà cung cấp", "Quản lí thương hiệu"},
         {"Đăng xuất"}
     };
 

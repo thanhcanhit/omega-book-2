@@ -43,7 +43,6 @@ public class StatementAcounting_BUS {
             calendar.set(Calendar.MINUTE, 0);
             calendar.set(Calendar.SECOND, 0);
             date = calendar.getTime();
-            System.out.println(date);
             acountingVoucherLast = new AcountingVoucher(date);
         }
         return acountingVoucherLast;
@@ -78,7 +77,6 @@ public class StatementAcounting_BUS {
     public void createAcountingVoucher(CashCountSheet cashCountSheet, Date end) {
         Date start = getLastAcounting().getEndedDate();
         ArrayList<Order> list = getAllOrderInAcounting(start, end);
-        System.out.println(end);
 
         AcountingVoucher acountingVoucher = new AcountingVoucher(generateID(end), start, end, cashCountSheet, list);
         cashCountSheet_DAO.create(cashCountSheet);

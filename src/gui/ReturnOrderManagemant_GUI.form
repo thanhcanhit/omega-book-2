@@ -279,7 +279,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="txt_employeeID">
               <Properties>
-                <Property name="enabled" type="boolean" value="false"/>
+                <Property name="editable" type="boolean" value="false"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[2147483647, 30]"/>
                 </Property>
@@ -317,7 +317,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="txt_orderID">
               <Properties>
-                <Property name="enabled" type="boolean" value="false"/>
+                <Property name="editable" type="boolean" value="false"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[2147483647, 30]"/>
                 </Property>
@@ -355,7 +355,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="txt_returnOrderID">
               <Properties>
-                <Property name="enabled" type="boolean" value="false"/>
+                <Property name="editable" type="boolean" value="false"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[2147483647, 30]"/>
                 </Property>

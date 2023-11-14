@@ -17,6 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import gui.menu.Menu;
 import gui.menu.MenuAction;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import main.Application;
 
@@ -114,10 +116,10 @@ public class MainView extends JLayeredPane {
                 case 3:
                     switch (subIndex) {
                         case 1:
-                            Application.showForm(new ProductPromotionManagament_GUI());
+                            Application.showForm(new OrderPromotionManagement_GUI());
                             break;
                         case 2:
-                            Application.showForm(new OrderPromotionManagement_GUI());
+                            Application.showForm(new ProductPromotionManagament_GUI());
                             break;
                         default:
                             action.cancel();
@@ -171,15 +173,12 @@ public class MainView extends JLayeredPane {
                 case 9:
                     switch (subIndex) {
                         case 1:
-                            Application.showForm(new JPanel());
+                            Application.showForm(new ManagemantShifts_GUI());
                             break;
                         case 2:
-                            Application.showForm(new JPanel());
-                            break;
-                        case 3:
                             Application.showForm(new SupplierManagement_GUI());
                             break;
-                        case 4:
+                        case 3:
                             Application.showForm(new BrandManagement_GUI());
                             break;
                         default:
@@ -189,7 +188,11 @@ public class MainView extends JLayeredPane {
                     break;
                 case 10:
                     if (JOptionPane.showConfirmDialog(this, "Bạn có thật sự muốn đăng xuất", "Xác nhận hành động", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                        Application.logout();
+                        try {
+                            Application.logout();
+                        } catch (Exception ex) {
+                            Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
 
                     break;

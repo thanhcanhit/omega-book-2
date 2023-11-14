@@ -32,7 +32,8 @@ public class AcountingVoucher {
         setCreatedDate(createdDate);
         setEndedDate(endedDate);
         setOrderList(orderList);
-        setPayViaATM(orderList);
+    setSale();
+        setPayViaATM();
         setWithDraw();
         setCashCountSheet(cashCountSheet);
         setDifference();
@@ -83,7 +84,7 @@ public class AcountingVoucher {
         this.endedDate = endedDate;
     }
 
-    private void setSale(ArrayList<Order> orderList) {
+    private void setSale() {
         double sum = 0;
         for (Order order : orderList) {
             sum += order.getTotalDue();
@@ -99,7 +100,7 @@ public class AcountingVoucher {
         return payViaATM;
     }
 
-    public void setPayViaATM(ArrayList<Order> orderList) {
+    public void setPayViaATM() {
         double sum =0;
         for (Order order : orderList) {
 //            if(order.)

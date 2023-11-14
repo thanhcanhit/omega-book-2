@@ -13,18 +13,18 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import main.Application;
 import raven.toast.Notifications;
 import utilities.PasswordHash;
+import utilities.SVGIcon;
 
 /**
  *
@@ -39,48 +39,17 @@ public class Login_GUI extends javax.swing.JPanel {
      */
     public Login_GUI() {
         initComponents();
-        setPositionForm();
-        updateSizeBackground();
     }
 
-    public void setPositionForm() {
+    public Dimension getScreenSize() {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int screenWidth = screenSize.width;
-        int screenHeight = screenSize.height;
-        int centerX = (screenWidth - 400) / 2;
-        int centerY = (screenHeight - 350) / 2 - 50;
-
-        pnl_loginForm.setBounds(centerX, centerY, 400, 350);
-
-        centerX = (screenWidth - 400) / 2;
-        centerY = (screenHeight - 520) / 2 - 50;
-
-        pnl_changePasswordForm.setBounds(centerX, centerY, 400, 520);
-
-        pnl_changePasswordForm.setVisible(false);
+        return screenSize;
     }
 
-    private void updateSizeBackground() {
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int screenWidth = screenSize.width;
-        int screenHeight = screenSize.height;
-        lbl_background.setBounds(0, 0, screenWidth, screenHeight);
-        updateBackgroundScale();
-        System.out.println("fire");
-        lbl_background.revalidate();
-        lbl_background.repaint();
-    }
 
-    private void updateBackgroundScale() {
-        Image image = ((ImageIcon) (lbl_background.getIcon())).getImage();
-        Image scaledImage = image.getScaledInstance(lbl_background.getWidth(), -1, Image.SCALE_SMOOTH | Image.SCALE_AREA_AVERAGING);
+    public boolean checkValueFormChangePassword(String id, String pass, String passNew, String passConfirm)
+            throws Exception {
 
-        // Tạo lại đối tượng ImageIcon với kích thước mới
-        ImageIcon imageIcon = new ImageIcon(scaledImage);
-        lbl_background.setIcon(imageIcon);
-    }
-
-    public boolean checkValueFormChangePassword(String id, String pass, String passNew, String passConfirm) throws Exception {
         if (id.equals("")) {
             throw new Exception("Mã đăng nhập không được bỏ trống!");
         }
@@ -106,7 +75,8 @@ public class Login_GUI extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
@@ -132,25 +102,27 @@ public class Login_GUI extends javax.swing.JPanel {
         lbl_navLogin = new javax.swing.JLabel();
         lbl_password = new javax.swing.JLabel();
         pwr_password = new javax.swing.JPasswordField();
-        lbl_background = new javax.swing.JLabel();
 
         fra_ChangePassword.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
-        setBackground(new java.awt.Color(255, 255, 255));
+        setBackground(new java.awt.Color(71, 118, 185));
         setMaximumSize(new java.awt.Dimension(320, 32767));
         setPreferredSize(new java.awt.Dimension(320, 300));
         addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
             public void ancestorMoved(java.awt.event.HierarchyEvent evt) {
             }
+
             public void ancestorResized(java.awt.event.HierarchyEvent evt) {
                 formAncestorResized(evt);
             }
         });
         setLayout(new java.awt.CardLayout());
 
+        pnl_login.setBackground(new java.awt.Color(71, 118, 185));
         pnl_login.addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
             public void ancestorMoved(java.awt.event.HierarchyEvent evt) {
             }
+
             public void ancestorResized(java.awt.event.HierarchyEvent evt) {
                 pnl_loginAncestorResized(evt);
             }
@@ -164,15 +136,17 @@ public class Login_GUI extends javax.swing.JPanel {
         pnl_loginForm.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         pnl_loginForm.setMaximumSize(new java.awt.Dimension(2147483647, 70));
         pnl_loginForm.setMinimumSize(new java.awt.Dimension(529, 70));
-        pnl_loginForm.setPreferredSize(new java.awt.Dimension(220, 70));
+        pnl_loginForm.setPreferredSize(new java.awt.Dimension(400, 350));
         pnl_loginForm.setRequestFocusEnabled(false);
         pnl_loginForm.setVerifyInputWhenFocusTarget(false);
         java.awt.GridBagLayout pnl_center1Layout = new java.awt.GridBagLayout();
-        pnl_center1Layout.columnWidths = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-        pnl_center1Layout.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        pnl_center1Layout.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                0 };
+        pnl_center1Layout.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         pnl_loginForm.setLayout(pnl_center1Layout);
 
-        lbl_titleLogin.setFont(lbl_titleLogin.getFont().deriveFont(lbl_titleLogin.getFont().getStyle() | java.awt.Font.BOLD, 24));
+        lbl_titleLogin.setFont(
+                lbl_titleLogin.getFont().deriveFont(lbl_titleLogin.getFont().getStyle() | java.awt.Font.BOLD, 24));
         lbl_titleLogin.setForeground(new java.awt.Color(71, 118, 185));
         lbl_titleLogin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_titleLogin.setText("Đăng nhập");
@@ -180,7 +154,7 @@ public class Login_GUI extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(18, 0, 18, 0);
         pnl_loginForm.add(lbl_titleLogin, gridBagConstraints);
 
-        lbl_accountLogin.setFont(lbl_accountLogin.getFont().deriveFont((float)18));
+        lbl_accountLogin.setFont(lbl_accountLogin.getFont().deriveFont((float) 18));
         lbl_accountLogin.setText("Tài khoản");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -190,7 +164,7 @@ public class Login_GUI extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 19, 0, 0);
         pnl_loginForm.add(lbl_accountLogin, gridBagConstraints);
 
-        lbl_passwordLogin.setFont(lbl_passwordLogin.getFont().deriveFont((float)18));
+        lbl_passwordLogin.setFont(lbl_passwordLogin.getFont().deriveFont((float) 18));
         lbl_passwordLogin.setText("Mật khẩu");
         lbl_passwordLogin.setMaximumSize(new java.awt.Dimension(60, 25));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -204,8 +178,8 @@ public class Login_GUI extends javax.swing.JPanel {
         pwr_passwordLogin.setText("Khang2003");
         pwr_passwordLogin.setMaximumSize(new java.awt.Dimension(2147483647, 22));
         pwr_passwordLogin.putClientProperty(FlatClientProperties.STYLE, ""
-            + "showRevealButton:true;"
-            + "showCapsLock:true");
+                + "showRevealButton:true;"
+                + "showCapsLock:true");
         pwr_passwordLogin.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Mật khẩu");
         pwr_passwordLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -240,9 +214,9 @@ public class Login_GUI extends javax.swing.JPanel {
         pnl_loginForm.add(txt_accountLogin, gridBagConstraints);
 
         btn_login.setText("Đăng nhập");
-        btn_login.putClientProperty(FlatClientProperties.STYLE,""
-            + "background:$Menu.background;"
-            + "foreground:$Menu.foreground;");
+        btn_login.putClientProperty(FlatClientProperties.STYLE, ""
+                + "background:$Menu.background;"
+                + "foreground:$Menu.foreground;");
         btn_login.setMaximumSize(new java.awt.Dimension(100, 30));
         btn_login.setMinimumSize(new java.awt.Dimension(88, 30));
         btn_login.setPreferredSize(new java.awt.Dimension(88, 30));
@@ -272,7 +246,8 @@ public class Login_GUI extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
         pnl_loginForm.add(lbl_navChangePassword, gridBagConstraints);
 
-        pnl_login.add(pnl_loginForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 10, 400, 350));
+        pnl_login.add(pnl_loginForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(
+                ((int) getScreenSize().getWidth() - 400) / 2 -20, (int) (getScreenSize().getHeight() - 350) / 2, 400, 350));
         pnl_loginForm.getAccessibleContext().setAccessibleDescription("");
         int centerX = (pnl_login.getWidth() - pnl_loginForm.getWidth()) / 2;
         int centerY = (pnl_login.getHeight() - pnl_loginForm.getHeight()) / 2;
@@ -285,15 +260,17 @@ public class Login_GUI extends javax.swing.JPanel {
         pnl_changePasswordForm.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         pnl_changePasswordForm.setMaximumSize(new java.awt.Dimension(2147483647, 70));
         pnl_changePasswordForm.setMinimumSize(new java.awt.Dimension(529, 70));
-        pnl_changePasswordForm.setPreferredSize(new java.awt.Dimension(220, 70));
+        pnl_changePasswordForm.setPreferredSize(new java.awt.Dimension(400, 520));
         pnl_changePasswordForm.setRequestFocusEnabled(false);
         pnl_changePasswordForm.setVerifyInputWhenFocusTarget(false);
         java.awt.GridBagLayout pnl_changePasswordFormLayout = new java.awt.GridBagLayout();
-        pnl_changePasswordFormLayout.columnWidths = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-        pnl_changePasswordFormLayout.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        pnl_changePasswordFormLayout.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0 };
+        pnl_changePasswordFormLayout.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         pnl_changePasswordForm.setLayout(pnl_changePasswordFormLayout);
 
-        lbl_titleChangePassword.setFont(lbl_titleChangePassword.getFont().deriveFont(lbl_titleChangePassword.getFont().getStyle() | java.awt.Font.BOLD, 24));
+        lbl_titleChangePassword.setFont(lbl_titleChangePassword.getFont()
+                .deriveFont(lbl_titleChangePassword.getFont().getStyle() | java.awt.Font.BOLD, 24));
         lbl_titleChangePassword.setForeground(new java.awt.Color(71, 118, 185));
         lbl_titleChangePassword.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_titleChangePassword.setText("Đổi mật khẩu");
@@ -301,7 +278,7 @@ public class Login_GUI extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(18, 0, 18, 0);
         pnl_changePasswordForm.add(lbl_titleChangePassword, gridBagConstraints);
 
-        lbl_account.setFont(lbl_account.getFont().deriveFont((float)18));
+        lbl_account.setFont(lbl_account.getFont().deriveFont((float) 18));
         lbl_account.setText("Tài khoản:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -311,7 +288,7 @@ public class Login_GUI extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 19, 0, 0);
         pnl_changePasswordForm.add(lbl_account, gridBagConstraints);
 
-        lbl_passwordNew.setFont(lbl_passwordNew.getFont().deriveFont((float)18));
+        lbl_passwordNew.setFont(lbl_passwordNew.getFont().deriveFont((float) 18));
         lbl_passwordNew.setText("Mật khẩu mới:");
         lbl_passwordNew.setMaximumSize(new java.awt.Dimension(60, 25));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -324,8 +301,8 @@ public class Login_GUI extends javax.swing.JPanel {
 
         pwr_passwordNew.setMaximumSize(new java.awt.Dimension(2147483647, 22));
         pwr_passwordNew.putClientProperty(FlatClientProperties.STYLE, ""
-            + "showRevealButton:true;"
-            + "showCapsLock:true");
+                + "showRevealButton:true;"
+                + "showCapsLock:true");
         pwr_passwordNew.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Mật khẩu mới");
         pwr_passwordNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -358,9 +335,9 @@ public class Login_GUI extends javax.swing.JPanel {
         pnl_changePasswordForm.add(txt_account, gridBagConstraints);
 
         btn_changePassword.setText("Đổi mật khẩu");
-        btn_changePassword.putClientProperty(FlatClientProperties.STYLE,""
-            + "background:$Menu.background;"
-            + "foreground:$Menu.foreground;");
+        btn_changePassword.putClientProperty(FlatClientProperties.STYLE, ""
+                + "background:$Menu.background;"
+                + "foreground:$Menu.foreground;");
         btn_changePassword.setMaximumSize(new java.awt.Dimension(100, 35));
         btn_changePassword.setMinimumSize(new java.awt.Dimension(88, 30));
         btn_changePassword.setPreferredSize(new java.awt.Dimension(88, 30));
@@ -378,7 +355,7 @@ public class Login_GUI extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(30, 40, 30, 40);
         pnl_changePasswordForm.add(btn_changePassword, gridBagConstraints);
 
-        lbl_passwordConfirm.setFont(lbl_passwordConfirm.getFont().deriveFont((float)18));
+        lbl_passwordConfirm.setFont(lbl_passwordConfirm.getFont().deriveFont((float) 18));
         lbl_passwordConfirm.setText("Xác nhận mật khẩu mới:");
         lbl_passwordConfirm.setMaximumSize(new java.awt.Dimension(60, 25));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -391,8 +368,8 @@ public class Login_GUI extends javax.swing.JPanel {
 
         pwr_passwordConfirm.setMaximumSize(new java.awt.Dimension(2147483647, 22));
         pwr_passwordConfirm.putClientProperty(FlatClientProperties.STYLE, ""
-            + "showRevealButton:true;"
-            + "showCapsLock:true");
+                + "showRevealButton:true;"
+                + "showCapsLock:true");
         pwr_passwordConfirm.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Xác nhận mật khẩu");
         pwr_passwordConfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -422,7 +399,7 @@ public class Login_GUI extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnl_changePasswordForm.add(lbl_navLogin, gridBagConstraints);
 
-        lbl_password.setFont(lbl_password.getFont().deriveFont((float)18));
+        lbl_password.setFont(lbl_password.getFont().deriveFont((float) 18));
         lbl_password.setText("Mật khẩu:");
         lbl_password.setMaximumSize(new java.awt.Dimension(60, 25));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -435,8 +412,8 @@ public class Login_GUI extends javax.swing.JPanel {
 
         pwr_password.setMaximumSize(new java.awt.Dimension(2147483647, 22));
         pwr_password.putClientProperty(FlatClientProperties.STYLE, ""
-            + "showRevealButton:true;"
-            + "showCapsLock:true");
+                + "showRevealButton:true;"
+                + "showCapsLock:true");
         pwr_password.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Mật khẩu");
         pwr_password.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -453,32 +430,78 @@ public class Login_GUI extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 20, 0, 20);
         pnl_changePasswordForm.add(pwr_password, gridBagConstraints);
 
-        pnl_login.add(pnl_changePasswordForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 400, 520));
+        pnl_login.add(pnl_changePasswordForm, new org.netbeans.lib.awtextra.AbsoluteConstraints((int)(getScreenSize().getWidth()-400)/2-20,(int) (getScreenSize().getHeight()-520)/2, 400, 520));
 
-        lbl_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/login/background.png"))); // NOI18N
-        lbl_background.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lbl_background.setMaximumSize(new java.awt.Dimension(3000, 1080));
-        lbl_background.setMinimumSize(new java.awt.Dimension(1366, 768));
-        lbl_background.setPreferredSize(new java.awt.Dimension(1366, 768));
-        pnl_login.add(lbl_background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1366, 768));
+        lbl_welcome = new JLabel();
+        lbl_welcome.setFont(new java.awt.Font("Cascadia Mono", 1, 70)); // NOI18N
+        lbl_welcome.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_welcome.setText("Welcome to Omega Book");
+        pnl_login.add(lbl_welcome, new org.netbeans.lib.awtextra.AbsoluteConstraints((int)(getScreenSize().getWidth()-631)/2, 10, -1, -1));
+
+        lbl_icon = new JLabel();
+        lbl_icon.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lbl_icon.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/login/Book02.png"))); // NOI18N
+        lbl_icon.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        lbl_icon.setPreferredSize(new java.awt.Dimension(400, 350));
+        lbl_icon.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        pnl_login.add(lbl_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, (int)(getScreenSize().getHeight()-400), -1, -1));
+        lbl_icon.getAccessibleContext().setAccessibleName("");
+
+        pnl_info = new JPanel();
+        pnl_info.setBackground(null);
+        pnl_info.setPreferredSize(new java.awt.Dimension(260, 178));
+        pnl_info.setLayout(new javax.swing.BoxLayout(pnl_info, javax.swing.BoxLayout.Y_AXIS));
+
+        lbl_developBy = new JLabel();
+        lbl_developBy.setFont(new java.awt.Font("Cascadia Mono", 1, 24)); // NOI18N
+        lbl_developBy.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_developBy.setText("Developed by:");
+        pnl_info.add(lbl_developBy);
+
+        lbl_canh = new JLabel();
+        lbl_canh.setFont(new java.awt.Font("Cascadia Mono", 1, 24)); // NOI18N
+        lbl_canh.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_canh.setText("Nguyễn Thanh Cảnh");
+        pnl_info.add(lbl_canh);
+
+        lbl_khang = new JLabel();
+        lbl_khang.setFont(new java.awt.Font("Cascadia Mono", 1, 24)); // NOI18N
+        lbl_khang.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_khang.setText("Lê Hoàng Khang");
+        pnl_info.add(lbl_khang);
+
+        lbl_kien =new JLabel();
+        lbl_kien.setFont(new java.awt.Font("Cascadia Mono", 1, 24)); // NOI18N
+        lbl_kien.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_kien.setText("Trần Đình Kiên");
+        pnl_info.add(lbl_kien);
+
+        lbl_tam = new JLabel();
+        lbl_tam.setFont(new java.awt.Font("Cascadia Mono", 1, 24)); // NOI18N
+        lbl_tam.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_tam.setText("Hồ Thị Như Tâm");
+        pnl_info.add(lbl_tam);
+
+        pnl_login.add(pnl_info, new org.netbeans.lib.awtextra.AbsoluteConstraints((int)(getScreenSize().getWidth()-260), (int)(getScreenSize().getHeight()-250), -1, -1));
 
         add(pnl_login, "card4");
     }// </editor-fold>//GEN-END:initComponents
 
-    private void lbl_navChangePasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_navChangePasswordMouseClicked
+    private void lbl_navChangePasswordMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lbl_navChangePasswordMouseClicked
         // TODO add your handling code here:
         pnl_changePasswordForm.setVisible(true);
         pnl_loginForm.setVisible(false);
-    }//GEN-LAST:event_lbl_navChangePasswordMouseClicked
+    }// GEN-LAST:event_lbl_navChangePasswordMouseClicked
 
-    private void lbl_navLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_navLoginMouseClicked
+    private void lbl_navLoginMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lbl_navLoginMouseClicked
         // TODO add your handling code here:
         pnl_changePasswordForm.setVisible(false);
         pnl_loginForm.setVisible(true);
-    }//GEN-LAST:event_lbl_navLoginMouseClicked
+    }                                         
 
     private void formAncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_formAncestorResized
-        updateSizeBackground();
+
     }//GEN-LAST:event_formAncestorResized
 
     private void txt_accountLoginActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txt_accountLoginActionPerformed
@@ -499,6 +522,7 @@ public class Login_GUI extends javax.swing.JPanel {
     private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_loginActionPerformed
         String id = txt_accountLogin.getText();
         String password = String.copyValueOf(pwr_passwordLogin.getPassword());
+
         try {
             Employee emp = log_BUS.login(id, password);
             if (emp != null) {
@@ -552,13 +576,18 @@ public class Login_GUI extends javax.swing.JPanel {
 
             pnl_loginForm.setBounds(centerX, centerY, pnl_loginForm.getWidth(), pnl_loginForm.getHeight());
         }
-
+        
         if (pnl_login != null && pnl_changePasswordForm != null) {
             int centerX = (pnl_login.getWidth() - pnl_changePasswordForm.getWidth()) / 2;
             int centerY = (pnl_login.getHeight() - pnl_changePasswordForm.getHeight()) / 2;
-
-            pnl_changePasswordForm.setBounds(centerX, centerY, pnl_changePasswordForm.getWidth(), pnl_changePasswordForm.getHeight());
+            
+            pnl_changePasswordForm.setBounds(centerX, centerY, pnl_changePasswordForm.getWidth(),
+                    pnl_changePasswordForm.getHeight());
         }
+
+        pnl_info.setBounds((int)(getScreenSize().getWidth()-pnl_info.getSize().getWidth()), (int)(getScreenSize().getHeight()-pnl_info.getSize().getHeight()), -1, -1);
+//        lbl_welcome.setBounds((int)(getScreenSize().getWidth()-lbl_welcome.getSize().getWidth())/2, 10, -1, -1);
+//        lbl_icon.setBounds(10, (int)(getScreenSize().getHeight()-lbl_icon.getSize().getHeight()), -1, -1);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -567,16 +596,23 @@ public class Login_GUI extends javax.swing.JPanel {
     private javax.swing.JFrame fra_ChangePassword;
     private javax.swing.JLabel lbl_account;
     private javax.swing.JLabel lbl_accountLogin;
-    private javax.swing.JLabel lbl_background;
+    private javax.swing.JLabel lbl_canh;
+    private javax.swing.JLabel lbl_developBy;
+    private javax.swing.JLabel lbl_icon;
+    private javax.swing.JLabel lbl_khang;
+    private javax.swing.JLabel lbl_kien;
     private javax.swing.JLabel lbl_navChangePassword;
     private javax.swing.JLabel lbl_navLogin;
     private javax.swing.JLabel lbl_password;
     private javax.swing.JLabel lbl_passwordConfirm;
     private javax.swing.JLabel lbl_passwordLogin;
     private javax.swing.JLabel lbl_passwordNew;
+    private javax.swing.JLabel lbl_tam;
     private javax.swing.JLabel lbl_titleChangePassword;
     private javax.swing.JLabel lbl_titleLogin;
+    private javax.swing.JLabel lbl_welcome;
     private javax.swing.JPanel pnl_changePasswordForm;
+    private javax.swing.JPanel pnl_info;
     private javax.swing.JPanel pnl_login;
     private javax.swing.JPanel pnl_loginForm;
     private javax.swing.JPasswordField pwr_password;
