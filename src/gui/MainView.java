@@ -173,15 +173,12 @@ public class MainView extends JLayeredPane {
                 case 9:
                     switch (subIndex) {
                         case 1:
-                            Application.showForm(new JPanel());
-                            break;
-                        case 2:
                             Application.showForm(new ManagemantShifts_GUI());
                             break;
-                        case 3:
+                        case 2:
                             Application.showForm(new SupplierManagement_GUI());
                             break;
-                        case 4:
+                        case 3:
                             Application.showForm(new BrandManagement_GUI());
                             break;
                         default:
