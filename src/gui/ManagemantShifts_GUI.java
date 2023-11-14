@@ -5,9 +5,11 @@
 package gui;
 
 import bus.ShiftsManagemant_BUS;
-import entity.Customer;
 import entity.Shift;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -26,6 +28,7 @@ public class ManagemantShifts_GUI extends javax.swing.JPanel {
         initTableModel();
         initComponents();
         renderShiftsTable(shift_bus.getAll());
+        alterTable();
     }
 
     public void initTableModel() {
@@ -36,10 +39,21 @@ public class ManagemantShifts_GUI extends javax.swing.JPanel {
 
     public void renderShiftsTable(ArrayList<Shift> list) {
         tblModel_shift.setRowCount(0);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         for (Shift shift : list) {
-            Object[] row = new Object[]{shift.getShiftID(), shift.getAccount().getEmployee().getEmployeeID(), shift.getAccount().getEmployee().getName(), shift.getAccount().getEmployee().getRole(), shift.getStartedAt(), shift.getEndedAt()};
+            Object[] row = new Object[]{shift.getShiftID(), shift.getAccount().getEmployee().getEmployeeID(), shift.getAccount().getEmployee().getName(), shift.getAccount().getEmployee().getRole(), formatter.format(shift.getStartedAt()), formatter.format(shift.getEndedAt())};
             tblModel_shift.addRow(row);
         }
+    }
+    
+    public void alterTable() {
+        DefaultTableCellRenderer rightAlign = new DefaultTableCellRenderer();
+        rightAlign.setHorizontalAlignment(JLabel.RIGHT);
+
+        //Align
+        tbl_shifts.getColumnModel().getColumn(4).setCellRenderer(rightAlign);
+        tbl_shifts.getColumnModel().getColumn(5).setCellRenderer(rightAlign);
+       
     }
 
     /**
@@ -54,6 +68,18 @@ public class ManagemantShifts_GUI extends javax.swing.JPanel {
         scr_shifts = new javax.swing.JScrollPane();
         tbl_shifts = new javax.swing.JTable();
         pnl_header = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jPanel4 = new javax.swing.JPanel();
+        btn_filter = new javax.swing.JButton();
+        btn_reload = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(1366, 768));
         setLayout(new java.awt.BorderLayout());
@@ -63,22 +89,73 @@ public class ManagemantShifts_GUI extends javax.swing.JPanel {
 
         add(scr_shifts, java.awt.BorderLayout.CENTER);
 
-        javax.swing.GroupLayout pnl_headerLayout = new javax.swing.GroupLayout(pnl_header);
-        pnl_header.setLayout(pnl_headerLayout);
-        pnl_headerLayout.setHorizontalGroup(
-            pnl_headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 626, Short.MAX_VALUE)
-        );
-        pnl_headerLayout.setVerticalGroup(
-            pnl_headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        pnl_header.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 10, 1));
+        pnl_header.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        pnl_header.setPreferredSize(new java.awt.Dimension(626, 40));
+        pnl_header.setLayout(new javax.swing.BoxLayout(pnl_header, javax.swing.BoxLayout.X_AXIS));
+
+        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.X_AXIS));
+
+        jLabel1.setText("Mã nhân viên: ");
+        jPanel1.add(jLabel1);
+        jPanel1.add(jTextField1);
+
+        pnl_header.add(jPanel1);
+
+        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.X_AXIS));
+
+        jLabel2.setText("Ngày: ");
+        jPanel2.add(jLabel2);
+        jPanel2.add(jDateChooser1);
+
+        pnl_header.add(jPanel2);
+
+        jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.X_AXIS));
+
+        jLabel3.setText("Chức vụ: ");
+        jPanel3.add(jLabel3);
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Cửa hàng trưởng", "Nhân viên" }));
+        jPanel3.add(jComboBox1);
+
+        pnl_header.add(jPanel3);
+
+        jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.X_AXIS));
+
+        btn_filter.setText("Lọc");
+        btn_filter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_filterActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btn_filter);
+
+        btn_reload.setText("Làm mới");
+        jPanel4.add(btn_reload);
+
+        pnl_header.add(jPanel4);
 
         add(pnl_header, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btn_filterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_filterActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_filterActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_filter;
+    private javax.swing.JButton btn_reload;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel pnl_header;
     private javax.swing.JScrollPane scr_shifts;
     private javax.swing.JTable tbl_shifts;

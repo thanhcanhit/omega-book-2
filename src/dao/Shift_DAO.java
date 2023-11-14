@@ -17,12 +17,15 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import dao.Shift_DAO;
 
 /**
  *
  * @author Hoàng Khang
  */
 public class Shift_DAO implements DAOBase<Shift> {
+    
+    private Employee_DAO employee_DAO = new Employee_DAO();
 
     @Override
     public Shift getOne(String id) {
@@ -37,13 +40,13 @@ public class Shift_DAO implements DAOBase<Shift> {
             if (rs.next()) {
                 String employeeID = rs.getString("employeeID");
                 String shiftID = rs.getString("shiftID");
-                Timestamp startTimestamp = rs.getTimestamp("startedDate");
-                Timestamp endTimestamp = rs.getTimestamp("endedDate");
+                Timestamp startTimestamp = rs.getTimestamp("startedAt");
+                Timestamp endTimestamp = rs.getTimestamp("endedAt");
 
                 Date started = new java.sql.Date(startTimestamp.getTime());
                 Date ended = new java.sql.Date(endTimestamp.getTime());
 
-                shift = new Shift(shiftID, started, ended, new Account(new Employee(employeeID)));
+                shift = new Shift(shiftID, started, ended, new Account(employee_DAO.getOne(employeeID)));
 
             }
         } catch (Exception e) {

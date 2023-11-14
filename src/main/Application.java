@@ -20,6 +20,8 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -61,7 +63,15 @@ public class Application extends javax.swing.JFrame {
                         "Bạn có thật sự muốn tắt OmegaBook?", "Đóng ứng dụng?",
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-//                    Đóng kết nối
+                    if (employee != null) {
+                        try {
+                            //                    Đóng kết nối
+                            shift.setEndedAt(new Date());
+                        } catch (Exception ex) {
+                            Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        shift_BUS.createShifts(shift);
+                    }
                     ConnectDB.disconnect();
                     System.exit(0);
                 }

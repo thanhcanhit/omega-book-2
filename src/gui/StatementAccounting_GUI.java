@@ -238,7 +238,7 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
 
         jSplitPane1.setResizeWeight(0.9);
 
-        pnl_infomation.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18), new java.awt.Color(0, 102, 153))); // NOI18N
+        pnl_infomation.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         pnl_infomation.setMinimumSize(new java.awt.Dimension(400, 466));
         pnl_infomation.setPreferredSize(new java.awt.Dimension(450, 690));
         pnl_infomation.setLayout(new java.awt.BorderLayout());
@@ -248,6 +248,7 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
         pnl_accountingInfoHeader.setRequestFocusEnabled(false);
         pnl_accountingInfoHeader.setLayout(new javax.swing.BoxLayout(pnl_accountingInfoHeader, javax.swing.BoxLayout.Y_AXIS));
 
+        txt_timeAccounting.setEditable(false);
         txt_timeAccounting.setBackground(null);
         txt_timeAccounting.setFont(txt_timeAccounting.getFont().deriveFont(txt_timeAccounting.getFont().getStyle() | java.awt.Font.BOLD, 20));
         txt_timeAccounting.setHorizontalAlignment(javax.swing.JTextField.CENTER);
