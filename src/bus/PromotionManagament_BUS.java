@@ -97,7 +97,7 @@ public class PromotionManagament_BUS {
     }
 
     public boolean removePromotion(String promotionID) {
-        return promotion_DAO.delete(promotionID);
+        return promotion_DAO.updateDate(promotionID);
     }
 
     public ArrayList<Product> searchProductById(String searchQuery) {
@@ -116,6 +116,10 @@ public class PromotionManagament_BUS {
             productPromotionDetail.setPromotion(newPromotion);
             new ProductPromotionDetail_DAO().create(productPromotionDetail);
         }
+    }
+
+    public boolean removeProductPromotionDetail(String promotionID) {
+        return new ProductPromotionDetail_DAO().delete(promotionID);
     }
 
 

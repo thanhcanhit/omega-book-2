@@ -223,7 +223,30 @@ public class Promotion_DAO implements DAOBase<Promotion>{
     }
     @Override
     public Boolean update(String id, Promotion newObject) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int n = 0;
+        try {
+            PreparedStatement st = ConnectDB.conn.prepareCall("UPDATE Promotion "
+                    + "SET endedDate = GETDATE() " 
+                    + "WHERE promotionID = ?");
+            st.setString(1, id);
+            n = st.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return n > 0;
+    }
+    public Boolean updateDate(String id) {
+        int n = 0;
+        try {
+            PreparedStatement st = ConnectDB.conn.prepareCall("UPDATE Promotion "
+                    + "SET endedDate = GETDATE() " 
+                    + "WHERE promotionID = ?");
+            st.setString(1, id);
+            n = st.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return n > 0;
     }
 
     public String getMaxSequence(String prefix) {
