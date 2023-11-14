@@ -8,10 +8,6 @@ import dao.Order_DAO;
 import dao.Product_DAO;
 import dao.PurchaseOrder_DAO;
 import dao.ReturnOrder_DAO;
-import entity.Order;
-import entity.PurchaseOrder;
-import entity.ReturnOrder;
-import java.util.ArrayList;
 
 /**
  *

@@ -231,7 +231,10 @@ public class Order_DAO implements DAOBase<Order> {
                 String promotionID = rs.getString("promotionID");
                 Double totalDue = rs.getDouble("totalDue");
                 Double subTotal = rs.getDouble("subTotal");
-
+                
+                if(status==false){
+                    continue;
+                }
                 Double moneyGiven = rs.getDouble("moneyGiven");
 
                 Order order = new Order();
@@ -372,7 +375,7 @@ public class Order_DAO implements DAOBase<Order> {
         }
 
         try {
-            PreparedStatement st = ConnectDB.conn.prepareStatement("select Day(orderAt) as day, sum(totalDue) as total from [Order] where YEAR(orderAt) = ? and Month(orderAt) = ? group by Day(orderAt)");
+            PreparedStatement st = ConnectDB.conn.prepareStatement("select Day(orderAt) as day, sum(totalDue) as total from [Order] where YEAR(orderAt) = ? and Month(orderAt) = ? and status = 1 group by Day(orderAt)");
             st.setInt(1, year);
             st.setInt(2, month);
             ResultSet rs = st.executeQuery();
@@ -395,7 +398,7 @@ public class Order_DAO implements DAOBase<Order> {
 
 
         try {
-            PreparedStatement st = ConnectDB.conn.prepareStatement("select count(orderID) as sl from [Order] where YEAR(orderAt) = ? and Month(orderAt) = ? ");
+            PreparedStatement st = ConnectDB.conn.prepareStatement("select count(orderID) as sl from [Order] where YEAR(orderAt) = ? and Month(orderAt) = ? and status=1 ");
             st.setInt(1, year);
             st.setInt(2, month);
             ResultSet rs = st.executeQuery();
@@ -417,7 +420,7 @@ public class Order_DAO implements DAOBase<Order> {
 
 
         try {
-            PreparedStatement st = ConnectDB.conn.prepareStatement("select sum(totalDue) as total from [Order] where YEAR(orderAt) = ? and Month(orderAt) = ? ");
+            PreparedStatement st = ConnectDB.conn.prepareStatement("select sum(totalDue) as total from [Order] where YEAR(orderAt) = ? and Month(orderAt) = ? and status=1");
             st.setInt(1, year);
             st.setInt(2, month);
             ResultSet rs = st.executeQuery();

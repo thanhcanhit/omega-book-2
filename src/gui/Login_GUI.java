@@ -84,25 +84,7 @@ public class Login_GUI extends javax.swing.JPanel {
         lbl_background.setIcon(imageIcon);
     }
 
-    private void updateSizeBackground() {
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int screenWidth = screenSize.width;
-        int screenHeight = screenSize.height;
-        lbl_background.setBounds(0, 0, screenWidth, screenHeight);
-        updateBackgroundScale();
-        System.out.println("fire");
-        lbl_background.revalidate();
-        lbl_background.repaint();
-    }
-
-    private void updateBackgroundScale() {
-        Image image = ((ImageIcon) (lbl_background.getIcon())).getImage();
-        Image scaledImage = image.getScaledInstance(lbl_background.getWidth(), -1, Image.SCALE_SMOOTH | Image.SCALE_AREA_AVERAGING);
-
-        // Tạo lại đối tượng ImageIcon với kích thước mới
-        ImageIcon imageIcon = new ImageIcon(scaledImage);
-        lbl_background.setIcon(imageIcon);
-    }
+    
 
     public boolean checkValueFormChangePassword(String id, String pass, String passNew, String passConfirm) throws Exception {
         if (id.equals("")) {

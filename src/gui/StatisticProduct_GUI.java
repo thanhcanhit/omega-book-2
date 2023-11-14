@@ -5,27 +5,22 @@
 package gui;
 
 import bus.StatisticProduct_BUS;
+import chartCustom.chart.ModelChart;
 import entity.Product;
 import java.awt.Color;
-import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+
 import javax.swing.JTable;
-import javax.swing.SwingUtilities;
+
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import org.knowm.xchart.*;
-import org.knowm.xchart.internal.chartpart.Chart;
-import org.knowm.xchart.style.Styler.LegendPosition;
 import utilities.FormatNumber;
 
 /**
@@ -73,18 +68,19 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel {
         Date date = date_statisticProduct.getDate();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String formatDate = format.format(date);
-        chartPanel = new XChartPanel<>(getChart());
-        pnl_center.add(chartPanel);
+        chart.setBackground(getBackground());
+        chart.addLegend("Sản phẩm", new Color(71, 118, 185));
+        getChart(formatDate);
         renderProductTable(bus.getTopProductInDay(formatDate), formatDate);
+        chart.start();
         date_statisticProduct.addPropertyChangeListener((PropertyChangeEvent e) -> {
             if ("date".equals(e.getPropertyName())) {
                 Date selectedDate = (Date) e.getNewValue();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String formattedDate = dateFormat.format(selectedDate);
                 renderProductTable(bus.getTopProductInDay(formattedDate), formattedDate);
-                chartPanel = new XChartPanel<>(getChart());
-                pnl_center.add(chartPanel);
-                chartPanel.updateUI();
+                chart.clear();
+                getChart(formattedDate);
 
             }
         });
@@ -117,49 +113,13 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel {
         tbl_topProduct.setDefaultEditor(Object.class, null);
     }
 
-    public CategoryChart getChart() {
-
-        // Create Chart
-        CategoryChart chart = new CategoryChartBuilder().width(800).height(600).title("").xAxisTitle("Mã sản phẩm").yAxisTitle("Số lượng bán").build();
-
-        // Customize Chart
-        chart.getStyler().setLegendPosition(LegendPosition.InsideNW);
-        chart.getStyler().setPlotBackgroundColor(Color.WHITE);
-        chart.getStyler().setChartBackgroundColor(Color.WHITE);
-        chart.getStyler().setSeriesColors(new Color[]{new Color(71, 118, 185)});
-
-        // Series
-        Date date = date_statisticProduct.getDate();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        String formatDate = format.format(date);
-
-        
-
-        ArrayList listProductQuantity = new ArrayList<>();
-       
-        ArrayList listProductID = new ArrayList<>();
-        
-        for(Product product :  bus.getTop10Product(formatDate)){
-            listProductID.add(product.getProductID());
+    public void getChart(String formatDate) {
+        ArrayList<Product> list = bus.getTop10Product(formatDate);
+        for (Product p : list) {
+            chart.addData(new ModelChart(p.getProductID(), new double[]{bus.getTotalProduct(p.getProductID(), formatDate)}));
         }
-        for(Object id: listProductID){
-            listProductQuantity.add(bus.getQuantitySale((String) id, formatDate));
-        }
-        if (listProductID.isEmpty() || listProductQuantity.isEmpty()) {
-            List<String> defaultProductID = Arrays.asList(" "," ", " ");
-            List<Integer> defaultProductQuantity = Arrays.asList(0, 0, 0);
-
-            chart.addSeries("Doanh thu", defaultProductID, defaultProductQuantity);
-        } else {
-            chart.addSeries("Doanh thu", listProductID, listProductQuantity);
-        }
-        
-        
-        
-        
-        return chart;
+        chart.start();
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -221,6 +181,7 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel {
         filler15 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         filler16 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 6), new java.awt.Dimension(32767, 10));
         pnl_center = new javax.swing.JPanel();
+        chart = new chartCustom.chart.Chart();
 
         setPreferredSize(new java.awt.Dimension(1366, 768));
         setLayout(new java.awt.BorderLayout());
@@ -374,6 +335,8 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel {
         pnl_center.setBorder(javax.swing.BorderFactory.createTitledBorder("Biểu đồ thống kê top 10 sản phẩm bán chạy trong tháng"));
         pnl_center.setPreferredSize(new java.awt.Dimension(661, 400));
         pnl_center.setLayout(new java.awt.BorderLayout());
+        pnl_center.add(chart, java.awt.BorderLayout.CENTER);
+
         add(pnl_center, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -383,6 +346,7 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private chartCustom.chart.Chart chart;
     private com.toedter.calendar.JDateChooser date_statisticProduct;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler10;
