@@ -46,13 +46,9 @@ public class Login_GUI extends javax.swing.JPanel {
     }
 
 
- 
-
-    
-
-
     public boolean checkValueFormChangePassword(String id, String pass, String passNew, String passConfirm)
             throws Exception {
+
         if (id.equals("")) {
             throw new Exception("Mã đăng nhập không được bỏ trống!");
         }
