@@ -19,6 +19,7 @@ import java.awt.Toolkit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import main.Application;
 import raven.toast.Notifications;
@@ -431,12 +432,13 @@ public class Login_GUI extends javax.swing.JPanel {
 
         pnl_login.add(pnl_changePasswordForm, new org.netbeans.lib.awtextra.AbsoluteConstraints((int)(getScreenSize().getWidth()-400)/2-20,(int) (getScreenSize().getHeight()-520)/2, 400, 520));
 
-
-        lbl_welcome.setFont(new java.awt.Font("Vladimir Script", 1, 70)); // NOI18N
+        lbl_welcome = new JLabel();
+        lbl_welcome.setFont(new java.awt.Font("Cascadia Mono", 1, 70)); // NOI18N
         lbl_welcome.setForeground(new java.awt.Color(255, 255, 255));
         lbl_welcome.setText("Welcome to Omega Book");
         pnl_login.add(lbl_welcome, new org.netbeans.lib.awtextra.AbsoluteConstraints((int)(getScreenSize().getWidth()-631)/2, 10, -1, -1));
 
+        lbl_icon = new JLabel();
         lbl_icon.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lbl_icon.setForeground(new java.awt.Color(255, 255, 255));
         lbl_icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/login/Book02.png"))); // NOI18N
@@ -446,30 +448,36 @@ public class Login_GUI extends javax.swing.JPanel {
         pnl_login.add(lbl_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, (int)(getScreenSize().getHeight()-400), -1, -1));
         lbl_icon.getAccessibleContext().setAccessibleName("");
 
+        pnl_info = new JPanel();
         pnl_info.setBackground(null);
         pnl_info.setPreferredSize(new java.awt.Dimension(260, 178));
         pnl_info.setLayout(new javax.swing.BoxLayout(pnl_info, javax.swing.BoxLayout.Y_AXIS));
 
+        lbl_developBy = new JLabel();
         lbl_developBy.setFont(new java.awt.Font("Cascadia Mono", 1, 24)); // NOI18N
         lbl_developBy.setForeground(new java.awt.Color(255, 255, 255));
         lbl_developBy.setText("Developed by:");
         pnl_info.add(lbl_developBy);
 
+        lbl_canh = new JLabel();
         lbl_canh.setFont(new java.awt.Font("Cascadia Mono", 1, 24)); // NOI18N
         lbl_canh.setForeground(new java.awt.Color(255, 255, 255));
         lbl_canh.setText("Nguyễn Thanh Cảnh");
         pnl_info.add(lbl_canh);
 
+        lbl_khang = new JLabel();
         lbl_khang.setFont(new java.awt.Font("Cascadia Mono", 1, 24)); // NOI18N
         lbl_khang.setForeground(new java.awt.Color(255, 255, 255));
         lbl_khang.setText("Lê Hoàng Khang");
         pnl_info.add(lbl_khang);
 
+        lbl_kien =new JLabel();
         lbl_kien.setFont(new java.awt.Font("Cascadia Mono", 1, 24)); // NOI18N
         lbl_kien.setForeground(new java.awt.Color(255, 255, 255));
         lbl_kien.setText("Trần Đình Kiên");
         pnl_info.add(lbl_kien);
 
+        lbl_tam = new JLabel();
         lbl_tam.setFont(new java.awt.Font("Cascadia Mono", 1, 24)); // NOI18N
         lbl_tam.setForeground(new java.awt.Color(255, 255, 255));
         lbl_tam.setText("Hồ Thị Như Tâm");
