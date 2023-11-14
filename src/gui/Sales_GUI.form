@@ -790,6 +790,11 @@
                         <Component class="javax.swing.JTextField" name="txt_orderPay">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
+                              <FontInfo relative="true">
+                                <Font bold="true" component="txt_orderPay" property="font" relativeSize="true" size="4"/>
+                              </FontInfo>
+                            </Property>
                             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                               <Color blue="ff" green="66" red="0" type="rgb"/>
                             </Property>

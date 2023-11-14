@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 
 /**
  *
@@ -48,7 +47,7 @@ public class Order_DAO implements DAOBase<Order> {
 
                 Double moneyGiven = resultSet.getDouble("moneyGiven");
 
-                order = new Order(id, orderAt, payment, status, new Promotion(promotionID), new Employee(employeeID), new Customer(customerID), new OrderDetail_DAO().getAll(id), subTotal, totalDue, moneyGiven);
+                order = new Order(id, orderAt, payment, status, new Promotion_DAO().getOne(promotionID), new Employee_DAO().getOne(employeeID), new Customer_DAO().getOne(customerID), new OrderDetail_DAO().getAll(id), subTotal, totalDue, moneyGiven);
             }
         } catch (Exception e) {
             e.printStackTrace();

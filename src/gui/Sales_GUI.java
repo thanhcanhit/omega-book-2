@@ -10,7 +10,6 @@ import entity.Customer;
 import entity.Order;
 import entity.OrderDetail;
 import entity.Product;
-import entity.ProductPromotionDetail;
 import entity.Promotion;
 import enums.DiscountType;
 import java.awt.HeadlessException;
@@ -27,12 +26,15 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.TableModelEvent;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import main.Application;
 import raven.toast.Notifications;
 
@@ -113,6 +115,14 @@ public class Sales_GUI extends javax.swing.JPanel {
 
         };
         tbl_cart.setModel(tblModel_cart);
+        DefaultTableCellRenderer rightAlign = new DefaultTableCellRenderer();
+        rightAlign.setHorizontalAlignment(JLabel.RIGHT);
+
+//        Align
+        TableColumnModel columnModel = tbl_cart.getColumnModel();
+        for (int index : new Integer[]{2, 3, 4, 5, 6, 7}) {
+            columnModel.getColumn(index).setCellRenderer(rightAlign);
+        }
 //        Sự kiện nhập giá trị item trong bảng
         tbl_cart.getModel().addTableModelListener((TableModelEvent evt) -> {
             int row = evt.getFirstRow();
@@ -454,7 +464,6 @@ public class Sales_GUI extends javax.swing.JPanel {
     }
 
     private boolean orderValidate(boolean checkCustomerGive) {
-
         //         Nếu chưa có khách hàng sẽ cảnh báo
         if (!chk_defaultCustomer.isSelected() && this.customer == null) {
             Notifications.getInstance().show(Notifications.Type.WARNING, "Bạn chưa thêm thông tin khách hàng");
@@ -467,8 +476,8 @@ public class Sales_GUI extends javax.swing.JPanel {
             return false;
         }
 
-        //         Nếu chưa có sản phẩm sẽ cảnh báo
-        if (checkCustomerGive && txt_orderCustomerGive.getText().isEmpty()) {
+        //         Nếu phương thức là tiền mặt và chưa nhập tiền khách đưa sẽ cảnh báo
+        if (cmb_orderPaymentMethod.getSelectedIndex() == 0 && checkCustomerGive && txt_orderCustomerGive.getText().isEmpty()) {
             Notifications.getInstance().show(Notifications.Type.WARNING, "Vui lòng nhập số tiền khách đã đưa!");
             return false;
         }
@@ -476,7 +485,6 @@ public class Sales_GUI extends javax.swing.JPanel {
     }
 
     private void handleCreateOrder() {
-
         if (!orderValidate(true)) {
             return;
         }
@@ -486,6 +494,8 @@ public class Sales_GUI extends javax.swing.JPanel {
 
             if (isSaved) {
                 Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đã tạo thành công đơn hàng" + order.getOrderID());
+//                show preview
+                new PreviewOrder_GUI(order, 100).setVisible(true);
 //                Rerender panel
                 rerender();
             } else {
@@ -910,6 +920,7 @@ public class Sales_GUI extends javax.swing.JPanel {
         pnl_orderPay.add(lbl_orderPay);
 
         txt_orderPay.setEditable(false);
+        txt_orderPay.setFont(txt_orderPay.getFont().deriveFont(txt_orderPay.getFont().getStyle() | java.awt.Font.BOLD, txt_orderPay.getFont().getSize()+4));
         txt_orderPay.setForeground(new java.awt.Color(0, 102, 255));
         txt_orderPay.setMaximumSize(new java.awt.Dimension(99999, 35));
         txt_orderPay.setMinimumSize(new java.awt.Dimension(100, 35));
@@ -1098,7 +1109,6 @@ public class Sales_GUI extends javax.swing.JPanel {
     private void btn_cancleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancleActionPerformed
         if (JOptionPane.showConfirmDialog(this, "Bạn có muốn hủy hóa đơn " + order.getOrderID(), "Xác nhận hủy hóa đơn", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             // Tạo lại trang mới
-
             if (isOldOrder) {
                 boolean isDeleted = bus.deleteOrder(order.getOrderID());
 
@@ -1129,6 +1139,7 @@ public class Sales_GUI extends javax.swing.JPanel {
 
     private void btn_submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_submitActionPerformed
         handleCreateOrder();
+
     }//GEN-LAST:event_btn_submitActionPerformed
 
     private void txt_customerPhoneKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_customerPhoneKeyPressed
@@ -1195,12 +1206,7 @@ public class Sales_GUI extends javax.swing.JPanel {
             order.setEmployee(Application.employee);
             java.sql.Timestamp now = java.sql.Timestamp.valueOf(LocalDateTime.now());
             order.setOrderAt(now);
-            boolean isATMPayment = cmb_orderPaymentMethod.getSelectedIndex() == 1;
-            order.setPayment(isATMPayment);
 
-            if (isATMPayment) {
-                order.setMoneyGiven(order.getSubTotal());
-            }
             order.setStatus(isCompleted);
 
             order.setOrderDetail(cart);
@@ -1210,7 +1216,12 @@ public class Sales_GUI extends javax.swing.JPanel {
             } else {
                 order.setCustomer(customer);
             }
-            System.out.println(order.getMoneyGiven());
+            boolean isATMPayment = cmb_orderPaymentMethod.getSelectedIndex() == 1;
+            order.setPayment(isATMPayment);
+
+            if (isATMPayment) {
+                order.setMoneyGiven(order.getSubTotal());
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -1227,17 +1238,16 @@ public class Sales_GUI extends javax.swing.JPanel {
             java.sql.Timestamp now = java.sql.Timestamp.valueOf(LocalDateTime.now());
             order.setOrderAt(now);
 
-            boolean isATMPayment = cmb_orderPaymentMethod.getSelectedIndex() == 1;
-            order.setPayment(isATMPayment);
-
-            if (isATMPayment) {
-                order.setMoneyGiven(order.getSubTotal());
-            }
 //            Đã hoàn thành hay chưa
             order.setStatus(isComplete);
 
-//                Tạm thời
             order.setOrderDetail(cart);
+            boolean isATMPayment = cmb_orderPaymentMethod.getSelectedIndex() == 1;
+            System.out.println("ATM: " + isATMPayment);
+            order.setPayment(isATMPayment);
+            if (isATMPayment) {
+                order.setMoneyGiven(order.getSubTotal());
+            }
             if (chk_defaultCustomer.isSelected()) {
 //                Khách hàng mặc định
                 order.setCustomer(defaultCustomer);
@@ -1272,6 +1282,12 @@ public class Sales_GUI extends javax.swing.JPanel {
             }
 
             try {
+//                Gỡ bỏ các khuyến mãi để tránh lỗi về sau
+                order.setPromotion(null);
+                for (OrderDetail item : order.getOrderDetail()) {
+                    item.setSeasonalDiscount(0);
+                }
+
                 boolean isSaved = isOldOrder ? updateOrder(false) : saveOrder(false);
                 if (isSaved) {
                     Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đã lưu tạm thành công đơn hàng " + order.getOrderID());
@@ -1371,8 +1387,17 @@ public class Sales_GUI extends javax.swing.JPanel {
         Order savedOrder = bus.getOrder(id);
 //        update state
         order = savedOrder;
-        cart = order.getOrderDetail();
         customer = order.getCustomer();
+        cart = order.getOrderDetail();
+//        Tự động thêm khuyến mãi có thể áp dụng ở thời điểm hiện tại vào các  sản phẩm
+        for (OrderDetail item : cart) {
+            double discountAmount = bus.getBestProductPromotionDiscountAmountAvailable(item.getProduct().getProductID());
+            if (discountAmount > 0) {
+//                    Lấy phần giảm cho 1 sản phẩm để tăng lên
+                item.setSeasonalDiscount(discountAmount * item.getQuantity());
+                Notifications.getInstance().show(Notifications.Type.INFO, "Sản phẩm " + item.getProduct().getName() + " này được giảm " + utilities.FormatNumber.toVND(discountAmount) + " trên 1 sản phẩm");
+            }
+        }
 
 //        Update view
         renderOrder();
@@ -1388,6 +1413,14 @@ public class Sales_GUI extends javax.swing.JPanel {
                 return false;
             }
         };
+        DefaultTableCellRenderer rightAlign = new DefaultTableCellRenderer();
+        rightAlign.setHorizontalAlignment(JLabel.RIGHT);
+
+//        Align
+        TableColumnModel columnModel = tbl_promotionList.getColumnModel();
+        for (int index : new Integer[]{1, 2}) {
+            columnModel.getColumn(index).setCellRenderer(rightAlign);
+        }
 
         if (customer == null) {
             return;
@@ -1395,7 +1428,9 @@ public class Sales_GUI extends javax.swing.JPanel {
 
         for (Promotion item : bus.getPromotionOfOrderAvailable(customer.getScore())) {
             double discountAmount = item.getTypeDiscount() == DiscountType.PERCENT ? item.getDiscount() / 100 * total : item.getDiscount();
-            tblModel_promotionList.addRow(new Object[]{item.getPromotionID(), item.getTypeDiscount(), item.getDiscount(), utilities.FormatNumber.toVND(discountAmount)});
+            String discountValue = item.getTypeDiscount() == DiscountType.PERCENT ? String.format("%.2f%%", item.getDiscount()) : utilities.FormatNumber.toVND(item.getDiscount());
+            String discountTypeDisplay = item.getTypeDiscount() == DiscountType.PERCENT ? "Theo phần trăm (%)" : "Theo chiết khấu (đ)";
+            tblModel_promotionList.addRow(new Object[]{item.getPromotionID(), discountTypeDisplay, discountValue, utilities.FormatNumber.toVND(discountAmount)});
         }
         tbl_promotionList.setModel(tblModel_promotionList);
     }

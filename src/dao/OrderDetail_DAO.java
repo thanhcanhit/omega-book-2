@@ -36,7 +36,7 @@ public class OrderDetail_DAO implements DAOBase<OrderDetail> {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 String productID = rs.getString("productID");
-                Product product = new Product(productID);
+                Product product = new Product_DAO().getOne(productID);
                 String orderID = rs.getString("orderID");
                 Order order = new Order(orderID);
                 Double price = rs.getDouble("price");
@@ -44,8 +44,8 @@ public class OrderDetail_DAO implements DAOBase<OrderDetail> {
                 Double lineTotal = rs.getDouble("lineTotal");
                 Double VAT = rs.getDouble("VAT");
                 Double seasonalDiscount = rs.getDouble("seasonalDiscount");
-                OrderDetail orderDetail = new OrderDetail(order, product, quantity, price, lineTotal,VAT,seasonalDiscount);
-      
+                OrderDetail orderDetail = new OrderDetail(order, product, quantity, price, lineTotal, VAT, seasonalDiscount);
+
                 result.add(orderDetail);
             }
         } catch (Exception e) {
@@ -70,8 +70,8 @@ public class OrderDetail_DAO implements DAOBase<OrderDetail> {
             st.setInt(4, object.getQuantity());
             st.setDouble(5, object.getLineTotal());
             st.setDouble(6, object.getVAT());
-            st.setDouble(7,object.getSeasonalDiscount());
-            
+            st.setDouble(7, object.getSeasonalDiscount());
+
             n = st.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
