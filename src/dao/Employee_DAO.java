@@ -115,6 +115,8 @@ public class Employee_DAO implements DAOBase<Employee> {
             st.setString(10, object.getStore().getStoreID());
 
             n = st.executeUpdate();
+            Account account = new Account(object);
+            new Account_DAO().create(account);
         } catch (Exception e) {
             e.printStackTrace();
         }

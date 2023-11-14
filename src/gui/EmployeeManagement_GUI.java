@@ -92,6 +92,8 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         else
             cmbModel_roleInfo.setSelectedItem("Cửa Hàng Trưởng");
         txt_storeID.setText(currentEmployee.getStore().getStoreID());
+        chooseDateOfBirth.setDate(currentEmployee.getDateOfBirth());
+        //chooseDateStart.setDate();
     }
     
     private void renderEmployeeTable(ArrayList<Employee> employeeList) {
@@ -113,14 +115,15 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         group_gender.clearSelection();
         txt_phoneNumberEmp.setText("");
         txt_citizenIDEmp.setText("");
-        group_statusEmp.clearSelection();
+        rdb_female.setSelected(true);
         cmbModel_roleInfo.setSelectedItem("Nhân Viên Bán Hàng");
         chooseDateOfBirth.setDate(java.sql.Date.valueOf(LocalDate.now()));
         chooseDateStart.setDate(java.sql.Date.valueOf(LocalDate.now()));
         txt_storeID.setText("");
     }
     private boolean validEmployee() {
-        String patternName = "^[A-Z][a-z]+([A-Za-z]+\s)+[a-z]$";
+        String patternName = "^[A-Z][a-z]+([A-Za-z]+\\s)+[a-z]$";
+        String patternPhoneNumber = "^(09|08|03|02|06){1}[0-9]{8}$";
         if(txt_name.getText().equals("")) {
             Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng nhập điền tên nhân viên");
             txt_name.requestFocus();
@@ -140,8 +143,18 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
             txt_phoneNumberEmp.requestFocus();
             return false;
         }
+        if(!Pattern.matches(patternPhoneNumber, txt_phoneNumberEmp.getText())) {
+            Notifications.getInstance().show(Notifications.Type.WARNING, "Số điện thoại có dạng 10 chữ số bắt đầu bằng 0");
+            txt_phoneNumberEmp.requestFocus();
+            return false;
+        }
         if(txt_citizenIDEmp.getText().equals("")) {
             Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng nhập mã CCCD của nhân viên");
+            txt_citizenIDEmp.requestFocus();
+            return false;
+        }
+        if(!Pattern.matches("[0-9]{12}", txt_citizenIDEmp.getText())) {
+            Notifications.getInstance().show(Notifications.Type.INFO, "CCCD gồm 12 chữ số");
             txt_citizenIDEmp.requestFocus();
             return false;
         }
@@ -301,6 +314,7 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         btn_addEmp = new javax.swing.JButton();
         btn_updateEmp = new javax.swing.JButton();
         btn_clearValue = new javax.swing.JButton();
+        btn_changePass = new javax.swing.JButton();
 
         setToolTipText("");
         setPreferredSize(new java.awt.Dimension(1366, 768));
@@ -399,15 +413,21 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tbl_employeeInfor.setShowGrid(false);
         scr_tableInforEmp.setViewportView(tbl_employeeInfor);
         if (tbl_employeeInfor.getColumnModel().getColumnCount() > 0) {
-            tbl_employeeInfor.getColumnModel().getColumn(1).setResizable(false);
             tbl_employeeInfor.getColumnModel().getColumn(3).setPreferredWidth(30);
         }
 
@@ -431,11 +451,11 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         lbl_empID.setPreferredSize(new java.awt.Dimension(100, 16));
         pnl_empID.add(lbl_empID);
 
+        txt_empID.setEditable(false);
         txt_empID.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txt_empID.setEnabled(false);
-        txt_empID.setMaximumSize(new java.awt.Dimension(2147483647, 30));
+        txt_empID.setMaximumSize(new java.awt.Dimension(2147483647, 40));
         txt_empID.setMinimumSize(new java.awt.Dimension(64, 30));
-        txt_empID.setPreferredSize(new java.awt.Dimension(150, 30));
+        txt_empID.setPreferredSize(new java.awt.Dimension(150, 40));
         pnl_empID.add(txt_empID);
 
         pnl_txtInforEmp.add(pnl_empID);
@@ -638,8 +658,8 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
 
         pnl_buttonEmp.setMaximumSize(new java.awt.Dimension(2147483647, 100));
         pnl_buttonEmp.setMinimumSize(new java.awt.Dimension(176, 50));
-        pnl_buttonEmp.setPreferredSize(new java.awt.Dimension(176, 90));
-        pnl_buttonEmp.setLayout(new java.awt.BorderLayout(2, 2));
+        pnl_buttonEmp.setPreferredSize(new java.awt.Dimension(176, 70));
+        pnl_buttonEmp.setLayout(new java.awt.GridLayout(2, 0, 2, 2));
 
         btn_addEmp.setText("THÊM");
         btn_addEmp.setPreferredSize(new java.awt.Dimension(72, 40));
@@ -651,21 +671,26 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
                 btn_addEmpActionPerformed(evt);
             }
         });
-        pnl_buttonEmp.add(btn_addEmp, java.awt.BorderLayout.SOUTH);
+        pnl_buttonEmp.add(btn_addEmp);
 
         btn_updateEmp.setText("CẬP NHẬT");
-        btn_updateEmp.putClientProperty(FlatClientProperties.STYLE,""
-            + "background:$Menu.background;"
-            + "foreground:$Menu.foreground;");
         btn_updateEmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_updateEmpActionPerformed(evt);
             }
         });
-        pnl_buttonEmp.add(btn_updateEmp, java.awt.BorderLayout.CENTER);
+        pnl_buttonEmp.add(btn_updateEmp);
 
         btn_clearValue.setText("XOÁ TRẮNG");
-        pnl_buttonEmp.add(btn_clearValue, java.awt.BorderLayout.WEST);
+        pnl_buttonEmp.add(btn_clearValue);
+
+        btn_changePass.setText("ĐẶT LẠI MẬT KHẨU");
+        btn_changePass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_changePassActionPerformed(evt);
+            }
+        });
+        pnl_buttonEmp.add(btn_changePass);
 
         pnl_btnEmp.add(pnl_buttonEmp);
 
@@ -743,8 +768,21 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txt_searchEmpKeyPressed
 
+    private void btn_changePassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_changePassActionPerformed
+        if(currentEmployee == null) {
+            Notifications.getInstance().show(Notifications.Type.WARNING, "Vui lòng chọn nhân viên cần đặt lại mật khẩu");
+            return;
+        }
+        System.out.println(currentEmployee.getEmployeeID());
+        if(bus.updatePassword(currentEmployee.getEmployeeID()))
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đặt lại mật khẩu thành công");
+        else
+            Notifications.getInstance().show(Notifications.Type.ERROR, "Đặt lại mật khẩu không thành công");
+    }//GEN-LAST:event_btn_changePassActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_addEmp;
+    private javax.swing.JButton btn_changePass;
     private javax.swing.JButton btn_clearValue;
     private javax.swing.JButton btn_reloadEmp;
     private javax.swing.JButton btn_searchEmp;

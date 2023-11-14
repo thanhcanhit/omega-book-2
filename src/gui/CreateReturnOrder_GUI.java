@@ -1,7 +1,3 @@
-/*
-* Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-* Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
-*/
 package gui;
 
 import bus.ReturnOrderManagament_BUS;
@@ -367,6 +363,7 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
         lbl_employeeID.setText("Mã nhân viên:");
         pnl_employeeID.add(lbl_employeeID);
 
+        txt_employeeID.setEditable(false);
         txt_employeeID.setMaximumSize(new java.awt.Dimension(2147483647, 30));
         txt_employeeID.setMinimumSize(new java.awt.Dimension(64, 30));
         txt_employeeID.setPreferredSize(new java.awt.Dimension(64, 30));
@@ -380,6 +377,7 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
         lbl_nameEmp.setText("Tên nhân viên:");
         pnl_nameEmp.add(lbl_nameEmp);
 
+        txt_nameEmp.setEditable(false);
         txt_nameEmp.setMaximumSize(new java.awt.Dimension(2147483647, 30));
         txt_nameEmp.setMinimumSize(new java.awt.Dimension(64, 30));
         txt_nameEmp.setPreferredSize(new java.awt.Dimension(64, 30));
@@ -406,6 +404,7 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
         lbl_returnOrderID.setPreferredSize(new java.awt.Dimension(85, 16));
         pnl_returnOrderID.add(lbl_returnOrderID);
 
+        txt_returnOrderID.setEditable(false);
         txt_returnOrderID.setMaximumSize(new java.awt.Dimension(2147483647, 30));
         txt_returnOrderID.setMinimumSize(new java.awt.Dimension(64, 30));
         txt_returnOrderID.setPreferredSize(new java.awt.Dimension(64, 30));
@@ -425,6 +424,7 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
         lbl_orderID.setPreferredSize(new java.awt.Dimension(85, 16));
         pnl_orderID.add(lbl_orderID);
 
+        txt_orderID.setEditable(false);
         txt_orderID.setMaximumSize(new java.awt.Dimension(2147483647, 30));
         txt_orderID.setMinimumSize(new java.awt.Dimension(64, 30));
         txt_orderID.setPreferredSize(new java.awt.Dimension(64, 30));
@@ -524,7 +524,7 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
 
         pnl_createReturnOrder.setMaximumSize(new java.awt.Dimension(2147483647, 40));
         pnl_createReturnOrder.setPreferredSize(new java.awt.Dimension(1191, 50));
-        pnl_createReturnOrder.setLayout(new java.awt.GridLayout());
+        pnl_createReturnOrder.setLayout(new java.awt.GridLayout(1, 0));
 
         btn_clearValue.setText("XOÁ TRẮNG");
         pnl_createReturnOrder.add(btn_clearValue);

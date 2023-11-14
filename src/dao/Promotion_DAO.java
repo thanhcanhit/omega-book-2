@@ -391,4 +391,130 @@ public class Promotion_DAO implements DAOBase<Promotion> {
         }
         return result;
     }
+
+    public boolean updateDateStart(Promotion pm) {
+        int n = 0;
+        try {
+            PreparedStatement st = ConnectDB.conn.prepareCall("UPDATE Promotion "
+                    + "SET startedDate = GETDATE()" 
+                    + "WHERE promotionID = ?");
+            st.setString(1, pm.getPromotionID());
+            n = st.executeUpdate();
+            if(updateDateEnd(pm) == false)
+                return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return n > 0;
+    }
+
+    private boolean updateDateEnd(Promotion pm) {
+        int n = 0;
+        try {
+            PreparedStatement st = ConnectDB.conn.prepareCall("UPDATE Promotion "
+                    + "SET endedDate = GETDATE()" 
+                    + "WHERE promotionID = ?");
+            st.setString(1, pm.getPromotionID());
+            n = st.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return n > 0;
+    }
+
+    public boolean createForOrder(Promotion promo) {
+        int n = 0;
+        try {
+            PreparedStatement st = ConnectDB.conn.prepareStatement("insert into Promotion"
+                    + "([promotionID], [typeDiscount], [promotionType], [discount], [startedDate], [endedDate], [condition])"
+                    + "VALUES(?, ?, ?, ?, ?, ?, ?)");
+            st.setString(1, promo.getPromotionID());
+            st.setInt(2, promo.getTypeDiscount().getValue());
+            st.setInt(3, promo.getTypePromotion().getValue());
+            st.setDouble(4, promo.getDiscount());
+            st.setDate(5, new java.sql.Date(promo.getStartedDate().getTime()));
+            st.setDate(6, new java.sql.Date(promo.getEndedDate().getTime()));
+            st.setInt(7, promo.getCondition().getValue());
+            n = st.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return n > 0;
+    }
+
+    public ArrayList<Promotion> filterForProduct(int type, int status) {
+        ArrayList<Promotion> result = new ArrayList<>();
+//        Index tự động tăng phụ thuộc vào số lượng biến số có
+        int index = 1;
+        String query = "select * from Promotion WHERE promotionType = 0 and promotionID like '%'";
+//        Xét loại khuyến mãi
+        if (type != 0) {
+            query += " and typeDiscount = ?";
+        }
+//            Xét trạng thái khuyến mãi
+        if (status == 1) {
+            query += " and endedDate > GETDATE()";
+        } else if (status == 2) {
+            query += " and endedDate < GETDATE()";
+        }
+        try {
+            PreparedStatement st = ConnectDB.conn.prepareStatement(query);
+
+            if (type == 1) {
+                st.setInt(index++, 1);
+            } else if (type == 2) {
+                st.setInt(index++, 0);
+            }
+
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                if (rs != null) {
+                    result.add(getPromotionData(rs));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return result;
+    }
+    
+        public ArrayList<Promotion> filterForOrder(int type, int status) {
+        ArrayList<Promotion> result = new ArrayList<>();
+//        Index tự động tăng phụ thuộc vào số lượng biến số có
+        int index = 1;
+        String query = "select * from Promotion WHERE promotionType = 1 and promotionID like '%'";
+//        Xét loại khuyến mãi
+        if (type != 0) {
+            query += " and typeDiscount = ?";
+        }
+//            Xét trạng thái khuyến mãi
+        if (status == 1) {
+            query += " and endedDate > GETDATE()";
+        } else if (status == 2) {
+            query += " and endedDate < GETDATE()";
+        }
+        try {
+            PreparedStatement st = ConnectDB.conn.prepareStatement(query);
+
+            if (type == 1) {
+                st.setInt(index++, 1);
+            } else if (type == 2) {
+                st.setInt(index++, 0);
+            }
+
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                if (rs != null) {
+                    result.add(getPromotionData(rs));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return result;
+    }
 }

@@ -295,7 +295,7 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
         lbl_employeeID.setPreferredSize(new java.awt.Dimension(100, 16));
         pnl_employeeID.add(lbl_employeeID);
 
-        txt_employeeID.setEnabled(false);
+        txt_employeeID.setEditable(false);
         txt_employeeID.setMaximumSize(new java.awt.Dimension(2147483647, 30));
         txt_employeeID.setMinimumSize(new java.awt.Dimension(64, 30));
         txt_employeeID.setPreferredSize(new java.awt.Dimension(64, 30));
@@ -311,7 +311,7 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
         lbl_orderID.setPreferredSize(new java.awt.Dimension(100, 16));
         pnl_orderID.add(lbl_orderID);
 
-        txt_orderID.setEnabled(false);
+        txt_orderID.setEditable(false);
         txt_orderID.setMaximumSize(new java.awt.Dimension(2147483647, 30));
         txt_orderID.setMinimumSize(new java.awt.Dimension(64, 30));
         txt_orderID.setPreferredSize(new java.awt.Dimension(64, 30));
@@ -327,7 +327,7 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
         lbl_returnOrderID.setPreferredSize(new java.awt.Dimension(100, 16));
         pnl_returnOrderID.add(lbl_returnOrderID);
 
-        txt_returnOrderID.setEnabled(false);
+        txt_returnOrderID.setEditable(false);
         txt_returnOrderID.setMaximumSize(new java.awt.Dimension(2147483647, 30));
         txt_returnOrderID.setMinimumSize(new java.awt.Dimension(64, 30));
         txt_returnOrderID.setPreferredSize(new java.awt.Dimension(64, 30));
