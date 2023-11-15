@@ -8,7 +8,7 @@ package enums;
  *
  * @author Như Tâm
  */
-public enum PromotionRankCustomer {
+public enum CustomerRank {
     NOTHING(0),
     SLIVER(1),
     GOLD(2),
@@ -16,7 +16,7 @@ public enum PromotionRankCustomer {
     
     private final int value;
 
-    private PromotionRankCustomer(int value) {
+    private CustomerRank(int value) {
         this.value = value;
     }
 
@@ -28,8 +28,8 @@ public enum PromotionRankCustomer {
         return this.value == value;
     }
 
-    public static PromotionRankCustomer fromInt(int value) {
-        for (PromotionRankCustomer rank : values()) {
+    public static CustomerRank fromInt(int value) {
+        for (CustomerRank rank : values()) {
             if (rank.compare(value)) {
                 return rank;
             }

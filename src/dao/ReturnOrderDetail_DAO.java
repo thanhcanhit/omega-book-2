@@ -87,7 +87,6 @@ public class ReturnOrderDetail_DAO implements DAOBase<ReturnOrderDetail>{
     }
 
     public ArrayList<ReturnOrderDetail> getAllForOrderReturnID(String id) {
-        System.out.println(id);
         ArrayList result = new ArrayList<>();
         try {
             PreparedStatement st = ConnectDB.conn.prepareStatement("SELECT * FROM ReturnOrderDetail "

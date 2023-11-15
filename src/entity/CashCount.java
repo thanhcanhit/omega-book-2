@@ -4,8 +4,6 @@
  */
 package entity;
 
-import java.util.Arrays;
-
 /**
  *
  * @author Hoàng Khang

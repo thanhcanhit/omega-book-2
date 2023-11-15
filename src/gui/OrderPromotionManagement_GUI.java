@@ -6,10 +6,9 @@ package gui;
 
 import bus.PromotionManagament_BUS;
 import com.formdev.flatlaf.FlatClientProperties;
-import database.ConnectDB;
 import entity.Promotion;
 import enums.DiscountType;
-import enums.PromotionRankCustomer;
+import enums.CustomerRank;
 import enums.PromotionType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -163,7 +162,7 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
         String promotionID = txt_promotionID.getText();
         int rankCus = cmb_rankCus.getSelectedIndex();
              
-        Promotion promotion = new Promotion(promotionID, startedDate, endedDate, PromotionType.ORDER, DiscountType.fromInt(type), discount, PromotionRankCustomer.fromInt(rankCus));
+        Promotion promotion = new Promotion(promotionID, startedDate, endedDate, PromotionType.ORDER, DiscountType.fromInt(type), discount, CustomerRank.fromInt(rankCus));
         return promotion;
     }
     private Promotion getNewValue() throws Exception {
@@ -177,7 +176,7 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
         Date endedDate = chooseEndDate.getDate();
         String promotionID = bus.generateID(PromotionType.ORDER, DiscountType.fromInt(type), endedDate);
         int rankCus = cmb_rankCus.getSelectedIndex();             
-        Promotion promotion = new Promotion(promotionID, startedDate, endedDate, PromotionType.ORDER, DiscountType.fromInt(type), discount, PromotionRankCustomer.fromInt(rankCus));
+        Promotion promotion = new Promotion(promotionID, startedDate, endedDate, PromotionType.ORDER, DiscountType.fromInt(type), discount, CustomerRank.fromInt(rankCus));
         return promotion;
     }
     

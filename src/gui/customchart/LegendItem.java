@@ -1,4 +1,4 @@
-package chartCustom.chart;
+package gui.customchart;
 
 public class LegendItem extends javax.swing.JPanel {
 
@@ -13,7 +13,7 @@ public class LegendItem extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lbColor = new chartCustom.chart.LabelColor();
+        lbColor = new gui.customchart.LabelColor();
         lbName = new javax.swing.JLabel();
 
         lbColor.setText("labelColor1");
@@ -47,7 +47,7 @@ public class LegendItem extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private chartCustom.chart.LabelColor lbColor;
+    private gui.customchart.LabelColor lbColor;
     private javax.swing.JLabel lbName;
     // End of variables declaration//GEN-END:variables
 }

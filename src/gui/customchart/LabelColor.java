@@ -1,4 +1,4 @@
-package chartCustom.chart;
+package gui.customchart;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
