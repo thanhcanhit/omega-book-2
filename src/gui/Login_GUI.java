@@ -39,6 +39,7 @@ public class Login_GUI extends javax.swing.JPanel {
      */
     public Login_GUI() {
         initComponents();
+        pnl_changePasswordForm.setVisible(false);
     }
 
     public Dimension getScreenSize() {
