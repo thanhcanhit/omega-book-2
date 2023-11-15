@@ -141,7 +141,8 @@ public final class PreviewOrder_GUI extends javax.swing.JFrame {
         pnl_control = new javax.swing.JPanel();
         btn_close = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setAlwaysOnTop(true);
         setMaximumSize(new java.awt.Dimension(435, 800));
         setMinimumSize(new java.awt.Dimension(435, 800));
         setPreferredSize(new java.awt.Dimension(435, 800));
@@ -158,7 +159,7 @@ public final class PreviewOrder_GUI extends javax.swing.JFrame {
         getContentPane().add(scr_display, java.awt.BorderLayout.CENTER);
 
         pnl_control.setMinimumSize(new java.awt.Dimension(78, 100));
-        pnl_control.setLayout(new java.awt.GridLayout());
+        pnl_control.setLayout(new java.awt.GridLayout(1, 0));
 
         btn_close.setText("Xác nhận");
         btn_close.addActionListener(new java.awt.event.ActionListener() {

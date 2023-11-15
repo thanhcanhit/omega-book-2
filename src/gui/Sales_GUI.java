@@ -1207,9 +1207,16 @@ public class Sales_GUI extends javax.swing.JPanel {
             java.sql.Timestamp now = java.sql.Timestamp.valueOf(LocalDateTime.now());
             order.setOrderAt(now);
 
-            order.setStatus(isCompleted);
-
             order.setOrderDetail(cart);
+            order.setStatus(isCompleted);
+//                Gỡ bỏ các khuyến mãi để tránh lỗi về sau
+            if (!isCompleted) {
+                order.setPromotion(null);
+                for (OrderDetail item : order.getOrderDetail()) {
+                    item.setSeasonalDiscount(0);
+                }
+            }
+
             if (chk_defaultCustomer.isSelected()) {
 //                Khách hàng mặc định
                 order.setCustomer(defaultCustomer);
@@ -1242,6 +1249,13 @@ public class Sales_GUI extends javax.swing.JPanel {
             order.setStatus(isComplete);
 
             order.setOrderDetail(cart);
+            //                 Gỡ bỏ các khuyến mãi để tránh lỗi về sau khi mà hóa đơn ở trạng thái luuw tạm
+            if (!isComplete) {
+                order.setPromotion(null);
+                for (OrderDetail item : order.getOrderDetail()) {
+                    item.setSeasonalDiscount(0);
+                }
+            }
             boolean isATMPayment = cmb_orderPaymentMethod.getSelectedIndex() == 1;
             System.out.println("ATM: " + isATMPayment);
             order.setPayment(isATMPayment);
@@ -1282,11 +1296,6 @@ public class Sales_GUI extends javax.swing.JPanel {
             }
 
             try {
-//                Gỡ bỏ các khuyến mãi để tránh lỗi về sau
-                order.setPromotion(null);
-                for (OrderDetail item : order.getOrderDetail()) {
-                    item.setSeasonalDiscount(0);
-                }
 
                 boolean isSaved = isOldOrder ? updateOrder(false) : saveOrder(false);
                 if (isSaved) {
