@@ -31,7 +31,7 @@ import utilities.FormatNumber;
  *
  * @author Hoàng Khang
  */
-public class StatementAccounting_GUI extends javax.swing.JPanel {
+public class StatementAcounting_GUI extends javax.swing.JPanel {
 
     private DefaultTableModel tbl_modalCashCounts = new DefaultTableModel();
     private double sum = 0;
@@ -50,7 +50,7 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
     /**
      * Creates new form Statement_GUI
      */
-    public StatementAccounting_GUI() {
+    public StatementAcounting_GUI() {
         initTableModel();
         initComponents();
         initForm();
@@ -238,9 +238,9 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
 
         jSplitPane1.setResizeWeight(0.9);
 
-        pnl_infomation.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-        pnl_infomation.setMinimumSize(new java.awt.Dimension(400, 466));
-        pnl_infomation.setPreferredSize(new java.awt.Dimension(450, 690));
+        pnl_infomation.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18), new java.awt.Color(0, 102, 153)), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5))); // NOI18N
+        pnl_infomation.setMinimumSize(new java.awt.Dimension(420, 0));
+        pnl_infomation.setPreferredSize(new java.awt.Dimension(300, 690));
         pnl_infomation.setLayout(new java.awt.BorderLayout());
 
         pnl_accountingInfoHeader.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 15, 1));
@@ -249,7 +249,6 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
         pnl_accountingInfoHeader.setLayout(new javax.swing.BoxLayout(pnl_accountingInfoHeader, javax.swing.BoxLayout.Y_AXIS));
 
         txt_timeAccounting.setEditable(false);
-        txt_timeAccounting.setBackground(null);
         txt_timeAccounting.setFont(txt_timeAccounting.getFont().deriveFont(txt_timeAccounting.getFont().getStyle() | java.awt.Font.BOLD, 20));
         txt_timeAccounting.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_timeAccounting.setText("8:10 18/10/2023 - 14:00 18/10/2023 ");
@@ -516,12 +515,12 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
 
         jSplitPane1.setRightComponent(pnl_infomation);
 
-        pnl_cashCount.setMinimumSize(new java.awt.Dimension(1300, 56));
+        pnl_cashCount.setMinimumSize(new java.awt.Dimension(700, 0));
         pnl_cashCount.setPreferredSize(new java.awt.Dimension(600, 447));
         pnl_cashCount.setLayout(new java.awt.BorderLayout());
 
         scr_cashCounts.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chi tiết kiểm tiền", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18), new java.awt.Color(0, 102, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 5))); // NOI18N
-        scr_cashCounts.setMinimumSize(new java.awt.Dimension(1200, 16));
+        scr_cashCounts.setMinimumSize(new java.awt.Dimension(0, 0));
 
         tbl_cashCounts.setFont(tbl_cashCounts.getFont().deriveFont(tbl_cashCounts.getFont().getStyle() & ~java.awt.Font.BOLD, 22));
         tbl_cashCounts.setModel(new javax.swing.table.DefaultTableModel(
@@ -541,8 +540,8 @@ public class StatementAccounting_GUI extends javax.swing.JPanel {
                 "STT", "Mệnh giá", "Số lượng", "Tổng"
             }
         ));
-        tbl_cashCounts.setMaximumSize(new java.awt.Dimension(2147483647, 800));
-        tbl_cashCounts.setMinimumSize(new java.awt.Dimension(800, 450));
+        tbl_cashCounts.setMaximumSize(new java.awt.Dimension(2147483647, 254623));
+        tbl_cashCounts.setMinimumSize(new java.awt.Dimension(800, 0));
         tbl_cashCounts.setRowHeight(45);
         scr_cashCounts.setViewportView(tbl_cashCounts);
 

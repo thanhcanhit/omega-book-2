@@ -80,6 +80,7 @@
                       <Border PropertyName="outside" info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                         <TitledBorder title="Th&#xf4;ng tin">
                           <Font PropertyName="font" name="Segoe UI" size="14" style="0"/>
+                          <Color PropertyName="color" blue="99" green="66" red="0" type="rgb"/>
                         </TitledBorder>
                       </Border>
                       <Border PropertyName="inside" info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
@@ -163,8 +164,8 @@
                             <Property name="horizontalAlignment" type="int" value="4"/>
                             <Property name="toolTipText" type="java.lang.String" value=""/>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                                <TitledBorder/>
+                              <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
+                                <MatteColorBorder bottom="1" left="0" right="0" top="0"/>
                               </Border>
                             </Property>
                             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -229,8 +230,8 @@
                             <Property name="horizontalAlignment" type="int" value="4"/>
                             <Property name="toolTipText" type="java.lang.String" value=""/>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                                <TitledBorder/>
+                              <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
+                                <MatteColorBorder bottom="1" left="0" right="0" top="0"/>
                               </Border>
                             </Property>
                             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -316,8 +317,8 @@
                             <Property name="horizontalAlignment" type="int" value="4"/>
                             <Property name="toolTipText" type="java.lang.String" value=""/>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                                <TitledBorder/>
+                              <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
+                                <MatteColorBorder bottom="1" left="0" right="0" top="0"/>
                               </Border>
                             </Property>
                             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -379,8 +380,8 @@
                             <Property name="horizontalAlignment" type="int" value="4"/>
                             <Property name="toolTipText" type="java.lang.String" value=""/>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                                <TitledBorder/>
+                              <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
+                                <MatteColorBorder bottom="1" left="0" right="0" top="0"/>
                               </Border>
                             </Property>
                             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -400,7 +401,7 @@
             <Container class="javax.swing.JPanel" name="pnl_inforByGroup">
               <Properties>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[2934, 150]"/>
+                  <Dimension value="[2934, 170]"/>
                 </Property>
               </Properties>
 
@@ -417,6 +418,7 @@
                           <Border PropertyName="outside" info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                             <TitledBorder title="Kh&#xe1;ch h&#xe0;ng nam">
                               <Font PropertyName="font" name="Segoe UI" size="14" style="0"/>
+                              <Color PropertyName="color" blue="99" green="66" red="0" type="rgb"/>
                             </TitledBorder>
                           </Border>
                           <Border PropertyName="inside" info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
@@ -466,8 +468,14 @@
                               </FontInfo>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Nam &lt; 18 tu&#x1ed5;i:"/>
+                            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[150, 40]"/>
+                            </Property>
+                            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[150, 40]"/>
+                            </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[150, 16]"/>
+                              <Dimension value="[150, 40]"/>
                             </Property>
                           </Properties>
                         </Component>
@@ -482,18 +490,18 @@
                             <Property name="horizontalAlignment" type="int" value="4"/>
                             <Property name="toolTipText" type="java.lang.String" value=""/>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                                <TitledBorder/>
+                              <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
+                                <MatteColorBorder bottom="1" left="0" right="0" top="0"/>
                               </Border>
                             </Property>
                             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[250000000, 30]"/>
+                              <Dimension value="[22222222, 40]"/>
                             </Property>
                             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[64, 40]"/>
+                              <Dimension value="[2222222, 40]"/>
                             </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[64, 40]"/>
+                              <Dimension value="[150, 40]"/>
                             </Property>
                           </Properties>
                         </Component>
@@ -530,8 +538,14 @@
                               </FontInfo>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Nam t&#x1eeb; 18 - 40 tu&#x1ed5;i:"/>
+                            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[150, 40]"/>
+                            </Property>
+                            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[150, 40]"/>
+                            </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[150, 16]"/>
+                              <Dimension value="[150, 40]"/>
                             </Property>
                           </Properties>
                         </Component>
@@ -546,12 +560,18 @@
                             <Property name="horizontalAlignment" type="int" value="4"/>
                             <Property name="toolTipText" type="java.lang.String" value=""/>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                                <TitledBorder/>
+                              <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
+                                <MatteColorBorder bottom="1" left="0" right="0" top="0"/>
                               </Border>
                             </Property>
                             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[250000000, 30]"/>
+                              <Dimension value="[22222222, 40]"/>
+                            </Property>
+                            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[2222222, 40]"/>
+                            </Property>
+                            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[150, 40]"/>
                             </Property>
                           </Properties>
                           <Events>
@@ -591,8 +611,14 @@
                               </FontInfo>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Nam &gt; 40 tu&#x1ed5;i"/>
+                            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[150, 40]"/>
+                            </Property>
+                            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[150, 40]"/>
+                            </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[150, 16]"/>
+                              <Dimension value="[150, 40]"/>
                             </Property>
                           </Properties>
                         </Component>
@@ -607,18 +633,18 @@
                             <Property name="horizontalAlignment" type="int" value="4"/>
                             <Property name="toolTipText" type="java.lang.String" value=""/>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                                <TitledBorder/>
+                              <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
+                                <MatteColorBorder bottom="1" left="0" right="0" top="0"/>
                               </Border>
                             </Property>
                             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[250000000, 30]"/>
+                              <Dimension value="[22222222, 40]"/>
                             </Property>
                             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[64, 30]"/>
+                              <Dimension value="[2222222, 40]"/>
                             </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[64, 30]"/>
+                              <Dimension value="[150, 40]"/>
                             </Property>
                           </Properties>
                           <Events>
@@ -635,7 +661,9 @@
                       <Border info="org.netbeans.modules.form.compat2.border.CompoundBorderInfo">
                         <CompoundBorder>
                           <Border PropertyName="outside" info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                            <TitledBorder title="Kh&#xe1;ch h&#xe0;ng n&#x1eef;"/>
+                            <TitledBorder title="Kh&#xe1;ch h&#xe0;ng n&#x1eef;">
+                              <Color PropertyName="color" blue="99" green="66" red="0" type="rgb"/>
+                            </TitledBorder>
                           </Border>
                           <Border PropertyName="inside" info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
                             <EmptyBorder bottom="1" left="5" right="1" top="1"/>
@@ -645,6 +673,12 @@
                     </Property>
                     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[152482, 200]"/>
+                    </Property>
+                    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[46, 119]"/>
+                    </Property>
+                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[1467, 119]"/>
                     </Property>
                   </Properties>
 
@@ -684,8 +718,14 @@
                               </FontInfo>
                             </Property>
                             <Property name="text" type="java.lang.String" value="N&#x1eef; &lt; 18 tu&#x1ed5;i:"/>
+                            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[150, 40]"/>
+                            </Property>
+                            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[150, 40]"/>
+                            </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[150, 16]"/>
+                              <Dimension value="[150, 40]"/>
                             </Property>
                           </Properties>
                         </Component>
@@ -700,18 +740,18 @@
                             <Property name="horizontalAlignment" type="int" value="4"/>
                             <Property name="toolTipText" type="java.lang.String" value=""/>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                                <TitledBorder/>
+                              <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
+                                <MatteColorBorder bottom="1" left="0" right="0" top="0"/>
                               </Border>
                             </Property>
                             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[250000000, 30]"/>
+                              <Dimension value="[22222222, 40]"/>
                             </Property>
                             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[64, 40]"/>
+                              <Dimension value="[2222222, 40]"/>
                             </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[64, 40]"/>
+                              <Dimension value="[150, 40]"/>
                             </Property>
                           </Properties>
                         </Component>
@@ -748,8 +788,14 @@
                               </FontInfo>
                             </Property>
                             <Property name="text" type="java.lang.String" value="N&#x1eef; t&#x1eeb; 18 - 40 tu&#x1ed5;i:"/>
+                            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[150, 40]"/>
+                            </Property>
+                            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[150, 40]"/>
+                            </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[150, 16]"/>
+                              <Dimension value="[150, 40]"/>
                             </Property>
                           </Properties>
                         </Component>
@@ -764,18 +810,18 @@
                             <Property name="horizontalAlignment" type="int" value="4"/>
                             <Property name="toolTipText" type="java.lang.String" value=""/>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                                <TitledBorder/>
+                              <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
+                                <MatteColorBorder bottom="1" left="0" right="0" top="0"/>
                               </Border>
                             </Property>
                             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[250000000, 30]"/>
+                              <Dimension value="[22222222, 40]"/>
                             </Property>
                             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[64, 40]"/>
+                              <Dimension value="[2222222, 40]"/>
                             </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[64, 40]"/>
+                              <Dimension value="[150, 40]"/>
                             </Property>
                           </Properties>
                         </Component>
@@ -812,8 +858,14 @@
                               </FontInfo>
                             </Property>
                             <Property name="text" type="java.lang.String" value="N&#x1eef; &gt; 40 tu&#x1ed5;i:"/>
+                            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[150, 40]"/>
+                            </Property>
+                            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[150, 40]"/>
+                            </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[150, 16]"/>
+                              <Dimension value="[150, 40]"/>
                             </Property>
                           </Properties>
                         </Component>
@@ -828,18 +880,18 @@
                             <Property name="horizontalAlignment" type="int" value="4"/>
                             <Property name="toolTipText" type="java.lang.String" value=""/>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                                <TitledBorder/>
+                              <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
+                                <MatteColorBorder bottom="1" left="0" right="0" top="0"/>
                               </Border>
                             </Property>
                             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[250000000, 30]"/>
+                              <Dimension value="[22222222, 40]"/>
                             </Property>
                             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[64, 30]"/>
+                              <Dimension value="[2222222, 40]"/>
                             </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[64, 30]"/>
+                              <Dimension value="[150, 40]"/>
                             </Property>
                           </Properties>
                         </Component>

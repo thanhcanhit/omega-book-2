@@ -22,10 +22,11 @@ public class ViewAcountingVoucherList_BUS {
         return  acountingVoucher_DAO.getOne(acountingVoucherID);
     }
     
+    
+    
     public  ArrayList<AcountingVoucher> getAll(){
         ArrayList<AcountingVoucher> list = new ArrayList<>();
         for (AcountingVoucher acountingVoucher : acountingVoucher_DAO.getAll()) {
-            
             acountingVoucher.setCashCountSheet(cashCountSheet_DAO.getOne(acountingVoucher.getCashCountSheet().getCashCountSheetID()));
             list.add(acountingVoucher);
         }

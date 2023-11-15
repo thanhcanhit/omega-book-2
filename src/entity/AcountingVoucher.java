@@ -14,6 +14,7 @@ import java.util.Objects;
  * @author Hoàng Khang
  */
 public class AcountingVoucher {
+
     private String accountingVoucherID;
     private Date createdDate;
     private Date endedDate;
@@ -27,20 +28,20 @@ public class AcountingVoucher {
     public AcountingVoucher() {
     }
 
-    public AcountingVoucher(String accountingVoucherID, Date createdDate, Date endedDate,CashCountSheet cashCountSheet,  ArrayList<Order> orderList) {
+    public AcountingVoucher(String accountingVoucherID, Date createdDate, Date endedDate, CashCountSheet cashCountSheet, ArrayList<Order> orderList) {
         setAcountingVoucherID(accountingVoucherID);
         setCreatedDate(createdDate);
         setEndedDate(endedDate);
+        setCashCountSheet(cashCountSheet);
         setOrderList(orderList);
-    setSale();
+        setSale();
         setPayViaATM();
         setWithDraw();
-        setCashCountSheet(cashCountSheet);
         setDifference();
+
         
+
     }
-    
-    
 
     public AcountingVoucher(String accountingVoucherID) {
         this.accountingVoucherID = accountingVoucherID;
@@ -50,7 +51,6 @@ public class AcountingVoucher {
         this.endedDate = endedDate;
     }
 
-    
     public String getAcountingVoucherID() {
         return accountingVoucherID;
     }
@@ -63,7 +63,6 @@ public class AcountingVoucher {
         this.orderList = orderList;
     }
 
-    
     public void setAcountingVoucherID(String accountingVoucherID) {
         this.accountingVoucherID = accountingVoucherID;
     }
@@ -101,10 +100,13 @@ public class AcountingVoucher {
     }
 
     public void setPayViaATM() {
-        double sum =0;
+        double sum = 0;
         for (Order order : orderList) {
-//            if(order.)
+            if (!order.isPayment()) {
+                sum += order.getTotalDue();
+            }
         }
+        this.payViaATM = sum;
     }
 
     public double getWithDraw() {
@@ -120,7 +122,7 @@ public class AcountingVoucher {
     }
 
     private void setDifference() {
-        this.difference = this.cashCountSheet.getTotal() - this.withDraw - 1765000;
+        this.difference = cashCountSheet.getTotal() - sale + payViaATM - 1765000;
     }
 
     public CashCountSheet getCashCountSheet() {
@@ -131,11 +133,9 @@ public class AcountingVoucher {
         this.cashCountSheet = cashCountSheet;
     }
 
-
-
     @Override
     public String toString() {
-        return "AccountingVoucher{" + "accountingVoucherID=" + accountingVoucherID + ", createdDate=" + createdDate + ", endedDate=" + endedDate + ", sale=" + sale + ", payViaATM=" + payViaATM + ", withDraw=" + withDraw + ", difference=" + difference + ", cashCountSheet=" + cashCountSheet + ", accoutinVoucherDetailList=" +  '}';
+        return "AccountingVoucher{" + "accountingVoucherID=" + accountingVoucherID + ", createdDate=" + createdDate + ", endedDate=" + endedDate + ", sale=" + sale + ", payViaATM=" + payViaATM + ", withDraw=" + withDraw + ", difference=" + difference + ", cashCountSheet=" + cashCountSheet + ", accoutinVoucherDetailList=" + '}';
     }
 
     @Override

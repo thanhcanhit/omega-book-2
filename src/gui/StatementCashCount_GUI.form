@@ -727,6 +727,7 @@
                           <Border PropertyName="outside" info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                             <TitledBorder title="Chi ti&#xea;&#x301;t ki&#xea;&#x309;m ti&#xea;&#x300;n">
                               <Font PropertyName="font" name="Segoe UI" size="18" style="0"/>
+                              <Color PropertyName="color" blue="99" green="66" red="0" type="rgb"/>
                             </TitledBorder>
                           </Border>
                           <Border PropertyName="inside" info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">

@@ -157,7 +157,7 @@ public class MainView extends JLayeredPane {
                             Application.showForm(new StatementCashCount_GUI());
                             break;
                         case 2:
-                            Application.showForm(new StatementAccounting_GUI());
+                            Application.showForm(new StatementAcounting_GUI());
                             break;
                         case 3:
                             Application.showForm(new ViewCashCountSheetList_GUI());

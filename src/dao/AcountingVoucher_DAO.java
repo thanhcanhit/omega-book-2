@@ -92,7 +92,7 @@ public class AcountingVoucher_DAO implements interfaces.DAOBase<AcountingVoucher
                 CashCountSheet cashCountSheet = cashCountSheet_DAO.getOne(cashCountSheetID);
                 
                  ArrayList<Order> orList = new Order_DAO().getAllOrderInAcountingVoucher(acountingVoucherID);
-
+                 
                 AcountingVoucher acountingVoucher = new AcountingVoucher(acountingVoucherID, startDate, endDate, cashCountSheet, new Order_DAO().getAllOrderInAcountingVoucher(acountingVoucherID));
 
                 acountingVouchers.add(acountingVoucher);

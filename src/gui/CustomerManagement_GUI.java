@@ -16,6 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import main.Application;
+import raven.toast.Notifications;
 
 /**
  *
@@ -337,6 +339,7 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
 
         grp_gender.add(rad_men);
         rad_men.setFont(rad_men.getFont().deriveFont((float)16));
+        rad_men.setSelected(true);
         rad_men.setText("Nam");
         pnl_genderGr.add(rad_men);
 
@@ -541,14 +544,14 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
             renderCustomerTable(customer_BUS.getAllCustomer());
             reloadForm();
         } catch (Exception ex) {
-            Logger.getLogger(CustomerManagement_GUI.class.getName()).log(Level.SEVERE, null, ex);
+           Notifications.getInstance().show(Notifications.Type.ERROR, ex.getMessage());
         }
 
     }//GEN-LAST:event_btn_createActionPerformed
 
     private void btn_reloadFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reloadFormActionPerformed
         // TODO add your handling code here:
-        reloadForm();
+        Application.showForm(new CustomerManagement_GUI());
 
     }//GEN-LAST:event_btn_reloadFormActionPerformed
 
@@ -575,7 +578,12 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         }
         int score = Integer.parseInt(txt_score.getText());
         return new Customer(customerID, name, gender, dateOfBirthf, score, numberPhone, address);
-        
+    }
+    
+    public boolean checkValueForm(){
+        if(txt_name == null || txt_address == null || txt_phoneNumber == null)
+            return false;
+        return true;
     }
 
 

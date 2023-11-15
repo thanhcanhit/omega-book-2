@@ -8,6 +8,7 @@ import bus.ViewAcountingVoucherList_BUS;
 import entity.AcountingVoucher;
 import entity.Customer;
 import entity.Employee;
+import entity.Order;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JLabel;
@@ -56,7 +57,7 @@ public class ViewAcountingVoucherList_GUI extends javax.swing.JPanel {
             Date start = acountingVoucher.getCreatedDate();
             Date end = acountingVoucher.getEndedDate();
 
-            Object[] row = new Object[]{id, e1.getEmployeeID(), e2.getEmployeeID(), start, end, utilities.FormatNumber.toVND(acountingVoucher.getSale()), utilities.FormatNumber.toVND(acountingVoucher.getCashCountSheet().getTotal()), utilities.FormatNumber.toVND(acountingVoucher.getPayViaATM()), utilities.FormatNumber.toVND(acountingVoucher.getDifference())};
+            Object[] row = new Object[]{id, e1.getEmployeeID(), e2.getEmployeeID(), start, end, utilities.FormatNumber.toVND(acountingVoucher.getSale()), utilities.FormatNumber.toVND(acountingVoucher.getCashCountSheet().getTotal()), utilities.FormatNumber.toVND(acountingVoucher.getWithDraw()), utilities.FormatNumber.toVND(acountingVoucher.getDifference())};
             tblModel_acountingVoucherList.addRow(row);
         }
     }
@@ -224,6 +225,11 @@ public class ViewAcountingVoucherList_GUI extends javax.swing.JPanel {
         btn_filter1.setText("Làm mới");
         btn_filter1.setMaximumSize(new java.awt.Dimension(200, 30));
         btn_filter1.setPreferredSize(new java.awt.Dimension(100, 30));
+        btn_filter1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_filter1ActionPerformed(evt);
+            }
+        });
         pnl_button.add(btn_filter1);
 
         btn_filter.setText("Lọc");
@@ -244,6 +250,14 @@ public class ViewAcountingVoucherList_GUI extends javax.swing.JPanel {
     private void txt_employee1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_employee1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_employee1ActionPerformed
+
+    private void btn_filter1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_filter1ActionPerformed
+        // TODO add your handling code here:
+//        AcountingVoucher demo = viewAcountingVoucherList_BUS.getOne("KTO151120230004");
+//        System.out.println("Tổng tiền kiểm được " + demo.getCashCountSheet().getTotal());
+
+        
+    }//GEN-LAST:event_btn_filter1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

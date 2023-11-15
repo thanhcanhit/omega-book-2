@@ -6,7 +6,6 @@ package gui;
 
 import bus.StatementCashCount_BUS;
 import com.formdev.flatlaf.FlatClientProperties;
-import dao.CashCountSheet_DAO;
 import entity.CashCount;
 import entity.Employee;
 import java.text.SimpleDateFormat;
@@ -36,8 +35,6 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
     private Employee employee1 = Application.employee;
     private Employee employee2;
     private Date createAt;
-
-    private CashCountSheet_DAO cashCountSheet_DAO = new CashCountSheet_DAO();
 
     public StatementCashCount_GUI() {
         initTableModel();
@@ -395,7 +392,7 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        scr_cashCounts.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chi tiết kiểm tiền", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18)), javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 5))); // NOI18N
+        scr_cashCounts.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chi tiết kiểm tiền", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18), new java.awt.Color(0, 102, 153)), javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 5))); // NOI18N
         scr_cashCounts.setMinimumSize(new java.awt.Dimension(1200, 16));
 
         tbl_cashCounts.setFont(tbl_cashCounts.getFont().deriveFont(tbl_cashCounts.getFont().getStyle() & ~java.awt.Font.BOLD, 22));

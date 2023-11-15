@@ -526,6 +526,7 @@
                                 <Font component="rad_men" property="font" relativeSize="false" size="16"/>
                               </FontInfo>
                             </Property>
+                            <Property name="selected" type="boolean" value="true"/>
                             <Property name="text" type="java.lang.String" value="Nam"/>
                           </Properties>
                         </Component>

@@ -128,7 +128,7 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
 
         pnl_infor.setLayout(new javax.swing.BoxLayout(pnl_infor, javax.swing.BoxLayout.Y_AXIS));
 
-        pnl_infoCustomer.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14)), javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10))); // NOI18N
+        pnl_infoCustomer.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(0, 102, 153)), javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10))); // NOI18N
         pnl_infoCustomer.setMaximumSize(new java.awt.Dimension(2147483647, 14500));
         pnl_infoCustomer.setPreferredSize(new java.awt.Dimension(581, 120));
         pnl_infoCustomer.setLayout(new javax.swing.BoxLayout(pnl_infoCustomer, javax.swing.BoxLayout.LINE_AXIS));
@@ -153,7 +153,7 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         txt_totalCustomer.setFont(txt_totalCustomer.getFont().deriveFont((float)16));
         txt_totalCustomer.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txt_totalCustomer.setToolTipText("");
-        txt_totalCustomer.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        txt_totalCustomer.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         txt_totalCustomer.setMaximumSize(new java.awt.Dimension(2147483647, 30));
         txt_totalCustomer.setMinimumSize(new java.awt.Dimension(64, 40));
         txt_totalCustomer.setPreferredSize(new java.awt.Dimension(64, 40));
@@ -181,7 +181,7 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         jTextField8.setFont(jTextField8.getFont().deriveFont((float)16));
         jTextField8.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField8.setToolTipText("");
-        jTextField8.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jTextField8.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         jTextField8.setMaximumSize(new java.awt.Dimension(2147483647, 30));
         jTextField8.setMinimumSize(new java.awt.Dimension(64, 40));
         jTextField8.setPreferredSize(new java.awt.Dimension(64, 40));
@@ -212,7 +212,7 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         jTextField9.setFont(jTextField9.getFont().deriveFont((float)16));
         jTextField9.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField9.setToolTipText("");
-        jTextField9.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jTextField9.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         jTextField9.setMaximumSize(new java.awt.Dimension(2147483647, 30));
         jTextField9.setMinimumSize(new java.awt.Dimension(64, 30));
         jTextField9.addActionListener(new java.awt.event.ActionListener() {
@@ -239,7 +239,7 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         jTextField10.setFont(jTextField10.getFont().deriveFont((float)16));
         jTextField10.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField10.setToolTipText("");
-        jTextField10.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jTextField10.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         jTextField10.setMaximumSize(new java.awt.Dimension(2147483647, 30));
         jTextField10.setMinimumSize(new java.awt.Dimension(64, 40));
         jPanel18.add(jTextField10);
@@ -250,10 +250,10 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
 
         pnl_infor.add(pnl_infoCustomer);
 
-        pnl_inforByGroup.setPreferredSize(new java.awt.Dimension(2934, 150));
+        pnl_inforByGroup.setPreferredSize(new java.awt.Dimension(2934, 170));
         pnl_inforByGroup.setLayout(new java.awt.GridLayout(1, 2));
 
-        pnl_groupOfMale.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Khách hàng nam", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14)), javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 5))); // NOI18N
+        pnl_groupOfMale.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Khách hàng nam", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(0, 102, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 5))); // NOI18N
         pnl_groupOfMale.setMaximumSize(new java.awt.Dimension(152482, 200));
         pnl_groupOfMale.setLayout(new java.awt.GridLayout(3, 0));
 
@@ -266,17 +266,19 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
 
         lbl_maleUnder18.setFont(lbl_maleUnder18.getFont().deriveFont((float)16));
         lbl_maleUnder18.setText("Nam < 18 tuổi:");
-        lbl_maleUnder18.setPreferredSize(new java.awt.Dimension(150, 16));
+        lbl_maleUnder18.setMaximumSize(new java.awt.Dimension(150, 40));
+        lbl_maleUnder18.setMinimumSize(new java.awt.Dimension(150, 40));
+        lbl_maleUnder18.setPreferredSize(new java.awt.Dimension(150, 40));
         pnl_maleUnder18.add(lbl_maleUnder18);
 
         txt_maleUnder18.setEditable(false);
         txt_maleUnder18.setFont(txt_maleUnder18.getFont().deriveFont((float)16));
         txt_maleUnder18.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txt_maleUnder18.setToolTipText("");
-        txt_maleUnder18.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        txt_maleUnder18.setMaximumSize(new java.awt.Dimension(250000000, 30));
-        txt_maleUnder18.setMinimumSize(new java.awt.Dimension(64, 40));
-        txt_maleUnder18.setPreferredSize(new java.awt.Dimension(64, 40));
+        txt_maleUnder18.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txt_maleUnder18.setMaximumSize(new java.awt.Dimension(22222222, 40));
+        txt_maleUnder18.setMinimumSize(new java.awt.Dimension(2222222, 40));
+        txt_maleUnder18.setPreferredSize(new java.awt.Dimension(150, 40));
         pnl_maleUnder18.add(txt_maleUnder18);
 
         pnl_groupOfMale.add(pnl_maleUnder18);
@@ -290,15 +292,19 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
 
         lbl_male18To40.setFont(lbl_male18To40.getFont().deriveFont((float)16));
         lbl_male18To40.setText("Nam từ 18 - 40 tuổi:");
-        lbl_male18To40.setPreferredSize(new java.awt.Dimension(150, 16));
+        lbl_male18To40.setMaximumSize(new java.awt.Dimension(150, 40));
+        lbl_male18To40.setMinimumSize(new java.awt.Dimension(150, 40));
+        lbl_male18To40.setPreferredSize(new java.awt.Dimension(150, 40));
         pnl_male18To40.add(lbl_male18To40);
 
         txt_male18To40.setEditable(false);
         txt_male18To40.setFont(txt_male18To40.getFont().deriveFont((float)16));
         txt_male18To40.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txt_male18To40.setToolTipText("");
-        txt_male18To40.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        txt_male18To40.setMaximumSize(new java.awt.Dimension(250000000, 30));
+        txt_male18To40.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txt_male18To40.setMaximumSize(new java.awt.Dimension(22222222, 40));
+        txt_male18To40.setMinimumSize(new java.awt.Dimension(2222222, 40));
+        txt_male18To40.setPreferredSize(new java.awt.Dimension(150, 40));
         txt_male18To40.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_male18To40ActionPerformed(evt);
@@ -317,17 +323,19 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
 
         lbl_maleOver40.setFont(lbl_maleOver40.getFont().deriveFont((float)16));
         lbl_maleOver40.setText("Nam > 40 tuổi");
-        lbl_maleOver40.setPreferredSize(new java.awt.Dimension(150, 16));
+        lbl_maleOver40.setMaximumSize(new java.awt.Dimension(150, 40));
+        lbl_maleOver40.setMinimumSize(new java.awt.Dimension(150, 40));
+        lbl_maleOver40.setPreferredSize(new java.awt.Dimension(150, 40));
         pnl_maleOver40.add(lbl_maleOver40);
 
         txt_maleOver40.setEditable(false);
         txt_maleOver40.setFont(txt_maleOver40.getFont().deriveFont((float)16));
         txt_maleOver40.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txt_maleOver40.setToolTipText("");
-        txt_maleOver40.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        txt_maleOver40.setMaximumSize(new java.awt.Dimension(250000000, 30));
-        txt_maleOver40.setMinimumSize(new java.awt.Dimension(64, 30));
-        txt_maleOver40.setPreferredSize(new java.awt.Dimension(64, 30));
+        txt_maleOver40.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txt_maleOver40.setMaximumSize(new java.awt.Dimension(22222222, 40));
+        txt_maleOver40.setMinimumSize(new java.awt.Dimension(2222222, 40));
+        txt_maleOver40.setPreferredSize(new java.awt.Dimension(150, 40));
         txt_maleOver40.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_maleOver40ActionPerformed(evt);
@@ -339,8 +347,10 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
 
         pnl_inforByGroup.add(pnl_groupOfMale);
 
-        pnl_groupOfFemale.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Khách hàng nữ"), javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1)));
+        pnl_groupOfFemale.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Khách hàng nữ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(0, 102, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1))); // NOI18N
         pnl_groupOfFemale.setMaximumSize(new java.awt.Dimension(152482, 200));
+        pnl_groupOfFemale.setMinimumSize(new java.awt.Dimension(46, 119));
+        pnl_groupOfFemale.setPreferredSize(new java.awt.Dimension(1467, 119));
         pnl_groupOfFemale.setLayout(new java.awt.GridLayout(3, 0));
 
         pnl_femaleUnder18.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
@@ -352,17 +362,19 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
 
         lbl_femaleUnder18.setFont(lbl_femaleUnder18.getFont().deriveFont((float)16));
         lbl_femaleUnder18.setText("Nữ < 18 tuổi:");
-        lbl_femaleUnder18.setPreferredSize(new java.awt.Dimension(150, 16));
+        lbl_femaleUnder18.setMaximumSize(new java.awt.Dimension(150, 40));
+        lbl_femaleUnder18.setMinimumSize(new java.awt.Dimension(150, 40));
+        lbl_femaleUnder18.setPreferredSize(new java.awt.Dimension(150, 40));
         pnl_femaleUnder18.add(lbl_femaleUnder18);
 
         txt_femaleUnder18.setEditable(false);
         txt_femaleUnder18.setFont(txt_femaleUnder18.getFont().deriveFont((float)16));
         txt_femaleUnder18.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txt_femaleUnder18.setToolTipText("");
-        txt_femaleUnder18.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        txt_femaleUnder18.setMaximumSize(new java.awt.Dimension(250000000, 30));
-        txt_femaleUnder18.setMinimumSize(new java.awt.Dimension(64, 40));
-        txt_femaleUnder18.setPreferredSize(new java.awt.Dimension(64, 40));
+        txt_femaleUnder18.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txt_femaleUnder18.setMaximumSize(new java.awt.Dimension(22222222, 40));
+        txt_femaleUnder18.setMinimumSize(new java.awt.Dimension(2222222, 40));
+        txt_femaleUnder18.setPreferredSize(new java.awt.Dimension(150, 40));
         pnl_femaleUnder18.add(txt_femaleUnder18);
 
         pnl_groupOfFemale.add(pnl_femaleUnder18);
@@ -376,17 +388,19 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
 
         lbl_female18To40.setFont(lbl_female18To40.getFont().deriveFont((float)16));
         lbl_female18To40.setText("Nữ từ 18 - 40 tuổi:");
-        lbl_female18To40.setPreferredSize(new java.awt.Dimension(150, 16));
+        lbl_female18To40.setMaximumSize(new java.awt.Dimension(150, 40));
+        lbl_female18To40.setMinimumSize(new java.awt.Dimension(150, 40));
+        lbl_female18To40.setPreferredSize(new java.awt.Dimension(150, 40));
         pnl_female18To40.add(lbl_female18To40);
 
         txt_female18To40.setEditable(false);
         txt_female18To40.setFont(txt_female18To40.getFont().deriveFont((float)16));
         txt_female18To40.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txt_female18To40.setToolTipText("");
-        txt_female18To40.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        txt_female18To40.setMaximumSize(new java.awt.Dimension(250000000, 30));
-        txt_female18To40.setMinimumSize(new java.awt.Dimension(64, 40));
-        txt_female18To40.setPreferredSize(new java.awt.Dimension(64, 40));
+        txt_female18To40.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txt_female18To40.setMaximumSize(new java.awt.Dimension(22222222, 40));
+        txt_female18To40.setMinimumSize(new java.awt.Dimension(2222222, 40));
+        txt_female18To40.setPreferredSize(new java.awt.Dimension(150, 40));
         pnl_female18To40.add(txt_female18To40);
 
         pnl_groupOfFemale.add(pnl_female18To40);
@@ -400,17 +414,19 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
 
         lbl_femaleOver40.setFont(lbl_femaleOver40.getFont().deriveFont((float)16));
         lbl_femaleOver40.setText("Nữ > 40 tuổi:");
-        lbl_femaleOver40.setPreferredSize(new java.awt.Dimension(150, 16));
+        lbl_femaleOver40.setMaximumSize(new java.awt.Dimension(150, 40));
+        lbl_femaleOver40.setMinimumSize(new java.awt.Dimension(150, 40));
+        lbl_femaleOver40.setPreferredSize(new java.awt.Dimension(150, 40));
         pnl_femaleOver40.add(lbl_femaleOver40);
 
         txt_femaleOver40.setEditable(false);
         txt_femaleOver40.setFont(txt_femaleOver40.getFont().deriveFont((float)16));
         txt_femaleOver40.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txt_femaleOver40.setToolTipText("");
-        txt_femaleOver40.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        txt_femaleOver40.setMaximumSize(new java.awt.Dimension(250000000, 30));
-        txt_femaleOver40.setMinimumSize(new java.awt.Dimension(64, 30));
-        txt_femaleOver40.setPreferredSize(new java.awt.Dimension(64, 30));
+        txt_femaleOver40.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txt_femaleOver40.setMaximumSize(new java.awt.Dimension(22222222, 40));
+        txt_femaleOver40.setMinimumSize(new java.awt.Dimension(2222222, 40));
+        txt_femaleOver40.setPreferredSize(new java.awt.Dimension(150, 40));
         pnl_femaleOver40.add(txt_femaleOver40);
 
         pnl_groupOfFemale.add(pnl_femaleOver40);

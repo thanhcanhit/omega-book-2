@@ -4,6 +4,7 @@
  */
 package gui;
 
+import bus.ViewCashCountSheetList_BUS;
 import dao.CashCountSheet_DAO;
 import entity.AcountingVoucher;
 import entity.CashCountSheet;
@@ -22,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
 public class ViewCashCountSheetList_GUI extends javax.swing.JPanel {
 
     private DefaultTableModel tblModel_cashCountSheetList;
-    private CashCountSheet_DAO cashCountSheet_DAO = new CashCountSheet_DAO();
+    private ViewCashCountSheetList_BUS cashCountSheet_BUS = new ViewCashCountSheetList_BUS();
 
     /**
      * Creates new form ViewCashCountSheetList
@@ -31,7 +32,7 @@ public class ViewCashCountSheetList_GUI extends javax.swing.JPanel {
         initTableModel();
         initComponents();
         alterTable();
-        renderCustomerTable(cashCountSheet_DAO.getAll());
+        renderCustomerTable(cashCountSheet_BUS.getAll());
     }
 
     public void alterTable() {
@@ -50,9 +51,7 @@ public class ViewCashCountSheetList_GUI extends javax.swing.JPanel {
             String id = cashCountSheet.getCashCountSheetID();
 
             Employee e1 = cashCountSheet.getCashCountSheetDetailList().get(0).getEmployee();
-            System.out.println(e1);
             Employee e2 = cashCountSheet.getCashCountSheetDetailList().get(1).getEmployee();
-            System.out.println(e2);
 
             Date createDate = cashCountSheet.getCreatedDate();
             double total = cashCountSheet.getTotal();

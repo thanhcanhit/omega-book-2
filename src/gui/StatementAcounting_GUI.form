@@ -80,7 +80,10 @@
                   <Border info="org.netbeans.modules.form.compat2.border.CompoundBorderInfo">
                     <CompoundBorder>
                       <Border PropertyName="outside" info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                        <TitledBorder title="Th&#xf4;ng tin"/>
+                        <TitledBorder title="Th&#xf4;ng tin">
+                          <Font PropertyName="font" name="Segoe UI" size="18" style="0"/>
+                          <Color PropertyName="color" blue="99" green="66" red="0" type="rgb"/>
+                        </TitledBorder>
                       </Border>
                       <Border PropertyName="inside" info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
                         <EmptyBorder bottom="5" left="5" right="5" top="5"/>
@@ -89,10 +92,10 @@
                   </Border>
                 </Property>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[400, 466]"/>
+                  <Dimension value="[420, 0]"/>
                 </Property>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[450, 690]"/>
+                  <Dimension value="[300, 690]"/>
                 </Property>
               </Properties>
               <Constraints>
@@ -128,9 +131,6 @@
                     <Component class="javax.swing.JTextField" name="txt_timeAccounting">
                       <Properties>
                         <Property name="editable" type="boolean" value="false"/>
-                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color type="null"/>
-                        </Property>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
                           <FontInfo relative="true">
                             <Font bold="true" component="txt_timeAccounting" property="font" relativeSize="false" size="20"/>
@@ -694,7 +694,7 @@
             <Container class="javax.swing.JPanel" name="pnl_cashCount">
               <Properties>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[1300, 56]"/>
+                  <Dimension value="[700, 0]"/>
                 </Property>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[600, 447]"/>
@@ -726,7 +726,7 @@
                       </Border>
                     </Property>
                     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[1200, 16]"/>
+                      <Dimension value="[0, 0]"/>
                     </Property>
                   </Properties>
                   <AuxValues>
@@ -751,10 +751,10 @@
                           <Connection code="new javax.swing.table.DefaultTableModel(&#xa;    new Object [][] {&#xa;        {&quot;1&quot;, &quot;500.000&quot;, null, null},&#xa;        {&quot;2&quot;, &quot;200.000&quot;, null, null},&#xa;        {&quot;3&quot;, &quot;100.000&quot;, null, null},&#xa;        {&quot;4&quot;, &quot;50.000&quot;, null, null},&#xa;        {&quot;5&quot;, &quot;20.000&quot;, null, null},&#xa;        {&quot;6&quot;, &quot;10.000&quot;, null, null},&#xa;        {&quot;7&quot;, &quot;5.000&quot;, null, null},&#xa;        {&quot;8&quot;, &quot;2.000&quot;, null, null},&#xa;        {&quot;9&quot;, &quot;1.000&quot;, null, null},&#xa;        {&quot;10&quot;, &quot;500&quot;, null, null}&#xa;    },&#xa;    new String [] {&#xa;        &quot;STT&quot;, &quot;M&#x1ec7;nh gi&#xe1;&quot;, &quot;S&#x1ed1; l&#x1b0;&#x1ee3;ng&quot;, &quot;T&#x1ed5;ng&quot;&#xa;    }&#xa;)" type="code"/>
                         </Property>
                         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[2147483647, 800]"/>
+                          <Dimension value="[2147483647, 254623]"/>
                         </Property>
                         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[800, 450]"/>
+                          <Dimension value="[800, 0]"/>
                         </Property>
                         <Property name="rowHeight" type="int" value="45"/>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
