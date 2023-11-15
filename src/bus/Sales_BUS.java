@@ -156,7 +156,6 @@ public class Sales_BUS {
         } catch (Exception ex) {
             Logger.getLogger(Sales_BUS.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();
-            System.out.println("Here");
         }
         return result;
     }
@@ -195,13 +194,11 @@ public class Sales_BUS {
             DiscountType discountType = item.getPromotion().getTypeDiscount();
             double discountAmount = item.getPromotion().getDiscount();
             double discountValue = discountType == DiscountType.PERCENT ? discountAmount / 100 * item.getProduct().getPrice() : discountAmount;
-            System.out.println("discount: " + discountValue);
             if (discountValue > bestDiscount) {
                 bestDiscount = discountValue;
             }
         }
 
-        System.out.println("bestDiscount:" + bestDiscount);
         return bestDiscount;
     }
 

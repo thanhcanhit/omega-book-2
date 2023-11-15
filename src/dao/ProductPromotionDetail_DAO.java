@@ -75,7 +75,6 @@ public class ProductPromotionDetail_DAO implements DAOBase<ProductPromotionDetai
                 Product product = new Product(productID);
 
                 ProductPromotionDetail productPromotionDetail = getOne(promotionID, productID);
-                System.out.println(productPromotionDetail.toString());
                 result.add(productPromotionDetail);
             }
         } catch (Exception e) {

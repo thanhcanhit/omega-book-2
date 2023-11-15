@@ -65,7 +65,6 @@ public final class PreviewOrder_GUI extends javax.swing.JFrame {
     private void addCenterLine(String line) {
         int index = (width + line.length()) / 2;
         String format = "%" + index + "s\n";
-        System.out.println(format);
         content += String.format(format, line);
     }
 

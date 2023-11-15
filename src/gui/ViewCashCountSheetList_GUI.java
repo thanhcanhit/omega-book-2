@@ -50,9 +50,7 @@ public class ViewCashCountSheetList_GUI extends javax.swing.JPanel {
             String id = cashCountSheet.getCashCountSheetID();
 
             Employee e1 = cashCountSheet.getCashCountSheetDetailList().get(0).getEmployee();
-            System.out.println(e1);
             Employee e2 = cashCountSheet.getCashCountSheetDetailList().get(1).getEmployee();
-            System.out.println(e2);
 
             Date createDate = cashCountSheet.getCreatedDate();
             double total = cashCountSheet.getTotal();

@@ -255,7 +255,6 @@ public class Promotion_DAO implements DAOBase<Promotion> {
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 String promotionID = rs.getString("promotionID");
-                System.out.println(promotionID);
                 return promotionID;
             }
         } catch (SQLException e) {

@@ -160,8 +160,6 @@ public class Sales_GUI extends javax.swing.JPanel {
                         Notifications.getInstance().show(Notifications.Type.ERROR, "Số lượng sản phẩm không đủ!");
                     }
 
-                    System.out.println(current.getProduct().getInventory() + " cc: " + newValue);
-
                 } catch (Exception ex) {
                     ex.printStackTrace();
                     Notifications.getInstance().show(Notifications.Type.ERROR, "Không thể cập nhật số lượng mới!");
@@ -1257,7 +1255,6 @@ public class Sales_GUI extends javax.swing.JPanel {
                 }
             }
             boolean isATMPayment = cmb_orderPaymentMethod.getSelectedIndex() == 1;
-            System.out.println("ATM: " + isATMPayment);
             order.setPayment(isATMPayment);
             if (isATMPayment) {
                 order.setMoneyGiven(order.getSubTotal());

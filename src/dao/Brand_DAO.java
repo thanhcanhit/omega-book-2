@@ -137,7 +137,6 @@ public class Brand_DAO implements DAOBase<Brand> {
         ResultSet rs = st.executeQuery();
         if (rs.next()) {
             String brandID = rs.getString("brandID");
-            System.out.println(brandID);
             return brandID;
         }
     } catch (SQLException e) {
