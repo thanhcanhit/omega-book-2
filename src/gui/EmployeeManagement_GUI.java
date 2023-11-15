@@ -773,8 +773,8 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
             Notifications.getInstance().show(Notifications.Type.WARNING, "Vui lòng chọn nhân viên cần đặt lại mật khẩu");
             return;
         }
-        System.out.println(currentEmployee.getEmployeeID());
-        if(bus.updatePassword(currentEmployee.getEmployeeID()))
+        String id = currentEmployee.getEmployeeID();
+        if(bus.updatePassword(id))
             Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đặt lại mật khẩu thành công");
         else
             Notifications.getInstance().show(Notifications.Type.ERROR, "Đặt lại mật khẩu không thành công");
