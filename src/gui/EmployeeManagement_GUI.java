@@ -6,15 +6,12 @@ package gui;
 
 import bus.EmployeeManagament_BUS;
 import com.formdev.flatlaf.FlatClientProperties;
-import entity.Account;
 import entity.Employee;
 import entity.Store;
 import java.awt.event.KeyEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.swing.DefaultButtonModel;
 import javax.swing.DefaultComboBoxModel;
@@ -773,8 +770,8 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
             Notifications.getInstance().show(Notifications.Type.WARNING, "Vui lòng chọn nhân viên cần đặt lại mật khẩu");
             return;
         }
-        System.out.println(currentEmployee.getEmployeeID());
-        if(bus.updatePassword(currentEmployee.getEmployeeID()))
+        String id = currentEmployee.getEmployeeID();
+        if(bus.updatePassword(id))
             Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đặt lại mật khẩu thành công");
         else
             Notifications.getInstance().show(Notifications.Type.ERROR, "Đặt lại mật khẩu không thành công");

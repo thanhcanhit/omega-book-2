@@ -26,7 +26,6 @@ public class Employee_DAO implements DAOBase<Employee> {
         ResultSet rs = st.executeQuery();
         if (rs.next()) {
             String employeeID = rs.getString("employeeID");
-            System.out.println(employeeID);
             return employeeID;
         }
     } catch (SQLException e) {

@@ -1198,7 +1198,6 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
     private void btn_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addActionPerformed
         Product product = revertObjectFromForm();
         if (product == null) {
-            System.out.println("null");
             return;
         }
         
@@ -1385,12 +1384,10 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
                 image = getImageBytes(fileChooser_productImg.getSelectedFile());
             }
         } catch (IOException ex) {
-            System.out.println("File revert error");
         }
         
         Type type = Type.fromInt(cmb_productType.getSelectedIndex() + 1);
         
-        System.out.println(type);
         if (type == Type.BOOK) {
             String author = txt_bookAuthor.getText();
             String translator = txt_bookTranslator.getText();
@@ -1415,7 +1412,6 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
             String material = txt_stationeryMaterial.getText();
             Double weight = Double.valueOf(txt_stationeryWeight.getText());
 //            Nhớ Convert to brand object
-            System.out.println(getBrandIDSelected());
             Brand brand = new Brand(getBrandIDSelected());
             StationeryType stationeryType = StationeryType.fromInt(cmb_stationeryType.getSelectedIndex() + 1);
             

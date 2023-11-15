@@ -5,9 +5,9 @@
 package gui;
 
 import bus.StatisticSales_BUS;
-import chartCustom.chart.ModelChart;
-import chartCustom.pieChart.ModelPolarAreaChart;
-import chartCustom.pieChart.PolarAreaChart;
+import gui.customchart.ModelChart;
+import gui.customchart.piechart.ModelPolarAreaChart;
+import gui.customchart.piechart.PolarAreaChart;
 import java.awt.Color;
 import java.beans.PropertyChangeEvent;
 
@@ -152,7 +152,7 @@ public final class StatisticSales_GUI extends javax.swing.JPanel {
         pnl_topright = new javax.swing.JPanel();
         pnl_productTypeStatistic = new javax.swing.JPanel();
         pnl_center = new javax.swing.JPanel();
-        chart = new chartCustom.chart.Chart(true);
+        chart = new gui.customchart.Chart(true);
 
         setMinimumSize(new java.awt.Dimension(1366, 768));
         setLayout(new java.awt.BorderLayout());
@@ -336,7 +336,7 @@ public final class StatisticSales_GUI extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private chartCustom.chart.Chart chart;
+    private gui.customchart.Chart chart;
     private javax.swing.Box.Filler filler26;
     private javax.swing.Box.Filler filler27;
     private javax.swing.Box.Filler filler28;

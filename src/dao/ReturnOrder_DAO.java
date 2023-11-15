@@ -32,7 +32,6 @@ public class ReturnOrder_DAO implements DAOBase<ReturnOrder>{
         ResultSet rs = st.executeQuery();
         if (rs.next()) {
             String returnOrderID = rs.getString("returnOrderID");
-            System.out.println(returnOrderID);
             return returnOrderID;
         }
     } catch (SQLException e) {

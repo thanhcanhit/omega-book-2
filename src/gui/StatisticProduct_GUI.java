@@ -5,7 +5,7 @@
 package gui;
 
 import bus.StatisticProduct_BUS;
-import chartCustom.chart.ModelChart;
+import gui.customchart.ModelChart;
 import entity.Product;
 import java.awt.Color;
 import java.beans.PropertyChangeEvent;
@@ -181,7 +181,7 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel {
         filler15 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         filler16 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 6), new java.awt.Dimension(32767, 10));
         pnl_center = new javax.swing.JPanel();
-        chart = new chartCustom.chart.Chart();
+        chart = new gui.customchart.Chart();
 
         setPreferredSize(new java.awt.Dimension(1366, 768));
         setLayout(new java.awt.BorderLayout());
@@ -346,7 +346,7 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private chartCustom.chart.Chart chart;
+    private gui.customchart.Chart chart;
     private com.toedter.calendar.JDateChooser date_statisticProduct;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler10;

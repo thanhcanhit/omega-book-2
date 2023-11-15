@@ -6,7 +6,6 @@ package gui;
 
 import bus.PromotionManagament_BUS;
 import com.formdev.flatlaf.FlatClientProperties;
-import dao.Product_DAO;
 import entity.Product;
 import entity.ProductPromotionDetail;
 import entity.Promotion;
@@ -246,7 +245,7 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
         } else {
             try {
 //                Thêm vào khuyến mãi
-                Product product = new Product_DAO().getOne(productID);
+                Product product = bus.getOneProduct(productID);
                 ProductPromotionDetail newProductPromotionDetail = new ProductPromotionDetail(product);
                 cart.add(newProductPromotionDetail);
                 renderNewProductPromotionTables(cart);

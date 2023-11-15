@@ -1,4 +1,4 @@
-package chartCustom.pieChart;
+package gui.customchart.piechart;
 
 import java.awt.Color;
 import java.awt.Graphics;

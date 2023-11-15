@@ -1,9 +1,9 @@
-package chartCustom.chart;
+package gui.customchart;
 
 
-import chartCustom.chart.blankchart.BlankPlotChart;
-import chartCustom.chart.blankchart.BlankPlotChatRender;
-import chartCustom.chart.blankchart.SeriesSize;
+import gui.customchart.chart.blankchart.BlankPlotChart;
+import gui.customchart.chart.blankchart.BlankPlotChatRender;
+import gui.customchart.chart.blankchart.SeriesSize;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
@@ -124,7 +124,7 @@ public class Chart extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        blankPlotChart = new chartCustom.chart.blankchart.BlankPlotChart();
+        blankPlotChart = new gui.customchart.chart.blankchart.BlankPlotChart();
         panelLegend = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -155,7 +155,7 @@ public class Chart extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private chartCustom.chart.blankchart.BlankPlotChart blankPlotChart;
+    private gui.customchart.chart.blankchart.BlankPlotChart blankPlotChart;
     private javax.swing.JPanel panelLegend;
     // End of variables declaration//GEN-END:variables
 }

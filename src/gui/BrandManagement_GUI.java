@@ -5,13 +5,11 @@
 package gui;
 
 import bus.BrandManagement_BUS;
-import bus.SupplierManagement_BUS;
 import com.formdev.flatlaf.FlatClientProperties;
 import entity.Brand;
 import entity.Order;
 import entity.PurchaseOrder;
 import entity.PurchaseOrderDetail;
-import entity.Supplier;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,7 +21,7 @@ import raven.toast.Notifications;
 
 /**
  *
- * @author thanhcanhit
+ * @author KienTran
  */
 public class BrandManagement_GUI extends javax.swing.JPanel {
 

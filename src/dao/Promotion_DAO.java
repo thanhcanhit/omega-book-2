@@ -11,7 +11,7 @@ import database.ConnectDB;
 import entity.*;
 import enums.BookCategory;
 import enums.DiscountType;
-import enums.PromotionRankCustomer;
+import enums.CustomerRank;
 import enums.PromotionType;
 import java.util.Date;
 
@@ -37,7 +37,7 @@ public class Promotion_DAO implements DAOBase<Promotion> {
                 Date endedDate = rs.getDate("endedDate");
                 int rankCustomer = rs.getInt("condition");
                 ArrayList<ProductPromotionDetail> listDetail = new ProductPromotionDetail_DAO().getAllForPromotion(id);
-                promo = new Promotion(id, startedDate, endedDate, PromotionType.fromInt(typePromotion), DiscountType.fromInt(typeDiscount), discount, PromotionRankCustomer.fromInt(rankCustomer), listDetail);
+                promo = new Promotion(id, startedDate, endedDate, PromotionType.fromInt(typePromotion), DiscountType.fromInt(typeDiscount), discount, CustomerRank.fromInt(rankCustomer), listDetail);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -58,7 +58,7 @@ public class Promotion_DAO implements DAOBase<Promotion> {
                 Date startedDate = rs.getDate("startedDate");
                 Date endedDate = rs.getDate("endedDate");
                 int rankCustomer = rs.getInt("condition");
-                Promotion promo = new Promotion(promotionID, startedDate, endedDate, PromotionType.ORDER, DiscountType.fromInt(typeDiscount), discount, PromotionRankCustomer.fromInt(rankCustomer));
+                Promotion promo = new Promotion(promotionID, startedDate, endedDate, PromotionType.ORDER, DiscountType.fromInt(typeDiscount), discount, CustomerRank.fromInt(rankCustomer));
                 result.add(promo);
             }
         } catch (Exception e) {
@@ -80,7 +80,7 @@ public class Promotion_DAO implements DAOBase<Promotion> {
                 double discount = rs.getDouble("discount");
                 Date startedDate = rs.getDate("startedDate");
                 Date endedDate = rs.getDate("endedDate");
-                Promotion promo = new Promotion(promotionID, startedDate, endedDate, PromotionType.ORDER, DiscountType.fromInt(typeDiscount), discount, PromotionRankCustomer.fromInt(rank));
+                Promotion promo = new Promotion(promotionID, startedDate, endedDate, PromotionType.ORDER, DiscountType.fromInt(typeDiscount), discount, CustomerRank.fromInt(rank));
                 result.add(promo);
             }
         } catch (Exception e) {
@@ -152,7 +152,7 @@ public class Promotion_DAO implements DAOBase<Promotion> {
                 int rankCustomer = rs.getInt("condition");
                 ArrayList<ProductPromotionDetail> listDetail = new ProductPromotionDetail_DAO().getAllForPromotion(promotionID);
 
-                Promotion promo = new Promotion(promotionID, startedDate, endedDate, PromotionType.fromInt(promotionType), DiscountType.fromInt(typeDiscount), discount, PromotionRankCustomer.fromInt(rankCustomer), listDetail);
+                Promotion promo = new Promotion(promotionID, startedDate, endedDate, PromotionType.fromInt(promotionType), DiscountType.fromInt(typeDiscount), discount, CustomerRank.fromInt(rankCustomer), listDetail);
                 result.add(promo);
             }
         } catch (Exception e) {
@@ -255,7 +255,6 @@ public class Promotion_DAO implements DAOBase<Promotion> {
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 String promotionID = rs.getString("promotionID");
-                System.out.println(promotionID);
                 return promotionID;
             }
         } catch (SQLException e) {
@@ -301,7 +300,7 @@ public class Promotion_DAO implements DAOBase<Promotion> {
         int rankCustomer = rs.getInt("condition");
         ArrayList<ProductPromotionDetail> listDetail = new ProductPromotionDetail_DAO().getAllForPromotion(promotionID);
 
-        result = new Promotion(promotionID, startedDate, endedDate, PromotionType.fromInt(typePromotion), DiscountType.fromInt(typeDiscount), discount, PromotionRankCustomer.fromInt(rankCustomer), listDetail);
+        result = new Promotion(promotionID, startedDate, endedDate, PromotionType.fromInt(typePromotion), DiscountType.fromInt(typeDiscount), discount, CustomerRank.fromInt(rankCustomer), listDetail);
         return result;
     }
 
@@ -357,7 +356,7 @@ public class Promotion_DAO implements DAOBase<Promotion> {
                 Date startedDate = rs.getDate("startedDate");
                 Date endedDate = rs.getDate("endedDate");
                 int rankCustomer = rs.getInt("condition");
-                Promotion promo = new Promotion(promotionID, startedDate, endedDate, PromotionType.ORDER, DiscountType.fromInt(typeDiscount), discount, PromotionRankCustomer.fromInt(rankCustomer));
+                Promotion promo = new Promotion(promotionID, startedDate, endedDate, PromotionType.ORDER, DiscountType.fromInt(typeDiscount), discount, CustomerRank.fromInt(rankCustomer));
                 result.add(promo);
             }
         } catch (Exception e) {
@@ -383,7 +382,7 @@ public class Promotion_DAO implements DAOBase<Promotion> {
                 int rankCustomer = rs.getInt("condition");
                 ArrayList<ProductPromotionDetail> listDetail = new ProductPromotionDetail_DAO().getAllForPromotion(promotionID);
 
-                Promotion promo = new Promotion(promotionID, startedDate, endedDate, PromotionType.fromInt(promotionType), DiscountType.fromInt(typeDiscount), discount, PromotionRankCustomer.fromInt(rankCustomer), listDetail);
+                Promotion promo = new Promotion(promotionID, startedDate, endedDate, PromotionType.fromInt(promotionType), DiscountType.fromInt(typeDiscount), discount, CustomerRank.fromInt(rankCustomer), listDetail);
                 result.add(promo);
             }
         } catch (Exception e) {

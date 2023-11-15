@@ -1,4 +1,4 @@
-package chartCustom.chart;
+package gui.customchart;
 
 public class ModelChart {
 
