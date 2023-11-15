@@ -6,7 +6,6 @@ package gui;
 
 import bus.ViewAcountingVoucherList_BUS;
 import entity.AcountingVoucher;
-import entity.Customer;
 import entity.Employee;
 import java.util.ArrayList;
 import java.util.Date;

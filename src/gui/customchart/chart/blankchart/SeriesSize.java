@@ -1,4 +1,4 @@
-package chartCustom.chart.blankchart;
+package gui.customchart.chart.blankchart;
 
 public class SeriesSize {
 

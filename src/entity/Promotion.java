@@ -1,7 +1,7 @@
 package entity;
 
 import enums.DiscountType;
-import enums.PromotionRankCustomer;
+import enums.CustomerRank;
 import enums.PromotionType;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,11 +24,11 @@ public final class Promotion {
     private PromotionType typePromotion;
     private DiscountType typeDiscount;
     private double discount;
-    private PromotionRankCustomer condition;
+    private CustomerRank condition;
     private ArrayList<ProductPromotionDetail> listDetail;
 
     //constructor đầy đủ
-    public Promotion(String promotionID, Date startedDate, Date endedDate, PromotionType typePromotion, DiscountType typeDiscount, double discount, PromotionRankCustomer condition, ArrayList<ProductPromotionDetail> listDetail) throws Exception {
+    public Promotion(String promotionID, Date startedDate, Date endedDate, PromotionType typePromotion, DiscountType typeDiscount, double discount, CustomerRank condition, ArrayList<ProductPromotionDetail> listDetail) throws Exception {
         setPromotionID(promotionID);
         setStartedDate(startedDate);
         setEndedDate(endedDate);
@@ -49,7 +49,7 @@ public final class Promotion {
         setListDetail(listDetail);
     }
     //constructor khuyến mãi theo hoá đơn
-    public Promotion(String promotionID, Date startedDate, Date endedDate, PromotionType typePromotion, DiscountType typeDiscount, double discount, PromotionRankCustomer condition) throws Exception {
+    public Promotion(String promotionID, Date startedDate, Date endedDate, PromotionType typePromotion, DiscountType typeDiscount, double discount, CustomerRank condition) throws Exception {
         setPromotionID(promotionID);
         setStartedDate(startedDate);
         setEndedDate(endedDate);
@@ -129,11 +129,11 @@ public final class Promotion {
         this.discount = discount;
     }
 
-    public PromotionRankCustomer getCondition() {
+    public CustomerRank getCondition() {
         return condition;
     }
 
-    public void setCondition(PromotionRankCustomer condition) {
+    public void setCondition(CustomerRank condition) {
         this.condition = condition;
     }
 

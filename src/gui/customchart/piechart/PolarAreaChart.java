@@ -1,6 +1,6 @@
-package chartCustom.pieChart;
+package gui.customchart.piechart;
 
-import chartCustom.pieChart.ModelPolarAreaChart;
+import gui.customchart.piechart.ModelPolarAreaChart;
 import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Color;

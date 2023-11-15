@@ -8,7 +8,6 @@ import dao.Product_DAO;
 import dao.PurchaseOrderDetail_DAO;
 import dao.PurchaseOrder_DAO;
 import dao.Supplier_DAO;
-import entity.Employee;
 import entity.Product;
 import entity.PurchaseOrder;
 import entity.PurchaseOrderDetail;
@@ -60,14 +59,4 @@ public class CreatePurchaseOrder_BUS {
 
         return true;
     }
-
-//    public boolean decreaseProductInventory(Product product, int quantity) {
-//        int newInventory = product.getInventory() - quantity;
-//        return productDAO.updateInventory(product.getProductID(), newInventory);
-//    }
-//
-//    public boolean increaseProductInventory(Product product, int quantity) {
-//        int newInventory = product.getInventory() + quantity;
-//        return productDAO.updateInventory(product.getProductID(), newInventory);
-//    }
 }

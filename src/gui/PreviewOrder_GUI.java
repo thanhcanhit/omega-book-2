@@ -4,7 +4,6 @@
  */
 package gui;
 
-import database.ConnectDB;
 import entity.Order;
 import entity.OrderDetail;
 

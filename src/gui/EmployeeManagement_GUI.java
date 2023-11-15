@@ -6,15 +6,12 @@ package gui;
 
 import bus.EmployeeManagament_BUS;
 import com.formdev.flatlaf.FlatClientProperties;
-import entity.Account;
 import entity.Employee;
 import entity.Store;
 import java.awt.event.KeyEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.swing.DefaultButtonModel;
 import javax.swing.DefaultComboBoxModel;

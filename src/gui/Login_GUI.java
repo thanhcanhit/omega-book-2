@@ -8,23 +8,12 @@ import bus.Login_BUS;
 import com.formdev.flatlaf.FlatClientProperties;
 import entity.Account;
 import entity.Employee;
-import java.awt.AWTEvent;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.RenderingHints;
 import java.awt.Toolkit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import main.Application;
 import raven.toast.Notifications;
-import utilities.PasswordHash;
-import utilities.SVGIcon;
 
 /**
  *
