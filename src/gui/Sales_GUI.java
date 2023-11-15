@@ -399,6 +399,11 @@ public class Sales_GUI extends javax.swing.JPanel {
         if (item == null) {
             Notifications.getInstance().show(Notifications.Type.INFO, "Không tìm thấy sản phẩm có mã " + productID);
         } else {
+            if (item.getInventory() == 0) {
+                Notifications.getInstance().show(Notifications.Type.INFO, "Sản phẩm " + productID + " hiện đã hết");
+                return;
+            }
+
             try {
 //                Tạo dòng mới
                 OrderDetail newLine = new OrderDetail(order, item, 1, item.getPrice(), item.getVAT(), 0);
