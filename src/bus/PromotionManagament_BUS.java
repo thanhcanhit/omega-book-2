@@ -142,6 +142,10 @@ public class PromotionManagament_BUS {
         return promotion_DAO.filterForOrder(type, status);
     }
 
+    public Product getOneProduct(String productID) {
+        return new Product_DAO().getOne(productID);
+    }
+
 
     
 }
