@@ -90,8 +90,11 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel {
     private void renderProductTable(ArrayList<Product> productList, String date) {
         tblModel_product.setRowCount(0);
         for (Product p : productList) {
-            Object[] newRow = new Object[]{p.getProductID(), p.getName(), bus.getQuantitySale(p.getProductID(), date), FormatNumber.toVND(p.getCostPrice()), FormatNumber.toVND(bus.getTotalProduct(p.getProductID(), date))};
-            tblModel_product.addRow(newRow);
+            if (p != null) {
+                Object[] newRow = new Object[]{p.getProductID(), p.getName(), bus.getQuantitySale(p.getProductID(), date), FormatNumber.toVND(p.getCostPrice()), FormatNumber.toVND(bus.getTotalProduct(p.getProductID(), date))};
+                tblModel_product.addRow(newRow);
+            }
+
         }
     }
 
@@ -116,10 +119,13 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel {
     public void getChart(String formatDate) {
         ArrayList<Product> list = bus.getTop10Product(formatDate);
         for (Product p : list) {
-            chart.addData(new ModelChart(p.getProductID(), new double[]{bus.getTotalProduct(p.getProductID(), formatDate)}));
+            if (p != null) {
+                chart.addData(new ModelChart(p.getProductID(), new double[]{bus.getTotalProduct(p.getProductID(), formatDate)}));
+            }
         }
         chart.start();
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

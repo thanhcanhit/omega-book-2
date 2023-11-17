@@ -93,8 +93,8 @@ public final class StatisticSales_GUI extends javax.swing.JPanel {
         
         polarAreaChart.setBackground(getBackground());
         
-        polarAreaChart.addItem(new ModelPolarAreaChart(new Color(135, 206, 255), "Sách", bus.getQuantityProductType(1, month_statisticSales.getMonth() + 1, year_statisticSales.getYear())));
-        polarAreaChart.addItem(new ModelPolarAreaChart(new Color(191, 239, 255), "Văn phòng phẩm", bus.getQuantityProductType(2, month_statisticSales.getMonth() + 1, year_statisticSales.getYear())));
+        polarAreaChart.addItem(new ModelPolarAreaChart(new Color(191, 239, 255), "Sách", bus.getQuantityProductType(1, month_statisticSales.getMonth() + 1, year_statisticSales.getYear())));
+        polarAreaChart.addItem(new ModelPolarAreaChart(new Color(135, 206, 255), "Văn phòng phẩm", bus.getQuantityProductType(2, month_statisticSales.getMonth() + 1, year_statisticSales.getYear())));
         polarAreaChart.start();
 
     }
