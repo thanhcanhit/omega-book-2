@@ -19,6 +19,7 @@ import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import main.Application;
 import utilities.FormatNumber;
 
 import utilities.SVGIcon;
@@ -115,13 +116,16 @@ public final class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
         if(rad_receiver.isSelected()){
             rad_notReceiver.setEnabled(false);
             rad_decline.setEnabled(false);
+            rad_receiver.setEnabled(false);
                     
         }
         if(rad_decline.isSelected()){
             rad_notReceiver.setEnabled(false);
             rad_receiver.setEnabled(false);
+            rad_decline.setEnabled(false);
         }
         if(rad_notReceiver.isSelected()){
+            rad_notReceiver.setEnabled(false);
             rad_receiver.setEnabled(true);
             rad_decline.setEnabled(true);
         }
@@ -157,6 +161,9 @@ public final class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
 
     public boolean validateFields() {
         return true;
+    }
+    private void rerender() {
+        Application.showForm(new PurchaseOrderManagement_GUI());
     }
 
     /**
@@ -404,7 +411,7 @@ public final class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
 
     private void btn_submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_submitActionPerformed
         // TODO add your handling code here:
-        if (rad_receiver.isSelected()) {
+        if (rad_receiver.isSelected() && rad_receiver.isEnabled()) {
             if (JOptionPane.showConfirmDialog(this, "Đơn hàng này đã được nhận?", "Xác nhận đã nhận hàng", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 int row = tbl_purchaseOrder.getSelectedRow();
                 if (row != -1) {
@@ -412,16 +419,18 @@ public final class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
                     bus.updateStatus(ID, 1);
                     rad_notReceiver.setSelected(false);
                     rad_decline.setEnabled(true);
+                    rad_receiver.setEnabled(false);
                     Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đã cập nhật trạng thái thành công !");
                     this.invalidate();
                     this.repaint();
+                    rerender();
 
                 }
             } else {
                 rad_notReceiver.setSelected(true);
             }
         }
-        if (rad_decline.isSelected()) {
+        if (rad_decline.isSelected() && rad_decline.isEnabled()) {
             if (JOptionPane.showConfirmDialog(this, "Bạn có chắc sẽ huỷ đơn hàng?", "Xác nhận huỷ đơn hàng", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 int row = tbl_purchaseOrder.getSelectedRow();
                 if (row != -1) {
@@ -434,6 +443,7 @@ public final class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
                     Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đã cập nhật trạng thái thành công !");
                      this.invalidate();
                     this.repaint();
+                    rerender();
                 }
             }
         }

@@ -72,7 +72,7 @@ public class CreatePurchaseOrder_GUI extends javax.swing.JPanel {
 
         };;
         tbl_cart.setModel(tblModel_cart);
-        
+
 //        Sự thay đổi số lượng sản phẩm
         tbl_cart.getModel().addTableModelListener((TableModelEvent evt) -> {
             int row = evt.getFirstRow();
@@ -93,14 +93,14 @@ public class CreatePurchaseOrder_GUI extends javax.swing.JPanel {
             }
 
             try {
-                if (current.getProduct().getInventory() >= newValue) {
-                    current.setQuantity(newValue);
-                    renderCartTable();
-                } else {
-//                    Trả về giá trị cũ
-                    tbl_cart.setValueAt(current.getQuantity(), row, col);
-                    Notifications.getInstance().show(Notifications.Type.ERROR, "Số lượng sản phẩm không đủ!");
-                }
+                current.setQuantity(newValue);
+                renderCartTable();
+//                if (current.getProduct().getInventory() >= newValue) {
+//                } else {
+////                    Trả về giá trị cũ
+//                    tbl_cart.setValueAt(current.getQuantity(), row, col);
+//                    Notifications.getInstance().show(Notifications.Type.ERROR, "Số lượng sản phẩm không đủ!");
+//                }
 
 //                Focus lại ô search
                 toogleChangeToSearch();
@@ -196,12 +196,12 @@ public class CreatePurchaseOrder_GUI extends javax.swing.JPanel {
 
     private void increateItemInCart(PurchaseOrderDetail detail) {
         try {
-            if (detail.getProduct().getInventory() > detail.getQuantity()) {
-                detail.setQuantity(detail.getQuantity() + 1);
-                renderCartTable();
-            } else {
-                Notifications.getInstance().show(Notifications.Type.ERROR, "Số lượng sản phẩm không đủ!");
-            }
+            detail.setQuantity(detail.getQuantity() + 1);
+            renderCartTable();
+//            if (detail.getProduct().getInventory() > detail.getQuantity()) {
+//            } else {
+//                Notifications.getInstance().show(Notifications.Type.ERROR, "Số lượng sản phẩm không đủ!");
+//            }
         } catch (Exception e) {
             Notifications.getInstance().show(Notifications.Type.ERROR, "Không thể tăng số lượng: " + e.getMessage());
         }
