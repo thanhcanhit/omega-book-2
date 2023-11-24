@@ -4,8 +4,39 @@
  */
 package gui;
 
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
 import entity.Order;
 import entity.OrderDetail;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.draw.LineSeparator;
+import dao.Order_DAO;
+import database.ConnectDB;
+import java.awt.Desktop;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.stream.Stream;
+import javax.print.Doc;
+import javax.print.DocFlavor;
+import javax.print.DocPrintJob;
+import javax.print.PrintException;
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
+import javax.print.SimpleDoc;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
+import javax.print.attribute.standard.Sides;
 
 /**
  *
@@ -14,11 +45,8 @@ import entity.OrderDetail;
 public final class PreviewOrder_GUI extends javax.swing.JFrame {
 
     private final Order order;
-    private String content = "";
-    private int width = 80;
-    private String separateLine = "";
-    private final String lineDetailFormat;
-    private final String orderDetailFormat;
+    public static final String FONT = "resources/fonts/arial-unicode-ms.ttf";
+    private static final String FILE_PATH = "lastOrder.pdf";
 
     /**
      * Creates new form PreviewOrder_GUI
@@ -26,103 +54,35 @@ public final class PreviewOrder_GUI extends javax.swing.JFrame {
      * @param order
      * @param width
      */
-    public PreviewOrder_GUI(Order order, int width) {
-        initComponents();
+    enum TextAlign {
+        LEFT, CENTER, RIGHT;
+    }
+
+    public PreviewOrder_GUI(Order order) {
         this.order = order;
-        this.width = width;
-        setTitle("Hóa đơn " + order.getOrderID());
-        setLocationRelativeTo(null);
-
-//        Sinh đoạn chia phù hợp với chiều rộng
-        for (int i = 0; i < width; i++) {
-            separateLine += "-";
-        }
-
-//        Sinh đoạn chia kích thước phù hợp  (4 cột) tỉ lệ 1 3 3 3
-        int part = Math.round((width - 4) / 10);
-        lineDetailFormat = String.format("  %%-%ss%%-%ss%%-%ss%%-%ss", part, part * 3, part * 3, part * 3);
-        orderDetailFormat = String.format("%%-%ss%%-%ss", part * 6, part * 4);
-
-        renderOrderContent();
-    }
-
-    private void addLine(String line) {
-        content += String.format("  %s  \n", line);
-    }
-
-    @Deprecated
-    private void addParagraph(String line) {
-        while (line.length() > 0) {
-            int endIndex = line.length() - 1 < width - 4 ? line.length() - 1 : width - 4;
-            String subLine = line.substring(0, endIndex);
-            line = line.substring(endIndex, line.length() - 1);
-
-            addLine(subLine);
+        initComponents();
+        toPDFFile();
+        try {
+            printFile();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    private void addCenterLine(String line) {
-        int index = (width + line.length()) / 2;
-        String format = "%" + index + "s\n";
-        content += String.format(format, line);
+    private String getVND(double number) {
+        return utilities.FormatNumber.toVND(number);
     }
 
-    private void separateLine() {
-        content += separateLine + "\n";
-    }
-
-    private void newLine() {
-        content += "\n";
-    }
-
-    private String getVND(double value) {
-        return utilities.FormatNumber.toVND(value);
-    }
-
-    private void addOrderLine(OrderDetail detail, int index) {
-        String productName = detail.getProduct().getName();
-        String displayName = productName.length() > width - 4 ? productName.substring(0, width - 7) + "..." : productName;
-        addLine(index + ". " + displayName);
-        boolean isHasDiscout = detail.getSeasonalDiscount() != 0;
-        addLine(String.format(lineDetailFormat, String.format("%.0f%%", detail.getVAT()), getVND(detail.getPrice()), detail.getQuantity(), getVND(detail.getLineTotal())));
-        if (isHasDiscout) {
-            double pricePerItemAfterDiscount = detail.getPrice() - detail.getSeasonalDiscount() / detail.getQuantity();
-            addLine(String.format("  (Giá giảm: %s, tổng giảm %s)", getVND(pricePerItemAfterDiscount), getVND(detail.getSeasonalDiscount())));
-        }
-    }
-
-    public void renderOrderContent() {
-        addCenterLine("OMEGA BOOK");
-        addCenterLine("Hãy nghĩ sách là một loại vitamin");
-        separateLine();
-        addCenterLine("HÓA ĐƠN THANH TOÁN");
-        newLine();
-        addLine(String.format("Số hóa đơn:  %s", order.getOrderID()));
-        addLine(String.format("Ngày tạo:  %s", order.getOrderAt()));
-        addLine(String.format("Nhân viên:  %s", order.getEmployee().getName()));
-        addLine(String.format("Khách hàng:  %s", order.getCustomer().getName()));
-        separateLine();
-        addLine(String.format(lineDetailFormat, "VAT", "Giá", "Số lượng", "Tổng tiền"));
-        separateLine();
-        int index = 0;
-        for (OrderDetail item : order.getOrderDetail()) {
-            addOrderLine(item, ++index);
-        }
-        separateLine();
-        addLine(String.format(orderDetailFormat, "Tổng tiền:", getVND(order.getSubTotal())));
-        String orderDiscount = getVND(order.getSubTotal() - order.getTotalDue());
-        addLine(String.format(orderDetailFormat, "Chiết khấu đơn:", orderDiscount));
-        addLine(String.format(orderDetailFormat, "Thanh toán:", getVND(order.getTotalDue())));
-        separateLine();
-        boolean isATMPayment = order.getMoneyGiven() == order.getTotalDue();
-        if (isATMPayment) {
-            addLine(String.format(orderDetailFormat, "Thanh toán:", "Thanh toán bằng thẻ"));
-        } else {
-            addLine(String.format(orderDetailFormat, "Tiền mặt:", getVND(order.getMoneyGiven())));
-            addLine(String.format(orderDetailFormat, "Tiền trả lại:", getVND(order.getMoneyGiven() - order.getTotalDue())));
-        }
-
-        txa_orderContent.setText(content);
+    private void addTableHeader(PdfPTable table, Font font) {
+        Stream.of("VAT", "Giá", "Số lượng", "Tổng tiền")
+                .forEach(columnTitle -> {
+                    PdfPCell header = new PdfPCell();
+                    header.setBackgroundColor(BaseColor.WHITE);
+                    header.setBorderWidth(1);
+                    header.setPhrase(new Phrase(columnTitle, font));
+                    header.setPadding(4);
+                    table.addCell(header);
+                });
     }
 
     /**
@@ -172,11 +132,146 @@ public final class PreviewOrder_GUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void printFile() throws IOException, PrintException {
+        DocFlavor flavor = DocFlavor.SERVICE_FORMATTED.PAGEABLE;
+        PrintRequestAttributeSet patts = new HashPrintRequestAttributeSet();
+        patts.add(Sides.DUPLEX);
+        PrintService[] ps = PrintServiceLookup.lookupPrintServices(flavor, patts);
+        if (ps.length == 0) {
+            throw new IllegalStateException("No Printer found");
+        }
+        System.out.println("Available printers: " + Arrays.asList(ps));
+
+        PrintService myService = null;
+        for (PrintService printService : ps) {
+            if (printService.getName().equals("Your printer name")) {
+                myService = printService;
+                break;
+            }
+        }
+
+        if (myService == null) {
+            throw new IllegalStateException("Printer not found");
+        }
+
+        try (FileInputStream fis = new FileInputStream(FILE_PATH)) {
+            Doc pdfDoc = new SimpleDoc(fis, DocFlavor.INPUT_STREAM.AUTOSENSE, null);
+            DocPrintJob printJob = myService.createPrintJob();
+            printJob.print(pdfDoc, new HashPrintRequestAttributeSet());
+        }
+    }
+
+    private void toPDFFile() {
+        try {
+            //Create Document instance.
+            Document document = new Document();
+
+            //Create OutputStream instance.
+            OutputStream outputStream
+                    = new FileOutputStream(new File(FILE_PATH));
+
+            //Create PDFWriter instance.
+            PdfWriter writer = PdfWriter.getInstance(document, outputStream);
+            writer.setLanguage("VN");
+
+            //Open the document.
+            document.open();
+            BaseFont bf = BaseFont.createFont(FONT, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+//            Header
+            Font headingFont = new Font(bf, 14, Font.BOLD);
+            Font subHeadingFont = new Font(bf, 12, Font.BOLD);
+            Font font = new Font(bf, 12);
+            Font fontStrikeThrou = new Font(bf, 12, Font.STRIKETHRU);
+            LineSeparator separator = new LineSeparator(font);
+
+            Paragraph sofware = new Paragraph("OMEGA BOOK", headingFont);
+            Paragraph desc = new Paragraph("Hãy xem sách như là một loại Vitamin", font);
+            sofware.setAlignment(TextAlign.CENTER.ordinal());
+            desc.setAlignment(TextAlign.CENTER.ordinal());
+            document.add(sofware);
+            document.add(desc);
+            document.add(separator);
+
+//            Content
+            Paragraph orderTitle = new Paragraph("HÓA ĐƠN THANH TOÁN", subHeadingFont);
+            orderTitle.setAlignment(TextAlign.CENTER.ordinal());
+            document.add(orderTitle);
+            document.add(separator);
+
+//            Order info
+            document.add(new Paragraph(String.format("Số hóa đơn:  %s", order.getOrderID()), font));
+            document.add(new Paragraph(String.format("Ngày tạo:  %s", order.getOrderAt()), font));
+            document.add(new Paragraph(String.format("Nhân viên:  %s", order.getEmployee().getName()), font));
+            document.add(new Paragraph(String.format("Khách hàng:  %s", order.getCustomer().getName()), font));
+            document.add(separator);
+
+//          Order detail  
+            PdfPTable table = new PdfPTable(4);
+            table.setSpacingBefore(20);
+            table.setWidthPercentage(100);
+            addTableHeader(table, subHeadingFont);
+
+            int index = 0;
+            for (OrderDetail detail : order.getOrderDetail()) {
+                PdfPCell cell = new PdfPCell(new Phrase(String.format("%d. %s", ++index, detail.getProduct().getName()), font));
+                cell.setColspan(4);
+
+                table.addCell(new PdfPCell(cell));
+                table.addCell(new PdfPCell(new Phrase(String.valueOf(detail.getVAT()), font)));
+
+                boolean isHasDiscout = detail.getSeasonalDiscount() != 0;
+                PdfPCell priceCell = new PdfPCell(new Phrase(getVND(detail.getPrice()), font));
+                if (isHasDiscout) {
+                    double pricePerItemAfterDiscount = detail.getPrice() - detail.getSeasonalDiscount() / detail.getQuantity();
+
+                    priceCell.addElement(new Phrase(getVND(detail.getPrice()), fontStrikeThrou));
+                    priceCell.addElement(new Chunk(getVND(pricePerItemAfterDiscount), font));
+                }
+                table.addCell(priceCell);
+
+                table.addCell(new PdfPCell(new Phrase(String.valueOf(detail.getQuantity()), font)));
+                table.addCell(new PdfPCell(new Phrase(getVND(detail.getLineTotal()), font)));
+
+            }
+
+            document.add(table);
+
+//            Order footer    
+            document.add(new Paragraph("Tổng tiền: " + getVND(order.getSubTotal()), font));
+            document.add(new Paragraph("Chiết khấu đơn: " + getVND(order.getSubTotal() - order.getTotalDue()), font));
+            document.add(new Paragraph("Thanh toán: " + getVND(order.getTotalDue()), subHeadingFont));
+            document.add(separator);
+
+            boolean isATMPayment = order.isPayment();
+            document.add(new Paragraph("Hình thức thanh toán: " + (isATMPayment ? "ATM" : "Tiền mặt"), font));
+            if (!isATMPayment) {
+                document.add(new Paragraph("Tiền khách đưa: " + getVND(order.getMoneyGiven()), font));
+                document.add(new Paragraph("Tiền trả lại: " + getVND(order.getMoneyGiven() - order.getTotalDue()), font));
+            }
+
+            //Close document and outputStream.
+            document.close();
+            outputStream.close();
+
+            System.out.println("Pdf created successfully.");
+            Desktop d = Desktop.getDesktop();
+            d.open(new File(FILE_PATH));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     private void btn_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_closeActionPerformed
         this.dispose();
     }//GEN-LAST:event_btn_closeActionPerformed
-
-
+    public static void main(String[] args) {
+        try {
+            ConnectDB.connect();
+            Order order = new Order_DAO().getOne("HD151120230023");
+            new PreviewOrder_GUI(order).dispose();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_close;
     private javax.swing.JPanel pnl_control;
