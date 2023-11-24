@@ -38,6 +38,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import main.Application;
 import raven.toast.Notifications;
+import utilities.OrderPrinter;
 
 /**
  *
@@ -520,8 +521,7 @@ public class Sales_GUI extends javax.swing.JPanel {
 
             if (isSaved) {
                 Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đã tạo thành công đơn hàng" + order.getOrderID());
-//                show preview
-                new PreviewOrder_GUI(order).dispose();
+//              
 //                Rerender panel
                 rerender();
             } else {
@@ -529,6 +529,16 @@ public class Sales_GUI extends javax.swing.JPanel {
             }
         } catch (Exception ex) {
             Notifications.getInstance().show(Notifications.Type.ERROR, "Không thể tạo đơn hàng " + order.getOrderID() + ": " + ex.getMessage());
+        }
+
+//        tạo file pdf và hiển thị + in file pdf đó
+        OrderPrinter printer = new OrderPrinter(order);
+        printer.generatePDF();
+        OrderPrinter.PrintStatus status = printer.printFile();
+        if (status == OrderPrinter.PrintStatus.NOT_FOUND_FILE) {
+            Notifications.getInstance().show(Notifications.Type.ERROR, "Lỗi không thể in hóa đơn: Không tìm thấy file");
+        } else if (status == OrderPrinter.PrintStatus.NOT_FOUND_PRINTER) {
+            Notifications.getInstance().show(Notifications.Type.ERROR, "Lỗi không thể in hóa đơn: Không tìm thấy máy in");
         }
     }
 
