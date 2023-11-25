@@ -106,7 +106,7 @@
                   <Color id="Hand Cursor"/>
                 </Property>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[160, 32767]"/>
+                  <Dimension value="[10000, 32767]"/>
                 </Property>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[30, 30]"/>
@@ -153,7 +153,7 @@
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor" postCode="jDateChooser1.setDateFormatString(&quot;dd/MM/yyyy&quot;);">
                   <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
-                    <EmptyBorder bottom="1" left="1" right="60" top="1"/>
+                    <EmptyBorder bottom="1" left="1" right="20" top="1"/>
                   </Border>
                 </Property>
                 <Property name="date" type="java.util.Date" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
@@ -173,7 +173,7 @@
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
-                <EmptyBorder bottom="8" left="10" right="10" top="8"/>
+                <EmptyBorder bottom="8" left="50" right="10" top="8"/>
               </Border>
             </Property>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -202,27 +202,6 @@
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
                   <BorderConstraints direction="Center"/>
-                </Constraint>
-              </Constraints>
-            </Component>
-            <Component class="javax.swing.Box$Filler" name="filler1">
-              <Properties>
-                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[500, 32767]"/>
-                </Property>
-                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[50, 0]"/>
-                </Property>
-                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[100, 0]"/>
-                </Property>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="classDetails" type="java.lang.String" value="Box.Filler.HorizontalStrut"/>
-              </AuxValues>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
-                  <BorderConstraints direction="Before"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -334,7 +313,7 @@
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor" postCode="jDateChooser2.setDateFormatString(&quot;dd/MM/yyyy&quot;);">
                   <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
-                    <EmptyBorder bottom="1" left="1" right="60" top="1"/>
+                    <EmptyBorder bottom="1" left="1" right="20" top="1"/>
                   </Border>
                 </Property>
                 <Property name="date" type="java.util.Date" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
@@ -354,7 +333,7 @@
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
-                <EmptyBorder bottom="8" left="10" right="10" top="8"/>
+                <EmptyBorder bottom="8" left="50" right="10" top="8"/>
               </Border>
             </Property>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -386,24 +365,19 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="javax.swing.Box$Filler" name="filler2">
+            <Component class="javax.swing.JButton" name="btn_wfile">
               <Properties>
-                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[500, 32767]"/>
-                </Property>
-                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[100, 0]"/>
-                </Property>
+                <Property name="text" type="java.lang.String" value="Xu&#x1ea5;t file"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[100, 0]"/>
+                  <Dimension value="[80, 23]"/>
                 </Property>
               </Properties>
-              <AuxValues>
-                <AuxValue name="classDetails" type="java.lang.String" value="Box.Filler.HorizontalStrut"/>
-              </AuxValues>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_wfileActionPerformed"/>
+              </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
-                  <BorderConstraints direction="Before"/>
+                  <BorderConstraints direction="East"/>
                 </Constraint>
               </Constraints>
             </Component>

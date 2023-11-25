@@ -84,14 +84,12 @@ package gui;
 
 import bus.OrderManagement_BUS;
 import bus.ProductManagement_BUS;
-import com.formdev.flatlaf.FlatClientProperties;
 import entity.Customer;
 import entity.Order;
 import entity.OrderDetail;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
@@ -100,13 +98,32 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import utilities.FormatNumber;
+import com.formdev.flatlaf.FlatClientProperties;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Date;
+import javax.swing.JFileChooser;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import utilities.OrderPrinter;
 import utilities.SVGIcon;
+import org.apache.poi.ss.usermodel.Font;
+
+ 
 
 /**
  *
  * @author KienTran
  */
+
 public final class OrderManagement_GUI extends javax.swing.JPanel {
 
     private OrderManagement_BUS bus;
@@ -249,6 +266,243 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
         return true;
     }
 
+    
+    public static final int COLUMN_INDEX_ID = 0;
+    public static final int COLUMN_INDEX_EMPLOYEE = 1;
+    public static final int COLUMN_INDEX_CUSTOMERNAME = 2;
+    public static final int COLUMN_INDEX_PHONE = 3;
+    public static final int COLUMN_INDEX_ORDERAT =4;
+    public static final int COLUMN_INDEX_TOTAL = 5;
+    
+//    private static CellStyle cellStyleFormatNumber = null;
+// 
+// 
+//    private final ArrayList<Order> orderList = bus.getAll();
+//    private final String excelFilePath = "../fileExcel/OrderList.xlsx";
+////        writeExcel(books, excelFilePath);
+// 
+//    public static void writeExcel(ArrayList<Order> orderList, String excelFilePath) throws IOException {
+//        // Create Workbook
+//        SXSSFWorkbook workbook = new SXSSFWorkbook();
+// 
+//        // Create sheet
+//        SXSSFSheet sheet = workbook.createSheet("Books"); // Create sheet with sheet name
+//         
+//        // register the columns you wish to track and compute the column width
+//        sheet.trackAllColumnsForAutoSizing();
+// 
+//        int rowIndex = 0;
+// 
+//        // Write header
+//        writeHeader(sheet, rowIndex);
+// 
+//        // Write data
+//        rowIndex++;
+//        for (Order order : orderList) {
+//            // Create row
+//            SXSSFRow row = sheet.createRow(rowIndex);
+//            // Write data on row
+//            writeBook(order, row);
+//            rowIndex++;
+//        }
+// 
+//        // Write footer
+//        writeFooter(sheet, rowIndex);
+// 
+//        // Auto resize column witdth
+//        int numberOfColumn = 5; // sheet.getRow(0).getPhysicalNumberOfCells();
+//        autosizeColumn(sheet, numberOfColumn);
+// 
+//        // Create file excel
+//        createOutputFile(workbook, excelFilePath);
+//        System.out.println("Done!!!");
+//    }
+// 
+//    // Create dummy data
+//    private ArrayList<Order> getOrders() {
+//        return bus.getAll();
+//    }
+// 
+//    // Write header with format
+//    private static void writeHeader(SXSSFSheet sheet, int rowIndex) {
+//        // create CellStyle
+//        CellStyle cellStyle = createStyleForHeader(sheet);
+// 
+//        // Create row
+//        SXSSFRow row = sheet.createRow(rowIndex);
+// 
+//        // Create cells
+//        SXSSFCell cell = row.createCell(COLUMN_INDEX_ID);
+//        cell.setCellStyle(cellStyle);
+//        cell.setCellValue("Mã hoá đơn"); 
+// 
+//        cell = row.createCell(COLUMN_INDEX_EMPLOYEE);
+//        cell.setCellStyle(cellStyle);
+//        cell.setCellValue("Mã nhân viên");
+// 
+//        cell = row.createCell(COLUMN_INDEX_CUSTOMERNAME);
+//        cell.setCellStyle(cellStyle);
+//        cell.setCellValue("Tên khách hàng");
+// 
+//        cell = row.createCell(COLUMN_INDEX_ORDERAT);
+//        cell.setCellStyle(cellStyle);
+//        cell.setCellValue("Ngày mua hàng");
+//        
+//        cell = row.createCell(COLUMN_INDEX_PHONE);
+//        cell.setCellStyle(cellStyle);
+//        cell.setCellValue("Số điện thoại khách hàng");
+//        
+//       
+//        cell = row.createCell(COLUMN_INDEX_TOTAL);
+//        cell.setCellStyle(cellStyle);
+//        cell.setCellValue("Tổng tiền");
+//    }
+// 
+//    // Write data
+//    private static void writeBook(Order order, SXSSFRow row) {
+//        if (cellStyleFormatNumber == null) {
+//            // Format number
+//            short format = (short) BuiltinFormats.getBuiltinFormat("#,##0");
+//            // DataFormat df = workbook.createDataFormat();
+//            // short format = df.getFormat("#,##0");
+//     
+//            // Create CellStyle
+//            SXSSFWorkbook workbook = row.getSheet().getWorkbook();
+//            cellStyleFormatNumber = workbook.createCellStyle();
+//            cellStyleFormatNumber.setDataFormat(format);
+//        }
+// 
+//        SXSSFCell cell = row.createCell(COLUMN_INDEX_ID);
+//        cell.setCellValue(order.getOrderID());
+// 
+//        cell = row.createCell(COLUMN_INDEX_EMPLOYEE);
+//        cell.setCellValue(order.getEmployee().getEmployeeID());
+// 
+//        cell = row.createCell(COLUMN_INDEX_CUSTOMERNAME);
+//        cell.setCellValue(order.getCustomer().getName());
+//        cell.setCellStyle(cellStyleFormatNumber);
+// 
+//        cell = row.createCell(COLUMN_INDEX_PHONE);
+//        cell.setCellValue(order.getCustomer().getPhoneNumber());
+// 
+//        // Create cell formula
+//        // totalMoney = price * quantity
+//        cell = row.createCell(COLUMN_INDEX_TOTAL, CellType.FORMULA);
+//        cell.setCellStyle(cellStyleFormatNumber);
+//        int currentRow = row.getRowNum() + 1;
+//        String columnPrice = CellReference.convertNumToColString(COLUMN_INDEX_PRICE);
+//        String columnQuantity = CellReference.convertNumToColString(COLUMN_INDEX_QUANTITY);
+//        cell.setCellFormula(order.getTotalDue());
+//    }
+// 
+//    // Create CellStyle for header
+//    private static CellStyle createStyleForHeader(Sheet sheet) {
+//        // Create font
+//        Font font = sheet.getWorkbook().createFont();
+//        font.setFontName("Times New Roman");
+//        font.setBold(true);
+//        font.setFontHeightInPoints((short) 14); // font size
+//        font.setColor(IndexedColors.WHITE.getIndex()); // text color
+// 
+//        // Create CellStyle
+//        CellStyle cellStyle = sheet.getWorkbook().createCellStyle();
+//        cellStyle.setFont(font);
+//        cellStyle.setFillForegroundColor(IndexedColors.BLUE.getIndex());
+//        cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+//        cellStyle.setBorderBottom(BorderStyle.THIN);
+//        return cellStyle;
+//    }
+// 
+//    // Write footer
+//    private static void writeFooter(SXSSFSheet sheet, int rowIndex) {
+//        // Create row
+//        SXSSFRow row = sheet.createRow(rowIndex);
+//        SXSSFCell cell = row.createCell(COLUMN_INDEX_TOTAL, CellType.FORMULA);
+//        cell.setCellFormula("SUM(E2:E6)");
+//    }
+// 
+//    // Auto resize column width
+//    private static void autosizeColumn(SXSSFSheet sheet, int lastColumn) {
+//        for (int columnIndex = 0; columnIndex < lastColumn; columnIndex++) {
+//            sheet.autoSizeColumn(columnIndex);
+//        }
+//    }
+// 
+//    // Create output file
+//    private static void createOutputFile(SXSSFWorkbook workbook, String excelFilePath) throws IOException {
+//        try (OutputStream os = new FileOutputStream(excelFilePath)) {
+//            workbook.write(os);
+//        }
+//    }
+    
+    
+    
+   public static void createExcel(ArrayList<Order> list, String filePath) {
+        Workbook workbook = new XSSFWorkbook();
+        Sheet sheet = workbook.createSheet("Order Data");
+
+        // Gộp ô cho tiêu đề
+        sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 7));
+
+        // Thêm dòng thông tin đầu tiên
+        Row infoRow = sheet.createRow(0);
+        Cell infoCell = infoRow.createCell(0);
+        infoCell.setCellValue("Danh sách hoá đơn");
+
+        // Thiết lập style cho phần tiêu đề
+        CellStyle titleStyle = workbook.createCellStyle();
+        Font titleFont = (Font) workbook.createFont();
+        titleFont.setFontHeightInPoints((short) 18);
+        titleStyle.setFont((org.apache.poi.ss.usermodel.Font) titleFont);
+        titleStyle.setAlignment(HorizontalAlignment.CENTER);
+        titleStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+
+        infoCell.setCellStyle(titleStyle);
+
+        Row row_date = sheet.createRow(1);
+        Cell cell_date = row_date.createCell(0);
+        cell_date.setCellValue("Ngày in: " + new Date());
+
+        // Tạo header row
+        Row headerRow = sheet.createRow(2);
+        String[] columns = {"Mã hoá đơn"," Mã nhân viên", "Tên khách hàng"," Ngày mua hàng", "Số điện thoại khách hàng", "Tổng tiền" };
+
+        for (int i = 0; i < columns.length; i++) {
+            Cell cell = headerRow.createCell(i);
+            cell.setCellValue(columns[i]);
+        }
+
+        // Đổ dữ liệu từ ArrayList vào Excel
+        int rowNum = 3;
+        for (Order order : list) {
+            Row row = sheet.createRow(rowNum++);
+
+            row.createCell(0).setCellValue(order.getOrderID());
+            row.createCell(1).setCellValue(order.getEmployee().getEmployeeID());
+            row.createCell(2).setCellValue(order.getCustomer().getName());
+            row.createCell(3).setCellValue(order.getOrderAt().toString());
+            row.createCell(4).setCellValue(order.getCustomer().getPhoneNumber()); // Cần xử lý định dạng ngày tháng
+            row.createCell(5).setCellValue(FormatNumber.toVND(order.getTotalDue()));
+        }
+
+        // Ghi vào file
+        try (FileOutputStream outputStream = new FileOutputStream(filePath)) {
+            workbook.write(outputStream);
+            System.out.println("File Excel được tạo thành công!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                workbook.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
+ 
+
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -270,7 +524,6 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         pnl_searchButton = new javax.swing.JPanel();
         btn_search = new javax.swing.JButton();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(50, 0), new java.awt.Dimension(100, 0), new java.awt.Dimension(500, 32767));
         pnl_customerFilter = new javax.swing.JPanel();
         lbl_customerID = new javax.swing.JLabel();
         txt_customerID = new javax.swing.JTextField();
@@ -282,7 +535,7 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
         jDateChooser2 = new com.toedter.calendar.JDateChooser();
         pnl_refreshButton = new javax.swing.JPanel();
         btn_refresh = new javax.swing.JButton();
-        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(100, 0), new java.awt.Dimension(100, 0), new java.awt.Dimension(500, 32767));
+        btn_wfile = new javax.swing.JButton();
         splitPane = new javax.swing.JSplitPane();
         pnl_center = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -337,7 +590,7 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
 
         cmb_orderPriceFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả","Dưới 100.000VNĐ", "Trên 100.000VNĐ & Dưới 500.000VNĐ", "Trên 500.000VNĐ & Dưới 1.000.000VNĐ", "Trên 1.000.000VNĐ" }));
         cmb_orderPriceFilter.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        cmb_orderPriceFilter.setMaximumSize(new java.awt.Dimension(160, 32767));
+        cmb_orderPriceFilter.setMaximumSize(new java.awt.Dimension(10000, 32767));
         cmb_orderPriceFilter.setPreferredSize(new java.awt.Dimension(30, 30));
         pnl_orderStatusFilter.add(cmb_orderPriceFilter);
 
@@ -354,7 +607,7 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
         lbl_orderDate.setSize(new java.awt.Dimension(100, 0));
         pnl_orderDate.add(lbl_orderDate);
 
-        jDateChooser1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 60));
+        jDateChooser1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 20));
         jDateChooser1.setDateFormatString("dd/MM/yyyy");
         jDateChooser1.setDate(Calendar.getInstance().getTime());
         jDateChooser1.setMinimumSize(new java.awt.Dimension(150, 30));
@@ -363,7 +616,7 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
 
         pnl_header.add(pnl_orderDate);
 
-        pnl_searchButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 10, 8, 10));
+        pnl_searchButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 50, 8, 10));
         pnl_searchButton.setMaximumSize(new java.awt.Dimension(800, 2147483647));
         pnl_searchButton.setPreferredSize(new java.awt.Dimension(80, 100));
         pnl_searchButton.setLayout(new java.awt.BorderLayout());
@@ -380,7 +633,6 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
             }
         });
         pnl_searchButton.add(btn_search, java.awt.BorderLayout.CENTER);
-        pnl_searchButton.add(filler1, java.awt.BorderLayout.LINE_START);
 
         pnl_header.add(pnl_searchButton);
 
@@ -428,7 +680,7 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
         lbl_orderDateTo.setSize(new java.awt.Dimension(100, 0));
         pnl_orderDateTo.add(lbl_orderDateTo);
 
-        jDateChooser2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 60));
+        jDateChooser2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 20));
         jDateChooser2.setDateFormatString("dd/MM/yyyy");
         jDateChooser2.setDate(Calendar.getInstance().getTime());
         jDateChooser2.setMinimumSize(new java.awt.Dimension(100, 30));
@@ -437,7 +689,7 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
 
         pnl_header.add(pnl_orderDateTo);
 
-        pnl_refreshButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 10, 8, 10));
+        pnl_refreshButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 50, 8, 10));
         pnl_refreshButton.setMaximumSize(new java.awt.Dimension(800, 2147483647));
         pnl_refreshButton.setPreferredSize(new java.awt.Dimension(80, 100));
         pnl_refreshButton.setLayout(new java.awt.BorderLayout());
@@ -451,7 +703,15 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
             }
         });
         pnl_refreshButton.add(btn_refresh, java.awt.BorderLayout.CENTER);
-        pnl_refreshButton.add(filler2, java.awt.BorderLayout.LINE_START);
+
+        btn_wfile.setText("Xuất file");
+        btn_wfile.setPreferredSize(new java.awt.Dimension(80, 23));
+        btn_wfile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_wfileActionPerformed(evt);
+            }
+        });
+        pnl_refreshButton.add(btn_wfile, java.awt.BorderLayout.EAST);
 
         pnl_header.add(pnl_refreshButton);
 
@@ -663,15 +923,32 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_customerIDActionPerformed
 
+    private void btn_wfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_wfileActionPerformed
+        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("Chọn đường dẫn và tên file");
+                fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+                // Hiển thị hộp thoại và kiểm tra nếu người dùng chọn OK
+                int userSelection = fileChooser.showSaveDialog(null);
+                if (userSelection == JFileChooser.APPROVE_OPTION) {
+                    // Lấy đường dẫn và tên file được chọn
+                    File fileToSave = fileChooser.getSelectedFile();
+                    String filePath = fileToSave.getAbsolutePath();
+
+                    // Gọi phương thức để tạo file Excel với đường dẫn và tên file đã chọn
+                    createExcel(bus.getAll(), filePath+".xlsx");
+                }
+    }//GEN-LAST:event_btn_wfileActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_next;
     private javax.swing.JButton btn_previous;
     private javax.swing.JButton btn_refresh;
     private javax.swing.JButton btn_search;
+    private javax.swing.JButton btn_wfile;
     private javax.swing.JComboBox<String> cmb_orderPriceFilter;
-    private javax.swing.Box.Filler filler1;
-    private javax.swing.Box.Filler filler2;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JScrollPane jScrollPane1;
