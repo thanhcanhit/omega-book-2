@@ -94,7 +94,8 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
     private void renderPromotionInfor() {
         txt_searchPromo.setText("");
         txt_promotionID.setText("");
-        group_typePromo.clearSelection();
+        rdb_percent.setSelected(true);
+        cmb_rankCus.setSelectedIndex(0);
         txt_discountPromo.setText("");
         chooseStartDate.setDate(java.sql.Date.valueOf(LocalDate.now()));
         chooseEndDate.setDate(java.sql.Date.valueOf(LocalDate.now()));
@@ -527,7 +528,7 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
 
         pnl_buttonPromo.setMinimumSize(new java.awt.Dimension(100, 50));
         pnl_buttonPromo.setPreferredSize(new java.awt.Dimension(1261, 50));
-        pnl_buttonPromo.setLayout(new java.awt.GridLayout());
+        pnl_buttonPromo.setLayout(new java.awt.GridLayout(1, 0));
 
         btn_createPromo.setText("TẠO MỚI");
         btn_createPromo.setPreferredSize(new java.awt.Dimension(79, 50));
@@ -543,9 +544,6 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
 
         btn_removePromo.setText("GỠ ");
         btn_removePromo.setActionCommand("");
-        btn_removePromo.putClientProperty(FlatClientProperties.STYLE,""
-            + "background:$Menu.background;"
-            + "foreground:$Menu.foreground;");
         btn_removePromo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_removePromoActionPerformed(evt);
