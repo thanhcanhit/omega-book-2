@@ -116,6 +116,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import utilities.OrderPrinter;
 import utilities.SVGIcon;
 import org.apache.poi.ss.usermodel.Font;
+import raven.toast.Notifications;
 
  
 
@@ -267,174 +268,7 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
     }
 
     
-    public static final int COLUMN_INDEX_ID = 0;
-    public static final int COLUMN_INDEX_EMPLOYEE = 1;
-    public static final int COLUMN_INDEX_CUSTOMERNAME = 2;
-    public static final int COLUMN_INDEX_PHONE = 3;
-    public static final int COLUMN_INDEX_ORDERAT =4;
-    public static final int COLUMN_INDEX_TOTAL = 5;
-    
-//    private static CellStyle cellStyleFormatNumber = null;
-// 
-// 
-//    private final ArrayList<Order> orderList = bus.getAll();
-//    private final String excelFilePath = "../fileExcel/OrderList.xlsx";
-////        writeExcel(books, excelFilePath);
-// 
-//    public static void writeExcel(ArrayList<Order> orderList, String excelFilePath) throws IOException {
-//        // Create Workbook
-//        SXSSFWorkbook workbook = new SXSSFWorkbook();
-// 
-//        // Create sheet
-//        SXSSFSheet sheet = workbook.createSheet("Books"); // Create sheet with sheet name
-//         
-//        // register the columns you wish to track and compute the column width
-//        sheet.trackAllColumnsForAutoSizing();
-// 
-//        int rowIndex = 0;
-// 
-//        // Write header
-//        writeHeader(sheet, rowIndex);
-// 
-//        // Write data
-//        rowIndex++;
-//        for (Order order : orderList) {
-//            // Create row
-//            SXSSFRow row = sheet.createRow(rowIndex);
-//            // Write data on row
-//            writeBook(order, row);
-//            rowIndex++;
-//        }
-// 
-//        // Write footer
-//        writeFooter(sheet, rowIndex);
-// 
-//        // Auto resize column witdth
-//        int numberOfColumn = 5; // sheet.getRow(0).getPhysicalNumberOfCells();
-//        autosizeColumn(sheet, numberOfColumn);
-// 
-//        // Create file excel
-//        createOutputFile(workbook, excelFilePath);
-//        System.out.println("Done!!!");
-//    }
-// 
-//    // Create dummy data
-//    private ArrayList<Order> getOrders() {
-//        return bus.getAll();
-//    }
-// 
-//    // Write header with format
-//    private static void writeHeader(SXSSFSheet sheet, int rowIndex) {
-//        // create CellStyle
-//        CellStyle cellStyle = createStyleForHeader(sheet);
-// 
-//        // Create row
-//        SXSSFRow row = sheet.createRow(rowIndex);
-// 
-//        // Create cells
-//        SXSSFCell cell = row.createCell(COLUMN_INDEX_ID);
-//        cell.setCellStyle(cellStyle);
-//        cell.setCellValue("Mã hoá đơn"); 
-// 
-//        cell = row.createCell(COLUMN_INDEX_EMPLOYEE);
-//        cell.setCellStyle(cellStyle);
-//        cell.setCellValue("Mã nhân viên");
-// 
-//        cell = row.createCell(COLUMN_INDEX_CUSTOMERNAME);
-//        cell.setCellStyle(cellStyle);
-//        cell.setCellValue("Tên khách hàng");
-// 
-//        cell = row.createCell(COLUMN_INDEX_ORDERAT);
-//        cell.setCellStyle(cellStyle);
-//        cell.setCellValue("Ngày mua hàng");
-//        
-//        cell = row.createCell(COLUMN_INDEX_PHONE);
-//        cell.setCellStyle(cellStyle);
-//        cell.setCellValue("Số điện thoại khách hàng");
-//        
-//       
-//        cell = row.createCell(COLUMN_INDEX_TOTAL);
-//        cell.setCellStyle(cellStyle);
-//        cell.setCellValue("Tổng tiền");
-//    }
-// 
-//    // Write data
-//    private static void writeBook(Order order, SXSSFRow row) {
-//        if (cellStyleFormatNumber == null) {
-//            // Format number
-//            short format = (short) BuiltinFormats.getBuiltinFormat("#,##0");
-//            // DataFormat df = workbook.createDataFormat();
-//            // short format = df.getFormat("#,##0");
-//     
-//            // Create CellStyle
-//            SXSSFWorkbook workbook = row.getSheet().getWorkbook();
-//            cellStyleFormatNumber = workbook.createCellStyle();
-//            cellStyleFormatNumber.setDataFormat(format);
-//        }
-// 
-//        SXSSFCell cell = row.createCell(COLUMN_INDEX_ID);
-//        cell.setCellValue(order.getOrderID());
-// 
-//        cell = row.createCell(COLUMN_INDEX_EMPLOYEE);
-//        cell.setCellValue(order.getEmployee().getEmployeeID());
-// 
-//        cell = row.createCell(COLUMN_INDEX_CUSTOMERNAME);
-//        cell.setCellValue(order.getCustomer().getName());
-//        cell.setCellStyle(cellStyleFormatNumber);
-// 
-//        cell = row.createCell(COLUMN_INDEX_PHONE);
-//        cell.setCellValue(order.getCustomer().getPhoneNumber());
-// 
-//        // Create cell formula
-//        // totalMoney = price * quantity
-//        cell = row.createCell(COLUMN_INDEX_TOTAL, CellType.FORMULA);
-//        cell.setCellStyle(cellStyleFormatNumber);
-//        int currentRow = row.getRowNum() + 1;
-//        String columnPrice = CellReference.convertNumToColString(COLUMN_INDEX_PRICE);
-//        String columnQuantity = CellReference.convertNumToColString(COLUMN_INDEX_QUANTITY);
-//        cell.setCellFormula(order.getTotalDue());
-//    }
-// 
-//    // Create CellStyle for header
-//    private static CellStyle createStyleForHeader(Sheet sheet) {
-//        // Create font
-//        Font font = sheet.getWorkbook().createFont();
-//        font.setFontName("Times New Roman");
-//        font.setBold(true);
-//        font.setFontHeightInPoints((short) 14); // font size
-//        font.setColor(IndexedColors.WHITE.getIndex()); // text color
-// 
-//        // Create CellStyle
-//        CellStyle cellStyle = sheet.getWorkbook().createCellStyle();
-//        cellStyle.setFont(font);
-//        cellStyle.setFillForegroundColor(IndexedColors.BLUE.getIndex());
-//        cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-//        cellStyle.setBorderBottom(BorderStyle.THIN);
-//        return cellStyle;
-//    }
-// 
-//    // Write footer
-//    private static void writeFooter(SXSSFSheet sheet, int rowIndex) {
-//        // Create row
-//        SXSSFRow row = sheet.createRow(rowIndex);
-//        SXSSFCell cell = row.createCell(COLUMN_INDEX_TOTAL, CellType.FORMULA);
-//        cell.setCellFormula("SUM(E2:E6)");
-//    }
-// 
-//    // Auto resize column width
-//    private static void autosizeColumn(SXSSFSheet sheet, int lastColumn) {
-//        for (int columnIndex = 0; columnIndex < lastColumn; columnIndex++) {
-//            sheet.autoSizeColumn(columnIndex);
-//        }
-//    }
-// 
-//    // Create output file
-//    private static void createOutputFile(SXSSFWorkbook workbook, String excelFilePath) throws IOException {
-//        try (OutputStream os = new FileOutputStream(excelFilePath)) {
-//            workbook.write(os);
-//        }
-//    }
-    
+   
     
     
    public static void createExcel(ArrayList<Order> list, String filePath) {
@@ -488,7 +322,8 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
         // Ghi vào file
         try (FileOutputStream outputStream = new FileOutputStream(filePath)) {
             workbook.write(outputStream);
-            System.out.println("File Excel được tạo thành công!");
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đã tạo file thành công !");
+                    
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
