@@ -259,6 +259,8 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
             
             createOutputFile(workbook, filePath);
             System.out.println("Print excel...");
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, "Xuat file thanh cong!");
+         
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -268,66 +270,89 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         SXSSFRow row = sheet.createRow(rowIndex);
  
         // Create cells
-        SXSSFCell cell = row.createCell(OrderManagement_GUI.COLUMN_INDEX_ID);
+        SXSSFCell cell = row.createCell(0);
         cell.setCellStyle(cellStyle);
-        cell.setCellValue("Id");
+        cell.setCellValue("MA NHAN VIEN");
  
-        cell = row.createCell(OrderManagement_GUI.COLUMN_INDEX_ID);
+        cell = row.createCell(1);
         cell.setCellStyle(cellStyle);
-        cell.setCellValue("Title");
+        cell.setCellValue("TEN NHAN VIEN");
  
-        cell = row.createCell(OrderManagement_GUI.COLUMN_INDEX_ID);
+        cell = row.createCell(2);
         cell.setCellStyle(cellStyle);
-        cell.setCellValue("Price");
+        cell.setCellValue("GIOI TINH");
  
-        cell = row.createCell(OrderManagement_GUI.COLUMN_INDEX_ID);
+        cell = row.createCell(3);
         cell.setCellStyle(cellStyle);
-        cell.setCellValue("Quantity");
+        cell.setCellValue("NGAYSINH");
  
-        cell = row.createCell(OrderManagement_GUI.COLUMN_INDEX_ID);
+        cell = row.createCell(4);
         cell.setCellStyle(cellStyle);
-        cell.setCellValue("Total money");
+        cell.setCellValue("CHUC VU");
+        
+        cell = row.createCell(5);
+        cell.setCellStyle(cellStyle);
+        cell.setCellValue("TRANG THAI");
+        
+        cell = row.createCell(6);
+        cell.setCellStyle(cellStyle);
+        cell.setCellValue("SO DIEN THOAI");
+        
+        cell = row.createCell(7);
+        cell.setCellStyle(cellStyle);
+        cell.setCellValue("CAN CUOC CONG DAN");
+        
+        cell = row.createCell(8);
+        cell.setCellStyle(cellStyle);
+        cell.setCellValue("DIA CHI");
         
     }
     private void writeEmployee(Employee emp, SXSSFRow row) {
         if (cellStyleFormatNumber == null) {
-            // Format number
             short format = (short) BuiltinFormats.getBuiltinFormat("#,##0");
-            // DataFormat df = workbook.createDataFormat();
-            // short format = df.getFormat("#,##0");
-     
-            // Create CellStyle
             SXSSFWorkbook workbook = row.getSheet().getWorkbook();
             cellStyleFormatNumber = workbook.createCellStyle();
             cellStyleFormatNumber.setDataFormat(format);
         }
  
-        SXSSFCell cell = row.createCell(OrderManagement_GUI.COLUMN_INDEX_ID);
+        SXSSFCell cell = row.createCell(0);
         cell.setCellValue(emp.getEmployeeID());
  
-        cell = row.createCell(OrderManagement_GUI.COLUMN_INDEX_EMPLOYEE);
+        cell = row.createCell(1);
         cell.setCellValue(emp.getName());
  
-        cell = row.createCell(OrderManagement_GUI.COLUMN_INDEX_CUSTOMERNAME);
-        cell.setCellValue(emp.getPhoneNumber());
-        cell.setCellStyle(cellStyleFormatNumber);
+        cell = row.createCell(2);
+        String gender = "Nam";
+        if(emp.isGender())
+            gender = "Nu";
+        cell.setCellValue(gender);
+        
  
-        cell = row.createCell(OrderManagement_GUI.COLUMN_INDEX_PHONE);
+        cell = row.createCell(3);
+        cell.setCellValue(emp.getDateOfBirth().toString());
+        
+        cell = row.createCell(4);
         cell.setCellValue(emp.getRole());
- 
-        // Create cell formula
-        // totalMoney = price * quantity
-        cell = row.createCell(OrderManagement_GUI.COLUMN_INDEX_TOTAL, CellType.FORMULA);
-        cell.setCellStyle(cellStyleFormatNumber);
-        int currentRow = row.getRowNum() + 1;
-//        String columnPrice = CellReference.convertNumToColString(OrderManagement_GUI.COLUMN_INDEX_ID);
-//        String columnQuantity = CellReference.convertNumToColString(OrderManagement_GUI.COLUMN_INDEX_ID);
-//        cell.setCellFormula(columnPrice + currentRow + "*" + columnQuantity + currentRow);
+        
+        cell = row.createCell(5);
+        String status = "Da nghi";
+        if(emp.isStatus())
+            status = "Dang lam viec";
+        cell.setCellValue(status);
+        
+        cell = row.createCell(6);
+        cell.setCellValue(emp.getPhoneNumber());
+        
+        cell = row.createCell(7);
+        cell.setCellValue(emp.getCitizenIdentification());
+        
+        cell = row.createCell(8);
+        cell.setCellValue(emp.getAddress());
     }
     private void writeFooter(SXSSFSheet sheet, int rowIndex) {
         SXSSFRow row = sheet.createRow(rowIndex);
         SXSSFCell cell = row.createCell(OrderManagement_GUI.COLUMN_INDEX_TOTAL, CellType.FORMULA);
-        cell.setCellFormula("SUM(E2:E6)");
+        cell.setCellFormula("COUNT(A2:A11)");
     }
     private static CellStyle createStyleForHeader(Sheet sheet) {
         // Create font
@@ -907,8 +932,20 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_clearValueActionPerformed
 
     private void btn_printFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_printFileActionPerformed
-        final String filePath = "D:/nhanVien.xlsx";
-        createExcel(bus.getAllEmployee(), filePath);
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Chọn đường dẫn và tên file");
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+        // Hiển thị hộp thoại và kiểm tra nếu người dùng chọn OK
+        int userSelection = fileChooser.showSaveDialog(null);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            // Lấy đường dẫn và tên file được chọn
+            File fileToSave = fileChooser.getSelectedFile();
+            String filePath = fileToSave.getAbsolutePath();
+
+            // Gọi phương thức để tạo file Excel với đường dẫn và tên file đã chọn
+            createExcel(bus.getAllEmployee(), filePath+".xlsx");
+        }
     }//GEN-LAST:event_btn_printFileActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
