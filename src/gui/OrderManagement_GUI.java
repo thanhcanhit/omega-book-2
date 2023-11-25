@@ -87,7 +87,6 @@ import bus.ProductManagement_BUS;
 import entity.Customer;
 import entity.Order;
 import entity.OrderDetail;
-import java.io.IOException;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -100,9 +99,23 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import utilities.FormatNumber;
 import com.formdev.flatlaf.FlatClientProperties;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Date;
+import javax.swing.JFileChooser;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import utilities.OrderPrinter;
 import utilities.SVGIcon;
+import org.apache.poi.ss.usermodel.Font;
 
  
 
@@ -321,7 +334,7 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
 //        // Create cells
 //        SXSSFCell cell = row.createCell(COLUMN_INDEX_ID);
 //        cell.setCellStyle(cellStyle);
-//        cell.setCellValue("Mã hoá đơn");
+//        cell.setCellValue("Mã hoá đơn"); 
 // 
 //        cell = row.createCell(COLUMN_INDEX_EMPLOYEE);
 //        cell.setCellStyle(cellStyle);
@@ -421,7 +434,71 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
 //            workbook.write(os);
 //        }
 //    }
-   
+    
+    
+    
+   public static void createExcel(ArrayList<Order> list, String filePath) {
+        Workbook workbook = new XSSFWorkbook();
+        Sheet sheet = workbook.createSheet("Order Data");
+
+        // Gộp ô cho tiêu đề
+        sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 7));
+
+        // Thêm dòng thông tin đầu tiên
+        Row infoRow = sheet.createRow(0);
+        Cell infoCell = infoRow.createCell(0);
+        infoCell.setCellValue("Danh sách hoá đơn");
+
+        // Thiết lập style cho phần tiêu đề
+        CellStyle titleStyle = workbook.createCellStyle();
+        Font titleFont = (Font) workbook.createFont();
+        titleFont.setFontHeightInPoints((short) 18);
+        titleStyle.setFont((org.apache.poi.ss.usermodel.Font) titleFont);
+        titleStyle.setAlignment(HorizontalAlignment.CENTER);
+        titleStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+
+        infoCell.setCellStyle(titleStyle);
+
+        Row row_date = sheet.createRow(1);
+        Cell cell_date = row_date.createCell(0);
+        cell_date.setCellValue("Ngày in: " + new Date());
+
+        // Tạo header row
+        Row headerRow = sheet.createRow(2);
+        String[] columns = {"Mã hoá đơn"," Mã nhân viên", "Tên khách hàng"," Ngày mua hàng", "Số điện thoại khách hàng", "Tổng tiền" };
+
+        for (int i = 0; i < columns.length; i++) {
+            Cell cell = headerRow.createCell(i);
+            cell.setCellValue(columns[i]);
+        }
+
+        // Đổ dữ liệu từ ArrayList vào Excel
+        int rowNum = 3;
+        for (Order order : list) {
+            Row row = sheet.createRow(rowNum++);
+
+            row.createCell(0).setCellValue(order.getOrderID());
+            row.createCell(1).setCellValue(order.getEmployee().getEmployeeID());
+            row.createCell(2).setCellValue(order.getCustomer().getName());
+            row.createCell(3).setCellValue(order.getOrderAt().toString());
+            row.createCell(4).setCellValue(order.getCustomer().getPhoneNumber()); // Cần xử lý định dạng ngày tháng
+            row.createCell(5).setCellValue(FormatNumber.toVND(order.getTotalDue()));
+        }
+
+        // Ghi vào file
+        try (FileOutputStream outputStream = new FileOutputStream(filePath)) {
+            workbook.write(outputStream);
+            System.out.println("File Excel được tạo thành công!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                workbook.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
     
  
 
@@ -848,7 +925,20 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
 
     private void btn_wfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_wfileActionPerformed
         // TODO add your handling code here:
-        
+        JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("Chọn đường dẫn và tên file");
+                fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+                // Hiển thị hộp thoại và kiểm tra nếu người dùng chọn OK
+                int userSelection = fileChooser.showSaveDialog(null);
+                if (userSelection == JFileChooser.APPROVE_OPTION) {
+                    // Lấy đường dẫn và tên file được chọn
+                    File fileToSave = fileChooser.getSelectedFile();
+                    String filePath = fileToSave.getAbsolutePath();
+
+                    // Gọi phương thức để tạo file Excel với đường dẫn và tên file đã chọn
+                    createExcel(bus.getAll(), filePath+".xlsx");
+                }
     }//GEN-LAST:event_btn_wfileActionPerformed
 
 
