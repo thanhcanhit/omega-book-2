@@ -8,14 +8,19 @@ import bus.EmployeeManagament_BUS;
 import com.formdev.flatlaf.FlatClientProperties;
 import entity.Employee;
 import entity.Store;
+import java.awt.Desktop;
 import java.awt.event.KeyEvent;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import main.Application;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.streaming.*;
 import raven.toast.Notifications;
@@ -122,15 +127,9 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         txt_storeID.setText("");
     }
     private boolean validEmployee() {
-        String patternName = "^[A-Z][a-z]+([A-Za-z]+\\s)+[a-z]$";
-        String patternPhoneNumber = "^(09|08|03|02|06){1}[0-9]{8}$";
         if(txt_name.getText().equals("")) {
             Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng nhập điền tên nhân viên");
             txt_name.requestFocus();
-            return false;
-        }
-        if(!Pattern.matches(patternName, txt_name.getText())) {
-            Notifications.getInstance().show(Notifications.Type.WARNING, "Tên bắt đầu bằng chữ cái in hoa và chỉ gồm chữ");
             return false;
         }
         if(txt_addressEmp.getText().equals("")) {
@@ -140,11 +139,6 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         }
         if(txt_phoneNumberEmp.getText().equals("")) {
             Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng nhập SDT tên nhân viên");
-            txt_phoneNumberEmp.requestFocus();
-            return false;
-        }
-        if(!Pattern.matches(patternPhoneNumber, txt_phoneNumberEmp.getText())) {
-            Notifications.getInstance().show(Notifications.Type.WARNING, "Số điện thoại có dạng 10 chữ số bắt đầu bằng 0");
             txt_phoneNumberEmp.requestFocus();
             return false;
         }
@@ -168,7 +162,7 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         }
         return true;
     }
-    private Employee getCurrentValue() throws Exception {
+    private Employee getCurrentValue() {
         String name = txt_name.getText();
         String phoneNumber = txt_phoneNumberEmp.getText();
         String address = txt_addressEmp.getText();
@@ -185,9 +179,8 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         String employeeID = txt_empID.getText();
         String storeID = txt_storeID.getText();
         
-        Store store = new Store(storeID);
+        Store store = bus.getStore(storeID);
         Employee employee = new Employee(employeeID, citizenID, role, status, name, phoneNumber, gender, dateOfBirth, address, store);
-        //Account account = new Account(employee);
         return employee;
     }
     private Employee getNewValue() throws Exception {
@@ -212,21 +205,6 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         //Account account = new Account(employee);
         return employee;
     }
-    private void addEmployee() throws Exception {
-        Employee newEmployee = getNewValue();
-        try {
-            if(bus.addNewEmployee(newEmployee)) {
-                bus.createNewAccount(newEmployee);
-                Notifications.getInstance().show(Notifications.Type.SUCCESS, "Thêm thành công");
-                renderEmployeeTable(bus.getAllEmployee());
-                renderEmployeeInfor();
-            }
-            else
-                Notifications.getInstance().show(Notifications.Type.ERROR, "Thêm không thành công");
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
     private void updateEmployee() throws Exception {
         Employee newEmployee = getCurrentValue();
         try {
@@ -249,7 +227,7 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
             sheet.trackAllColumnsForAutoSizing();
             int rowIndex = 0;
             writeHeader(sheet, rowIndex);
-            rowIndex++;
+            rowIndex = 4;
             for (Employee employee : listEmp) {
                 SXSSFRow row = sheet.createRow(rowIndex);
                 writeEmployee(employee, row);
@@ -258,54 +236,46 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
             writeFooter(sheet, rowIndex);
             
             createOutputFile(workbook, filePath);
-            System.out.println("Print excel...");
-            Notifications.getInstance().show(Notifications.Type.SUCCESS, "Xuat file thanh cong!");
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, "Xuất file thành công!");
          
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
     private static void writeHeader(SXSSFSheet sheet, int rowIndex) {
+        sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 8));
+        sheet.addMergedRegion(new CellRangeAddress(1, 1, 0, 3));
+        sheet.addMergedRegion(new CellRangeAddress(2, 2, 0, 3));
+
+        String[] title = {"MÃ NHÂN VIÊN", "TÊN NHÂN VIÊN", "GIỚI TÍNH", "NGÀY SINH", "CHỨC VỤ", "TRẠNG THÁI", "SỐ ĐIỆN THOẠI", "CĂN CƯỚC CÔNG DÂN", "ĐỊA CHỈ"};
+
         CellStyle cellStyle = createStyleForHeader(sheet);
-        SXSSFRow row = sheet.createRow(rowIndex);
- 
+        CellStyle headerCellStyle = createStyleForTitle(sheet);
+        
+        SXSSFRow headerRow = sheet.createRow(rowIndex++);
+        SXSSFCell headerCell = headerRow.createCell(0);
+        headerCell.setCellValue("DANH SÁCH NHÂN VIÊN");
+        headerCell.setCellStyle(headerCellStyle);
+        
+        SXSSFRow dateRow = sheet.createRow(rowIndex++);
+        SXSSFCell dateCell = dateRow.createCell(0);
+        dateCell.setCellValue("Ngày in: " + LocalDate.now());
+        
+        SXSSFRow empRow = sheet.createRow(rowIndex++);
+        SXSSFCell empCell = empRow.createCell(0);
+        empCell.setCellValue("Nhân viên in: " + Application.employee.getName());
+        
+        SXSSFRow row = sheet.createRow(rowIndex++);
+        
         // Create cells
         SXSSFCell cell = row.createCell(0);
         cell.setCellStyle(cellStyle);
-        cell.setCellValue("MA NHAN VIEN");
- 
-        cell = row.createCell(1);
-        cell.setCellStyle(cellStyle);
-        cell.setCellValue("TEN NHAN VIEN");
- 
-        cell = row.createCell(2);
-        cell.setCellStyle(cellStyle);
-        cell.setCellValue("GIOI TINH");
- 
-        cell = row.createCell(3);
-        cell.setCellStyle(cellStyle);
-        cell.setCellValue("NGAYSINH");
- 
-        cell = row.createCell(4);
-        cell.setCellStyle(cellStyle);
-        cell.setCellValue("CHUC VU");
-        
-        cell = row.createCell(5);
-        cell.setCellStyle(cellStyle);
-        cell.setCellValue("TRANG THAI");
-        
-        cell = row.createCell(6);
-        cell.setCellStyle(cellStyle);
-        cell.setCellValue("SO DIEN THOAI");
-        
-        cell = row.createCell(7);
-        cell.setCellStyle(cellStyle);
-        cell.setCellValue("CAN CUOC CONG DAN");
-        
-        cell = row.createCell(8);
-        cell.setCellStyle(cellStyle);
-        cell.setCellValue("DIA CHI");
-        
+        cell.setCellValue("MÃ NHÂN VIÊN");
+        for (int i = 0; i < title.length - 1; i++) {
+            cell = row.createCell(i+1);
+            cell.setCellStyle(cellStyle);
+            cell.setCellValue(title[i+1]);
+        }        
     }
     private void writeEmployee(Employee emp, SXSSFRow row) {
         if (cellStyleFormatNumber == null) {
@@ -323,8 +293,8 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
  
         cell = row.createCell(2);
         String gender = "Nam";
-        if(emp.isGender())
-            gender = "Nu";
+        if(!emp.isGender())
+            gender = "Nữ";
         cell.setCellValue(gender);
         
  
@@ -335,9 +305,9 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         cell.setCellValue(emp.getRole());
         
         cell = row.createCell(5);
-        String status = "Da nghi";
+        String status = "Đã nghỉ";
         if(emp.isStatus())
-            status = "Dang lam viec";
+            status = "Đang làm việc";
         cell.setCellValue(status);
         
         cell = row.createCell(6);
@@ -351,8 +321,23 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
     }
     private void writeFooter(SXSSFSheet sheet, int rowIndex) {
         SXSSFRow row = sheet.createRow(rowIndex);
-        SXSSFCell cell = row.createCell(OrderManagement_GUI.COLUMN_INDEX_TOTAL, CellType.FORMULA);
+        SXSSFCell cell = row.createCell(9, CellType.FORMULA);
         cell.setCellFormula("COUNT(A2:A11)");
+    }
+    private static CellStyle createStyleForTitle(Sheet sheet) {
+        Font font = sheet.getWorkbook().createFont();
+        font.setFontName("Times New Roman");
+        font.setBold(true);
+        font.setFontHeightInPoints((short) 20); // font size
+        font.setColor(IndexedColors.GREEN.getIndex()); // text color
+        
+ 
+        // Create CellStyle
+        CellStyle cellStyle = sheet.getWorkbook().createCellStyle();
+        cellStyle.setFont(font);
+        cellStyle.setAlignment(HorizontalAlignment.CENTER);
+        cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+        return cellStyle;
     }
     private static CellStyle createStyleForHeader(Sheet sheet) {
         // Create font
@@ -360,14 +345,17 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         font.setFontName("Times New Roman");
         font.setBold(true);
         font.setFontHeightInPoints((short) 14); // font size
-        font.setColor(IndexedColors.WHITE.getIndex()); // text color
+        font.setColor(IndexedColors.VIOLET.getIndex()); // text color
  
         // Create CellStyle
         CellStyle cellStyle = sheet.getWorkbook().createCellStyle();
         cellStyle.setFont(font);
-        cellStyle.setFillForegroundColor(IndexedColors.BLUE.getIndex());
+        cellStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
         cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         cellStyle.setBorderBottom(BorderStyle.THIN);
+        cellStyle.setBorderTop(BorderStyle.THIN);
+        cellStyle.setBorderLeft(BorderStyle.THIN);
+        cellStyle.setBorderRight(BorderStyle.THIN);
         return cellStyle;
     }
     private static void createOutputFile(SXSSFWorkbook workbook, String excelFilePath) throws FileNotFoundException, IOException {
@@ -883,24 +871,39 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_reloadEmpActionPerformed
 
     private void btn_updateEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_updateEmpActionPerformed
+       
+        if(tbl_employeeInfor.getSelectedRow() == -1) {
+            Notifications.getInstance().show(Notifications.Type.ERROR, "Vui lòng chọn nhân viên để cập nhật");
+            return;
+        }
         try {
-            updateEmployee();
+            Employee newEmployee = getCurrentValue();
+            if(bus.updateEmployee(newEmployee)) {
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, "Cập nhật thông tin thành công");
+                renderEmployeeTable(bus.getAllEmployee());
+                renderEmployeeInfor();
+            }
+            else
+                Notifications.getInstance().show(Notifications.Type.ERROR, "Cập nhật không thành công");
         } catch (Exception ex) {
-            ex.printStackTrace();
+            Notifications.getInstance().show(Notifications.Type.ERROR, ex.getMessage());
         }
     }//GEN-LAST:event_btn_updateEmpActionPerformed
 
     private void btn_addEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addEmpActionPerformed
-        if(validEmployee() == false) {
-            Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng nhập thông tin nhân viên để thêm");
-            return;
-        }
-        else
-            try {
-                addEmployee();
-            } catch (Exception ex) {
-                ex.printStackTrace();
+        try {
+            Employee newEmployee = getNewValue();
+            if(newEmployee == null) {
+                Notifications.getInstance().show(Notifications.Type.ERROR, "Vui lòng nhập đầy đủ thông tin");
+                return;
             }
+            bus.addNewEmployee(newEmployee);
+            renderEmployeeInfor();
+            renderEmployeeTable(bus.getAllEmployee());
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, "Thêm nhân viên thành công");
+        } catch (Exception ex) {
+            Notifications.getInstance().show(Notifications.Type.ERROR, ex.getMessage());
+        }
     }//GEN-LAST:event_btn_addEmpActionPerformed
 
     private void txt_searchEmpKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_searchEmpKeyPressed
@@ -939,13 +942,18 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         // Hiển thị hộp thoại và kiểm tra nếu người dùng chọn OK
         int userSelection = fileChooser.showSaveDialog(null);
         if (userSelection == JFileChooser.APPROVE_OPTION) {
-            // Lấy đường dẫn và tên file được chọn
-            File fileToSave = fileChooser.getSelectedFile();
-            String filePath = fileToSave.getAbsolutePath();
-
-            // Gọi phương thức để tạo file Excel với đường dẫn và tên file đã chọn
-            createExcel(bus.getAllEmployee(), filePath+".xlsx");
+            try {
+                // Lấy đường dẫn và tên file được chọn
+                File fileToSave = fileChooser.getSelectedFile();
+                String filePath = fileToSave.getAbsolutePath();
+                // Gọi phương thức để tạo file Excel với đường dẫn và tên file đã chọn
+                createExcel(bus.getAllEmployee(), filePath+".xlsx");
+                Desktop.getDesktop().open(new File(filePath+".xlsx"));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         }
+        
     }//GEN-LAST:event_btn_printFileActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

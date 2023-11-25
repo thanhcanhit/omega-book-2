@@ -6,7 +6,9 @@ package bus;
 
 import dao.Account_DAO;
 import dao.Employee_DAO;
+import dao.Store_DAO;
 import entity.Employee;
+import entity.Store;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,6 +20,7 @@ import java.util.Date;
 public class EmployeeManagament_BUS {
     private Employee_DAO dao = new Employee_DAO();
     private Account_DAO accountDAO = new Account_DAO();
+    private Store_DAO store_dao = new Store_DAO();
     
     public String generateID(boolean gender, Date dateOfBirth, Date dateStart) {
         //Khởi tạo mã nhâm viên NV
@@ -80,5 +83,9 @@ public class EmployeeManagament_BUS {
 
     public boolean updatePassword(String id) {
         return accountDAO.updatePass(id, "985441048ea529312dfb141f8a9e6de3");
+    }
+
+    public Store getStore(String storeID) {
+        return store_dao.getOne(storeID);
     }
 }

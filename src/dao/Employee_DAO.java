@@ -114,7 +114,8 @@ public class Employee_DAO implements DAOBase<Employee> {
             st.setString(10, object.getStore().getStoreID());
 
             n = st.executeUpdate();
-            Account account = new Account(object);
+            String password = "985441048ea529312dfb141f8a9e6de3";
+            Account account = new Account(password, object);
             new Account_DAO().create(account);
         } catch (Exception e) {
             e.printStackTrace();
