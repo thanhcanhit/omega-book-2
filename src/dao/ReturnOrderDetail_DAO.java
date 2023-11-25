@@ -101,6 +101,11 @@ public class ReturnOrderDetail_DAO implements DAOBase<ReturnOrderDetail>{
         }
         return n > 0;
     }
+    public Boolean updateRefund(ReturnOrderDetail returnOrderDetail) {
+        int n = 0;
+        
+        return n > 0;
+    }
     public ArrayList<ReturnOrderDetail> getAllForOrderReturnID(String id) {
         ArrayList result = new ArrayList<>();
         try {
@@ -136,5 +141,7 @@ public class ReturnOrderDetail_DAO implements DAOBase<ReturnOrderDetail>{
     public ReturnOrderDetail getOne(String id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    
     
 }

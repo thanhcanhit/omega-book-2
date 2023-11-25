@@ -727,6 +727,9 @@
                           <Properties>
                             <Property name="text" type="java.lang.String" value="XO&#xc1; TR&#x1eae;NG"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_clearValueActionPerformed"/>
+                          </Events>
                         </Component>
                         <Component class="javax.swing.JButton" name="btn_addProduct">
                           <Properties>

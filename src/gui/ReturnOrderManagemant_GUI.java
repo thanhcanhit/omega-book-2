@@ -62,6 +62,8 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
             this.listDetail = bus.getAllReturnOrderDetail(currentReturnOrder.getReturnOrderID());
             renderCurrentReturnOrder();
         });
+        rdb_admit.setSelected(true);
+        rdb_exchange.setSelected(true);
         renderReturnOrderTables(bus.getAllReturnOrder());
     }
     
@@ -82,6 +84,15 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
         else
             rdb_exchange.setSelected(true);
         renderProductTable(currentReturnOrder.getReturnOrderID());
+    }
+    private void renderReturnOrderDetail() {
+        txt_returnOrderID.setText("");
+        txt_employeeID.setText("");
+        txt_orderID.setText("");
+        txt_searchReturnOrder.setText("");
+        rdb_admit.setSelected(true);
+        rdb_exchange.setSelected(true);
+        tblModel_product.setRowCount(0);
     }
     private void renderProductTable(String returnOrderID) {
         tblModel_product.setRowCount(0);
@@ -128,10 +139,32 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
     }
     private void updateReturnOrder() {
         ReturnOrder newReturnOrder = getNewValue();
+        if(newReturnOrder == null) {
+            Notifications.getInstance().show(Notifications.Type.WARNING, "Không có đơn đổi trả để xác nhận");
+            return;
+        }
+        if(!rdb_admit.isSelected() & !rdb_deny.isSelected()) {
+            Notifications.getInstance().show(Notifications.Type.WARNING, "Vui lòng chọn trạng thái xác nhận đơn đổi trả");
+            return;
+        }
+        if(currentReturnOrder.getStatus().getValue() != 0 & currentReturnOrder.getReturnOrderID().equalsIgnoreCase(newReturnOrder.getReturnOrderID())) {
+            Notifications.getInstance().show(Notifications.Type.WARNING, "Đơn đổi trả này đã được xác nhận");
+            renderCurrentReturnOrder();
+            return;
+        }
         if(bus.updateReturnOder(newReturnOrder)) {
-            Notifications.getInstance().show(Notifications.Type.SUCCESS, "Cập nhật đơn đổi trả thành công");
-            bus.updateReturnOrderDetail(newReturnOrder, listDetail);
-            renderReturnOrderTables(bus.getAllReturnOrder());
+            if(rdb_admit.isSelected()) {
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, "Xác nhận đơn đổi trả thành công");
+                bus.updateReturnOrderDetail(newReturnOrder, listDetail);
+                renderReturnOrderTables(bus.getAllReturnOrder());
+                renderReturnOrderDetail();
+            }
+            else {
+                Notifications.getInstance().show(Notifications.Type.INFO, "Đã từ chối đơn đổi trả thành công");
+                bus.updateReturnOrderDetail(newReturnOrder, listDetail);
+                renderReturnOrderTables(bus.getAllReturnOrder());
+                renderReturnOrderDetail();
+            }
         }
         else
             Notifications.getInstance().show(Notifications.Type.ERROR, "Cập nhật không thành công");
@@ -438,7 +471,7 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
         });
         tbl_productInfor.setMinimumSize(new java.awt.Dimension(30, 40));
         tbl_productInfor.setPreferredSize(new java.awt.Dimension(150, 40));
-        tbl_productInfor.setShowGrid(true);
+        tbl_productInfor.setShowGrid(false);
         scr_productInfor.setViewportView(tbl_productInfor);
 
         pnl_productID.add(scr_productInfor, java.awt.BorderLayout.CENTER);
@@ -488,6 +521,7 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
 
     private void btn_refeshReturnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_refeshReturnOrderActionPerformed
         renderReturnOrderTables(bus.getAllReturnOrder());
+        renderReturnOrderDetail();
     }//GEN-LAST:event_btn_refeshReturnOrderActionPerformed
 
     private void txt_searchReturnOrderKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_searchReturnOrderKeyPressed

@@ -11,6 +11,7 @@ import entity.ReturnOrderDetail;
 import enums.ReturnOrderStatus;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -98,6 +99,7 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
                     Notifications.getInstance().show(Notifications.Type.ERROR, "Không thể cập nhật số lượng mới!");
                 }
         });
+        
         renderCurrentEmployee();
     }
     
@@ -120,6 +122,14 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
     private void renderCurrentEmployee() {
         txt_employeeID.setText(employee.getEmployeeID());
         txt_nameEmp.setText(employee.getName());
+    }
+    private void renderReturnOrderInfor() {
+        txt_orderID.setText("");
+        txt_returnOrderID.setText("");
+        txt_searchOrder.setText("");
+        chooseDateReturn.setDate(java.sql.Date.valueOf(LocalDate.now()));
+        tblModel_product.setRowCount(0);
+        rdb_exchange.setSelected(true);
     }
     private ReturnOrder getNewValues() {
         Date returnDate = chooseDateReturn.getDate();
@@ -181,6 +191,14 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
         }
         if(tbl_product.getRowCount() == 0) {
             Notifications.getInstance().show(Notifications.Type.WARNING, "Vui lòng thêm sản phẩm");
+            return false;
+        }
+        if(chooseDateReturn.getDate().after(java.sql.Date.valueOf(LocalDate.now()))) {
+            Notifications.getInstance().show(Notifications.Type.WARNING, "Ngày đổi trả không được sau ngày hiện tại");
+            return false;
+        }
+        if(chooseDateReturn.getDate().before(java.sql.Date.valueOf(LocalDate.now()))) {
+            Notifications.getInstance().show(Notifications.Type.WARNING, "Ngày đổi trả không được trước ngày hiện tại");
             return false;
         }
         return true;
@@ -521,6 +539,11 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
         pnl_createReturnOrder.add(btn_createReturnOrder);
 
         btn_clearValue.setText("XOÁ TRẮNG");
+        btn_clearValue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_clearValueActionPerformed(evt);
+            }
+        });
         pnl_createReturnOrder.add(btn_clearValue);
 
         btn_addProduct.setText("THÊM SẢN PHẨM");
@@ -544,7 +567,7 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
     
     private void btn_createReturnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_createReturnOrderActionPerformed
         if(!validReturnOrder()) {
-            Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng nhập dữ liệu");
+            //Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng nhập dữ liệu");
             return;
         }
         else {
@@ -590,6 +613,10 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_txt_searchOrderKeyPressed
+
+    private void btn_clearValueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clearValueActionPerformed
+        renderReturnOrderInfor();
+    }//GEN-LAST:event_btn_clearValueActionPerformed
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

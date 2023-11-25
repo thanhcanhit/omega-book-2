@@ -194,19 +194,21 @@ public class ReturnOrder_DAO implements DAOBase<ReturnOrder>{
 //        Xét loại đơn đổi trả
         if (type != 0)
             query += " and type = ?";
-//            Xét trạng thái khuyến mãi
+//            Xét trạng thái 
         if (status != 0)
             query += " and status = ?";
         try {
             PreparedStatement st = ConnectDB.conn.prepareStatement(query);
             if(type == 1)
-                st.setInt(index++, 1);
+                st.setInt(index++, 0);
             else if(type == 2)
-                st.setInt(index++, 0);
-            if(status == 1)
                 st.setInt(index++, 1);
-            else if(status == 2)
+            if(status == 1)
                 st.setInt(index++, 0);
+            else if(status == 2)
+                st.setInt(index++, 1);
+            else if(status == 3)
+                st.setInt(index++, 2);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 if (rs != null) {
