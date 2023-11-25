@@ -31,12 +31,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import main.Application;
 import raven.toast.Notifications;
+import utilities.OrderPrinter;
 
 /**
  *
@@ -55,15 +57,18 @@ public class Sales_GUI extends javax.swing.JPanel {
     private ArrayList<OrderDetail> cart;
     private DefaultTableModel tblModel_cart;
     private Customer defaultCustomer;
+    private final JButton[] btnOptionsList;
 
 //    state
     private Double total = 0.0;
     private Double discount = 0.0;
     private Double totalAfterDiscount = 0.0;
+    private Double customerGive = 0.0;
     private boolean isOldOrder = false;
 
     public Sales_GUI() {
         initComponents();
+        this.btnOptionsList = new JButton[]{btn_option1, btn_option2, btn_option3, btn_option4, btn_option5, btn_option6, btn_option7, btn_option8, btn_option9};
         init();
     }
 
@@ -79,6 +84,21 @@ public class Sales_GUI extends javax.swing.JPanel {
     private void setDiscount(double discount) {
         this.discount = discount;
         updateTotalAfterDiscount();
+    }
+
+    private void setCustomerGive(double qty) {
+        this.customerGive = qty;
+        txt_orderCustomerGive.setText(customerGive.toString());
+    }
+
+    private void setOrderCustomer(Customer customer) {
+        try {
+            this.customer = customer;
+//            Add bespromotion
+            handleAddBest();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void init() {
@@ -196,23 +216,27 @@ public class Sales_GUI extends javax.swing.JPanel {
         }));
 
 //        Gắn sự kiện cho các nút option
-        JButton[] options = new JButton[]{btn_option1, btn_option2, btn_option3, btn_option4, btn_option5, btn_option6};
-        for (JButton option : options) {
-            option.addActionListener((var e) -> {
+        Integer[] roundValues = new Integer[]{1000, 2000, 5000, 10000, 20000, 50000, 100000, 200000, 500000};
+
+        for (int i = 0; i < roundValues.length; i++) {
+            final JButton temp = btnOptionsList[i];
+            temp.setText(roundValues[i] / 1000 + "k");
+            temp.addActionListener((var e) -> {
 //                Chuyển từ 1k thành 1000
-                String value = option.getText();
+                String value = temp.getText();
                 value = value.substring(0, value.indexOf("k"));
                 Double dValue = 1000 * Double.parseDouble(value);
-                txt_orderCustomerGive.setText(dValue.toString());
+//                setCustomerGive(customerGive + dValue);
+                setCustomerGive(dValue);
             });
         }
+        calculateOptionCashGive();
 
 //        Sự kiện onChange text
         txt_orderCustomerGive.getDocument().addDocumentListener(new DocumentListener() {
             private void updateCustomerReturn() {
                 try {
-                    Double customerGive = Double.valueOf(txt_orderCustomerGive.getText());
-                    txt_orderCustomerReturn.setText(String.valueOf(Math.round(customerGive - totalAfterDiscount)));
+                    txt_orderCustomerReturn.setText(utilities.FormatNumber.toVND(Double.valueOf(Math.round(customerGive - totalAfterDiscount))));
                     order.setMoneyGiven(customerGive);
                 } catch (Exception ex) {
 
@@ -237,18 +261,17 @@ public class Sales_GUI extends javax.swing.JPanel {
     }
 
     private void enableUserCash() {
-        JButton[] items = new JButton[]{btn_option1, btn_option2, btn_option3, btn_option4, btn_option5, btn_option6};
-        for (JButton item : items) {
+        for (JButton item : btnOptionsList) {
             item.setEnabled(true);
         }
         txt_orderCustomerGive.setEnabled(true);
         txt_orderCustomerReturn.setEnabled(true);
+        setCustomerGive(0);
         calculateOptionCashGive();
     }
 
     private void disableUserCash() {
-        JButton[] items = new JButton[]{btn_option1, btn_option2, btn_option3, btn_option4, btn_option5, btn_option6};
-        for (JButton item : items) {
+        for (JButton item : btnOptionsList) {
             item.setText("-");
             item.setEnabled(false);
         }
@@ -301,19 +324,18 @@ public class Sales_GUI extends javax.swing.JPanel {
         calculateOptionCashGive();
     }
 
+//    Tính toán gợi ý số tiền khách đưa dựa vào 9 mệnh giá tiền
     private void calculateOptionCashGive() {
 
 //        Mảng các nút chọn
-        JButton[] options = new JButton[]{btn_option1, btn_option2, btn_option3, btn_option4, btn_option5, btn_option6, btn_option7, btn_option8};
-
         double orderPay = this.totalAfterDiscount;
 
         if (orderPay == 0) {
-            Arrays.stream(options).forEach(item -> item.setText("---"));
+            Arrays.stream(btnOptionsList).forEach(item -> item.setText("---"));
             return;
         }
 
-        Integer[] roundValues = new Integer[]{1000, 5000, 10000, 20000, 50000, 100000, 200000, 500000};
+        Integer[] roundValues = new Integer[]{1000, 2000, 5000, 10000, 20000, 50000, 100000, 200000, 500000};
 
 //        Tính toán các giá trị gợi ý dựa vào mảng số tiền + Loại bỏ giá trị trùng lắp
         Set<Double> values = new HashSet<>();
@@ -329,30 +351,30 @@ public class Sales_GUI extends javax.swing.JPanel {
         int index = 0;
 
         for (Double value : list) {
-            if (index >= 8) {
+            if (index >= btnOptionsList.length) {
                 break;
             }
-            options[index].setText(String.format("%.0fk", value / 1000));
-            options[index].setVisible(true);
+            btnOptionsList[index].setText(String.format("%.0fk", value / 1000));
+            btnOptionsList[index].setVisible(true);
             index++;
         }
 
 //      Khi tổng tiền không lẻ dưới 1000 thì nút đầu sẽ trở thành tổng tiền
         if (Math.round(orderPay) % 1000 == 0) {
-            options[0].setText(String.format("%.0fk", orderPay / 1000));
+            btnOptionsList[0].setText(String.format("%.0fk", orderPay / 1000));
         }
 
 //        Ẩn đi các nút không có giá trị
-        for (; index < options.length; index++) {
-            if (index >= 8) {
+        for (; index < btnOptionsList.length; index++) {
+            if (index >= btnOptionsList.length) {
                 break;
             }
-            options[index].setVisible(false);
-            options[index].setText("0");
+            btnOptionsList[index].setVisible(false);
+            btnOptionsList[index].setText("0");
         }
 
 //        rerender
-        for (JButton item : options) {
+        for (JButton item : btnOptionsList) {
             item.revalidate();
             item.repaint();
         }
@@ -378,6 +400,8 @@ public class Sales_GUI extends javax.swing.JPanel {
             Notifications.getInstance().show(Notifications.Type.INFO, "Không tìm thấy khách hàng có số điện thoại \"" + phone + "\"");
         } else {
             Notifications.getInstance().show(Notifications.Type.INFO, "Đã thêm khách hàng " + customer.getName());
+//            Thêm khuyến mãi nếu có
+
             renderCustomer();
         }
     }
@@ -497,8 +521,7 @@ public class Sales_GUI extends javax.swing.JPanel {
 
             if (isSaved) {
                 Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đã tạo thành công đơn hàng" + order.getOrderID());
-//                show preview
-                new PreviewOrder_GUI(order, 100).setVisible(true);
+//              
 //                Rerender panel
                 rerender();
             } else {
@@ -506,6 +529,16 @@ public class Sales_GUI extends javax.swing.JPanel {
             }
         } catch (Exception ex) {
             Notifications.getInstance().show(Notifications.Type.ERROR, "Không thể tạo đơn hàng " + order.getOrderID() + ": " + ex.getMessage());
+        }
+
+//        tạo file pdf và hiển thị + in file pdf đó
+        OrderPrinter printer = new OrderPrinter(order);
+        printer.generatePDF();
+        OrderPrinter.PrintStatus status = printer.printFile();
+        if (status == OrderPrinter.PrintStatus.NOT_FOUND_FILE) {
+            Notifications.getInstance().show(Notifications.Type.ERROR, "Lỗi không thể in hóa đơn: Không tìm thấy file");
+        } else if (status == OrderPrinter.PrintStatus.NOT_FOUND_PRINTER) {
+            Notifications.getInstance().show(Notifications.Type.ERROR, "Lỗi không thể in hóa đơn: Không tìm thấy máy in");
         }
     }
 
@@ -520,12 +553,15 @@ public class Sales_GUI extends javax.swing.JPanel {
 
         frame_savedOrder = new javax.swing.JFrame();
         lbl_savedOrderTitle = new javax.swing.JLabel();
-        scr_savedOrders = new javax.swing.JScrollPane();
-        tbl_savedOrder = new javax.swing.JTable();
         pnl_savedOrderControl = new javax.swing.JPanel();
         btn_savedOrderSelect = new javax.swing.JButton();
         btn_savedOrderDelete = new javax.swing.JButton();
         btn_savedOrderDeleteAll = new javax.swing.JButton();
+        pnl_main = new javax.swing.JPanel();
+        scr_savedOrders = new javax.swing.JScrollPane();
+        tbl_savedOrder = new javax.swing.JTable();
+        scr_savedOrderDetail = new javax.swing.JScrollPane();
+        tbl_saveOrderDetail = new javax.swing.JTable();
         frame_promotionList = new javax.swing.JFrame();
         lbl_promotionList = new javax.swing.JLabel();
         pnl_promotionControl = new javax.swing.JPanel();
@@ -586,6 +622,7 @@ public class Sales_GUI extends javax.swing.JPanel {
         btn_option6 = new javax.swing.JButton();
         btn_option7 = new javax.swing.JButton();
         btn_option8 = new javax.swing.JButton();
+        btn_option9 = new javax.swing.JButton();
         pnl_orderCustomerReturn = new javax.swing.JPanel();
         lbl_orderCustomerReturn = new javax.swing.JLabel();
         txt_orderCustomerReturn = new javax.swing.JTextField();
@@ -601,7 +638,8 @@ public class Sales_GUI extends javax.swing.JPanel {
         frame_savedOrder.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         frame_savedOrder.setTitle("Xử lí đơn lưu tạm");
         frame_savedOrder.setAlwaysOnTop(true);
-        frame_savedOrder.setMinimumSize(new java.awt.Dimension(600, 400));
+        frame_savedOrder.setMinimumSize(new java.awt.Dimension(800, 400));
+        frame_savedOrder.setPreferredSize(new java.awt.Dimension(800, 158));
         frame_savedOrder.setResizable(false);
         frame_savedOrder.setType(java.awt.Window.Type.POPUP);
 
@@ -611,31 +649,10 @@ public class Sales_GUI extends javax.swing.JPanel {
         lbl_savedOrderTitle.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         frame_savedOrder.getContentPane().add(lbl_savedOrderTitle, java.awt.BorderLayout.NORTH);
 
-        scr_savedOrders.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
-
-        tbl_savedOrder.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"1", "2", "3"},
-                {"2", "3", "5"},
-                {"1", "4", "6"},
-                {null, null, null}
-            },
-            new String [] {
-                "Mã hóa đơn", "Tên khách hàng", "Ngày tạo"
-            }
-        ));
-        tbl_savedOrder.setCellEditor(null);
-        tbl_savedOrder.setEditingColumn(0);
-        tbl_savedOrder.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tbl_savedOrder.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        scr_savedOrders.setViewportView(tbl_savedOrder);
-
-        frame_savedOrder.getContentPane().add(scr_savedOrders, java.awt.BorderLayout.CENTER);
-
         pnl_savedOrderControl.setMinimumSize(new java.awt.Dimension(10, 50));
 
         btn_savedOrderSelect.setText("Xử lí đơn");
-        btn_submit.putClientProperty(FlatClientProperties.STYLE,""
+        btn_savedOrderSelect.putClientProperty(FlatClientProperties.STYLE,""
             + "background:$Menu.background;"
             + "foreground:$Menu.foreground;");
         btn_savedOrderSelect.addActionListener(new java.awt.event.ActionListener() {
@@ -662,6 +679,72 @@ public class Sales_GUI extends javax.swing.JPanel {
         pnl_savedOrderControl.add(btn_savedOrderDeleteAll);
 
         frame_savedOrder.getContentPane().add(pnl_savedOrderControl, java.awt.BorderLayout.SOUTH);
+
+        pnl_main.setLayout(new javax.swing.BoxLayout(pnl_main, javax.swing.BoxLayout.LINE_AXIS));
+
+        scr_savedOrders.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+
+        tbl_savedOrder.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"1", "2", "3"},
+                {"2", "3", "5"},
+                {"1", "4", "6"},
+                {null, null, null}
+            },
+            new String [] {
+                "Mã hóa đơn", "Tên khách hàng", "Ngày tạo"
+            }
+        ));
+        tbl_savedOrder.setCellEditor(null);
+        tbl_savedOrder.setEditingColumn(0);
+        tbl_savedOrder.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tbl_savedOrder.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        scr_savedOrders.setViewportView(tbl_savedOrder);
+        tbl_savedOrder.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
+            int rowIndex = tbl_savedOrder.getSelectedRow();
+            if (rowIndex == -1) {
+                return;
+            }
+
+            String orderId = tbl_savedOrder.getValueAt(rowIndex, 0).toString();
+            Order order = bus.getOrder(orderId);
+            DefaultTableModel tblModel_savedOrderDetail = new DefaultTableModel(new String[]{"Tên sản phẩm", "Số lượng"}, 50) {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+            };
+            tbl_saveOrderDetail.setModel(tblModel_savedOrderDetail);
+
+            tblModel_savedOrderDetail.setRowCount(0);
+            for (OrderDetail item : order.getOrderDetail()) {
+                tblModel_savedOrderDetail.addRow(new Object[] {item.getProduct().getName(), item.getQuantity()});
+            }
+        });
+
+        pnl_main.add(scr_savedOrders);
+
+        scr_savedOrderDetail.setMaximumSize(new java.awt.Dimension(300, 32767));
+
+        tbl_saveOrderDetail.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Tên sản phẩm", "Số lượng"
+            }
+        ));
+        tbl_saveOrderDetail.setRequestFocusEnabled(false);
+        tbl_saveOrderDetail.setRowSelectionAllowed(false);
+        tbl_saveOrderDetail.setShowVerticalLines(true);
+        scr_savedOrderDetail.setViewportView(tbl_saveOrderDetail);
+
+        pnl_main.add(scr_savedOrderDetail);
+
+        frame_savedOrder.getContentPane().add(pnl_main, java.awt.BorderLayout.CENTER);
 
         frame_promotionList.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         frame_promotionList.setTitle("Xử lí đơn lưu tạm");
@@ -968,9 +1051,9 @@ public class Sales_GUI extends javax.swing.JPanel {
         pnl_orderInfo.add(pnl_orderCustomerGive);
 
         pnl_orderCustomerGiveOptions.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        pnl_orderCustomerGiveOptions.setMaximumSize(new java.awt.Dimension(99999, 80));
+        pnl_orderCustomerGiveOptions.setMaximumSize(new java.awt.Dimension(99999, 120));
         pnl_orderCustomerGiveOptions.setPreferredSize(new java.awt.Dimension(561, 60));
-        pnl_orderCustomerGiveOptions.setLayout(new java.awt.GridLayout(2, 3, 5, 5));
+        pnl_orderCustomerGiveOptions.setLayout(new java.awt.GridLayout(3, 3, 5, 5));
 
         btn_option1.setText("Gợi ý 1");
         btn_option1.setMaximumSize(new java.awt.Dimension(72, 40));
@@ -1020,6 +1103,12 @@ public class Sales_GUI extends javax.swing.JPanel {
         btn_option8.setMinimumSize(new java.awt.Dimension(72, 35));
         btn_option8.setPreferredSize(new java.awt.Dimension(72, 35));
         pnl_orderCustomerGiveOptions.add(btn_option8);
+
+        btn_option9.setText("Gợi ý 8");
+        btn_option9.setMaximumSize(new java.awt.Dimension(72, 40));
+        btn_option9.setMinimumSize(new java.awt.Dimension(72, 35));
+        btn_option9.setPreferredSize(new java.awt.Dimension(72, 35));
+        pnl_orderCustomerGiveOptions.add(btn_option9);
 
         pnl_orderInfo.add(pnl_orderCustomerGiveOptions);
 
@@ -1222,7 +1311,7 @@ public class Sales_GUI extends javax.swing.JPanel {
 
             if (chk_defaultCustomer.isSelected()) {
 //                Khách hàng mặc định
-                order.setCustomer(defaultCustomer);
+                order.setCustomer(customer);
             } else {
                 order.setCustomer(customer);
             }
@@ -1348,7 +1437,7 @@ public class Sales_GUI extends javax.swing.JPanel {
 //          Cập nhật trạng thái
             setDiscount(discountAmount);
             renderPromotion();
-            calculateOptionCashGive();
+//            calculateOptionCashGive();
             Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đã áp dụng khuyến mãi và giảm được " + utilities.FormatNumber.toVND(discountAmount));
             frame_promotionList.dispose();
         } catch (Exception ex) {
@@ -1376,8 +1465,25 @@ public class Sales_GUI extends javax.swing.JPanel {
         frame_promotionList.setVisible(true);
     }//GEN-LAST:event_btn_promotionActionPerformed
 
+    private void handleAddBest() {
+        Promotion bestPromotion = getBestPromotionForCustomer();
+        if (bestPromotion != null) {
+            try {
+                order.setPromotion(bestPromotion);
+                double discountAmount = bestPromotion.getTypeDiscount() == DiscountType.PERCENT ? bestPromotion.getDiscount() / 100 * total : bestPromotion.getDiscount();
+//          Cập nhật trạng thái
+                setDiscount(discountAmount);
+                renderPromotion();
+//            calculateOptionCashGive();
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đã áp dụng khuyến mãi và giảm được " + utilities.FormatNumber.toVND(discountAmount));
+                frame_promotionList.dispose();
+            } catch (Exception ex) {
+                Notifications.getInstance().show(Notifications.Type.ERROR, "Không thể áp dụng khuyến mãi");
+            }
+        }
+    }
     private void btn_promotionSelectBestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_promotionSelectBestActionPerformed
-        // TODO add your handling code here:
+        handleAddBest();
     }//GEN-LAST:event_btn_promotionSelectBestActionPerformed
 
     private void renderSavedOrderTable() {
@@ -1446,6 +1552,23 @@ public class Sales_GUI extends javax.swing.JPanel {
         tbl_promotionList.setModel(tblModel_promotionList);
     }
 
+    private Promotion getBestPromotionForCustomer() {
+        Promotion bestPromotion = null;
+        if (customer == null) {
+            return null;
+        }
+        Double bestDiscountValue = 0.0;
+        for (Promotion item : bus.getPromotionOfOrderAvailable(customer.getScore())) {
+            double discountValue = item.getTypeDiscount() == DiscountType.PERCENT ? item.getDiscount() : item.getDiscount();
+            if (bestDiscountValue < discountValue) {
+                bestPromotion = item;
+                bestDiscountValue = discountValue;
+            }
+        }
+
+        return bestPromotion;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_cancle;
     private javax.swing.JButton btn_option1;
@@ -1456,6 +1579,7 @@ public class Sales_GUI extends javax.swing.JPanel {
     private javax.swing.JButton btn_option6;
     private javax.swing.JButton btn_option7;
     private javax.swing.JButton btn_option8;
+    private javax.swing.JButton btn_option9;
     private javax.swing.JButton btn_promotion;
     private javax.swing.JButton btn_promotionSelect;
     private javax.swing.JButton btn_promotionSelectBest;
@@ -1498,6 +1622,7 @@ public class Sales_GUI extends javax.swing.JPanel {
     private javax.swing.JPanel pnl_header;
     private javax.swing.JPanel pnl_info;
     private javax.swing.JPanel pnl_left;
+    private javax.swing.JPanel pnl_main;
     private javax.swing.JPanel pnl_orderCustomerGive;
     private javax.swing.JPanel pnl_orderCustomerGiveOptions;
     private javax.swing.JPanel pnl_orderCustomerReturn;
@@ -1510,11 +1635,13 @@ public class Sales_GUI extends javax.swing.JPanel {
     private javax.swing.JPanel pnl_right;
     private javax.swing.JPanel pnl_savedOrderControl;
     private javax.swing.JScrollPane scr_cart;
+    private javax.swing.JScrollPane scr_savedOrderDetail;
     private javax.swing.JScrollPane scr_savedOrders;
     private javax.swing.JSplitPane splitPane_main;
     private javax.swing.JScrollPane src_promotionList;
     private javax.swing.JTable tbl_cart;
     private javax.swing.JTable tbl_promotionList;
+    private javax.swing.JTable tbl_saveOrderDetail;
     private javax.swing.JTable tbl_savedOrder;
     private javax.swing.JTextField txt_customerName;
     private javax.swing.JTextField txt_customerPhone;

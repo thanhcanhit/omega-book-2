@@ -368,6 +368,7 @@ public class Promotion_DAO implements DAOBase<Promotion> {
     public ArrayList<Promotion> getPromotionOrderAvailable(int customerPoint) {
         ArrayList<Promotion> result = new ArrayList<>();
         try {
+            System.out.println("CUSTOMER POINT: " + customerPoint);
             PreparedStatement st = ConnectDB.conn.prepareStatement("select * from Promotion where promotionType = 1 and endedDate > GETDATE() and condition <= ?");
             st.setInt(1, customerPoint);
             ResultSet rs = st.executeQuery();
