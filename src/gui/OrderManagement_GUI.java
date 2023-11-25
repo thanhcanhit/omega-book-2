@@ -82,14 +82,13 @@
  */
 package gui;
 
-
-
 import bus.OrderManagement_BUS;
 import bus.ProductManagement_BUS;
 import entity.Customer;
 import entity.Order;
 import entity.OrderDetail;
 import java.io.IOException;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
@@ -102,6 +101,7 @@ import javax.swing.table.DefaultTableModel;
 import utilities.FormatNumber;
 import com.formdev.flatlaf.FlatClientProperties;
 import java.util.Date;
+import utilities.OrderPrinter;
 import utilities.SVGIcon;
 
  
@@ -112,16 +112,14 @@ import utilities.SVGIcon;
  */
 
 public final class OrderManagement_GUI extends javax.swing.JPanel {
-    
+
     private OrderManagement_BUS bus;
-    
+
     private DefaultTableModel tblModel_order;
     private DefaultTableModel tblModel_orderDetail;
 
     private int currentPage;
     private int lastPage;
-
-    
 
     /**
      * Creates new form OrderManagement_GUI
@@ -130,11 +128,10 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
         initComponents();
         init();
         alterTable();
-        
-        
+
     }
 
-     public void init() {
+    public void init() {
         bus = new OrderManagement_BUS();
 
         tblModel_order = new DefaultTableModel(new String[]{"Mã hoá đơn", "Nhân viên", "Khách hàng", "Ngày mua", "Thành tiền"}, 0);
@@ -151,10 +148,10 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
                 } catch (Exception ex) {
                     Logger.getLogger(OrderManagement_GUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
+
             }
             return;
- 
+
         });
 
         tblModel_orderDetail = new DefaultTableModel(new String[]{"Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Đơn giá", "Tổng tiền"}, 0);
@@ -168,9 +165,29 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
         this.currentPage = 1;
         this.lastPage = bus.getLastPage();
         renderCurrentPage();
+
+//        Gắn sự kiện xem lại hóa đơn pdf
+        tbl_order.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1) {
+                    int rowIndex = tbl_order.getSelectedRow();
+                    if (rowIndex == -1) {
+                        return;
+                    }
+                    String orderID = tblModel_order.getValueAt(rowIndex, 0).toString();
+                    Order order;
+                    try {
+                        order = bus.getOrder(orderID);
+                        new OrderPrinter(order).generatePDF();
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
-    
     private void renderCurrentPage() {
         lbl_pageNumber.setText(currentPage + "/" + lastPage);
         renderOrdersTable(bus.getDataOfPage(currentPage));
@@ -179,23 +196,25 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
         btn_previous.setEnabled(currentPage != 1);
         btn_next.setEnabled(currentPage != lastPage);
     }
-    
+
     private void renderOrdersTable(ArrayList<Order> orderList) {
         tblModel_order.setRowCount(0);
         for (Order order : orderList) {
-            Object[] newRow = new Object[]{order.getOrderID(),order.getEmployee().getName(),order.getCustomer().getCustomerID(),order.getOrderAt(), FormatNumber.toVND(order.getSubTotal())};
+            Object[] newRow = new Object[]{order.getOrderID(), order.getEmployee().getName(), order.getCustomer().getCustomerID(), order.getOrderAt(), FormatNumber.toVND(order.getSubTotal())};
             tblModel_order.addRow(newRow);
         }
     }
+
     private void renderOrderDetailTable(ArrayList<OrderDetail> list) {
         tblModel_orderDetail.setRowCount(0);
         for (OrderDetail orderDetail : list) {
-            ProductManagement_BUS productBUS = new  ProductManagement_BUS();
-            Object[] newRow = new Object[]{orderDetail.getProduct().getProductID(),productBUS.getProduct(orderDetail.getProduct().getProductID()).getName(),orderDetail.getQuantity(),orderDetail.getPrice(), FormatNumber.toVND(orderDetail.getLineTotal())};
+            ProductManagement_BUS productBUS = new ProductManagement_BUS();
+            Object[] newRow = new Object[]{orderDetail.getProduct().getProductID(), productBUS.getProduct(orderDetail.getProduct().getProductID()).getName(), orderDetail.getQuantity(), orderDetail.getPrice(), FormatNumber.toVND(orderDetail.getLineTotal())};
 
             tblModel_orderDetail.addRow(newRow);
         }
     }
+
     public void renderInfomationOrder(Order order) {
         Customer customer = bus.getCustomer(order.getCustomer().getCustomerID());
         txt_customerName.setText(customer.getName());
@@ -203,7 +222,8 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
         txt_total.setText(FormatNumber.toVND(order.getSubTotal()));
 
     }
-     public void alterTable() {
+
+    public void alterTable() {
         DefaultTableCellRenderer rightAlign = new DefaultTableCellRenderer();
         rightAlign.setHorizontalAlignment(JLabel.RIGHT);
 
@@ -228,10 +248,11 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
         tbl_orderDetail.setDefaultEditor(Object.class, null);
 
     }
-    
-    public boolean validateFields(){
+
+    public boolean validateFields() {
         return true;
     }
+
     
     public static final int COLUMN_INDEX_ID = 0;
     public static final int COLUMN_INDEX_EMPLOYEE = 1;
@@ -404,7 +425,7 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
     
  
 
-     
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -742,7 +763,7 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
     private void txt_customerNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_customerNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_customerNameActionPerformed
-    
+
     private void txt_phoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_phoneActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_phoneActionPerformed
@@ -762,7 +783,7 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_nextActionPerformed
 
     private void btn_refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_refreshActionPerformed
- 
+
         txt_customerID.setText("");
         txt_customerPhone.setText("");
         txt_orderID.setText("");
@@ -770,20 +791,21 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
         txt_customerName.setText("");
         txt_total.setText("");
         cmb_orderPriceFilter.setSelectedIndex(0);
-        
+
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.DAY_OF_MONTH, 1);
         jDateChooser1.setDate(cal.getTime());
 
         cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
         jDateChooser2.setDate(cal.getTime());
-        
-        init();alterTable();
+
+        init();
+        alterTable();
     }//GEN-LAST:event_btn_refreshActionPerformed
 
     private void btn_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchActionPerformed
         // TODO add your handling code here:
-         txt_phone.setText("");
+        txt_phone.setText("");
         txt_customerName.setText("");
         txt_total.setText("");
         if (validateFields()) {
@@ -791,23 +813,23 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
             String oderID = txt_orderID.getText();
             String customerID = txt_customerID.getText();
             String phone = txt_customerPhone.getText();
-            if(cmb_orderPriceFilter.getSelectedIndex()==0){
-                 priceFrom = "";
-                 priceTo = "";
-            }else if(cmb_orderPriceFilter.getSelectedIndex()==1){
-                 priceFrom = "";
+            if (cmb_orderPriceFilter.getSelectedIndex() == 0) {
+                priceFrom = "";
+                priceTo = "";
+            } else if (cmb_orderPriceFilter.getSelectedIndex() == 1) {
+                priceFrom = "";
                 priceTo = "100000";
-            }else if(cmb_orderPriceFilter.getSelectedIndex()==2){
+            } else if (cmb_orderPriceFilter.getSelectedIndex() == 2) {
                 priceFrom = "100000";
                 priceTo = "500000";
-            }else if(cmb_orderPriceFilter.getSelectedIndex()==3){
+            } else if (cmb_orderPriceFilter.getSelectedIndex() == 3) {
                 priceFrom = "500000";
                 priceTo = "1000000";
-            }else{
+            } else {
                 priceFrom = "1000000";
                 priceTo = "";
             }
-               
+
             Date begin = jDateChooser1.getDate();
             begin.setHours(0);
             begin.setMinutes(0);
