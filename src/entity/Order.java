@@ -180,6 +180,7 @@ public final class Order {
         this.orderDetail = orderDetail;
         this.moneyGiven = moneyGiven;
     }
+
     public Order(String orderID, Date orderAt, boolean payment, boolean status, Employee employee, Customer customer, ArrayList<OrderDetail> orderDetail, double subTotal, double toTalDue, double moneyGiven) {
         this.orderID = orderID;
         this.orderAt = orderAt;
