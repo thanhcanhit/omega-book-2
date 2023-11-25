@@ -9,13 +9,15 @@ import com.formdev.flatlaf.FlatClientProperties;
 import entity.Employee;
 import entity.Store;
 import java.awt.event.KeyEvent;
+import java.io.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 import java.util.regex.Pattern;
-import javax.swing.DefaultButtonModel;
-import javax.swing.DefaultComboBoxModel;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.util.CellReference;
+import org.apache.poi.xssf.streaming.*;
 import raven.toast.Notifications;
 
 /**
@@ -32,6 +34,7 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
     private DefaultComboBoxModel cmbModel_roleInfo;
     private DefaultButtonModel btnModel_gender;
     private DefaultButtonModel btnModel_status;
+    private static CellStyle cellStyleFormatNumber = null;
 
     /**
      * Creates new form EmployeeManagement_GUI
@@ -238,6 +241,115 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
+    private void createExcel(ArrayList<Employee> listEmp, String filePath) {
+        try {
+            SXSSFWorkbook workbook = new SXSSFWorkbook();
+            SXSSFSheet sheet = workbook.createSheet("Danh Sách Nhân Viên");
+            
+            sheet.trackAllColumnsForAutoSizing();
+            int rowIndex = 0;
+            writeHeader(sheet, rowIndex);
+            rowIndex++;
+            for (Employee employee : listEmp) {
+                SXSSFRow row = sheet.createRow(rowIndex);
+                writeEmployee(employee, row);
+                rowIndex++;
+            }
+            writeFooter(sheet, rowIndex);
+            
+            createOutputFile(workbook, filePath);
+            System.out.println("Print excel...");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    private static void writeHeader(SXSSFSheet sheet, int rowIndex) {
+        CellStyle cellStyle = createStyleForHeader(sheet);
+        SXSSFRow row = sheet.createRow(rowIndex);
+ 
+        // Create cells
+        SXSSFCell cell = row.createCell(OrderManagement_GUI.COLUMN_INDEX_ID);
+        cell.setCellStyle(cellStyle);
+        cell.setCellValue("Id");
+ 
+        cell = row.createCell(OrderManagement_GUI.COLUMN_INDEX_ID);
+        cell.setCellStyle(cellStyle);
+        cell.setCellValue("Title");
+ 
+        cell = row.createCell(OrderManagement_GUI.COLUMN_INDEX_ID);
+        cell.setCellStyle(cellStyle);
+        cell.setCellValue("Price");
+ 
+        cell = row.createCell(OrderManagement_GUI.COLUMN_INDEX_ID);
+        cell.setCellStyle(cellStyle);
+        cell.setCellValue("Quantity");
+ 
+        cell = row.createCell(OrderManagement_GUI.COLUMN_INDEX_ID);
+        cell.setCellStyle(cellStyle);
+        cell.setCellValue("Total money");
+        
+    }
+    private void writeEmployee(Employee emp, SXSSFRow row) {
+        if (cellStyleFormatNumber == null) {
+            // Format number
+            short format = (short) BuiltinFormats.getBuiltinFormat("#,##0");
+            // DataFormat df = workbook.createDataFormat();
+            // short format = df.getFormat("#,##0");
+     
+            // Create CellStyle
+            SXSSFWorkbook workbook = row.getSheet().getWorkbook();
+            cellStyleFormatNumber = workbook.createCellStyle();
+            cellStyleFormatNumber.setDataFormat(format);
+        }
+ 
+        SXSSFCell cell = row.createCell(OrderManagement_GUI.COLUMN_INDEX_ID);
+        cell.setCellValue(emp.getEmployeeID());
+ 
+        cell = row.createCell(OrderManagement_GUI.COLUMN_INDEX_EMPLOYEE);
+        cell.setCellValue(emp.getName());
+ 
+        cell = row.createCell(OrderManagement_GUI.COLUMN_INDEX_CUSTOMERNAME);
+        cell.setCellValue(emp.getPhoneNumber());
+        cell.setCellStyle(cellStyleFormatNumber);
+ 
+        cell = row.createCell(OrderManagement_GUI.COLUMN_INDEX_PHONE);
+        cell.setCellValue(emp.getRole());
+ 
+        // Create cell formula
+        // totalMoney = price * quantity
+        cell = row.createCell(OrderManagement_GUI.COLUMN_INDEX_TOTAL, CellType.FORMULA);
+        cell.setCellStyle(cellStyleFormatNumber);
+        int currentRow = row.getRowNum() + 1;
+//        String columnPrice = CellReference.convertNumToColString(OrderManagement_GUI.COLUMN_INDEX_ID);
+//        String columnQuantity = CellReference.convertNumToColString(OrderManagement_GUI.COLUMN_INDEX_ID);
+//        cell.setCellFormula(columnPrice + currentRow + "*" + columnQuantity + currentRow);
+    }
+    private void writeFooter(SXSSFSheet sheet, int rowIndex) {
+        SXSSFRow row = sheet.createRow(rowIndex);
+        SXSSFCell cell = row.createCell(OrderManagement_GUI.COLUMN_INDEX_TOTAL, CellType.FORMULA);
+        cell.setCellFormula("SUM(E2:E6)");
+    }
+    private static CellStyle createStyleForHeader(Sheet sheet) {
+        // Create font
+        Font font = sheet.getWorkbook().createFont();
+        font.setFontName("Times New Roman");
+        font.setBold(true);
+        font.setFontHeightInPoints((short) 14); // font size
+        font.setColor(IndexedColors.WHITE.getIndex()); // text color
+ 
+        // Create CellStyle
+        CellStyle cellStyle = sheet.getWorkbook().createCellStyle();
+        cellStyle.setFont(font);
+        cellStyle.setFillForegroundColor(IndexedColors.BLUE.getIndex());
+        cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        cellStyle.setBorderBottom(BorderStyle.THIN);
+        return cellStyle;
+    }
+    private static void createOutputFile(SXSSFWorkbook workbook, String excelFilePath) throws FileNotFoundException, IOException {
+        try (OutputStream os = new FileOutputStream(excelFilePath)) {
+            workbook.write(os);
+        }
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -307,11 +419,12 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         lbl_storeID = new javax.swing.JLabel();
         txt_storeID = new javax.swing.JTextField();
         pnl_btnEmp = new javax.swing.JPanel();
-        pnl_buttonEmp = new javax.swing.JPanel();
-        btn_addEmp = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
         btn_updateEmp = new javax.swing.JButton();
-        btn_clearValue = new javax.swing.JButton();
         btn_changePass = new javax.swing.JButton();
+        btn_clearValue = new javax.swing.JButton();
+        btn_printFile = new javax.swing.JButton();
+        btn_addEmp = new javax.swing.JButton();
 
         setToolTipText("");
         setPreferredSize(new java.awt.Dimension(1366, 768));
@@ -430,11 +543,11 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
 
         spl_inforEmp.setLeftComponent(scr_tableInforEmp);
 
-        pnl_inforDetailEmp.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông Tin"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         pnl_inforDetailEmp.setMinimumSize(new java.awt.Dimension(400, 379));
         pnl_inforDetailEmp.setPreferredSize(new java.awt.Dimension(250, 100));
         pnl_inforDetailEmp.setLayout(new java.awt.BorderLayout());
 
+        pnl_txtInforEmp.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin nhân viên"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         pnl_txtInforEmp.setLayout(new javax.swing.BoxLayout(pnl_txtInforEmp, javax.swing.BoxLayout.Y_AXIS));
 
         pnl_empID.setMaximumSize(new java.awt.Dimension(2147483647, 40));
@@ -651,15 +764,47 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
 
         pnl_btnEmp.setMaximumSize(new java.awt.Dimension(2147483647, 100));
         pnl_btnEmp.setMinimumSize(new java.awt.Dimension(176, 100));
-        pnl_btnEmp.setLayout(new javax.swing.BoxLayout(pnl_btnEmp, javax.swing.BoxLayout.X_AXIS));
+        pnl_btnEmp.setPreferredSize(new java.awt.Dimension(100, 150));
+        pnl_btnEmp.setLayout(new java.awt.BorderLayout());
 
-        pnl_buttonEmp.setMaximumSize(new java.awt.Dimension(2147483647, 100));
-        pnl_buttonEmp.setMinimumSize(new java.awt.Dimension(176, 50));
-        pnl_buttonEmp.setPreferredSize(new java.awt.Dimension(176, 70));
-        pnl_buttonEmp.setLayout(new java.awt.GridLayout(2, 0, 2, 2));
+        jPanel1.setLayout(new java.awt.GridLayout(2, 2, 5, 5));
+
+        btn_updateEmp.setText("CẬP NHẬT");
+        btn_updateEmp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_updateEmpActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_updateEmp);
+
+        btn_changePass.setText("ĐẶT LẠI MẬT KHẨU");
+        btn_changePass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_changePassActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_changePass);
+
+        btn_clearValue.setText("XOÁ TRẮNG");
+        btn_clearValue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_clearValueActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_clearValue);
+
+        btn_printFile.setText("XUẤT EXCEL");
+        btn_printFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_printFileActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_printFile);
+
+        pnl_btnEmp.add(jPanel1, java.awt.BorderLayout.CENTER);
 
         btn_addEmp.setText("THÊM");
-        btn_addEmp.setPreferredSize(new java.awt.Dimension(72, 40));
+        btn_addEmp.setPreferredSize(new java.awt.Dimension(72, 50));
         btn_addEmp.putClientProperty(FlatClientProperties.STYLE,""
             + "background:$Menu.background;"
             + "foreground:$Menu.foreground;");
@@ -668,28 +813,7 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
                 btn_addEmpActionPerformed(evt);
             }
         });
-        pnl_buttonEmp.add(btn_addEmp);
-
-        btn_updateEmp.setText("CẬP NHẬT");
-        btn_updateEmp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_updateEmpActionPerformed(evt);
-            }
-        });
-        pnl_buttonEmp.add(btn_updateEmp);
-
-        btn_clearValue.setText("XOÁ TRẮNG");
-        pnl_buttonEmp.add(btn_clearValue);
-
-        btn_changePass.setText("ĐẶT LẠI MẬT KHẨU");
-        btn_changePass.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_changePassActionPerformed(evt);
-            }
-        });
-        pnl_buttonEmp.add(btn_changePass);
-
-        pnl_btnEmp.add(pnl_buttonEmp);
+        pnl_btnEmp.add(btn_addEmp, java.awt.BorderLayout.SOUTH);
 
         pnl_inforDetailEmp.add(pnl_btnEmp, java.awt.BorderLayout.SOUTH);
 
@@ -777,10 +901,21 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
             Notifications.getInstance().show(Notifications.Type.ERROR, "Đặt lại mật khẩu không thành công");
     }//GEN-LAST:event_btn_changePassActionPerformed
 
+    private void btn_clearValueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clearValueActionPerformed
+        renderEmployeeTable(bus.getAllEmployee());
+        renderEmployeeInfor();
+    }//GEN-LAST:event_btn_clearValueActionPerformed
+
+    private void btn_printFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_printFileActionPerformed
+        final String filePath = "D:/nhanVien.xlsx";
+        createExcel(bus.getAllEmployee(), filePath);
+    }//GEN-LAST:event_btn_printFileActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_addEmp;
     private javax.swing.JButton btn_changePass;
     private javax.swing.JButton btn_clearValue;
+    private javax.swing.JButton btn_printFile;
     private javax.swing.JButton btn_reloadEmp;
     private javax.swing.JButton btn_searchEmp;
     private javax.swing.JButton btn_searchFilterEmp;
@@ -793,6 +928,7 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
     private javax.swing.ButtonGroup group_gender;
     private javax.swing.ButtonGroup group_roleEmp;
     private javax.swing.ButtonGroup group_statusEmp;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbl_addressEmp;
     private javax.swing.JLabel lbl_citizenID;
     private javax.swing.JLabel lbl_dateOfBirth;
@@ -807,7 +943,6 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
     private javax.swing.JPanel pnl_addressEmp;
     private javax.swing.JPanel pnl_btnEmp;
     private javax.swing.JPanel pnl_btnSearchEmp;
-    private javax.swing.JPanel pnl_buttonEmp;
     private javax.swing.JPanel pnl_centerEmp;
     private javax.swing.JPanel pnl_chooseDateOfBirth;
     private javax.swing.JPanel pnl_chooseDateStart;
