@@ -41,7 +41,9 @@ public class OrderManagement_BUS {
         
         return list;
     }
-
+    public ArrayList<Order> getAll(){
+        return orderDAO.getAll();
+    }
     public Employee getEmployee(String emplpyeeID) {
         return employeeDAO.getOne(emplpyeeID);
     }
