@@ -100,8 +100,8 @@ public class PromotionManagament_BUS {
         return promotion_DAO.updateDate(promotionID);
     }
 
-    public ArrayList<Product> searchProductById(String searchQuery) {
-        return new Product_DAO().findById(searchQuery);
+    public Product searchProductById(String searchQuery) {
+        return new Product_DAO().getOne(searchQuery);
     }
     public ArrayList<Promotion> searchForOrderById(String searchQuery) {
         return promotion_DAO.findForOrderById(searchQuery);
