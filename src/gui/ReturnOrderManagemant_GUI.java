@@ -30,6 +30,7 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
     private ReturnOrder currentReturnOrder;
     private DefaultComboBoxModel cmbModel_statusReturnOrder;
     private DefaultComboBoxModel cmbModel_typeReturnOrder;
+    private ArrayList<ReturnOrderDetail> listDetail;
     
     /**
      * Creates new form ReturnOrderManagemant_GUI
@@ -58,6 +59,7 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
             
             String returnOrderID = tblModel_returnOrder.getValueAt(rowIndex, 0).toString();
             this.currentReturnOrder = bus.getReturnOrder(returnOrderID);
+            this.listDetail = bus.getAllReturnOrderDetail(currentReturnOrder.getReturnOrderID());
             renderCurrentReturnOrder();
         });
         renderReturnOrderTables(bus.getAllReturnOrder());
@@ -128,6 +130,7 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
         ReturnOrder newReturnOrder = getNewValue();
         if(bus.updateReturnOder(newReturnOrder)) {
             Notifications.getInstance().show(Notifications.Type.SUCCESS, "Cập nhật đơn đổi trả thành công");
+            bus.updateReturnOrderDetail(newReturnOrder, listDetail);
             renderReturnOrderTables(bus.getAllReturnOrder());
         }
         else

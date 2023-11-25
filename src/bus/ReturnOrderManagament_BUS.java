@@ -24,6 +24,7 @@ import java.util.Date;
  */
 public class ReturnOrderManagament_BUS {
     private ReturnOrder_DAO dao = new ReturnOrder_DAO();
+    private ReturnOrderDetail_DAO detail_dao = new ReturnOrderDetail_DAO();
 
     public Order getOrder(String orderID) {
         return new Order_DAO().getOne(orderID);
@@ -37,7 +38,7 @@ public class ReturnOrderManagament_BUS {
     }
 
     public ArrayList<ReturnOrderDetail> getAllReturnOrderDetail(String returnOrderID) {
-        return new ReturnOrderDetail_DAO().getAllForOrderReturnID(returnOrderID);
+        return detail_dao.getAllForOrderReturnID(returnOrderID);
     }
 
     public boolean updateReturnOder(ReturnOrder newReturnOrder) {
@@ -88,8 +89,8 @@ public class ReturnOrderManagament_BUS {
         return dao.create(newReturnOrder);
     }
 
-    public ArrayList<Order> searchByOrderId(String orderID) {
-        return new Order_DAO().findById(orderID);
+    public Order searchByOrderId(String orderID) {
+        return new Order_DAO().getOne(orderID);
     }
 
     public Product getProduct(String productID) {
@@ -99,7 +100,19 @@ public class ReturnOrderManagament_BUS {
     public void createReturnOrderDetail(ReturnOrder newReturnOrder, ArrayList<ReturnOrderDetail> cart) {
         for (ReturnOrderDetail returnOrderDetail : cart) {
             returnOrderDetail.setReturnOrder(newReturnOrder);
-            new ReturnOrderDetail_DAO().create(returnOrderDetail);
+            detail_dao.create(returnOrderDetail);
         }
+    }
+
+    public void updateReturnOrderDetail(ReturnOrder newReturnOrder, ArrayList<ReturnOrderDetail> listDetail) {
+        if(newReturnOrder.getStatus().getValue() == 1) {
+            if(!newReturnOrder.isType()) {
+                for (ReturnOrderDetail returnOrderDetail : listDetail) {
+                    detail_dao.updateProduct(returnOrderDetail.getProduct().getProductID(), returnOrderDetail.getQuantity());
+                }
+            }
+            
+        }
+        
     }
 }

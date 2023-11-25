@@ -85,7 +85,22 @@ public class ReturnOrderDetail_DAO implements DAOBase<ReturnOrderDetail>{
         }
         return n > 0;
     }
-
+    public Boolean updateProduct(String id, int quantity) {
+        int n = 0;
+        Product product = new Product_DAO().getOne(id);
+        int newQuantity = product.getInventory() - quantity;
+        try {
+            PreparedStatement st = ConnectDB.conn.prepareStatement("UPDATE Product "
+                    + "SET inventory = ? "
+                    + "WHERE productID = ?");
+            st.setInt(1, newQuantity);
+            st.setString(2, id);
+            n = st.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return n > 0;
+    }
     public ArrayList<ReturnOrderDetail> getAllForOrderReturnID(String id) {
         ArrayList result = new ArrayList<>();
         try {
