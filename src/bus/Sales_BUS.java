@@ -202,8 +202,8 @@ public class Sales_BUS {
         return bestDiscount;
     }
 
-    public ArrayList<Promotion> getPromotionOfOrderAvailable(int customerPoint) {
-        return promotionDAO.getPromotionOrderAvailable(customerPoint);
+    public ArrayList<Promotion> getPromotionOfOrderAvailable(int customerRank) {
+        return promotionDAO.getPromotionOrderAvailable(customerRank);
     }
 
     public Promotion getPromotion(String promotionID) {

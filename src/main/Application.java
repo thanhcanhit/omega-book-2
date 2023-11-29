@@ -6,6 +6,8 @@ import com.formdev.flatlaf.extras.FlatAnimatedLafChange;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import com.github.kwhat.jnativehook.GlobalScreen;
+import com.github.kwhat.jnativehook.NativeHookException;
 import database.ConnectDB;
 import entity.Account;
 import entity.Employee;
@@ -133,6 +135,11 @@ public class Application extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Omega Book");
         setPreferredSize(new java.awt.Dimension(1366, 768));
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                formKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -148,11 +155,25 @@ public class Application extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyTyped
+        System.out.println("Typed");
+    }//GEN-LAST:event_formKeyTyped
+
     public static void main(String args[]) {
         FlatRobotoFont.install();
         FlatLaf.registerCustomDefaultsSource("theme");
         UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 15));
         FlatMacLightLaf.setup();
+
+//        Contact native 
+        try {
+            GlobalScreen.registerNativeHook();
+        } catch (NativeHookException ex) {
+            System.err.println("There was a problem registering the native hook.");
+            System.err.println(ex.getMessage());
+
+            System.exit(1);
+        }
 
 //        Fake loading
         new Welcome_GUI().setVisible(true);
