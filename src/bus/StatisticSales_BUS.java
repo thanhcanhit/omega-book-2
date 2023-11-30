@@ -30,7 +30,7 @@ public class StatisticSales_BUS {
         return returnOrderDAO.getNumberOfReturnOrderInMonth(month, year);
     }
     public double getTotalInMonth(int month, int year){
-       return orderDAO.getTotalInMonth(month, year);
+       return (orderDAO.getTotalInMonth(month, year) - returnOrderDAO.getTotalReturnOrderInMonth(month, year));
     }
     public double getTargetInMonth(int month, int year){
         double result = orderDAO.getTotalInMonth(month, year);

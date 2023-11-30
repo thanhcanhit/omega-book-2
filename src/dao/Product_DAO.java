@@ -431,15 +431,16 @@ public class Product_DAO implements DAOBase<Product> {
     public ArrayList<Product> getTop10Product(String date) {
 
         ArrayList<Product> result = new ArrayList<>();
-
+            
         try {
             PreparedStatement st = ConnectDB.conn.prepareStatement("""
                                                                    select top 10 productID
                                                                     from OrderDetail as od join [Order] as o on od.orderID = o.orderID
-                                                                    where CONVERT(varchar, orderAt, 23) = ?
+                                                                    where MONTH(orderAt) = Month(CAST(? as date)) and YEAR(orderAt) = Year(CAST(? as date))
                                                                     group by productID
                                                                     """);
             st.setString(1, date);
+             st.setString(2, date);
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
@@ -509,11 +510,12 @@ public class Product_DAO implements DAOBase<Product> {
             PreparedStatement st = ConnectDB.conn.prepareStatement("""
                                                                    select sum(od.lineTotal)
                                                                    from OrderDetail as od join [Order] as o on od.orderID = o.orderID
-                                                                   where productID = ? and CONVERT(varchar, orderAt, 23) = ?
+                                                                   where productID = ? and MONTH(orderAt) = Month(CAST(? as date)) and YEAR(orderAt) = Year(CAST(? as date))
                                                                    group by productID                                               
                                                                    """);
             st.setString(1, productID);
             st.setString(2, date);
+            st.setString(3, date);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 return rs.getDouble(1);

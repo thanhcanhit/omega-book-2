@@ -5,10 +5,12 @@
 package gui;
 
 import bus.StatisticProduct_BUS;
+import com.itextpdf.text.log.Logger;
 import gui.customchart.ModelChart;
 import entity.Product;
 import java.awt.Color;
 import java.beans.PropertyChangeEvent;
+import java.lang.System.Logger.Level;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -72,14 +74,28 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel {
         chart.addLegend("Sản phẩm", new Color(71, 118, 185));
         getChart(formatDate);
         renderProductTable(bus.getTopProductInDay(formatDate), formatDate);
-        chart.start();
+
         date_statisticProduct.addPropertyChangeListener((PropertyChangeEvent e) -> {
             if ("date".equals(e.getPropertyName())) {
                 Date selectedDate = (Date) e.getNewValue();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String formattedDate = dateFormat.format(selectedDate);
                 renderProductTable(bus.getTopProductInDay(formattedDate), formattedDate);
-                chart.clear();
+                tbl_topProduct.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
+                    int rowIndex = tbl_topProduct.getSelectedRow();
+                    if (rowIndex != -1) {
+                        String id = tblModel_product.getValueAt(rowIndex, 0).toString();
+                        Product p;
+                        try {
+                            p = bus.getProduct(id);
+                            renderInfoProduct(p, formattedDate);
+                        } catch (Exception ex) {
+                        }
+
+                    }
+                    return;
+
+                });
                 getChart(formattedDate);
 
             }
@@ -91,7 +107,7 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel {
         tblModel_product.setRowCount(0);
         for (Product p : productList) {
             if (p != null) {
-                Object[] newRow = new Object[]{p.getProductID(), p.getName(), bus.getQuantitySale(p.getProductID(), date), FormatNumber.toVND(p.getCostPrice()), FormatNumber.toVND(bus.getTotalProduct(p.getProductID(), date))};
+                Object[] newRow = new Object[]{p.getProductID(), p.getName(), bus.getQuantitySale(p.getProductID(), date), FormatNumber.toVND(p.getPrice()), FormatNumber.toVND(bus.getTotalProduct(p.getProductID(), date))};
                 tblModel_product.addRow(newRow);
             }
 
@@ -116,14 +132,25 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel {
         tbl_topProduct.setDefaultEditor(Object.class, null);
     }
 
-    public void getChart(String formatDate) {
-        ArrayList<Product> list = bus.getTop10Product(formatDate);
+    public void getChart(String date) {
+        chart.clear();
+        ArrayList<Product> list = bus.getTop10Product(date);
         for (Product p : list) {
             if (p != null) {
-                chart.addData(new ModelChart(p.getProductID(), new double[]{bus.getTotalProduct(p.getProductID(), formatDate)}));
+                chart.addData(new ModelChart(p.getProductID(), new double[]{bus.getTotalProduct(p.getProductID(), date)}));
             }
         }
+
         chart.start();
+    }
+
+    public void renderInfoProduct(Product p, String date) {
+        txt_productName.setText(p.getName());
+        txt_price.setText(FormatNumber.toVND(p.getPrice()));
+        txt_productID.setText(p.getProductID());
+        txt_productType.setText(p.getType().toString());
+        txt_quantity.setText(bus.getQuantitySale(p.getProductID(), date) + "");
+        txt_total.setText(FormatNumber.toVND(bus.getTotalProduct(p.getProductID(), date)));
     }
 
     /**
@@ -266,7 +293,7 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel {
         pnl_productType.setLayout(new javax.swing.BoxLayout(pnl_productType, javax.swing.BoxLayout.LINE_AXIS));
         pnl_productType.add(filler22);
 
-        lbl_productIType.setText("Mã sản phẩm: ");
+        lbl_productIType.setText("Loại sản phẩm: ");
         lbl_productIType.setPreferredSize(new java.awt.Dimension(120, 0));
         pnl_productType.add(lbl_productIType);
         pnl_productType.add(filler23);
