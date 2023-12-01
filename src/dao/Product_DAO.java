@@ -23,6 +23,7 @@ import java.util.ArrayList;
  */
 public class Product_DAO implements DAOBase<Product> {
 
+//    With img
     @Override
     public Product getOne(String id) {
         Product result = null;
@@ -50,7 +51,31 @@ public class Product_DAO implements DAOBase<Product> {
         ArrayList<Product> result = new ArrayList<>();
         try {
             Statement st = ConnectDB.conn.createStatement();
-            ResultSet rs = st.executeQuery("Select * from Product");
+            ResultSet rs = st.executeQuery("""
+                                           SELECT [productID]
+                                                 ,[productType]
+                                                 ,[bookType]
+                                                 ,[bookCategory]
+                                                 ,[stationeryType]
+                                                 ,[name]
+                                                 ,[author]
+                                                 ,[price]
+                                                 ,[costPrice]
+                                                 ,[publishYear]
+                                                 ,[publisher]
+                                                 ,[pageQuantity]
+                                                 ,[isHardCover]
+                                                 ,[description]
+                                                 ,[language]
+                                                 ,[translater]
+                                                 ,[weight]
+                                                 ,[color]
+                                                 ,[material]
+                                                 ,[origin]
+                                                 ,[brandID]
+                                                 ,[VAT]
+                                                 ,[inventory]
+                                             FROM [dbo].[Product] from Product""");
             while (rs.next()) {
                 Product product = getProductData(rs);
                 result.add(product);
@@ -105,7 +130,30 @@ public class Product_DAO implements DAOBase<Product> {
     public ArrayList<Product> getPage(int page) {
         ArrayList<Product> result = new ArrayList<>();
         String query = """
-                       select * from product
+                       SELECT [productID]
+                             ,[productType]
+                             ,[bookType]
+                             ,[bookCategory]
+                             ,[stationeryType]
+                             ,[name]
+                             ,[author]
+                             ,[price]
+                             ,[costPrice]
+                             ,[publishYear]
+                             ,[publisher]
+                             ,[pageQuantity]
+                             ,[isHardCover]
+                             ,[description]
+                             ,[language]
+                             ,[translater]
+                             ,[weight]
+                             ,[color]
+                             ,[material]
+                             ,[origin]
+                             ,[brandID]
+                             ,[VAT]
+                             ,[inventory]
+                       FROM [dbo].[Product]
                        order by productID
                        offset ? rows
                        FETCH NEXT 50 ROWS ONLY
@@ -273,7 +321,31 @@ public class Product_DAO implements DAOBase<Product> {
         ArrayList<Product> result = new ArrayList<>();
 //        Index tự động tăng phụ thuộc vào số lượng biến số có
         int index = 1;
-        String query = "select * from product where name like ?";
+        String query = """
+                       select SELECT [productID]
+                             ,[productType]
+                             ,[bookType]
+                             ,[bookCategory]
+                             ,[stationeryType]
+                             ,[name]
+                             ,[author]
+                             ,[price]
+                             ,[costPrice]
+                             ,[publishYear]
+                             ,[publisher]
+                             ,[pageQuantity]
+                             ,[isHardCover]
+                             ,[description]
+                             ,[language]
+                             ,[translater]
+                             ,[weight]
+                             ,[color]
+                             ,[material]
+                             ,[origin]
+                             ,[brandID]
+                             ,[VAT]
+                             ,[inventory]
+                         FROM [dbo].[Product] from product where name like ?""";
         if (isEmpty) {
             query += " and inventory = ?";
         }
@@ -431,7 +503,7 @@ public class Product_DAO implements DAOBase<Product> {
     public ArrayList<Product> getTop10Product(String date) {
 
         ArrayList<Product> result = new ArrayList<>();
-            
+
         try {
             PreparedStatement st = ConnectDB.conn.prepareStatement("""
                                                                    select top 10 productID
@@ -440,7 +512,7 @@ public class Product_DAO implements DAOBase<Product> {
                                                                     group by productID
                                                                     """);
             st.setString(1, date);
-             st.setString(2, date);
+            st.setString(2, date);
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {

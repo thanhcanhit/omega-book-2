@@ -7,7 +7,6 @@ package gui;
 import bus.Sales_BUS;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.github.kwhat.jnativehook.GlobalScreen;
-import com.github.kwhat.jnativehook.NativeHookException;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
 import entity.Customer;
@@ -65,7 +64,7 @@ public class Sales_GUI extends javax.swing.JPanel {
     private DefaultTableModel tblModel_cart;
     private Customer defaultCustomer;
     private final JButton[] btnOptionsList;
-    private SalesHandleNativeKey barcodeScannerHandler;
+    private final SalesHandleNativeKey barcodeScannerHandler;
 
 //    state
     private Double total = 0.0;

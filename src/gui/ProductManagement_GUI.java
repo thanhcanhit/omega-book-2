@@ -6,6 +6,15 @@ package gui;
 
 import bus.ProductManagement_BUS;
 import com.formdev.flatlaf.FlatClientProperties;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.draw.LineSeparator;
 import entity.Book;
 import entity.Brand;
 import entity.Product;
@@ -14,14 +23,20 @@ import enums.BookCategory;
 import enums.BookType;
 import enums.StationeryType;
 import enums.Type;
+import java.awt.Desktop;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -37,6 +52,9 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumnModel;
+import utilities.BarcodeGenerator;
+import static utilities.OrderPrinter.FONT;
+import static utilities.OrderPrinter.resizeImage;
 
 /**
  *
@@ -64,12 +82,12 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
     private Product currentProduct = null;
     private int currentPage;
     private int lastPage;
-    
+
     public ProductManagement_GUI() {
         initComponents();
         init();
     }
-    
+
     private void init() {
         bus = new ProductManagement_BUS();
 
@@ -91,12 +109,12 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 //      Product detail
         scr_bookDetail.setVisible(false);
         scr_stationeryDetail.setVisible(false);
-        
+
         cmb_productType.addActionListener((ActionEvent e) -> {
             toggleProductDetail();
         });
     }
-    
+
     private void formatTable() {
         DefaultTableCellRenderer rightAlign = new DefaultTableCellRenderer();
         rightAlign.setHorizontalAlignment(JLabel.RIGHT);
@@ -107,7 +125,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
             columnModel.getColumn(index).setCellRenderer(rightAlign);
         }
     }
-    
+
     private void initTable() {
         tblModel_products = new DefaultTableModel(new String[]{"Mã sản phẩm", "Tên sản phẩm", "Giá nhập", "Giá bán", "Số lượng tồn"}, 50) {
             @Override
@@ -121,17 +139,17 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
             if (rowIndex == -1) {
                 return;
             }
-            
+
             String productID = tbl_products.getValueAt(rowIndex, 0).toString();
             this.currentProduct = bus.getProduct(productID);
             fileChooser_productImg.setSelectedFile(null);
             renderCurrentProduct();
-            
+
         });
-        
+
         formatTable();
     }
-    
+
     private void initCombobox() {
         cmbModel_type = new DefaultComboBoxModel(new String[]{"Tất cả", "Sách", "Văn phòng phẩm"});
         cmbModel_bookCategory = new DefaultComboBoxModel(new String[]{"Văn học", "Kinh tế", "Tâm lý - kỹ năng sống", "Thiếu nhi", "Nuôi dạy con", "Tiểu sử - hồi ký", "Sách giáo khoa - tham khảo", "Sách học ngoại ngữ"});
@@ -139,21 +157,21 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         cmb_type.setModel(cmbModel_type);
         cmb_stationeryType.setModel(cmbModel_stationeryType);
         cmb_bookCategory.setModel(cmbModel_bookCategory);
-        
+
         renderComboboxType();
         renderBrand();
     }
-    
+
     private void renderBrand() {
         Object[] items = bus.getAllBrand().toArray();
         cmbModel_stationeryBrand = new DefaultComboBoxModel(items);
         cmb_stationeryBrand.setModel(cmbModel_stationeryBrand);
     }
-    
+
     private String getBrandIDSelected() {
         Pattern pattern = Pattern.compile("\\(([^\\)]+)\\)");
         Matcher matcher = pattern.matcher(cmbModel_stationeryBrand.getSelectedItem().toString());
-        
+
         if (matcher.find()) {
             String id = matcher.group(0);
             id = id.replaceAll("\\(", "");
@@ -162,7 +180,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         }
         return null;
     }
-    
+
     private void renderCurrentProduct() {
 //        update form
         txt_productId.setText(currentProduct.getProductID());
@@ -209,7 +227,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
             cmb_stationeryBrand.setSelectedItem(brand);
         }
     }
-    
+
     private void renderCurrentPage() {
         lbl_pageNumber.setText(currentPage + "/" + lastPage);
         renderProductsTable(bus.getDataOfPage(currentPage));
@@ -218,7 +236,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         btn_previous.setEnabled(currentPage > 1);
         btn_next.setEnabled(currentPage < lastPage);
     }
-    
+
     private void renderProductsTable(ArrayList<Product> productList) {
         tblModel_products.setRowCount(0);
         for (Product product : productList) {
@@ -229,10 +247,10 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
             tblModel_products.addRow(newRow);
         }
     }
-    
+
     private void renderComboboxType() {
         String currentType = cmbModel_type.getSelectedItem().toString();
-        
+
         cmb_typeDetail.setEnabled(!currentType.equals("Tất cả"));
         switch (currentType) {
             case "Tất cả":
@@ -248,15 +266,15 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
             default:
                 break;
         }
-        
+
     }
-    
+
     private void toggleProductDetail() {
         int selectionIndex = cmb_productType.getSelectedIndex();
         boolean isBook = selectionIndex == 0;
         scr_bookDetail.setVisible(isBook);
         scr_stationeryDetail.setVisible(!isBook);
-        
+
         pnl_rightCenter.revalidate();
         pnl_rightCenter.repaint();
     }
@@ -299,6 +317,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         btn_previous = new javax.swing.JButton();
         lbl_pageNumber = new javax.swing.JLabel();
         btn_next = new javax.swing.JButton();
+        btn_generateBarcode = new javax.swing.JButton();
         pnl_right = new javax.swing.JPanel();
         pnl_control = new javax.swing.JPanel();
         btn_clear = new javax.swing.JButton();
@@ -558,6 +577,14 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
             }
         });
         pnl_cartFooter.add(btn_next);
+
+        btn_generateBarcode.setText("Tạo file barcode");
+        btn_generateBarcode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_generateBarcodeActionPerformed(evt);
+            }
+        });
+        pnl_cartFooter.add(btn_generateBarcode);
 
         pnl_cart.add(pnl_cartFooter, java.awt.BorderLayout.PAGE_END);
 
@@ -1104,7 +1131,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmb_typeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_typeActionPerformed
-        
+
         renderComboboxType();
     }//GEN-LAST:event_cmb_typeActionPerformed
 
@@ -1124,7 +1151,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         if (isSelected == JFileChooser.APPROVE_OPTION) {
             File fileSelected = fileChooser_productImg.getSelectedFile();
             String path = fileSelected.getPath();
-            
+
             if (path.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Hãy chọn hình ảnh trước khi lưu.");
                 return;
@@ -1139,7 +1166,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 
                 // Tạo lại đối tượng ImageIcon với kích thước mới
                 imageIcon = new ImageIcon(scaledImage);
-                
+
                 lbl_productImg.setIcon(imageIcon);
                 lbl_productImg.revalidate();
                 lbl_productImg.repaint();
@@ -1148,7 +1175,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_btn_selectImgActionPerformed
-    
+
     private static byte[] getImageBytes(File file) throws IOException {
         byte[] fileContent = Files.readAllBytes(file.toPath());
         return fileContent;
@@ -1173,7 +1200,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         Boolean isEmpty = chk_empty.isSelected();
         int type = cmb_type.getSelectedIndex();
         int detailType = cmb_typeDetail.getSelectedIndex();
-        
+
         renderProductsTable(bus.filter(queryName, isEmpty, type, detailType));
         disablePage();
     }//GEN-LAST:event_btn_filterActionPerformed
@@ -1183,7 +1210,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_clearActionPerformed
 
     private void btn_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_updateActionPerformed
-        
+
         Product newData = revertObjectFromForm();
         if (bus.updateProduct(currentProduct.getProductID(), newData)) {
             Notifications.getInstance().show(Notifications.Type.SUCCESS, "Cập nhật thông tin sản phẩm thành công!");
@@ -1200,7 +1227,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         if (product == null) {
             return;
         }
-        
+
         try {
             if (bus.createProduct(product)) {
                 Notifications.getInstance().show(Notifications.Type.SUCCESS, "Thêm thông tin sản phẩm thành công!");
@@ -1214,19 +1241,102 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         }
 
     }//GEN-LAST:event_btn_addActionPerformed
-    
+
+    private void generateBarcodeFileForProduct(String filepath, String productID, String productName) throws FileNotFoundException, DocumentException, IOException, Exception {
+        filepath += ".pdf";
+        //Create Document instance.
+        Document document = new Document();
+
+        //Create OutputStream instance.
+        OutputStream outputStream
+                = new FileOutputStream(new File(filepath));
+
+        //Create PDFWriter instance.
+        PdfWriter writer = PdfWriter.getInstance(document, outputStream);
+        writer.setLanguage("VN");
+        //Open the document.
+        document.open();
+        document.setMargins(0, 0, 0, 0);
+
+        BaseFont bf = BaseFont.createFont(FONT, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+        Font font = new Font(bf, 12);
+
+        document.add(new Paragraph(String.format("Mã sản phẩm:  %s - %s", productID, productName), font));
+
+//        table
+        PdfPTable table = new PdfPTable(4);
+        table.setSpacingBefore(20);
+        table.setWidthPercentage(100);
+        table.setSplitRows(true);
+
+//            generate barcode
+        // Convert the BufferedImage to a byte array
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(BarcodeGenerator.generateBarcode(productID), "PNG", baos);
+        byte[] bytes = baos.toByteArray();
+
+        // Create an Image from the byte array
+        com.itextpdf.text.Image image = com.itextpdf.text.Image.getInstance(bytes);
+
+//        Tạo 100 mã
+        int i = 0;
+        while (i < 100) {
+            table.addCell(image);
+            i++;
+        }
+
+        document.add(table);
+        //Close document and outputStream.
+        document.close();
+        outputStream.close();
+
+        System.out.println("Pdf created successfully.");
+        Desktop d = Desktop.getDesktop();
+        d.open(new File(filepath));
+    }
+
+    private void btn_generateBarcodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_generateBarcodeActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Chọn đường dẫn và tên file");
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+        // Hiển thị hộp thoại và kiểm tra nếu người dùng chọn OK
+        int userSelection = fileChooser.showSaveDialog(null);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            // Lấy đường dẫn và tên file được chọn
+            File fileToSave = fileChooser.getSelectedFile();
+            String filePath = fileToSave.getAbsolutePath();
+
+            try {
+                int row = tbl_products.getSelectedRow();
+
+                if (row == -1) {
+                    Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng chọn sản phẩm muốn tạo mã");
+                    return;
+                }
+
+                String id = tblModel_products.getValueAt(row, 0).toString();
+                String name = tblModel_products.getValueAt(row, 1).toString();
+
+                generateBarcodeFileForProduct(filePath, id, name);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_btn_generateBarcodeActionPerformed
+
     public void clearAllValue() {
         JTextField[] txt_list = new JTextField[]{txt_productId, txt_productCostPrice, txt_productPrice, txt_productInventory, txt_productVAT, txt_bookAuthor, txt_bookLanguage, txt_bookPublishDate, txt_bookPublisher, txt_bookQuantityPage, txt_bookTranslator, txt_stationeryColor, txt_stationeryOrigin, txt_stationeryWeight};
-        
+
         for (JTextField item : txt_list) {
             item.setText("");
         }
-        
+
         JTextArea[] txa_list = new JTextArea[]{txa_productName, txa_bookDescription};
         for (JTextArea item : txa_list) {
             item.setText("");
         }
-        
+
         cmb_productType.setSelectedIndex(0);
         cmb_bookCategory.setSelectedIndex(0);
         cmb_bookType.setSelectedIndex(0);
@@ -1236,7 +1346,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         fileChooser_productImg.setSelectedFile(null);
         lbl_productImg.setIcon(null);
     }
-    
+
     public void showMessageFocus(String message, JComponent item) {
         Notifications.getInstance().show(Notifications.Type.ERROR, 5000, message);
         item.requestFocus();
@@ -1248,9 +1358,9 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         if (item instanceof JTextArea) {
             ((JTextArea) (item)).selectAll();
         }
-        
+
     }
-    
+
     public boolean validateForm() {
 //        Validate all input form
 
@@ -1259,7 +1369,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
             showMessageFocus("Tên sản phẩm không được rỗng", txa_productName);
             return false;
         }
-        
+
         try {
             double costPrice = Double.parseDouble(txt_productCostPrice.getText());
             if (costPrice <= 0) {
@@ -1270,7 +1380,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
             showMessageFocus("Giá nhập phải là số thực (ex: 520.44)", txt_productCostPrice);
             return false;
         }
-        
+
         try {
             int inventory = Integer.parseInt(txt_productInventory.getText());
             if (inventory < 0) {
@@ -1281,7 +1391,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
             showMessageFocus("Sản phẩm tồn kho phải là số nguyên (ex: 1, 20, 500)", txt_productInventory);
             return false;
         }
-        
+
         try {
             double vat = Double.parseDouble(txt_productVAT.getText());
             if (vat < 0) {
@@ -1292,7 +1402,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
             showMessageFocus("VAT phải là số thực (ex: 5.0, 10.0)", txt_productVAT);
             return false;
         }
-        
+
         Type type = Type.fromInt(cmb_productType.getSelectedIndex() + 1);
         if (type == Type.BOOK) {
             String author = txt_bookAuthor.getText();
@@ -1300,13 +1410,13 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
                 showMessageFocus("Tác giả sách không được rỗng", txt_bookAuthor);
                 return false;
             }
-            
+
             String publisher = txt_bookPublisher.getText();
             if (publisher.isBlank()) {
                 showMessageFocus("Nhà xuất bản sách không được rỗng", txt_bookPublisher);
                 return false;
             }
-            
+
             try {
                 int publishYear = Integer.parseInt(txt_bookPublishDate.getText());
 //                Thieeus coi lai dieu kien
@@ -1318,13 +1428,13 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
                 showMessageFocus("Năm xuất bản sách phải là số nguyên", txt_bookPublishDate);
                 return false;
             }
-            
+
             String language = txt_bookLanguage.getText();
             if (language.isBlank()) {
                 showMessageFocus("Ngôn ngữ sách không được rỗng", txt_bookLanguage);
                 return false;
             }
-            
+
             try {
                 int pageQuantity = Integer.parseInt(txt_bookQuantityPage.getText());
                 if (pageQuantity < 0) {
@@ -1364,15 +1474,15 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         }
         return true;
     }
-    
+
     public Product revertObjectFromForm() {
 //        Kiểm tra dữ liệu trước khi lấy
         if (!validateForm()) {
             return null;
         }
-        
+
         Product proc = null;
-        
+
         String id = txt_productId.getText();
         String name = txa_productName.getText();
         double costPrice = Double.parseDouble(txt_productCostPrice.getText());
@@ -1385,9 +1495,9 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
             }
         } catch (IOException ex) {
         }
-        
+
         Type type = Type.fromInt(cmb_productType.getSelectedIndex() + 1);
-        
+
         if (type == Type.BOOK) {
             String author = txt_bookAuthor.getText();
             String translator = txt_bookTranslator.getText();
@@ -1399,7 +1509,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
             BookCategory category = BookCategory.fromInt(cmb_bookCategory.getSelectedIndex() + 1);
             BookType bookType = BookType.fromInt(cmb_bookType.getSelectedIndex() + 1);
             boolean isHardCover = cmb_bookHardCover.getSelectedIndex() == 0;
-            
+
             try {
                 proc = new Book(author, publisher, publishYear, description, pageQuantity, isHardCover, language, translator.isBlank() ? null : translator, bookType, category, id.isBlank() ? "SP11020000" : id, name, costPrice, image, vat, inventory, type);
             } catch (Exception e) {
@@ -1414,7 +1524,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 //            Nhớ Convert to brand object
             Brand brand = new Brand(getBrandIDSelected());
             StationeryType stationeryType = StationeryType.fromInt(cmb_stationeryType.getSelectedIndex() + 1);
-            
+
             try {
                 proc = new Stationery(color, weight, material, origin, stationeryType, brand, id.isBlank() ? "SP00000000" : id, name, costPrice, image, vat, inventory, type);
             } catch (Exception ex) {
@@ -1424,14 +1534,14 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         }
         return proc;
     }
-    
+
     public void enablePage() {
         currentPage = 1;
         btn_next.setEnabled(true);
         btn_previous.setEnabled(false);
         renderCurrentPage();
     }
-    
+
     public void disablePage() {
         btn_next.setEnabled(false);
         btn_previous.setEnabled(false);
@@ -1443,6 +1553,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
     private javax.swing.JButton btn_add;
     private javax.swing.JButton btn_clear;
     private javax.swing.JButton btn_filter;
+    private javax.swing.JButton btn_generateBarcode;
     private javax.swing.JButton btn_next;
     private javax.swing.JButton btn_previous;
     private javax.swing.JButton btn_reset;

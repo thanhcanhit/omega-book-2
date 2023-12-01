@@ -16,7 +16,7 @@ import net.sourceforge.barbecue.BarcodeImageHandler;
 public class BarcodeGenerator {
 
     public static BufferedImage generateBarcode(String barcodeText) throws Exception {
-        Barcode barcode = BarcodeFactory.createCode128(barcodeText);
+        Barcode barcode = BarcodeFactory.createCode128B(barcodeText);
 
         return BarcodeImageHandler.getImage(barcode);
     }

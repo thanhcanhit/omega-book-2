@@ -118,13 +118,10 @@ import utilities.SVGIcon;
 import org.apache.poi.ss.usermodel.Font;
 import raven.toast.Notifications;
 
- 
-
 /**
  *
  * @author KienTran
  */
-
 public final class OrderManagement_GUI extends javax.swing.JPanel {
 
     private OrderManagement_BUS bus;
@@ -185,21 +182,25 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1) {
-                    int rowIndex = tbl_order.getSelectedRow();
-                    if (rowIndex == -1) {
-                        return;
-                    }
-                    String orderID = tblModel_order.getValueAt(rowIndex, 0).toString();
-                    Order order;
-                    try {
-                        order = bus.getOrder(orderID);
-                        new OrderPrinter(order).generatePDF();
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
+                    viewPDFFile();
                 }
             }
         });
+    }
+
+    private void viewPDFFile() {
+        int rowIndex = tbl_order.getSelectedRow();
+        if (rowIndex == -1) {
+            return;
+        }
+        String orderID = tblModel_order.getValueAt(rowIndex, 0).toString();
+        Order order;
+        try {
+            order = bus.getOrder(orderID);
+            new OrderPrinter(order).generatePDF();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     private void renderCurrentPage() {
@@ -248,7 +249,9 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
         tbl_order.getColumnModel().getColumn(3).setPreferredWidth(100);
         tbl_order.getColumnModel().getColumn(4).setPreferredWidth(100);
         tbl_order.getColumnModel().getColumn(4).setCellRenderer(rightAlign);
-        tbl_order.setDefaultEditor(Object.class, null);
+        tbl_order
+                .setDefaultEditor(Object.class,
+                         null);
 
         tbl_orderDetail.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tbl_orderDetail.getColumnModel().getColumn(0).setPreferredWidth(100);
@@ -259,7 +262,9 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
         tbl_orderDetail.getColumnModel().getColumn(3).setCellRenderer(rightAlign);
         tbl_orderDetail.getColumnModel().getColumn(4).setPreferredWidth(100);
         tbl_orderDetail.getColumnModel().getColumn(4).setCellRenderer(rightAlign);
-        tbl_orderDetail.setDefaultEditor(Object.class, null);
+        tbl_orderDetail
+                .setDefaultEditor(Object.class,
+                         null);
 
     }
 
@@ -267,11 +272,7 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
         return true;
     }
 
-    
-   
-    
-    
-   public static void createExcel(ArrayList<Order> list, String filePath) {
+    public static void createExcel(ArrayList<Order> list, String filePath) {
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Order Data");
 
@@ -299,7 +300,7 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
 
         // Tạo header row
         Row headerRow = sheet.createRow(2);
-        String[] columns = {"Mã hoá đơn"," Mã nhân viên", "Tên khách hàng"," Ngày mua hàng", "Số điện thoại khách hàng", "Tổng tiền" };
+        String[] columns = {"Mã hoá đơn", " Mã nhân viên", "Tên khách hàng", " Ngày mua hàng", "Số điện thoại khách hàng", "Tổng tiền"};
 
         for (int i = 0; i < columns.length; i++) {
             Cell cell = headerRow.createCell(i);
@@ -323,7 +324,7 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
         try (FileOutputStream outputStream = new FileOutputStream(filePath)) {
             workbook.write(outputStream);
             Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đã tạo file thành công !");
-                    
+
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -334,9 +335,6 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
             }
         }
     }
-    
- 
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -379,6 +377,7 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
         btn_previous = new javax.swing.JButton();
         lbl_pageNumber = new javax.swing.JLabel();
         btn_next = new javax.swing.JButton();
+        btn_viewPDF = new javax.swing.JButton();
         pnl_infomation = new javax.swing.JPanel();
         pnl_orderDetail = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -439,7 +438,6 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
 
         lbl_orderDate.setText("Từ ngày: ");
         lbl_orderDate.setPreferredSize(new java.awt.Dimension(80, 0));
-        lbl_orderDate.setSize(new java.awt.Dimension(100, 0));
         pnl_orderDate.add(lbl_orderDate);
 
         jDateChooser1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 20));
@@ -512,7 +510,6 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
 
         lbl_orderDateTo.setText("Đến ngày:");
         lbl_orderDateTo.setPreferredSize(new java.awt.Dimension(80, 0));
-        lbl_orderDateTo.setSize(new java.awt.Dimension(100, 0));
         pnl_orderDateTo.add(lbl_orderDateTo);
 
         jDateChooser2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 20));
@@ -586,6 +583,14 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
         });
         pnl_cartFooter.add(btn_next);
 
+        btn_viewPDF.setText("Xem bản in");
+        btn_viewPDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_viewPDFActionPerformed(evt);
+            }
+        });
+        pnl_cartFooter.add(btn_viewPDF);
+
         pnl_center.add(pnl_cartFooter, java.awt.BorderLayout.PAGE_END);
 
         splitPane.setLeftComponent(pnl_center);
@@ -595,7 +600,6 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
         pnl_infomation.setLayout(new java.awt.BorderLayout());
 
         pnl_orderDetail.setBorder(javax.swing.BorderFactory.createTitledBorder("Chi tiết hoá đơn:"));
-        pnl_orderDetail.setIgnoreRepaint(true);
         pnl_orderDetail.setLayout(new java.awt.BorderLayout());
 
         jScrollPane2.setViewportView(tbl_orderDetail);
@@ -761,20 +765,24 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
     private void btn_wfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_wfileActionPerformed
         // TODO add your handling code here:
         JFileChooser fileChooser = new JFileChooser();
-                fileChooser.setDialogTitle("Chọn đường dẫn và tên file");
-                fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fileChooser.setDialogTitle("Chọn đường dẫn và tên file");
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
-                // Hiển thị hộp thoại và kiểm tra nếu người dùng chọn OK
-                int userSelection = fileChooser.showSaveDialog(null);
-                if (userSelection == JFileChooser.APPROVE_OPTION) {
-                    // Lấy đường dẫn và tên file được chọn
-                    File fileToSave = fileChooser.getSelectedFile();
-                    String filePath = fileToSave.getAbsolutePath();
+        // Hiển thị hộp thoại và kiểm tra nếu người dùng chọn OK
+        int userSelection = fileChooser.showSaveDialog(null);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            // Lấy đường dẫn và tên file được chọn
+            File fileToSave = fileChooser.getSelectedFile();
+            String filePath = fileToSave.getAbsolutePath();
 
-                    // Gọi phương thức để tạo file Excel với đường dẫn và tên file đã chọn
-                    createExcel(bus.getAll(), filePath+".xlsx");
-                }
+            // Gọi phương thức để tạo file Excel với đường dẫn và tên file đã chọn
+            createExcel(bus.getAll(), filePath + ".xlsx");
+        }
     }//GEN-LAST:event_btn_wfileActionPerformed
+
+    private void btn_viewPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_viewPDFActionPerformed
+        viewPDFFile();
+    }//GEN-LAST:event_btn_viewPDFActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -782,6 +790,7 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
     private javax.swing.JButton btn_previous;
     private javax.swing.JButton btn_refresh;
     private javax.swing.JButton btn_search;
+    private javax.swing.JButton btn_viewPDF;
     private javax.swing.JButton btn_wfile;
     private javax.swing.JComboBox<String> cmb_orderPriceFilter;
     private com.toedter.calendar.JDateChooser jDateChooser1;
