@@ -11,7 +11,6 @@ import com.itextpdf.text.Font;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
-import com.itextpdf.text.TabStop;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -141,7 +140,7 @@ public class OrderPrinter {
         int scaledWidth = (int) Math.round(originalWidth * ratio);
         int scaledHeight = (int) Math.round(originalHeight * ratio);
 
-        BufferedImage resizedImage = new BufferedImage(scaledWidth, scaledHeight, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage resizedImage = new BufferedImage(scaledWidth, scaledHeight, BufferedImage.SCALE_SMOOTH);
         Graphics2D g2d = resizedImage.createGraphics();
         g2d.drawImage(originalImage, 0, 0, scaledWidth, scaledHeight, null);
         g2d.dispose();
@@ -159,6 +158,7 @@ public class OrderPrinter {
         try {
             //Create Document instance.
             Document document = new Document();
+            document.setMargins(16, 16, 32, 24);
 
             //Create OutputStream instance.
             OutputStream outputStream
@@ -172,18 +172,24 @@ public class OrderPrinter {
             document.open();
             BaseFont bf = BaseFont.createFont(FONT, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 //            Header
-            Font headingFont = new Font(bf, 14, Font.BOLD);
-            Font subHeadingFont = new Font(bf, 13, Font.BOLD);
-            Font font = new Font(bf, 12);
-            Font fontStrikeThrou = new Font(bf, 12, Font.STRIKETHRU);
+            Font headingFont = new Font(bf, 20, Font.BOLD);
+            Font subHeadingFont = new Font(bf, 18, Font.BOLD);
+            Font bold = new Font(bf, 16, Font.BOLD);
+            Font italic = new Font(bf, 16, Font.ITALIC);
+            Font font = new Font(bf, 16);
+            Font fontStrikeThrou = new Font(bf, 16, Font.STRIKETHRU);
             LineSeparator separator = new LineSeparator(font);
 
             Paragraph sofware = new Paragraph("OMEGA BOOK", headingFont);
-            Paragraph desc = new Paragraph("Hãy xem sách như là một loại Vitamin", font);
+            Paragraph desc = new Paragraph("\"Hãy xem sách như là một loại Vitamin\"", italic);
+            Paragraph store = new Paragraph("12 Nguyễn Văn Bảo, Phường 4, Gò Vấp, Hồ Chí Minh", bold);
+
             sofware.setAlignment(TextAlign.CENTER.ordinal());
             desc.setAlignment(TextAlign.CENTER.ordinal());
+            store.setAlignment(TextAlign.CENTER.ordinal());
             document.add(sofware);
             document.add(desc);
+            document.add(store);
             document.add(separator);
 
 //            Content
@@ -191,17 +197,6 @@ public class OrderPrinter {
             orderTitle.setAlignment(TextAlign.CENTER.ordinal());
             document.add(orderTitle);
             document.add(separator);
-
-//            Order barcode
-            // Convert the BufferedImage to a byte array
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageIO.write(BarcodeGenerator.generateBarcode(order.getOrderID()), "PNG", baos);
-            byte[] bytes = resizeImage(baos.toByteArray(), 200, 100);
-//            byte[] bytes = baos.toByteArray();
-            // Create an Image from the byte array
-            Image image = Image.getInstance(bytes);
-            image.setAlignment(1);
-            document.add(image);
 
 //            Order info
             document.add(new Paragraph(String.format("Số hóa đơn:  %s", order.getOrderID()), font));
@@ -253,6 +248,33 @@ public class OrderPrinter {
                 document.add(new Paragraph("Tiền khách đưa: " + getVND(order.getMoneyGiven()), font));
                 document.add(new Paragraph("Tiền trả lại: " + getVND(order.getMoneyGiven() - order.getTotalDue()), font));
             }
+
+//            Footer
+            document.add(separator);
+            Paragraph hotline = new Paragraph("Tổng đài góp ý/khiếu nại: 1800 0000", bold);
+            Paragraph note = new Paragraph("Lưu ý: OmegaBook chỉ xuất hóa đơn trong ngày, Quý khách vui lòng liên hệ thu ngân để được hỗ trợ nếu cần in lại hóa đơn.", italic);
+
+            Paragraph note2 = new Paragraph("Cảm ơn quý khách. Hẹn gặp lại", font);
+
+            hotline.setAlignment(TextAlign.CENTER.ordinal());
+            note.setAlignment(TextAlign.CENTER.ordinal());
+            note.setIndentationLeft(50);
+            note.setIndentationRight(50);
+            note2.setAlignment(TextAlign.CENTER.ordinal());
+
+            document.add(hotline);
+            document.add(note);
+            document.add(note2);
+
+//            Order barcode
+            // Convert the BufferedImage to a byte array
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(BarcodeGenerator.generateBarcode(order.getOrderID()), "PNG", baos);
+            byte[] bytes = resizeImage(baos.toByteArray(), 500, 200);
+            // Create an Image from the byte array
+            Image image = Image.getInstance(bytes);
+            image.setAlignment(1);
+            document.add(image);
 
             //Close document and outputStream.
             document.close();

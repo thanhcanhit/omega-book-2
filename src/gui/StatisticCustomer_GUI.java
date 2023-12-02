@@ -9,6 +9,8 @@ import org.knowm.xchart.PieChart;
 import org.knowm.xchart.PieChartBuilder;
 import org.knowm.xchart.XChartPanel;
 import bus.StatisticCustomer_BUS;
+import gui.customchart.piechart.ModelPolarAreaChart;
+import gui.customchart.piechart.PolarAreaChart;
 
 /**
  *
@@ -18,8 +20,8 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
 
     StatisticCustomer_BUS statisticCustomer_BUS = new StatisticCustomer_BUS();
     int data[] = statisticCustomer_BUS.filterCustomers();
-
-    private XChartPanel<PieChart> pieChartPanel;
+    
+    private final PolarAreaChart polarAreaChart = new PolarAreaChart();
 
     /**
      * Creates new form StatisticCustomer_GUI
@@ -27,8 +29,7 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
     public StatisticCustomer_GUI() {
         initComponents();
         initDataInfo();
-        pieChartPanel = new XChartPanel<>(initPieChart());
-        pnl_chart.add(pieChartPanel);
+        initPieChart();
     }
 
     public void initDataInfo() {
@@ -43,27 +44,28 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
 
     }
 
-    public PieChart initPieChart() {
+    public void initPieChart() {
 
         // Create Chart
-        PieChart chart = new PieChartBuilder().width(800).height(600).title("Biểu đồ biểu diễn tỉ lệ khách hàng theo nhóm tuổi và giới tính").build();
+        
+        polarAreaChart.setBackground(getBackground());
 
-        // Customize Chart
-        Color[] sliceColors = new Color[]{new Color(129, 143, 180), new Color(230, 105, 62), new Color(162, 197, 121), new Color(197, 168, 86), new Color(255, 223, 223), new Color(174, 222, 252)};
-        chart.getStyler().setPlotBackgroundColor(Color.WHITE);
-        chart.getStyler().setChartBackgroundColor(Color.WHITE);
-        chart.getStyler().setSeriesColors(sliceColors);
 
-        // Series
-        chart.addSeries("Nam dưới 18 tuổi", data[3]);
-        chart.addSeries("Nam từ 18 đến 40 tuổi", data[4]);
-        chart.addSeries("Nam trên 40 tuổi", data[5]);
-        chart.addSeries("Nữ dưới 18 tuổi", data[0]);
-        chart.addSeries("Nữ từ 18 đến 40 tuổi", data[1]);
-        chart.addSeries("Nữ trên 40 tuổi", data[2]);
+        polarAreaChart.addItem(new ModelPolarAreaChart(new Color(129, 143, 180), "Nam dưới 18 tuổi",data[3]));
 
-        return chart;
+        polarAreaChart.addItem(new ModelPolarAreaChart(new Color(230, 105, 62), "Nam từ 18 đến 40 tuổi",data[4]));
+        polarAreaChart.addItem(new ModelPolarAreaChart(new Color(162, 197, 121), "Nam trên 40 tuổi",data[5]));
+        polarAreaChart.addItem(new ModelPolarAreaChart(new Color(197, 168, 86), "Nữ dưới 18 tuổi",data[0]));
+        polarAreaChart.addItem(new ModelPolarAreaChart(new Color(255, 223, 223), "Nữ từ 18 đến 40 tuổi",data[1]));
+        polarAreaChart.addItem(new ModelPolarAreaChart(new Color(174, 222, 252), "Nữ trên 40 tuổi",data[2]));
+        polarAreaChart.start();
+        
     }
+
+        
+        
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -123,6 +125,7 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         pnl_chart.setPreferredSize(new java.awt.Dimension(1451, 30));
         pnl_chart.setLayout(new javax.swing.BoxLayout(pnl_chart, javax.swing.BoxLayout.LINE_AXIS));
         add(pnl_chart, java.awt.BorderLayout.CENTER);
+        pnl_chart.add(polarAreaChart);
 
         pnl_header.setLayout(new javax.swing.BoxLayout(pnl_header, javax.swing.BoxLayout.Y_AXIS));
 
@@ -347,7 +350,7 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
 
         pnl_inforByGroup.add(pnl_groupOfMale);
 
-        pnl_groupOfFemale.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Khách hàng nữ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(0, 102, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1))); // NOI18N
+        pnl_groupOfFemale.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Khách hàng nữ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Helvetica Neue", 0, 13), new java.awt.Color(0, 102, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1))); // NOI18N
         pnl_groupOfFemale.setMaximumSize(new java.awt.Dimension(152482, 200));
         pnl_groupOfFemale.setMinimumSize(new java.awt.Dimension(46, 119));
         pnl_groupOfFemale.setPreferredSize(new java.awt.Dimension(1467, 119));

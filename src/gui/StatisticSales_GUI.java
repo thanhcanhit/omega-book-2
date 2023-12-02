@@ -20,7 +20,7 @@ import utilities.FormatNumber;
  */
 public final class StatisticSales_GUI extends javax.swing.JPanel {
 
-    private XChartPanel<PieChart> pieChartPanel;
+
     private final StatisticSales_BUS bus = new StatisticSales_BUS();
     private final PolarAreaChart polarAreaChart = new PolarAreaChart();
 
@@ -62,7 +62,6 @@ public final class StatisticSales_GUI extends javax.swing.JPanel {
             if ("year".equals(evt.getPropertyName())) {
                 int month = month_statisticSales.getMonth();
                 int year = year_statisticSales.getYear();
-                pnl_productTypeStatistic.remove(pieChartPanel);
                 polarAreaChart.clear();
                 getPieChart();
 //                pieChartPanel = new XChartPanel<>(getPieChart());

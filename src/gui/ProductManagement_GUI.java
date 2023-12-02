@@ -6,6 +6,13 @@ package gui;
 
 import bus.ProductManagement_BUS;
 import com.formdev.flatlaf.FlatClientProperties;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import entity.Book;
 import entity.Brand;
 import entity.Product;
@@ -14,14 +21,20 @@ import enums.BookCategory;
 import enums.BookType;
 import enums.StationeryType;
 import enums.Type;
+import java.awt.Desktop;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -37,6 +50,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumnModel;
+<<<<<<< HEAD
 import java.io.FileOutputStream;
 import java.util.Date;
 import main.Application;
@@ -50,6 +64,10 @@ import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+=======
+import utilities.BarcodeGenerator;
+import static utilities.OrderPrinter.FONT;
+>>>>>>> 52a69be1550d9a35fd5adda8df673199028989fa
 
 /**
  *
@@ -77,7 +95,10 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
     private Product currentProduct = null;
     private int currentPage;
     private int lastPage;
+<<<<<<< HEAD
     private ArrayList<Product> listExport = new ArrayList<>();
+=======
+>>>>>>> 52a69be1550d9a35fd5adda8df673199028989fa
 
     public ProductManagement_GUI() {
         initComponents();
@@ -344,6 +365,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         btn_previous = new javax.swing.JButton();
         lbl_pageNumber = new javax.swing.JLabel();
         btn_next = new javax.swing.JButton();
+        btn_generateBarcode = new javax.swing.JButton();
         pnl_right = new javax.swing.JPanel();
         pnl_control = new javax.swing.JPanel();
         btn_clear = new javax.swing.JButton();
@@ -700,6 +722,14 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
             }
         });
         pnl_cartFooter.add(btn_next);
+
+        btn_generateBarcode.setText("Tạo file barcode");
+        btn_generateBarcode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_generateBarcodeActionPerformed(evt);
+            }
+        });
+        pnl_cartFooter.add(btn_generateBarcode);
 
         pnl_cart.add(pnl_cartFooter, java.awt.BorderLayout.PAGE_END);
 
@@ -1357,6 +1387,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btn_addActionPerformed
 
+<<<<<<< HEAD
     private void btn_exportExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_exportExcelActionPerformed
         // TODO add your handling code here:
         pnl_exportOption.setVisible(true);
@@ -1391,11 +1422,73 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Chọn đường dẫn và tên file");
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+=======
+    private void generateBarcodeFileForProduct(String filepath, String productID, String productName) throws FileNotFoundException, DocumentException, IOException, Exception {
+        filepath += ".pdf";
+        //Create Document instance.
+        Document document = new Document();
+
+        //Create OutputStream instance.
+        OutputStream outputStream
+                = new FileOutputStream(new File(filepath));
+
+        //Create PDFWriter instance.
+        PdfWriter writer = PdfWriter.getInstance(document, outputStream);
+        writer.setLanguage("VN");
+        //Open the document.
+        document.open();
+        document.setMargins(0, 0, 0, 0);
+
+        BaseFont bf = BaseFont.createFont(FONT, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+        Font font = new Font(bf, 12);
+
+        document.add(new Paragraph(String.format("Mã sản phẩm:  %s - %s", productID, productName), font));
+
+//        table
+        PdfPTable table = new PdfPTable(4);
+        table.setSpacingBefore(20);
+        table.setWidthPercentage(100);
+        table.setSplitRows(true);
+
+//            generate barcode
+        // Convert the BufferedImage to a byte array
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(BarcodeGenerator.generateBarcode(productID), "PNG", baos);
+        byte[] bytes = baos.toByteArray();
+
+        // Create an Image from the byte array
+        com.itextpdf.text.Image image = com.itextpdf.text.Image.getInstance(bytes);
+
+//        Tạo 100 mã
+        int i = 0;
+        while (i < 100) {
+            table.addCell(image);
+            i++;
+        }
+
+        document.add(table);
+        //Close document and outputStream.
+        document.close();
+        outputStream.close();
+
+        System.out.println("Pdf created successfully.");
+        Desktop d = Desktop.getDesktop();
+        d.open(new File(filepath));
+    }
+
+    private void btn_generateBarcodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_generateBarcodeActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Chọn đường dẫn và tên file");
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+        // Hiển thị hộp thoại và kiểm tra nếu người dùng chọn OK
+>>>>>>> 52a69be1550d9a35fd5adda8df673199028989fa
         int userSelection = fileChooser.showSaveDialog(null);
         if (userSelection == JFileChooser.APPROVE_OPTION) {
             // Lấy đường dẫn và tên file được chọn
             File fileToSave = fileChooser.getSelectedFile();
             String filePath = fileToSave.getAbsolutePath();
+<<<<<<< HEAD
             if (cbo_typeEx.getSelectedIndex() == 0) {
                 createExcelAll(list, filePath + ".xlsx");
             }
@@ -1415,6 +1508,26 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 
         // Gọi phương thức để tạo file Excel với đường dẫn và tên file đã chọn
     }//GEN-LAST:event_btn_exportActionPerformed
+=======
+
+            try {
+                int row = tbl_products.getSelectedRow();
+
+                if (row == -1) {
+                    Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng chọn sản phẩm muốn tạo mã");
+                    return;
+                }
+
+                String id = tblModel_products.getValueAt(row, 0).toString();
+                String name = tblModel_products.getValueAt(row, 1).toString();
+
+                generateBarcodeFileForProduct(filePath, id, name);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_btn_generateBarcodeActionPerformed
+>>>>>>> 52a69be1550d9a35fd5adda8df673199028989fa
 
     public void clearAllValue() {
         JTextField[] txt_list = new JTextField[]{txt_productId, txt_productCostPrice, txt_productPrice, txt_productInventory, txt_productVAT, txt_bookAuthor, txt_bookLanguage, txt_bookPublishDate, txt_bookPublisher, txt_bookQuantityPage, txt_bookTranslator, txt_stationeryColor, txt_stationeryOrigin, txt_stationeryWeight};
@@ -1916,6 +2029,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
     private javax.swing.JButton btn_export;
     private javax.swing.JButton btn_exportExcel;
     private javax.swing.JButton btn_filter;
+    private javax.swing.JButton btn_generateBarcode;
     private javax.swing.JButton btn_next;
     private javax.swing.JButton btn_previous;
     private javax.swing.JButton btn_reset;
