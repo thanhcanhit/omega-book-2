@@ -6,7 +6,6 @@ package entity;
 
 import java.util.Date;
 import java.util.Objects;
-
 /**
  *
  * @author Hoàng Khang
@@ -144,7 +143,7 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "Employee{" + "employeeID=" + employeeID + ", citizenIdentification=" + citizenIdentification + ", role=" + role + ", status=" + status + ", name=" + name + ", phoneNumber=" + phoneNumber + ", gender=" + gender + ", dateOfBirth=" + dateOfBirth + ", address=" + address + ", store=" + store + '}';
+        return employeeID +" "+ name;
     }
 
     

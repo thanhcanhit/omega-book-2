@@ -118,13 +118,10 @@ import utilities.SVGIcon;
 import org.apache.poi.ss.usermodel.Font;
 import raven.toast.Notifications;
 
- 
-
 /**
  *
  * @author KienTran
  */
-
 public final class OrderManagement_GUI extends javax.swing.JPanel {
 
     private OrderManagement_BUS bus;
@@ -180,7 +177,7 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
         this.lastPage = bus.getLastPage();
         renderCurrentPage();
 
-//        Gắn sự kiện xem lại hóa đơn pdf
+//      Gắn sự kiện xem lại hóa đơn pdf
         tbl_order.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -267,11 +264,7 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
         return true;
     }
 
-    
-   
-    
-    
-   public static void createExcel(ArrayList<Order> list, String filePath) {
+    public static void createExcel(ArrayList<Order> list, String filePath) {
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Order Data");
 
@@ -299,7 +292,7 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
 
         // Tạo header row
         Row headerRow = sheet.createRow(2);
-        String[] columns = {"Mã hoá đơn"," Mã nhân viên", "Tên khách hàng"," Ngày mua hàng", "Số điện thoại khách hàng", "Tổng tiền" };
+        String[] columns = {"Mã hoá đơn", " Mã nhân viên", "Tên khách hàng", " Ngày mua hàng", "Số điện thoại khách hàng", "Tổng tiền"};
 
         for (int i = 0; i < columns.length; i++) {
             Cell cell = headerRow.createCell(i);
@@ -323,7 +316,7 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
         try (FileOutputStream outputStream = new FileOutputStream(filePath)) {
             workbook.write(outputStream);
             Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đã tạo file thành công !");
-                    
+
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -334,9 +327,6 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
             }
         }
     }
-    
- 
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -761,19 +751,19 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
     private void btn_wfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_wfileActionPerformed
         // TODO add your handling code here:
         JFileChooser fileChooser = new JFileChooser();
-                fileChooser.setDialogTitle("Chọn đường dẫn và tên file");
-                fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fileChooser.setDialogTitle("Chọn đường dẫn và tên file");
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
-                // Hiển thị hộp thoại và kiểm tra nếu người dùng chọn OK
-                int userSelection = fileChooser.showSaveDialog(null);
-                if (userSelection == JFileChooser.APPROVE_OPTION) {
-                    // Lấy đường dẫn và tên file được chọn
-                    File fileToSave = fileChooser.getSelectedFile();
-                    String filePath = fileToSave.getAbsolutePath();
+        // Hiển thị hộp thoại và kiểm tra nếu người dùng chọn OK
+        int userSelection = fileChooser.showSaveDialog(null);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            // Lấy đường dẫn và tên file được chọn
+            File fileToSave = fileChooser.getSelectedFile();
+            String filePath = fileToSave.getAbsolutePath();
 
-                    // Gọi phương thức để tạo file Excel với đường dẫn và tên file đã chọn
-                    createExcel(bus.getAll(), filePath+".xlsx");
-                }
+            // Gọi phương thức để tạo file Excel với đường dẫn và tên file đã chọn
+            createExcel(bus.getAll(), filePath + ".xlsx");
+        }
     }//GEN-LAST:event_btn_wfileActionPerformed
 
 

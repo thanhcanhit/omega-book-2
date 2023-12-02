@@ -17,6 +17,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import raven.toast.Notifications;
+import utilities.AcountingVoucherPrinter;
 
 /**
  *
@@ -29,6 +31,10 @@ public class StatementAcounting_BUS {
     private Employee_DAO employee_DAO = new Employee_DAO();
     private Order_DAO order_DAO = new Order_DAO();
     private StatementCashCount_BUS statementCashCount_BUS = new StatementCashCount_BUS();
+    
+    public  AcountingVoucher getAcountingByID(String id){
+        return acountingVoucher_DAO.getOne(id);
+    }
 
     public AcountingVoucher getLastAcounting() {
         Date date = new Date();
@@ -76,14 +82,16 @@ public class StatementAcounting_BUS {
     public void createAcountingVoucher(CashCountSheet cashCountSheet, Date end) {
         Date start = getLastAcounting().getEndedDate();
         ArrayList<Order> list = getAllOrderInAcounting(start, end);
+        String id = generateID(end);
 
-        AcountingVoucher acountingVoucher = new AcountingVoucher(generateID(end), start, end, cashCountSheet, list);
+        AcountingVoucher acountingVoucher = new AcountingVoucher(id, start, end, cashCountSheet, list);
         cashCountSheet_DAO.create(cashCountSheet);
         acountingVoucher_DAO.create(acountingVoucher);
         
         for (Order order : list) {
             order_DAO.updateOrderAcountingVoucher(order.getOrderID(), acountingVoucher.getAcountingVoucherID());
         }
+        generatePDF(acountingVoucher_DAO.getOne(id));
     }
 
     public Employee getEmployeeByID(String id) {
@@ -128,5 +136,15 @@ public class StatementAcounting_BUS {
         return sum;
     }
     
-    
+      public void generatePDF(AcountingVoucher acounting) {
+//        tạo file pdf và hiển thị + in file pdf đó
+        AcountingVoucherPrinter printer = new AcountingVoucherPrinter(acounting);
+        printer.generatePDF();
+        AcountingVoucherPrinter.PrintStatus status = printer.printFile();
+        if (status == AcountingVoucherPrinter.PrintStatus.NOT_FOUND_FILE) {
+            Notifications.getInstance().show(Notifications.Type.ERROR, "Lỗi không thể in hóa đơn: Không tìm thấy file");
+        } else if (status == AcountingVoucherPrinter.PrintStatus.NOT_FOUND_PRINTER) {
+            Notifications.getInstance().show(Notifications.Type.ERROR, "Lỗi không thể in hóa đơn: Không tìm thấy máy in");
+        }
+    }
 }

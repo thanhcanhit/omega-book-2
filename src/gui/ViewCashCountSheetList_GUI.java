@@ -12,6 +12,7 @@ import java.util.Date;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import utilities.CashCountSheetPrinter;
 
 /**
  *
@@ -234,6 +235,11 @@ public class ViewCashCountSheetList_GUI extends javax.swing.JPanel {
         add(pnl_header, java.awt.BorderLayout.PAGE_START);
 
         tbl_cashCountSheetList.setModel(tblModel_cashCountSheetList);
+        tbl_cashCountSheetList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_cashCountSheetListMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbl_cashCountSheetList);
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -243,6 +249,25 @@ public class ViewCashCountSheetList_GUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void tbl_cashCountSheetListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_cashCountSheetListMouseClicked
+        // TODO add your handling code here: // Lấy chỉ số dòng được chọn
+        int selectedRow = tbl_cashCountSheetList.getSelectedRow();
+
+        // Kiểm tra xem có dòng nào được chọn không
+        if (selectedRow != -1) {
+            // Lấy giá trị ô đầu tiên trong dòng được chọn
+            Object firstCellValue = tbl_cashCountSheetList.getValueAt(selectedRow, 0);
+
+            // In giá trị ô đầu tiên ra console hoặc thực hiện các thao tác khác với giá trị này
+            GeneratePDF(cashCountSheet_BUS.getOne((String) firstCellValue));
+        }
+    }//GEN-LAST:event_tbl_cashCountSheetListMouseClicked
+
+        public void GeneratePDF(CashCountSheet cash) {
+        CashCountSheetPrinter printer = new CashCountSheetPrinter(cash);
+        printer.generatePDF();
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_filter;

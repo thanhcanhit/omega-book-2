@@ -7,6 +7,7 @@ package gui;
 import bus.StatementCashCount_BUS;
 import com.formdev.flatlaf.FlatClientProperties;
 import entity.CashCount;
+import entity.CashCountSheet;
 import entity.Employee;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,7 +21,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import main.Application;
 import raven.toast.Notifications;
+import utilities.CashCountSheetPrinter;
 import utilities.FormatNumber;
+import utilities.OrderPrinter;
 
 /**
  *
@@ -39,6 +42,7 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
         initTableModel();
         initComponents();
         initInfo(employee1);
+//      
         alterTable();
 
         tbl_cashCounts.getModel().addTableModelListener(new TableModelListener() {
@@ -66,6 +70,8 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
         });
 
     }
+
+
 
     public void initInfo(Employee e) {
         createAt = new Date();

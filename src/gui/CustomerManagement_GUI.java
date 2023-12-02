@@ -32,6 +32,7 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import raven.toast.Notifications;
+import utilities.SVGIcon;
 
 /**
  *
@@ -48,7 +49,6 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
     public CustomerManagement_GUI() {
         initTableModel();
         initComponents();
-
         alterTable();
         renderCustomerTable(customer_BUS.getAllCustomer());
         tbl_customer.getSelectionModel().addListSelectionListener((e) -> {
@@ -151,7 +151,7 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
             row.createCell(0).setCellValue(customer.getCustomerID());
             row.createCell(1).setCellValue(customer.getName());
             row.createCell(2).setCellValue(customer.getScore());
-            row.createCell(3).setCellValue(customer.isGender()?"Nam":"Nữ");
+            row.createCell(3).setCellValue(customer.isGender() ? "Nam" : "Nữ");
             row.createCell(4).setCellValue(customer.getDateOfBirth().toString()); // Cần xử lý định dạng ngày tháng
             row.createCell(5).setCellValue(customer.getPhoneNumber());
             row.createCell(6).setCellValue(customer.getRank());
@@ -161,7 +161,6 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         // Ghi vào file
         try (FileOutputStream outputStream = new FileOutputStream(filePath)) {
             workbook.write(outputStream);
-            System.out.println("File Excel được tạo thành công!");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -180,16 +179,15 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         grp_gender = new javax.swing.ButtonGroup();
         pnl_searchCustomer = new javax.swing.JPanel();
-        pnl_searchForPhone = new javax.swing.JPanel();
-        txt_searchForPhone = new javax.swing.JTextField();
-        btn_search = new javax.swing.JButton();
-        btn_reload = new javax.swing.JButton();
         pnl_filterCustomer = new javax.swing.JPanel();
+        pnl_searchForPhone = new javax.swing.JPanel();
+        lbl_filterNumberPhone = new javax.swing.JLabel();
+        txt_searchForPhone = new javax.swing.JTextField();
         pnl_filterGender = new javax.swing.JPanel();
         lbl_filterGender = new javax.swing.JLabel();
         cbo_filterGender = new javax.swing.JComboBox<>();
@@ -200,6 +198,7 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         lbl_filterGender1 = new javax.swing.JLabel();
         cbo_filterAge = new javax.swing.JComboBox<>();
         btn_filter = new javax.swing.JButton();
+        btn_reloadList = new javax.swing.JButton();
         jSplitPane1 = new javax.swing.JSplitPane();
         pnl_info = new javax.swing.JPanel();
         pnl_infoBody = new javax.swing.JPanel();
@@ -235,6 +234,7 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         btn_update = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         btn_create = new javax.swing.JButton();
+        btn_exportExcel = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_customer = new javax.swing.JTable();
 
@@ -244,41 +244,33 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         pnl_searchCustomer.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 50, 20, 50));
         pnl_searchCustomer.setLayout(new javax.swing.BoxLayout(pnl_searchCustomer, javax.swing.BoxLayout.LINE_AXIS));
 
+        pnl_filterCustomer.setLayout(new javax.swing.BoxLayout(pnl_filterCustomer, javax.swing.BoxLayout.X_AXIS));
+
         pnl_searchForPhone.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 50));
+        pnl_searchForPhone.setMinimumSize(new java.awt.Dimension(195, 30));
+        pnl_searchForPhone.setPreferredSize(new java.awt.Dimension(181, 30));
         pnl_searchForPhone.setLayout(new javax.swing.BoxLayout(pnl_searchForPhone, javax.swing.BoxLayout.X_AXIS));
+
+        lbl_filterNumberPhone.setFont(lbl_filterNumberPhone.getFont().deriveFont((float)14));
+        lbl_filterNumberPhone.setText("Số điện thoại:");
+        lbl_filterNumberPhone.setMinimumSize(new java.awt.Dimension(100, 20));
+        lbl_filterNumberPhone.setPreferredSize(new java.awt.Dimension(100, 20));
+        pnl_searchForPhone.add(lbl_filterNumberPhone);
 
         txt_searchForPhone.setPreferredSize(new java.awt.Dimension(50, 22));
         txt_searchForPhone.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Số điện thoại người dùng");
         pnl_searchForPhone.add(txt_searchForPhone);
 
-        btn_search.setText("Tìm kiếm");
-        btn_search.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_searchActionPerformed(evt);
-            }
-        });
-        pnl_searchForPhone.add(btn_search);
-
-        btn_reload.setText("Làm mới");
-        btn_reload.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_reloadActionPerformed(evt);
-            }
-        });
-        pnl_searchForPhone.add(btn_reload);
-
-        pnl_searchCustomer.add(pnl_searchForPhone);
-
-        pnl_filterCustomer.setLayout(new javax.swing.BoxLayout(pnl_filterCustomer, javax.swing.BoxLayout.X_AXIS));
+        pnl_filterCustomer.add(pnl_searchForPhone);
 
         pnl_filterGender.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 10));
         pnl_filterGender.setLayout(new javax.swing.BoxLayout(pnl_filterGender, javax.swing.BoxLayout.LINE_AXIS));
 
-        lbl_filterGender.setFont(lbl_filterGender.getFont().deriveFont((float) 14));
+        lbl_filterGender.setFont(lbl_filterGender.getFont().deriveFont((float)14));
         lbl_filterGender.setText("Giới tính: ");
         pnl_filterGender.add(lbl_filterGender);
 
-        cbo_filterGender.setFont(cbo_filterGender.getFont().deriveFont((float) 14));
+        cbo_filterGender.setFont(cbo_filterGender.getFont().deriveFont((float)14));
         cbo_filterGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Nam", "Nữ" }));
         pnl_filterGender.add(cbo_filterGender);
 
@@ -287,14 +279,13 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         pnl_filterRank.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 20));
         pnl_filterRank.setLayout(new javax.swing.BoxLayout(pnl_filterRank, javax.swing.BoxLayout.LINE_AXIS));
 
-        lbl_filterRank.setFont(lbl_filterRank.getFont().deriveFont((float) 14));
+        lbl_filterRank.setFont(lbl_filterRank.getFont().deriveFont((float)14));
         lbl_filterRank.setText("Hạng: ");
         lbl_filterRank.setMaximumSize(new java.awt.Dimension(400, 20));
         pnl_filterRank.add(lbl_filterRank);
 
-        cbo_filterRank.setFont(cbo_filterRank.getFont().deriveFont((float) 14));
-        cbo_filterRank.setModel(new javax.swing.DefaultComboBoxModel<>(
-                new String[] { "Tất cả", "Chưa có", "Bạc", "Vàng", "Kim cương" }));
+        cbo_filterRank.setFont(cbo_filterRank.getFont().deriveFont((float)14));
+        cbo_filterRank.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Chưa có", "Bạc", "Vàng", "Kim cương" }));
         cbo_filterRank.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbo_filterRankActionPerformed(evt);
@@ -307,14 +298,13 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         pnl_filterAge.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 10));
         pnl_filterAge.setLayout(new javax.swing.BoxLayout(pnl_filterAge, javax.swing.BoxLayout.LINE_AXIS));
 
-        lbl_filterGender1.setFont(lbl_filterGender1.getFont().deriveFont((float) 14));
+        lbl_filterGender1.setFont(lbl_filterGender1.getFont().deriveFont((float)14));
         lbl_filterGender1.setText("Độ tuổi: ");
         lbl_filterGender1.setMaximumSize(new java.awt.Dimension(40, 20));
         pnl_filterAge.add(lbl_filterGender1);
 
-        cbo_filterAge.setFont(cbo_filterAge.getFont().deriveFont((float) 14));
-        cbo_filterAge.setModel(new javax.swing.DefaultComboBoxModel<>(
-                new String[] { "Tất cả", "Dưới 18 tuổi", "Từ 18 đến 40 tuổi", "Trên 40 tuổi" }));
+        cbo_filterAge.setFont(cbo_filterAge.getFont().deriveFont((float)14));
+        cbo_filterAge.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Dưới 18 tuổi", "Từ 18 đến 40 tuổi", "Trên 40 tuổi" }));
         cbo_filterAge.setToolTipText("");
         pnl_filterAge.add(cbo_filterAge);
 
@@ -323,6 +313,7 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         pnl_searchCustomer.add(pnl_filterCustomer);
 
         btn_filter.setText("Lọc");
+        btn_filter.setIcon(SVGIcon.getSVGIcon("imgs/public/filter.svg"));
         btn_filter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_filterActionPerformed(evt);
@@ -330,15 +321,16 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         });
         pnl_searchCustomer.add(btn_filter);
 
+        btn_reloadList.setIcon(SVGIcon.getSVGIcon("imgs/public/reload.svg"));
+        pnl_searchCustomer.add(btn_reloadList);
+
         add(pnl_searchCustomer, java.awt.BorderLayout.NORTH);
 
         jSplitPane1.setResizeWeight(0.95);
 
-        pnl_info.setBorder(javax.swing.BorderFactory.createCompoundBorder(
-                javax.swing.BorderFactory.createTitledBorder("Thông tin khách hàng"),
-                javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-        pnl_info.setMinimumSize(new java.awt.Dimension(200, 337));
-        pnl_info.setPreferredSize(new java.awt.Dimension(500, 464));
+        pnl_info.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin khách hàng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185)), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5))); // NOI18N
+        pnl_info.setMinimumSize(new java.awt.Dimension(400, 337));
+        pnl_info.setPreferredSize(new java.awt.Dimension(400, 464));
         pnl_info.setLayout(new java.awt.BorderLayout());
 
         pnl_infoBody.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
@@ -350,16 +342,15 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         pnl_customerID.setPreferredSize(new java.awt.Dimension(200, 30));
         pnl_customerID.setLayout(new javax.swing.BoxLayout(pnl_customerID, javax.swing.BoxLayout.LINE_AXIS));
 
-        lbl_customerID.setFont(lbl_customerID.getFont().deriveFont((float) 16));
+        lbl_customerID.setFont(lbl_customerID.getFont().deriveFont((float)16));
         lbl_customerID.setText("Mã:");
         lbl_customerID.setPreferredSize(new java.awt.Dimension(150, 16));
         pnl_customerID.add(lbl_customerID);
 
         txt_customerID.setEditable(false);
-        txt_customerID.setFont(txt_customerID.getFont().deriveFont((float) 16));
+        txt_customerID.setFont(txt_customerID.getFont().deriveFont((float)16));
         txt_customerID.setToolTipText("");
-        txt_customerID.setBorder(javax.swing.BorderFactory.createCompoundBorder(null,
-                javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 0)));
+        txt_customerID.setBorder(javax.swing.BorderFactory.createCompoundBorder(null, javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 0)));
         txt_customerID.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         txt_customerID.setFocusable(false);
         txt_customerID.setMaximumSize(new java.awt.Dimension(2147483647, 40));
@@ -380,12 +371,12 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         pnl_name.setPreferredSize(new java.awt.Dimension(200, 30));
         pnl_name.setLayout(new javax.swing.BoxLayout(pnl_name, javax.swing.BoxLayout.X_AXIS));
 
-        lbl_name.setFont(lbl_name.getFont().deriveFont((float) 16));
+        lbl_name.setFont(lbl_name.getFont().deriveFont((float)16));
         lbl_name.setText("Họ và tên:");
         lbl_name.setPreferredSize(new java.awt.Dimension(150, 16));
         pnl_name.add(lbl_name);
 
-        txt_name.setFont(txt_name.getFont().deriveFont((float) 16));
+        txt_name.setFont(txt_name.getFont().deriveFont((float)16));
         txt_name.setMaximumSize(new java.awt.Dimension(2147483647, 40));
         txt_name.setPreferredSize(new java.awt.Dimension(100, 30));
         pnl_name.add(txt_name);
@@ -398,7 +389,7 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         pnl_dateOfBirth.setPreferredSize(new java.awt.Dimension(200, 30));
         pnl_dateOfBirth.setLayout(new javax.swing.BoxLayout(pnl_dateOfBirth, javax.swing.BoxLayout.LINE_AXIS));
 
-        lbl_dateOfBirth.setFont(lbl_dateOfBirth.getFont().deriveFont((float) 16));
+        lbl_dateOfBirth.setFont(lbl_dateOfBirth.getFont().deriveFont((float)16));
         lbl_dateOfBirth.setText("Ngày sinh:");
         lbl_dateOfBirth.setPreferredSize(new java.awt.Dimension(150, 16));
         pnl_dateOfBirth.add(lbl_dateOfBirth);
@@ -417,7 +408,7 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         pnl_gender.setPreferredSize(new java.awt.Dimension(200, 30));
         pnl_gender.setLayout(new javax.swing.BoxLayout(pnl_gender, javax.swing.BoxLayout.LINE_AXIS));
 
-        lbl_gender.setFont(lbl_gender.getFont().deriveFont((float) 16));
+        lbl_gender.setFont(lbl_gender.getFont().deriveFont((float)16));
         lbl_gender.setText("Giới tính:");
         lbl_gender.setPreferredSize(new java.awt.Dimension(150, 16));
         pnl_gender.add(lbl_gender);
@@ -426,13 +417,13 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         pnl_genderGr.setLayout(new javax.swing.BoxLayout(pnl_genderGr, javax.swing.BoxLayout.X_AXIS));
 
         grp_gender.add(rad_men);
-        rad_men.setFont(rad_men.getFont().deriveFont((float) 16));
+        rad_men.setFont(rad_men.getFont().deriveFont((float)16));
         rad_men.setSelected(true);
         rad_men.setText("Nam");
         pnl_genderGr.add(rad_men);
 
         grp_gender.add(rad_women);
-        rad_women.setFont(rad_women.getFont().deriveFont((float) 16));
+        rad_women.setFont(rad_women.getFont().deriveFont((float)16));
         rad_women.setText("Nữ");
         rad_women.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -451,12 +442,12 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         pnl_phoneNumber.setPreferredSize(new java.awt.Dimension(200, 30));
         pnl_phoneNumber.setLayout(new javax.swing.BoxLayout(pnl_phoneNumber, javax.swing.BoxLayout.LINE_AXIS));
 
-        lbl_phoneNumber.setFont(lbl_phoneNumber.getFont().deriveFont((float) 16));
+        lbl_phoneNumber.setFont(lbl_phoneNumber.getFont().deriveFont((float)16));
         lbl_phoneNumber.setText("Số điện thoại:");
         lbl_phoneNumber.setPreferredSize(new java.awt.Dimension(150, 16));
         pnl_phoneNumber.add(lbl_phoneNumber);
 
-        txt_phoneNumber.setFont(txt_phoneNumber.getFont().deriveFont((float) 16));
+        txt_phoneNumber.setFont(txt_phoneNumber.getFont().deriveFont((float)16));
         txt_phoneNumber.setMaximumSize(new java.awt.Dimension(2147483647, 40));
         txt_phoneNumber.setPreferredSize(new java.awt.Dimension(100, 30));
         pnl_phoneNumber.add(txt_phoneNumber);
@@ -469,14 +460,19 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         pnl_address.setPreferredSize(new java.awt.Dimension(200, 30));
         pnl_address.setLayout(new javax.swing.BoxLayout(pnl_address, javax.swing.BoxLayout.LINE_AXIS));
 
-        lbl_address.setFont(lbl_address.getFont().deriveFont((float) 16));
+        lbl_address.setFont(lbl_address.getFont().deriveFont((float)16));
         lbl_address.setText("Địa chỉ:");
         lbl_address.setPreferredSize(new java.awt.Dimension(150, 16));
         pnl_address.add(lbl_address);
 
-        txt_address.setFont(txt_address.getFont().deriveFont((float) 16));
+        txt_address.setFont(txt_address.getFont().deriveFont((float)16));
         txt_address.setMaximumSize(new java.awt.Dimension(2147483647, 40));
         txt_address.setPreferredSize(new java.awt.Dimension(100, 30));
+        txt_address.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_addressActionPerformed(evt);
+            }
+        });
         pnl_address.add(txt_address);
 
         pnl_infoBody.add(pnl_address);
@@ -487,13 +483,13 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         pnl_score.setPreferredSize(new java.awt.Dimension(200, 30));
         pnl_score.setLayout(new javax.swing.BoxLayout(pnl_score, javax.swing.BoxLayout.LINE_AXIS));
 
-        lbl_score.setFont(lbl_score.getFont().deriveFont((float) 16));
+        lbl_score.setFont(lbl_score.getFont().deriveFont((float)16));
         lbl_score.setText("Điểm thành viên:");
         lbl_score.setPreferredSize(new java.awt.Dimension(150, 16));
         pnl_score.add(lbl_score);
 
         txt_score.setEditable(false);
-        txt_score.setFont(txt_score.getFont().deriveFont((float) 16));
+        txt_score.setFont(txt_score.getFont().deriveFont((float)16));
         txt_score.setFocusable(false);
         txt_score.setMaximumSize(new java.awt.Dimension(2147483647, 40));
         txt_score.setPreferredSize(new java.awt.Dimension(100, 30));
@@ -507,13 +503,13 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         pnl_rank.setPreferredSize(new java.awt.Dimension(200, 30));
         pnl_rank.setLayout(new javax.swing.BoxLayout(pnl_rank, javax.swing.BoxLayout.LINE_AXIS));
 
-        lbl_rank.setFont(lbl_rank.getFont().deriveFont((float) 16));
+        lbl_rank.setFont(lbl_rank.getFont().deriveFont((float)16));
         lbl_rank.setText("Hạng thành viên:");
         lbl_rank.setPreferredSize(new java.awt.Dimension(150, 16));
         pnl_rank.add(lbl_rank);
 
         txt_rank.setEditable(false);
-        txt_rank.setFont(txt_rank.getFont().deriveFont((float) 16));
+        txt_rank.setFont(txt_rank.getFont().deriveFont((float)16));
         txt_rank.setFocusable(false);
         txt_rank.setMaximumSize(new java.awt.Dimension(2147483647, 40));
         txt_rank.setPreferredSize(new java.awt.Dimension(100, 30));
@@ -530,9 +526,8 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         jPanel9.setPreferredSize(new java.awt.Dimension(200, 50));
         jPanel9.setLayout(new java.awt.GridLayout(1, 2));
 
-        btn_reloadForm.setFont(
-                btn_reloadForm.getFont().deriveFont(btn_reloadForm.getFont().getStyle() | java.awt.Font.BOLD, 14));
-        btn_reloadForm.setText("Làm mới");
+        btn_reloadForm.setFont(btn_reloadForm.getFont().deriveFont(btn_reloadForm.getFont().getStyle() | java.awt.Font.BOLD, 14));
+        btn_reloadForm.setText("LÀM MỚI");
         btn_reloadForm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_reloadFormActionPerformed(evt);
@@ -541,9 +536,8 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         jPanel9.add(btn_reloadForm);
 
         btn_update.setFont(btn_update.getFont().deriveFont(btn_update.getFont().getStyle() | java.awt.Font.BOLD, 14));
-        btn_update.setText("Cập nhật");
-        btn_update.putClientProperty(FlatClientProperties.STYLE,
-                "background: $Menu.background;" + "foreground: $Menu.foreground");
+        btn_update.setText("CẬP NHẬT");
+        btn_update.putClientProperty(FlatClientProperties.STYLE, "background: $Menu.background;"+"foreground: $Menu.foreground");
         btn_update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_updateActionPerformed(evt);
@@ -559,7 +553,7 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         jPanel10.setLayout(new java.awt.GridLayout(1, 1));
 
         btn_create.setFont(btn_create.getFont().deriveFont(btn_create.getFont().getStyle() | java.awt.Font.BOLD, 14));
-        btn_create.setText("Thêm");
+        btn_create.setText("THÊM");
         btn_create.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_createActionPerformed(evt);
@@ -567,18 +561,26 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         });
         jPanel10.add(btn_create);
 
+        btn_exportExcel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_exportExcel.setText("XUẤT");
+        btn_exportExcel.setIcon(SVGIcon.getSVGIcon("imgs/public/excel.svg"));
+        btn_exportExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_exportExcelActionPerformed(evt);
+            }
+        });
+        jPanel10.add(btn_exportExcel);
+
         pnl_infoFooter.add(jPanel10);
 
         pnl_info.add(pnl_infoFooter, java.awt.BorderLayout.SOUTH);
 
         jSplitPane1.setRightComponent(pnl_info);
 
-        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách khách hàng",
-                javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION,
-                new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
-        jScrollPane1.setMinimumSize(new java.awt.Dimension(800, 41));
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách khách hàng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185))); // NOI18N
+        jScrollPane1.setMinimumSize(new java.awt.Dimension(900, 41));
 
-        tbl_customer.setFont(tbl_customer.getFont().deriveFont((float) 14));
+        tbl_customer.setFont(tbl_customer.getFont().deriveFont((float)14));
         tbl_customer.setModel(tblModel_customer);
         jScrollPane1.setViewportView(tbl_customer);
 
@@ -586,6 +588,28 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
 
         add(jSplitPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txt_addressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_addressActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_addressActionPerformed
+
+    private void btn_exportExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_exportExcelActionPerformed
+        // Hiển thị hộp thoại chọn file
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Chọn đường dẫn và tên file");
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+        // Hiển thị hộp thoại và kiểm tra nếu người dùng chọn OK
+        int userSelection = fileChooser.showSaveDialog(null);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            // Lấy đường dẫn và tên file được chọn
+            File fileToSave = fileChooser.getSelectedFile();
+            String filePath = fileToSave.getAbsolutePath();
+
+            // Gọi phương thức để tạo file Excel với đường dẫn và tên file đã chọn
+            createExcel(customer_BUS.getAllCustomer(), filePath + ".xlsx");
+        }
+    }//GEN-LAST:event_btn_exportExcelActionPerformed
 
     private void btn_searchActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_searchActionPerformed
         // TODO add your handling code here:
@@ -599,7 +623,6 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
             renderCustomerTable(list);
             txt_searchForPhone.setText("");
         }
-
     }// GEN-LAST:event_btn_searchActionPerformed
 
     private void cbo_filterRankActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cbo_filterRankActionPerformed
@@ -646,21 +669,7 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
 
     // ...
     private void btn_reloadFormActionPerformed(java.awt.event.ActionEvent evt) {
-        // Hiển thị hộp thoại chọn file
-                JFileChooser fileChooser = new JFileChooser();
-                fileChooser.setDialogTitle("Chọn đường dẫn và tên file");
-                fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
-                // Hiển thị hộp thoại và kiểm tra nếu người dùng chọn OK
-                int userSelection = fileChooser.showSaveDialog(null);
-                if (userSelection == JFileChooser.APPROVE_OPTION) {
-                    // Lấy đường dẫn và tên file được chọn
-                    File fileToSave = fileChooser.getSelectedFile();
-                    String filePath = fileToSave.getAbsolutePath();
-
-                    // Gọi phương thức để tạo file Excel với đường dẫn và tên file đã chọn
-                    createExcel(customer_BUS.getAllCustomer(), filePath+".xlsx");
-                }
     }
 
     private void btn_filterActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_filterActionPerformed
@@ -697,10 +706,10 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_create;
+    private javax.swing.JButton btn_exportExcel;
     private javax.swing.JButton btn_filter;
-    private javax.swing.JButton btn_reload;
     private javax.swing.JButton btn_reloadForm;
-    private javax.swing.JButton btn_search;
+    private javax.swing.JButton btn_reloadList;
     private javax.swing.JButton btn_update;
     private javax.swing.JComboBox<String> cbo_filterAge;
     private javax.swing.JComboBox<String> cbo_filterGender;
@@ -716,6 +725,7 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
     private javax.swing.JLabel lbl_dateOfBirth;
     private javax.swing.JLabel lbl_filterGender;
     private javax.swing.JLabel lbl_filterGender1;
+    private javax.swing.JLabel lbl_filterNumberPhone;
     private javax.swing.JLabel lbl_filterRank;
     private javax.swing.JLabel lbl_gender;
     private javax.swing.JLabel lbl_name;

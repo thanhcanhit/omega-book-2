@@ -15,16 +15,15 @@ import java.util.Date;
  * @author Hoàng Khang
  */
 public class ViewAcountingVoucherList_BUS {
+
     private AcountingVoucher_DAO acountingVoucher_DAO = new AcountingVoucher_DAO();
     private CashCountSheet_DAO cashCountSheet_DAO = new CashCountSheet_DAO();
 
-    public AcountingVoucher getOne(String acountingVoucherID){
-        return  acountingVoucher_DAO.getOne(acountingVoucherID);
+    public AcountingVoucher getOne(String acountingVoucherID) {
+        return acountingVoucher_DAO.getOne(acountingVoucherID);
     }
-    
-    
-    
-    public  ArrayList<AcountingVoucher> getAll(){
+
+    public ArrayList<AcountingVoucher> getAll() {
         ArrayList<AcountingVoucher> list = new ArrayList<>();
         for (AcountingVoucher acountingVoucher : acountingVoucher_DAO.getAll()) {
             acountingVoucher.setCashCountSheet(cashCountSheet_DAO.getOne(acountingVoucher.getCashCountSheet().getCashCountSheetID()));
@@ -32,10 +31,9 @@ public class ViewAcountingVoucherList_BUS {
         }
         return acountingVoucher_DAO.getAll();
     }
-    
-    public ArrayList<AcountingVoucher> getByDate(Date start, Date end){
+
+    public ArrayList<AcountingVoucher> getByDate(Date start, Date end) {
         ArrayList<AcountingVoucher> list = getAll();
-                
         return list;
     }
 }

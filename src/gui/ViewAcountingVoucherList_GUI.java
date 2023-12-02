@@ -7,11 +7,17 @@ package gui;
 import bus.ViewAcountingVoucherList_BUS;
 import entity.AcountingVoucher;
 import entity.Employee;
+import entity.Order;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import raven.toast.Notifications;
+import utilities.AcountingVoucherPrinter;
+import utilities.OrderPrinter;
+import utilities.SVGIcon;
 
 /**
  *
@@ -30,20 +36,15 @@ public class ViewAcountingVoucherList_GUI extends javax.swing.JPanel {
         initComponents();
         alterTable();
         renderCustomerTable(viewAcountingVoucherList_BUS.getAll());
-        
     }
 
     public void alterTable() {
         DefaultTableCellRenderer rightAlign = new DefaultTableCellRenderer();
         rightAlign.setHorizontalAlignment(JLabel.RIGHT);
-
-////        Align
         tbl_acountingVoucherList.getColumnModel().getColumn(5).setCellRenderer(rightAlign);
         tbl_acountingVoucherList.getColumnModel().getColumn(6).setCellRenderer(rightAlign);
         tbl_acountingVoucherList.getColumnModel().getColumn(7).setCellRenderer(rightAlign);
-
         tbl_acountingVoucherList.getColumnModel().getColumn(8).setCellRenderer(rightAlign);
-
     }
 
     public void renderCustomerTable(ArrayList<AcountingVoucher> list) {
@@ -54,14 +55,12 @@ public class ViewAcountingVoucherList_GUI extends javax.swing.JPanel {
             Employee e2 = acountingVoucher.getCashCountSheet().getCashCountSheetDetailList().get(1).getEmployee();
             Date start = acountingVoucher.getCreatedDate();
             Date end = acountingVoucher.getEndedDate();
-
-            Object[] row = new Object[]{id, e1.getEmployeeID(), e2.getEmployeeID(), start, end, utilities.FormatNumber.toVND(acountingVoucher.getSale()), utilities.FormatNumber.toVND(acountingVoucher.getCashCountSheet().getTotal()), utilities.FormatNumber.toVND(acountingVoucher.getWithDraw()), utilities.FormatNumber.toVND(acountingVoucher.getDifference())};
+            Object[] row = new Object[]{id, e1.getEmployeeID(), e2.getEmployeeID(), start, end, utilities.FormatNumber.toVND(acountingVoucher.getSale()), utilities.FormatNumber.toVND(acountingVoucher.getCashCountSheet().getTotal()), utilities.FormatNumber.toVND(acountingVoucher.getPayViaATM()), utilities.FormatNumber.toVND(acountingVoucher.getDifference())};
             tblModel_acountingVoucherList.addRow(row);
         }
     }
 
     public void initTableModel() {
-        // Products
         tblModel_acountingVoucherList = new DefaultTableModel(new String[]{"Mã", "Người kiểm", "Đồng kiểm", "Bắt đầu", "Kết thúc", "Doanh thu", "Tiền mặt", "Thanh toán qua ATM", "Chênh lệch"
         }, 0);
     }
@@ -98,10 +97,13 @@ public class ViewAcountingVoucherList_GUI extends javax.swing.JPanel {
         lbl_difference = new javax.swing.JLabel();
         cbo_difference = new javax.swing.JComboBox<>();
         pnl_button = new javax.swing.JPanel();
-        btn_filter1 = new javax.swing.JButton();
+        btn_reload = new javax.swing.JButton();
         btn_filter = new javax.swing.JButton();
+        pnl_center = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_acountingVoucherList = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        btn_exportExcel = new javax.swing.JButton();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -220,17 +222,18 @@ public class ViewAcountingVoucherList_GUI extends javax.swing.JPanel {
 
         pnl_button.setLayout(new javax.swing.BoxLayout(pnl_button, javax.swing.BoxLayout.Y_AXIS));
 
-        btn_filter1.setText("Làm mới");
-        btn_filter1.setMaximumSize(new java.awt.Dimension(200, 30));
-        btn_filter1.setPreferredSize(new java.awt.Dimension(100, 30));
-        btn_filter1.addActionListener(new java.awt.event.ActionListener() {
+        btn_reload.setIcon(SVGIcon.getSVGIcon("imgs/public/reload.svg"));
+        btn_reload.setMaximumSize(new java.awt.Dimension(200, 30));
+        btn_reload.setPreferredSize(new java.awt.Dimension(100, 30));
+        btn_reload.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_filter1ActionPerformed(evt);
+                btn_reloadActionPerformed(evt);
             }
         });
-        pnl_button.add(btn_filter1);
+        pnl_button.add(btn_reload);
 
         btn_filter.setText("Lọc");
+        btn_filter.setIcon(SVGIcon.getSVGIcon("imgs/public/filter.svg"));
         btn_filter.setMaximumSize(new java.awt.Dimension(200, 30));
         btn_filter.setPreferredSize(new java.awt.Dimension(100, 30));
         pnl_button.add(btn_filter);
@@ -239,32 +242,74 @@ public class ViewAcountingVoucherList_GUI extends javax.swing.JPanel {
 
         add(pnl_header, java.awt.BorderLayout.PAGE_START);
 
+        pnl_center.setLayout(new java.awt.BorderLayout());
+
         tbl_acountingVoucherList.setModel(tblModel_acountingVoucherList);
+        tbl_acountingVoucherList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_acountingVoucherListMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbl_acountingVoucherList);
 
-        add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        pnl_center.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        btn_exportExcel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_exportExcel.setText("XUẤT");
+        btn_exportExcel.setIcon(SVGIcon.getSVGIcon("imgs/public/excel.svg"));
+        jPanel1.add(btn_exportExcel);
+
+        pnl_center.add(jPanel1, java.awt.BorderLayout.SOUTH);
+
+        add(pnl_center, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_employee1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_employee1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_employee1ActionPerformed
 
-    private void btn_filter1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_filter1ActionPerformed
+    private void btn_reloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reloadActionPerformed
         // TODO add your handling code here:
 //        AcountingVoucher demo = viewAcountingVoucherList_BUS.getOne("KTO151120230004");
 //        System.out.println("Tổng tiền kiểm được " + demo.getCashCountSheet().getTotal());
 
-        
-    }//GEN-LAST:event_btn_filter1ActionPerformed
+    }//GEN-LAST:event_btn_reloadActionPerformed
 
+    private void tbl_acountingVoucherListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_acountingVoucherListMouseClicked
+        // TODO add your handling code here:
+        // Lấy chỉ số dòng được chọn
+        int selectedRow = tbl_acountingVoucherList.getSelectedRow();
+
+        // Kiểm tra xem có dòng nào được chọn không
+        if (selectedRow != -1) {
+            // Lấy giá trị ô đầu tiên trong dòng được chọn
+            Object firstCellValue = tbl_acountingVoucherList.getValueAt(selectedRow, 0);
+
+            // In giá trị ô đầu tiên ra console hoặc thực hiện các thao tác khác với giá trị này
+            generatePDF(viewAcountingVoucherList_BUS.getOne((String) firstCellValue));
+        }
+    }//GEN-LAST:event_tbl_acountingVoucherListMouseClicked
+
+    public void generatePDF(AcountingVoucher acounting) {
+        AcountingVoucherPrinter printer = new AcountingVoucherPrinter(acounting);
+        printer.generatePDF();
+        AcountingVoucherPrinter.PrintStatus status = printer.printFile();
+        if (status == AcountingVoucherPrinter.PrintStatus.NOT_FOUND_FILE) {
+            Notifications.getInstance().show(Notifications.Type.ERROR, "Lỗi không thể in phiếu kết toán: Không tìm thấy file");
+        } else if (status == AcountingVoucherPrinter.PrintStatus.NOT_FOUND_PRINTER) {
+            Notifications.getInstance().show(Notifications.Type.ERROR, "Lỗi không thể in phiếu kết toán: Không tìm thấy máy in");
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_exportExcel;
     private javax.swing.JButton btn_filter;
-    private javax.swing.JButton btn_filter1;
+    private javax.swing.JButton btn_reload;
     private javax.swing.JComboBox<String> cbo_difference;
     private javax.swing.JComboBox<String> cbo_sales;
     private com.toedter.calendar.JDateChooser date_endDate;
     private com.toedter.calendar.JDateChooser date_startDate;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_difference;
     private javax.swing.JLabel lbl_employee1;
@@ -273,6 +318,7 @@ public class ViewAcountingVoucherList_GUI extends javax.swing.JPanel {
     private javax.swing.JLabel lbl_sales;
     private javax.swing.JLabel lbl_startDate;
     private javax.swing.JPanel pnl_button;
+    private javax.swing.JPanel pnl_center;
     private javax.swing.JPanel pnl_date;
     private javax.swing.JPanel pnl_difference;
     private javax.swing.JPanel pnl_employee;

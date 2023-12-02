@@ -101,7 +101,7 @@ public class AcountingVoucher {
     public void setPayViaATM() {
         double sum = 0;
         for (Order order : orderList) {
-            if (!order.isPayment()) {
+            if (order.isPayment()) {
                 sum += order.getTotalDue();
             }
         }
@@ -121,7 +121,7 @@ public class AcountingVoucher {
     }
 
     private void setDifference() {
-        this.difference = cashCountSheet.getTotal() - sale + payViaATM - 1765000;
+        this.difference = cashCountSheet.getTotal() - withDraw - 1765000;
     }
 
     public CashCountSheet getCashCountSheet() {
