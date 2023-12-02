@@ -11,10 +11,8 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.BaseFont;
-import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.text.pdf.draw.LineSeparator;
 import entity.Book;
 import entity.Brand;
 import entity.Product;
@@ -54,7 +52,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import utilities.BarcodeGenerator;
 import static utilities.OrderPrinter.FONT;
-import static utilities.OrderPrinter.resizeImage;
 
 /**
  *

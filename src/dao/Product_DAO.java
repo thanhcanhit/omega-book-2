@@ -322,7 +322,7 @@ public class Product_DAO implements DAOBase<Product> {
 //        Index tự động tăng phụ thuộc vào số lượng biến số có
         int index = 1;
         String query = """
-                       select SELECT [productID]
+                        SELECT [productID]
                              ,[productType]
                              ,[bookType]
                              ,[bookCategory]
@@ -345,7 +345,7 @@ public class Product_DAO implements DAOBase<Product> {
                              ,[brandID]
                              ,[VAT]
                              ,[inventory]
-                         FROM [dbo].[Product] from product where name like ?""";
+                         FROM [dbo].[Product]  where name like ?""";
         if (isEmpty) {
             query += " and inventory = ?";
         }

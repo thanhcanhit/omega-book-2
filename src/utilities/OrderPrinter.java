@@ -158,6 +158,7 @@ public class OrderPrinter {
         try {
             //Create Document instance.
             Document document = new Document();
+            document.setMargins(16, 16, 32, 24);
 
             //Create OutputStream instance.
             OutputStream outputStream
@@ -171,12 +172,12 @@ public class OrderPrinter {
             document.open();
             BaseFont bf = BaseFont.createFont(FONT, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 //            Header
-            Font headingFont = new Font(bf, 14, Font.BOLD);
-            Font subHeadingFont = new Font(bf, 13, Font.BOLD);
-            Font bold = new Font(bf, 12, Font.BOLD);
-            Font italic = new Font(bf, 12, Font.ITALIC);
-            Font font = new Font(bf, 12);
-            Font fontStrikeThrou = new Font(bf, 12, Font.STRIKETHRU);
+            Font headingFont = new Font(bf, 20, Font.BOLD);
+            Font subHeadingFont = new Font(bf, 18, Font.BOLD);
+            Font bold = new Font(bf, 16, Font.BOLD);
+            Font italic = new Font(bf, 16, Font.ITALIC);
+            Font font = new Font(bf, 16);
+            Font fontStrikeThrou = new Font(bf, 16, Font.STRIKETHRU);
             LineSeparator separator = new LineSeparator(font);
 
             Paragraph sofware = new Paragraph("OMEGA BOOK", headingFont);
@@ -269,7 +270,7 @@ public class OrderPrinter {
             // Convert the BufferedImage to a byte array
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(BarcodeGenerator.generateBarcode(order.getOrderID()), "PNG", baos);
-            byte[] bytes = resizeImage(baos.toByteArray(), 300, 100);
+            byte[] bytes = resizeImage(baos.toByteArray(), 500, 200);
             // Create an Image from the byte array
             Image image = Image.getInstance(bytes);
             image.setAlignment(1);
