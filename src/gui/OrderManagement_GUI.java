@@ -767,17 +767,54 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Chọn đường dẫn và tên file");
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        txt_phone.setText("");
+        txt_customerName.setText("");
+        txt_total.setText("");
+        if (validateFields()) {
+            String priceFrom, priceTo;
+            String oderID = txt_orderID.getText();
+            String customerID = txt_customerID.getText();
+            String phone = txt_customerPhone.getText();
+            if (cmb_orderPriceFilter.getSelectedIndex() == 0) {
+                priceFrom = "";
+                priceTo = "";
+            } else if (cmb_orderPriceFilter.getSelectedIndex() == 1) {
+                priceFrom = "";
+                priceTo = "100000";
+            } else if (cmb_orderPriceFilter.getSelectedIndex() == 2) {
+                priceFrom = "100000";
+                priceTo = "500000";
+            } else if (cmb_orderPriceFilter.getSelectedIndex() == 3) {
+                priceFrom = "500000";
+                priceTo = "1000000";
+            } else {
+                priceFrom = "1000000";
+                priceTo = "";
+            }
 
-        // Hiển thị hộp thoại và kiểm tra nếu người dùng chọn OK
-        int userSelection = fileChooser.showSaveDialog(null);
-        if (userSelection == JFileChooser.APPROVE_OPTION) {
-            // Lấy đường dẫn và tên file được chọn
-            File fileToSave = fileChooser.getSelectedFile();
-            String filePath = fileToSave.getAbsolutePath();
+            Date begin = jDateChooser1.getDate();
+            begin.setHours(0);
+            begin.setMinutes(0);
+            Date end = jDateChooser2.getDate();
+            end.setHours(23);
+            end.setMinutes(59);
+            ArrayList<Order> list = bus.orderListWithFilter(oderID, customerID, phone, priceFrom, priceTo, begin, end);
+            if(list.isEmpty()){
+                Notifications.getInstance().show(Notifications.Type.INFO, "Không có hoá đơn!");
+            }else{
+                int userSelection = fileChooser.showSaveDialog(null);
+                if (userSelection == JFileChooser.APPROVE_OPTION) {
+                    // Lấy đường dẫn và tên file được chọn
+                    File fileToSave = fileChooser.getSelectedFile();
+                    String filePath = fileToSave.getAbsolutePath();
 
-            // Gọi phương thức để tạo file Excel với đường dẫn và tên file đã chọn
-            createExcel(bus.getAll(), filePath + ".xlsx");
+                    // Gọi phương thức để tạo file Excel với đường dẫn và tên file đã chọn
+                    createExcel(list, filePath + ".xlsx");
+                }
+            }
         }
+        // Hiển thị hộp thoại và kiểm tra nếu người dùng chọn OK
+        
     }//GEN-LAST:event_btn_wfileActionPerformed
 
     private void btn_viewPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_viewPDFActionPerformed
