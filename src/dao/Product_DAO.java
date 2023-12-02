@@ -75,7 +75,7 @@ public class Product_DAO implements DAOBase<Product> {
                                                  ,[brandID]
                                                  ,[VAT]
                                                  ,[inventory]
-                                             FROM [dbo].[Product] from Product""");
+                                             FROM [dbo].[Product]""");
             while (rs.next()) {
                 Product product = getProductData(rs);
                 result.add(product);

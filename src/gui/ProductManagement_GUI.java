@@ -55,7 +55,6 @@ import java.util.Date;
 import main.Application;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -65,7 +64,6 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import utilities.BarcodeGenerator;
 import static utilities.OrderPrinter.FONT;
-
 
 /**
  *
@@ -94,7 +92,6 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
     private int currentPage;
     private int lastPage;
     private ArrayList<Product> listExport = new ArrayList<>();
-
 
     public ProductManagement_GUI() {
         initComponents();
@@ -1410,13 +1407,15 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_exportAncestorAdded
 
-    private void btn_exportActionPerformed(java.awt.event.ActionEvent evt) {                                           
+    private void btn_exportActionPerformed(java.awt.event.ActionEvent evt) {
         //        System.out.println(cbo_type.getSelectedIndex());        // TODO add your handling code here:
         ArrayList<Product> list = bus.getAll();
         // Hiển thị hộp thoại và kiểm tra nếu người dùng chọn OK
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Chọn đường dẫn và tên file");
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+    }
 
     private void generateBarcodeFileForProduct(String filepath, String productID, String productName) throws FileNotFoundException, DocumentException, IOException, Exception {
         filepath += ".pdf";
@@ -1471,38 +1470,17 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         d.open(new File(filepath));
     }
 
-    private void btn_generateBarcodeActionPerformed(java.awt.event.ActionEvent evt) {                                                    
+    private void btn_generateBarcodeActionPerformed(java.awt.event.ActionEvent evt) {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Chọn đường dẫn và tên file");
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
         // Hiển thị hộp thoại và kiểm tra nếu người dùng chọn OK
-
         int userSelection = fileChooser.showSaveDialog(null);
         if (userSelection == JFileChooser.APPROVE_OPTION) {
             // Lấy đường dẫn và tên file được chọn
             File fileToSave = fileChooser.getSelectedFile();
             String filePath = fileToSave.getAbsolutePath();
-            if (cbo_typeEx.getSelectedIndex() == 0) {
-                createExcelAll(list, filePath + ".xlsx");
-            }
-            if (cbo_typeEx.getSelectedIndex() == 1) {
-                list = bus.filter(1, cbo_categoryEx.getSelectedIndex());
-                createExcelBook(list, filePath + ".xlsx");
-            }
-            if (cbo_typeEx.getSelectedIndex() == 2) {
-                list = bus.filter(2, cbo_categoryEx.getSelectedIndex());
-                createExcelStationery(list, filePath + ".xlsx");
-
-            }
-
-            pnl_exportOption.setVisible(false);
-
-        }
-
-        // Gọi phương thức để tạo file Excel với đường dẫn và tên file đã chọn
-    }                                          
-
 
             try {
                 int row = tbl_products.getSelectedRow();
@@ -1520,7 +1498,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
                 e.printStackTrace();
             }
         }
-    }                                                   
+    }
 
     public void clearAllValue() {
         JTextField[] txt_list = new JTextField[]{txt_productId, txt_productCostPrice, txt_productPrice, txt_productInventory, txt_productVAT, txt_bookAuthor, txt_bookLanguage, txt_bookPublishDate, txt_bookPublisher, txt_bookQuantityPage, txt_bookTranslator, txt_stationeryColor, txt_stationeryOrigin, txt_stationeryWeight};
@@ -1759,7 +1737,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 
         // Thiết lập style cho phần tiêu đề
         CellStyle titleStyle = workbook.createCellStyle();
-        Font titleFont = workbook.createFont();
+        org.apache.poi.ss.usermodel.Font titleFont = workbook.createFont();
         titleFont.setFontHeightInPoints((short) 18);
         titleStyle.setFont(titleFont);
         titleStyle.setAlignment(HorizontalAlignment.CENTER);
@@ -1834,7 +1812,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 
         // Thiết lập style cho phần tiêu đề
         CellStyle titleStyle = workbook.createCellStyle();
-        Font titleFont = workbook.createFont();
+        org.apache.poi.ss.usermodel.Font titleFont = workbook.createFont();
         titleFont.setFontHeightInPoints((short) 18);
         titleStyle.setFont(titleFont);
         titleStyle.setAlignment(HorizontalAlignment.CENTER);
@@ -1909,7 +1887,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 
         // Thiết lập style cho phần tiêu đề
         CellStyle titleStyle = workbook.createCellStyle();
-        Font titleFont = workbook.createFont();
+        org.apache.poi.ss.usermodel.Font titleFont = workbook.createFont();
         titleFont.setFontHeightInPoints((short) 18);
         titleStyle.setFont(titleFont);
         titleStyle.setAlignment(HorizontalAlignment.CENTER);
