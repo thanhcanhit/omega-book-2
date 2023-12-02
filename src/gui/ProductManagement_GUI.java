@@ -50,13 +50,11 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumnModel;
-<<<<<<< HEAD
 import java.io.FileOutputStream;
 import java.util.Date;
 import main.Application;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -64,10 +62,8 @@ import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-=======
 import utilities.BarcodeGenerator;
 import static utilities.OrderPrinter.FONT;
->>>>>>> 52a69be1550d9a35fd5adda8df673199028989fa
 
 /**
  *
@@ -95,10 +91,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
     private Product currentProduct = null;
     private int currentPage;
     private int lastPage;
-<<<<<<< HEAD
     private ArrayList<Product> listExport = new ArrayList<>();
-=======
->>>>>>> 52a69be1550d9a35fd5adda8df673199028989fa
 
     public ProductManagement_GUI() {
         initComponents();
@@ -1387,7 +1380,6 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btn_addActionPerformed
 
-<<<<<<< HEAD
     private void btn_exportExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_exportExcelActionPerformed
         // TODO add your handling code here:
         pnl_exportOption.setVisible(true);
@@ -1415,14 +1407,20 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_exportAncestorAdded
 
+<<<<<<< HEAD
     private void btn_exportActionPerformed(java.awt.event.ActionEvent evt) {                                           
+=======
+    private void btn_exportActionPerformed(java.awt.event.ActionEvent evt) {
+>>>>>>> beed9953aaeb2c29812df598353db99990cf9ad5
         //        System.out.println(cbo_type.getSelectedIndex());        // TODO add your handling code here:
         ArrayList<Product> list = bus.getAll();
         // Hiển thị hộp thoại và kiểm tra nếu người dùng chọn OK
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Chọn đường dẫn và tên file");
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-=======
+
+    }
+
     private void generateBarcodeFileForProduct(String filepath, String productID, String productName) throws FileNotFoundException, DocumentException, IOException, Exception {
         filepath += ".pdf";
         //Create Document instance.
@@ -1476,18 +1474,22 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         d.open(new File(filepath));
     }
 
+<<<<<<< HEAD
     private void btn_generateBarcodeActionPerformed(java.awt.event.ActionEvent evt) {                                                    
+=======
+    private void btn_generateBarcodeActionPerformed(java.awt.event.ActionEvent evt) {
+>>>>>>> beed9953aaeb2c29812df598353db99990cf9ad5
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Chọn đường dẫn và tên file");
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
         // Hiển thị hộp thoại và kiểm tra nếu người dùng chọn OK
->>>>>>> 52a69be1550d9a35fd5adda8df673199028989fa
         int userSelection = fileChooser.showSaveDialog(null);
         if (userSelection == JFileChooser.APPROVE_OPTION) {
             // Lấy đường dẫn và tên file được chọn
             File fileToSave = fileChooser.getSelectedFile();
             String filePath = fileToSave.getAbsolutePath();
+<<<<<<< HEAD
 <<<<<<< HEAD
             if (cbo_typeEx.getSelectedIndex() == 0) {
                 createExcelAll(list, filePath + ".xlsx");
@@ -1509,6 +1511,8 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         // Gọi phương thức để tạo file Excel với đường dẫn và tên file đã chọn
     }                                          
 =======
+=======
+>>>>>>> beed9953aaeb2c29812df598353db99990cf9ad5
 
             try {
                 int row = tbl_products.getSelectedRow();
@@ -1526,8 +1530,12 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
                 e.printStackTrace();
             }
         }
+<<<<<<< HEAD
     }                                                   
 >>>>>>> 52a69be1550d9a35fd5adda8df673199028989fa
+=======
+    }
+>>>>>>> beed9953aaeb2c29812df598353db99990cf9ad5
 
     public void clearAllValue() {
         JTextField[] txt_list = new JTextField[]{txt_productId, txt_productCostPrice, txt_productPrice, txt_productInventory, txt_productVAT, txt_bookAuthor, txt_bookLanguage, txt_bookPublishDate, txt_bookPublisher, txt_bookQuantityPage, txt_bookTranslator, txt_stationeryColor, txt_stationeryOrigin, txt_stationeryWeight};
@@ -1766,7 +1774,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 
         // Thiết lập style cho phần tiêu đề
         CellStyle titleStyle = workbook.createCellStyle();
-        Font titleFont = workbook.createFont();
+        org.apache.poi.ss.usermodel.Font titleFont = workbook.createFont();
         titleFont.setFontHeightInPoints((short) 18);
         titleStyle.setFont(titleFont);
         titleStyle.setAlignment(HorizontalAlignment.CENTER);
@@ -1841,7 +1849,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 
         // Thiết lập style cho phần tiêu đề
         CellStyle titleStyle = workbook.createCellStyle();
-        Font titleFont = workbook.createFont();
+        org.apache.poi.ss.usermodel.Font titleFont = workbook.createFont();
         titleFont.setFontHeightInPoints((short) 18);
         titleStyle.setFont(titleFont);
         titleStyle.setAlignment(HorizontalAlignment.CENTER);
@@ -1916,7 +1924,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 
         // Thiết lập style cho phần tiêu đề
         CellStyle titleStyle = workbook.createCellStyle();
-        Font titleFont = workbook.createFont();
+        org.apache.poi.ss.usermodel.Font titleFont = workbook.createFont();
         titleFont.setFontHeightInPoints((short) 18);
         titleStyle.setFont(titleFont);
         titleStyle.setAlignment(HorizontalAlignment.CENTER);
