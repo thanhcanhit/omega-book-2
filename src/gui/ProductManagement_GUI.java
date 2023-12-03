@@ -1407,19 +1407,37 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_exportAncestorAdded
 
-<<<<<<< HEAD
-    private void btn_exportActionPerformed(java.awt.event.ActionEvent evt) {                                           
-=======
-    private void btn_exportActionPerformed(java.awt.event.ActionEvent evt) {
->>>>>>> beed9953aaeb2c29812df598353db99990cf9ad5
+    private void btn_exportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_exportActionPerformed
         //        System.out.println(cbo_type.getSelectedIndex());        // TODO add your handling code here:
         ArrayList<Product> list = bus.getAll();
         // Hiển thị hộp thoại và kiểm tra nếu người dùng chọn OK
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Chọn đường dẫn và tên file");
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        int userSelection = fileChooser.showSaveDialog(null);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            // Lấy đường dẫn và tên file được chọn
+            File fileToSave = fileChooser.getSelectedFile();
+            String filePath = fileToSave.getAbsolutePath();
+            if (cbo_typeEx.getSelectedIndex() == 0) {
+                createExcelAll(list, filePath + ".xlsx");
+            }
+            if (cbo_typeEx.getSelectedIndex() == 1) {
+                list = bus.filter(1, cbo_categoryEx.getSelectedIndex());
+                createExcelBook(list, filePath + ".xlsx");
+            }
+            if (cbo_typeEx.getSelectedIndex() == 2) {
+                list = bus.filter(2, cbo_categoryEx.getSelectedIndex());
+                createExcelStationery(list, filePath + ".xlsx");
 
-    }
+            }
+
+            pnl_exportOption.setVisible(false);
+
+        }
+
+        // Gọi phương thức để tạo file Excel với đường dẫn và tên file đã chọn
+    }//
 
     private void generateBarcodeFileForProduct(String filepath, String productID, String productName) throws FileNotFoundException, DocumentException, IOException, Exception {
         filepath += ".pdf";
@@ -1474,11 +1492,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         d.open(new File(filepath));
     }
 
-<<<<<<< HEAD
-    private void btn_generateBarcodeActionPerformed(java.awt.event.ActionEvent evt) {                                                    
-=======
     private void btn_generateBarcodeActionPerformed(java.awt.event.ActionEvent evt) {
->>>>>>> beed9953aaeb2c29812df598353db99990cf9ad5
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Chọn đường dẫn và tên file");
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -1489,30 +1503,6 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
             // Lấy đường dẫn và tên file được chọn
             File fileToSave = fileChooser.getSelectedFile();
             String filePath = fileToSave.getAbsolutePath();
-<<<<<<< HEAD
-<<<<<<< HEAD
-            if (cbo_typeEx.getSelectedIndex() == 0) {
-                createExcelAll(list, filePath + ".xlsx");
-            }
-            if (cbo_typeEx.getSelectedIndex() == 1) {
-                list = bus.filter(1, cbo_categoryEx.getSelectedIndex());
-                createExcelBook(list, filePath + ".xlsx");
-            }
-            if (cbo_typeEx.getSelectedIndex() == 2) {
-                list = bus.filter(2, cbo_categoryEx.getSelectedIndex());
-                createExcelStationery(list, filePath + ".xlsx");
-
-            }
-
-            pnl_exportOption.setVisible(false);
-
-        }
-
-        // Gọi phương thức để tạo file Excel với đường dẫn và tên file đã chọn
-    }                                          
-=======
-=======
->>>>>>> beed9953aaeb2c29812df598353db99990cf9ad5
 
             try {
                 int row = tbl_products.getSelectedRow();
@@ -1530,12 +1520,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
                 e.printStackTrace();
             }
         }
-<<<<<<< HEAD
-    }                                                   
->>>>>>> 52a69be1550d9a35fd5adda8df673199028989fa
-=======
     }
->>>>>>> beed9953aaeb2c29812df598353db99990cf9ad5
 
     public void clearAllValue() {
         JTextField[] txt_list = new JTextField[]{txt_productId, txt_productCostPrice, txt_productPrice, txt_productInventory, txt_productVAT, txt_bookAuthor, txt_bookLanguage, txt_bookPublishDate, txt_bookPublisher, txt_bookQuantityPage, txt_bookTranslator, txt_stationeryColor, txt_stationeryOrigin, txt_stationeryWeight};
