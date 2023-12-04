@@ -104,6 +104,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
@@ -772,9 +773,22 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
         txt_total.setText("");
         if (validateFields()) {
             String priceFrom, priceTo;
-            String oderID = txt_orderID.getText();
+            String orderID = txt_orderID.getText();
             String customerID = txt_customerID.getText();
             String phone = txt_customerPhone.getText();
+            if (orderID.trim().length() <= 0 && customerID.trim().length() <= 0 && phone.trim().length() <= 0) {
+                if (JOptionPane.showConfirmDialog(this, "Bạn có muốn xuất toàn bộ hoá đơn ?", "Xuất file excel", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    int userSelection = fileChooser.showSaveDialog(null);
+                    if (userSelection == JFileChooser.APPROVE_OPTION) {
+                        // Lấy đường dẫn và tên file được chọn
+                        File fileToSave = fileChooser.getSelectedFile();
+                        String filePath = fileToSave.getAbsolutePath();
+
+                        // Gọi phương thức để tạo file Excel với đường dẫn và tên file đã chọn
+                        createExcel(bus.getAll(), filePath + ".xlsx");
+                    }
+                }
+            }
             if (cmb_orderPriceFilter.getSelectedIndex() == 0) {
                 priceFrom = "";
                 priceTo = "";
@@ -798,15 +812,16 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
             Date end = jDateChooser2.getDate();
             end.setHours(23);
             end.setMinutes(59);
-            ArrayList<Order> list = bus.orderListWithFilter(oderID, customerID, phone, priceFrom, priceTo, begin, end);
-            if(list.isEmpty()){
-                Notifications.getInstance().show(Notifications.Type.INFO, "Không có hoá đơn!");
-            }else{
+            ArrayList<Order> list = bus.orderListWithFilter(orderID, customerID, phone, priceFrom, priceTo, begin, end);
+            if (list.isEmpty()) {
+                Notifications.getInstance().show(Notifications.Type.INFO, "Không có hoá đơn !");
+            } else {
                 int userSelection = fileChooser.showSaveDialog(null);
                 if (userSelection == JFileChooser.APPROVE_OPTION) {
                     // Lấy đường dẫn và tên file được chọn
                     File fileToSave = fileChooser.getSelectedFile();
                     String filePath = fileToSave.getAbsolutePath();
+
 
                     // Gọi phương thức để tạo file Excel với đường dẫn và tên file đã chọn
                     createExcel(list, filePath + ".xlsx");
