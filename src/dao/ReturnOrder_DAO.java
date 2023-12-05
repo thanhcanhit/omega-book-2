@@ -125,7 +125,7 @@ public class ReturnOrder_DAO implements DAOBase<ReturnOrder>{
         int n = 0;
         try {
             PreparedStatement st = ConnectDB.conn.prepareStatement("UPDATE ReturnOrder "
-                    + "SET status = ?, orderDate = ?"
+                    + "SET status = ?, orderDate = ? "
                     + "WHERE returnOrderID = ?"); 
             int i = 1;
             st.setInt(i++, returnOrder.getStatus().getValue());

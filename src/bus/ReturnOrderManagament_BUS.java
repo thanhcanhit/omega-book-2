@@ -107,7 +107,6 @@ public class ReturnOrderManagament_BUS {
     }
 
     public void updateReturnOrderDetail(ReturnOrder newReturnOrder, ArrayList<ReturnOrderDetail> listDetail) {
-        double refund = 0;
         if(newReturnOrder.getStatus().getValue() == 1) {
             if(!newReturnOrder.isType()) {
                 for (ReturnOrderDetail returnOrderDetail : listDetail) {

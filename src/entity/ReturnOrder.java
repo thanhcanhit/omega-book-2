@@ -82,7 +82,7 @@ public class ReturnOrder {
     }
 
     public void setOrderDate(Date orderDate) throws Exception{
-        if(!orderDate.equals(java.sql.Date.valueOf(LocalDate.now())))
+        if(orderDate.before(java.sql.Date.valueOf(LocalDate.now())))
             throw new Exception(DATE_VALID);
         this.orderDate = orderDate;
     }
