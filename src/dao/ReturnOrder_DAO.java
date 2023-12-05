@@ -125,7 +125,7 @@ public class ReturnOrder_DAO implements DAOBase<ReturnOrder>{
         int n = 0;
         try {
             PreparedStatement st = ConnectDB.conn.prepareStatement("UPDATE ReturnOrder "
-                    + "SET status = ?, orderDate = ?"
+                    + "SET status = ?, orderDate = ? "
                     + "WHERE returnOrderID = ?"); 
             int i = 1;
             st.setInt(i++, returnOrder.getStatus().getValue());
@@ -259,7 +259,7 @@ public class ReturnOrder_DAO implements DAOBase<ReturnOrder>{
         double result = 0;
 
         try {
-            PreparedStatement st = ConnectDB.conn.prepareStatement("select sum(totalDue) as total from [ReturnOrder] join [Order] on [Order].orderID=ReturnOrder.orderID where YEAR(orderAt) = ? and Month(orderAt) = ? and [Order].status=1");
+            PreparedStatement st = ConnectDB.conn.prepareStatement("select sum(refund) as total from [ReturnOrder] join [Order] on [Order].orderID=ReturnOrder.orderID where YEAR(orderAt) = ? and Month(orderAt) = ? and [ReturnOrder].status=1");
             st.setInt(1, year);
             st.setInt(2, month);
             ResultSet rs = st.executeQuery();

@@ -140,7 +140,7 @@ public class BrandManagement_GUI extends javax.swing.JPanel {
         pnl_header.setPreferredSize(new java.awt.Dimension(1366, 60));
         pnl_header.setLayout(new javax.swing.BoxLayout(pnl_header, javax.swing.BoxLayout.LINE_AXIS));
 
-        txt_search.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Mã sản phẩm");
+        txt_search.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Mã thương hiệu");
         txt_search.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txt_searchKeyPressed(evt);

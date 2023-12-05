@@ -70,7 +70,7 @@
                     <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txt_searchKeyPressed"/>
                   </Events>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txt_search.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, &quot;M&#xe3; s&#x1ea3;n ph&#x1ea9;m&quot;);"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txt_search.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, &quot;M&#xe3; th&#x1b0;&#x1a1;ng hi&#x1ec7;u&quot;);"/>
                   </AuxValues>
                 </Component>
                 <Component class="javax.swing.JButton" name="btn_search">
