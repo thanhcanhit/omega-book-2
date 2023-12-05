@@ -11,7 +11,6 @@ import gui.customchart.piechart.PolarAreaChart;
 import java.awt.Color;
 import java.beans.PropertyChangeEvent;
 
-import org.knowm.xchart.*;
 import utilities.FormatNumber;
 
 /**
