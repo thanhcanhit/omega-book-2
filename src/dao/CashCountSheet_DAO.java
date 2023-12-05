@@ -39,7 +39,7 @@ public class CashCountSheet_DAO implements interfaces.DAOBase<CashCountSheet> {
                 Date startDate = new Date(startTimestamp.getTime());
                 Date endDate = new Date(endTimestamp.getTime());
 
-                cashCountSheet = new CashCountSheet(id, new CashCount_DAO().getAll(id), new CashCountSheetDetail_DAO().getAllCashCountSheetDetailInCashCountSheet(id), startDate, endDate);
+                cashCountSheet = new CashCountSheet(id, cashCount_DAO.getAll(id), cashCountSheetDetail_DAO.getAllCashCountSheetDetailInCashCountSheet(id), startDate, endDate);
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -224,7 +224,7 @@ public class Promotion_DAO implements DAOBase<Promotion> {
         int n = 0;
         try {
             PreparedStatement st = ConnectDB.conn.prepareCall("UPDATE Promotion "
-                    + "SET endedDate = GETDATE() " 
+                    + "SET endedDate = GETDATE() "
                     + "WHERE promotionID = ?");
             st.setString(1, id);
             n = st.executeUpdate();
@@ -233,11 +233,12 @@ public class Promotion_DAO implements DAOBase<Promotion> {
         }
         return n > 0;
     }
+
     public Boolean updateDate(String id) {
         int n = 0;
         try {
             PreparedStatement st = ConnectDB.conn.prepareCall("UPDATE Promotion "
-                    + "SET endedDate = GETDATE() " 
+                    + "SET endedDate = GETDATE() "
                     + "WHERE promotionID = ?");
             st.setString(1, id);
             n = st.executeUpdate();
@@ -365,12 +366,11 @@ public class Promotion_DAO implements DAOBase<Promotion> {
         return result;
     }
 
-    public ArrayList<Promotion> getPromotionOrderAvailable(int customerPoint) {
+    public ArrayList<Promotion> getPromotionOrderAvailable(int rank) {
         ArrayList<Promotion> result = new ArrayList<>();
         try {
-            System.out.println("CUSTOMER POINT: " + customerPoint);
             PreparedStatement st = ConnectDB.conn.prepareStatement("select * from Promotion where promotionType = 1 and endedDate > GETDATE() and condition <= ?");
-            st.setInt(1, customerPoint);
+            st.setInt(1, rank);
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
@@ -396,12 +396,13 @@ public class Promotion_DAO implements DAOBase<Promotion> {
         int n = 0;
         try {
             PreparedStatement st = ConnectDB.conn.prepareCall("UPDATE Promotion "
-                    + "SET startedDate = GETDATE()" 
+                    + "SET startedDate = GETDATE()"
                     + "WHERE promotionID = ?");
             st.setString(1, pm.getPromotionID());
             n = st.executeUpdate();
-            if(updateDateEnd(pm) == false)
+            if (updateDateEnd(pm) == false) {
                 return false;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -412,7 +413,7 @@ public class Promotion_DAO implements DAOBase<Promotion> {
         int n = 0;
         try {
             PreparedStatement st = ConnectDB.conn.prepareCall("UPDATE Promotion "
-                    + "SET endedDate = GETDATE()" 
+                    + "SET endedDate = GETDATE()"
                     + "WHERE promotionID = ?");
             st.setString(1, pm.getPromotionID());
             n = st.executeUpdate();
@@ -479,8 +480,8 @@ public class Promotion_DAO implements DAOBase<Promotion> {
         }
         return result;
     }
-    
-        public ArrayList<Promotion> filterForOrder(int type, int status) {
+
+    public ArrayList<Promotion> filterForOrder(int type, int status) {
         ArrayList<Promotion> result = new ArrayList<>();
 //        Index tự động tăng phụ thuộc vào số lượng biến số có
         int index = 1;

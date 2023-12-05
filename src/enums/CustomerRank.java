@@ -10,7 +10,7 @@ package enums;
  */
 public enum CustomerRank {
     NOTHING(0),
-    SLIVER(1),
+    SILVER(1),
     GOLD(2),
     DIAMOND(3);
     

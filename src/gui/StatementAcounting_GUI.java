@@ -25,6 +25,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import main.Application;
 import raven.toast.Notifications;
+import utilities.AcountingVoucherPrinter;
+import utilities.CashCountSheetPrinter;
 import utilities.FormatNumber;
 
 /**
@@ -54,6 +56,9 @@ public class StatementAcounting_GUI extends javax.swing.JPanel {
         initTableModel();
         initComponents();
         initForm();
+        demo();
+//        generatePDF(acountingVoucher_BUS.getAcountingByID("KTO151120230000"));
+//        System.out.println(acountingVoucher_BUS.getAcountingByID("KTO151120230000").getCashCountSheet().getCashCountSheetDetailList());
         alterTable();
 
         tbl_cashCounts.getModel().addTableModelListener(new TableModelListener() {
@@ -83,36 +88,51 @@ public class StatementAcounting_GUI extends javax.swing.JPanel {
         });
     }
 
+    public void demo() {
+        AcountingVoucher ac = acountingVoucher_BUS.getAcountingByID("KTO151120230000");
+        System.out.println("Ma phieu: " + ac.getAcountingVoucherID());
+        System.out.println("Tien mat: " + ac.getCashCountSheet().getTotal());
+        System.out.println("Doanh thu: " + ac.getSale());
+        System.out.println("ATM: " + ac.getPayViaATM());
+        System.out.println("Lay ra: " + ac.getWithDraw());
+        System.out.println("Chenh lech: " + ac.getDifference());
+    }
+
+    public void generatePDF(AcountingVoucher acounting) {
+        AcountingVoucherPrinter printer = new AcountingVoucherPrinter(acounting);
+        printer.generatePDF();
+        AcountingVoucherPrinter.PrintStatus status = printer.printFile();
+        if (status == AcountingVoucherPrinter.PrintStatus.NOT_FOUND_FILE) {
+            Notifications.getInstance().show(Notifications.Type.ERROR, "Lỗi không thể in hóa đơn: Không tìm thấy file");
+        } else if (status == AcountingVoucherPrinter.PrintStatus.NOT_FOUND_PRINTER) {
+            Notifications.getInstance().show(Notifications.Type.ERROR, "Lỗi không thể in hóa đơn: Không tìm thấy máy in");
+        }
+    }
+
     public void initForm() {
         //Lấy thời gian kết thúc phiếu kết toán trước đó (Thời gian bắt đầu lần kết toán này)
         Date start = acountingVoucher_BUS.getLastAcounting().getEndedDate();
-
         //Hiển thị thời gian bắt đầu -> kết thúc kết toán
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         String endStr = formatter.format(endDate);
         String startStr = formatter.format(start);
         txt_timeAccounting.setText(startStr + " - " + endStr);
-
         //Hiển thị mã phiếu kết toán
         txt_acountingVoucherID.setText(acountingVoucher_BUS.generateID(endDate));
-
         listOrder = acountingVoucher_BUS.getAllOrderInAcounting(acountingVoucher_BUS.getLastAcounting().getEndedDate(), endDate);
         sale = acountingVoucher_BUS.getSale(listOrder);
         payViaATM = acountingVoucher_BUS.getPayViaATM(listOrder);
         withdraw = sale - payViaATM;
         difference = 0 - withdraw - 1765000;
-
         txt_saleAccounting.setText(FormatNumber.toVND(sale));
         txt_payViaATM.setText(FormatNumber.toVND(payViaATM));
         txt_withdraw.setText(FormatNumber.toVND(withdraw));
         txt_difference.setText(FormatNumber.toVND(difference));
-
     }
 
     public void alterTable() {
         DefaultTableCellRenderer rightAlign = new DefaultTableCellRenderer();
         rightAlign.setHorizontalAlignment(JLabel.RIGHT);
-
         //Align
         tbl_cashCounts.getColumnModel().getColumn(1).setCellRenderer(rightAlign);
         tbl_cashCounts.getColumnModel().getColumn(2).setCellRenderer(rightAlign);
@@ -134,7 +154,6 @@ public class StatementAcounting_GUI extends javax.swing.JPanel {
     public ArrayList<CashCount> getValueInTable() {
         DefaultTableModel tableModel = (DefaultTableModel) tbl_cashCounts.getModel();
         int rowCount = tableModel.getRowCount();
-
         ArrayList<CashCount> cashCounts = new ArrayList<>();
         for (int i = 0; i < rowCount; i++) {
             String valueStr = (String) tableModel.getValueAt(i, 1);
@@ -165,7 +184,6 @@ public class StatementAcounting_GUI extends javax.swing.JPanel {
         listEmployee.add(new CashCountSheetDetail(true, employee1, new CashCountSheet(cashCountSheetID)));
         listEmployee.add(new CashCountSheetDetail(false, employee2, new CashCountSheet(cashCountSheetID)));
         return new CashCountSheet(cashCountSheetID, cashCounts, listEmployee, endDate, new Date());
-
     }
 
     /**
@@ -597,10 +615,7 @@ public class StatementAcounting_GUI extends javax.swing.JPanel {
         } else {
             Notifications.getInstance().show(Notifications.Type.ERROR, "Chưa có người đồng kiểm!");
             Notifications.getInstance().show(Notifications.Type.ERROR, "Kết toán thất bại!");
-
         }
-
-
     }//GEN-LAST:event_btn_accountingConformActionPerformed
 
     private void txt_saleAccountingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_saleAccountingActionPerformed

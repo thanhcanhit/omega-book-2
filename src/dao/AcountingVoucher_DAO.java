@@ -46,7 +46,7 @@ public class AcountingVoucher_DAO implements interfaces.DAOBase<AcountingVoucher
                 Date endDate = new java.sql.Date(endTimestamp.getTime());
                 String cashCountSheetID = resultSet.getString("cashCountSheetID");
 
-                acountingVoucher = new AcountingVoucher(acountingVoucherID, startDate, endDate, new CashCountSheet(cashCountSheetID), new Order_DAO().getAllOrderInAcountingVoucher(acountingVoucherID));
+                acountingVoucher = new AcountingVoucher(acountingVoucherID, startDate, endDate, cashCountSheet_DAO.getOne(cashCountSheetID), new Order_DAO().getAllOrderInAcountingVoucher(acountingVoucherID));
             }
         } catch (Exception e) {
             e.printStackTrace();

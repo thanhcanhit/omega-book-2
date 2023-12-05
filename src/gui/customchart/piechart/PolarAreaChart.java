@@ -32,7 +32,7 @@ public class PolarAreaChart extends javax.swing.JComponent {
     public PolarAreaChart() {
         initComponents();
         setBackground(Color.WHITE);
-        setForeground(Color.WHITE);
+        setForeground(Color.BLACK);
         TimingTarget target = new TimingTargetAdapter() {
             @Override
             public void timingEvent(float fraction) {

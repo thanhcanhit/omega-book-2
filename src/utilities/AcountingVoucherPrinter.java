@@ -5,8 +5,8 @@
 package utilities;
 
 import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
@@ -16,8 +16,9 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.LineSeparator;
-import entity.Order;
-import entity.OrderDetail;
+import entity.AcountingVoucher;
+import entity.CashCount;
+import entity.CashCountSheet;
 import java.awt.Desktop;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -29,6 +30,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -47,11 +50,11 @@ import javax.print.attribute.standard.Sides;
 
 /**
  *
- * @author thanhcanhit
+ * @author Hoàng Khang
  */
-public class OrderPrinter {
+public class AcountingVoucherPrinter {
 
-    private final Order order;
+    private AcountingVoucher acountingVoucher;
     public static final String FONT = "resources/fonts/arial-unicode-ms.ttf";
     private static final String FILE_PATH = "lastOrder.pdf";
 
@@ -65,8 +68,8 @@ public class OrderPrinter {
         LEFT, CENTER, RIGHT;
     }
 
-    public OrderPrinter(Order order) {
-        this.order = order;
+    public AcountingVoucherPrinter(AcountingVoucher acountingVoucher) {
+        this.acountingVoucher = acountingVoucher;
     }
 
     private String getVND(double number) {
@@ -74,7 +77,7 @@ public class OrderPrinter {
     }
 
     private void addTableHeader(PdfPTable table, Font font) {
-        Stream.of("VAT", "Giá", "Số lượng", "Tổng tiền")
+        Stream.of("STT", "Mệnh giá", "Số lượng", "Tổng tiền")
                 .forEach(columnTitle -> {
                     PdfPCell header = new PdfPCell();
                     header.setBackgroundColor(BaseColor.WHITE);
@@ -94,7 +97,7 @@ public class OrderPrinter {
         if (ps.length == 0) {
             throw new IllegalStateException("No Printer found");
         }
-        System.out.println("Available printers: " + Arrays.asList(ps));
+        // System.out.println("Available printers: " + Arrays.asList(ps));
 
         PrintService myService = null;
         for (PrintService printService : ps) {
@@ -140,7 +143,7 @@ public class OrderPrinter {
         int scaledWidth = (int) Math.round(originalWidth * ratio);
         int scaledHeight = (int) Math.round(originalHeight * ratio);
 
-        BufferedImage resizedImage = new BufferedImage(scaledWidth, scaledHeight, BufferedImage.SCALE_SMOOTH);
+        BufferedImage resizedImage = new BufferedImage(scaledWidth, scaledHeight, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = resizedImage.createGraphics();
         g2d.drawImage(originalImage, 0, 0, scaledWidth, scaledHeight, null);
         g2d.dispose();
@@ -158,7 +161,6 @@ public class OrderPrinter {
         try {
             //Create Document instance.
             Document document = new Document();
-            document.setMargins(16, 16, 32, 24);
 
             //Create OutputStream instance.
             OutputStream outputStream
@@ -172,37 +174,45 @@ public class OrderPrinter {
             document.open();
             BaseFont bf = BaseFont.createFont(FONT, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 //            Header
-            Font headingFont = new Font(bf, 20, Font.BOLD);
-            Font subHeadingFont = new Font(bf, 18, Font.BOLD);
-            Font bold = new Font(bf, 16, Font.BOLD);
-            Font italic = new Font(bf, 16, Font.ITALIC);
-            Font font = new Font(bf, 16);
-            Font fontStrikeThrou = new Font(bf, 16, Font.STRIKETHRU);
+            Font headingFont = new Font(bf, 14, Font.BOLD);
+            Font subHeadingFont = new Font(bf, 13, Font.BOLD);
+            Font font = new Font(bf, 12);
+            Font fontStrikeThrou = new Font(bf, 12, Font.STRIKETHRU);
             LineSeparator separator = new LineSeparator(font);
 
             Paragraph sofware = new Paragraph("OMEGA BOOK", headingFont);
-            Paragraph desc = new Paragraph("\"Hãy xem sách như là một loại Vitamin\"", italic);
-            Paragraph store = new Paragraph("12 Nguyễn Văn Bảo, Phường 4, Gò Vấp, Hồ Chí Minh", bold);
+            Paragraph desc = new Paragraph("Hãy xem sách như là một loại Vitamin", font);
+//            Paragraph addressStore = new Paragraph(cashCountSheet.getCashCountSheetDetailList().get(0).getEmployee().getStore().getAddress(), font);
 
             sofware.setAlignment(TextAlign.CENTER.ordinal());
             desc.setAlignment(TextAlign.CENTER.ordinal());
-            store.setAlignment(TextAlign.CENTER.ordinal());
             document.add(sofware);
             document.add(desc);
-            document.add(store);
             document.add(separator);
 
 //            Content
-            Paragraph orderTitle = new Paragraph("HÓA ĐƠN THANH TOÁN", subHeadingFont);
+            Paragraph orderTitle = new Paragraph("PHIẾU KIỂM TIỀN DỰ PHÒNG", subHeadingFont);
             orderTitle.setAlignment(TextAlign.CENTER.ordinal());
             document.add(orderTitle);
             document.add(separator);
 
+//            Order barcode
+            // Convert the BufferedImage to a byte array
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(BarcodeGenerator.generateBarcode(acountingVoucher.getAcountingVoucherID()), "PNG", baos);
+            byte[] bytes = resizeImage(baos.toByteArray(), 200, 100);
+//            byte[] bytes = baos.toByteArray();
+            // Create an Image from the byte array
+            Image image = Image.getInstance(bytes);
+            image.setAlignment(1);
+            document.add(image);
+
 //            Order info
-            document.add(new Paragraph(String.format("Số hóa đơn:  %s", order.getOrderID()), font));
-            document.add(new Paragraph(String.format("Ngày tạo:  %s", order.getOrderAt()), font));
-            document.add(new Paragraph(String.format("Nhân viên:  %s", order.getEmployee().getName()), font));
-            document.add(new Paragraph(String.format("Khách hàng:  %s", order.getCustomer().getName()), font));
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            document.add(new Paragraph(String.format("Mã phiếu:  %s", acountingVoucher.getAcountingVoucherID()), font));
+            document.add(new Paragraph(String.format("Ngày tạo:  %s", dateFormat.format(acountingVoucher.getCreatedDate()) + " đến " + dateFormat.format(acountingVoucher.getEndedDate())), font));
+            document.add(new Paragraph(String.format("Nhân viên kiểm:  %s", acountingVoucher.getCashCountSheet().getCashCountSheetDetailList().get(0).getEmployee()), font));
+            document.add(new Paragraph(String.format("Nhân viên giám sát:  %s", acountingVoucher.getCashCountSheet().getCashCountSheetDetailList().get(1).getEmployee()), font));
             document.add(separator);
 
 //          Order detail  
@@ -211,80 +221,76 @@ public class OrderPrinter {
             table.setWidthPercentage(100);
             addTableHeader(table, subHeadingFont);
 
-            int index = 0;
-            for (OrderDetail detail : order.getOrderDetail()) {
-                PdfPCell cell = new PdfPCell(new Phrase(String.format("%d. %s", ++index, detail.getProduct().getName()), font));
-                cell.setColspan(4);
+            int index = 1;
+//            double valueIndex = 1;
 
-                table.addCell(new PdfPCell(cell));
-                table.addCell(new PdfPCell(new Phrase(String.valueOf(detail.getVAT()), font)));
+            double[] denominations = {1000, 2000, 5000, 10000, 20000, 100000, 200000, 500000};
 
-                boolean isHasDiscout = detail.getSeasonalDiscount() != 0;
-                PdfPCell priceCell = new PdfPCell(new Phrase(getVND(detail.getPrice()), font));
-                if (isHasDiscout) {
-                    double pricePerItemAfterDiscount = detail.getPrice() - detail.getSeasonalDiscount() / detail.getQuantity();
-
-                    priceCell.addElement(new Phrase(getVND(detail.getPrice()), fontStrikeThrou));
-                    priceCell.addElement(new Chunk(getVND(pricePerItemAfterDiscount), font));
+            for (double denomination : denominations) {
+                CashCount cash = isValueInArray(denomination, (ArrayList<CashCount>) acountingVoucher.getCashCountSheet().getCashCountList());
+                if (cash != null) {
+                    table.addCell(createRightAlignedCell(Integer.toString(index++), font));
+                    table.addCell(createRightAlignedCell(utilities.FormatNumber.toVND(cash.getValue()), font));
+                    table.addCell(createRightAlignedCell(String.valueOf(cash.getQuantity()), font));
+                    table.addCell(createRightAlignedCell(getVND(cash.getTotal()), font));
+                } else {
+                    table.addCell(createRightAlignedCell(Integer.toString(index++), font));
+                    table.addCell(createRightAlignedCell(utilities.FormatNumber.toVND(denomination), font));
+                    table.addCell(createRightAlignedCell(String.valueOf(0), font));
+                    table.addCell(createRightAlignedCell(getVND(0), font));
                 }
-                table.addCell(priceCell);
-
-                table.addCell(new PdfPCell(new Phrase(String.valueOf(detail.getQuantity()), font)));
-                table.addCell(new PdfPCell(new Phrase(getVND(detail.getLineTotal()), font)));
-
             }
 
+//            for (double denomination : denominations) {
+//                CashCount cash = isValueInArray(denomination, cashCountSheet.getCashCountList());
+//            }
             document.add(table);
 
 //            Order footer    
-            document.add(new Paragraph("Tổng tiền: " + getVND(order.getSubTotal()), font));
-            document.add(new Paragraph("Chiết khấu đơn: " + getVND(order.getSubTotal() - order.getTotalDue()), font));
-            document.add(new Paragraph("Thanh toán: " + getVND(order.getTotalDue()), subHeadingFont));
+            document.add(
+                    new Paragraph("Tiền mặt: " + getVND(acountingVoucher.getCashCountSheet().getTotal()), font));
+            document.add(
+                    new Paragraph("Doanh thu: " + getVND(acountingVoucher.getSale()), font));
+            document.add(
+                    new Paragraph("Thanh toán qua ATM: " + getVND(acountingVoucher.getPayViaATM()), font));
+            document.add(
+                    new Paragraph("Lấy ra: " + getVND(acountingVoucher.getWithDraw()), font));
+            document.add(
+                    new Paragraph("Chênh lệch: " + getVND(acountingVoucher.getDifference()), font));
+
             document.add(separator);
-
-            boolean isATMPayment = order.isPayment();
-            document.add(new Paragraph("Hình thức thanh toán: " + (isATMPayment ? "ATM" : "Tiền mặt"), font));
-            if (!isATMPayment) {
-                document.add(new Paragraph("Tiền khách đưa: " + getVND(order.getMoneyGiven()), font));
-                document.add(new Paragraph("Tiền trả lại: " + getVND(order.getMoneyGiven() - order.getTotalDue()), font));
-            }
-
-//            Footer
-            document.add(separator);
-            Paragraph hotline = new Paragraph("Tổng đài góp ý/khiếu nại: 1800 0000", bold);
-            Paragraph note = new Paragraph("Lưu ý: OmegaBook chỉ xuất hóa đơn trong ngày, Quý khách vui lòng liên hệ thu ngân để được hỗ trợ nếu cần in lại hóa đơn.", italic);
-
-            Paragraph note2 = new Paragraph("Cảm ơn quý khách. Hẹn gặp lại", font);
-
-            hotline.setAlignment(TextAlign.CENTER.ordinal());
-            note.setAlignment(TextAlign.CENTER.ordinal());
-            note.setIndentationLeft(50);
-            note.setIndentationRight(50);
-            note2.setAlignment(TextAlign.CENTER.ordinal());
-
-            document.add(hotline);
-            document.add(note);
-            document.add(note2);
-
-//            Order barcode
-            // Convert the BufferedImage to a byte array
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageIO.write(BarcodeGenerator.generateBarcode(order.getOrderID()), "PNG", baos);
-            byte[] bytes = resizeImage(baos.toByteArray(), 500, 200);
-            // Create an Image from the byte array
-            Image image = Image.getInstance(bytes);
-            image.setAlignment(1);
-            document.add(image);
 
             //Close document and outputStream.
             document.close();
+
             outputStream.close();
 
-            System.out.println("Pdf created successfully.");
+            System.out.println(
+                    "Pdf created successfully.");
             Desktop d = Desktop.getDesktop();
-            d.open(new File(FILE_PATH));
+
+            d.open(
+                    new File(FILE_PATH));
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    // Hàm hỗ trợ để tạo một cell nằm sát lề phải
+    private PdfPCell createRightAlignedCell(String content, Font font) {
+        PdfPCell cell = new PdfPCell(new Phrase(content, font));
+        cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        return cell;
+    }
+
+    // Hàm kiểm tra giá trị có nằm trong mảng hay không
+    public CashCount isValueInArray(double value, ArrayList<CashCount> list) {
+        CashCount temp = null;
+        for (CashCount cashCount : list) {
+            if (value == cashCount.getValue()) {
+                temp = cashCount;
+            }
+        }
+        return temp;
     }
 }

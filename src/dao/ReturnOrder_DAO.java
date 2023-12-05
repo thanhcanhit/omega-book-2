@@ -255,6 +255,26 @@ public class ReturnOrder_DAO implements DAOBase<ReturnOrder>{
 
         return result;
     }
+    public double getTotalReturnOrderInMonth(int month, int year) {
+        double result = 0;
+
+        try {
+            PreparedStatement st = ConnectDB.conn.prepareStatement("select sum(totalDue) as total from [ReturnOrder] join [Order] on [Order].orderID=ReturnOrder.orderID where YEAR(orderAt) = ? and Month(orderAt) = ? and [Order].status=1");
+            st.setInt(1, year);
+            st.setInt(2, month);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                int total = rs.getInt("total");
+                result = total;
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
 
     public ReturnOrder getOneForOrderID(String orderID) {
         ReturnOrder returnOrder = null;

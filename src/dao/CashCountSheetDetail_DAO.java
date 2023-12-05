@@ -16,6 +16,8 @@ import java.sql.*;
  * @author Hoàng Khang
  */
 public class CashCountSheetDetail_DAO implements interfaces.DAOBase<CashCountSheetDetail> {
+    
+    private Employee_DAO emp_DAO = new Employee_DAO();
 
     public CashCountSheetDetail_DAO() {
     }
@@ -63,7 +65,7 @@ public class CashCountSheetDetail_DAO implements interfaces.DAOBase<CashCountShe
                 boolean index = resultSet.getBoolean("auditorIndex");
                 String employeeID = resultSet.getString("employeeID");
 
-                Employee employee = new Employee(employeeID);
+                Employee employee = emp_DAO.getOne(employeeID);
                 CashCountSheet cashCountSheet = new CashCountSheet(cashCountSheetID);
 
                 CashCountSheetDetail cashCountSheetDetail = new CashCountSheetDetail(index, employee, cashCountSheet);
