@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dao;
 
 import entity.ReturnOrderDetail;
@@ -33,9 +29,10 @@ public class ReturnOrderDetail_DAO implements DAOBase<ReturnOrderDetail>{
                 returnOrderID = rs.getString("returnOrderID");
                 productID = rs.getString("productID");
                 int quantity = rs.getInt("quantity");
+                double price = rs.getDouble("price");
                 ReturnOrder returnOrder = new ReturnOrder(returnOrderID);
                 Product product = new Product(productID);
-                returnOrderDetail = new ReturnOrderDetail(returnOrder, product, quantity);
+                returnOrderDetail = new ReturnOrderDetail(returnOrder, product, quantity, price);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -56,7 +53,7 @@ public class ReturnOrderDetail_DAO implements DAOBase<ReturnOrderDetail>{
                 int quantity = rs.getInt("quantity");
                 ReturnOrder returnOrder = new ReturnOrder(returnOrderID);
                 Product product = new Product(productID);
-                ReturnOrderDetail returnOrderDetail = new ReturnOrderDetail(returnOrder, product, quantity);
+                ReturnOrderDetail returnOrderDetail = new ReturnOrderDetail(returnOrder, product, quantity, product.getPrice());
                 result.add(returnOrderDetail);
             }
         } catch (Exception e) {
@@ -74,11 +71,12 @@ public class ReturnOrderDetail_DAO implements DAOBase<ReturnOrderDetail>{
     public Boolean create(ReturnOrderDetail returnOrderDetail) {
         int n = 0;
         try {
-            PreparedStatement st = ConnectDB.conn.prepareStatement("INSERT INTO ReturnOrderDetail(returnOrderID, productID, quantity)  "
-                    + "VALUES (?,?, ?)");
+            PreparedStatement st = ConnectDB.conn.prepareStatement("INSERT INTO ReturnOrderDetail(returnOrderID, productID, quantity, price)  "
+                    + "VALUES (?,?, ?, ?)");
             st.setString(1, returnOrderDetail.getReturnOrder().getReturnOrderID());
             st.setString(2, returnOrderDetail.getProduct().getProductID());
             st.setInt(3, returnOrderDetail.getQuantity());
+            st.setDouble(4, returnOrderDetail.getPrice());
             n = st.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -116,9 +114,10 @@ public class ReturnOrderDetail_DAO implements DAOBase<ReturnOrderDetail>{
             while (rs.next()) {
                 String productID = rs.getString("productID");
                 int quantity = rs.getInt("quantity");
+                double price = rs.getDouble("price");
                 Product product = new Product(productID);
                 ReturnOrder returnOrder = new ReturnOrder(id);
-                ReturnOrderDetail returnOrderDetail = new ReturnOrderDetail(returnOrder, product, quantity);
+                ReturnOrderDetail returnOrderDetail = new ReturnOrderDetail(returnOrder, product, quantity, price);
                 result.add(returnOrderDetail);
             }
         } catch (Exception e) {

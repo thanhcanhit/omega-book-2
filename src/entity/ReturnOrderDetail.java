@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entity;
 
 import java.util.Objects;
@@ -15,21 +11,32 @@ public class ReturnOrderDetail {
     /* Hằng báo lỗi*/
     public static final String ORDERID_EMPTY = "Hoá đơn không được phép rỗng";
     public static final String PRODUCT_EMPTY = "Sản phẩm không được phép rỗng";
+    public static final String QUANTITY_VALID = "Số lượng phải là số dương";
+
     
     private ReturnOrder returnOrder;
     private Product product;
     private int quantity;
+    private double price;
 
-    public ReturnOrderDetail(ReturnOrder returnOrder, Product product, int quantity) {
-        this.returnOrder = returnOrder;
-        this.product = product;
-        this.quantity = quantity;
+    public ReturnOrderDetail(ReturnOrder returnOrder, Product product, int quantity, double price) throws Exception {
+        setReturnOrder(returnOrder);
+        setProduct(product);
+        setQuantity(quantity);
+        setPrice(price);
     }
 
-    public ReturnOrderDetail(Product product, int quantity) {
-        this.product = product;
-        this.quantity = quantity;
-    }    
+    public ReturnOrderDetail(Product product, int quantity, double price) throws Exception {
+        setProduct(product);
+        setQuantity(quantity);
+        setPrice(price);
+    }
+
+    public ReturnOrderDetail(ReturnOrder returnOrder, Product product) throws Exception {
+        setReturnOrder(returnOrder);
+        setProduct(product);        
+    }
+    
 
     public ReturnOrderDetail() {
     }
@@ -38,7 +45,9 @@ public class ReturnOrderDetail {
         return returnOrder;
     }
 
-    public void setReturnOrder(ReturnOrder returnOrder) {
+    public void setReturnOrder(ReturnOrder returnOrder) throws Exception {
+        if(returnOrder == null)
+            throw new Exception(ORDERID_EMPTY);
         this.returnOrder = returnOrder;
     }
 
@@ -46,7 +55,9 @@ public class ReturnOrderDetail {
         return product;
     }
 
-    public void setProduct(Product product) {
+    public void setProduct(Product product) throws Exception {
+        if(product == null)
+            throw new Exception(PRODUCT_EMPTY);
         this.product = product;
     }
 
@@ -54,9 +65,20 @@ public class ReturnOrderDetail {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(int quantity) throws Exception {
+        if(quantity < 0)
+            throw new Exception(QUANTITY_VALID);
         this.quantity = quantity;
     }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+    
 
     @Override
     public int hashCode() {
@@ -86,7 +108,6 @@ public class ReturnOrderDetail {
 
     @Override
     public String toString() {
-        return "ReturnOrderDetail{" + "returnOrder=" + returnOrder + ", product=" + product + ", quantity=" + quantity + '}';
-    }
-    
+        return "ReturnOrderDetail{" + "returnOrder=" + returnOrder + ", product=" + product + ", quantity=" + quantity + ", price=" + price + '}';
+    }    
 }

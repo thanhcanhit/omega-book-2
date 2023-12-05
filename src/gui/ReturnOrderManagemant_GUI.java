@@ -1,7 +1,3 @@
-/*
-* Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-* Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
-*/
 package gui;
 
 import bus.ReturnOrderManagament_BUS;
@@ -83,6 +79,8 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
             rdb_return.setSelected(true);
         else
             rdb_exchange.setSelected(true);
+        txt_refund.setText(currentReturnOrder.getRefund()+"");
+        txt_reason.setText(currentReturnOrder.getReason());
         renderProductTable(currentReturnOrder.getReturnOrderID());
     }
     private void renderReturnOrderDetail() {
@@ -117,15 +115,6 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
         }
     }
     private ReturnOrder getNewValue() {
-        String returnOrderID = txt_returnOrderID.getText();
-        String employeeID = txt_employeeID.getText();
-        String orderID = txt_returnOrderID.getText();
-        Date returnDate = chooseDateReturnOrder.getDate();
-        boolean type;
-        if(rdb_return.isSelected())
-            type = true;
-        else
-            type =  false;
         int status;
         if(rdb_admit.isSelected())
             status = 1;
@@ -133,9 +122,8 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
             status = 2;
         else 
             status = 0;
-        Employee employee = new Employee(employeeID);
-        Order order = new Order(orderID);
-        return new ReturnOrder(returnDate, ReturnOrderStatus.fromInt(status), returnOrderID, employee, order, type);
+        currentReturnOrder.setStatus(ReturnOrderStatus.fromInt(status));
+        return currentReturnOrder;
     }
     private void updateReturnOrder() {
         ReturnOrder newReturnOrder = getNewValue();
@@ -145,11 +133,6 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
         }
         if(!rdb_admit.isSelected() & !rdb_deny.isSelected()) {
             Notifications.getInstance().show(Notifications.Type.WARNING, "Vui lòng chọn trạng thái xác nhận đơn đổi trả");
-            return;
-        }
-        if(currentReturnOrder.getStatus().getValue() != 0 & currentReturnOrder.getReturnOrderID().equalsIgnoreCase(newReturnOrder.getReturnOrderID())) {
-            Notifications.getInstance().show(Notifications.Type.WARNING, "Đơn đổi trả này đã được xác nhận");
-            renderCurrentReturnOrder();
             return;
         }
         if(bus.updateReturnOder(newReturnOrder)) {
@@ -222,6 +205,12 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
         lbl_product = new javax.swing.JLabel();
         scr_productInfor = new javax.swing.JScrollPane();
         tbl_productInfor = new javax.swing.JTable();
+        pnl_refund = new javax.swing.JPanel();
+        lbl_refund = new javax.swing.JLabel();
+        txt_refund = new javax.swing.JTextField();
+        pnl_reason = new javax.swing.JPanel();
+        lbl_reason = new javax.swing.JLabel();
+        txt_reason = new javax.swing.JTextField();
         pnl_buttonSave = new javax.swing.JPanel();
         btn_saveReturnOrder = new javax.swing.JButton();
 
@@ -305,9 +294,16 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         scr_inforReturnOrder.setViewportView(tbl_inforReturnOrder);
@@ -329,9 +325,9 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
         pnl_employeeID.add(lbl_employeeID);
 
         txt_employeeID.setEditable(false);
-        txt_employeeID.setMaximumSize(new java.awt.Dimension(2147483647, 30));
+        txt_employeeID.setMaximumSize(new java.awt.Dimension(2147483647, 40));
         txt_employeeID.setMinimumSize(new java.awt.Dimension(64, 30));
-        txt_employeeID.setPreferredSize(new java.awt.Dimension(64, 30));
+        txt_employeeID.setPreferredSize(new java.awt.Dimension(64, 40));
         pnl_employeeID.add(txt_employeeID);
 
         pnl_eastReturnOrder.add(pnl_employeeID);
@@ -345,9 +341,9 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
         pnl_orderID.add(lbl_orderID);
 
         txt_orderID.setEditable(false);
-        txt_orderID.setMaximumSize(new java.awt.Dimension(2147483647, 30));
+        txt_orderID.setMaximumSize(new java.awt.Dimension(2147483647, 40));
         txt_orderID.setMinimumSize(new java.awt.Dimension(64, 30));
-        txt_orderID.setPreferredSize(new java.awt.Dimension(64, 30));
+        txt_orderID.setPreferredSize(new java.awt.Dimension(64, 40));
         pnl_orderID.add(txt_orderID);
 
         pnl_eastReturnOrder.add(pnl_orderID);
@@ -361,9 +357,9 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
         pnl_returnOrderID.add(lbl_returnOrderID);
 
         txt_returnOrderID.setEditable(false);
-        txt_returnOrderID.setMaximumSize(new java.awt.Dimension(2147483647, 30));
+        txt_returnOrderID.setMaximumSize(new java.awt.Dimension(2147483647, 40));
         txt_returnOrderID.setMinimumSize(new java.awt.Dimension(64, 30));
-        txt_returnOrderID.setPreferredSize(new java.awt.Dimension(64, 30));
+        txt_returnOrderID.setPreferredSize(new java.awt.Dimension(64, 40));
         pnl_returnOrderID.add(txt_returnOrderID);
 
         pnl_eastReturnOrder.add(pnl_returnOrderID);
@@ -464,9 +460,16 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tbl_productInfor.setMinimumSize(new java.awt.Dimension(30, 40));
@@ -477,6 +480,43 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
         pnl_productID.add(scr_productInfor, java.awt.BorderLayout.CENTER);
 
         pnl_eastReturnOrder.add(pnl_productID);
+
+        pnl_refund.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        pnl_refund.setLayout(new javax.swing.BoxLayout(pnl_refund, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_refund.setText("Tiền hoàn:");
+        lbl_refund.setMaximumSize(new java.awt.Dimension(100, 16));
+        lbl_refund.setPreferredSize(new java.awt.Dimension(100, 16));
+        pnl_refund.add(lbl_refund);
+
+        txt_refund.setEditable(false);
+        txt_refund.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        txt_refund.setMinimumSize(new java.awt.Dimension(64, 30));
+        txt_refund.setPreferredSize(new java.awt.Dimension(64, 40));
+        pnl_refund.add(txt_refund);
+
+        pnl_eastReturnOrder.add(pnl_refund);
+
+        pnl_reason.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        pnl_reason.setLayout(new javax.swing.BoxLayout(pnl_reason, javax.swing.BoxLayout.LINE_AXIS));
+
+        lbl_reason.setText("Lý do:");
+        lbl_reason.setMaximumSize(new java.awt.Dimension(100, 16));
+        lbl_reason.setPreferredSize(new java.awt.Dimension(100, 16));
+        pnl_reason.add(lbl_reason);
+
+        txt_reason.setEditable(false);
+        txt_reason.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        txt_reason.setMinimumSize(new java.awt.Dimension(64, 30));
+        txt_reason.setPreferredSize(new java.awt.Dimension(64, 40));
+        txt_reason.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_reasonActionPerformed(evt);
+            }
+        });
+        pnl_reason.add(txt_reason);
+
+        pnl_eastReturnOrder.add(pnl_reason);
 
         pnl_buttonSave.setMaximumSize(new java.awt.Dimension(2147483647, 40));
         pnl_buttonSave.setMinimumSize(new java.awt.Dimension(72, 40));
@@ -501,6 +541,11 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_saveReturnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saveReturnOrderActionPerformed
+        if(currentReturnOrder.getStatus().getValue() != 0) {
+            Notifications.getInstance().show(Notifications.Type.WARNING, "Đơn đổi trả này đã được xác nhận");
+            renderCurrentReturnOrder();
+            return;
+        }
         updateReturnOrder();
     }//GEN-LAST:event_btn_saveReturnOrderActionPerformed
 
@@ -534,6 +579,10 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
             renderReturnOrderTables(bus.searchById(returnOrderID));
         }
     }//GEN-LAST:event_txt_searchReturnOrderKeyPressed
+
+    private void txt_reasonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_reasonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_reasonActionPerformed
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -551,6 +600,8 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
     private javax.swing.JLabel lbl_employeeID;
     private javax.swing.JLabel lbl_orderID;
     private javax.swing.JLabel lbl_product;
+    private javax.swing.JLabel lbl_reason;
+    private javax.swing.JLabel lbl_refund;
     private javax.swing.JLabel lbl_returnOrderID;
     private javax.swing.JLabel lbl_status;
     private javax.swing.JLabel lbl_typeReturnOrder;
@@ -565,6 +616,8 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
     private javax.swing.JPanel pnl_productID;
     private javax.swing.JPanel pnl_radioStatusReturnOrder;
     private javax.swing.JPanel pnl_radioTypeReturnOrder;
+    private javax.swing.JPanel pnl_reason;
+    private javax.swing.JPanel pnl_refund;
     private javax.swing.JPanel pnl_returnOrderID;
     private javax.swing.JPanel pnl_searchRerturnOrder;
     private javax.swing.JPanel pnl_statusReturnOrder;
@@ -580,6 +633,8 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
     private javax.swing.JTable tbl_productInfor;
     private javax.swing.JTextField txt_employeeID;
     private javax.swing.JTextField txt_orderID;
+    private javax.swing.JTextField txt_reason;
+    private javax.swing.JTextField txt_refund;
     private javax.swing.JTextField txt_returnOrderID;
     private javax.swing.JTextField txt_searchReturnOrder;
     // End of variables declaration//GEN-END:variables

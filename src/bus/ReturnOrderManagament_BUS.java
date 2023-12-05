@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package bus;
 
 import dao.OrderDetail_DAO;
@@ -17,6 +13,8 @@ import entity.ReturnOrderDetail;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -99,8 +97,12 @@ public class ReturnOrderManagament_BUS {
 
     public void createReturnOrderDetail(ReturnOrder newReturnOrder, ArrayList<ReturnOrderDetail> cart) {
         for (ReturnOrderDetail returnOrderDetail : cart) {
-            returnOrderDetail.setReturnOrder(newReturnOrder);
-            detail_dao.create(returnOrderDetail);
+            try {
+                returnOrderDetail.setReturnOrder(newReturnOrder);
+                detail_dao.create(returnOrderDetail);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
@@ -113,13 +115,14 @@ public class ReturnOrderManagament_BUS {
                 }
             }
             else {
-                for (ReturnOrderDetail returnOrderDetail : listDetail) {
-                    refund += returnOrderDetail.getProduct().getPrice();
-                }
-//                newReturnOrder.setRefund(refund);
+                newReturnOrder.setRefund();
             }
             
         }
         
+    }
+
+    public boolean isExist(Order order) {
+        return dao.getOneForOrderID(order.getOrderID()) != null;
     }
 }

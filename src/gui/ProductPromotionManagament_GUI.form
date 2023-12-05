@@ -85,9 +85,9 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="btn_searchProduct">
+            <Component class="javax.swing.JButton" name="btn_addProduct">
               <Properties>
-                <Property name="text" type="java.lang.String" value="T&#xec;m ki&#x1ebf;m"/>
+                <Property name="text" type="java.lang.String" value="Th&#xea;m"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[39, 23]"/>
                 </Property>
@@ -99,7 +99,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_searchProductActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_addProductActionPerformed"/>
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -280,10 +280,10 @@
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="4" rowCount="4">
-                            <Column editable="true" title="M&#xe3; KM" type="java.lang.String"/>
-                            <Column editable="true" title="Lo&#x1ea1;i KM" type="java.lang.String"/>
-                            <Column editable="true" title="Gi&#x1ea3;m gi&#xe1;" type="java.lang.Integer"/>
-                            <Column editable="true" title="Tr&#x1ea1;ng th&#xe1;i" type="java.lang.String"/>
+                            <Column editable="false" title="M&#xe3; KM" type="java.lang.String"/>
+                            <Column editable="false" title="Lo&#x1ea1;i KM" type="java.lang.String"/>
+                            <Column editable="false" title="Gi&#x1ea3;m gi&#xe1;" type="java.lang.Integer"/>
+                            <Column editable="false" title="Tr&#x1ea1;ng th&#xe1;i" type="java.lang.String"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -303,7 +303,7 @@
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
@@ -462,12 +462,13 @@
                               <Dimension value="[32767, 40]"/>
                             </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[100, 30]"/>
+                              <Dimension value="[100, 40]"/>
                             </Property>
                           </Properties>
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout">
                             <Property name="alignment" type="int" value="0"/>
+                            <Property name="verticalGap" type="int" value="7"/>
                           </Layout>
                           <SubComponents>
                             <Component class="javax.swing.JRadioButton" name="rdb_percent">
@@ -523,13 +524,13 @@
                         <Component class="javax.swing.JTextField" name="txt_discountPromo">
                           <Properties>
                             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[2147483647, 30]"/>
+                              <Dimension value="[2147483647, 40]"/>
                             </Property>
                             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                               <Dimension value="[64, 30]"/>
                             </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[64, 30]"/>
+                              <Dimension value="[64, 40]"/>
                             </Property>
                           </Properties>
                         </Component>
@@ -565,10 +566,10 @@
                         <Container class="javax.swing.JPanel" name="pnl_chooseStartDate">
                           <Properties>
                             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[32767, 30]"/>
+                              <Dimension value="[32767, 40]"/>
                             </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[100, 30]"/>
+                              <Dimension value="[100, 40]"/>
                             </Property>
                           </Properties>
 
@@ -610,10 +611,10 @@
                         <Container class="javax.swing.JPanel" name="pnl_chooseDateEnd">
                           <Properties>
                             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[32767, 30]"/>
+                              <Dimension value="[32767, 40]"/>
                             </Property>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[10, 30]"/>
+                              <Dimension value="[10, 40]"/>
                             </Property>
                           </Properties>
 
@@ -676,8 +677,8 @@
                               <Properties>
                                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                                   <Table columnCount="2" rowCount="4">
-                                    <Column editable="true" title="M&#xe3; s&#x1ea3;n ph&#x1ea9;m" type="java.lang.String"/>
-                                    <Column editable="true" title="T&#xea;n s&#x1ea3;n ph&#x1ea9;m" type="java.lang.Object"/>
+                                    <Column editable="false" title="M&#xe3; s&#x1ea3;n ph&#x1ea9;m" type="java.lang.String"/>
+                                    <Column editable="false" title="T&#xea;n s&#x1ea3;n ph&#x1ea9;m" type="java.lang.Object"/>
                                   </Table>
                                 </Property>
                                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

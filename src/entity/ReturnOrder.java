@@ -1,20 +1,25 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entity;
 
 import enums.ReturnOrderStatus;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 /**
  *
  * @author KienTran
  */
 public class ReturnOrder {
-    private final String ORDER_ERROR="Order không được rỗng !";
-    private final String EMPLOYEE_ERROR="Employee không được rỗng !";
+    private final String ORDER_ERROR="Order không được rỗng";
+    private final String EMPLOYEE_ERROR="Employee không được rỗng";
+    private final String DATE_VALID = "Ngày đổi không được khác ngày hiện tại";
+    private final String REASON_EMPTY = "Lý do không được rỗng";
+    private final String TYPE_EMPTY = "Loại đơn đổi trả không được rỗng";
+    private final String RETURNORDERID_VALID = "Mã đơn đổi trả không đúng cú pháp";
+
+    
     
     private Date orderDate;
     private ReturnOrderStatus status;
@@ -22,10 +27,13 @@ public class ReturnOrder {
     private Employee employee;
     private Order order;
     private boolean type;
+    private double refund;
+    private ArrayList<ReturnOrderDetail> listDetail;
+    private String reason;
 
     @Override
     public String toString() {
-        return "ReturnOrder{" + "orderDate=" + orderDate + ", status=" + status + ", returnOrderID=" + returnOrderID + ", employee=" + employee + ", order=" + order + ", type=" + type + '}';
+        return "ReturnOrder{" + "ORDER_ERROR=" + ORDER_ERROR + ", EMPLOYEE_ERROR=" + EMPLOYEE_ERROR + ", orderDate=" + orderDate + ", status=" + status + ", returnOrderID=" + returnOrderID + ", employee=" + employee + ", order=" + order + ", type=" + type + ", refund=" + refund + ", listDetail=" + listDetail + ", reason=" + reason + '}';
     }
 
     @Override
@@ -54,13 +62,16 @@ public class ReturnOrder {
         this.returnOrderID = returnOrderID;
     }
 
-    public ReturnOrder(Date orderDate, ReturnOrderStatus status, String returnOrderID, Employee employee, Order order, boolean type) {
-        this.orderDate = orderDate;
-        this.status = status;
-        this.returnOrderID = returnOrderID;
-        this.employee = employee;
-        this.order = order;
-        this.type = type;
+    public ReturnOrder(Date orderDate, ReturnOrderStatus status, String returnOrderID, Employee employee, Order order, boolean type, double refund, ArrayList<ReturnOrderDetail> listDetail, String reason) throws Exception {
+        setOrderDate(orderDate);
+        setStatus(status);
+        setReturnOrderID(returnOrderID);
+        setEmployee(employee);
+        setOrder(order);
+        setType(type);
+        setListDetail(listDetail);
+        setReason(reason);
+        setRefund();
     }
 
     public ReturnOrder() {
@@ -71,10 +82,9 @@ public class ReturnOrder {
     }
 
     public void setOrderDate(Date orderDate) throws Exception{
-        if(orderDate!=null)
-            this.orderDate = orderDate;
-        else
-            throw new Exception("");
+        if(!orderDate.equals(java.sql.Date.valueOf(LocalDate.now())))
+            throw new Exception(DATE_VALID);
+        this.orderDate = orderDate;
     }
 
     public ReturnOrderStatus getStatus() {
@@ -89,7 +99,10 @@ public class ReturnOrder {
         return returnOrderID;
     }
 
-    public void setReturnOrderID(String returnOrderID) {
+    public void setReturnOrderID(String returnOrderID) throws Exception {
+        String pattern = "^(HDT){1}[0-9]{12}$";
+        if(!Pattern.matches(pattern, returnOrderID))
+            throw new Exception(RETURNORDERID_VALID);
         this.returnOrderID = returnOrderID;
     }
 
@@ -119,7 +132,43 @@ public class ReturnOrder {
         return type;
     }
 
-    public void setType(boolean type) {
+    public void setType(boolean type) throws Exception {
+        if(type != true && type != false)
+            throw new Exception(TYPE_EMPTY);
         this.type = type;
     }
+
+    public double getRefund() {
+        return refund;
+    }
+
+    public ArrayList<ReturnOrderDetail> getListDetail() {
+        return listDetail;
+    }
+
+    public void setListDetail(ArrayList<ReturnOrderDetail> listDetail) {
+        this.listDetail = listDetail;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) throws Exception {
+        if(reason.isBlank())
+            throw new Exception(REASON_EMPTY);
+        this.reason = reason;
+    }
+    
+    public void setRefund() {
+        if(this.type == false
+                )
+            this.refund = 0;
+        else {
+            for (ReturnOrderDetail returnOrderDetail : listDetail) {
+                this.refund += returnOrderDetail.getPrice();
+            }
+        }
+    }
+    
 }

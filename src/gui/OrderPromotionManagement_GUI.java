@@ -372,9 +372,16 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         src_inforPromo.setViewportView(tbl_inforPromo);
@@ -482,9 +489,9 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
         lbl_discountPromo.setPreferredSize(new java.awt.Dimension(105, 16));
         pnl_discountPromo.add(lbl_discountPromo);
 
-        txt_discountPromo.setMaximumSize(new java.awt.Dimension(2147483647, 30));
+        txt_discountPromo.setMaximumSize(new java.awt.Dimension(2147483647, 40));
         txt_discountPromo.setMinimumSize(new java.awt.Dimension(64, 30));
-        txt_discountPromo.setPreferredSize(new java.awt.Dimension(64, 30));
+        txt_discountPromo.setPreferredSize(new java.awt.Dimension(64, 40));
         pnl_discountPromo.add(txt_discountPromo);
 
         pnl_txtInforPromo.add(pnl_discountPromo);
@@ -498,8 +505,8 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
         lbl_startDatePromo.setPreferredSize(new java.awt.Dimension(105, 16));
         pnl_startDatePromo.add(lbl_startDatePromo);
 
-        pnl_chooseStartDate.setMaximumSize(new java.awt.Dimension(32767, 30));
-        pnl_chooseStartDate.setPreferredSize(new java.awt.Dimension(100, 30));
+        pnl_chooseStartDate.setMaximumSize(new java.awt.Dimension(32767, 40));
+        pnl_chooseStartDate.setPreferredSize(new java.awt.Dimension(100, 40));
         pnl_chooseStartDate.setLayout(new java.awt.GridLayout(1, 0));
         pnl_chooseStartDate.add(chooseStartDate);
 
@@ -515,8 +522,8 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
         lbl_endDatePromo.setPreferredSize(new java.awt.Dimension(105, 16));
         pnl_endDatePromo.add(lbl_endDatePromo);
 
-        pnl_chooseDateEnd.setMaximumSize(new java.awt.Dimension(32767, 30));
-        pnl_chooseDateEnd.setPreferredSize(new java.awt.Dimension(10, 30));
+        pnl_chooseDateEnd.setMaximumSize(new java.awt.Dimension(32767, 40));
+        pnl_chooseDateEnd.setPreferredSize(new java.awt.Dimension(10, 40));
         pnl_chooseDateEnd.setLayout(new java.awt.GridLayout(1, 0));
         pnl_chooseDateEnd.add(chooseEndDate);
 
