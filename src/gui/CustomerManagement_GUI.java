@@ -322,6 +322,11 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         pnl_searchCustomer.add(btn_filter);
 
         btn_reloadList.setIcon(SVGIcon.getSVGIcon("imgs/public/reload.svg"));
+        btn_reloadList.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_reloadListActionPerformed(evt);
+            }
+        });
         pnl_searchCustomer.add(btn_reloadList);
 
         add(pnl_searchCustomer, java.awt.BorderLayout.NORTH);
@@ -611,6 +616,10 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btn_exportExcelActionPerformed
 
+    private void btn_reloadListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reloadListActionPerformed
+            renderCustomerTable(customer_BUS.getAllCustomer());        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_reloadListActionPerformed
+
     private void btn_searchActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_searchActionPerformed
         // TODO add your handling code here:
         Customer customer = customer_BUS.searchByPhoneNumber(txt_searchForPhone.getText().trim());
@@ -669,7 +678,7 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
 
     // ...
     private void btn_reloadFormActionPerformed(java.awt.event.ActionEvent evt) {
-
+           reloadForm();
     }
 
     private void btn_filterActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_filterActionPerformed
@@ -677,7 +686,8 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         String gender = cbo_filterGender.getSelectedItem().toString();
         String rank = cbo_filterRank.getSelectedItem().toString();
         String age = cbo_filterAge.getSelectedItem().toString();
-        ArrayList<Customer> listFilter = customer_BUS.filterCustomer(gender, rank, age);
+        String phone = txt_phoneNumber.getText();
+        ArrayList<Customer> listFilter = customer_BUS.filterCustomer(gender, rank, age, phone);
         renderCustomerTable(listFilter);
     }// GEN-LAST:event_btn_filterActionPerformed
 
