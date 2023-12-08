@@ -163,7 +163,7 @@ public final class StatisticSales_GUI extends javax.swing.JPanel {
 
         pnl_topleft.setLayout(new java.awt.BorderLayout());
 
-        pnl_control.setBorder(javax.swing.BorderFactory.createTitledBorder("Lọc: "));
+        pnl_control.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Lọc: ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185))); // NOI18N
         pnl_control.setPreferredSize(new java.awt.Dimension(1366, 70));
         pnl_control.setLayout(new javax.swing.BoxLayout(pnl_control, javax.swing.BoxLayout.LINE_AXIS));
         pnl_control.add(filler26);
@@ -188,7 +188,7 @@ public final class StatisticSales_GUI extends javax.swing.JPanel {
 
         pnl_topleft.add(pnl_control, java.awt.BorderLayout.NORTH);
 
-        pnl_infomaotionBody.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin chi tiết"));
+        pnl_infomaotionBody.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin chi tiết", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185))); // NOI18N
         pnl_infomaotionBody.setLayout(new java.awt.GridLayout(2, 3));
 
         pnl_orderQuantiy.setBorder(javax.swing.BorderFactory.createEmptyBorder(30, 10, 30, 10));
@@ -311,7 +311,7 @@ public final class StatisticSales_GUI extends javax.swing.JPanel {
         pnl_topright.setPreferredSize(new java.awt.Dimension(450, 100));
         pnl_topright.setLayout(new java.awt.BorderLayout());
 
-        pnl_productTypeStatistic.setBorder(javax.swing.BorderFactory.createTitledBorder("Biểu đồ tỷ lệ sản phẩm "));
+        pnl_productTypeStatistic.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Biểu đồ tỷ lệ sản phẩm ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185))); // NOI18N
         pnl_productTypeStatistic.setPreferredSize(new java.awt.Dimension(450, 450));
         pnl_productTypeStatistic.setLayout(new javax.swing.BoxLayout(pnl_productTypeStatistic, javax.swing.BoxLayout.Y_AXIS));
         pnl_topright.add(pnl_productTypeStatistic, java.awt.BorderLayout.EAST);

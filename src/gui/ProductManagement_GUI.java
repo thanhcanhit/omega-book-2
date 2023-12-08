@@ -551,7 +551,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         pnl_left.setPreferredSize(new java.awt.Dimension(800, 768));
         pnl_left.setLayout(new java.awt.BorderLayout());
 
-        pnl_header.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Tìm kiếm & Lọc"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        pnl_header.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tìm kiếm & Lọc", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185)), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5))); // NOI18N
         pnl_header.setMinimumSize(new java.awt.Dimension(516, 150));
         pnl_header.setPreferredSize(new java.awt.Dimension(1366, 150));
         pnl_header.setLayout(new javax.swing.BoxLayout(pnl_header, javax.swing.BoxLayout.Y_AXIS));
@@ -664,7 +664,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 
         pnl_left.add(pnl_header, java.awt.BorderLayout.NORTH);
 
-        pnl_cart.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Danh sách sản phẩm"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        pnl_cart.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách sản phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185)), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5))); // NOI18N
         pnl_cart.setLayout(new java.awt.BorderLayout());
 
         tbl_products.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -787,7 +787,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         pnl_rightCenter.setPreferredSize(new java.awt.Dimension(400, 600));
         pnl_rightCenter.setLayout(new javax.swing.BoxLayout(pnl_rightCenter, javax.swing.BoxLayout.Y_AXIS));
 
-        scr_productInfo.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin sản phẩm"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        scr_productInfo.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin sản phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185)), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5))); // NOI18N
         scr_productInfo.setMaximumSize(new java.awt.Dimension(32767, 800));
         scr_productInfo.setMinimumSize(new java.awt.Dimension(400, 400));
 
@@ -971,7 +971,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         pnl_rightCenter.add(scr_productInfo);
         pnl_rightCenter.add(filler1);
 
-        scr_stationeryDetail.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Chi tiết văn phòng phẩm"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        scr_stationeryDetail.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chi tiết văn phòng phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185)), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5))); // NOI18N
         scr_stationeryDetail.setMinimumSize(new java.awt.Dimension(300, 300));
         scr_stationeryDetail.setPreferredSize(new java.awt.Dimension(420, 300));
 
@@ -1100,7 +1100,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 
         pnl_rightCenter.add(scr_stationeryDetail);
 
-        scr_bookDetail.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin chi tiết sách"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        scr_bookDetail.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin chi tiết sách", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185)), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5))); // NOI18N
         scr_bookDetail.setMinimumSize(new java.awt.Dimension(300, 300));
 
         pnl_bookDetail.setMinimumSize(new java.awt.Dimension(300, 500));

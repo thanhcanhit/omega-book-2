@@ -292,7 +292,7 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
         pnl_filterPromo.setMaximumSize(new java.awt.Dimension(500, 50));
         pnl_filterPromo.setMinimumSize(new java.awt.Dimension(300, 32));
         pnl_filterPromo.setPreferredSize(new java.awt.Dimension(400, 50));
-        pnl_filterPromo.setLayout(new java.awt.GridLayout());
+        pnl_filterPromo.setLayout(new java.awt.GridLayout(1, 0));
 
         cmb_typePromo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Loại" }));
         cmb_typePromo.setMaximumSize(new java.awt.Dimension(32767, 30));
@@ -332,7 +332,7 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
         pnl_listPromotion.setPreferredSize(new java.awt.Dimension(800, 432));
         pnl_listPromotion.setLayout(new java.awt.BorderLayout());
 
-        pnl_promotionInfor.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Danh sách khuyến mãi"), javax.swing.BorderFactory.createEmptyBorder(3, 3, 3, 3)));
+        pnl_promotionInfor.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách khuyến mãi", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185)), javax.swing.BorderFactory.createEmptyBorder(3, 3, 3, 3))); // NOI18N
         pnl_promotionInfor.setMaximumSize(new java.awt.Dimension(900, 2147483647));
         pnl_promotionInfor.setMinimumSize(new java.awt.Dimension(700, 16));
         pnl_promotionInfor.setPreferredSize(new java.awt.Dimension(700, 402));
@@ -382,7 +382,7 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
         pnl_promotionNew.setPreferredSize(new java.awt.Dimension(300, 190));
         pnl_promotionNew.setLayout(new javax.swing.BoxLayout(pnl_promotionNew, javax.swing.BoxLayout.Y_AXIS));
 
-        pnl_inforPromo.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        pnl_inforPromo.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin khuyến mãi", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185)), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5))); // NOI18N
         pnl_inforPromo.setMinimumSize(new java.awt.Dimension(400, 263));
         pnl_inforPromo.setLayout(new java.awt.BorderLayout());
 
@@ -538,7 +538,7 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
 
         pnl_buttonPromo.setMinimumSize(new java.awt.Dimension(100, 50));
         pnl_buttonPromo.setPreferredSize(new java.awt.Dimension(1261, 50));
-        pnl_buttonPromo.setLayout(new java.awt.GridLayout());
+        pnl_buttonPromo.setLayout(new java.awt.GridLayout(1, 0));
 
         btn_clearValue.setText("Xóa trắng");
         btn_clearValue.setToolTipText("Xóa trắng");

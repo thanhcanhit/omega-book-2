@@ -393,7 +393,7 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
 
         pnl_order.add(pnl_searchOrder, java.awt.BorderLayout.NORTH);
 
-        pnl_orderInfor.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin hoá đơn"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        pnl_orderInfor.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin hoá đơn", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185)), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5))); // NOI18N
         pnl_orderInfor.setPreferredSize(new java.awt.Dimension(150, 700));
         pnl_orderInfor.setLayout(new java.awt.BorderLayout(0, 10));
 
@@ -433,7 +433,7 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
         pnl_returnOrder.setPreferredSize(new java.awt.Dimension(400, 768));
         pnl_returnOrder.setLayout(new javax.swing.BoxLayout(pnl_returnOrder, javax.swing.BoxLayout.Y_AXIS));
 
-        pnl_employeeInfor.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Nhân viên"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        pnl_employeeInfor.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nhân viên", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185)), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5))); // NOI18N
         pnl_employeeInfor.setMaximumSize(new java.awt.Dimension(2147483647, 130));
         pnl_employeeInfor.setMinimumSize(new java.awt.Dimension(400, 113));
         pnl_employeeInfor.setPreferredSize(new java.awt.Dimension(30, 120));
@@ -469,7 +469,7 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
 
         pnl_returnOrder.add(pnl_employeeInfor);
 
-        pnl_returnOrderInfor.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin đơn đổi trả"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        pnl_returnOrderInfor.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin đơn đổi trả", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185)), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5))); // NOI18N
         pnl_returnOrderInfor.setMinimumSize(new java.awt.Dimension(400, 278));
         pnl_returnOrderInfor.setPreferredSize(new java.awt.Dimension(400, 100));
         pnl_returnOrderInfor.setLayout(new javax.swing.BoxLayout(pnl_returnOrderInfor, javax.swing.BoxLayout.Y_AXIS));
@@ -664,7 +664,6 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
             }
         });
         pnl_createReturnOrder.add(btn_addProduct);
-        btn_addProduct.getAccessibleContext().setAccessibleName("Thêm SP");
 
         btn_createReturnOrder.setText("Tạo đơn đổi trả");
         btn_createReturnOrder.setPreferredSize(new java.awt.Dimension(129, 40));

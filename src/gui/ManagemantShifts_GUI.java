@@ -123,7 +123,7 @@ public class ManagemantShifts_GUI extends javax.swing.JPanel {
 
         pnl_header.add(jPanel3);
 
-        jPanel4.setLayout(new java.awt.GridLayout());
+        jPanel4.setLayout(new java.awt.GridLayout(1, 0));
 
         btn_filter.setText("Lọc");
         btn_filter.setIcon(SVGIcon.getSVGIcon("imgs/public/filter.svg"));

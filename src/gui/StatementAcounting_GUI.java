@@ -233,7 +233,7 @@ public class StatementAcounting_GUI extends javax.swing.JPanel {
         pnl_title.setPreferredSize(new java.awt.Dimension(108, 62));
         pnl_title.setLayout(new java.awt.BorderLayout());
 
-        lbl_titleCashCount.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lbl_titleCashCount.setFont(lbl_titleCashCount.getFont().deriveFont(lbl_titleCashCount.getFont().getStyle() | java.awt.Font.BOLD, 24));
         lbl_titleCashCount.setText("Kết toán");
         lbl_titleCashCount.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 1));
         lbl_titleCashCount.setMinimumSize(new java.awt.Dimension(108, 62));
@@ -245,7 +245,7 @@ public class StatementAcounting_GUI extends javax.swing.JPanel {
 
         jSplitPane1.setResizeWeight(0.9);
 
-        pnl_infomation.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18), new java.awt.Color(0, 102, 153)), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5))); // NOI18N
+        pnl_infomation.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185)), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5))); // NOI18N
         pnl_infomation.setMinimumSize(new java.awt.Dimension(420, 0));
         pnl_infomation.setPreferredSize(new java.awt.Dimension(300, 690));
         pnl_infomation.setLayout(new java.awt.BorderLayout());
@@ -256,7 +256,7 @@ public class StatementAcounting_GUI extends javax.swing.JPanel {
         pnl_accountingInfoHeader.setLayout(new javax.swing.BoxLayout(pnl_accountingInfoHeader, javax.swing.BoxLayout.Y_AXIS));
 
         txt_timeAccounting.setEditable(false);
-        txt_timeAccounting.setFont(txt_timeAccounting.getFont().deriveFont(txt_timeAccounting.getFont().getStyle() | java.awt.Font.BOLD, 20));
+        txt_timeAccounting.setFont(txt_timeAccounting.getFont().deriveFont(txt_timeAccounting.getFont().getStyle() | java.awt.Font.BOLD, 16));
         txt_timeAccounting.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_timeAccounting.setText("8:10 18/10/2023 - 14:00 18/10/2023 ");
         txt_timeAccounting.setBorder(null);
@@ -508,7 +508,6 @@ public class StatementAcounting_GUI extends javax.swing.JPanel {
         btn_accountingConform.setFont(btn_accountingConform.getFont().deriveFont(btn_accountingConform.getFont().getStyle() | java.awt.Font.BOLD, 20));
         btn_accountingConform.setText("Kết toán");
         btn_accountingConform.putClientProperty(FlatClientProperties.STYLE, "background: $Menu.background;"+"foreground: $Menu.foreground;");
-        btn_accountingConform.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 5, 10, 5));
         btn_accountingConform.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_accountingConformActionPerformed(evt);
@@ -526,7 +525,7 @@ public class StatementAcounting_GUI extends javax.swing.JPanel {
         pnl_cashCount.setPreferredSize(new java.awt.Dimension(600, 447));
         pnl_cashCount.setLayout(new java.awt.BorderLayout());
 
-        scr_cashCounts.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chi tiết kiểm tiền", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18), new java.awt.Color(0, 102, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 5))); // NOI18N
+        scr_cashCounts.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chi tiết kiểm tiền", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185)), javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 5))); // NOI18N
         scr_cashCounts.setMinimumSize(new java.awt.Dimension(0, 0));
 
         tbl_cashCounts.setFont(tbl_cashCounts.getFont().deriveFont(tbl_cashCounts.getFont().getStyle() & ~java.awt.Font.BOLD, 22));
@@ -560,7 +559,7 @@ public class StatementAcounting_GUI extends javax.swing.JPanel {
         pnl_total.setPreferredSize(new java.awt.Dimension(160, 45));
         pnl_total.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
-        lbl_total.setFont(lbl_total.getFont().deriveFont(lbl_total.getFont().getStyle() | java.awt.Font.BOLD, 28));
+        lbl_total.setFont(lbl_total.getFont().deriveFont(lbl_total.getFont().getStyle() | java.awt.Font.BOLD, 20));
         lbl_total.setText("Tổng:");
         pnl_total.add(lbl_total);
 

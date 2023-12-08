@@ -246,7 +246,7 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
 
         pnl_topReturnOrder.add(pnl_searchRerturnOrder);
 
-        pnl_filterReturnOrder.setLayout(new java.awt.GridLayout());
+        pnl_filterReturnOrder.setLayout(new java.awt.GridLayout(1, 0));
 
         cmb_statusReturnOrder.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Trạng thái", "Đang chờ", "Đã xác nhận", "Đã từ chối" }));
         pnl_filterReturnOrder.add(cmb_statusReturnOrder);
@@ -311,7 +311,7 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
 
         add(pnl_centerReturnOrder, java.awt.BorderLayout.CENTER);
 
-        pnl_eastReturnOrder.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Chi tiết"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        pnl_eastReturnOrder.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chi tiết đơn đổi trả", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185)), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5))); // NOI18N
         pnl_eastReturnOrder.setPreferredSize(new java.awt.Dimension(500, 437));
         pnl_eastReturnOrder.setLayout(new javax.swing.BoxLayout(pnl_eastReturnOrder, javax.swing.BoxLayout.Y_AXIS));
 

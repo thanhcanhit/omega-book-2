@@ -137,7 +137,7 @@ public class SupplierManagement_GUI extends javax.swing.JPanel {
         pnl_left.setPreferredSize(new java.awt.Dimension(900, 768));
         pnl_left.setLayout(new java.awt.BorderLayout());
 
-        pnl_header.setBorder(javax.swing.BorderFactory.createTitledBorder("Tìm kiếm"));
+        pnl_header.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tìm kiếm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185))); // NOI18N
         pnl_header.setPreferredSize(new java.awt.Dimension(1366, 60));
         pnl_header.setLayout(new javax.swing.BoxLayout(pnl_header, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -165,7 +165,7 @@ public class SupplierManagement_GUI extends javax.swing.JPanel {
 
         pnl_left.add(pnl_header, java.awt.BorderLayout.NORTH);
 
-        pnl_cart.setBorder(javax.swing.BorderFactory.createTitledBorder("Danh sách nhà cung cấp"));
+        pnl_cart.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách nhà cung cấp", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185))); // NOI18N
         pnl_cart.setLayout(new java.awt.BorderLayout());
 
         scr_cart.setViewportView(tbl_supplier);
@@ -182,7 +182,7 @@ public class SupplierManagement_GUI extends javax.swing.JPanel {
         pnl_info.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         pnl_info.setLayout(new javax.swing.BoxLayout(pnl_info, javax.swing.BoxLayout.Y_AXIS));
 
-        pnl_orderInfo.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin nhà cung cấp:"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        pnl_orderInfo.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin nhà cung cấp:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185)), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5))); // NOI18N
         pnl_orderInfo.setMaximumSize(new java.awt.Dimension(2147483647, 300));
         pnl_orderInfo.setPreferredSize(new java.awt.Dimension(500, 400));
         pnl_orderInfo.setLayout(new javax.swing.BoxLayout(pnl_orderInfo, javax.swing.BoxLayout.Y_AXIS));

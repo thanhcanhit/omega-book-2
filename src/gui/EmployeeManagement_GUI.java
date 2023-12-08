@@ -485,7 +485,7 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
 
         pnl_cmb.setMaximumSize(new java.awt.Dimension(500, 32767));
         pnl_cmb.setPreferredSize(new java.awt.Dimension(500, 100));
-        pnl_cmb.setLayout(new java.awt.GridLayout());
+        pnl_cmb.setLayout(new java.awt.GridLayout(1, 0));
 
         cmb_roleEmp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chức vụ", "NV Bán Hàng", "Cửa Hàng Trưởng", "Kiểm Sát Viên" }));
         cmb_roleEmp.setPreferredSize(new java.awt.Dimension(128, 32));
@@ -562,7 +562,7 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         pnl_inforDetailEmp.setPreferredSize(new java.awt.Dimension(250, 100));
         pnl_inforDetailEmp.setLayout(new java.awt.BorderLayout());
 
-        pnl_txtInforEmp.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin nhân viên"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        pnl_txtInforEmp.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin nhân viên", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185)), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5))); // NOI18N
         pnl_txtInforEmp.setLayout(new javax.swing.BoxLayout(pnl_txtInforEmp, javax.swing.BoxLayout.Y_AXIS));
 
         pnl_empID.setMaximumSize(new java.awt.Dimension(2147483647, 40));

@@ -160,7 +160,7 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
         pnl_title.setLayout(new java.awt.BorderLayout());
         pnl_title.add(filler10, java.awt.BorderLayout.SOUTH);
 
-        lbl_titleCashCount.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lbl_titleCashCount.setFont(lbl_titleCashCount.getFont().deriveFont(lbl_titleCashCount.getFont().getStyle() | java.awt.Font.BOLD, 24));
         lbl_titleCashCount.setText("Kiểm tiền dự phòng:");
         pnl_title.add(lbl_titleCashCount, java.awt.BorderLayout.CENTER);
         pnl_title.add(filler11, java.awt.BorderLayout.NORTH);
@@ -172,7 +172,7 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
 
         jSplitPane1.setResizeWeight(0.9);
 
-        pnl_infomation.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18))); // NOI18N
+        pnl_infomation.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185))); // NOI18N
         pnl_infomation.setFont(pnl_infomation.getFont());
         pnl_infomation.setMaximumSize(new java.awt.Dimension(800, 500));
         pnl_infomation.setMinimumSize(new java.awt.Dimension(400, 400));
@@ -214,8 +214,7 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
 
         btn_saveCashCount.setFont(btn_saveCashCount.getFont().deriveFont(btn_saveCashCount.getFont().getStyle() | java.awt.Font.BOLD, 20));
         btn_saveCashCount.setText("Tạo báo cáo");
-        btn_saveCashCount.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        btn_saveCashCount.putClientProperty(FlatClientProperties.STYLE, "background: $Menu.background;"+"foreground: $Menu.foreground;" +"arc: 10");
+        btn_saveCashCount.putClientProperty(FlatClientProperties.STYLE, "background: $Menu.background;"+"foreground: $Menu.foreground;");
         btn_saveCashCount.setIcon(SVGIcon.getPrimarySVGIcon("imgs/public/add.svg"));
         btn_saveCashCount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -399,7 +398,7 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        scr_cashCounts.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chi tiết kiểm tiền", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18), new java.awt.Color(0, 102, 153)), javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 5))); // NOI18N
+        scr_cashCounts.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chi tiết kiểm tiền", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185)), javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 5))); // NOI18N
         scr_cashCounts.setMinimumSize(new java.awt.Dimension(1200, 16));
 
         tbl_cashCounts.setFont(tbl_cashCounts.getFont().deriveFont(tbl_cashCounts.getFont().getStyle() & ~java.awt.Font.BOLD, 22));
@@ -435,7 +434,7 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
         pnl_total.setPreferredSize(new java.awt.Dimension(160, 45));
         pnl_total.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
-        lbl_total.setFont(lbl_total.getFont().deriveFont(lbl_total.getFont().getStyle() | java.awt.Font.BOLD, 28));
+        lbl_total.setFont(lbl_total.getFont().deriveFont(lbl_total.getFont().getStyle() | java.awt.Font.BOLD, 20));
         lbl_total.setText("Tổng:");
         pnl_total.add(lbl_total);
 

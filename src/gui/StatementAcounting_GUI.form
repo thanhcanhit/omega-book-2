@@ -37,8 +37,10 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="lbl_titleCashCount">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="24" style="1"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
+              <FontInfo relative="true">
+                <Font bold="true" component="lbl_titleCashCount" property="font" relativeSize="false" size="24"/>
+              </FontInfo>
             </Property>
             <Property name="text" type="java.lang.String" value="K&#x1ebf;t to&#xe1;n"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -81,8 +83,8 @@
                     <CompoundBorder>
                       <Border PropertyName="outside" info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                         <TitledBorder title="Th&#xf4;ng tin">
-                          <Font PropertyName="font" name="Segoe UI" size="18" style="0"/>
-                          <Color PropertyName="color" blue="99" green="66" red="0" type="rgb"/>
+                          <Font PropertyName="font" name="Segoe UI" size="14" style="1"/>
+                          <Color PropertyName="color" blue="b9" green="76" red="47" type="rgb"/>
                         </TitledBorder>
                       </Border>
                       <Border PropertyName="inside" info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
@@ -133,7 +135,7 @@
                         <Property name="editable" type="boolean" value="false"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
                           <FontInfo relative="true">
-                            <Font bold="true" component="txt_timeAccounting" property="font" relativeSize="false" size="20"/>
+                            <Font bold="true" component="txt_timeAccounting" property="font" relativeSize="false" size="16"/>
                           </FontInfo>
                         </Property>
                         <Property name="horizontalAlignment" type="int" value="0"/>
@@ -670,11 +672,6 @@
                               </FontInfo>
                             </Property>
                             <Property name="text" type="java.lang.String" value="K&#x1ebf;t to&#xe1;n" postCode="btn_accountingConform.putClientProperty(FlatClientProperties.STYLE, &quot;background: $Menu.background;&quot;+&quot;foreground: $Menu.foreground;&quot;);"/>
-                            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                              <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
-                                <EmptyBorder bottom="10" left="5" right="5" top="10"/>
-                              </Border>
-                            </Property>
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_accountingConformActionPerformed"/>
@@ -715,8 +712,8 @@
                         <CompoundBorder>
                           <Border PropertyName="outside" info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                             <TitledBorder title="Chi ti&#xea;&#x301;t ki&#xea;&#x309;m ti&#xea;&#x300;n">
-                              <Font PropertyName="font" name="Segoe UI" size="18" style="0"/>
-                              <Color PropertyName="color" blue="99" green="66" red="0" type="rgb"/>
+                              <Font PropertyName="font" name="Segoe UI" size="14" style="1"/>
+                              <Color PropertyName="color" blue="b9" green="76" red="47" type="rgb"/>
                             </TitledBorder>
                           </Border>
                           <Border PropertyName="inside" info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
@@ -795,7 +792,7 @@
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
                           <FontInfo relative="true">
-                            <Font bold="true" component="lbl_total" property="font" relativeSize="false" size="28"/>
+                            <Font bold="true" component="lbl_total" property="font" relativeSize="false" size="20"/>
                           </FontInfo>
                         </Property>
                         <Property name="text" type="java.lang.String" value="T&#x1ed5;ng:"/>
