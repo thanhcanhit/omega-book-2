@@ -41,14 +41,11 @@ public class ShiftsManagemant_BUS {
         ArrayList<Shift> list = shift_DAO.getShiftsByDate(date);
         ArrayList<Shift> listRemove = new ArrayList<>();
 
-        System.out.println(emloyeeID.equals(""));
         if (!emloyeeID.equals("")) {
             for (Shift shift : list) {
-                System.out.println(shift.getAccount().getEmployee().getEmployeeID().equals(emloyeeID));
                 if (!shift.getAccount().getEmployee().getEmployeeID().equals(emloyeeID)) {
                     listRemove.add(shift);
                 }
-                System.out.println(listRemove);
                 list.removeAll(listRemove);
                 listRemove.clear();
             }

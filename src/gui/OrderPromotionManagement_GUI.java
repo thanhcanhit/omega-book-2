@@ -283,7 +283,7 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
         pnl_filterPromo.setMaximumSize(new java.awt.Dimension(500, 50));
         pnl_filterPromo.setMinimumSize(new java.awt.Dimension(300, 32));
         pnl_filterPromo.setPreferredSize(new java.awt.Dimension(400, 50));
-        pnl_filterPromo.setLayout(new java.awt.GridLayout());
+        pnl_filterPromo.setLayout(new java.awt.GridLayout(1, 0));
 
         cmb_typePromo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Loại" }));
         cmb_typePromo.setMaximumSize(new java.awt.Dimension(32767, 30));
@@ -356,6 +356,7 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
                 return canEdit [columnIndex];
             }
         });
+        tbl_inforPromo.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         src_inforPromo.setViewportView(tbl_inforPromo);
 
         pnl_promotionInfor.add(src_inforPromo, java.awt.BorderLayout.CENTER);
@@ -371,7 +372,7 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
         pnl_promotionNew.setPreferredSize(new java.awt.Dimension(300, 190));
         pnl_promotionNew.setLayout(new javax.swing.BoxLayout(pnl_promotionNew, javax.swing.BoxLayout.Y_AXIS));
 
-        pnl_inforPromo.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        pnl_inforPromo.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin khuyến mãi", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185)), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5))); // NOI18N
         pnl_inforPromo.setMinimumSize(new java.awt.Dimension(300, 263));
         pnl_inforPromo.setLayout(new java.awt.BorderLayout());
 

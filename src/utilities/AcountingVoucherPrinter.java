@@ -97,7 +97,6 @@ public class AcountingVoucherPrinter {
         if (ps.length == 0) {
             throw new IllegalStateException("No Printer found");
         }
-        // System.out.println("Available printers: " + Arrays.asList(ps));
 
         PrintService myService = null;
         for (PrintService printService : ps) {
@@ -265,8 +264,6 @@ public class AcountingVoucherPrinter {
 
             outputStream.close();
 
-            System.out.println(
-                    "Pdf created successfully.");
             Desktop d = Desktop.getDesktop();
 
             d.open(
