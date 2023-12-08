@@ -239,14 +239,12 @@ public final class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
         rad_notReceiver.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 30, 1, 1));
         rad_notReceiver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         rad_notReceiver.setIconTextGap(8);
-        rad_notReceiver.setSize(new java.awt.Dimension(50, 0));
         pnl_status.add(rad_notReceiver);
 
         rad_receiver.setText("Đã nhận");
         rad_receiver.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 30, 1, 1));
         rad_receiver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         rad_receiver.setIconTextGap(8);
-        rad_receiver.setSize(new java.awt.Dimension(50, 0));
         rad_receiver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rad_receiverActionPerformed(evt);
@@ -258,7 +256,6 @@ public final class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
         rad_decline.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 30, 1, 1));
         rad_decline.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         rad_decline.setIconTextGap(8);
-        rad_decline.setSize(new java.awt.Dimension(50, 0));
         pnl_status.add(rad_decline);
 
         pnl_purchaseOrderInfo.add(pnl_status);
@@ -362,7 +359,7 @@ public final class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
         btn_submit.setText("Xác nhận");
         btn_submit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_submit.putClientProperty(FlatClientProperties.STYLE, "background:$Menu.background;"+"foreground:$Menu.foreground;");
-        btn_submit.setIcon(SVGIcon.getPrimarySVGIcon("imgs/orderManagement/confirmButtonPOM.svg"));
+        btn_submit.setIcon(SVGIcon.getPrimarySVGIcon("imgs/public/check.svg"));
         btn_submit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_submitActionPerformed(evt);
@@ -382,8 +379,6 @@ public final class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
         pnl_center.setLayout(new java.awt.BorderLayout());
 
         scr_purchaseOrder.setPreferredSize(new java.awt.Dimension(800, 402));
-
-        tbl_purchaseOrder.setSize(new java.awt.Dimension(800, 80));
         scr_purchaseOrder.setViewportView(tbl_purchaseOrder);
 
         pnl_center.add(scr_purchaseOrder, java.awt.BorderLayout.CENTER);
@@ -441,7 +436,7 @@ public final class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
                     rad_notReceiver.setSelected(false);
                     rad_receiver.setEnabled(false);
                     Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đã cập nhật trạng thái thành công !");
-                     this.invalidate();
+                    this.invalidate();
                     this.repaint();
                     rerender();
                 }

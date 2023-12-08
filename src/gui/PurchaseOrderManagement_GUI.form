@@ -137,9 +137,6 @@
                           <Color id="Hand Cursor"/>
                         </Property>
                         <Property name="iconTextGap" type="int" value="8"/>
-                        <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[50, 0]"/>
-                        </Property>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JRadioButton" name="rad_receiver">
@@ -154,9 +151,6 @@
                           <Color id="Hand Cursor"/>
                         </Property>
                         <Property name="iconTextGap" type="int" value="8"/>
-                        <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[50, 0]"/>
-                        </Property>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rad_receiverActionPerformed"/>
@@ -174,9 +168,6 @@
                           <Color id="Hand Cursor"/>
                         </Property>
                         <Property name="iconTextGap" type="int" value="8"/>
-                        <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[50, 0]"/>
-                        </Property>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -406,7 +397,7 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_submitActionPerformed"/>
                       </Events>
                       <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_submit.putClientProperty(FlatClientProperties.STYLE, &quot;background:$Menu.background;&quot;+&quot;foreground:$Menu.foreground;&quot;);&#xa;btn_submit.setIcon(SVGIcon.getPrimarySVGIcon(&quot;imgs/orderManagement/confirmButtonPOM.svg&quot;));"/>
+                        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_submit.putClientProperty(FlatClientProperties.STYLE, &quot;background:$Menu.background;&quot;+&quot;foreground:$Menu.foreground;&quot;);&#xa;btn_submit.setIcon(SVGIcon.getPrimarySVGIcon(&quot;imgs/public/check.svg&quot;));"/>
                       </AuxValues>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -460,11 +451,6 @@
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
                 <Component class="javax.swing.JTable" name="tbl_purchaseOrder">
-                  <Properties>
-                    <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[800, 80]"/>
-                    </Property>
-                  </Properties>
                 </Component>
               </SubComponents>
             </Container>

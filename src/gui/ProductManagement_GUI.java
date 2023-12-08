@@ -348,7 +348,6 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         lbl_typeDetail = new javax.swing.JLabel();
         cmb_typeDetail = new javax.swing.JComboBox<>();
         pnl_container21 = new javax.swing.JPanel();
-        btn_exportExcel = new javax.swing.JButton();
         btn_filter = new javax.swing.JButton();
         pnl_cart = new javax.swing.JPanel();
         scr_cart = new javax.swing.JScrollPane();
@@ -359,6 +358,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         lbl_pageNumber = new javax.swing.JLabel();
         btn_next = new javax.swing.JButton();
         btn_generateBarcode = new javax.swing.JButton();
+        btn_exportExcel = new javax.swing.JButton();
         pnl_right = new javax.swing.JPanel();
         pnl_control = new javax.swing.JPanel();
         btn_clear = new javax.swing.JButton();
@@ -642,17 +642,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         pnl_filter.add(pnl_container20);
 
         pnl_container21.setMaximumSize(new java.awt.Dimension(100, 32767));
-        pnl_container21.setLayout(new java.awt.GridLayout(2, 0));
-
-        btn_exportExcel.setText("Xuất");
-        btn_exportExcel.setActionCommand("");
-        btn_exportExcel.setIcon(SVGIcon.getSVGIcon("imgs/public/excel.svg"));
-        btn_exportExcel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_exportExcelActionPerformed(evt);
-            }
-        });
-        pnl_container21.add(btn_exportExcel);
+        pnl_container21.setLayout(new java.awt.GridLayout(1, 0));
 
         btn_filter.setText("Lọc");
         btn_filter.setMaximumSize(new java.awt.Dimension(100, 50));
@@ -684,9 +674,12 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 
         pnl_cart.add(scr_cart, java.awt.BorderLayout.CENTER);
 
-        pnl_cartFooter.setPreferredSize(new java.awt.Dimension(800, 40));
+        pnl_cartFooter.setMinimumSize(new java.awt.Dimension(509, 50));
+        pnl_cartFooter.setPreferredSize(new java.awt.Dimension(800, 50));
+        pnl_cartFooter.setLayout(new javax.swing.BoxLayout(pnl_cartFooter, javax.swing.BoxLayout.LINE_AXIS));
 
-        btn_reset.setText("Tải lại trang");
+        btn_reset.setMinimumSize(new java.awt.Dimension(100, 50));
+        btn_reset.setIcon(SVGIcon.getSVGIcon("imgs/public/refresh.svg"));
         btn_reset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_resetActionPerformed(evt);
@@ -694,7 +687,8 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         });
         pnl_cartFooter.add(btn_reset);
 
-        btn_previous.setText("Trang trước");
+        btn_previous.setMinimumSize(new java.awt.Dimension(100, 50));
+        btn_previous.setIcon(SVGIcon.getSVGIcon("imgs/public/prev.svg"));
         btn_previous.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_previousActionPerformed(evt);
@@ -706,9 +700,12 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         lbl_pageNumber.setText("1/10");
         lbl_pageNumber.setToolTipText("");
         lbl_pageNumber.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        lbl_pageNumber.setMaximumSize(null);
+        lbl_pageNumber.setMinimumSize(new java.awt.Dimension(100, 50));
         pnl_cartFooter.add(lbl_pageNumber);
 
-        btn_next.setText("Trang tiếp");
+        btn_next.setMinimumSize(new java.awt.Dimension(100, 50));
+        btn_next.setIcon(SVGIcon.getSVGIcon("imgs/public/next.svg"));
         btn_next.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_nextActionPerformed(evt);
@@ -717,12 +714,28 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         pnl_cartFooter.add(btn_next);
 
         btn_generateBarcode.setText("Tạo file barcode");
+        btn_generateBarcode.setFocusPainted(false);
+        btn_generateBarcode.setMaximumSize(null);
+        btn_generateBarcode.setMinimumSize(new java.awt.Dimension(100, 50));
         btn_generateBarcode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_generateBarcodeActionPerformed(evt);
             }
         });
+        btn_generateBarcode.setIcon(SVGIcon.getSVGIcon("imgs/public/barcode.svg"));
         pnl_cartFooter.add(btn_generateBarcode);
+
+        btn_exportExcel.setText("Xuất");
+        btn_exportExcel.setActionCommand("");
+        btn_exportExcel.setMaximumSize(null);
+        btn_exportExcel.setMinimumSize(new java.awt.Dimension(100, 50));
+        btn_exportExcel.setIcon(SVGIcon.getSVGIcon("imgs/public/excel.svg"));
+        btn_exportExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_exportExcelActionPerformed(evt);
+            }
+        });
+        pnl_cartFooter.add(btn_exportExcel);
 
         pnl_cart.add(pnl_cartFooter, java.awt.BorderLayout.PAGE_END);
 
@@ -740,6 +753,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 
         btn_clear.setText("Xóa trắng");
         btn_clear.setToolTipText("");
+        btn_clear.setIcon(SVGIcon.getSVGIcon("imgs/public/clear.svg"));
         btn_clear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_clearActionPerformed(evt);
@@ -748,6 +762,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         pnl_control.add(btn_clear);
 
         btn_update.setText("Cập nhật");
+        btn_update.setIcon(SVGIcon.getSVGIcon("imgs/public/update.svg"));
         btn_update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_updateActionPerformed(evt);
@@ -757,7 +772,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 
         btn_add.setText("Thêm");
         btn_add.setActionCommand("");
-        btn_add.setIcon(SVGIcon.getSVGIcon("imgs/menu/1.svg"));
+        btn_add.setIcon(SVGIcon.getSVGIcon("imgs/public/add.svg"));
         btn_add.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_addActionPerformed(evt);
@@ -797,6 +812,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         pnl_productTopLeft.add(lbl_productImg, java.awt.BorderLayout.CENTER);
 
         btn_selectImg.setText("Chọn hình ảnh");
+        btn_selectImg.setIcon(SVGIcon.getSVGIcon("imgs/productManagement/imgEdit.svg"));
         btn_selectImg.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_selectImgActionPerformed(evt);
@@ -1283,37 +1299,6 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         renderCurrentPage();
     }//GEN-LAST:event_btn_previousActionPerformed
 
-    private void btn_selectImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_selectImgActionPerformed
-        int isSelected = fileChooser_productImg.showOpenDialog(this);
-//        Nếu người dùng có chọn file
-        if (isSelected == JFileChooser.APPROVE_OPTION) {
-            File fileSelected = fileChooser_productImg.getSelectedFile();
-            String path = fileSelected.getPath();
-
-            if (path.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Hãy chọn hình ảnh trước khi lưu.");
-                return;
-            }
-            try {
-
-                // Chuyển đổi hình ảnh
-                byte[] imageBytes = getImageBytes(fileSelected);
-                ImageIcon imageIcon = new ImageIcon(imageBytes);
-                Image image = imageIcon.getImage();
-                Image scaledImage = image.getScaledInstance(lbl_productImg.getWidth(), -1, Image.SCALE_SMOOTH | Image.SCALE_AREA_AVERAGING);
-
-                // Tạo lại đối tượng ImageIcon với kích thước mới
-                imageIcon = new ImageIcon(scaledImage);
-
-                lbl_productImg.setIcon(imageIcon);
-                lbl_productImg.revalidate();
-                lbl_productImg.repaint();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }//GEN-LAST:event_btn_selectImgActionPerformed
-
     private static byte[] getImageBytes(File file) throws IOException {
         byte[] fileContent = Files.readAllBytes(file.toPath());
         return fileContent;
@@ -1407,7 +1392,39 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_exportAncestorAdded
 
-    private void btn_exportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_exportActionPerformed
+    private void btn_selectImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_selectImgActionPerformed
+        int isSelected = fileChooser_productImg.showOpenDialog(this);
+        System.out.println("This is running");
+//        Nếu người dùng có chọn file
+        if (isSelected == JFileChooser.APPROVE_OPTION) {
+            File fileSelected = fileChooser_productImg.getSelectedFile();
+            String path = fileSelected.getPath();
+
+            if (path.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Hãy chọn hình ảnh trước khi lưu.");
+                return;
+            }
+            try {
+
+                // Chuyển đổi hình ảnh
+                byte[] imageBytes = getImageBytes(fileSelected);
+                ImageIcon imageIcon = new ImageIcon(imageBytes);
+                Image image = imageIcon.getImage();
+                Image scaledImage = image.getScaledInstance(lbl_productImg.getWidth(), -1, Image.SCALE_SMOOTH | Image.SCALE_AREA_AVERAGING);
+
+                // Tạo lại đối tượng ImageIcon với kích thước mới
+                imageIcon = new ImageIcon(scaledImage);
+
+                lbl_productImg.setIcon(imageIcon);
+                lbl_productImg.revalidate();
+                lbl_productImg.repaint();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_btn_selectImgActionPerformed
+
+    private void btn_exportActionPerformed(java.awt.event.ActionEvent evt) {
         //        System.out.println(cbo_type.getSelectedIndex());        // TODO add your handling code here:
         ArrayList<Product> list = bus.getAll();
         // Hiển thị hộp thoại và kiểm tra nếu người dùng chọn OK

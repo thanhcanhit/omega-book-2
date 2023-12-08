@@ -23,6 +23,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import raven.toast.Notifications;
+import utilities.SVGIcon;
 
 /**
  *
@@ -229,7 +230,7 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
         cmb_typePromo = new javax.swing.JComboBox<>();
         cmb_statusPromo = new javax.swing.JComboBox<>();
         btn_searchFilterPromo = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btn_refresh = new javax.swing.JButton();
         slp_promotion = new javax.swing.JSplitPane();
         pnl_listPromotion = new javax.swing.JPanel();
         pnl_promotionInfor = new javax.swing.JPanel();
@@ -262,9 +263,9 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
         pnl_chooseDateEnd = new javax.swing.JPanel();
         chooseEndDate = new com.toedter.calendar.JDateChooser();
         pnl_buttonPromo = new javax.swing.JPanel();
-        btn_createPromo = new javax.swing.JButton();
-        btn_removePromo = new javax.swing.JButton();
         btn_clearValue = new javax.swing.JButton();
+        btn_removePromo = new javax.swing.JButton();
+        btn_createPromo = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(1366, 768));
         setLayout(new java.awt.BorderLayout());
@@ -312,7 +313,7 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
         pnl_filterPromo.setMaximumSize(new java.awt.Dimension(500, 50));
         pnl_filterPromo.setMinimumSize(new java.awt.Dimension(300, 32));
         pnl_filterPromo.setPreferredSize(new java.awt.Dimension(400, 50));
-        pnl_filterPromo.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        pnl_filterPromo.setLayout(new java.awt.GridLayout());
 
         cmb_typePromo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Loại" }));
         cmb_typePromo.setMaximumSize(new java.awt.Dimension(32767, 30));
@@ -328,6 +329,7 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
         btn_searchFilterPromo.setActionCommand("");
         btn_searchFilterPromo.setMaximumSize(new java.awt.Dimension(72, 35));
         btn_searchFilterPromo.setPreferredSize(new java.awt.Dimension(72, 35));
+        btn_searchFilterPromo.setIcon(SVGIcon.getSVGIcon("imgs/public/filter.svg"));
         btn_searchFilterPromo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_searchFilterPromoActionPerformed(evt);
@@ -335,13 +337,13 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
         });
         pnl_filterPromo.add(btn_searchFilterPromo);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/employee/reload_employee.png"))); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_refresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_refreshActionPerformed(evt);
             }
         });
-        pnl_filterPromo.add(jButton1);
+        btn_refresh.setIcon(SVGIcon.getSVGIcon("imgs/public/refresh.svg"));
+        pnl_filterPromo.add(btn_refresh);
 
         pnl_searchPromotion.add(pnl_filterPromo);
 
@@ -537,7 +539,27 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
         pnl_buttonPromo.setPreferredSize(new java.awt.Dimension(1261, 50));
         pnl_buttonPromo.setLayout(new java.awt.GridLayout(1, 0));
 
-        btn_createPromo.setText("TẠO MỚI");
+        btn_clearValue.setText("Xóa trắng");
+        btn_clearValue.setIcon(SVGIcon.getSVGIcon("imgs/public/clear.svg"));
+        btn_clearValue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_clearValueActionPerformed(evt);
+            }
+        });
+        pnl_buttonPromo.add(btn_clearValue);
+
+        btn_removePromo.setText("Dừng KM");
+        btn_removePromo.setIcon(SVGIcon.getSVGIcon("imgs/public/update.svg"));
+        btn_removePromo.setActionCommand("");
+        btn_removePromo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_removePromoActionPerformed(evt);
+            }
+        });
+        pnl_buttonPromo.add(btn_removePromo);
+
+        btn_createPromo.setText("Tạo mới");
+        btn_createPromo.setIcon(SVGIcon.getPrimarySVGIcon("imgs/public/add.svg"));
         btn_createPromo.setPreferredSize(new java.awt.Dimension(79, 50));
         btn_createPromo.putClientProperty(FlatClientProperties.STYLE,""
             + "background:$Menu.background;"
@@ -548,23 +570,6 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
             }
         });
         pnl_buttonPromo.add(btn_createPromo);
-
-        btn_removePromo.setText("GỠ ");
-        btn_removePromo.setActionCommand("");
-        btn_removePromo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_removePromoActionPerformed(evt);
-            }
-        });
-        pnl_buttonPromo.add(btn_removePromo);
-
-        btn_clearValue.setText("XOÁ TRẮNG");
-        btn_clearValue.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_clearValueActionPerformed(evt);
-            }
-        });
-        pnl_buttonPromo.add(btn_clearValue);
 
         pnl_inforPromo.add(pnl_buttonPromo, java.awt.BorderLayout.SOUTH);
 
@@ -650,10 +655,10 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
             }
     }//GEN-LAST:event_btn_createPromoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btn_refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_refreshActionPerformed
         renderPromotionTables(bus.getAllPromotionForOrder());
         renderPromotionInfor();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btn_refreshActionPerformed
 
     private void txt_searchPromoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_searchPromoKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -675,6 +680,7 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_clearValue;
     private javax.swing.JButton btn_createPromo;
+    private javax.swing.JButton btn_refresh;
     private javax.swing.JButton btn_removePromo;
     private javax.swing.JButton btn_searchFilterPromo;
     private javax.swing.JButton btn_searchPromo;
@@ -684,7 +690,6 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
     private javax.swing.JComboBox<String> cmb_statusPromo;
     private javax.swing.JComboBox<String> cmb_typePromo;
     private javax.swing.ButtonGroup group_typePromo;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel lbl_discountPromo;
     private javax.swing.JLabel lbl_endDatePromo;
     private javax.swing.JLabel lbl_promotionID;

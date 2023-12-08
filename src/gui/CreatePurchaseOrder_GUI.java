@@ -25,6 +25,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import main.Application;
 import raven.toast.Notifications;
+import utilities.SVGIcon;
 
 /**
  *
@@ -461,6 +462,7 @@ public class CreatePurchaseOrder_GUI extends javax.swing.JPanel {
         btn_create.putClientProperty(FlatClientProperties.STYLE,""
             + "background:$Menu.background;"
             + "foreground:$Menu.foreground;");
+        btn_create.setIcon(SVGIcon.getPrimarySVGIcon("imgs/public/add.svg"));
         btn_create.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_createActionPerformed(evt);

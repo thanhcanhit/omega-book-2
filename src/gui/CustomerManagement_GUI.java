@@ -321,7 +321,7 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         });
         pnl_searchCustomer.add(btn_filter);
 
-        btn_reloadList.setIcon(SVGIcon.getSVGIcon("imgs/public/reload.svg"));
+        btn_reloadList.setIcon(SVGIcon.getSVGIcon("imgs/public/refresh.svg"));
         pnl_searchCustomer.add(btn_reloadList);
 
         add(pnl_searchCustomer, java.awt.BorderLayout.NORTH);
@@ -526,8 +526,9 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         jPanel9.setPreferredSize(new java.awt.Dimension(200, 50));
         jPanel9.setLayout(new java.awt.GridLayout(1, 2));
 
-        btn_reloadForm.setFont(btn_reloadForm.getFont().deriveFont(btn_reloadForm.getFont().getStyle() | java.awt.Font.BOLD, 14));
-        btn_reloadForm.setText("LÀM MỚI");
+        btn_reloadForm.setFont(btn_reloadForm.getFont().deriveFont((float)14));
+        btn_reloadForm.setText("Xóa trắng");
+        btn_reloadForm.setIcon(SVGIcon.getSVGIcon("imgs/public/clear.svg"));
         btn_reloadForm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_reloadFormActionPerformed(evt);
@@ -535,9 +536,9 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         });
         jPanel9.add(btn_reloadForm);
 
-        btn_update.setFont(btn_update.getFont().deriveFont(btn_update.getFont().getStyle() | java.awt.Font.BOLD, 14));
-        btn_update.setText("CẬP NHẬT");
-        btn_update.putClientProperty(FlatClientProperties.STYLE, "background: $Menu.background;"+"foreground: $Menu.foreground");
+        btn_update.setFont(btn_update.getFont().deriveFont((float)14));
+        btn_update.setText("Cập nhật");
+        btn_update.setIcon(SVGIcon.getSVGIcon("imgs/public/update.svg"));
         btn_update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_updateActionPerformed(evt);
@@ -552,8 +553,10 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         jPanel10.setPreferredSize(new java.awt.Dimension(200, 50));
         jPanel10.setLayout(new java.awt.GridLayout(1, 1));
 
-        btn_create.setFont(btn_create.getFont().deriveFont(btn_create.getFont().getStyle() | java.awt.Font.BOLD, 14));
-        btn_create.setText("THÊM");
+        btn_create.setFont(btn_create.getFont().deriveFont((float)14));
+        btn_create.setText("Thêm mới");
+        btn_create.putClientProperty(FlatClientProperties.STYLE, "background: $Menu.background;"+"foreground: $Menu.foreground");
+        btn_create.setIcon(SVGIcon.getPrimarySVGIcon("imgs/public/add.svg"));
         btn_create.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_createActionPerformed(evt);
@@ -561,8 +564,8 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         });
         jPanel10.add(btn_create);
 
-        btn_exportExcel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btn_exportExcel.setText("XUẤT");
+        btn_exportExcel.setFont(btn_exportExcel.getFont().deriveFont((float)14));
+        btn_exportExcel.setText("Xuất file");
         btn_exportExcel.setIcon(SVGIcon.getSVGIcon("imgs/public/excel.svg"));
         btn_exportExcel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

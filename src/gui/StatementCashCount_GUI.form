@@ -273,7 +273,7 @@
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_saveCashCountActionPerformed"/>
                           </Events>
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_saveCashCount.putClientProperty(FlatClientProperties.STYLE, &quot;background: $Menu.background;&quot;+&quot;foreground: $Menu.foreground&quot;);"/>
+                            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_saveCashCount.putClientProperty(FlatClientProperties.STYLE, &quot;background: $Menu.background;&quot;+&quot;foreground: $Menu.foreground;&quot; +&quot;arc: 10&quot;);&#xa;btn_saveCashCount.setIcon(SVGIcon.getPrimarySVGIcon(&quot;imgs/public/add.svg&quot;));"/>
                           </AuxValues>
                         </Component>
                       </SubComponents>

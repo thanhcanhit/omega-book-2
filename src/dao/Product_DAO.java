@@ -107,11 +107,9 @@ public class Product_DAO implements DAOBase<Product> {
         int n = 0;
 
         try {
-            Product product = getOne(productID);
-            int newQuantity = product.getInventory() + quantity;
 
             PreparedStatement st = ConnectDB.conn.prepareStatement("UPDATE Product SET inventory = ? WHERE productID = ? ;");
-            st.setInt(1, newQuantity);
+            st.setInt(1, quantity);
             st.setString(2, productID);
             n = st.executeUpdate();
         } catch (Exception e) {
@@ -120,7 +118,7 @@ public class Product_DAO implements DAOBase<Product> {
 
         return n > 0;
     }
-
+    
     /**
      * Dùng cho logic chia trang Số phần tử 1 trang là 50
      *

@@ -32,9 +32,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.InputVerifier;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -233,7 +231,7 @@ public class Sales_GUI extends javax.swing.JPanel {
 
 //        Khởi tạo hóa đơn
         try {
-            order = bus.CreateNewOrder();
+            order = bus.createNewOrder();
             renderOrder();
         } catch (Exception ex) {
             Notifications.getInstance().show(Notifications.Type.ERROR, 5000, "Không thể tạo hóa đơn mới, vui lòng thử lại lúc khác");
@@ -1294,7 +1292,7 @@ public class Sales_GUI extends javax.swing.JPanel {
         pnl_orderCustomerGiveOptions.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         pnl_orderCustomerGiveOptions.setMaximumSize(new java.awt.Dimension(99999, 160));
         pnl_orderCustomerGiveOptions.setMinimumSize(new java.awt.Dimension(236, 160));
-        pnl_orderCustomerGiveOptions.setPreferredSize(new java.awt.Dimension(561, 60));
+        pnl_orderCustomerGiveOptions.setPreferredSize(new java.awt.Dimension(561, 80));
         pnl_orderCustomerGiveOptions.setLayout(new java.awt.GridLayout(3, 3, 5, 5));
 
         btn_option1.setText("Gợi ý 1");

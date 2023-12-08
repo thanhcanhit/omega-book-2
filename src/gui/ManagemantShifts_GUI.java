@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import utilities.SVGIcon;
 
 /**
  *
@@ -91,7 +92,7 @@ public class ManagemantShifts_GUI extends javax.swing.JPanel {
 
         pnl_header.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 10, 1));
         pnl_header.setMaximumSize(new java.awt.Dimension(2147483647, 40));
-        pnl_header.setPreferredSize(new java.awt.Dimension(626, 40));
+        pnl_header.setPreferredSize(new java.awt.Dimension(626, 60));
         pnl_header.setLayout(new javax.swing.BoxLayout(pnl_header, javax.swing.BoxLayout.X_AXIS));
 
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.X_AXIS));
@@ -120,9 +121,10 @@ public class ManagemantShifts_GUI extends javax.swing.JPanel {
 
         pnl_header.add(jPanel3);
 
-        jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.X_AXIS));
+        jPanel4.setLayout(new java.awt.GridLayout());
 
         btn_filter.setText("Lọc");
+        btn_filter.setIcon(SVGIcon.getSVGIcon("imgs/public/filter.svg"));
         btn_filter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_filterActionPerformed(evt);
@@ -130,6 +132,7 @@ public class ManagemantShifts_GUI extends javax.swing.JPanel {
         });
         jPanel4.add(btn_filter);
 
+        btn_reload.setIcon(SVGIcon.getSVGIcon("imgs/public/update.svg"));
         btn_reload.setText("Làm mới");
         jPanel4.add(btn_reload);
 

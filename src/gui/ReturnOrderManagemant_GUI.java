@@ -2,17 +2,15 @@ package gui;
 
 import bus.ReturnOrderManagament_BUS;
 import com.formdev.flatlaf.FlatClientProperties;
-import entity.Employee;
-import entity.Order;
 import entity.ReturnOrder;
 import entity.ReturnOrderDetail;
 import enums.ReturnOrderStatus;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import raven.toast.Notifications;
+import utilities.SVGIcon;
 
 /**
  *
@@ -248,7 +246,7 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
 
         pnl_topReturnOrder.add(pnl_searchRerturnOrder);
 
-        pnl_filterReturnOrder.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 15));
+        pnl_filterReturnOrder.setLayout(new java.awt.GridLayout());
 
         cmb_statusReturnOrder.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Trạng thái", "Đang chờ", "Đã xác nhận", "Đã từ chối" }));
         pnl_filterReturnOrder.add(cmb_statusReturnOrder);
@@ -259,6 +257,7 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
         btn_searchFilterReturnOrder.setText("Lọc");
         btn_searchFilterReturnOrder.setMaximumSize(new java.awt.Dimension(72, 33));
         btn_searchFilterReturnOrder.setPreferredSize(new java.awt.Dimension(72, 33));
+        btn_searchFilterReturnOrder.setIcon(SVGIcon.getSVGIcon("imgs/public/filter.svg"));
         btn_searchFilterReturnOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_searchFilterReturnOrderActionPerformed(evt);
@@ -266,7 +265,7 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
         });
         pnl_filterReturnOrder.add(btn_searchFilterReturnOrder);
 
-        btn_refeshReturnOrder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/employee/reload_employee.png"))); // NOI18N
+        btn_refeshReturnOrder.setIcon(SVGIcon.getSVGIcon("imgs/public/refresh.svg"));
         btn_refeshReturnOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_refeshReturnOrderActionPerformed(evt);

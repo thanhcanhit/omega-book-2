@@ -24,6 +24,7 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.streaming.*;
 import raven.toast.Notifications;
+import utilities.SVGIcon;
 
 /**
  *
@@ -433,9 +434,9 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         txt_storeID = new javax.swing.JTextField();
         pnl_btnEmp = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
+        btn_clearValue = new javax.swing.JButton();
         btn_updateEmp = new javax.swing.JButton();
         btn_changePass = new javax.swing.JButton();
-        btn_clearValue = new javax.swing.JButton();
         btn_printFile = new javax.swing.JButton();
         btn_addEmp = new javax.swing.JButton();
 
@@ -484,7 +485,7 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
 
         pnl_cmb.setMaximumSize(new java.awt.Dimension(500, 32767));
         pnl_cmb.setPreferredSize(new java.awt.Dimension(500, 100));
-        pnl_cmb.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 17));
+        pnl_cmb.setLayout(new java.awt.GridLayout());
 
         cmb_roleEmp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chức vụ", "NV Bán Hàng", "Cửa Hàng Trưởng", "Kiểm Sát Viên" }));
         cmb_roleEmp.setPreferredSize(new java.awt.Dimension(128, 32));
@@ -497,6 +498,7 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         btn_searchFilterEmp.setText("Lọc");
         btn_searchFilterEmp.setMaximumSize(new java.awt.Dimension(72, 40));
         btn_searchFilterEmp.setPreferredSize(new java.awt.Dimension(72, 40));
+        btn_searchFilterEmp.setIcon(SVGIcon.getSVGIcon("imgs/public/filter.svg"));
         btn_searchFilterEmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_searchFilterEmpActionPerformed(evt);
@@ -504,7 +506,7 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         });
         pnl_cmb.add(btn_searchFilterEmp);
 
-        btn_reloadEmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/employee/reload_employee.png"))); // NOI18N
+        btn_reloadEmp.setIcon(SVGIcon.getSVGIcon("imgs/public/refresh.svg"));
         btn_reloadEmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_reloadEmpActionPerformed(evt);
@@ -782,23 +784,8 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
 
         jPanel1.setLayout(new java.awt.GridLayout(2, 2, 5, 5));
 
-        btn_updateEmp.setText("CẬP NHẬT");
-        btn_updateEmp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_updateEmpActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btn_updateEmp);
-
-        btn_changePass.setText("ĐẶT LẠI MẬT KHẨU");
-        btn_changePass.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_changePassActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btn_changePass);
-
-        btn_clearValue.setText("XOÁ TRẮNG");
+        btn_clearValue.setText("Xóa trắng");
+        btn_clearValue.setIcon(SVGIcon.getSVGIcon("imgs/public/clear.svg"));
         btn_clearValue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_clearValueActionPerformed(evt);
@@ -806,7 +793,25 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         });
         jPanel1.add(btn_clearValue);
 
-        btn_printFile.setText("XUẤT EXCEL");
+        btn_updateEmp.setText("Cập nhật");
+        btn_updateEmp.setIcon(SVGIcon.getSVGIcon("imgs/public/update.svg"));
+        btn_updateEmp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_updateEmpActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_updateEmp);
+
+        btn_changePass.setText("Đặt lại mật khẩu");
+        btn_changePass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_changePassActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_changePass);
+
+        btn_printFile.setText("Xuất Excel");
+        btn_printFile.setIcon(SVGIcon.getSVGIcon("imgs/public/excel.svg"));
         btn_printFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_printFileActionPerformed(evt);
@@ -816,11 +821,12 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
 
         pnl_btnEmp.add(jPanel1, java.awt.BorderLayout.CENTER);
 
-        btn_addEmp.setText("THÊM");
+        btn_addEmp.setText("Thêm mới nhân viên");
         btn_addEmp.setPreferredSize(new java.awt.Dimension(72, 50));
         btn_addEmp.putClientProperty(FlatClientProperties.STYLE,""
             + "background:$Menu.background;"
             + "foreground:$Menu.foreground;");
+        btn_addEmp.setIcon(SVGIcon.getPrimarySVGIcon("imgs/public/add.svg"));
         btn_addEmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_addEmpActionPerformed(evt);

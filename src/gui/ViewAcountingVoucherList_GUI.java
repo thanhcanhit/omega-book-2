@@ -107,7 +107,7 @@ public class ViewAcountingVoucherList_GUI extends javax.swing.JPanel {
 
         setLayout(new java.awt.BorderLayout());
 
-        pnl_header.setPreferredSize(new java.awt.Dimension(711, 70));
+        pnl_header.setPreferredSize(new java.awt.Dimension(711, 100));
         pnl_header.setLayout(new javax.swing.BoxLayout(pnl_header, javax.swing.BoxLayout.X_AXIS));
 
         pnl_employee.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 5));
@@ -220,9 +220,9 @@ public class ViewAcountingVoucherList_GUI extends javax.swing.JPanel {
 
         pnl_header.add(pnl_money);
 
-        pnl_button.setLayout(new javax.swing.BoxLayout(pnl_button, javax.swing.BoxLayout.Y_AXIS));
+        pnl_button.setLayout(new java.awt.GridLayout(2, 1));
 
-        btn_reload.setIcon(SVGIcon.getSVGIcon("imgs/public/reload.svg"));
+        btn_reload.setIcon(SVGIcon.getSVGIcon("imgs/public/refresh.svg"));
         btn_reload.setMaximumSize(new java.awt.Dimension(200, 30));
         btn_reload.setPreferredSize(new java.awt.Dimension(100, 30));
         btn_reload.addActionListener(new java.awt.event.ActionListener() {
@@ -254,8 +254,7 @@ public class ViewAcountingVoucherList_GUI extends javax.swing.JPanel {
 
         pnl_center.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        btn_exportExcel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btn_exportExcel.setText("XUẤT");
+        btn_exportExcel.setText("Xuất file excel");
         btn_exportExcel.setIcon(SVGIcon.getSVGIcon("imgs/public/excel.svg"));
         jPanel1.add(btn_exportExcel);
 

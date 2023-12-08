@@ -983,7 +983,7 @@
                           <Dimension value="[236, 160]"/>
                         </Property>
                         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[561, 60]"/>
+                          <Dimension value="[561, 80]"/>
                         </Property>
                       </Properties>
 
