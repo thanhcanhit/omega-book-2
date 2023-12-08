@@ -7,6 +7,7 @@ package bus;
 import dao.Shift_DAO;
 import entity.Shift;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -27,8 +28,42 @@ public class ShiftsManagemant_BUS {
     public boolean createShifts(Shift shift) {
         return shift_DAO.create(shift);
     }
-    
-    public String renderID(){
+
+    public String renderID() {
         return shift_DAO.generateID();
+    }
+
+    public ArrayList<Shift> getShiftsByDate(Date date) {
+        return shift_DAO.getShiftsByDate(date);
+    }
+
+    public ArrayList<Shift> filter(String emloyeeID, String role, Date date) {
+        ArrayList<Shift> list = shift_DAO.getShiftsByDate(date);
+        ArrayList<Shift> listRemove = new ArrayList<>();
+
+        System.out.println(emloyeeID.equals(""));
+        if (!emloyeeID.equals("")) {
+            for (Shift shift : list) {
+                System.out.println(shift.getAccount().getEmployee().getEmployeeID().equals(emloyeeID));
+                if (!shift.getAccount().getEmployee().getEmployeeID().equals(emloyeeID)) {
+                    listRemove.add(shift);
+                }
+                System.out.println(listRemove);
+                list.removeAll(listRemove);
+                listRemove.clear();
+            }
+        }
+
+
+        if (!role.equals("Tất Cả")) {
+            for (Shift shift : list) {
+                if (!shift.getAccount().getEmployee().getRole().equals(role)) {
+                    listRemove.add(shift);
+                }
+            }
+            list.removeAll(listRemove);
+        }
+
+        return list;
     }
 }
