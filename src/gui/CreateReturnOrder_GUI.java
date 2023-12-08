@@ -151,7 +151,7 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
                 Notifications.getInstance().show(Notifications.Type.WARNING, "Sản phẩm đã được thêm");
                 return;
             }
-    }
+        }
         //Nếu chưa có thì thêm mới vào cart
         addItemToCart(productID, quantityOrder);
     }
@@ -615,9 +615,18 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     
     private void btn_createReturnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_createReturnOrderActionPerformed
-           if(checkDate()) {
+        if(checkDate()) {
             Notifications.getInstance().show(Notifications.Type.WARNING, "Ngày đổi trả không được khác ngày hiện tại");
             return;
+        }
+        if(rdb_exchange.isSelected()) {
+            for (ReturnOrderDetail returnOrderDetail : cart) {
+                if(bus.getProduct(returnOrderDetail.getProduct().getProductID()).getInventory() < returnOrderDetail.getQuantity()) {
+                    System.out.println(bus.getProduct(returnOrderDetail.getProduct().getProductID()).getInventory() + " " + returnOrderDetail.getQuantity());
+                    Notifications.getInstance().show(Notifications.Type.WARNING, "Sản phẩm không đủ để thực hiện đổi hàng");
+                    return;
+                }
+            }
         }
         try {
             ReturnOrder newReturnOrder = getNewValues();
