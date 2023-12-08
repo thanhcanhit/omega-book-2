@@ -697,8 +697,7 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
         if(rdb_exchange.isSelected()) {
             for (ReturnOrderDetail returnOrderDetail : cart) {
                 if(bus.getProduct(returnOrderDetail.getProduct().getProductID()).getInventory() < returnOrderDetail.getQuantity()) {
-                    System.out.println(bus.getProduct(returnOrderDetail.getProduct().getProductID()).getInventory() + " " + returnOrderDetail.getQuantity());
-                    Notifications.getInstance().show(Notifications.Type.WARNING, "Sản phẩm không đủ để thực hiện đổi hàng");
+                    Notifications.getInstance().show(Notifications.Type.WARNING, "Sản phẩm " + returnOrderDetail.getProduct().getProductID() +" không đủ để thực hiện đổi hàng");
                     return;
                 }
             }
