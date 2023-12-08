@@ -12,6 +12,7 @@ import database.ConnectDB;
 import entity.Account;
 import entity.Employee;
 import entity.Shift;
+import gui.Login;
 import gui.Login_GUI;
 import gui.MainView;
 import gui.Welcome_GUI;
@@ -39,7 +40,7 @@ public class Application extends javax.swing.JFrame {
     public static Application app;
     private final MainView mainForm;
     public static Employee employee = null;
-    private final Login_GUI loginForm;
+    private final Login loginForm;
     private static ShiftsManagemant_BUS shift_BUS = new ShiftsManagemant_BUS();
     private static Shift shift;
 
@@ -51,7 +52,7 @@ public class Application extends javax.swing.JFrame {
         setTitle("Omega Book");
         setIconImage(new FlatSVGIcon("imgs/icon.svg").getImage());
         mainForm = new MainView();
-        loginForm = new Login_GUI();
+        loginForm = new Login();
         setContentPane(loginForm);
         Notifications.getInstance().setJFrame(this);
 
@@ -134,6 +135,7 @@ public class Application extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Omega Book");
+        setMinimumSize(new java.awt.Dimension(550, 768));
         setPreferredSize(new java.awt.Dimension(1366, 768));
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
