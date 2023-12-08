@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package gui;
 
 import bus.PromotionManagament_BUS;
@@ -17,8 +13,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.regex.Pattern;
-import javax.swing.ButtonGroup;
-import javax.swing.ButtonModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -37,7 +31,6 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
     private DefaultTableModel tblModel_productPromotion;
     private ArrayList<ProductPromotionDetail> cart;
     private DefaultTableModel tblModel_inforProductPromotion;
-    private ButtonModel btnModel_typeDiscount;
     DecimalFormat price = new DecimalFormat("###,### VND");
 
     /**
@@ -50,7 +43,7 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
     
     private void init() {
         bus = new PromotionManagament_BUS();
-        cart = new ArrayList<ProductPromotionDetail>();
+        cart = new ArrayList<>();
         //model
         tblModel_inforProductPromotion = new DefaultTableModel(new String[]{"Mã khuyến mãi", "Loại", "Giảm giá", "Trạng thái"}, 0);
         tbl_inforProductPromo.setModel(tblModel_inforProductPromotion);
@@ -102,7 +95,7 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
     
     private void renderPromotionTables(ArrayList<Promotion> allPromotionForCustomer) {
         tblModel_inforProductPromotion.setRowCount(0);
-        String status, type, category, discount;
+        String status, type, discount;
         
         for (Promotion promotion : allPromotionForCustomer) {
             if(promotion.getEndedDate().after(java.sql.Date.valueOf(LocalDate.now())))
@@ -115,7 +108,7 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
             }
             else {
                 type = "Phần trăm";
-                discount = promotion.getDiscount()+"";
+                discount = promotion.getDiscount()+"%";
             }
             String[] newRow = {promotion.getPromotionID(), type, discount, status};
             tblModel_inforProductPromotion.addRow(newRow);
@@ -132,28 +125,6 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
         tblModel_productPromotion.setRowCount(0);
     }
 
-    private boolean validProductPromotion() {
-        if(txt_discountPromo.getText().equals("")) {
-            Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng nhập giá trị khuyến mãi");
-            txt_discountPromo.requestFocus();
-            return false;
-        }
-        if(!Pattern.matches("[0-9]*", txt_discountPromo.getText()) || Double.parseDouble(txt_discountPromo.getText()) < 0) {
-            Notifications.getInstance().show(Notifications.Type.INFO, "Giá trị khuyến mãi chỉ gồm số dương");
-            txt_discountPromo.requestFocus();
-            return false;
-        }
-        if(chooseEndDate.getDate().before(chooseStartDate.getDate())) {
-            Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng chọn ngày kết thúc sau ngày bắt đầu");
-            return false;
-        }
-        if(tblModel_productPromotion.getRowCount() == 0) {
-            Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng chọn sản phẩm áp dụng khuyến mãi");
-            return false;
-        }
-        return true;
-    }
-
     private Promotion getNewValue() throws Exception {
         double discount = Double.parseDouble(txt_discountPromo.getText());
         int type;
@@ -167,21 +138,6 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
         Promotion promotion = new Promotion(promotionID, startedDate, endedDate, PromotionType.PRODUCT, DiscountType.fromInt(type), discount);
         return promotion;
     }
-    
-    private void addProductPromotion() throws Exception {
-        Promotion newPromotion = getNewValue();
-        try {
-            if(bus.addNewPromotion(newPromotion)) {
-                Notifications.getInstance().show(Notifications.Type.SUCCESS, "Thêm thành công");
-                bus.createProductPromotionDetail(newPromotion, cart);
-                renderPromotionTables(bus.getAllPromotionForProduct());
-            }
-            else
-                Notifications.getInstance().show(Notifications.Type.ERROR, "Thêm không thành công");
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
 
     private void removeProductPromotion(String promotionID) {
         if(bus.removePromotion(promotionID)) {
@@ -190,7 +146,6 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
         }
         else
             Notifications.getInstance().show(Notifications.Type.ERROR, "Gỡ không thành công");
-  
     }
     
     private void removeProductPromotionOther(Promotion pm) {
@@ -209,14 +164,14 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
         }
     }
     private void handleAddItem(Product product) {
-//        Kiểm tra xem trong danh sách sản phẩm khuyến mãi đã có sản phẩm đó hay chưa
+        //Kiểm tra xem trong danh sách sản phẩm khuyến mãi đã có sản phẩm đó hay chưa
         for (ProductPromotionDetail productPromotionDetail : cart) {
             if(productPromotionDetail.getProduct().getProductID().equals(product.getProductID())) {
                 Notifications.getInstance().show(Notifications.Type.WARNING, "Sản phẩm đã được thêm");
                 return;
             }
     }
-//       Nếu chưa có thì thêm mới vào cart
+        //Nếu chưa có thì thêm mới vào cart
         addItemToCart(product);
     }
     private void addItemToCart(Product product) {
@@ -224,7 +179,7 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
             Notifications.getInstance().show(Notifications.Type.INFO, "Không tìm thấy sản phẩm có mã " + product.getProductID());
         } else {
             try {
-//                Thêm vào khuyến mãi
+        //Thêm vào khuyến mãi
                 ProductPromotionDetail newProductPromotionDetail = new ProductPromotionDetail(product);
                 cart.add(newProductPromotionDetail);
                 renderNewProductPromotionTables(cart);
@@ -669,16 +624,23 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
     }//GEN-LAST:event_rdb_priceActionPerformed
 
     private void btn_createPromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_createPromoActionPerformed
-        if(validProductPromotion() == false) {
-            Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng nhập thông tin khuyến mãi để thêm");
+        if(txt_discountPromo.getText().isBlank()) {
+            Notifications.getInstance().show(Notifications.Type.WARNING, "Vui lòng nhập thông tin");
             return;
         }
-        else
-            try {
-                addProductPromotion();
-            } catch (Exception ex) {
-                ex.printStackTrace();
+        try {
+            Promotion newPromotion = getNewValue();
+            if(bus.addNewPromotion(newPromotion)) {
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, "Thêm thành công");
+                bus.createProductPromotionDetail(newPromotion, cart);
+                renderPromotionTables(bus.getAllPromotionForProduct());
             }
+            else
+                Notifications.getInstance().show(Notifications.Type.ERROR, "Thêm không thành công");
+        } catch (Exception ex) {
+            Notifications.getInstance().show(Notifications.Type.WARNING, ex.getMessage());
+        }
+
     }//GEN-LAST:event_btn_createPromoActionPerformed
 
     private void btn_removePromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_removePromoActionPerformed

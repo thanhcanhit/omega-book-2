@@ -64,6 +64,7 @@ public class ReturnOrder {
 
     public ReturnOrder(Date orderDate, ReturnOrderStatus status, String returnOrderID, Employee employee, Order order, boolean type, double refund, ArrayList<ReturnOrderDetail> listDetail, String reason) throws Exception {
         setOrderDate(orderDate);
+        //this.orderDate = orderDate;
         setStatus(status);
         setReturnOrderID(returnOrderID);
         setEmployee(employee);
@@ -81,9 +82,7 @@ public class ReturnOrder {
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) throws Exception{
-        if(orderDate.before(java.sql.Date.valueOf(LocalDate.now())))
-            throw new Exception(DATE_VALID);
+    public void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
     }
 
