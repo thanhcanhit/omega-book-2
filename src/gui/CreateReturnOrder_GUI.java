@@ -689,9 +689,17 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_createReturnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_createReturnOrderActionPerformed
-           if(checkDate()) {
+        if(checkDate()) {
             Notifications.getInstance().show(Notifications.Type.WARNING, "Ngày đổi trả không được khác ngày hiện tại");
             return;
+        }
+        if(rdb_exchange.isSelected()) {
+            for (ReturnOrderDetail returnOrderDetail : cart) {
+                if(bus.getProduct(returnOrderDetail.getProduct().getProductID()).getInventory() < returnOrderDetail.getQuantity()) {
+                    Notifications.getInstance().show(Notifications.Type.WARNING, "Sản phẩm " + returnOrderDetail.getProduct().getProductID() +" không đủ để thực hiện đổi hàng");
+                    return;
+                }
+            }
         }
         try {
             ReturnOrder newReturnOrder = getNewValues();
