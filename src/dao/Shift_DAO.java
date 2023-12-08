@@ -18,13 +18,15 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import dao.Shift_DAO;
+import java.time.LocalDate;
+import java.time.ZoneId;
 
 /**
  *
  * @author Hoàng Khang
  */
 public class Shift_DAO implements DAOBase<Shift> {
-    
+
     private Employee_DAO employee_DAO = new Employee_DAO();
 
     @Override
@@ -53,6 +55,41 @@ public class Shift_DAO implements DAOBase<Shift> {
             e.printStackTrace();
         }
         return shift;
+    }
+
+   public ArrayList<Shift> getShiftsByDate(Date date) {
+        ArrayList<Shift> shifts = new ArrayList<>();
+
+        try {
+            // Chuyển đổi ngày thành LocalDate để sử dụng trong truy vấn SQL
+            LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            Timestamp startOfDay = Timestamp.valueOf(localDate.atStartOfDay());
+            Timestamp endOfDay = Timestamp.valueOf(localDate.plusDays(1).atStartOfDay().minusSeconds(1));
+
+            String sql = "SELECT * FROM Shift WHERE startedAt >= ? AND startedAt <= ?";
+            PreparedStatement preparedStatement = ConnectDB.conn.prepareStatement(sql);
+            preparedStatement.setTimestamp(1, startOfDay);
+            preparedStatement.setTimestamp(2, endOfDay);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                String shiftID = rs.getString("shiftID");
+                String employeeID = rs.getString("employeeID");
+                Timestamp startTimestamp = rs.getTimestamp("startedAt");
+                Timestamp endTimestamp = rs.getTimestamp("endedAt");
+
+                Date started = new java.sql.Date(startTimestamp.getTime());
+                Date ended = new java.sql.Date(endTimestamp.getTime());
+
+                Shift shift = new Shift(shiftID, started, ended, new Account(employee_DAO.getOne(employeeID)));
+                shifts.add(shift);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return shifts;
     }
 
     @Override

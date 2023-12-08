@@ -1,7 +1,3 @@
-/*
-* Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-* Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
-*/
 package gui;
 
 import bus.PromotionManagament_BUS;
@@ -17,6 +13,8 @@ import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.swing.ButtonModel;
 import javax.swing.DefaultComboBoxModel;
@@ -116,7 +114,7 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
             }
             else {
                 type = "Phần trăm";
-                discount = promotion.getDiscount()+"";
+                discount = promotion.getDiscount()+"%";
             }
             if(promotion.getCondition().getValue() == 1)
                 rank = "Bạc";
@@ -152,21 +150,7 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
         }
         return true;
     }
-    private Promotion getCurrentValue() throws Exception{
-        double discount = Double.parseDouble(txt_discountPromo.getText());
-        int type;
-        if(rdb_price.isSelected() == true)
-            type = 1;
-        else
-            type = 0;
-        Date startedDate = chooseStartDate.getDate();
-        Date endedDate = chooseEndDate.getDate();
-        String promotionID = txt_promotionID.getText();
-        int rankCus = cmb_rankCus.getSelectedIndex();
-             
-        Promotion promotion = new Promotion(promotionID, startedDate, endedDate, PromotionType.ORDER, DiscountType.fromInt(type), discount, CustomerRank.fromInt(rankCus));
-        return promotion;
-    }
+    
     private Promotion getNewValue() throws Exception {
         double discount = Double.parseDouble(txt_discountPromo.getText());
         int type;
@@ -182,20 +166,6 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
         return promotion;
     }
     
-    private void addPromotion() throws Exception {
-        Promotion newPromotion = getNewValue();
-        try {
-            if(bus.addNewOrderPromotion(newPromotion)) {
-                Notifications.getInstance().show(Notifications.Type.SUCCESS, "Thêm thành công");
-                renderPromotionTables(bus.getAllPromotionForOrder());
-                renderPromotionInfor();
-            }
-            else
-                Notifications.getInstance().show(Notifications.Type.ERROR, "Thêm không thành công");
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
     private void removePromotion(String promotionID) throws Exception {
         if(bus.removePromotion(promotionID))
             Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đã gỡ khuyến mãi " + promotionID);
@@ -643,16 +613,22 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
     }//GEN-LAST:event_btn_searchFilterPromoActionPerformed
     
     private void btn_createPromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_createPromoActionPerformed
-        if(validPromotion() == false) {
-            Notifications.getInstance().show(Notifications.Type.INFO, "Vui lòng nhập thông tin khuyến mãi để thêm");
+        if(txt_discountPromo.getText().isBlank()) {
+            Notifications.getInstance().show(Notifications.Type.WARNING, "Vui lòng nhập thông tin");
             return;
         }
-        else
-            try {
-                addPromotion();
-            } catch (Exception ex) {
-                ex.printStackTrace();
+        try {
+            Promotion newPromotion = getNewValue();
+            if(bus.addNewOrderPromotion(newPromotion)) {
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, "Thêm thành công");
+                renderPromotionTables(bus.getAllPromotionForOrder());
+                renderPromotionInfor();
             }
+            else
+                Notifications.getInstance().show(Notifications.Type.ERROR, "Thêm không thành công");
+        } catch (Exception ex) {
+            Notifications.getInstance().show(Notifications.Type.WARNING, ex.getMessage());
+        }
     }//GEN-LAST:event_btn_createPromoActionPerformed
 
     private void btn_refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_refreshActionPerformed

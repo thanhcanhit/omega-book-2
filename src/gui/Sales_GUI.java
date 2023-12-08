@@ -552,7 +552,7 @@ public class Sales_GUI extends javax.swing.JPanel {
 
 //      Khi tổng tiền không lẻ dưới 1000 thì nút đầu sẽ trở thành tổng tiền
         if (Math.round(orderPay) % 1000 == 0) {
-            btnOptionsList[0].setText(String.format("%.0fk", orderPay / 1000));
+            btnOptionsList[0].setText(String.format("%.0fk (1)", orderPay / 1000));
         }
 
 //        Ẩn đi các nút không có giá trị

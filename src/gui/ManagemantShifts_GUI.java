@@ -8,6 +8,8 @@ import bus.ShiftsManagemant_BUS;
 import entity.Shift;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -28,7 +30,7 @@ public class ManagemantShifts_GUI extends javax.swing.JPanel {
     public ManagemantShifts_GUI() {
         initTableModel();
         initComponents();
-        renderShiftsTable(shift_bus.getAll());
+        renderShiftsTable(shift_bus.getShiftsByDate(new Date()));
         alterTable();
     }
 
@@ -71,13 +73,13 @@ public class ManagemantShifts_GUI extends javax.swing.JPanel {
         pnl_header = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txt_empID = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        date_dateAt = new com.toedter.calendar.JDateChooser();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbo_role = new javax.swing.JComboBox<>();
         jPanel4 = new javax.swing.JPanel();
         btn_filter = new javax.swing.JButton();
         btn_reload = new javax.swing.JButton();
@@ -99,7 +101,7 @@ public class ManagemantShifts_GUI extends javax.swing.JPanel {
 
         jLabel1.setText("Mã nhân viên: ");
         jPanel1.add(jLabel1);
-        jPanel1.add(jTextField1);
+        jPanel1.add(txt_empID);
 
         pnl_header.add(jPanel1);
 
@@ -107,7 +109,7 @@ public class ManagemantShifts_GUI extends javax.swing.JPanel {
 
         jLabel2.setText("Ngày: ");
         jPanel2.add(jLabel2);
-        jPanel2.add(jDateChooser1);
+        jPanel2.add(date_dateAt);
 
         pnl_header.add(jPanel2);
 
@@ -116,8 +118,8 @@ public class ManagemantShifts_GUI extends javax.swing.JPanel {
         jLabel3.setText("Chức vụ: ");
         jPanel3.add(jLabel3);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Cửa hàng trưởng", "Nhân viên" }));
-        jPanel3.add(jComboBox1);
+        cbo_role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất Cả", "Cửa Hàng Trưởng", "Nhân Viên Bán Hàng" }));
+        jPanel3.add(cbo_role);
 
         pnl_header.add(jPanel3);
 
@@ -134,6 +136,11 @@ public class ManagemantShifts_GUI extends javax.swing.JPanel {
 
         btn_reload.setIcon(SVGIcon.getSVGIcon("imgs/public/update.svg"));
         btn_reload.setText("Làm mới");
+        btn_reload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_reloadActionPerformed(evt);
+            }
+        });
         jPanel4.add(btn_reload);
 
         pnl_header.add(jPanel4);
@@ -142,15 +149,27 @@ public class ManagemantShifts_GUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_filterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_filterActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:e
+        Date date = date_dateAt.getDate();
+        String id = txt_empID.getText().trim();
+        String role = (String) cbo_role.getSelectedItem();
+        renderShiftsTable(shift_bus.filter(id, role, date));
     }//GEN-LAST:event_btn_filterActionPerformed
+
+    private void btn_reloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reloadActionPerformed
+          ArrayList<Shift> list = shift_bus.getShiftsByDate(new Date());
+          for (Shift shift : list) {
+              System.out.println(shift.getAccount().getEmployee());
+        }
+// TODO add your handling code here:
+    }//GEN-LAST:event_btn_reloadActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_filter;
     private javax.swing.JButton btn_reload;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private javax.swing.JComboBox<String> cbo_role;
+    private com.toedter.calendar.JDateChooser date_dateAt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -158,9 +177,9 @@ public class ManagemantShifts_GUI extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel pnl_header;
     private javax.swing.JScrollPane scr_shifts;
     private javax.swing.JTable tbl_shifts;
+    private javax.swing.JTextField txt_empID;
     // End of variables declaration//GEN-END:variables
 }

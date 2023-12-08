@@ -247,6 +247,9 @@
           </AuxValues>
         </Component>
         <Component class="javax.swing.JButton" name="btn_reloadList">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_reloadListActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="btn_reloadList.setIcon(SVGIcon.getSVGIcon(&quot;imgs/public/refresh.svg&quot;));"/>
           </AuxValues>

@@ -265,6 +265,19 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
         return count <= 7;
     }
 
+    private boolean checkDate() {
+        Date now = java.sql.Date.valueOf(LocalDate.now());
+        Date orderDate = chooseDateReturn.getDate();
+        if(orderDate.before(now))
+            return true;
+        Calendar c1 = Calendar.getInstance();
+        Calendar c2 = Calendar.getInstance();
+        c1.setTime(now);
+        c2.setTime(orderDate);
+        long count = (c2.getTime().getTime() - c1.getTime().getTime()) / (24 * 3600 * 1000);
+        return count > 0;
+    }
+    
     private void createNewReturnOrder(ReturnOrder newReturnOrder) {
         if (bus.createNew(newReturnOrder)) {
             Notifications.getInstance().show(Notifications.Type.SUCCESS, "Thêm thành công");
@@ -677,6 +690,10 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_createReturnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_createReturnOrderActionPerformed
+           if(checkDate()) {
+            Notifications.getInstance().show(Notifications.Type.WARNING, "Ngày đổi trả không được khác ngày hiện tại");
+            return;
+        }
         try {
             ReturnOrder newReturnOrder = getNewValues();
             createNewReturnOrder(newReturnOrder);
