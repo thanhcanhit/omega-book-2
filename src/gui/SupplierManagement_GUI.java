@@ -168,6 +168,7 @@ public class SupplierManagement_GUI extends javax.swing.JPanel {
         pnl_cart.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách nhà cung cấp", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185))); // NOI18N
         pnl_cart.setLayout(new java.awt.BorderLayout());
 
+        tbl_supplier.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr_cart.setViewportView(tbl_supplier);
 
         pnl_cart.add(scr_cart, java.awt.BorderLayout.CENTER);

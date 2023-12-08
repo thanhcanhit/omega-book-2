@@ -137,7 +137,7 @@ public class BrandManagement_GUI extends javax.swing.JPanel {
         pnl_left.setPreferredSize(new java.awt.Dimension(900, 768));
         pnl_left.setLayout(new java.awt.BorderLayout());
 
-        pnl_header.setBorder(javax.swing.BorderFactory.createTitledBorder("Tìm kiếm"));
+        pnl_header.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tìm kiếm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185))); // NOI18N
         pnl_header.setPreferredSize(new java.awt.Dimension(1366, 60));
         pnl_header.setLayout(new javax.swing.BoxLayout(pnl_header, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -165,9 +165,11 @@ public class BrandManagement_GUI extends javax.swing.JPanel {
 
         pnl_left.add(pnl_header, java.awt.BorderLayout.NORTH);
 
-        pnl_cart.setBorder(javax.swing.BorderFactory.createTitledBorder("Danh sách nhà cung cấp"));
+        pnl_cart.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách nhà cung cấp", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185))); // NOI18N
         pnl_cart.setLayout(new java.awt.BorderLayout());
 
+        tbl_brand.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tbl_brand.setShowGrid(true);
         scr_cart.setViewportView(tbl_brand);
 
         pnl_cart.add(scr_cart, java.awt.BorderLayout.CENTER);

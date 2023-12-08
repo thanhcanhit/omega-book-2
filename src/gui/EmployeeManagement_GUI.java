@@ -550,6 +550,7 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tbl_employeeInfor.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tbl_employeeInfor.setShowGrid(false);
         scr_tableInforEmp.setViewportView(tbl_employeeInfor);
         if (tbl_employeeInfor.getColumnModel().getColumnCount() > 0) {

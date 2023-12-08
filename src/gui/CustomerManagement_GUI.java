@@ -590,6 +590,7 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
 
         tbl_customer.setFont(tbl_customer.getFont().deriveFont((float)14));
         tbl_customer.setModel(tblModel_customer);
+        tbl_customer.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tbl_customer);
 
         jSplitPane1.setLeftComponent(jScrollPane1);

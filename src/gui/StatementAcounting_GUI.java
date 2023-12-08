@@ -548,6 +548,7 @@ public class StatementAcounting_GUI extends javax.swing.JPanel {
         tbl_cashCounts.setMaximumSize(new java.awt.Dimension(2147483647, 254623));
         tbl_cashCounts.setMinimumSize(new java.awt.Dimension(800, 0));
         tbl_cashCounts.setRowHeight(45);
+        tbl_cashCounts.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr_cashCounts.setViewportView(tbl_cashCounts);
 
         pnl_cashCount.add(scr_cashCounts, java.awt.BorderLayout.CENTER);

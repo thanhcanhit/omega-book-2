@@ -88,6 +88,7 @@ public class ManagemantShifts_GUI extends javax.swing.JPanel {
         setLayout(new java.awt.BorderLayout());
 
         tbl_shifts.setModel(tblModel_shift);
+        tbl_shifts.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr_shifts.setViewportView(tbl_shifts);
 
         add(scr_shifts, java.awt.BorderLayout.CENTER);

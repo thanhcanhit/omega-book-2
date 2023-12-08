@@ -238,6 +238,7 @@ public class ViewCashCountSheetList_GUI extends javax.swing.JPanel {
         add(pnl_header, java.awt.BorderLayout.PAGE_START);
 
         tbl_cashCountSheetList.setModel(tblModel_cashCountSheetList);
+        tbl_cashCountSheetList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tbl_cashCountSheetList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbl_cashCountSheetListMouseClicked(evt);

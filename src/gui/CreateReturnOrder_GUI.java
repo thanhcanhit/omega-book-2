@@ -410,6 +410,7 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
+        tbl_orderDetail.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr_orderDetail.setViewportView(tbl_orderDetail);
 
         pnl_orderInfor.add(scr_orderDetail, java.awt.BorderLayout.CENTER);

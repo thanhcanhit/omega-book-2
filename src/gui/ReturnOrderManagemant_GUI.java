@@ -305,6 +305,7 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tbl_inforReturnOrder.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr_inforReturnOrder.setViewportView(tbl_inforReturnOrder);
 
         pnl_centerReturnOrder.add(scr_inforReturnOrder, java.awt.BorderLayout.CENTER);
@@ -473,6 +474,7 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
         });
         tbl_productInfor.setMinimumSize(new java.awt.Dimension(30, 40));
         tbl_productInfor.setPreferredSize(new java.awt.Dimension(150, 40));
+        tbl_productInfor.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tbl_productInfor.setShowGrid(false);
         scr_productInfor.setViewportView(tbl_productInfor);
 

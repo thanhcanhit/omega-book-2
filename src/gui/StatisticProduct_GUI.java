@@ -238,6 +238,7 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel {
         pnl_tableTopProduct.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách sản phẩm bán trong ngày", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185))); // NOI18N
         pnl_tableTopProduct.setLayout(new java.awt.BorderLayout());
 
+        tbl_topProduct.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr_tableProduct.setViewportView(tbl_topProduct);
 
         pnl_tableTopProduct.add(scr_tableProduct, java.awt.BorderLayout.CENTER);

@@ -552,6 +552,7 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
         pnl_center.setLayout(new java.awt.BorderLayout());
 
         tbl_order.setMinimumSize(new java.awt.Dimension(400, 80));
+        tbl_order.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tbl_order);
 
         pnl_center.add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -602,6 +603,7 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
         pnl_orderDetail.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chi tiết hoá đơn:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185))); // NOI18N
         pnl_orderDetail.setLayout(new java.awt.BorderLayout());
 
+        tbl_orderDetail.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(tbl_orderDetail);
 
         pnl_orderDetail.add(jScrollPane2, java.awt.BorderLayout.CENTER);

@@ -1056,6 +1056,7 @@ public class Sales_GUI extends javax.swing.JPanel {
 
         pnl_cart.setLayout(new java.awt.BorderLayout());
 
+        tbl_cart.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr_cart.setViewportView(tbl_cart);
 
         pnl_cart.add(scr_cart, java.awt.BorderLayout.CENTER);

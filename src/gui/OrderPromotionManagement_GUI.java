@@ -356,6 +356,7 @@ public class OrderPromotionManagement_GUI extends javax.swing.JPanel implements 
                 return canEdit [columnIndex];
             }
         });
+        tbl_inforPromo.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         src_inforPromo.setViewportView(tbl_inforPromo);
 
         pnl_promotionInfor.add(src_inforPromo, java.awt.BorderLayout.CENTER);

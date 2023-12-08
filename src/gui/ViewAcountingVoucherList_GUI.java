@@ -247,6 +247,7 @@ public class ViewAcountingVoucherList_GUI extends javax.swing.JPanel {
         pnl_center.setLayout(new java.awt.BorderLayout());
 
         tbl_acountingVoucherList.setModel(tblModel_acountingVoucherList);
+        tbl_acountingVoucherList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tbl_acountingVoucherList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbl_acountingVoucherListMouseClicked(evt);

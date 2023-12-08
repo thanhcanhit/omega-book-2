@@ -367,6 +367,7 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tbl_inforProductPromo.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         src_inforProductPromo.setViewportView(tbl_inforProductPromo);
 
         pnl_promotionInfor.add(src_inforProductPromo, java.awt.BorderLayout.CENTER);
@@ -528,6 +529,7 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tbl_productPromo.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr_productPromo.setViewportView(tbl_productPromo);
 
         pnl_categoryProduct.add(scr_productPromo, java.awt.BorderLayout.CENTER);
