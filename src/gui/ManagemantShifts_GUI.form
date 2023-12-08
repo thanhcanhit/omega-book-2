@@ -85,7 +85,7 @@
           <Dimension value="[2147483647, 40]"/>
         </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[626, 40]"/>
+          <Dimension value="[626, 60]"/>
         </Property>
       </Properties>
       <Constraints>
@@ -157,8 +157,9 @@
         </Container>
         <Container class="javax.swing.JPanel" name="jPanel4">
 
-          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout">
-            <Property name="axis" type="int" value="0"/>
+          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
+            <Property name="columns" type="int" value="0"/>
+            <Property name="rows" type="int" value="1"/>
           </Layout>
           <SubComponents>
             <Component class="javax.swing.JButton" name="btn_filter">
@@ -168,11 +169,17 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_filterActionPerformed"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_filter.setIcon(SVGIcon.getSVGIcon(&quot;imgs/public/filter.svg&quot;));"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JButton" name="btn_reload">
               <Properties>
                 <Property name="text" type="java.lang.String" value="La&#x300;m m&#x1a1;&#x301;i"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="btn_reload.setIcon(SVGIcon.getSVGIcon(&quot;imgs/public/update.svg&quot;));"/>
+              </AuxValues>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_reloadActionPerformed"/>
               </Events>

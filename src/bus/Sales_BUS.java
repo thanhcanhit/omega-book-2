@@ -45,7 +45,7 @@ public class Sales_BUS {
         return customerDAO.getByPhone(phone);
     }
 
-    public Order CreateNewOrder() throws Exception {
+    public Order createNewOrder() throws Exception {
         Order order = new Order(orderDAO.generateID());
         order.setStatus(false);
 //        Chỉ hiển thị ngày lập, khi lưu sẽ lấy thời gian tại lúc bấm thanh toán
@@ -110,6 +110,7 @@ public class Sales_BUS {
 
     public boolean decreaseProductInventory(Product product, int quantity) {
         int newInventory = product.getInventory() - quantity;
+        System.out.println("new Inventory: " + newInventory);
         return productDAO.updateInventory(product.getProductID(), newInventory);
     }
 

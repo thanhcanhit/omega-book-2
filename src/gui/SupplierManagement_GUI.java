@@ -18,6 +18,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 import main.Application;
 import raven.toast.Notifications;
+import utilities.SVGIcon;
 
 /**
  *
@@ -123,9 +124,9 @@ public class SupplierManagement_GUI extends javax.swing.JPanel {
         scr_description = new javax.swing.JScrollPane();
         txa_address = new javax.swing.JTextArea();
         pnl_btnGroup = new javax.swing.JPanel();
-        btn_create = new javax.swing.JButton();
-        btn_update = new javax.swing.JButton();
         btn_clear = new javax.swing.JButton();
+        btn_update = new javax.swing.JButton();
+        btn_create = new javax.swing.JButton();
 
         setLayout(new java.awt.GridLayout(1, 0));
 
@@ -254,18 +255,17 @@ public class SupplierManagement_GUI extends javax.swing.JPanel {
         pnl_btnGroup.setPreferredSize(new java.awt.Dimension(281, 60));
         pnl_btnGroup.setLayout(new java.awt.GridLayout(1, 2, 5, 5));
 
-        btn_create.setText("THÊM");
-        btn_create.putClientProperty(FlatClientProperties.STYLE,""
-            + "background:$Menu.background;"
-            + "foreground:$Menu.foreground;");
-        btn_create.addActionListener(new java.awt.event.ActionListener() {
+        btn_clear.setText("Xóa trắng");
+        btn_clear.setIcon(SVGIcon.getSVGIcon("imgs/public/clear.svg"));
+        btn_clear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_createActionPerformed(evt);
+                btn_clearActionPerformed(evt);
             }
         });
-        pnl_btnGroup.add(btn_create);
+        pnl_btnGroup.add(btn_clear);
 
-        btn_update.setText("SỬA");
+        btn_update.setText("Cập nhật");
+        btn_update.setIcon(SVGIcon.getSVGIcon("imgs/public/update.svg"));
         btn_update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_updateActionPerformed(evt);
@@ -273,13 +273,17 @@ public class SupplierManagement_GUI extends javax.swing.JPanel {
         });
         pnl_btnGroup.add(btn_update);
 
-        btn_clear.setText("HUỶ");
-        btn_clear.addActionListener(new java.awt.event.ActionListener() {
+        btn_create.setText("Thêm mới");
+        btn_create.putClientProperty(FlatClientProperties.STYLE,""
+            + "background:$Menu.background;"
+            + "foreground:$Menu.foreground;");
+        btn_create.setIcon(SVGIcon.getPrimarySVGIcon("imgs/public/add.svg"));
+        btn_create.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_clearActionPerformed(evt);
+                btn_createActionPerformed(evt);
             }
         });
-        pnl_btnGroup.add(btn_clear);
+        pnl_btnGroup.add(btn_create);
 
         pnl_right.add(pnl_btnGroup, java.awt.BorderLayout.SOUTH);
 

@@ -251,7 +251,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_reloadListActionPerformed"/>
           </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="btn_reloadList.setIcon(SVGIcon.getSVGIcon(&quot;imgs/public/reload.svg&quot;));"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="btn_reloadList.setIcon(SVGIcon.getSVGIcon(&quot;imgs/public/refresh.svg&quot;));"/>
           </AuxValues>
         </Component>
       </SubComponents>
@@ -814,29 +814,32 @@
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
                           <FontInfo relative="true">
-                            <Font bold="true" component="btn_reloadForm" property="font" relativeSize="false" size="14"/>
+                            <Font component="btn_reloadForm" property="font" relativeSize="false" size="14"/>
                           </FontInfo>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="LA&#x300;M M&#x1a0;&#x301;I"/>
+                        <Property name="text" type="java.lang.String" value="X&#xf3;a tr&#x1eaf;ng"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_reloadFormActionPerformed"/>
                       </Events>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_reloadForm.setIcon(SVGIcon.getSVGIcon(&quot;imgs/public/clear.svg&quot;));"/>
+                      </AuxValues>
                     </Component>
                     <Component class="javax.swing.JButton" name="btn_update">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
                           <FontInfo relative="true">
-                            <Font bold="true" component="btn_update" property="font" relativeSize="false" size="14"/>
+                            <Font component="btn_update" property="font" relativeSize="false" size="14"/>
                           </FontInfo>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="C&#xc2;&#x323;P NH&#xc2;&#x323;T"/>
+                        <Property name="text" type="java.lang.String" value="C&#x1ead;p nh&#x1ead;t"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_updateActionPerformed"/>
                       </Events>
                       <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_update.putClientProperty(FlatClientProperties.STYLE, &quot;background: $Menu.background;&quot;+&quot;foreground: $Menu.foreground&quot;);"/>
+                        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_update.setIcon(SVGIcon.getSVGIcon(&quot;imgs/public/update.svg&quot;));"/>
                       </AuxValues>
                     </Component>
                   </SubComponents>
@@ -865,21 +868,26 @@
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
                           <FontInfo relative="true">
-                            <Font bold="true" component="btn_create" property="font" relativeSize="false" size="14"/>
+                            <Font component="btn_create" property="font" relativeSize="false" size="14"/>
                           </FontInfo>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="TH&#xca;M"/>
+                        <Property name="text" type="java.lang.String" value="Th&#xea;m m&#x1edb;i"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_createActionPerformed"/>
                       </Events>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_create.putClientProperty(FlatClientProperties.STYLE, &quot;background: $Menu.background;&quot;+&quot;foreground: $Menu.foreground&quot;);&#xa;btn_create.setIcon(SVGIcon.getPrimarySVGIcon(&quot;imgs/public/add.svg&quot;));"/>
+                      </AuxValues>
                     </Component>
                     <Component class="javax.swing.JButton" name="btn_exportExcel">
                       <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Segoe UI" size="14" style="1"/>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
+                          <FontInfo relative="true">
+                            <Font component="btn_exportExcel" property="font" relativeSize="false" size="14"/>
+                          </FontInfo>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="XU&#xc2;&#x301;T"/>
+                        <Property name="text" type="java.lang.String" value="Xu&#x1ea5;t file"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_exportExcelActionPerformed"/>

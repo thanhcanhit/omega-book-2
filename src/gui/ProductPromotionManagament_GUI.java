@@ -17,6 +17,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import raven.toast.Notifications;
+import utilities.SVGIcon;
 
 /**
  *
@@ -241,9 +242,9 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
         scr_productPromo = new javax.swing.JScrollPane();
         tbl_productPromo = new javax.swing.JTable();
         pnl_buttonPromo = new javax.swing.JPanel();
-        btn_createPromo = new javax.swing.JButton();
-        btn_removePromo = new javax.swing.JButton();
         btn_clearValue = new javax.swing.JButton();
+        btn_removePromo = new javax.swing.JButton();
+        btn_createPromo = new javax.swing.JButton();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -275,6 +276,9 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
         btn_addProduct.setMaximumSize(new java.awt.Dimension(39, 23));
         btn_addProduct.setMinimumSize(new java.awt.Dimension(39, 23));
         btn_addProduct.setPreferredSize(new java.awt.Dimension(39, 23));
+        btn_addProduct.putClientProperty(FlatClientProperties.STYLE,""
+            + "background:$Menu.background;"
+            + "foreground:$Menu.foreground;");
         btn_addProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_addProductActionPerformed(evt);
@@ -288,7 +292,7 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
         pnl_filterPromo.setMaximumSize(new java.awt.Dimension(500, 50));
         pnl_filterPromo.setMinimumSize(new java.awt.Dimension(300, 32));
         pnl_filterPromo.setPreferredSize(new java.awt.Dimension(400, 50));
-        pnl_filterPromo.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        pnl_filterPromo.setLayout(new java.awt.GridLayout());
 
         cmb_typePromo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Loại" }));
         cmb_typePromo.setMaximumSize(new java.awt.Dimension(32767, 30));
@@ -304,6 +308,7 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
         btn_searchFilterPromo.setActionCommand("");
         btn_searchFilterPromo.setMaximumSize(new java.awt.Dimension(72, 40));
         btn_searchFilterPromo.setPreferredSize(new java.awt.Dimension(72, 40));
+        btn_searchFilterPromo.setIcon(SVGIcon.getSVGIcon("imgs/public/filter.svg"));
         btn_searchFilterPromo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_searchFilterPromoActionPerformed(evt);
@@ -311,7 +316,7 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
         });
         pnl_filterPromo.add(btn_searchFilterPromo);
 
-        btn_refresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/employee/reload_employee.png"))); // NOI18N
+        btn_refresh.setIcon(SVGIcon.getSVGIcon("imgs/public/refresh.svg"));
         btn_refresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_refreshActionPerformed(evt);
@@ -533,9 +538,30 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
 
         pnl_buttonPromo.setMinimumSize(new java.awt.Dimension(100, 50));
         pnl_buttonPromo.setPreferredSize(new java.awt.Dimension(1261, 50));
-        pnl_buttonPromo.setLayout(new java.awt.GridLayout(1, 0));
+        pnl_buttonPromo.setLayout(new java.awt.GridLayout());
 
-        btn_createPromo.setText("TẠO MỚI");
+        btn_clearValue.setText("Xóa trắng");
+        btn_clearValue.setToolTipText("Xóa trắng");
+        btn_clearValue.setIcon(SVGIcon.getSVGIcon("imgs/public/clear.svg"));
+        btn_clearValue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_clearValueActionPerformed(evt);
+            }
+        });
+        pnl_buttonPromo.add(btn_clearValue);
+
+        btn_removePromo.setText("Dừng KM");
+        btn_removePromo.setIcon(SVGIcon.getSVGIcon("imgs/public/update.svg"));
+        btn_removePromo.setActionCommand("");
+        btn_removePromo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_removePromoActionPerformed(evt);
+            }
+        });
+        pnl_buttonPromo.add(btn_removePromo);
+
+        btn_createPromo.setText("Tạo mới");
+        btn_createPromo.setIcon(SVGIcon.getPrimarySVGIcon("imgs/public/add.svg"));
         btn_createPromo.setPreferredSize(new java.awt.Dimension(79, 50));
         btn_createPromo.putClientProperty(FlatClientProperties.STYLE,""
             + "background:$Menu.background;"
@@ -546,23 +572,6 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
             }
         });
         pnl_buttonPromo.add(btn_createPromo);
-
-        btn_removePromo.setText("GỠ ");
-        btn_removePromo.setActionCommand("");
-        btn_removePromo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_removePromoActionPerformed(evt);
-            }
-        });
-        pnl_buttonPromo.add(btn_removePromo);
-
-        btn_clearValue.setText("XOÁ TRẮNG");
-        btn_clearValue.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_clearValueActionPerformed(evt);
-            }
-        });
-        pnl_buttonPromo.add(btn_clearValue);
 
         pnl_inforPromo.add(pnl_buttonPromo, java.awt.BorderLayout.SOUTH);
 

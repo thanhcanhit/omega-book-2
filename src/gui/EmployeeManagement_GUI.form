@@ -117,10 +117,9 @@
             </Property>
           </Properties>
 
-          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout">
-            <Property name="alignment" type="int" value="0"/>
-            <Property name="horizontalGap" type="int" value="10"/>
-            <Property name="verticalGap" type="int" value="17"/>
+          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
+            <Property name="columns" type="int" value="0"/>
+            <Property name="rows" type="int" value="1"/>
           </Layout>
           <SubComponents>
             <Component class="javax.swing.JComboBox" name="cmb_roleEmp">
@@ -171,16 +170,17 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_searchFilterEmpActionPerformed"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_searchFilterEmp.setIcon(SVGIcon.getSVGIcon(&quot;imgs/public/filter.svg&quot;));"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JButton" name="btn_reloadEmp">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/imgs/employee/reload_employee.png"/>
-                </Property>
-              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_reloadEmpActionPerformed"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_reloadEmp.setIcon(SVGIcon.getSVGIcon(&quot;imgs/public/refresh.svg&quot;));"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
@@ -832,43 +832,52 @@
                         <Property name="verticalGap" type="int" value="5"/>
                       </Layout>
                       <SubComponents>
+                        <Component class="javax.swing.JButton" name="btn_clearValue">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="X&#xf3;a tr&#x1eaf;ng"/>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_clearValueActionPerformed"/>
+                          </Events>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_clearValue.setIcon(SVGIcon.getSVGIcon(&quot;imgs/public/clear.svg&quot;));"/>
+                          </AuxValues>
+                        </Component>
                         <Component class="javax.swing.JButton" name="btn_updateEmp">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="C&#x1eac;P NH&#x1eac;T"/>
+                            <Property name="text" type="java.lang.String" value="C&#x1ead;p nh&#x1ead;t"/>
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_updateEmpActionPerformed"/>
                           </Events>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_updateEmp.setIcon(SVGIcon.getSVGIcon(&quot;imgs/public/update.svg&quot;));"/>
+                          </AuxValues>
                         </Component>
                         <Component class="javax.swing.JButton" name="btn_changePass">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="&#x110;&#x1eb6;T L&#x1ea0;I M&#x1eac;T KH&#x1ea8;U"/>
+                            <Property name="text" type="java.lang.String" value="&#x110;&#x1eb7;t l&#x1ea1;i m&#x1ead;t kh&#x1ea9;u"/>
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_changePassActionPerformed"/>
                           </Events>
                         </Component>
-                        <Component class="javax.swing.JButton" name="btn_clearValue">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="XO&#xc1; TR&#x1eae;NG"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_clearValueActionPerformed"/>
-                          </Events>
-                        </Component>
                         <Component class="javax.swing.JButton" name="btn_printFile">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="XU&#x1ea4;T EXCEL"/>
+                            <Property name="text" type="java.lang.String" value="Xu&#x1ea5;t Excel"/>
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_printFileActionPerformed"/>
                           </Events>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_printFile.setIcon(SVGIcon.getSVGIcon(&quot;imgs/public/excel.svg&quot;));"/>
+                          </AuxValues>
                         </Component>
                       </SubComponents>
                     </Container>
                     <Component class="javax.swing.JButton" name="btn_addEmp">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="TH&#xca;M"/>
+                        <Property name="text" type="java.lang.String" value="Th&#xea;m m&#x1edb;i nh&#xe2;n vi&#xea;n"/>
                         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                           <Dimension value="[72, 50]"/>
                         </Property>
@@ -877,7 +886,7 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_addEmpActionPerformed"/>
                       </Events>
                       <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_addEmp.putClientProperty(FlatClientProperties.STYLE,&quot;&quot;&#xa;                + &quot;background:$Menu.background;&quot;&#xa;                + &quot;foreground:$Menu.foreground;&quot;);"/>
+                        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_addEmp.putClientProperty(FlatClientProperties.STYLE,&quot;&quot;&#xa;                + &quot;background:$Menu.background;&quot;&#xa;                + &quot;foreground:$Menu.foreground;&quot;);&#xa;btn_addEmp.setIcon(SVGIcon.getPrimarySVGIcon(&quot;imgs/public/add.svg&quot;));"/>
                       </AuxValues>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">

@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import utilities.CashCountSheetPrinter;
+import utilities.SVGIcon;
 
 /**
  *
@@ -108,7 +109,8 @@ public class ViewCashCountSheetList_GUI extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(1366, 768));
         setLayout(new java.awt.BorderLayout());
 
-        pnl_header.setPreferredSize(new java.awt.Dimension(711, 70));
+        pnl_header.setMinimumSize(new java.awt.Dimension(769, 120));
+        pnl_header.setPreferredSize(new java.awt.Dimension(711, 100));
         pnl_header.setLayout(new javax.swing.BoxLayout(pnl_header, javax.swing.BoxLayout.X_AXIS));
 
         pnl_employee.setLayout(new javax.swing.BoxLayout(pnl_employee, javax.swing.BoxLayout.Y_AXIS));
@@ -218,14 +220,15 @@ public class ViewCashCountSheetList_GUI extends javax.swing.JPanel {
 
         pnl_header.add(pnl_money);
 
-        pnl_buttons.setLayout(new javax.swing.BoxLayout(pnl_buttons, javax.swing.BoxLayout.Y_AXIS));
+        pnl_buttons.setLayout(new java.awt.GridLayout(2, 1));
 
-        btn_filter1.setText("Làm mới");
+        btn_filter1.setIcon(SVGIcon.getSVGIcon("imgs/public/refresh.svg"));
         btn_filter1.setMaximumSize(new java.awt.Dimension(200, 30));
         btn_filter1.setPreferredSize(new java.awt.Dimension(100, 30));
         pnl_buttons.add(btn_filter1);
 
         btn_filter.setText("Lọc");
+        btn_filter.setIcon(SVGIcon.getSVGIcon("imgs/public/filter.svg"));
         btn_filter.setMaximumSize(new java.awt.Dimension(200, 30));
         btn_filter.setPreferredSize(new java.awt.Dimension(100, 30));
         pnl_buttons.add(btn_filter);

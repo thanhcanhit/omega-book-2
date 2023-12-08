@@ -457,10 +457,6 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
 
         btn_search.setText("Tìm kiếm");
         btn_search.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btn_search.putClientProperty(FlatClientProperties.STYLE, "background: $Menu.background;"
-            + "foreground:$Menu.foreground;"
-        );
-        btn_search.setIcon(SVGIcon.getPrimarySVGIcon("imgs/orderManagement/searchButtonOM.svg"));
         btn_search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_searchActionPerformed(evt);
@@ -525,26 +521,26 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
         pnl_refreshButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 50, 8, 10));
         pnl_refreshButton.setMaximumSize(new java.awt.Dimension(800, 2147483647));
         pnl_refreshButton.setPreferredSize(new java.awt.Dimension(80, 100));
-        pnl_refreshButton.setLayout(new java.awt.BorderLayout());
+        pnl_refreshButton.setLayout(new java.awt.GridLayout(1, 0));
 
-        btn_refresh.setText("Làm mới");
         btn_refresh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btn_refresh.setIcon(SVGIcon.getSVGIcon("imgs/orderManagement/refreshButtonOM.svg"));
+        btn_refresh.setIcon(SVGIcon.getSVGIcon("imgs/public/refresh.svg"));
         btn_refresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_refreshActionPerformed(evt);
             }
         });
-        pnl_refreshButton.add(btn_refresh, java.awt.BorderLayout.CENTER);
+        pnl_refreshButton.add(btn_refresh);
 
         btn_wfile.setText("Xuất file");
         btn_wfile.setPreferredSize(new java.awt.Dimension(80, 23));
+        btn_wfile.setIcon(SVGIcon.getSVGIcon("imgs/public/excel.svg"));
         btn_wfile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_wfileActionPerformed(evt);
             }
         });
-        pnl_refreshButton.add(btn_wfile, java.awt.BorderLayout.EAST);
+        pnl_refreshButton.add(btn_wfile);
 
         pnl_header.add(pnl_refreshButton);
 
@@ -560,9 +556,11 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
 
         pnl_center.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
+        pnl_cartFooter.setMinimumSize(new java.awt.Dimension(282, 50));
         pnl_cartFooter.setPreferredSize(new java.awt.Dimension(800, 40));
+        pnl_cartFooter.setLayout(new javax.swing.BoxLayout(pnl_cartFooter, javax.swing.BoxLayout.LINE_AXIS));
 
-        btn_previous.setText("Trang trước");
+        btn_previous.setIcon(SVGIcon.getSVGIcon("imgs/public/prev.svg"));
         btn_previous.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_previousActionPerformed(evt);
@@ -576,7 +574,7 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
         lbl_pageNumber.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         pnl_cartFooter.add(lbl_pageNumber);
 
-        btn_next.setText("Trang tiếp");
+        btn_next.setIcon(SVGIcon.getSVGIcon("imgs/public/next.svg"));
         btn_next.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_nextActionPerformed(evt);
@@ -590,6 +588,7 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
                 btn_viewPDFActionPerformed(evt);
             }
         });
+        btn_viewPDF.setIcon(SVGIcon.getSVGIcon("imgs/orderManagement/order.svg"));
         pnl_cartFooter.add(btn_viewPDF);
 
         pnl_center.add(pnl_cartFooter, java.awt.BorderLayout.PAGE_END);

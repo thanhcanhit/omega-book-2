@@ -56,7 +56,6 @@ public class StatementAcounting_GUI extends javax.swing.JPanel {
         initTableModel();
         initComponents();
         initForm();
-        demo();
 //        generatePDF(acountingVoucher_BUS.getAcountingByID("KTO151120230000"));
 //        System.out.println(acountingVoucher_BUS.getAcountingByID("KTO151120230000").getCashCountSheet().getCashCountSheetDetailList());
         alterTable();
@@ -86,16 +85,6 @@ public class StatementAcounting_GUI extends javax.swing.JPanel {
             }
 
         });
-    }
-
-    public void demo() {
-        AcountingVoucher ac = acountingVoucher_BUS.getAcountingByID("KTO151120230000");
-        System.out.println("Ma phieu: " + ac.getAcountingVoucherID());
-        System.out.println("Tien mat: " + ac.getCashCountSheet().getTotal());
-        System.out.println("Doanh thu: " + ac.getSale());
-        System.out.println("ATM: " + ac.getPayViaATM());
-        System.out.println("Lay ra: " + ac.getWithDraw());
-        System.out.println("Chenh lech: " + ac.getDifference());
     }
 
     public void generatePDF(AcountingVoucher acounting) {

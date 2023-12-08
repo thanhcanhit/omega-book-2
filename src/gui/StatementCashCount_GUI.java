@@ -24,6 +24,7 @@ import raven.toast.Notifications;
 import utilities.CashCountSheetPrinter;
 import utilities.FormatNumber;
 import utilities.OrderPrinter;
+import utilities.SVGIcon;
 
 /**
  *
@@ -214,7 +215,8 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
         btn_saveCashCount.setFont(btn_saveCashCount.getFont().deriveFont(btn_saveCashCount.getFont().getStyle() | java.awt.Font.BOLD, 20));
         btn_saveCashCount.setText("Tạo báo cáo");
         btn_saveCashCount.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        btn_saveCashCount.putClientProperty(FlatClientProperties.STYLE, "background: $Menu.background;"+"foreground: $Menu.foreground");
+        btn_saveCashCount.putClientProperty(FlatClientProperties.STYLE, "background: $Menu.background;"+"foreground: $Menu.foreground;" +"arc: 10");
+        btn_saveCashCount.setIcon(SVGIcon.getPrimarySVGIcon("imgs/public/add.svg"));
         btn_saveCashCount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_saveCashCountActionPerformed(evt);

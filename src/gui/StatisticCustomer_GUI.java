@@ -156,7 +156,6 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         txt_totalCustomer.setFont(txt_totalCustomer.getFont().deriveFont((float)16));
         txt_totalCustomer.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txt_totalCustomer.setToolTipText("");
-        txt_totalCustomer.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         txt_totalCustomer.setMaximumSize(new java.awt.Dimension(2147483647, 30));
         txt_totalCustomer.setMinimumSize(new java.awt.Dimension(64, 40));
         txt_totalCustomer.setPreferredSize(new java.awt.Dimension(64, 40));
@@ -184,7 +183,6 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         jTextField8.setFont(jTextField8.getFont().deriveFont((float)16));
         jTextField8.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField8.setToolTipText("");
-        jTextField8.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         jTextField8.setMaximumSize(new java.awt.Dimension(2147483647, 30));
         jTextField8.setMinimumSize(new java.awt.Dimension(64, 40));
         jTextField8.setPreferredSize(new java.awt.Dimension(64, 40));
@@ -215,7 +213,6 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         jTextField9.setFont(jTextField9.getFont().deriveFont((float)16));
         jTextField9.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField9.setToolTipText("");
-        jTextField9.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         jTextField9.setMaximumSize(new java.awt.Dimension(2147483647, 30));
         jTextField9.setMinimumSize(new java.awt.Dimension(64, 30));
         jTextField9.addActionListener(new java.awt.event.ActionListener() {
@@ -242,7 +239,6 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         jTextField10.setFont(jTextField10.getFont().deriveFont((float)16));
         jTextField10.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField10.setToolTipText("");
-        jTextField10.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         jTextField10.setMaximumSize(new java.awt.Dimension(2147483647, 30));
         jTextField10.setMinimumSize(new java.awt.Dimension(64, 40));
         jPanel18.add(jTextField10);
@@ -278,7 +274,6 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         txt_maleUnder18.setFont(txt_maleUnder18.getFont().deriveFont((float)16));
         txt_maleUnder18.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txt_maleUnder18.setToolTipText("");
-        txt_maleUnder18.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         txt_maleUnder18.setMaximumSize(new java.awt.Dimension(22222222, 40));
         txt_maleUnder18.setMinimumSize(new java.awt.Dimension(2222222, 40));
         txt_maleUnder18.setPreferredSize(new java.awt.Dimension(150, 40));
@@ -304,7 +299,6 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         txt_male18To40.setFont(txt_male18To40.getFont().deriveFont((float)16));
         txt_male18To40.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txt_male18To40.setToolTipText("");
-        txt_male18To40.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         txt_male18To40.setMaximumSize(new java.awt.Dimension(22222222, 40));
         txt_male18To40.setMinimumSize(new java.awt.Dimension(2222222, 40));
         txt_male18To40.setPreferredSize(new java.awt.Dimension(150, 40));
@@ -335,7 +329,6 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         txt_maleOver40.setFont(txt_maleOver40.getFont().deriveFont((float)16));
         txt_maleOver40.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txt_maleOver40.setToolTipText("");
-        txt_maleOver40.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         txt_maleOver40.setMaximumSize(new java.awt.Dimension(22222222, 40));
         txt_maleOver40.setMinimumSize(new java.awt.Dimension(2222222, 40));
         txt_maleOver40.setPreferredSize(new java.awt.Dimension(150, 40));
@@ -350,7 +343,7 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
 
         pnl_inforByGroup.add(pnl_groupOfMale);
 
-        pnl_groupOfFemale.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Khách hàng nữ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Helvetica Neue", 0, 13), new java.awt.Color(0, 102, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1))); // NOI18N
+        pnl_groupOfFemale.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Khách hàng nữ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(0, 102, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1))); // NOI18N
         pnl_groupOfFemale.setMaximumSize(new java.awt.Dimension(152482, 200));
         pnl_groupOfFemale.setMinimumSize(new java.awt.Dimension(46, 119));
         pnl_groupOfFemale.setPreferredSize(new java.awt.Dimension(1467, 119));
@@ -374,7 +367,6 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         txt_femaleUnder18.setFont(txt_femaleUnder18.getFont().deriveFont((float)16));
         txt_femaleUnder18.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txt_femaleUnder18.setToolTipText("");
-        txt_femaleUnder18.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         txt_femaleUnder18.setMaximumSize(new java.awt.Dimension(22222222, 40));
         txt_femaleUnder18.setMinimumSize(new java.awt.Dimension(2222222, 40));
         txt_femaleUnder18.setPreferredSize(new java.awt.Dimension(150, 40));
@@ -400,7 +392,6 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         txt_female18To40.setFont(txt_female18To40.getFont().deriveFont((float)16));
         txt_female18To40.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txt_female18To40.setToolTipText("");
-        txt_female18To40.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         txt_female18To40.setMaximumSize(new java.awt.Dimension(22222222, 40));
         txt_female18To40.setMinimumSize(new java.awt.Dimension(2222222, 40));
         txt_female18To40.setPreferredSize(new java.awt.Dimension(150, 40));
@@ -426,7 +417,6 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         txt_femaleOver40.setFont(txt_femaleOver40.getFont().deriveFont((float)16));
         txt_femaleOver40.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txt_femaleOver40.setToolTipText("");
-        txt_femaleOver40.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         txt_femaleOver40.setMaximumSize(new java.awt.Dimension(22222222, 40));
         txt_femaleOver40.setMinimumSize(new java.awt.Dimension(2222222, 40));
         txt_femaleOver40.setPreferredSize(new java.awt.Dimension(150, 40));
