@@ -159,7 +159,6 @@ public class ManagemantShifts_GUI extends javax.swing.JPanel {
     private void btn_reloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reloadActionPerformed
           ArrayList<Shift> list = shift_bus.getShiftsByDate(new Date());
           for (Shift shift : list) {
-              System.out.println(shift.getAccount().getEmployee());
         }
 // TODO add your handling code here:
     }//GEN-LAST:event_btn_reloadActionPerformed

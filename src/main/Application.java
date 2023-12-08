@@ -158,7 +158,7 @@ public class Application extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyTyped
-        System.out.println("Typed");
+        
     }//GEN-LAST:event_formKeyTyped
 
     public static void main(String args[]) {

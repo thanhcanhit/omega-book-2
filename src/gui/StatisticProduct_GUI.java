@@ -222,7 +222,7 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel {
         pnl_header.setPreferredSize(new java.awt.Dimension(661, 368));
         pnl_header.setLayout(new java.awt.BorderLayout());
 
-        pnl_control.setBorder(javax.swing.BorderFactory.createTitledBorder("Lọc: "));
+        pnl_control.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Lọc: ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185))); // NOI18N
         pnl_control.setPreferredSize(new java.awt.Dimension(1366, 80));
         pnl_control.setLayout(new javax.swing.BoxLayout(pnl_control, javax.swing.BoxLayout.LINE_AXIS));
         pnl_control.add(filler26);
@@ -235,7 +235,7 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel {
 
         pnl_header.add(pnl_control, java.awt.BorderLayout.NORTH);
 
-        pnl_tableTopProduct.setBorder(javax.swing.BorderFactory.createTitledBorder("Danh sách sản phẩm bán trong ngày"));
+        pnl_tableTopProduct.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách sản phẩm bán trong ngày", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185))); // NOI18N
         pnl_tableTopProduct.setLayout(new java.awt.BorderLayout());
 
         scr_tableProduct.setViewportView(tbl_topProduct);
@@ -244,7 +244,7 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel {
 
         pnl_header.add(pnl_tableTopProduct, java.awt.BorderLayout.CENTER);
 
-        pnl_infomation.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin sản phẩm"));
+        pnl_infomation.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin sản phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185))); // NOI18N
         pnl_infomation.setPreferredSize(new java.awt.Dimension(450, 400));
         pnl_infomation.setLayout(new javax.swing.BoxLayout(pnl_infomation, javax.swing.BoxLayout.Y_AXIS));
         pnl_infomation.add(filler21);
@@ -254,7 +254,6 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel {
 
         lbl_productID.setText("Mã sản phẩm: ");
         lbl_productID.setPreferredSize(new java.awt.Dimension(120, 0));
-        lbl_productID.setSize(new java.awt.Dimension(100, 0));
         pnl_productID.add(lbl_productID);
         pnl_productID.add(filler2);
 
@@ -272,7 +271,6 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel {
 
         lbl_productIName.setText("Tên sản phẩm: ");
         lbl_productIName.setPreferredSize(new java.awt.Dimension(120, 0));
-        lbl_productIName.setSize(new java.awt.Dimension(100, 0));
         pnl_productName.add(lbl_productIName);
         pnl_productName.add(filler5);
 
@@ -312,7 +310,6 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel {
 
         lbl_price.setText("Giá sản phẩm:");
         lbl_price.setPreferredSize(new java.awt.Dimension(120, 0));
-        lbl_price.setSize(new java.awt.Dimension(100, 0));
         pnl_price.add(lbl_price);
         pnl_price.add(filler8);
 
@@ -330,7 +327,6 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel {
 
         lbl_quantity.setText("Số lượng đã bán: ");
         lbl_quantity.setPreferredSize(new java.awt.Dimension(120, 0));
-        lbl_quantity.setSize(new java.awt.Dimension(100, 0));
         pnl_quantity.add(lbl_quantity);
         pnl_quantity.add(filler11);
 
@@ -348,7 +344,6 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel {
 
         lbl_total.setText("Tổng doanh thu: ");
         lbl_total.setPreferredSize(new java.awt.Dimension(120, 0));
-        lbl_total.setSize(new java.awt.Dimension(100, 0));
         pnl_total.add(lbl_total);
         pnl_total.add(filler14);
 
@@ -365,7 +360,7 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel {
 
         add(pnl_header, java.awt.BorderLayout.NORTH);
 
-        pnl_center.setBorder(javax.swing.BorderFactory.createTitledBorder("Biểu đồ thống kê top 10 sản phẩm bán chạy trong tháng"));
+        pnl_center.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Biểu đồ thống kê top 10 sản phẩm bán chạy trong tháng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185))); // NOI18N
         pnl_center.setPreferredSize(new java.awt.Dimension(661, 400));
         pnl_center.setLayout(new java.awt.BorderLayout());
         pnl_center.add(chart, java.awt.BorderLayout.CENTER);

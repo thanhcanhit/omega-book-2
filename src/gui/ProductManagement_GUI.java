@@ -1394,7 +1394,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
 
     private void btn_selectImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_selectImgActionPerformed
         int isSelected = fileChooser_productImg.showOpenDialog(this);
-        System.out.println("This is running");
+
 //        Nếu người dùng có chọn file
         if (isSelected == JFileChooser.APPROVE_OPTION) {
             File fileSelected = fileChooser_productImg.getSelectedFile();
@@ -1425,7 +1425,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_selectImgActionPerformed
 
     private void btn_exportActionPerformed(java.awt.event.ActionEvent evt) {
-        //        System.out.println(cbo_type.getSelectedIndex());        // TODO add your handling code here:
+     // TODO add your handling code here:
         ArrayList<Product> list = bus.getAll();
         // Hiển thị hộp thoại và kiểm tra nếu người dùng chọn OK
         JFileChooser fileChooser = new JFileChooser();
@@ -1504,7 +1504,6 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         document.close();
         outputStream.close();
 
-        System.out.println("Pdf created successfully.");
         Desktop d = Desktop.getDesktop();
         d.open(new File(filepath));
     }

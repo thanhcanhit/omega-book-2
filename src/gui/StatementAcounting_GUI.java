@@ -57,7 +57,6 @@ public class StatementAcounting_GUI extends javax.swing.JPanel {
         initComponents();
         initForm();
 //        generatePDF(acountingVoucher_BUS.getAcountingByID("KTO151120230000"));
-//        System.out.println(acountingVoucher_BUS.getAcountingByID("KTO151120230000").getCashCountSheet().getCashCountSheetDetailList());
         alterTable();
 
         tbl_cashCounts.getModel().addTableModelListener(new TableModelListener() {

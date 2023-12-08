@@ -80,16 +80,13 @@ public class Sales_GUI extends javax.swing.JPanel {
 
         @Override
         public void nativeKeyPressed(NativeKeyEvent e) {
-            System.out.println("Key Pressed: " + NativeKeyEvent.getKeyText(e.getKeyCode()) + "; Temp: " + tempInput);
 
 //                Handle submit
             if (e.getKeyCode() == NativeKeyEvent.VC_ENTER) {
-                System.out.println(tempInput);
                 String productID = tempInput.trim();
 
 //                    Kiểm tra xem productID có hợp lệ không 
                 try {
-                    System.out.println("Product ID:" + productID + ";");
                     Product _product = new Product(productID);
                     handleAddItem(productID);
                 } catch (Exception er) {
@@ -153,12 +150,10 @@ public class Sales_GUI extends javax.swing.JPanel {
 
         @Override
         public void nativeKeyReleased(NativeKeyEvent e) {
-//                System.out.println("Key Released: " + NativeKeyEvent.getKeyText(e.getKeyCode()));
         }
 
         @Override
         public void nativeKeyTyped(NativeKeyEvent e) {
-//                System.out.println("Key Typed: " + e.getKeyText(e.getKeyCode()));
         }
     }
 
@@ -1740,7 +1735,11 @@ public class Sales_GUI extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_promotionSelectBestActionPerformed
 
     private void btn_insert000ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_insert000ActionPerformed
-        setCustomerGive(Double.parseDouble(txt_orderCustomerGive.getText()) * 1000);
+        try {
+            setCustomerGive(Double.parseDouble(txt_orderCustomerGive.getText()) * 1000);
+        } catch (Exception e) {
+
+        }
     }//GEN-LAST:event_btn_insert000ActionPerformed
 
     /*
@@ -1748,24 +1747,21 @@ public class Sales_GUI extends javax.swing.JPanel {
         cho nên phải gỡ lắng sự kiện native tránh ảnh hưởng đến cái khác
      */
     private void formAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_formAncestorAdded
-        System.out.println("Added");
         GlobalScreen.addNativeKeyListener(barcodeScannerHandler);
     }//GEN-LAST:event_formAncestorAdded
 
     private void formAncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_formAncestorRemoved
-        System.out.println("remove");
+
         GlobalScreen.removeNativeKeyListener(barcodeScannerHandler);
     }//GEN-LAST:event_formAncestorRemoved
 
     private void chk_defaultCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chk_defaultCustomerActionPerformed
-        System.out.println("Trigger");
+
         if (chk_defaultCustomer.isSelected()) {
             setOrderCustomer(defaultCustomer);
         } else {
             setOrderCustomer(customer);
         }
-
-        System.out.println(customer);
     }//GEN-LAST:event_chk_defaultCustomerActionPerformed
 
     private void renderSavedOrderTable() {
@@ -1841,7 +1837,7 @@ public class Sales_GUI extends javax.swing.JPanel {
         }
         Double bestDiscountValue = 0.0;
         for (Promotion item : bus.getPromotionOfOrderAvailable(customer.getRankType().getValue())) {
-            System.out.println(item.getPromotionID());
+
             double discountValue = item.getTypeDiscount() == DiscountType.PERCENT ? item.getDiscount() : item.getDiscount();
             if (bestDiscountValue < discountValue) {
                 bestPromotion = item;
