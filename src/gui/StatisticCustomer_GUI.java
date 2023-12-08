@@ -20,6 +20,7 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
 
     StatisticCustomer_BUS statisticCustomer_BUS = new StatisticCustomer_BUS();
     int data[] = statisticCustomer_BUS.filterCustomers();
+    int numCus = statisticCustomer_BUS.getNumberCus();
     
     private final PolarAreaChart polarAreaChart = new PolarAreaChart();
 
@@ -51,17 +52,20 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         polarAreaChart.setBackground(getBackground());
 
 
-        polarAreaChart.addItem(new ModelPolarAreaChart(new Color(129, 143, 180), "Nam dưới 18 tuổi",data[3]));
+        polarAreaChart.addItem(new ModelPolarAreaChart(new Color(129, 143, 180), "Nam dưới 18 tuổi",getRat(data[3])));
 
-        polarAreaChart.addItem(new ModelPolarAreaChart(new Color(230, 105, 62), "Nam từ 18 đến 40 tuổi",data[4]));
-        polarAreaChart.addItem(new ModelPolarAreaChart(new Color(162, 197, 121), "Nam trên 40 tuổi",data[5]));
-        polarAreaChart.addItem(new ModelPolarAreaChart(new Color(197, 168, 86), "Nữ dưới 18 tuổi",data[0]));
-        polarAreaChart.addItem(new ModelPolarAreaChart(new Color(255, 223, 223), "Nữ từ 18 đến 40 tuổi",data[1]));
-        polarAreaChart.addItem(new ModelPolarAreaChart(new Color(174, 222, 252), "Nữ trên 40 tuổi",data[2]));
+        polarAreaChart.addItem(new ModelPolarAreaChart(new Color(230, 105, 62), "Nam từ 18 đến 40 tuổi",getRat(data[4])));
+        polarAreaChart.addItem(new ModelPolarAreaChart(new Color(162, 197, 121), "Nam trên 40 tuổi",getRat(data[5])));
+        polarAreaChart.addItem(new ModelPolarAreaChart(new Color(197, 168, 86), "Nữ dưới 18 tuổi",getRat(data[0])));
+        polarAreaChart.addItem(new ModelPolarAreaChart(new Color(255, 223, 223), "Nữ từ 18 đến 40 tuổi",getRat(data[1])));
+        polarAreaChart.addItem(new ModelPolarAreaChart(new Color(174, 222, 252), "Nữ trên 40 tuổi", getRat(data[2])));
         polarAreaChart.start();
         
     }
 
+    public double getRat(int element){
+        return ((double)element/numCus)*100;
+    }
         
         
 

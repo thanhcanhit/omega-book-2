@@ -15,6 +15,10 @@ public class StatisticCustomer_BUS {
     Customer_DAO customer_DAO = new Customer_DAO(); // Gợi ý: Bạn cần phải sử dụng đối tượng này để lấy danh sách khách hàng
     ArrayList<Customer> list = customer_DAO.getAll();
     
+    public int getNumberCus(){
+        return customer_DAO.getAll().size();
+    }
+    
     public int sumCustomer(){
         return list.size();
     }
