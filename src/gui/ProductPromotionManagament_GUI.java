@@ -12,7 +12,6 @@ import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.regex.Pattern;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -328,6 +327,8 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
 
         add(pnl_searchPromotion, java.awt.BorderLayout.NORTH);
 
+        slp_promotion.setResizeWeight(0.5);
+
         pnl_listPromotion.setMaximumSize(new java.awt.Dimension(1000, 2147483647));
         pnl_listPromotion.setPreferredSize(new java.awt.Dimension(800, 432));
         pnl_listPromotion.setLayout(new java.awt.BorderLayout());
@@ -378,9 +379,9 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
 
         pnl_promotionNew.setAlignmentX(0.0F);
         pnl_promotionNew.setAlignmentY(0.0F);
-        pnl_promotionNew.setMaximumSize(new java.awt.Dimension(366, 32767));
-        pnl_promotionNew.setMinimumSize(new java.awt.Dimension(300, 192));
-        pnl_promotionNew.setPreferredSize(new java.awt.Dimension(300, 190));
+        pnl_promotionNew.setMaximumSize(new java.awt.Dimension(500, 32767));
+        pnl_promotionNew.setMinimumSize(new java.awt.Dimension(450, 192));
+        pnl_promotionNew.setPreferredSize(new java.awt.Dimension(500, 190));
         pnl_promotionNew.setLayout(new javax.swing.BoxLayout(pnl_promotionNew, javax.swing.BoxLayout.Y_AXIS));
 
         pnl_inforPromo.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin khuyến mãi", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185)), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5))); // NOI18N
