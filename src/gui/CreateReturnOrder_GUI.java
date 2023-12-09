@@ -2,9 +2,6 @@ package gui;
 
 import bus.ReturnOrderManagament_BUS;
 import com.formdev.flatlaf.FlatClientProperties;
-import com.github.kwhat.jnativehook.GlobalScreen;
-import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
-import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
 import entity.Employee;
 import entity.Order;
 import entity.OrderDetail;
@@ -36,74 +33,13 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
     private DefaultTableModel tblModel_orderDetail;
     private DefaultTableModel tblModel_product;
     private ArrayList<ReturnOrderDetail> cart;
-    private ButtonModel btnModel_type;
     private int maxQuantity;
-    String tempInput = "";
-
     /**
      * Creates new form CreateReturnOrder_GUI
      */
     public CreateReturnOrder_GUI() {
         initComponents();
         init();
-        GlobalScreen.addNativeKeyListener(new NativeKeyListener() {
-
-            @Override
-            public void nativeKeyPressed(NativeKeyEvent e) {
-
-//                Handle submit
-                if (e.getKeyCode() == NativeKeyEvent.VC_ENTER) {
-                    String orderID = tempInput.trim();
-
-//                    Kiểm tra xem productID có hợp lệ không 
-                    try {
-                        order = bus.getOrder(orderID);
-                        if (order == null) {
-                            return;
-                        }
-                        if (bus.isExist(order)) {
-                            return;
-                        }
-                        if (!isAvaiable(order)) {
-                            return;
-                        }
-
-                        renderOrderDetail(orderID);
-                        Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đã thêm hóa đơn " + orderID);
-                    } catch (Exception er) {
-//                  Bỏ qua
-                        er.printStackTrace();
-                    } finally {
-//                    reset
-                        tempInput = new String();
-                    }
-
-                }
-
-//                Xử lí nhận biết đang nhập mã sản phẩm
-                if (e.getKeyCode() == NativeKeyEvent.VC_H) {
-                    tempInput = new String();
-                    tempInput += NativeKeyEvent.getKeyText(e.getKeyCode());
-                }
-
-                if (tempInput.equals("H") && e.getKeyCode() == NativeKeyEvent.VC_D) {
-                    tempInput += NativeKeyEvent.getKeyText(e.getKeyCode());
-                }
-
-//            Kiểm tra xem có phải đang nhập mã sản phẩm và đang là số không (VC_1 = 2 và VC_0 = 11)
-                if (tempInput.startsWith("HD") && e.getKeyCode() >= NativeKeyEvent.VC_1 && e.getKeyCode() <= NativeKeyEvent.VC_0) {
-                    tempInput += NativeKeyEvent.getKeyText(e.getKeyCode());
-                }
-            }
-
-            @Override
-            public void nativeKeyReleased(NativeKeyEvent e) {
-            }
-
-            @Override
-            public void nativeKeyTyped(NativeKeyEvent e) {
-            }
-        });
     }
 
     private void init() {
