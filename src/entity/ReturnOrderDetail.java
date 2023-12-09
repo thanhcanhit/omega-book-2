@@ -76,7 +76,7 @@ public class ReturnOrderDetail {
     }
 
     public void setPrice(double price) {
-        this.price = price;
+        this.price = price * quantity;
     }
     
 

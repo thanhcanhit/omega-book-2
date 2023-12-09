@@ -1,7 +1,6 @@
 package entity;
 
 import enums.ReturnOrderStatus;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
@@ -14,7 +13,6 @@ import java.util.regex.Pattern;
 public class ReturnOrder {
     private final String ORDER_ERROR="Order không được rỗng";
     private final String EMPLOYEE_ERROR="Employee không được rỗng";
-    private final String DATE_VALID = "Ngày đổi không được khác ngày hiện tại";
     private final String REASON_EMPTY = "Lý do không được rỗng";
     private final String TYPE_EMPTY = "Loại đơn đổi trả không được rỗng";
     private final String RETURNORDERID_VALID = "Mã đơn đổi trả không đúng cú pháp";
@@ -64,7 +62,6 @@ public class ReturnOrder {
 
     public ReturnOrder(Date orderDate, ReturnOrderStatus status, String returnOrderID, Employee employee, Order order, boolean type, double refund, ArrayList<ReturnOrderDetail> listDetail, String reason) throws Exception {
         setOrderDate(orderDate);
-        //this.orderDate = orderDate;
         setStatus(status);
         setReturnOrderID(returnOrderID);
         setEmployee(employee);
