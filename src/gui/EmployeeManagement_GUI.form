@@ -256,6 +256,7 @@
                         </Column>
                       </TableColumnModel>
                     </Property>
+                    <Property name="selectionMode" type="int" value="0"/>
                     <Property name="showGrid" type="boolean" value="false"/>
                     <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
@@ -287,7 +288,10 @@
                       <Border info="org.netbeans.modules.form.compat2.border.CompoundBorderInfo">
                         <CompoundBorder>
                           <Border PropertyName="outside" info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                            <TitledBorder title="Th&#xf4;ng tin nh&#xe2;n vi&#xea;n"/>
+                            <TitledBorder title="Th&#xf4;ng tin nh&#xe2;n vi&#xea;n">
+                              <Font PropertyName="font" name="Segoe UI" size="14" style="1"/>
+                              <Color PropertyName="color" blue="b9" green="76" red="47" type="rgb"/>
+                            </TitledBorder>
                           </Border>
                           <Border PropertyName="inside" info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
                             <EmptyBorder bottom="5" left="5" right="5" top="5"/>

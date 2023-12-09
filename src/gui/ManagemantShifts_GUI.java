@@ -88,6 +88,7 @@ public class ManagemantShifts_GUI extends javax.swing.JPanel {
         setLayout(new java.awt.BorderLayout());
 
         tbl_shifts.setModel(tblModel_shift);
+        tbl_shifts.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr_shifts.setViewportView(tbl_shifts);
 
         add(scr_shifts, java.awt.BorderLayout.CENTER);
@@ -123,7 +124,7 @@ public class ManagemantShifts_GUI extends javax.swing.JPanel {
 
         pnl_header.add(jPanel3);
 
-        jPanel4.setLayout(new java.awt.GridLayout());
+        jPanel4.setLayout(new java.awt.GridLayout(1, 0));
 
         btn_filter.setText("Lọc");
         btn_filter.setIcon(SVGIcon.getSVGIcon("imgs/public/filter.svg"));
@@ -159,7 +160,6 @@ public class ManagemantShifts_GUI extends javax.swing.JPanel {
     private void btn_reloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reloadActionPerformed
           ArrayList<Shift> list = shift_bus.getShiftsByDate(new Date());
           for (Shift shift : list) {
-              System.out.println(shift.getAccount().getEmployee());
         }
 // TODO add your handling code here:
     }//GEN-LAST:event_btn_reloadActionPerformed

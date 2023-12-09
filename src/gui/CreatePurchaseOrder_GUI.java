@@ -340,6 +340,7 @@ public class CreatePurchaseOrder_GUI extends javax.swing.JPanel {
 
         pnl_cart.setLayout(new java.awt.BorderLayout());
 
+        tbl_cart.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr_cart.setViewportView(tbl_cart);
 
         pnl_cart.add(scr_cart, java.awt.BorderLayout.CENTER);
@@ -364,7 +365,7 @@ public class CreatePurchaseOrder_GUI extends javax.swing.JPanel {
 
         pnl_info.setLayout(new javax.swing.BoxLayout(pnl_info, javax.swing.BoxLayout.Y_AXIS));
 
-        pnl_orderInfo.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin đơn nhập"), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        pnl_orderInfo.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin đơn nhập", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185)), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5))); // NOI18N
         pnl_orderInfo.setMaximumSize(new java.awt.Dimension(2147483647, 300));
         pnl_orderInfo.setPreferredSize(new java.awt.Dimension(500, 400));
         pnl_orderInfo.setLayout(new javax.swing.BoxLayout(pnl_orderInfo, javax.swing.BoxLayout.Y_AXIS));

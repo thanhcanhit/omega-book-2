@@ -235,7 +235,10 @@
                   <Border info="org.netbeans.modules.form.compat2.border.CompoundBorderInfo">
                     <CompoundBorder>
                       <Border PropertyName="outside" info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                        <TitledBorder title="Danh s&#xe1;ch khuy&#x1ebf;n m&#xe3;i"/>
+                        <TitledBorder title="Danh s&#xe1;ch khuy&#x1ebf;n m&#xe3;i">
+                          <Font PropertyName="font" name="Segoe UI" size="14" style="1"/>
+                          <Color PropertyName="color" blue="b9" green="76" red="47" type="rgb"/>
+                        </TitledBorder>
                       </Border>
                       <Border PropertyName="inside" info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
                         <EmptyBorder bottom="3" left="3" right="3" top="3"/>
@@ -315,6 +318,7 @@
                             </Column>
                           </TableColumnModel>
                         </Property>
+                        <Property name="selectionMode" type="int" value="0"/>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                         </Property>
@@ -356,7 +360,10 @@
                   <Border info="org.netbeans.modules.form.compat2.border.CompoundBorderInfo">
                     <CompoundBorder>
                       <Border PropertyName="outside" info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                        <TitledBorder title="Th&#xf4;ng tin"/>
+                        <TitledBorder title="Th&#xf4;ng tin khuy&#x1ebf;n m&#xe3;i">
+                          <Font PropertyName="font" name="Segoe UI" size="14" style="1"/>
+                          <Color PropertyName="color" blue="b9" green="76" red="47" type="rgb"/>
+                        </TitledBorder>
                       </Border>
                       <Border PropertyName="inside" info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
                         <EmptyBorder bottom="5" left="5" right="5" top="5"/>
@@ -700,6 +707,7 @@
                                     </Column>
                                   </TableColumnModel>
                                 </Property>
+                                <Property name="selectionMode" type="int" value="0"/>
                                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                                 </Property>

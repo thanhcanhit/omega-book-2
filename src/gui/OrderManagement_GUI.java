@@ -396,7 +396,7 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
 
         setLayout(new java.awt.BorderLayout());
 
-        pnl_header.setBorder(javax.swing.BorderFactory.createTitledBorder("Tìm kiếm: "));
+        pnl_header.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tìm kiếm: ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185))); // NOI18N
         pnl_header.setMinimumSize(new java.awt.Dimension(10, 100));
         pnl_header.setPreferredSize(new java.awt.Dimension(1366, 130));
         pnl_header.setLayout(new java.awt.GridLayout(2, 4));
@@ -546,12 +546,13 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
 
         add(pnl_header, java.awt.BorderLayout.NORTH);
 
-        pnl_center.setBorder(javax.swing.BorderFactory.createTitledBorder("Danh sách hoá đơn: "));
+        pnl_center.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách hoá đơn: ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185))); // NOI18N
         pnl_center.setDoubleBuffered(false);
         pnl_center.setMinimumSize(new java.awt.Dimension(600, 40));
         pnl_center.setLayout(new java.awt.BorderLayout());
 
         tbl_order.setMinimumSize(new java.awt.Dimension(400, 80));
+        tbl_order.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tbl_order);
 
         pnl_center.add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -599,16 +600,17 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
         pnl_infomation.setPreferredSize(new java.awt.Dimension(500, 768));
         pnl_infomation.setLayout(new java.awt.BorderLayout());
 
-        pnl_orderDetail.setBorder(javax.swing.BorderFactory.createTitledBorder("Chi tiết hoá đơn:"));
+        pnl_orderDetail.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chi tiết hoá đơn:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185))); // NOI18N
         pnl_orderDetail.setLayout(new java.awt.BorderLayout());
 
+        tbl_orderDetail.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(tbl_orderDetail);
 
         pnl_orderDetail.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
         pnl_infomation.add(pnl_orderDetail, java.awt.BorderLayout.CENTER);
 
-        pnl_info.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin:"));
+        pnl_info.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185))); // NOI18N
         pnl_info.setPreferredSize(new java.awt.Dimension(400, 200));
         pnl_info.setLayout(new javax.swing.BoxLayout(pnl_info, javax.swing.BoxLayout.Y_AXIS));
 
@@ -620,7 +622,6 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
         pnl_customerName.add(lbl_customerName);
 
         txt_customerName.setEditable(false);
-        txt_customerName.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         txt_customerName.setPreferredSize(new java.awt.Dimension(64, 30));
         txt_customerName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -639,7 +640,6 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
         pnl_phone.add(lbl_phone);
 
         txt_phone.setEditable(false);
-        txt_phone.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         txt_phone.setPreferredSize(new java.awt.Dimension(64, 30));
         txt_phone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -658,7 +658,6 @@ public final class OrderManagement_GUI extends javax.swing.JPanel {
         pnl_total.add(lbl_customerName1);
 
         txt_total.setEditable(false);
-        txt_total.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         txt_total.setPreferredSize(new java.awt.Dimension(64, 30));
         txt_total.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

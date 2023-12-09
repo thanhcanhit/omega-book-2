@@ -110,7 +110,6 @@ public class Sales_BUS {
 
     public boolean decreaseProductInventory(Product product, int quantity) {
         int newInventory = product.getInventory() - quantity;
-        System.out.println("new Inventory: " + newInventory);
         return productDAO.updateInventory(product.getProductID(), newInventory);
     }
 

@@ -28,7 +28,8 @@
             <CompoundBorder>
               <Border PropertyName="outside" info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                 <TitledBorder title="Th&#x1ed1;ng k&#xea; theo nh&#xf3;m kh&#xe1;ch h&#xe0;ng">
-                  <Font PropertyName="font" name="Segoe UI" size="14" style="0"/>
+                  <Font PropertyName="font" name="Segoe UI" size="14" style="1"/>
+                  <Color PropertyName="color" blue="b9" green="76" red="47" type="rgb"/>
                 </TitledBorder>
               </Border>
               <Border PropertyName="inside" info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
@@ -81,9 +82,9 @@
                   <Border info="org.netbeans.modules.form.compat2.border.CompoundBorderInfo">
                     <CompoundBorder>
                       <Border PropertyName="outside" info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                        <TitledBorder title="Th&#xf4;ng tin">
-                          <Font PropertyName="font" name="Segoe UI" size="14" style="0"/>
-                          <Color PropertyName="color" blue="99" green="66" red="0" type="rgb"/>
+                        <TitledBorder title="Th&#xf4;ng tin kh&#xe1;ch h&#xe0;ng">
+                          <Font PropertyName="font" name="Segoe UI" size="14" style="1"/>
+                          <Color PropertyName="color" blue="b9" green="76" red="47" type="rgb"/>
                         </TitledBorder>
                       </Border>
                       <Border PropertyName="inside" info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
@@ -400,8 +401,8 @@
                         <CompoundBorder>
                           <Border PropertyName="outside" info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                             <TitledBorder title="Kh&#xe1;ch h&#xe0;ng nam">
-                              <Font PropertyName="font" name="Segoe UI" size="14" style="0"/>
-                              <Color PropertyName="color" blue="99" green="66" red="0" type="rgb"/>
+                              <Font PropertyName="font" name="Segoe UI" size="14" style="1"/>
+                              <Color PropertyName="color" blue="b9" green="76" red="47" type="rgb"/>
                             </TitledBorder>
                           </Border>
                           <Border PropertyName="inside" info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
@@ -447,7 +448,7 @@
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
                               <FontInfo relative="true">
-                                <Font component="lbl_maleUnder18" property="font" relativeSize="false" size="16"/>
+                                <Font component="lbl_maleUnder18" property="font" relativeSize="false" size="15"/>
                               </FontInfo>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Nam &lt; 18 tu&#x1ed5;i:"/>
@@ -512,7 +513,7 @@
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
                               <FontInfo relative="true">
-                                <Font component="lbl_male18To40" property="font" relativeSize="false" size="16"/>
+                                <Font component="lbl_male18To40" property="font" relativeSize="false" size="15"/>
                               </FontInfo>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Nam t&#x1eeb; 18 - 40 tu&#x1ed5;i:"/>
@@ -580,7 +581,7 @@
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
                               <FontInfo relative="true">
-                                <Font component="lbl_maleOver40" property="font" relativeSize="false" size="16"/>
+                                <Font component="lbl_maleOver40" property="font" relativeSize="false" size="15"/>
                               </FontInfo>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Nam &gt; 40 tu&#x1ed5;i"/>
@@ -630,7 +631,8 @@
                         <CompoundBorder>
                           <Border PropertyName="outside" info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                             <TitledBorder title="Kh&#xe1;ch h&#xe0;ng n&#x1eef;">
-                              <Color PropertyName="color" blue="99" green="66" red="0" type="rgb"/>
+                              <Font PropertyName="font" name="Segoe UI" size="14" style="1"/>
+                              <Color PropertyName="color" blue="b9" green="76" red="47" type="rgb"/>
                             </TitledBorder>
                           </Border>
                           <Border PropertyName="inside" info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
@@ -682,7 +684,7 @@
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
                               <FontInfo relative="true">
-                                <Font component="lbl_femaleUnder18" property="font" relativeSize="false" size="16"/>
+                                <Font component="lbl_femaleUnder18" property="font" relativeSize="false" size="15"/>
                               </FontInfo>
                             </Property>
                             <Property name="text" type="java.lang.String" value="N&#x1eef; &lt; 18 tu&#x1ed5;i:"/>
@@ -747,7 +749,7 @@
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
                               <FontInfo relative="true">
-                                <Font component="lbl_female18To40" property="font" relativeSize="false" size="16"/>
+                                <Font component="lbl_female18To40" property="font" relativeSize="false" size="15"/>
                               </FontInfo>
                             </Property>
                             <Property name="text" type="java.lang.String" value="N&#x1eef; t&#x1eeb; 18 - 40 tu&#x1ed5;i:"/>
@@ -812,7 +814,7 @@
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
                               <FontInfo relative="true">
-                                <Font component="lbl_femaleOver40" property="font" relativeSize="false" size="16"/>
+                                <Font component="lbl_femaleOver40" property="font" relativeSize="false" size="15"/>
                               </FontInfo>
                             </Property>
                             <Property name="text" type="java.lang.String" value="N&#x1eef; &gt; 40 tu&#x1ed5;i:"/>

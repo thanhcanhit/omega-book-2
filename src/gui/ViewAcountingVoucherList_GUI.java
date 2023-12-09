@@ -117,6 +117,7 @@ public class ViewAcountingVoucherList_GUI extends javax.swing.JPanel {
         pnl_employee1.setPreferredSize(new java.awt.Dimension(350, 30));
         pnl_employee1.setLayout(new javax.swing.BoxLayout(pnl_employee1, javax.swing.BoxLayout.X_AXIS));
 
+        lbl_employee1.setFont(lbl_employee1.getFont().deriveFont(lbl_employee1.getFont().getStyle() | java.awt.Font.BOLD, 14));
         lbl_employee1.setText("Nhân viên kiểm:");
         lbl_employee1.setMaximumSize(new java.awt.Dimension(150, 16));
         lbl_employee1.setMinimumSize(new java.awt.Dimension(150, 16));
@@ -136,6 +137,7 @@ public class ViewAcountingVoucherList_GUI extends javax.swing.JPanel {
         pnl_employee2.setPreferredSize(new java.awt.Dimension(350, 30));
         pnl_employee2.setLayout(new javax.swing.BoxLayout(pnl_employee2, javax.swing.BoxLayout.X_AXIS));
 
+        lbl_employee2.setFont(lbl_employee2.getFont().deriveFont(lbl_employee2.getFont().getStyle() | java.awt.Font.BOLD, 14));
         lbl_employee2.setText("Nhân viên đồng kiểm:");
         lbl_employee2.setMaximumSize(new java.awt.Dimension(150, 16));
         lbl_employee2.setMinimumSize(new java.awt.Dimension(150, 16));
@@ -245,6 +247,7 @@ public class ViewAcountingVoucherList_GUI extends javax.swing.JPanel {
         pnl_center.setLayout(new java.awt.BorderLayout());
 
         tbl_acountingVoucherList.setModel(tblModel_acountingVoucherList);
+        tbl_acountingVoucherList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tbl_acountingVoucherList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbl_acountingVoucherListMouseClicked(evt);
@@ -270,7 +273,6 @@ public class ViewAcountingVoucherList_GUI extends javax.swing.JPanel {
     private void btn_reloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reloadActionPerformed
         // TODO add your handling code here:
 //        AcountingVoucher demo = viewAcountingVoucherList_BUS.getOne("KTO151120230004");
-//        System.out.println("Tổng tiền kiểm được " + demo.getCashCountSheet().getTotal());
 
     }//GEN-LAST:event_btn_reloadActionPerformed
 

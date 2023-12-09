@@ -163,7 +163,7 @@ public final class StatisticSales_GUI extends javax.swing.JPanel {
 
         pnl_topleft.setLayout(new java.awt.BorderLayout());
 
-        pnl_control.setBorder(javax.swing.BorderFactory.createTitledBorder("Lọc: "));
+        pnl_control.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Lọc: ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185))); // NOI18N
         pnl_control.setPreferredSize(new java.awt.Dimension(1366, 70));
         pnl_control.setLayout(new javax.swing.BoxLayout(pnl_control, javax.swing.BoxLayout.LINE_AXIS));
         pnl_control.add(filler26);
@@ -188,7 +188,7 @@ public final class StatisticSales_GUI extends javax.swing.JPanel {
 
         pnl_topleft.add(pnl_control, java.awt.BorderLayout.NORTH);
 
-        pnl_infomaotionBody.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin chi tiết"));
+        pnl_infomaotionBody.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin chi tiết", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185))); // NOI18N
         pnl_infomaotionBody.setLayout(new java.awt.GridLayout(2, 3));
 
         pnl_orderQuantiy.setBorder(javax.swing.BorderFactory.createEmptyBorder(30, 10, 30, 10));
@@ -197,7 +197,7 @@ public final class StatisticSales_GUI extends javax.swing.JPanel {
         jPanel1.setPreferredSize(new java.awt.Dimension(100, 20));
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        lbl_orderQuantity.setFont(lbl_orderQuantity.getFont().deriveFont(lbl_orderQuantity.getFont().getStyle() | java.awt.Font.BOLD, 14));
+        lbl_orderQuantity.setFont(lbl_orderQuantity.getFont().deriveFont((float)16));
         lbl_orderQuantity.setText("Tổng số hoá đơn: ");
         lbl_orderQuantity.setMaximumSize(new java.awt.Dimension(165, 20));
         lbl_orderQuantity.setMinimumSize(new java.awt.Dimension(165, 20));
@@ -219,7 +219,7 @@ public final class StatisticSales_GUI extends javax.swing.JPanel {
         jPanel2.setPreferredSize(new java.awt.Dimension(100, 20));
         jPanel2.setLayout(new java.awt.BorderLayout());
 
-        lbl_returnOrderQuanitty.setFont(lbl_returnOrderQuanitty.getFont().deriveFont(lbl_returnOrderQuanitty.getFont().getStyle() | java.awt.Font.BOLD, 14));
+        lbl_returnOrderQuanitty.setFont(lbl_returnOrderQuanitty.getFont().deriveFont((float)16));
         lbl_returnOrderQuanitty.setText("Tổng hoá đơn trả:");
         lbl_returnOrderQuanitty.setPreferredSize(new java.awt.Dimension(130, 20));
         jPanel2.add(lbl_returnOrderQuanitty, java.awt.BorderLayout.CENTER);
@@ -239,7 +239,7 @@ public final class StatisticSales_GUI extends javax.swing.JPanel {
         jPanel3.setPreferredSize(new java.awt.Dimension(100, 20));
         jPanel3.setLayout(new java.awt.BorderLayout());
 
-        lbl_purchaseOrderQuantity.setFont(lbl_purchaseOrderQuantity.getFont().deriveFont(lbl_purchaseOrderQuantity.getFont().getStyle() | java.awt.Font.BOLD, 14));
+        lbl_purchaseOrderQuantity.setFont(lbl_purchaseOrderQuantity.getFont().deriveFont((float)16));
         lbl_purchaseOrderQuantity.setText("Tổng số đơn nhập: ");
         lbl_purchaseOrderQuantity.setMaximumSize(new java.awt.Dimension(130, 17));
         lbl_purchaseOrderQuantity.setMinimumSize(new java.awt.Dimension(130, 17));
@@ -262,7 +262,7 @@ public final class StatisticSales_GUI extends javax.swing.JPanel {
 
         jPanel5.setLayout(new java.awt.BorderLayout());
 
-        lbl_orderQuantity3.setFont(lbl_orderQuantity3.getFont().deriveFont(lbl_orderQuantity3.getFont().getStyle() | java.awt.Font.BOLD, 14));
+        lbl_orderQuantity3.setFont(lbl_orderQuantity3.getFont().deriveFont((float)16));
         lbl_orderQuantity3.setText("Tổng doanh thu:");
         lbl_orderQuantity3.setPreferredSize(new java.awt.Dimension(130, 20));
         jPanel5.add(lbl_orderQuantity3, java.awt.BorderLayout.CENTER);
@@ -281,7 +281,7 @@ public final class StatisticSales_GUI extends javax.swing.JPanel {
 
         jPanel4.setLayout(new java.awt.BorderLayout());
 
-        lbl_orderQuantity4.setFont(lbl_orderQuantity4.getFont().deriveFont(lbl_orderQuantity4.getFont().getStyle() | java.awt.Font.BOLD, 14));
+        lbl_orderQuantity4.setFont(lbl_orderQuantity4.getFont().deriveFont((float)16));
         lbl_orderQuantity4.setText("Chỉ tiêu:");
         lbl_orderQuantity4.setPreferredSize(new java.awt.Dimension(130, 20));
         jPanel4.add(lbl_orderQuantity4, java.awt.BorderLayout.CENTER);
@@ -311,7 +311,7 @@ public final class StatisticSales_GUI extends javax.swing.JPanel {
         pnl_topright.setPreferredSize(new java.awt.Dimension(450, 100));
         pnl_topright.setLayout(new java.awt.BorderLayout());
 
-        pnl_productTypeStatistic.setBorder(javax.swing.BorderFactory.createTitledBorder("Biểu đồ tỷ lệ sản phẩm "));
+        pnl_productTypeStatistic.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Biểu đồ tỷ lệ sản phẩm ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185))); // NOI18N
         pnl_productTypeStatistic.setPreferredSize(new java.awt.Dimension(450, 450));
         pnl_productTypeStatistic.setLayout(new javax.swing.BoxLayout(pnl_productTypeStatistic, javax.swing.BoxLayout.Y_AXIS));
         pnl_topright.add(pnl_productTypeStatistic, java.awt.BorderLayout.EAST);
@@ -321,7 +321,7 @@ public final class StatisticSales_GUI extends javax.swing.JPanel {
 
         add(pnl_header, java.awt.BorderLayout.NORTH);
 
-        pnl_center.setBorder(javax.swing.BorderFactory.createTitledBorder("Thống kê doanh thu theo tháng"));
+        pnl_center.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thống kê doanh thu theo tháng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185))); // NOI18N
         pnl_center.setPreferredSize(new java.awt.Dimension(661, 400));
         pnl_center.setLayout(new java.awt.BorderLayout());
         pnl_center.add(chart, java.awt.BorderLayout.CENTER);
