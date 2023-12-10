@@ -52,8 +52,8 @@ public class ReturnOrder_DAO implements DAOBase<ReturnOrder>{
                 String employeeID = rs.getString("employeeID");
                 double refund = rs.getDouble("refund");
                 String reason = rs.getString("reason");
-                Order order = new Order(orderID);
-                Employee employee = new Employee(employeeID);
+                Order order = new Order_DAO().getOne(orderID);
+                Employee employee = new Employee_DAO().getOne(employeeID);
                 ArrayList<ReturnOrderDetail> listDetail = getAllReturnOrderDetail(id);
                 returnOrder = new ReturnOrder(orderDate, ReturnOrderStatus.fromInt(status), id, employee, order, type, refund, listDetail, reason);
             }

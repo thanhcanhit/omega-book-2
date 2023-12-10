@@ -20,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
 import main.Application;
 import raven.toast.Notifications;
 import utilities.FormatNumber;
+import utilities.ReturnOrderPrinter;
 import utilities.SVGIcon;
 
 /**
@@ -35,6 +36,7 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
     private DefaultTableModel tblModel_product;
     private ArrayList<ReturnOrderDetail> cart;
     private int maxQuantity;
+    private double totalRefund;
     /**
      * Creates new form CreateReturnOrder_GUI
      */
@@ -97,6 +99,7 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
             Object[] newRow = new Object[]{item.getProduct().getProductID(), item.getProduct().getName(), item.getQuantity()};
             tblModel_product.addRow(newRow);
             refund += item.getPrice() * item.getQuantity();
+            totalRefund = refund;
             txt_refund.setText(FormatNumber.toVND(refund));
         }
     }
@@ -107,11 +110,13 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
         for (OrderDetail orderDetail1 : orderDetailList) {
             double price = orderDetail1.getPrice() - (orderDetail1.getSeasonalDiscount()/orderDetail1.getQuantity());
             Promotion promo = bus.getDiscount(orderID);
-            if(promo.getTypeDiscount().getValue() == 0)
-                price = price *(1 - (promo.getDiscount()/100));
-            else {
-                double tmp = (promo.getDiscount()/orderDetailList.size())/orderDetail1.getQuantity();
-                price = price - tmp;
+            if(promo != null) {
+                if(promo.getTypeDiscount().getValue() == 0)
+                    price = price *(1 - (promo.getDiscount()/100));
+                else {
+                    double tmp = (promo.getDiscount()/orderDetailList.size())/orderDetail1.getQuantity();
+                    price = price - tmp;
+                }
             }
             String[] newRow = {orderDetail1.getOrder().getOrderID(), orderDetail1.getProduct().getProductID(), orderDetail1.getProduct().getName(), orderDetail1.getQuantity() + "", price + "", orderDetail1.getQuantity()*price + ""};
             tblModel_orderDetail.addRow(newRow);
@@ -145,7 +150,7 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
             refund = 0;
         } else {
             type = false;
-            refund = Double.parseDouble(txt_refund.getText());
+            refund = totalRefund;
         }
         String reason = txt_reason.getText();
         return new ReturnOrder(returnDate, ReturnOrderStatus.PENDING, returnOrderID, employee, order, type, refund, cart, reason);
@@ -223,6 +228,16 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
             bus.createReturnOrderDetail(newReturnOrder, cart);
         } else {
             Notifications.getInstance().show(Notifications.Type.ERROR, "Thêm không thành công");
+        }
+    }
+    private void Print(ReturnOrder returnOrder) {
+        ReturnOrderPrinter printer = new ReturnOrderPrinter(returnOrder);
+        printer.generatePDF();
+        ReturnOrderPrinter.PrintStatus status = printer.printFile();
+        if (status == ReturnOrderPrinter.PrintStatus.NOT_FOUND_FILE) {
+            Notifications.getInstance().show(Notifications.Type.ERROR, "Lỗi không thể in hóa đơn: Không tìm thấy file");
+        } else if (status == ReturnOrderPrinter.PrintStatus.NOT_FOUND_PRINTER) {
+            Notifications.getInstance().show(Notifications.Type.ERROR, "Lỗi không thể in hóa đơn: Không tìm thấy máy in");
         }
     }
 
@@ -645,6 +660,7 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
             ReturnOrder newReturnOrder = getNewValues();
             createNewReturnOrder(newReturnOrder);
             renderReturnOrderInfor();
+            Print(newReturnOrder);
         } catch (Exception ex) {
             Notifications.getInstance().show(Notifications.Type.WARNING, ex.getMessage());
         }

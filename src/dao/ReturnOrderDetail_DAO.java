@@ -115,7 +115,7 @@ public class ReturnOrderDetail_DAO implements DAOBase<ReturnOrderDetail>{
                 String productID = rs.getString("productID");
                 int quantity = rs.getInt("quantity");
                 double price = rs.getDouble("price");
-                Product product = new Product(productID);
+                Product product = new Product_DAO().getOne(productID);
                 ReturnOrder returnOrder = new ReturnOrder(id);
                 ReturnOrderDetail returnOrderDetail = new ReturnOrderDetail(returnOrder, product, quantity, price);
                 result.add(returnOrderDetail);

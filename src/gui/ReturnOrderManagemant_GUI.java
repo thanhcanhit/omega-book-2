@@ -11,6 +11,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import raven.toast.Notifications;
 import utilities.FormatNumber;
+import utilities.ReturnOrderPrinter;
 import utilities.SVGIcon;
 
 /**
@@ -150,6 +151,16 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
         }
         else
             Notifications.getInstance().show(Notifications.Type.ERROR, "Cập nhật không thành công");
+    }
+    private void Print() {
+        ReturnOrderPrinter printer = new ReturnOrderPrinter(getNewValue());
+        printer.generatePDF();
+//        ReturnOrderPrinter.PrintStatus status = printer.printFile();
+//        if (status == ReturnOrderPrinter.PrintStatus.NOT_FOUND_FILE) {
+//            Notifications.getInstance().show(Notifications.Type.ERROR, "Lỗi không thể in hóa đơn: Không tìm thấy file");
+//        } else if (status == ReturnOrderPrinter.PrintStatus.NOT_FOUND_PRINTER) {
+//            Notifications.getInstance().show(Notifications.Type.ERROR, "Lỗi không thể in hóa đơn: Không tìm thấy máy in");
+//        }
     }
  
     /**
@@ -549,6 +560,7 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
             return;
         }
         updateReturnOrder();
+        Print();
     }//GEN-LAST:event_btn_saveReturnOrderActionPerformed
 
     private void btn_searchReturnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchReturnOrderActionPerformed
@@ -558,6 +570,7 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
             return;
         }
         renderReturnOrderTables(bus.searchById(returnOrderID));
+        
     }//GEN-LAST:event_btn_searchReturnOrderActionPerformed
 
     private void btn_searchFilterReturnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchFilterReturnOrderActionPerformed
