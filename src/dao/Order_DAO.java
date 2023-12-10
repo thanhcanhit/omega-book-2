@@ -469,6 +469,8 @@ public class Order_DAO implements DAOBase<Order> {
 
     public Promotion getDiscount(String orderID) {
         Order order = getOne(orderID);
+        if(order.getPromotion() == null)
+            return null;
         return new Promotion_DAO().getOne(order.getPromotion().getPromotionID());
     }
 
