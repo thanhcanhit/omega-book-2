@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import raven.toast.Notifications;
+import utilities.FormatNumber;
 import utilities.SVGIcon;
 
 /**
@@ -77,7 +78,7 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
             rdb_return.setSelected(true);
         else
             rdb_exchange.setSelected(true);
-        txt_refund.setText(currentReturnOrder.getRefund()+"");
+        txt_refund.setText(FormatNumber.toVND(currentReturnOrder.getRefund()));
         txt_reason.setText(currentReturnOrder.getReason());
         renderProductTable(currentReturnOrder.getReturnOrderID());
     }

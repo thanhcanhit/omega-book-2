@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import main.Application;
 import raven.toast.Notifications;
+import utilities.FormatNumber;
 import utilities.SVGIcon;
 
 /**
@@ -96,7 +97,7 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
             Object[] newRow = new Object[]{item.getProduct().getProductID(), item.getProduct().getName(), item.getQuantity()};
             tblModel_product.addRow(newRow);
             refund += item.getPrice() * item.getQuantity();
-            txt_refund.setText(refund + "");
+            txt_refund.setText(FormatNumber.toVND(refund));
         }
     }
 
@@ -104,7 +105,7 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
         tblModel_orderDetail.setRowCount(0);
         ArrayList<OrderDetail> orderDetailList = bus.getAllOrderDetail(orderID);
         for (OrderDetail orderDetail1 : orderDetailList) {
-            String[] newRow = {orderDetail1.getOrder().getOrderID(), orderDetail1.getProduct().getProductID(), orderDetail1.getProduct().getName(), orderDetail1.getQuantity() + "", orderDetail1.getPrice() + "", orderDetail1.getLineTotal() + ""};
+            String[] newRow = {orderDetail1.getOrder().getOrderID(), orderDetail1.getProduct().getProductID(), orderDetail1.getProduct().getName(), orderDetail1.getQuantity() + "", (orderDetail1.getPrice() - orderDetail1.getSeasonalDiscount()) + "", orderDetail1.getLineTotal() + ""};
             tblModel_orderDetail.addRow(newRow);
         }
     }
@@ -142,7 +143,7 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
         return new ReturnOrder(returnDate, ReturnOrderStatus.PENDING, returnOrderID, employee, order, type, refund, cart, reason);
     }
 
-    private void handleAddItem(String productID, int quantityOrder) {
+    private void handleAddItem(String productID, int quantityOrder, double price) {
         maxQuantity = quantityOrder;
         //Kiểm tra xem trong giỏ hàng đã có sản phẩm đó hay chưa
         for (ReturnOrderDetail returnOrderDetail : cart) {
@@ -152,10 +153,10 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
             }
         }
         //Nếu chưa có thì thêm mới vào cart
-        addItemToCart(productID, quantityOrder);
+        addItemToCart(productID, quantityOrder, price);
     }
 
-    private void addItemToCart(String productID, int quantityOrder) {
+    private void addItemToCart(String productID, int quantityOrder, double price) {
         Product item = bus.getProduct(productID);
         if (item == null) {
             Notifications.getInstance().show(Notifications.Type.INFO, "Không tìm thấy sản phẩm có mã " + productID);
@@ -164,7 +165,7 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
             try {
                 //Thêm vào giỏ hàng
                 Product product = bus.getProduct(productID);
-                ReturnOrderDetail newReturnOrderDetail = new ReturnOrderDetail(product, 1, product.getPrice());
+                ReturnOrderDetail newReturnOrderDetail = new ReturnOrderDetail(product, 1, price);
                 cart.add(newReturnOrderDetail);
                 renderProductTable();
                 toggleChangeQuantity();
@@ -646,7 +647,8 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
         int rowIndex = tbl_orderDetail.getSelectedRow();
         String productID = tblModel_orderDetail.getValueAt(rowIndex, 1).toString();
         int quantityOrder = Integer.parseInt(tblModel_orderDetail.getValueAt(rowIndex, 3).toString());
-        handleAddItem(productID, quantityOrder);
+        double price = Double.parseDouble(tblModel_orderDetail.getValueAt(rowIndex, 4).toString());
+        handleAddItem(productID, quantityOrder, price);
 
     }//GEN-LAST:event_btn_addProductActionPerformed
 
