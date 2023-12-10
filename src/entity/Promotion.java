@@ -72,7 +72,9 @@ public final class Promotion {
     public Promotion(String promotionID) throws Exception {
         setPromotionID(promotionID);
     }
-    
+
+    public Promotion() {
+    }   
 
     public String getPromotionID() {
         return promotionID;
