@@ -6,6 +6,7 @@ import entity.Employee;
 import entity.Order;
 import entity.OrderDetail;
 import entity.Product;
+import entity.Promotion;
 import entity.ReturnOrder;
 import entity.ReturnOrderDetail;
 import enums.ReturnOrderStatus;
@@ -14,7 +15,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import javax.swing.ButtonModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import main.Application;
@@ -105,7 +105,15 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
         tblModel_orderDetail.setRowCount(0);
         ArrayList<OrderDetail> orderDetailList = bus.getAllOrderDetail(orderID);
         for (OrderDetail orderDetail1 : orderDetailList) {
-            String[] newRow = {orderDetail1.getOrder().getOrderID(), orderDetail1.getProduct().getProductID(), orderDetail1.getProduct().getName(), orderDetail1.getQuantity() + "", (orderDetail1.getPrice() - orderDetail1.getSeasonalDiscount()) + "", orderDetail1.getLineTotal() + ""};
+            double price = orderDetail1.getPrice() - (orderDetail1.getSeasonalDiscount()/orderDetail1.getQuantity());
+            Promotion promo = bus.getDiscount(orderID);
+            if(promo.getTypeDiscount().getValue() == 0)
+                price = price *(1 - (promo.getDiscount()/100));
+            else {
+                double tmp = (promo.getDiscount()/orderDetailList.size())/orderDetail1.getQuantity();
+                price = price - tmp;
+            }
+            String[] newRow = {orderDetail1.getOrder().getOrderID(), orderDetail1.getProduct().getProductID(), orderDetail1.getProduct().getName(), orderDetail1.getQuantity() + "", price + "", orderDetail1.getQuantity()*price + ""};
             tblModel_orderDetail.addRow(newRow);
         }
     }

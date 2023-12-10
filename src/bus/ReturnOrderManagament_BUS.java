@@ -8,6 +8,7 @@ import dao.ReturnOrder_DAO;
 import entity.Order;
 import entity.OrderDetail;
 import entity.Product;
+import entity.Promotion;
 import entity.ReturnOrder;
 import entity.ReturnOrderDetail;
 import java.text.SimpleDateFormat;
@@ -23,6 +24,7 @@ import java.util.logging.Logger;
 public class ReturnOrderManagament_BUS {
     private ReturnOrder_DAO dao = new ReturnOrder_DAO();
     private ReturnOrderDetail_DAO detail_dao = new ReturnOrderDetail_DAO();
+    private Order_DAO order_dao = new Order_DAO();
 
     public Order getOrder(String orderID) {
         return new Order_DAO().getOne(orderID);
@@ -123,5 +125,9 @@ public class ReturnOrderManagament_BUS {
 
     public boolean isExist(Order order) {
         return dao.getOneForOrderID(order.getOrderID()) != null;
+    }
+
+    public Promotion getDiscount(String orderID) {
+        return order_dao.getDiscount(orderID);
     }
 }
