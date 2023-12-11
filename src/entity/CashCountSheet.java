@@ -62,6 +62,8 @@ public class CashCountSheet implements Comparable<CashCountSheet>{
 
     public void setCashCountList(ArrayList<CashCount> cashCountList) {
         this.cashCountList = cashCountList;
+        setTotal();
+        setDifference();
     }
 
     public Date getCreatedDate() {

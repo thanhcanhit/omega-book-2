@@ -50,6 +50,7 @@ public class StatementCashCount_BUS {
         cashCountSheet.setCreatedDate(start);
         cashCountSheet.setEndedDate(end);
 
+
         cashCountSheet_DAO.create(cashCountSheet);
         GeneratePDF(cashCountSheet);
 
@@ -69,7 +70,7 @@ public class StatementCashCount_BUS {
             String lastFourChars = maxID.substring(maxID.length() - 4);
             int num = Integer.parseInt(lastFourChars);
             num++;
-            prefix += String.format("%04d", num);;
+            prefix += String.format("%04d", num);
         }
         return prefix;
     }

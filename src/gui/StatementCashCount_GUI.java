@@ -63,7 +63,7 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
                         txt_total.setText(FormatNumber.toVND(sum));
                         model.setValueAt(FormatNumber.toVND(total), row, 3); // Tổng
                     } catch (NumberFormatException ex) {
-                        model.setValueAt(0, row, column);
+                        model.setValueAt("0", row, column);
                         JOptionPane.showMessageDialog(null, "Số lượng không hợp lệ");
                     }
                 }
@@ -489,13 +489,13 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
         if (employee2 == null) {
             Notifications.getInstance().show(Notifications.Type.ERROR, "Chưa có nhân viên đồng kiểm!");
             Notifications.getInstance().show(Notifications.Type.ERROR, "Lưu phiếu kiểm tiền không thành công!");
-
         } else {
             ArrayList<Employee> employees = new ArrayList<>();
             employees.add(employee1);
             employees.add(employee2);
             statementCashCount_BUS.createCashCountSheet(getValueInTable(), employees, createAt);
             Notifications.getInstance().show(Notifications.Type.INFO, "Tạo phiếu kiểm tiền thành công");
+            Application.showForm(new StatementCashCount_GUI());
         }
 
     }//GEN-LAST:event_btn_saveCashCountActionPerformed
@@ -540,7 +540,7 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
             String quantityStr = (String) tableModel.getValueAt(i, 2);
             double value = Double.parseDouble(valueStr.replace(".", "").replace(",", "."));
             int quantity;
-            if (quantityStr == null || quantityStr.equals("0")) {
+            if (quantityStr == null || quantityStr.equals(0)) {
                 quantity = 0;
             } else {
                 quantity = Integer.parseInt(quantityStr.trim());

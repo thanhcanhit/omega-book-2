@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -121,11 +122,24 @@ public class StatementAcounting_GUI extends javax.swing.JPanel {
     public void alterTable() {
         DefaultTableCellRenderer rightAlign = new DefaultTableCellRenderer();
         rightAlign.setHorizontalAlignment(JLabel.RIGHT);
-        //Align
+
+        // Set selection mode
+        tbl_cashCounts.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        // Align columns
         tbl_cashCounts.getColumnModel().getColumn(1).setCellRenderer(rightAlign);
         tbl_cashCounts.getColumnModel().getColumn(2).setCellRenderer(rightAlign);
         tbl_cashCounts.getColumnModel().getColumn(3).setCellRenderer(rightAlign);
         tbl_cashCounts.getColumnModel().getColumn(0).setCellRenderer(rightAlign);
+
+        // Make columns 0, 1, and 4 non-editable
+        tbl_cashCounts.getModel().addTableModelListener(e -> {
+            int column = e.getColumn();
+            if (column == 0 || column == 1 || column == 4) {
+                // Reset the value to the original value to prevent modification
+                tbl_cashCounts.getModel().setValueAt(tbl_cashCounts.getValueAt(e.getFirstRow(), column), e.getFirstRow(), column);
+            }
+        });
     }
 
     public void initTableModel() {
