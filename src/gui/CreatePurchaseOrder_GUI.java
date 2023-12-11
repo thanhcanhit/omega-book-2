@@ -242,7 +242,8 @@ public class CreatePurchaseOrder_GUI extends javax.swing.JPanel {
             Notifications.getInstance().show(Notifications.Type.INFO, "Đang lưu trữ hóa đơn...");
             purchaseOrder.setSupplier(new Supplier(getSuplierID()));
 //            Temp
-            purchaseOrder.setEmployee(new Employee("NV019982020001"));
+            //purchaseOrder.setEmployee(new Employee("NV019982020001"));
+            purchaseOrder.setEmployee(Application.employee);
             purchaseOrder.setPurchaseOrderDetailList(cart);
             purchaseOrder.setNote(txa_description.getText());
 //            Để tạm để xử lí sau

@@ -83,10 +83,11 @@ public class OrderManagement_BUS {
 
     public ArrayList<Order> orderListWithFilter(String orderID, String customerID, String phoneNumber, String priceFrom, String priceTo, Date orderFrom, Date orderTo) {
         ArrayList<Order> list = orderDAO.getAll();
-        for(Order order:list){
-            if(order.isStatus()==false)
+        //for(Order order:list){
+        for(int i = 0; i < list.size(); i++) {
+            if(list.get(i).isStatus()==false)
             {
-                list.remove(order);
+                list.remove(i);
             }
         }
         ArrayList<Order> xoa = new ArrayList<>();
