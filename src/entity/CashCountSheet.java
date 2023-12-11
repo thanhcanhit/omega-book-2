@@ -13,7 +13,7 @@ import java.util.Objects;
  *
  * @author Hoàng Khang
  */
-public class CashCountSheet {
+public class CashCountSheet implements Comparable<CashCountSheet>{
 
     private String cashCountSheetID;
     private ArrayList<CashCount> cashCountList;
@@ -126,6 +126,11 @@ public class CashCountSheet {
         }
         final CashCountSheet other = (CashCountSheet) obj;
         return Objects.equals(this.cashCountSheetID, other.cashCountSheetID);
+    }
+
+    @Override
+    public int compareTo(CashCountSheet o) {
+        return this.createdDate.compareTo(o.createdDate);
     }
     
     

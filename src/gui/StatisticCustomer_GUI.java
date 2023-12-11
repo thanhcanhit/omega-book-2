@@ -21,7 +21,7 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
     StatisticCustomer_BUS statisticCustomer_BUS = new StatisticCustomer_BUS();
     int data[] = statisticCustomer_BUS.filterCustomers();
     int numCus = statisticCustomer_BUS.getNumberCus();
-    
+
     private final PolarAreaChart polarAreaChart = new PolarAreaChart();
 
     /**
@@ -35,41 +35,37 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
 
     public void initDataInfo() {
         txt_totalCustomer.setText(Integer.toString(statisticCustomer_BUS.sumCustomer()));
-        
+
         txt_femaleUnder18.setText(Integer.toString(data[0]));
         txt_female18To40.setText(Integer.toString(data[1]));
         txt_femaleOver40.setText(Integer.toString(data[2]));
         txt_maleUnder18.setText(Integer.toString(data[3]));
         txt_male18To40.setText(Integer.toString(data[4]));
         txt_maleOver40.setText(Integer.toString(data[5]));
+        txt_male.setText(Integer.toString(statisticCustomer_BUS.countMaleCustomers()));
+        txt_female.setText(Integer.toString(statisticCustomer_BUS.sumCustomer() - statisticCustomer_BUS.countMaleCustomers()));
 
     }
 
     public void initPieChart() {
 
         // Create Chart
-        
         polarAreaChart.setBackground(getBackground());
 
+        polarAreaChart.addItem(new ModelPolarAreaChart(new Color(129, 143, 180), "Nam dưới 18 tuổi", getRat(data[3])));
 
-        polarAreaChart.addItem(new ModelPolarAreaChart(new Color(129, 143, 180), "Nam dưới 18 tuổi",getRat(data[3])));
-
-        polarAreaChart.addItem(new ModelPolarAreaChart(new Color(230, 105, 62), "Nam từ 18 đến 40 tuổi",getRat(data[4])));
-        polarAreaChart.addItem(new ModelPolarAreaChart(new Color(162, 197, 121), "Nam trên 40 tuổi",getRat(data[5])));
-        polarAreaChart.addItem(new ModelPolarAreaChart(new Color(197, 168, 86), "Nữ dưới 18 tuổi",getRat(data[0])));
-        polarAreaChart.addItem(new ModelPolarAreaChart(new Color(255, 223, 223), "Nữ từ 18 đến 40 tuổi",getRat(data[1])));
+        polarAreaChart.addItem(new ModelPolarAreaChart(new Color(230, 105, 62), "Nam từ 18 đến 40 tuổi", getRat(data[4])));
+        polarAreaChart.addItem(new ModelPolarAreaChart(new Color(162, 197, 121), "Nam trên 40 tuổi", getRat(data[5])));
+        polarAreaChart.addItem(new ModelPolarAreaChart(new Color(197, 168, 86), "Nữ dưới 18 tuổi", getRat(data[0])));
+        polarAreaChart.addItem(new ModelPolarAreaChart(new Color(255, 223, 223), "Nữ từ 18 đến 40 tuổi", getRat(data[1])));
         polarAreaChart.addItem(new ModelPolarAreaChart(new Color(174, 222, 252), "Nữ trên 40 tuổi", getRat(data[2])));
         polarAreaChart.start();
-        
+
     }
 
-    public double getRat(int element){
-        return ((double)element/numCus)*100;
+    public double getRat(int element) {
+        return ((double) element / numCus) * 100;
     }
-        
-        
-
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -94,10 +90,10 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         jPanel16 = new javax.swing.JPanel();
         jPanel17 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
+        txt_male = new javax.swing.JTextField();
         jPanel18 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        jTextField10 = new javax.swing.JTextField();
+        txt_female = new javax.swing.JTextField();
         pnl_inforByGroup = new javax.swing.JPanel();
         pnl_groupOfMale = new javax.swing.JPanel();
         pnl_maleUnder18 = new javax.swing.JPanel();
@@ -213,18 +209,19 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         jLabel9.setPreferredSize(new java.awt.Dimension(200, 0));
         jPanel17.add(jLabel9);
 
-        jTextField9.setEditable(false);
-        jTextField9.setFont(jTextField9.getFont().deriveFont((float)16));
-        jTextField9.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jTextField9.setToolTipText("");
-        jTextField9.setMaximumSize(new java.awt.Dimension(2147483647, 30));
-        jTextField9.setMinimumSize(new java.awt.Dimension(64, 30));
-        jTextField9.addActionListener(new java.awt.event.ActionListener() {
+        txt_male.setEditable(false);
+        txt_male.setFont(txt_male.getFont().deriveFont((float)16));
+        txt_male.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txt_male.setText("t");
+        txt_male.setToolTipText("");
+        txt_male.setMaximumSize(new java.awt.Dimension(2147483647, 30));
+        txt_male.setMinimumSize(new java.awt.Dimension(64, 30));
+        txt_male.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField9ActionPerformed(evt);
+                txt_maleActionPerformed(evt);
             }
         });
-        jPanel17.add(jTextField9);
+        jPanel17.add(txt_male);
 
         jPanel16.add(jPanel17);
 
@@ -239,13 +236,13 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         jLabel10.setPreferredSize(new java.awt.Dimension(200, 0));
         jPanel18.add(jLabel10);
 
-        jTextField10.setEditable(false);
-        jTextField10.setFont(jTextField10.getFont().deriveFont((float)16));
-        jTextField10.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jTextField10.setToolTipText("");
-        jTextField10.setMaximumSize(new java.awt.Dimension(2147483647, 30));
-        jTextField10.setMinimumSize(new java.awt.Dimension(64, 40));
-        jPanel18.add(jTextField10);
+        txt_female.setEditable(false);
+        txt_female.setFont(txt_female.getFont().deriveFont((float)16));
+        txt_female.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txt_female.setToolTipText("");
+        txt_female.setMaximumSize(new java.awt.Dimension(2147483647, 30));
+        txt_female.setMinimumSize(new java.awt.Dimension(64, 40));
+        jPanel18.add(txt_female);
 
         jPanel16.add(jPanel18);
 
@@ -445,9 +442,9 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_male18To40ActionPerformed
 
-    private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
+    private void txt_maleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_maleActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField9ActionPerformed
+    }//GEN-LAST:event_txt_maleActionPerformed
 
     private void txt_totalCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_totalCustomerActionPerformed
         // TODO add your handling code here:
@@ -465,9 +462,7 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
-    private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JLabel lbl_female18To40;
     private javax.swing.JLabel lbl_femaleOver40;
     private javax.swing.JLabel lbl_femaleUnder18;
@@ -487,9 +482,11 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
     private javax.swing.JPanel pnl_male18To40;
     private javax.swing.JPanel pnl_maleOver40;
     private javax.swing.JPanel pnl_maleUnder18;
+    private javax.swing.JTextField txt_female;
     private javax.swing.JTextField txt_female18To40;
     private javax.swing.JTextField txt_femaleOver40;
     private javax.swing.JTextField txt_femaleUnder18;
+    private javax.swing.JTextField txt_male;
     private javax.swing.JTextField txt_male18To40;
     private javax.swing.JTextField txt_maleOver40;
     private javax.swing.JTextField txt_maleUnder18;

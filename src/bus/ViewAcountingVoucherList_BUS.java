@@ -8,6 +8,7 @@ import dao.AcountingVoucher_DAO;
 import dao.CashCountSheet_DAO;
 import entity.AcountingVoucher;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 /**
@@ -29,7 +30,8 @@ public class ViewAcountingVoucherList_BUS {
             acountingVoucher.setCashCountSheet(cashCountSheet_DAO.getOne(acountingVoucher.getCashCountSheet().getCashCountSheetID()));
             list.add(acountingVoucher);
         }
-        return acountingVoucher_DAO.getAll();
+        Collections.sort(list, Collections.reverseOrder());
+        return list;
     }
 
     public ArrayList<AcountingVoucher> getByDate(Date start, Date end) {

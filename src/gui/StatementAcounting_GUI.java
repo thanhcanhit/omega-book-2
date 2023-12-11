@@ -600,6 +600,7 @@ public class StatementAcounting_GUI extends javax.swing.JPanel {
         if (employee2 != null) {
             acountingVoucher_BUS.createAcountingVoucher(getCashCountSheet(), endDate);
             Notifications.getInstance().show(Notifications.Type.SUCCESS, "Tạo phiếu kết toán thành công");
+            Application.showForm(new StatementAcounting_GUI());
         } else {
             Notifications.getInstance().show(Notifications.Type.ERROR, "Chưa có người đồng kiểm!");
             Notifications.getInstance().show(Notifications.Type.ERROR, "Kết toán thất bại!");

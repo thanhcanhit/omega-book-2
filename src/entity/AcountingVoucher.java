@@ -12,7 +12,7 @@ import java.util.Objects;
  *
  * @author Hoàng Khang
  */
-public class AcountingVoucher {
+public class AcountingVoucher implements Comparable<AcountingVoucher>{
 
     private String accountingVoucherID;
     private Date createdDate;
@@ -157,6 +157,11 @@ public class AcountingVoucher {
         }
         final AcountingVoucher other = (AcountingVoucher) obj;
         return Objects.equals(this.accountingVoucherID, other.accountingVoucherID);
+    }
+
+    @Override
+    public int compareTo(AcountingVoucher o) {
+        return this.createdDate.compareTo(o.createdDate);
     }
 
 }

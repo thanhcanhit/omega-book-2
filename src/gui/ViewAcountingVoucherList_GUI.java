@@ -9,6 +9,7 @@ import entity.AcountingVoucher;
 import entity.Employee;
 import entity.Order;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JLabel;
@@ -51,11 +52,12 @@ public class ViewAcountingVoucherList_GUI extends javax.swing.JPanel {
         tblModel_acountingVoucherList.setRowCount(0);
         for (AcountingVoucher acountingVoucher : list) {
             String id = acountingVoucher.getAcountingVoucherID();
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             Employee e1 = acountingVoucher.getCashCountSheet().getCashCountSheetDetailList().get(0).getEmployee();
             Employee e2 = acountingVoucher.getCashCountSheet().getCashCountSheetDetailList().get(1).getEmployee();
             Date start = acountingVoucher.getCreatedDate();
             Date end = acountingVoucher.getEndedDate();
-            Object[] row = new Object[]{id, e1.getEmployeeID(), e2.getEmployeeID(), start, end, utilities.FormatNumber.toVND(acountingVoucher.getSale()), utilities.FormatNumber.toVND(acountingVoucher.getCashCountSheet().getTotal()), utilities.FormatNumber.toVND(acountingVoucher.getPayViaATM()), utilities.FormatNumber.toVND(acountingVoucher.getDifference())};
+            Object[] row = new Object[]{id, e1.getEmployeeID(), e2.getEmployeeID(), formatter.format(start), formatter.format(end), utilities.FormatNumber.toVND(acountingVoucher.getSale()), utilities.FormatNumber.toVND(acountingVoucher.getCashCountSheet().getTotal()), utilities.FormatNumber.toVND(acountingVoucher.getPayViaATM()), utilities.FormatNumber.toVND(acountingVoucher.getDifference())};
             tblModel_acountingVoucherList.addRow(row);
         }
     }

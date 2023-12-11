@@ -7,6 +7,8 @@ package bus;
 import dao.CashCountSheet_DAO;
 import entity.CashCountSheet;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import utilities.CashCountSheetPrinter;
 
 /**
@@ -18,7 +20,9 @@ public class ViewCashCountSheetList_BUS {
     private CashCountSheet_DAO cashDAO = new CashCountSheet_DAO();
 
     public ArrayList<CashCountSheet> getAll() {
-        return cashDAO.getAll();
+        ArrayList<CashCountSheet> list = cashDAO.getAll();
+        Collections.sort(list, Collections.reverseOrder());
+        return list;
     }
 
     public void GeneratePDF(CashCountSheet cash) {

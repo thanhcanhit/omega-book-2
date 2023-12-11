@@ -300,15 +300,16 @@
                             </Property>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="jTextField9">
+                        <Component class="javax.swing.JTextField" name="txt_male">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
                               <FontInfo relative="true">
-                                <Font component="jTextField9" property="font" relativeSize="false" size="16"/>
+                                <Font component="txt_male" property="font" relativeSize="false" size="16"/>
                               </FontInfo>
                             </Property>
                             <Property name="horizontalAlignment" type="int" value="4"/>
+                            <Property name="text" type="java.lang.String" value="t"/>
                             <Property name="toolTipText" type="java.lang.String" value=""/>
                             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                               <Dimension value="[2147483647, 30]"/>
@@ -318,7 +319,7 @@
                             </Property>
                           </Properties>
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField9ActionPerformed"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_maleActionPerformed"/>
                           </Events>
                         </Component>
                       </SubComponents>
@@ -358,12 +359,12 @@
                             </Property>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="jTextField10">
+                        <Component class="javax.swing.JTextField" name="txt_female">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
                               <FontInfo relative="true">
-                                <Font component="jTextField10" property="font" relativeSize="false" size="16"/>
+                                <Font component="txt_female" property="font" relativeSize="false" size="16"/>
                               </FontInfo>
                             </Property>
                             <Property name="horizontalAlignment" type="int" value="4"/>

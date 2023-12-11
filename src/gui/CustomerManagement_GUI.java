@@ -683,6 +683,10 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
     // ...
     private void btn_reloadFormActionPerformed(java.awt.event.ActionEvent evt) {
            reloadForm();
+           cbo_filterAge.setSelectedIndex(0);
+           cbo_filterGender.setSelectedIndex(0);
+           cbo_filterRank.setSelectedIndex(0);
+           txt_searchForPhone.setText("");
     }
 
     private void btn_filterActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_filterActionPerformed
@@ -690,9 +694,10 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         String gender = cbo_filterGender.getSelectedItem().toString();
         String rank = cbo_filterRank.getSelectedItem().toString();
         String age = cbo_filterAge.getSelectedItem().toString();
-        String phone = txt_phoneNumber.getText();
+        String phone = txt_searchForPhone.getText();
         ArrayList<Customer> listFilter = customer_BUS.filterCustomer(gender, rank, age, phone);
         renderCustomerTable(listFilter);
+
     }// GEN-LAST:event_btn_filterActionPerformed
 
     private Customer getValueForm() throws Exception {
