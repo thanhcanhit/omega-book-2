@@ -78,12 +78,14 @@ public class CustomerManagement_BUS {
         }
         return null;
     }
-    
-
 
     public ArrayList<Customer> filterCustomer(String gender, String rank, String age, String phone) {
+
+        if (rank.equals("Chưa có")) {
+            rank = "Không";
+        }
         ArrayList<Customer> list = customer_DAO.getAll();
-        if(!phone.equals("")){
+        if (!phone.equals("")) {
             ArrayList<Customer> tempList = new ArrayList<>();
             tempList.add(searchByPhoneNumber(phone));
             list = tempList;

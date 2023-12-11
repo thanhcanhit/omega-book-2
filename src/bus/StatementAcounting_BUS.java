@@ -121,7 +121,7 @@ public class StatementAcounting_BUS {
     public double getPayViaATM(ArrayList<Order> list) {
         double sum = 0;
         for (Order order : list) {
-            if (!order.isPayment()) {
+            if (order.isPayment()) {
                 sum += order.getTotalDue();
             }
         }

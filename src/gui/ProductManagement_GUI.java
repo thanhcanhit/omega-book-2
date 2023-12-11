@@ -1771,7 +1771,7 @@ public class ProductManagement_GUI extends javax.swing.JPanel {
         // Thêm dòng thông tin đầu tiên
         Row infoRow = sheet.createRow(0);
         Cell infoCell = infoRow.createCell(0);
-        infoCell.setCellValue("Danh sách khách hàng");
+        infoCell.setCellValue("Danh sách sản phẩm");
 
         // Thiết lập style cho phần tiêu đề
         CellStyle titleStyle = workbook.createCellStyle();

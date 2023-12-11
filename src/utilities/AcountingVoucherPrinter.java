@@ -190,7 +190,7 @@ public class AcountingVoucherPrinter {
             document.add(separator);
 
 //            Content
-            Paragraph orderTitle = new Paragraph("PHIẾU KIỂM TIỀN DỰ PHÒNG", subHeadingFont);
+            Paragraph orderTitle = new Paragraph("PHIẾU KẾT TOÁN", subHeadingFont);
             orderTitle.setAlignment(TextAlign.CENTER.ordinal());
             document.add(orderTitle);
             document.add(separator);

@@ -7,6 +7,7 @@ package gui;
 import bus.ViewCashCountSheetList_BUS;
 import entity.CashCountSheet;
 import entity.Employee;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JLabel;
@@ -48,7 +49,7 @@ public class ViewCashCountSheetList_GUI extends javax.swing.JPanel {
         tblModel_cashCountSheetList.setRowCount(0);
         for (CashCountSheet cashCountSheet : list) {
             String id = cashCountSheet.getCashCountSheetID();
-
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             Employee e1 = cashCountSheet.getCashCountSheetDetailList().get(0).getEmployee();
             Employee e2 = cashCountSheet.getCashCountSheetDetailList().get(1).getEmployee();
 
@@ -56,7 +57,7 @@ public class ViewCashCountSheetList_GUI extends javax.swing.JPanel {
             double total = cashCountSheet.getTotal();
             double difference = cashCountSheet.getDifference();
 
-            Object[] row = new Object[]{id, e1.getEmployeeID(), e2.getEmployeeID(), createDate, utilities.FormatNumber.toVND(total), utilities.FormatNumber.toVND(difference)};
+            Object[] row = new Object[]{id, e1.getEmployeeID(), e2.getEmployeeID(), formatter.format(createDate), utilities.FormatNumber.toVND(total), utilities.FormatNumber.toVND(difference)};
 //            Object[] row = new Object[]{id, "f", "d", createDate, utilities.FormatNumber.toVND(total), utilities.FormatNumber.toVND(difference)};
 
             tblModel_cashCountSheetList.addRow(row);

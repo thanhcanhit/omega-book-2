@@ -7,25 +7,27 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 /**
- * StatisticCustomer_BUS
- * Tính toán thống kê khách hàng theo tuổi và giới tính
+ * StatisticCustomer_BUS Tính toán thống kê khách hàng theo tuổi và giới tính
  */
 public class StatisticCustomer_BUS {
 
     Customer_DAO customer_DAO = new Customer_DAO(); // Gợi ý: Bạn cần phải sử dụng đối tượng này để lấy danh sách khách hàng
     ArrayList<Customer> list = customer_DAO.getAll();
-    
-    public int getNumberCus(){
+
+    public int getNumberCus() {
         return customer_DAO.getAll().size();
     }
-    
-    public int sumCustomer(){
+
+    public int sumCustomer() {
         return list.size();
     }
 
+    public int countMaleCustomers() {
+        return customer_DAO.countMaleCustomers();
+    }
+
     public int[] filterCustomers() {
-        
-        
+
         ArrayList<Customer> femaleUnder18 = new ArrayList<>();
         ArrayList<Customer> female18to40 = new ArrayList<>();
         ArrayList<Customer> femaleOver40 = new ArrayList<>();
@@ -53,7 +55,7 @@ public class StatisticCustomer_BUS {
                 }
             }
         }
-        return new int[]{femaleUnder18.size(), female18to40.size(), femaleOver40.size(), maleUnder18.size(), male18to40.size(), maleOver40.size()}; 
+        return new int[]{femaleUnder18.size(), female18to40.size(), femaleOver40.size(), maleUnder18.size(), male18to40.size(), maleOver40.size()};
     }
 
     public int getAge(Date dateOfBirth) {

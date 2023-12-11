@@ -13,7 +13,7 @@ import java.util.Objects;
  *
  * @author Hoàng Khang
  */
-public class CashCountSheet {
+public class CashCountSheet implements Comparable<CashCountSheet>{
 
     private String cashCountSheetID;
     private ArrayList<CashCount> cashCountList;
@@ -62,6 +62,8 @@ public class CashCountSheet {
 
     public void setCashCountList(ArrayList<CashCount> cashCountList) {
         this.cashCountList = cashCountList;
+        setTotal();
+        setDifference();
     }
 
     public Date getCreatedDate() {
@@ -126,6 +128,11 @@ public class CashCountSheet {
         }
         final CashCountSheet other = (CashCountSheet) obj;
         return Objects.equals(this.cashCountSheetID, other.cashCountSheetID);
+    }
+
+    @Override
+    public int compareTo(CashCountSheet o) {
+        return this.createdDate.compareTo(o.createdDate);
     }
     
     
