@@ -91,7 +91,6 @@ public class Sales_GUI extends javax.swing.JPanel {
                     handleAddItem(productID);
                 } catch (Exception er) {
 //                  Bỏ qua
-                    er.printStackTrace();
                 } finally {
 //                    reset
                     tempInput = new String();
@@ -171,6 +170,9 @@ public class Sales_GUI extends javax.swing.JPanel {
 
     private void updateTotalAfterDiscount() {
         totalAfterDiscount = total - discount;
+        if (totalAfterDiscount < 0) {
+            return;
+        }
         calculateOptionCashGive();
     }
 
@@ -273,7 +275,7 @@ public class Sales_GUI extends javax.swing.JPanel {
         for (int index : new Integer[]{2, 3, 4, 5, 6, 7}) {
             columnModel.getColumn(index).setCellRenderer(rightAlign);
         }
-//        Sự kiện nhập giá trị item trong bảng
+//        Sự kiện nhập sửa số lượng item trong bảng
         tbl_cart.getModel().addTableModelListener((TableModelEvent evt) -> {
             int row = evt.getFirstRow();
             int col = evt.getColumn();
@@ -286,14 +288,29 @@ public class Sales_GUI extends javax.swing.JPanel {
                 int newValue = Integer.parseInt(tblModel_cart.getValueAt(row, col).toString());
                 OrderDetail current = cart.get(row);
 
-//            Nếu số lượng mới bằng 0 thì xóa khỏi giỏ hàng
-                if (newValue == 0 && JOptionPane.showConfirmDialog(this, "Xóa sản phẩm " + current.getProduct().getProductID() + " ra khỏi giỏ hàng", "Xóa sản phẩm khỏi giỏ", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                    cart.remove(current);
-                    renderCartTable();
+//      Hủy bỏ giá trị tiền khách đưa nếu đã nhập
+                setCustomerGive(0);
+
+                if (newValue < 0) {
+                    Notifications.getInstance().show(Notifications.Type.WARNING, "Số lượng không được bé hơn 0");
+                    tbl_cart.setValueAt(current.getQuantity(), row, col);
                     return;
                 }
 
+//            Nếu số lượng mới bằng 0 thì xóa khỏi giỏ hàng
+                if (newValue == 0) {
+                    if (JOptionPane.showConfirmDialog(this, "Xóa sản phẩm " + current.getProduct().getProductID() + " ra khỏi giỏ hàng", "Xóa sản phẩm khỏi giỏ", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                        cart.remove(current);
+                        renderCartTable();
+                        return;
+                    } else {
+                        tbl_cart.setValueAt(current.getQuantity(), row, col);
+                        return;
+                    }
+                }
+
                 try {
+
                     if (current.getProduct().getInventory() >= newValue) {
 //                    Cập nhật giá trị mới
                         current.setQuantity(newValue);
@@ -368,6 +385,11 @@ public class Sales_GUI extends javax.swing.JPanel {
         txt_orderCustomerGive.getDocument().addDocumentListener(new DocumentListener() {
             private void updateCustomerReturn() {
                 try {
+                    if (customerGive == 0) {
+                        txt_orderCustomerReturn.setText("0");
+                        return;
+                    }
+
                     txt_orderCustomerReturn.setText(utilities.FormatNumber.toVND(Double.valueOf(Math.round(customerGive - totalAfterDiscount))));
                     order.setMoneyGiven(customerGive);
                 } catch (Exception ex) {
@@ -507,7 +529,17 @@ public class Sales_GUI extends javax.swing.JPanel {
             renderOrderTotal();
         }
         txt_orderPay.setText(utilities.FormatNumber.toVND(total - discount));
+
         calculateOptionCashGive();
+
+        try {
+//        Tính lại khuyến mãi tốt nhất
+            if (customer != null) {
+                handleAddBest();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 //    Tính toán gợi ý số tiền khách đưa dựa vào 9 mệnh giá tiền
@@ -660,6 +692,9 @@ public class Sales_GUI extends javax.swing.JPanel {
 
     private void handleAddItem() {
         String productID = txt_search.getText();
+
+//      Hủy bỏ giá trị tiền khách đưa nếu đã nhập
+        setCustomerGive(0);
 
         handleAddItem(productID);
     }
@@ -1134,7 +1169,6 @@ public class Sales_GUI extends javax.swing.JPanel {
 
         pnl_customerInfo.add(pnl_customerPhone);
 
-        pnl_customerName.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
         pnl_customerName.setMaximumSize(new java.awt.Dimension(2147483647, 40));
         pnl_customerName.setPreferredSize(new java.awt.Dimension(561, 40));
         pnl_customerName.setLayout(new javax.swing.BoxLayout(pnl_customerName, javax.swing.BoxLayout.LINE_AXIS));
@@ -1152,7 +1186,6 @@ public class Sales_GUI extends javax.swing.JPanel {
 
         pnl_customerInfo.add(pnl_customerName);
 
-        pnl_customerRank.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
         pnl_customerRank.setMaximumSize(new java.awt.Dimension(2147483647, 40));
         pnl_customerRank.setPreferredSize(new java.awt.Dimension(561, 40));
         pnl_customerRank.setLayout(new javax.swing.BoxLayout(pnl_customerRank, javax.swing.BoxLayout.LINE_AXIS));
@@ -1195,7 +1228,6 @@ public class Sales_GUI extends javax.swing.JPanel {
 
         pnl_orderInfo.add(pnl_orderId);
 
-        pnl_orderDate.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
         pnl_orderDate.setMaximumSize(new java.awt.Dimension(99999, 40));
         pnl_orderDate.setPreferredSize(new java.awt.Dimension(561, 40));
         pnl_orderDate.setLayout(new javax.swing.BoxLayout(pnl_orderDate, javax.swing.BoxLayout.LINE_AXIS));
@@ -1213,7 +1245,6 @@ public class Sales_GUI extends javax.swing.JPanel {
 
         pnl_orderInfo.add(pnl_orderDate);
 
-        pnl_discount.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
         pnl_discount.setMaximumSize(new java.awt.Dimension(99999, 40));
         pnl_discount.setPreferredSize(new java.awt.Dimension(561, 40));
         pnl_discount.setLayout(new javax.swing.BoxLayout(pnl_discount, javax.swing.BoxLayout.LINE_AXIS));
@@ -1231,7 +1262,6 @@ public class Sales_GUI extends javax.swing.JPanel {
 
         pnl_orderInfo.add(pnl_discount);
 
-        pnl_orderPay.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
         pnl_orderPay.setMaximumSize(new java.awt.Dimension(99999, 40));
         pnl_orderPay.setPreferredSize(new java.awt.Dimension(561, 40));
         pnl_orderPay.setLayout(new javax.swing.BoxLayout(pnl_orderPay, javax.swing.BoxLayout.LINE_AXIS));
@@ -1253,7 +1283,6 @@ public class Sales_GUI extends javax.swing.JPanel {
 
         pnl_orderInfo.add(pnl_orderPay);
 
-        pnl_orderPaymentMethod.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
         pnl_orderPaymentMethod.setMaximumSize(new java.awt.Dimension(99999, 40));
         pnl_orderPaymentMethod.setPreferredSize(new java.awt.Dimension(561, 40));
         pnl_orderPaymentMethod.setLayout(new javax.swing.BoxLayout(pnl_orderPaymentMethod, javax.swing.BoxLayout.LINE_AXIS));
@@ -1271,7 +1300,6 @@ public class Sales_GUI extends javax.swing.JPanel {
 
         pnl_orderInfo.add(pnl_orderPaymentMethod);
 
-        pnl_orderCustomerGive.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
         pnl_orderCustomerGive.setMaximumSize(new java.awt.Dimension(99999, 40));
         pnl_orderCustomerGive.setPreferredSize(new java.awt.Dimension(561, 40));
         pnl_orderCustomerGive.setLayout(new javax.swing.BoxLayout(pnl_orderCustomerGive, javax.swing.BoxLayout.LINE_AXIS));
@@ -1299,9 +1327,8 @@ public class Sales_GUI extends javax.swing.JPanel {
 
         pnl_orderInfo.add(pnl_orderCustomerGive);
 
-        pnl_orderCustomerGiveOptions.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gợi ý tiền khách đưa", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12), new java.awt.Color(71, 118, 185)), javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2))); // NOI18N
-        pnl_orderCustomerGiveOptions.setMaximumSize(new java.awt.Dimension(99999, 160));
-        pnl_orderCustomerGiveOptions.setMinimumSize(new java.awt.Dimension(236, 160));
+        pnl_orderCustomerGiveOptions.setMaximumSize(new java.awt.Dimension(99999, 100));
+        pnl_orderCustomerGiveOptions.setMinimumSize(new java.awt.Dimension(236, 100));
         pnl_orderCustomerGiveOptions.setPreferredSize(new java.awt.Dimension(561, 100));
         pnl_orderCustomerGiveOptions.setLayout(new java.awt.GridLayout(3, 3, 5, 5));
 
@@ -1738,7 +1765,7 @@ public class Sales_GUI extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_promotionActionPerformed
 
     private void handleAddBest() {
-        Promotion bestPromotion = getBestPromotionForCustomer();
+        Promotion bestPromotion = getBestPromotionForCustomer(total);
         if (bestPromotion != null) {
             try {
                 order.setPromotion(bestPromotion);
@@ -1822,7 +1849,7 @@ public class Sales_GUI extends javax.swing.JPanel {
         renderOrder();
         renderCartTable();
         setOrderCustomer(order.getCustomer());
-        getBestPromotionForCustomer();
+        handleAddBest();
     }
 
 //    Promotion
@@ -1855,8 +1882,7 @@ public class Sales_GUI extends javax.swing.JPanel {
         tbl_promotionList.setModel(tblModel_promotionList);
     }
 
-    private Promotion getBestPromotionForCustomer() {
-        System.out.println("customer " + customer.getName());
+    private Promotion getBestPromotionForCustomer(double total) {
         Promotion bestPromotion = null;
         if (customer == null || customer == defaultCustomer) {
             return null;
@@ -1864,7 +1890,7 @@ public class Sales_GUI extends javax.swing.JPanel {
         Double bestDiscountValue = 0.0;
         for (Promotion item : bus.getPromotionOfOrderAvailable(customer.getRankType().getValue())) {
 
-            double discountValue = item.getTypeDiscount() == DiscountType.PERCENT ? item.getDiscount() : item.getDiscount();
+            double discountValue = item.getTypeDiscount() == DiscountType.PERCENT ? item.getDiscount() / 100 * total : item.getDiscount();
             if (bestDiscountValue < discountValue) {
                 bestPromotion = item;
                 bestDiscountValue = discountValue;
