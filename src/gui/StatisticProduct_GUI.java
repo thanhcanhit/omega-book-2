@@ -100,6 +100,7 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel {
                 String formattedDate = dateFormat.format(selectedDate);
                 renderProductTable(bus.getTopProductInDay(formattedDate), formattedDate);
                 getChart(formattedDate);
+                initInfoProduct();
 
             }
         });
@@ -154,6 +155,14 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel {
         txt_productType.setText(p.getType().toString());
         txt_quantity.setText(bus.getQuantitySale(p.getProductID(), date) + "");
         txt_total.setText(FormatNumber.toVND(bus.getTotalProduct(p.getProductID(), date)));
+    }
+    public void initInfoProduct() {
+        txt_productName.setText("");
+        txt_price.setText("");
+        txt_productID.setText("");
+        txt_productType.setText("");
+        txt_quantity.setText( "");
+        txt_total.setText("");
     }
 
     /**
