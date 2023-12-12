@@ -71,8 +71,17 @@ public class StatementAcounting_GUI extends javax.swing.JPanel {
                     try {
                         int quantity = Integer.parseInt(model.getValueAt(row, column).toString());
                         double denomination = Integer.parseInt(model.getValueAt(row, 1).toString().replace(".", ""));
-                        double total = quantity * denomination;
+                        double total = 0;
+                        if (quantity < 0) {
+                            Notifications.getInstance().show(Notifications.Type.ERROR, "Số lượng không hợp lệ!");
+                            quantity = 0;
+                            model.setValueAt(0, row, column);
 
+                        } else {
+                            total = quantity * denomination;
+                        }
+
+//                        Notifications.getInstance().show(Notifications.Type.ERROR, "Số lượng không hợp lệ!");
                         sum = acountingVoucher_BUS.getTotal(getValueInTable());
                         txt_difference.setText(FormatNumber.toVND(sum - withdraw - 1765000));
                         txt_total.setText(FormatNumber.toVND(sum));
@@ -688,10 +697,11 @@ public class StatementAcounting_GUI extends javax.swing.JPanel {
         String id = JOptionPane.showInputDialog("Nhập mã nhân viên");
         Employee e = acountingVoucher_BUS.getEmployeeByID(id);
         if (e == null) {
-            JOptionPane.showConfirmDialog(jSplitPane1, "Nhân viên không tồn tại.");
+            Notifications.getInstance().show(Notifications.Type.ERROR, "Nhân viên không tồn tại!");
         } else {
             if (e.equals(employee1)) {
-                JOptionPane.showConfirmDialog(jSplitPane1, "Nhân viên chứng kiến không được là nhân viên kiểm!");
+                Notifications.getInstance().show(Notifications.Type.ERROR, "Nhân viên chứng kiến không được là nhân viên kiểm!");
+
             } else {
                 employee2 = e;
                 txt_employeeAccounting2.setText(employee2.getEmployeeID() + " - " + employee2.getName());

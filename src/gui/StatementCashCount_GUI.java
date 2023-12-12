@@ -55,7 +55,15 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
                     try {
                         int quantity = Integer.parseInt(model.getValueAt(row, column).toString());
                         double denomination = Integer.parseInt(model.getValueAt(row, 1).toString().replace(".", ""));
-                        double total = quantity * denomination;
+                        double total = 0;
+                        if (quantity < 0) {
+                            Notifications.getInstance().show(Notifications.Type.ERROR, "Số lượng không hợp lệ!");
+                            quantity = 0;
+                            model.setValueAt(0, row, column);
+
+                        } else {
+                            total = quantity * denomination;
+                        }
 
 //                        sum += total;
                         sum = statementCashCount_BUS.getTotal(getValueInTable());
@@ -112,6 +120,7 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
         txt_employeeCashCount1.setText(e.getEmployeeID());
         txt_employeeCashCount1Name.setText(e.getName());
         txt_cashCountID.setText(statementCashCount_BUS.generateID(createAt));
+        txt_difference.setText(FormatNumber.toVND((Double.valueOf("-1765000"))));
 
     }
 
@@ -544,10 +553,14 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
         String id = JOptionPane.showInputDialog("Nhập mã nhân viên");
         Employee e = statementCashCount_BUS.getEmployeeByID(id);
         if (e == null) {
-            JOptionPane.showConfirmDialog(jSplitPane1, "Nhân viên không tồn tại.");
+//            JOptionPane.showConfirmDialog(jSplitPane1, "Nhân viên không tồn tại.");
+            Notifications.getInstance().show(Notifications.Type.ERROR, "Nhân viên không tồn tại!");
+
         } else {
             if (e.equals(employee1)) {
-                JOptionPane.showConfirmDialog(jSplitPane1, "Nhân viên chứng kiến không được là nhân viên kiểm!");
+                Notifications.getInstance().show(Notifications.Type.ERROR, "Nhân viên chứng kiến không được là nhân viên kiểm!");
+
+//                JOptionPane.showConfirmDialog(jSplitPane1, "Nhân viên chứng kiến không được là nhân viên kiểm!");
             } else {
                 employee2 = e;
                 txt_employeeCashCount1Name1.setText(employee2.getName());
