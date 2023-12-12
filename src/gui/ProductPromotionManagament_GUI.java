@@ -658,8 +658,15 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_createPromoActionPerformed
 
     private void btn_removePromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_removePromoActionPerformed
+        if(currentPromotion == null) {
+            Notifications.getInstance().show(Notifications.Type.WARNING, "Vui lòng chọn khuyến mãi để gỡ");
+            return;
+        }
         String promotionID = txt_promotionID.getText();
         Promotion pm = bus.getPromotion(promotionID);
+        if(pm.getEndedDate().before(java.sql.Date.valueOf(LocalDate.now()))) {
+            Notifications.getInstance().show(Notifications.Type.WARNING, "Khuyến mãi đã hết hạn");
+        }
         if(pm.getStartedDate().after(java.sql.Date.valueOf(LocalDate.now()))) {
             if (JOptionPane.showConfirmDialog(null,
             "Bạn thật sự muốn gỡ khuyến mãi " + promotionID + " không? Vẫn chưa đến hạn diễn ra khuyến mãi!", "Gỡ khuyến mãi?",
