@@ -80,4 +80,12 @@ public class StatementCashCount_BUS {
         printer.generatePDF();
 
     }
+    
+      public double getTotal(ArrayList<CashCount> list) {
+        double sum = 0;
+        for (CashCount cashCount : list) {
+            sum += cashCount.getTotal();
+        }
+        return sum;
+    }
 }

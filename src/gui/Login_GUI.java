@@ -388,7 +388,7 @@ public class Login_GUI extends javax.swing.JPanel {
 
         try {
             Employee emp = log_BUS.login(id, password);
-            if (emp != null) {
+            if (emp != null && emp.isStatus()) {
                 Application.login(emp);
             }
         } catch (Exception ex) {

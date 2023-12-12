@@ -57,7 +57,8 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
                         double denomination = Integer.parseInt(model.getValueAt(row, 1).toString().replace(".", ""));
                         double total = quantity * denomination;
 
-                        sum += total;
+//                        sum += total;
+                        sum = statementCashCount_BUS.getTotal(getValueInTable());
                         txt_difference.setText(FormatNumber.toVND(sum - 1765000));
                         txt_total.setText(FormatNumber.toVND(sum));
                         model.setValueAt(FormatNumber.toVND(total), row, 3); // Tổng
