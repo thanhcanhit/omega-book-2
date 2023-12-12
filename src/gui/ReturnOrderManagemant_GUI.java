@@ -559,6 +559,10 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_saveReturnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saveReturnOrderActionPerformed
+        if(currentReturnOrder == null) {
+            Notifications.getInstance().show(Notifications.Type.WARNING, "Không có đơn đổi trả để xác nhận");
+            return;
+        }
         if(currentReturnOrder.getStatus().getValue() != 0) {
             Notifications.getInstance().show(Notifications.Type.WARNING, "Đơn đổi trả này đã được xác nhận");
             renderCurrentReturnOrder();
