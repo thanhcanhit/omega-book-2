@@ -241,12 +241,12 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(1366, 768));
         setLayout(new java.awt.BorderLayout());
 
-        pnl_searchCustomer.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 50, 20, 50));
+        pnl_searchCustomer.setMinimumSize(new java.awt.Dimension(859, 50));
+        pnl_searchCustomer.setPreferredSize(new java.awt.Dimension(845, 50));
         pnl_searchCustomer.setLayout(new javax.swing.BoxLayout(pnl_searchCustomer, javax.swing.BoxLayout.LINE_AXIS));
 
         pnl_filterCustomer.setLayout(new javax.swing.BoxLayout(pnl_filterCustomer, javax.swing.BoxLayout.X_AXIS));
 
-        pnl_searchForPhone.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 50));
         pnl_searchForPhone.setMinimumSize(new java.awt.Dimension(195, 30));
         pnl_searchForPhone.setPreferredSize(new java.awt.Dimension(181, 30));
         pnl_searchForPhone.setLayout(new javax.swing.BoxLayout(pnl_searchForPhone, javax.swing.BoxLayout.X_AXIS));
@@ -347,7 +347,6 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         pnl_customerID.setPreferredSize(new java.awt.Dimension(200, 30));
         pnl_customerID.setLayout(new javax.swing.BoxLayout(pnl_customerID, javax.swing.BoxLayout.LINE_AXIS));
 
-        lbl_customerID.setFont(lbl_customerID.getFont().deriveFont((float)16));
         lbl_customerID.setText("Mã:");
         lbl_customerID.setPreferredSize(new java.awt.Dimension(150, 16));
         pnl_customerID.add(lbl_customerID);
@@ -376,7 +375,6 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         pnl_name.setPreferredSize(new java.awt.Dimension(200, 30));
         pnl_name.setLayout(new javax.swing.BoxLayout(pnl_name, javax.swing.BoxLayout.X_AXIS));
 
-        lbl_name.setFont(lbl_name.getFont().deriveFont((float)16));
         lbl_name.setText("Họ và tên:");
         lbl_name.setPreferredSize(new java.awt.Dimension(150, 16));
         pnl_name.add(lbl_name);
@@ -389,12 +387,11 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         pnl_infoBody.add(pnl_name);
 
         pnl_dateOfBirth.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 0, 0));
-        pnl_dateOfBirth.setMaximumSize(new java.awt.Dimension(1000, 70));
+        pnl_dateOfBirth.setMaximumSize(new java.awt.Dimension(1000, 50));
         pnl_dateOfBirth.setMinimumSize(new java.awt.Dimension(300, 30));
         pnl_dateOfBirth.setPreferredSize(new java.awt.Dimension(200, 30));
         pnl_dateOfBirth.setLayout(new javax.swing.BoxLayout(pnl_dateOfBirth, javax.swing.BoxLayout.LINE_AXIS));
 
-        lbl_dateOfBirth.setFont(lbl_dateOfBirth.getFont().deriveFont((float)16));
         lbl_dateOfBirth.setText("Ngày sinh:");
         lbl_dateOfBirth.setPreferredSize(new java.awt.Dimension(150, 16));
         pnl_dateOfBirth.add(lbl_dateOfBirth);
@@ -413,7 +410,6 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         pnl_gender.setPreferredSize(new java.awt.Dimension(200, 30));
         pnl_gender.setLayout(new javax.swing.BoxLayout(pnl_gender, javax.swing.BoxLayout.LINE_AXIS));
 
-        lbl_gender.setFont(lbl_gender.getFont().deriveFont((float)16));
         lbl_gender.setText("Giới tính:");
         lbl_gender.setPreferredSize(new java.awt.Dimension(150, 16));
         pnl_gender.add(lbl_gender);
@@ -422,13 +418,11 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         pnl_genderGr.setLayout(new javax.swing.BoxLayout(pnl_genderGr, javax.swing.BoxLayout.X_AXIS));
 
         grp_gender.add(rad_men);
-        rad_men.setFont(rad_men.getFont().deriveFont((float)16));
         rad_men.setSelected(true);
         rad_men.setText("Nam");
         pnl_genderGr.add(rad_men);
 
         grp_gender.add(rad_women);
-        rad_women.setFont(rad_women.getFont().deriveFont((float)16));
         rad_women.setText("Nữ");
         rad_women.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -447,7 +441,6 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         pnl_phoneNumber.setPreferredSize(new java.awt.Dimension(200, 30));
         pnl_phoneNumber.setLayout(new javax.swing.BoxLayout(pnl_phoneNumber, javax.swing.BoxLayout.LINE_AXIS));
 
-        lbl_phoneNumber.setFont(lbl_phoneNumber.getFont().deriveFont((float)16));
         lbl_phoneNumber.setText("Số điện thoại:");
         lbl_phoneNumber.setPreferredSize(new java.awt.Dimension(150, 16));
         pnl_phoneNumber.add(lbl_phoneNumber);
@@ -465,7 +458,6 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         pnl_address.setPreferredSize(new java.awt.Dimension(200, 30));
         pnl_address.setLayout(new javax.swing.BoxLayout(pnl_address, javax.swing.BoxLayout.LINE_AXIS));
 
-        lbl_address.setFont(lbl_address.getFont().deriveFont((float)16));
         lbl_address.setText("Địa chỉ:");
         lbl_address.setPreferredSize(new java.awt.Dimension(150, 16));
         pnl_address.add(lbl_address);
@@ -488,7 +480,6 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         pnl_score.setPreferredSize(new java.awt.Dimension(200, 30));
         pnl_score.setLayout(new javax.swing.BoxLayout(pnl_score, javax.swing.BoxLayout.LINE_AXIS));
 
-        lbl_score.setFont(lbl_score.getFont().deriveFont((float)16));
         lbl_score.setText("Điểm thành viên:");
         lbl_score.setPreferredSize(new java.awt.Dimension(150, 16));
         pnl_score.add(lbl_score);
@@ -508,7 +499,6 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
         pnl_rank.setPreferredSize(new java.awt.Dimension(200, 30));
         pnl_rank.setLayout(new javax.swing.BoxLayout(pnl_rank, javax.swing.BoxLayout.LINE_AXIS));
 
-        lbl_rank.setFont(lbl_rank.getFont().deriveFont((float)16));
         lbl_rank.setText("Hạng thành viên:");
         lbl_rank.setPreferredSize(new java.awt.Dimension(150, 16));
         pnl_rank.add(lbl_rank);

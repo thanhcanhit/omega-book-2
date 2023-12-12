@@ -61,11 +61,6 @@
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="lbl_employee1">
                   <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
-                      <FontInfo relative="true">
-                        <Font bold="true" component="lbl_employee1" property="font" relativeSize="false" size="14"/>
-                      </FontInfo>
-                    </Property>
                     <Property name="text" type="java.lang.String" value="Nh&#xe2;n vi&#xea;n ki&#xea;&#x309;m:"/>
                     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[150, 16]"/>
@@ -103,11 +98,6 @@
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="lbl_employee2">
                   <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
-                      <FontInfo relative="true">
-                        <Font bold="true" component="lbl_employee2" property="font" relativeSize="false" size="14"/>
-                      </FontInfo>
-                    </Property>
                     <Property name="text" type="java.lang.String" value="Nh&#xe2;n vi&#xea;n &#x111;&#xf4;&#x300;ng ki&#xea;&#x309;m:"/>
                     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[150, 16]"/>

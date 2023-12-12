@@ -179,7 +179,7 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
         pnl_topReturnOrder = new javax.swing.JPanel();
         pnl_searchRerturnOrder = new javax.swing.JPanel();
         txt_searchReturnOrder = new javax.swing.JTextField();
-        filler6 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
+        pnl_container = new javax.swing.JPanel();
         btn_searchReturnOrder = new javax.swing.JButton();
         pnl_filterReturnOrder = new javax.swing.JPanel();
         cmb_statusReturnOrder = new javax.swing.JComboBox<>();
@@ -232,7 +232,6 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
         pnl_topReturnOrder.setPreferredSize(new java.awt.Dimension(1368, 60));
         pnl_topReturnOrder.setLayout(new javax.swing.BoxLayout(pnl_topReturnOrder, javax.swing.BoxLayout.LINE_AXIS));
 
-        pnl_searchRerturnOrder.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
         pnl_searchRerturnOrder.setLayout(new javax.swing.BoxLayout(pnl_searchRerturnOrder, javax.swing.BoxLayout.X_AXIS));
 
         txt_searchReturnOrder.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Nhập mã đơn đổi trả");
@@ -243,20 +242,23 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
             }
         });
         pnl_searchRerturnOrder.add(txt_searchReturnOrder);
-        pnl_searchRerturnOrder.add(filler6);
+
+        pnl_container.setLayout(new java.awt.GridLayout());
 
         btn_searchReturnOrder.setText("Tìm kiếm");
         btn_searchReturnOrder.putClientProperty(FlatClientProperties.STYLE,""
             + "background:$Menu.background;"
             + "foreground:$Menu.foreground;");
         btn_searchReturnOrder.setMaximumSize(new java.awt.Dimension(79, 43));
-        btn_searchReturnOrder.setPreferredSize(new java.awt.Dimension(90, 33));
+        btn_searchReturnOrder.setPreferredSize(new java.awt.Dimension(90, 50));
         btn_searchReturnOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_searchReturnOrderActionPerformed(evt);
             }
         });
-        pnl_searchRerturnOrder.add(btn_searchReturnOrder);
+        pnl_container.add(btn_searchReturnOrder);
+
+        pnl_searchRerturnOrder.add(pnl_container);
 
         pnl_topReturnOrder.add(pnl_searchRerturnOrder);
 
@@ -460,6 +462,7 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
 
         scr_productInfor.setPreferredSize(new java.awt.Dimension(452, 250));
 
+        tbl_productInfor.setAutoCreateRowSorter(true);
         tbl_productInfor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -610,7 +613,6 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
     private com.toedter.calendar.JDateChooser chooseDateReturnOrder;
     private javax.swing.JComboBox<String> cmb_statusReturnOrder;
     private javax.swing.JComboBox<String> cmb_typeReturnOrder;
-    private javax.swing.Box.Filler filler6;
     private javax.swing.ButtonGroup group_statusReturnOrder;
     private javax.swing.ButtonGroup group_typeReturnOrder;
     private javax.swing.JLabel lbl_dateReturnOrder;
@@ -625,6 +627,7 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
     private javax.swing.JPanel pnl_buttonSave;
     private javax.swing.JPanel pnl_centerReturnOrder;
     private javax.swing.JPanel pnl_chooseDateReturnOrder;
+    private javax.swing.JPanel pnl_container;
     private javax.swing.JPanel pnl_dateReturnOrder;
     private javax.swing.JPanel pnl_eastReturnOrder;
     private javax.swing.JPanel pnl_employeeID;

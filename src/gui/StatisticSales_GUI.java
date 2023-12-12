@@ -128,27 +128,27 @@ public final class StatisticSales_GUI extends javax.swing.JPanel {
         filler27 = new javax.swing.Box.Filler(new java.awt.Dimension(300, 0), new java.awt.Dimension(300, 0), new java.awt.Dimension(1000, 32767));
         pnl_infomaotionBody = new javax.swing.JPanel();
         pnl_orderQuantiy = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        pnl_container3 = new javax.swing.JPanel();
         lbl_orderQuantity = new javax.swing.JLabel();
         txt_orderQuantity = new javax.swing.JTextField();
         pnl_returnOrderQuantity = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        pnl_container2 = new javax.swing.JPanel();
         lbl_returnOrderQuanitty = new javax.swing.JLabel();
         txt_returnOrderQuantity = new javax.swing.JTextField();
         pnl_purchaseOrderQuantiy = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
+        pnl_container = new javax.swing.JPanel();
         lbl_purchaseOrderQuantity = new javax.swing.JLabel();
         txt_purchaseOrderQuanitty = new javax.swing.JTextField();
         pnl_orderQuantiy3 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
+        lbl_container5 = new javax.swing.JPanel();
         lbl_orderQuantity3 = new javax.swing.JLabel();
         txt_total = new javax.swing.JTextField();
         pnl_orderQuantiy4 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         lbl_orderQuantity4 = new javax.swing.JLabel();
         txt_target = new javax.swing.JTextField();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        pnl_target = new javax.swing.JPanel();
+        lbl_target = new javax.swing.JLabel();
         pnl_topright = new javax.swing.JPanel();
         pnl_productTypeStatistic = new javax.swing.JPanel();
         pnl_center = new javax.swing.JPanel();
@@ -179,7 +179,6 @@ public final class StatisticSales_GUI extends javax.swing.JPanel {
         month_statisticSales.setPreferredSize(new java.awt.Dimension(150, 20));
         pnl_filter.add(month_statisticSales);
 
-        year_statisticSales.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         year_statisticSales.setPreferredSize(new java.awt.Dimension(150, 20));
         pnl_filter.add(year_statisticSales);
 
@@ -194,17 +193,17 @@ public final class StatisticSales_GUI extends javax.swing.JPanel {
         pnl_orderQuantiy.setBorder(javax.swing.BorderFactory.createEmptyBorder(30, 10, 30, 10));
         pnl_orderQuantiy.setLayout(new javax.swing.BoxLayout(pnl_orderQuantiy, javax.swing.BoxLayout.Y_AXIS));
 
-        jPanel1.setPreferredSize(new java.awt.Dimension(100, 20));
-        jPanel1.setLayout(new java.awt.BorderLayout());
+        pnl_container3.setPreferredSize(new java.awt.Dimension(100, 20));
+        pnl_container3.setLayout(new java.awt.BorderLayout());
 
         lbl_orderQuantity.setFont(lbl_orderQuantity.getFont().deriveFont((float)16));
         lbl_orderQuantity.setText("Tổng số hoá đơn: ");
         lbl_orderQuantity.setMaximumSize(new java.awt.Dimension(165, 20));
         lbl_orderQuantity.setMinimumSize(new java.awt.Dimension(165, 20));
         lbl_orderQuantity.setPreferredSize(new java.awt.Dimension(165, 50));
-        jPanel1.add(lbl_orderQuantity, java.awt.BorderLayout.CENTER);
+        pnl_container3.add(lbl_orderQuantity, java.awt.BorderLayout.CENTER);
 
-        pnl_orderQuantiy.add(jPanel1);
+        pnl_orderQuantiy.add(pnl_container3);
 
         txt_orderQuantity.setEditable(false);
         txt_orderQuantity.setMinimumSize(new java.awt.Dimension(50, 20));
@@ -216,15 +215,15 @@ public final class StatisticSales_GUI extends javax.swing.JPanel {
         pnl_returnOrderQuantity.setBorder(javax.swing.BorderFactory.createEmptyBorder(30, 10, 30, 10));
         pnl_returnOrderQuantity.setLayout(new javax.swing.BoxLayout(pnl_returnOrderQuantity, javax.swing.BoxLayout.Y_AXIS));
 
-        jPanel2.setPreferredSize(new java.awt.Dimension(100, 20));
-        jPanel2.setLayout(new java.awt.BorderLayout());
+        pnl_container2.setPreferredSize(new java.awt.Dimension(100, 20));
+        pnl_container2.setLayout(new java.awt.BorderLayout());
 
         lbl_returnOrderQuanitty.setFont(lbl_returnOrderQuanitty.getFont().deriveFont((float)16));
         lbl_returnOrderQuanitty.setText("Tổng hoá đơn trả:");
         lbl_returnOrderQuanitty.setPreferredSize(new java.awt.Dimension(130, 20));
-        jPanel2.add(lbl_returnOrderQuanitty, java.awt.BorderLayout.CENTER);
+        pnl_container2.add(lbl_returnOrderQuanitty, java.awt.BorderLayout.CENTER);
 
-        pnl_returnOrderQuantity.add(jPanel2);
+        pnl_returnOrderQuantity.add(pnl_container2);
 
         txt_returnOrderQuantity.setEditable(false);
         txt_returnOrderQuantity.setMinimumSize(new java.awt.Dimension(50, 20));
@@ -236,17 +235,17 @@ public final class StatisticSales_GUI extends javax.swing.JPanel {
         pnl_purchaseOrderQuantiy.setBorder(javax.swing.BorderFactory.createEmptyBorder(30, 10, 30, 10));
         pnl_purchaseOrderQuantiy.setLayout(new javax.swing.BoxLayout(pnl_purchaseOrderQuantiy, javax.swing.BoxLayout.Y_AXIS));
 
-        jPanel3.setPreferredSize(new java.awt.Dimension(100, 20));
-        jPanel3.setLayout(new java.awt.BorderLayout());
+        pnl_container.setPreferredSize(new java.awt.Dimension(100, 20));
+        pnl_container.setLayout(new java.awt.BorderLayout());
 
         lbl_purchaseOrderQuantity.setFont(lbl_purchaseOrderQuantity.getFont().deriveFont((float)16));
         lbl_purchaseOrderQuantity.setText("Tổng số đơn nhập: ");
         lbl_purchaseOrderQuantity.setMaximumSize(new java.awt.Dimension(130, 17));
         lbl_purchaseOrderQuantity.setMinimumSize(new java.awt.Dimension(130, 17));
         lbl_purchaseOrderQuantity.setPreferredSize(new java.awt.Dimension(130, 20));
-        jPanel3.add(lbl_purchaseOrderQuantity, java.awt.BorderLayout.CENTER);
+        pnl_container.add(lbl_purchaseOrderQuantity, java.awt.BorderLayout.CENTER);
 
-        pnl_purchaseOrderQuantiy.add(jPanel3);
+        pnl_purchaseOrderQuantiy.add(pnl_container);
 
         txt_purchaseOrderQuanitty.setEditable(false);
         txt_purchaseOrderQuanitty.setMinimumSize(new java.awt.Dimension(50, 20));
@@ -260,14 +259,14 @@ public final class StatisticSales_GUI extends javax.swing.JPanel {
         pnl_orderQuantiy3.setPreferredSize(new java.awt.Dimension(380, 20));
         pnl_orderQuantiy3.setLayout(new javax.swing.BoxLayout(pnl_orderQuantiy3, javax.swing.BoxLayout.Y_AXIS));
 
-        jPanel5.setLayout(new java.awt.BorderLayout());
+        lbl_container5.setLayout(new java.awt.BorderLayout());
 
         lbl_orderQuantity3.setFont(lbl_orderQuantity3.getFont().deriveFont((float)16));
         lbl_orderQuantity3.setText("Tổng doanh thu:");
         lbl_orderQuantity3.setPreferredSize(new java.awt.Dimension(130, 20));
-        jPanel5.add(lbl_orderQuantity3, java.awt.BorderLayout.CENTER);
+        lbl_container5.add(lbl_orderQuantity3, java.awt.BorderLayout.CENTER);
 
-        pnl_orderQuantiy3.add(jPanel5);
+        pnl_orderQuantiy3.add(lbl_container5);
 
         txt_total.setEditable(false);
         txt_total.setMinimumSize(new java.awt.Dimension(50, 20));
@@ -295,14 +294,14 @@ public final class StatisticSales_GUI extends javax.swing.JPanel {
 
         pnl_infomaotionBody.add(pnl_orderQuantiy4);
 
-        jPanel6.setLayout(new java.awt.BorderLayout());
+        pnl_target.setLayout(new java.awt.BorderLayout());
 
-        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        jLabel1.setText("(Chỉ tiêu tháng: 50.000.000 VNĐ)");
-        jLabel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(80, 10, 50, 1));
-        jPanel6.add(jLabel1, java.awt.BorderLayout.CENTER);
+        lbl_target.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        lbl_target.setText("(Chỉ tiêu tháng: 50.000.000 VNĐ)");
+        lbl_target.setBorder(javax.swing.BorderFactory.createEmptyBorder(80, 10, 50, 1));
+        pnl_target.add(lbl_target, java.awt.BorderLayout.CENTER);
 
-        pnl_infomaotionBody.add(jPanel6);
+        pnl_infomaotionBody.add(pnl_target);
 
         pnl_topleft.add(pnl_infomaotionBody, java.awt.BorderLayout.CENTER);
 
@@ -335,20 +334,19 @@ public final class StatisticSales_GUI extends javax.swing.JPanel {
     private javax.swing.Box.Filler filler26;
     private javax.swing.Box.Filler filler27;
     private javax.swing.Box.Filler filler28;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel lbl_container5;
     private javax.swing.JLabel lbl_orderQuantity;
     private javax.swing.JLabel lbl_orderQuantity3;
     private javax.swing.JLabel lbl_orderQuantity4;
     private javax.swing.JLabel lbl_purchaseOrderQuantity;
     private javax.swing.JLabel lbl_returnOrderQuanitty;
+    private javax.swing.JLabel lbl_target;
     private com.toedter.calendar.JMonthChooser month_statisticSales;
     private javax.swing.JPanel pnl_center;
+    private javax.swing.JPanel pnl_container;
+    private javax.swing.JPanel pnl_container2;
+    private javax.swing.JPanel pnl_container3;
     private javax.swing.JPanel pnl_control;
     private javax.swing.JPanel pnl_filter;
     private javax.swing.JPanel pnl_header;
@@ -359,6 +357,7 @@ public final class StatisticSales_GUI extends javax.swing.JPanel {
     private javax.swing.JPanel pnl_productTypeStatistic;
     private javax.swing.JPanel pnl_purchaseOrderQuantiy;
     private javax.swing.JPanel pnl_returnOrderQuantity;
+    private javax.swing.JPanel pnl_target;
     private javax.swing.JPanel pnl_topleft;
     private javax.swing.JPanel pnl_topright;
     private javax.swing.JTextField txt_orderQuantity;
