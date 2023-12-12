@@ -253,6 +253,7 @@ public class Sales_GUI extends javax.swing.JPanel {
 
 //        Only number input set
         KeyAdapter onlyNumberAdapter = new KeyAdapter() {
+            @Override
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
                 if (!((c >= '0') && (c <= '9')
@@ -472,6 +473,7 @@ public class Sales_GUI extends javax.swing.JPanel {
     }
 
     private void disableCustomerForm() {
+        chk_defaultCustomer.setEnabled(false);
         JTextField[] items = new JTextField[]{txt_customerPhone, txt_customerRank, txt_customerName
         };
 
@@ -702,15 +704,22 @@ public class Sales_GUI extends javax.swing.JPanel {
             return false;
         }
 
-        //         Nếu phương thức là tiền mặt và chưa nhập tiền khách đưa sẽ cảnh báo
-        if (cmb_orderPaymentMethod.getSelectedIndex() == 0 && checkCustomerGive && txt_orderCustomerGive.getText().isEmpty()) {
-            Notifications.getInstance().show(Notifications.Type.WARNING, "Vui lòng nhập số tiền khách đã đưa!");
-            return false;
-        }
+        if (checkCustomerGive) {
+            boolean isRealMoney = cmb_orderPaymentMethod.getSelectedIndex() == 0;
 
-        if (customerGive < totalAfterDiscount) {
-            Notifications.getInstance().show(Notifications.Type.WARNING, "Tiền khách đưa ít hơn số tiền cần thanh toán!");
-            return false;
+            if (isRealMoney) {
+                //         Nếu phương thức là tiền mặt và chưa nhập tiền khách đưa sẽ cảnh báo
+                if (cmb_orderPaymentMethod.getSelectedIndex() == 0 && checkCustomerGive && txt_orderCustomerGive.getText().isEmpty()) {
+                    Notifications.getInstance().show(Notifications.Type.WARNING, "Vui lòng nhập số tiền khách đã đưa!");
+                    return false;
+                }
+
+//            Kiểm tra tiền khách đưa có hợp lệ không
+                if (customerGive < totalAfterDiscount) {
+                    Notifications.getInstance().show(Notifications.Type.WARNING, "Tiền khách đưa ít hơn số tiền cần thanh toán!");
+                    return false;
+                }
+            }
         }
 
         return true;
@@ -1783,7 +1792,6 @@ public class Sales_GUI extends javax.swing.JPanel {
         Order savedOrder = bus.getOrder(id);
 //        update state
         order = savedOrder;
-        customer = order.getCustomer();
         cart = order.getOrderDetail();
 //        Tự động thêm khuyến mãi có thể áp dụng ở thời điểm hiện tại vào các  sản phẩm
         for (OrderDetail item : cart) {
@@ -1796,9 +1804,11 @@ public class Sales_GUI extends javax.swing.JPanel {
         }
 
 //        Update view
+        disableCustomerForm();
         renderOrder();
         renderCartTable();
-        renderCustomer();
+        setOrderCustomer(order.getCustomer());
+        getBestPromotionForCustomer();
     }
 
 //    Promotion
@@ -1832,6 +1842,7 @@ public class Sales_GUI extends javax.swing.JPanel {
     }
 
     private Promotion getBestPromotionForCustomer() {
+        System.out.println("customer " + customer.getName());
         Promotion bestPromotion = null;
         if (customer == null || customer == defaultCustomer) {
             return null;

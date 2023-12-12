@@ -90,6 +90,8 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
         txt_searchReturnOrder.setText("");
         rdb_admit.setSelected(true);
         rdb_exchange.setSelected(true);
+        txt_reason.setText("");
+        txt_refund.setText("");
         tblModel_product.setRowCount(0);
     }
     private void renderProductTable(String returnOrderID) {

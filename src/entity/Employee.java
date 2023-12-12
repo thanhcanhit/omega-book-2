@@ -4,6 +4,8 @@
  */
 package entity;
 
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 /**
@@ -119,9 +121,8 @@ public class Employee {
     }
 
     public void setDateOfBirth(Date dateOfBirth) throws IllegalArgumentException {
-        if (dateOfBirth.after(new Date())) {
-            throw new IllegalArgumentException("Ngày sinh không được sau ngày hiện tại!");
-        }
+        if(java.sql.Date.valueOf(LocalDate.now()).getYear() - dateOfBirth.getYear() < 18)
+            throw new IllegalArgumentException("Nhân viên phải đủ 18 tuổi trở lên");
         this.dateOfBirth = dateOfBirth;
     }
 
