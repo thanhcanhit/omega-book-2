@@ -2,6 +2,9 @@ package gui;
 
 import bus.ReturnOrderManagament_BUS;
 import com.formdev.flatlaf.FlatClientProperties;
+import com.github.kwhat.jnativehook.GlobalScreen;
+import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
+import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
 import entity.Employee;
 import entity.Order;
 import entity.OrderDetail;
@@ -37,12 +40,71 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
     private ArrayList<ReturnOrderDetail> cart;
     private int maxQuantity;
     private double totalRefund;
+    String tempInput = "";
+
     /**
      * Creates new form CreateReturnOrder_GUI
      */
     public CreateReturnOrder_GUI() {
         initComponents();
         init();
+
+        GlobalScreen.addNativeKeyListener(new NativeKeyListener() {
+
+            @Override
+            public void nativeKeyPressed(NativeKeyEvent e) {
+//                Handle submit
+                if (e.getKeyCode() == NativeKeyEvent.VC_ENTER) {
+                    String orderID = tempInput.trim();
+
+//                    Kiểm tra xem order có hợp lệ không 
+                    try {
+                        order = bus.getOrder(orderID);
+                        if (order == null) {
+                            return;
+                        }
+                        if (bus.isExist(order)) {
+                            return;
+                        }
+                        if (!isAvaiable(order)) {
+                            return;
+                        }
+
+                        renderOrderDetail(orderID);
+                    } catch (Exception er) {
+//                  Bỏ qua
+                        er.printStackTrace();
+                    } finally {
+//                    reset
+                        tempInput = new String();
+                    }
+
+                }
+
+//                Xử lí nhận biết đang nhập mã sản phẩm
+                if (e.getKeyCode() == NativeKeyEvent.VC_H) {
+                    tempInput = new String();
+                    tempInput += NativeKeyEvent.getKeyText(e.getKeyCode());
+                }
+
+                if (tempInput.equals("H") && e.getKeyCode() == NativeKeyEvent.VC_D) {
+                    tempInput += NativeKeyEvent.getKeyText(e.getKeyCode());
+                }
+
+//            Kiểm tra xem có phải đang nhập mã sản phẩm và đang là số không (VC_1 = 2 và VC_0 = 11)
+                if (tempInput.startsWith("HD") && e.getKeyCode() >= NativeKeyEvent.VC_1 && e.getKeyCode() <= NativeKeyEvent.VC_0) {
+                    tempInput += NativeKeyEvent.getKeyText(e.getKeyCode());
+                }
+            }
+
+            @Override
+            public void nativeKeyReleased(NativeKeyEvent e) {
+            }
+
+            @Override
+            public void nativeKeyTyped(NativeKeyEvent e) {
+            }
+        });
     }
 
     private void init() {
@@ -108,17 +170,17 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
         tblModel_orderDetail.setRowCount(0);
         ArrayList<OrderDetail> orderDetailList = bus.getAllOrderDetail(orderID);
         for (OrderDetail orderDetail1 : orderDetailList) {
-            double price = orderDetail1.getPrice() - (orderDetail1.getSeasonalDiscount()/orderDetail1.getQuantity());
+            double price = orderDetail1.getPrice() - (orderDetail1.getSeasonalDiscount() / orderDetail1.getQuantity());
             Promotion promo = bus.getDiscount(orderID);
-            if(promo != null) {
-                if(promo.getTypeDiscount().getValue() == 0)
-                    price = price *(1 - (promo.getDiscount()/100));
-                else {
-                    double tmp = (promo.getDiscount()/orderDetailList.size())/orderDetail1.getQuantity();
+            if (promo != null) {
+                if (promo.getTypeDiscount().getValue() == 0) {
+                    price = price * (1 - (promo.getDiscount() / 100));
+                } else {
+                    double tmp = (promo.getDiscount() / orderDetailList.size()) / orderDetail1.getQuantity();
                     price = price - tmp;
                 }
             }
-            String[] newRow = {orderDetail1.getOrder().getOrderID(), orderDetail1.getProduct().getProductID(), orderDetail1.getProduct().getName(), orderDetail1.getQuantity() + "", price + "", orderDetail1.getQuantity()*price + ""};
+            String[] newRow = {orderDetail1.getOrder().getOrderID(), orderDetail1.getProduct().getProductID(), orderDetail1.getProduct().getName(), orderDetail1.getQuantity() + "", price + "", orderDetail1.getQuantity() * price + ""};
             tblModel_orderDetail.addRow(newRow);
         }
     }
@@ -230,6 +292,7 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
             Notifications.getInstance().show(Notifications.Type.ERROR, "Thêm không thành công");
         }
     }
+
     private void Print(ReturnOrder returnOrder) {
         ReturnOrderPrinter printer = new ReturnOrderPrinter(returnOrder);
         printer.generatePDF();
@@ -646,16 +709,17 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_createReturnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_createReturnOrderActionPerformed
-        if(order == null) {
+        if (order == null) {
             Notifications.getInstance().show(Notifications.Type.WARNING, "Vui lòng chọn hoá đơn để đổi trả");
             txt_searchOrder.requestFocus();
             return;
+
         }
         if (checkDate()) {
             Notifications.getInstance().show(Notifications.Type.WARNING, "Ngày đổi trả không được khác ngày hiện tại");
             return;
         }
-        if(tblModel_product.getRowCount() == 0) {
+        if (tblModel_product.getRowCount() == 0) {
             Notifications.getInstance().show(Notifications.Type.WARNING, "Chưa chọn sản phẩm để đổi trả");
             return;
         }
