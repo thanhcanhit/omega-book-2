@@ -611,7 +611,7 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_exportExcelActionPerformed
 
     private void btn_reloadListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reloadListActionPerformed
-            renderCustomerTable(customer_BUS.getAllCustomer());        // TODO add your handling code here:
+        renderCustomerTable(customer_BUS.getAllCustomer());        // TODO add your handling code here:
     }//GEN-LAST:event_btn_reloadListActionPerformed
 
     private void btn_searchActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_searchActionPerformed
@@ -660,8 +660,11 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
     private void btn_createActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_createActionPerformed
         try {
             // TODO add your handling code here:
-            customer_BUS.createCustomer(txt_name.getText(), date_dateOfBirth.getDate(), txt_phoneNumber.getText(),
-                    txt_address.getText(), rad_men.isSelected() ? true : false);
+            boolean isCompleted = customer_BUS.createCustomer(txt_name.getText(), date_dateOfBirth.getDate(), txt_phoneNumber.getText(),
+                    txt_address.getText(), rad_men.isSelected());
+            if (!isCompleted) {
+                Notifications.getInstance().show(Notifications.Type.ERROR, "Số điện thoại đã tồn tại");
+            }
             renderCustomerTable(customer_BUS.getAllCustomer());
             reloadForm();
         } catch (Exception ex) {
@@ -672,11 +675,11 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
 
     // ...
     private void btn_reloadFormActionPerformed(java.awt.event.ActionEvent evt) {
-           reloadForm();
-           cbo_filterAge.setSelectedIndex(0);
-           cbo_filterGender.setSelectedIndex(0);
-           cbo_filterRank.setSelectedIndex(0);
-           txt_searchForPhone.setText("");
+        reloadForm();
+        cbo_filterAge.setSelectedIndex(0);
+        cbo_filterGender.setSelectedIndex(0);
+        cbo_filterRank.setSelectedIndex(0);
+        txt_searchForPhone.setText("");
     }
 
     private void btn_filterActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_filterActionPerformed
