@@ -831,6 +831,7 @@ public class Sales_GUI extends javax.swing.JPanel {
         tbl_cart = new javax.swing.JTable();
         pnl_cartFooter = new javax.swing.JPanel();
         lbl_total = new javax.swing.JLabel();
+        lbl_notification = new javax.swing.JLabel();
         pnl_right = new javax.swing.JPanel();
         pnl_info = new javax.swing.JPanel();
         pnl_customerInfo = new javax.swing.JPanel();
@@ -879,8 +880,6 @@ public class Sales_GUI extends javax.swing.JPanel {
         pnl_orderCustomerReturn = new javax.swing.JPanel();
         lbl_orderCustomerReturn = new javax.swing.JLabel();
         txt_orderCustomerReturn = new javax.swing.JTextField();
-        pnl_notification = new javax.swing.JPanel();
-        lbl_notification = new javax.swing.JLabel();
         pnl_control = new javax.swing.JPanel();
         pnl_btnGroup = new javax.swing.JPanel();
         btn_save = new javax.swing.JButton();
@@ -1116,6 +1115,12 @@ public class Sales_GUI extends javax.swing.JPanel {
         lbl_total.setToolTipText("");
         lbl_total.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         pnl_cartFooter.add(lbl_total, java.awt.BorderLayout.CENTER);
+
+        lbl_notification.setFont(lbl_notification.getFont().deriveFont((lbl_notification.getFont().getStyle() | java.awt.Font.ITALIC), lbl_notification.getFont().getSize()-4));
+        lbl_notification.setForeground(new java.awt.Color(0, 153, 255));
+        lbl_notification.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lbl_notification.setPreferredSize(new java.awt.Dimension(0, 20));
+        pnl_cartFooter.add(lbl_notification, java.awt.BorderLayout.PAGE_END);
 
         pnl_cart.add(pnl_cartFooter, java.awt.BorderLayout.PAGE_END);
 
@@ -1415,16 +1420,6 @@ public class Sales_GUI extends javax.swing.JPanel {
 
         pnl_orderInfo.add(pnl_orderCustomerReturn);
 
-        pnl_notification.setMaximumSize(new java.awt.Dimension(32767, 30));
-        pnl_notification.setLayout(new java.awt.GridLayout(1, 0));
-
-        lbl_notification.setFont(lbl_notification.getFont().deriveFont((lbl_notification.getFont().getStyle() | java.awt.Font.ITALIC), lbl_notification.getFont().getSize()-4));
-        lbl_notification.setForeground(new java.awt.Color(0, 153, 255));
-        lbl_notification.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        pnl_notification.add(lbl_notification);
-
-        pnl_orderInfo.add(pnl_notification);
-
         pnl_info.add(pnl_orderInfo);
 
         pnl_right.add(pnl_info, java.awt.BorderLayout.CENTER);
@@ -1665,6 +1660,12 @@ public class Sales_GUI extends javax.swing.JPanel {
     }
     private void btn_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saveActionPerformed
         if (!orderValidate(false)) {
+            return;
+        }
+        
+//        Check xem số lượng đơn tạm đã vượt quá tối đa chưa
+        if (bus.getSavedOrderQuantity() >= 5) {
+            Notifications.getInstance().show(Notifications.Type.WARNING, "Hiện đã lưu tối đa 5 đơn tạm, vui lòng xử lí các đơn lưu tạm trước đó");
             return;
         }
 
@@ -1957,7 +1958,6 @@ public class Sales_GUI extends javax.swing.JPanel {
     private javax.swing.JPanel pnl_info;
     private javax.swing.JPanel pnl_left;
     private javax.swing.JPanel pnl_main;
-    private javax.swing.JPanel pnl_notification;
     private javax.swing.JPanel pnl_orderCustomerGive;
     private javax.swing.JPanel pnl_orderCustomerGiveOptions;
     private javax.swing.JPanel pnl_orderCustomerReturn;

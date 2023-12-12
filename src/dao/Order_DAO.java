@@ -440,8 +440,27 @@ public class Order_DAO implements DAOBase<Order> {
         return result;
     }
 
+    public void clearExpiredOrderSaved() {
+        ArrayList<Order> result = new ArrayList<>();
+        try {
+            Statement statement = ConnectDB.conn.createStatement();
+            ResultSet resultSet = statement.executeQuery("select * from [Order] where status = 0 and  DATEDIFF(dd, orderAt, GETDATE()) > 1");
+
+            while (resultSet.next()) {
+                String orderID = resultSet.getString("orderID");
+                new OrderDetail_DAO().delete(orderID);
+                this.delete(orderID);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public ArrayList<Order> getNotCompleteOrder() {
         ArrayList<Order> result = new ArrayList<>();
+//        Xóa các hóa đơn lưu tạm quá 24 giờ  không còn dùng tới
+        clearExpiredOrderSaved();
+        
         String query = """
                        SELECT * FROM [dbo].[Order]
                        where status = 0
@@ -465,9 +484,23 @@ public class Order_DAO implements DAOBase<Order> {
 
     public Promotion getDiscount(String orderID) {
         Order order = getOne(orderID);
-        if(order.getPromotion() == null)
+        if (order.getPromotion() == null) {
             return null;
+        }
         return new Promotion_DAO().getOne(order.getPromotion().getPromotionID());
     }
 
+    public int getQuantityOrderSaved() {
+        try {
+            Statement statement = ConnectDB.conn.createStatement();
+            ResultSet resultSet = statement.executeQuery("select count(*) as quantity from [Order] where status=0");
+
+            while (resultSet.next()) {
+                return resultSet.getInt("quantity");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }
