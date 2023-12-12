@@ -32,14 +32,16 @@ public class Login_BUS {
         }
     }
 
-    public boolean changePassword(Account account, String passNew) throws Exception {
-        String pass = account.getPassWord();
+    public boolean changePassword(String id, String pass, String passNew) throws Exception {
+
+//        System.out.println(PasswordHash.hashPassword(pass));
         pass = PasswordHash.hashPassword(pass);
-        String passOld = accountDAO.getOne(account.getEmployee().getEmployeeID()).getPassWord();
-        if(pass.equals(passOld)){
+        String passOld = accountDAO.getOne(id).getPassWord();
+//        System.out.println("Pass csdl: "+passOld);
+        if (!pass.equals(passOld)) {
             throw new Exception("Mật khẩu không chính xác");
         }
-        Account acc = accountDAO.getOne(account.getEmployee().getEmployeeID());
+        Account acc = accountDAO.getOne(id);
         String regex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d).{8,}$";
         if (!Pattern.matches(regex, passNew)) {
             throw new Exception("Mật khẩu phải ít nhất có 8 kí tự, bao gồm chữ hoa, chữ thường và số");
@@ -53,5 +55,4 @@ public class Login_BUS {
         return accountDAO.updatePass(acc.getEmployee().getEmployeeID(), passNewHash);
     }
 
-    
 }
