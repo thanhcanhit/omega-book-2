@@ -398,6 +398,9 @@
               </Layout>
               <SubComponents>
                 <Component class="com.toedter.calendar.JDateChooser" name="chooseDateReturnOrder">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
                 </Component>
               </SubComponents>
             </Container>
@@ -505,6 +508,7 @@
             </Component>
             <Container class="javax.swing.JPanel" name="pnl_radioTypeReturnOrder">
               <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[32767, 30]"/>
                 </Property>

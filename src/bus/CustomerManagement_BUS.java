@@ -60,9 +60,9 @@ public class CustomerManagement_BUS {
         return prefix;
     }
 
-    public void createCustomer(String name, Date dateOfBirth, String numberPhone, String address, Boolean gender) throws Exception {
+    public boolean createCustomer(String name, Date dateOfBirth, String numberPhone, String address, Boolean gender) throws Exception {
         Customer customer = new Customer(generateID(dateOfBirth, gender), name, gender, dateOfBirth, 0, numberPhone, address);
-        customer_DAO.create(customer);
+        return customer_DAO.create(customer);
     }
 
     public void updateCustomer(Customer customer, String customerID) throws Exception {
