@@ -132,7 +132,6 @@ public class CashCountSheetPrinter {
 //
 //        return PrintStatus.COMPLETE;
 //    }
-
     public static byte[] resizeImage(byte[] imageData, int targetWidth, int targetHeight) throws IOException {
         BufferedImage originalImage = ImageIO.read(new ByteArrayInputStream(imageData));
         int originalWidth = originalImage.getWidth();
@@ -227,7 +226,7 @@ public class CashCountSheetPrinter {
             int index = 1;
 //            double valueIndex = 1;
 
-            double[] denominations = {1000, 2000, 5000, 10000, 20000, 100000, 200000, 500000};
+            double[] denominations = {1000, 2000, 5000, 10000, 20000, 50000, 100000, 200000, 500000};
 
             for (double denomination : denominations) {
                 CashCount cash = isValueInArray(denomination, (ArrayList<CashCount>) cashCountSheet.getCashCountList());

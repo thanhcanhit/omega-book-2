@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -43,9 +44,7 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
         initTableModel();
         initComponents();
         initInfo(employee1);
-//      
         alterTable();
-
         tbl_cashCounts.getModel().addTableModelListener(new TableModelListener() {
             @Override
             public void tableChanged(TableModelEvent e) {
@@ -64,7 +63,8 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
                         model.setValueAt(FormatNumber.toVND(total), row, 3); // Tổng
                     } catch (NumberFormatException ex) {
                         model.setValueAt("0", row, column);
-                        JOptionPane.showMessageDialog(null, "Số lượng không hợp lệ");
+                        Notifications.getInstance().show(Notifications.Type.ERROR, "Số lượng không hợp lệ!");
+
                     }
                 }
             }
@@ -72,7 +72,34 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
 
     }
 
+    class NonEditableTableModel extends DefaultTableModel {
 
+        public NonEditableTableModel(Object[][] data, Object[] columnNames) {
+            super(data, columnNames);
+        }
+
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            // Cho phép chỉnh sửa cột "Số lượng", ngăn chặn các cột khác
+            return column == 2;
+        }
+    }
+
+    class NonEditableCellRenderer extends DefaultTableCellRenderer {
+
+        @Override
+        public boolean isOpaque() {
+            return true;
+        }
+
+        @Override
+        public java.awt.Component getTableCellRendererComponent(JTable table, Object value,
+                boolean isSelected, boolean hasFocus, int row, int column) {
+            super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            setOpaque(false);
+            return this;
+        }
+    }
 
     public void initInfo(Employee e) {
         createAt = new Date();
@@ -402,25 +429,29 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
         scr_cashCounts.setMinimumSize(new java.awt.Dimension(1200, 16));
 
         tbl_cashCounts.setFont(tbl_cashCounts.getFont().deriveFont(tbl_cashCounts.getFont().getStyle() & ~java.awt.Font.BOLD, 22));
-        tbl_cashCounts.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"1", "500.000", null, 0},
-                {"2", "200.000", null, 0},
-                {"3", "100.000", null, 0},
-                {"4", "50.000", null, 0},
-                {"5", "20.000", null, 0},
-                {"6", "10.000", null, 0},
-                {"7", "5.000", null, 0},
-                {"8", "2.000", null, 0},
-                {"9", "1.000", null, 0},
-                {"10", "500", null, 0}
+        tbl_cashCounts.setModel(new NonEditableTableModel(
+            new Object[][] {
+                {"1", "500.000", null, null},
+                {"2", "200.000", null, null},
+                {"3", "100.000", null, null},
+                {"4", "50.000", null, null},
+                {"5", "20.000", null, null},
+                {"6", "10.000", null, null},
+                {"7", "5.000", null, null},
+                {"8", "2.000", null, null},
+                {"9", "1.000", null, null},
+                {"10", "500", null, null}
             },
-            new String [] {
+            new String[] {
                 "STT", "Mệnh giá", "Số lượng", "Tổng"
             }
         ));
+        for (int i = 0; i < tbl_cashCounts.getColumnCount(); i++) {
+            if (i != 2) { // Cột "Số lượng" (cột thứ 2) có thể chỉnh sửa
+                tbl_cashCounts.getColumnModel().getColumn(i).setCellRenderer(new NonEditableCellRenderer());
+            }
+        }
         tbl_cashCounts.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        tbl_cashCounts.setFocusable(false);
         tbl_cashCounts.setMaximumSize(new java.awt.Dimension(2147483647, 800));
         tbl_cashCounts.setMinimumSize(new java.awt.Dimension(800, 450));
         tbl_cashCounts.setRowHeight(45);
@@ -533,14 +564,17 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
     public ArrayList<CashCount> getValueInTable() {
         DefaultTableModel tableModel = (DefaultTableModel) tbl_cashCounts.getModel();
         int rowCount = tableModel.getRowCount();
-
         ArrayList<CashCount> cashCounts = new ArrayList<>();
         for (int i = 0; i < rowCount; i++) {
             String valueStr = (String) tableModel.getValueAt(i, 1);
-            String quantityStr = (String) tableModel.getValueAt(i, 2);
+            String quantityStr = "0";
+            try {
+                quantityStr = (String) tableModel.getValueAt(i, 2);
+            } catch (Exception e) {
+            }
             double value = Double.parseDouble(valueStr.replace(".", "").replace(",", "."));
             int quantity;
-            if (quantityStr == null || quantityStr.equals(0)) {
+            if (quantityStr == null || quantityStr.equals("0")) {
                 quantity = 0;
             } else {
                 quantity = Integer.parseInt(quantityStr.trim());
@@ -549,7 +583,6 @@ public class StatementCashCount_GUI extends javax.swing.JPanel {
                 cashCounts.add(new CashCount(quantity, value));
             }
         }
-
         return cashCounts;
     }
 
