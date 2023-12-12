@@ -33,6 +33,12 @@ public class Login_BUS {
     }
 
     public boolean changePassword(Account account, String passNew) throws Exception {
+        String pass = account.getPassWord();
+        pass = PasswordHash.hashPassword(pass);
+        String passOld = accountDAO.getOne(account.getEmployee().getEmployeeID()).getPassWord();
+        if(pass.equals(passOld)){
+            throw new Exception("Mật khẩu không chính xác");
+        }
         Account acc = accountDAO.getOne(account.getEmployee().getEmployeeID());
         String regex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d).{8,}$";
         if (!Pattern.matches(regex, passNew)) {

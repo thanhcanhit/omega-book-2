@@ -10,6 +10,7 @@ import entity.Account;
 import entity.Employee;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import javax.swing.AbstractButton;
 import main.Application;
 import raven.toast.Notifications;
 
@@ -18,7 +19,9 @@ import raven.toast.Notifications;
  * @author KienTran
  */
 public class Login_GUI extends javax.swing.JPanel {
-     private final Login_BUS log_BUS = new Login_BUS();
+
+    private final Login_BUS log_BUS = new Login_BUS();
+
     /**
      * Creates new form Login
      */
@@ -26,15 +29,15 @@ public class Login_GUI extends javax.swing.JPanel {
         initComponents();
         pnl_changePasswordForm.setVisible(false);
     }
+
     public Dimension getScreenSize() {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         return screenSize;
     }
-
-
+    
     public boolean checkValueFormChangePassword(String id, String pass, String passNew, String passConfirm)
             throws Exception {
-
+        
         if (id.equals("")) {
             throw new Exception("Mã đăng nhập không được bỏ trống!");
         }
@@ -383,9 +386,9 @@ public class Login_GUI extends javax.swing.JPanel {
 
     private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
         // TODO add your handling code here:
-         String id = txt_account.getText();
+        String id = txt_account.getText();
         String password = String.copyValueOf(pwr_password.getPassword());
-
+        
         try {
             Employee emp = log_BUS.login(id, password);
             if (emp != null && emp.isStatus()) {
@@ -402,12 +405,19 @@ public class Login_GUI extends javax.swing.JPanel {
         String pass = String.valueOf(pwr_passwordC.getPassword());
         String passNew = String.valueOf(pwr_passwordNew.getPassword());
         String passConfirm = String.valueOf(pwr_passwordSubmit.getPassword());
-
+        
         try {
             if (checkValueFormChangePassword(id, pass, passNew, passConfirm)) {
+                
                 Account acc = new Account(passNew, new Employee(id));
                 if (log_BUS.changePassword(acc, passNew)) {
                     Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đổi mật khẩu thành công!");
+//                    Application.showForm(new Login_GUI());
+                    txt_accountC.setText("");
+                    pwr_passwordC.setText("");
+                    pwr_passwordNew.setText("");
+                    pwr_passwordSubmit.setText("");
+                    
                 }
             }
         } catch (Exception ex) {
@@ -426,12 +436,11 @@ public class Login_GUI extends javax.swing.JPanel {
         pnl_changePasswordForm.setVisible(false);
         pnl_loginForm.setVisible(true);
     }//GEN-LAST:event_lbl_changeForm2MouseClicked
-                                        
-
-    private void formAncestorResized(java.awt.event.HierarchyEvent evt) {                                     
-
-    }                                    
-
+    
+    private void formAncestorResized(java.awt.event.HierarchyEvent evt) {        
+        
+    }    
+    
     private void txt_accountLoginActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txt_accountLoginActionPerformed
         // TODO add your handling code here:
     }// GEN-LAST:event_txt_accountLoginActionPerformed
@@ -447,8 +456,6 @@ public class Login_GUI extends javax.swing.JPanel {
 //        resizeCenterPanel();
     }// GEN-LAST:event_pnl_loginAncestorResized
 
-  
-
     private void pwr_passwordNewActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_pwr_passwordNewActionPerformed
         // TODO add your handling code here:
     }// GEN-LAST:event_pwr_passwordNewActionPerformed
@@ -456,7 +463,6 @@ public class Login_GUI extends javax.swing.JPanel {
     private void txt_accountActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txt_accountActionPerformed
         // TODO add your handling code here:
     }// GEN-LAST:event_txt_accountActionPerformed
-
 
     private void pwr_passwordConfirmActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_pwr_passwordConfirmActionPerformed
         // TODO add your handling code here:
