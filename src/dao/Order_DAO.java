@@ -68,7 +68,7 @@ public class Order_DAO implements DAOBase<Order> {
         ArrayList<Order> result = new ArrayList<>();
         try {
             Statement statement = ConnectDB.conn.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM [Order]");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM [Order] ORDER BY orderAt desc");
 
             while (resultSet.next()) {
                 String orderID = resultSet.getString("orderID");
@@ -212,7 +212,7 @@ public class Order_DAO implements DAOBase<Order> {
         ArrayList<Order> result = new ArrayList<>();
         String query = """
                        select * from [Order]
-                       order by orderID
+                       order by orderAt desc
                        offset ? rows
                        FETCH NEXT 50 ROWS ONLY
                        """;

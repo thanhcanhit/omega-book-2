@@ -702,15 +702,21 @@ public class Sales_GUI extends javax.swing.JPanel {
             return false;
         }
 
-        //         Nếu phương thức là tiền mặt và chưa nhập tiền khách đưa sẽ cảnh báo
-        if (cmb_orderPaymentMethod.getSelectedIndex() == 0 && checkCustomerGive && txt_orderCustomerGive.getText().isEmpty()) {
-            Notifications.getInstance().show(Notifications.Type.WARNING, "Vui lòng nhập số tiền khách đã đưa!");
-            return false;
-        }
+        boolean isRealMoney = cmb_orderPaymentMethod.getSelectedIndex() == 0;
 
-        if (customerGive < totalAfterDiscount) {
-            Notifications.getInstance().show(Notifications.Type.WARNING, "Tiền khách đưa ít hơn số tiền cần thanh toán!");
-            return false;
+        if (isRealMoney) {
+            //         Nếu phương thức là tiền mặt và chưa nhập tiền khách đưa sẽ cảnh báo
+            if (cmb_orderPaymentMethod.getSelectedIndex() == 0 && checkCustomerGive && txt_orderCustomerGive.getText().isEmpty()) {
+                Notifications.getInstance().show(Notifications.Type.WARNING, "Vui lòng nhập số tiền khách đã đưa!");
+                return false;
+            }
+
+//            Kiểm tra tiền khách đưa có hợp lệ không
+
+            if (customerGive < totalAfterDiscount) {
+                Notifications.getInstance().show(Notifications.Type.WARNING, "Tiền khách đưa ít hơn số tiền cần thanh toán!");
+                return false;
+            }
         }
 
         return true;
