@@ -481,6 +481,8 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
         pnl_chooseDateReturn.setMaximumSize(new java.awt.Dimension(32767, 30));
         pnl_chooseDateReturn.setPreferredSize(new java.awt.Dimension(100, 30));
         pnl_chooseDateReturn.setLayout(new java.awt.GridLayout(1, 0));
+
+        chooseDateReturn.setEnabled(false);
         pnl_chooseDateReturn.add(chooseDateReturn);
 
         pnl_returnOrderDate.add(pnl_chooseDateReturn);

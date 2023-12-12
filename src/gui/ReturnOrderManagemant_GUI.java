@@ -243,7 +243,7 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
         });
         pnl_searchRerturnOrder.add(txt_searchReturnOrder);
 
-        pnl_container.setLayout(new java.awt.GridLayout());
+        pnl_container.setLayout(new java.awt.GridLayout(1, 0));
 
         btn_searchReturnOrder.setText("Tìm kiếm");
         btn_searchReturnOrder.putClientProperty(FlatClientProperties.STYLE,""
@@ -391,6 +391,8 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
         pnl_chooseDateReturnOrder.setMaximumSize(new java.awt.Dimension(32767, 30));
         pnl_chooseDateReturnOrder.setPreferredSize(new java.awt.Dimension(100, 30));
         pnl_chooseDateReturnOrder.setLayout(new java.awt.GridLayout(1, 0));
+
+        chooseDateReturnOrder.setEnabled(false);
         pnl_chooseDateReturnOrder.add(chooseDateReturnOrder);
 
         pnl_dateReturnOrder.add(pnl_chooseDateReturnOrder);
@@ -436,6 +438,7 @@ public class ReturnOrderManagemant_GUI extends javax.swing.JPanel {
         lbl_typeReturnOrder.setPreferredSize(new java.awt.Dimension(100, 16));
         pnl_typeReturnOrder.add(lbl_typeReturnOrder);
 
+        pnl_radioTypeReturnOrder.setEnabled(false);
         pnl_radioTypeReturnOrder.setMaximumSize(new java.awt.Dimension(32767, 30));
         pnl_radioTypeReturnOrder.setPreferredSize(new java.awt.Dimension(219, 30));
         pnl_radioTypeReturnOrder.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 2));

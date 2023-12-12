@@ -144,6 +144,13 @@ public class Customer_DAO implements interfaces.DAOBase<Customer> {
     @Override
     public Boolean create(Customer object) {
         try {
+            String phoneCheck = "select * from Customer where phoneNumber = ?";
+            PreparedStatement phoneStatement = ConnectDB.conn.prepareStatement(phoneCheck);
+            phoneStatement.setString(1, object.getPhoneNumber());
+            if (phoneStatement.executeQuery().next()) {
+                return false;
+            }
+            
             String sql = "INSERT INTO Customer (customerID, name, dateOfBirth, gender, phoneNumber, score, address) "
                     + "VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = ConnectDB.conn.prepareStatement(sql);
