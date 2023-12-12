@@ -644,8 +644,17 @@ public class CreateReturnOrder_GUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_createReturnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_createReturnOrderActionPerformed
+        if(order == null) {
+            Notifications.getInstance().show(Notifications.Type.WARNING, "Vui lòng chọn hoá đơn để đổi trả");
+            txt_searchOrder.requestFocus();
+            return;
+        }
         if (checkDate()) {
             Notifications.getInstance().show(Notifications.Type.WARNING, "Ngày đổi trả không được khác ngày hiện tại");
+            return;
+        }
+        if(tblModel_product.getRowCount() == 0) {
+            Notifications.getInstance().show(Notifications.Type.WARNING, "Chưa chọn sản phẩm để đổi trả");
             return;
         }
         if (rdb_exchange.isSelected()) {

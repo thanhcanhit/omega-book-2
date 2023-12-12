@@ -209,4 +209,8 @@ public class Sales_BUS {
     public Promotion getPromotion(String promotionID) {
         return promotionDAO.getOne(promotionID);
     }
+    
+    public int getSavedOrderQuantity() {
+        return orderDAO.getQuantityOrderSaved();
+    }
 }

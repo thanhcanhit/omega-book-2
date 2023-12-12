@@ -183,6 +183,7 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
                 ProductPromotionDetail newProductPromotionDetail = new ProductPromotionDetail(product);
                 cart.add(newProductPromotionDetail);
                 renderNewProductPromotionTables(cart);
+                txt_searchProduct.setText("");
             } catch (Exception ex) {
                 ex.printStackTrace();
                 Notifications.getInstance().show(Notifications.Type.ERROR, "Có lỗi xảy ra khi thêm sản phẩm " + product.getProductID());
@@ -646,6 +647,7 @@ public class ProductPromotionManagament_GUI extends javax.swing.JPanel {
                 Notifications.getInstance().show(Notifications.Type.SUCCESS, "Thêm thành công");
                 bus.createProductPromotionDetail(newPromotion, cart);
                 renderPromotionTables(bus.getAllPromotionForProduct());
+                renderPromotionInfor();
             }
             else
                 Notifications.getInstance().show(Notifications.Type.ERROR, "Thêm không thành công");
