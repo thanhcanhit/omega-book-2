@@ -220,6 +220,7 @@ public class Sales_GUI extends javax.swing.JPanel {
         txt_orderPay.setEditable(false);
         try {
             defaultCustomer = new Customer("KH000000000");
+            defaultCustomer.setName("Chưa có tài khoản");
         } catch (Exception ex) {
             Logger.getLogger(Sales_GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -358,6 +359,8 @@ public class Sales_GUI extends javax.swing.JPanel {
 //                setCustomerGive(customerGive + dValue);
                 setCustomerGive(dValue);
             });
+//        Ẩn nút
+            temp.setVisible(false);
         }
         calculateOptionCashGive();
 
@@ -1233,6 +1236,8 @@ public class Sales_GUI extends javax.swing.JPanel {
         pnl_orderPay.setPreferredSize(new java.awt.Dimension(561, 40));
         pnl_orderPay.setLayout(new javax.swing.BoxLayout(pnl_orderPay, javax.swing.BoxLayout.LINE_AXIS));
 
+        lbl_orderPay.setFont(lbl_orderPay.getFont().deriveFont(lbl_orderPay.getFont().getStyle() | java.awt.Font.BOLD));
+        lbl_orderPay.setForeground(new java.awt.Color(71, 118, 185));
         lbl_orderPay.setText("Khách phải trả");
         lbl_orderPay.setMinimumSize(new java.awt.Dimension(130, 40));
         lbl_orderPay.setPreferredSize(new java.awt.Dimension(130, 40));
@@ -1294,18 +1299,20 @@ public class Sales_GUI extends javax.swing.JPanel {
 
         pnl_orderInfo.add(pnl_orderCustomerGive);
 
-        pnl_orderCustomerGiveOptions.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        pnl_orderCustomerGiveOptions.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gợi ý tiền khách đưa", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12), new java.awt.Color(71, 118, 185)), javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2))); // NOI18N
         pnl_orderCustomerGiveOptions.setMaximumSize(new java.awt.Dimension(99999, 160));
         pnl_orderCustomerGiveOptions.setMinimumSize(new java.awt.Dimension(236, 160));
-        pnl_orderCustomerGiveOptions.setPreferredSize(new java.awt.Dimension(561, 80));
+        pnl_orderCustomerGiveOptions.setPreferredSize(new java.awt.Dimension(561, 100));
         pnl_orderCustomerGiveOptions.setLayout(new java.awt.GridLayout(3, 3, 5, 5));
 
+        btn_option1.setFont(btn_option1.getFont().deriveFont(btn_option1.getFont().getSize()-2f));
         btn_option1.setText("Gợi ý 1");
         btn_option1.setMaximumSize(new java.awt.Dimension(72, 40));
         btn_option1.setMinimumSize(new java.awt.Dimension(72, 35));
         btn_option1.setPreferredSize(new java.awt.Dimension(72, 35));
         pnl_orderCustomerGiveOptions.add(btn_option1);
 
+        btn_option2.setFont(btn_option2.getFont().deriveFont(btn_option2.getFont().getSize()-2f));
         btn_option2.setMnemonic('2');
         btn_option2.setText("Gợi ý 2");
         btn_option2.setMaximumSize(new java.awt.Dimension(72, 40));
@@ -1313,42 +1320,49 @@ public class Sales_GUI extends javax.swing.JPanel {
         btn_option2.setPreferredSize(new java.awt.Dimension(72, 35));
         pnl_orderCustomerGiveOptions.add(btn_option2);
 
+        btn_option3.setFont(btn_option3.getFont().deriveFont(btn_option3.getFont().getSize()-2f));
         btn_option3.setText("Gợi ý 3");
         btn_option3.setMaximumSize(new java.awt.Dimension(72, 40));
         btn_option3.setMinimumSize(new java.awt.Dimension(72, 35));
         btn_option3.setPreferredSize(new java.awt.Dimension(72, 35));
         pnl_orderCustomerGiveOptions.add(btn_option3);
 
+        btn_option4.setFont(btn_option4.getFont().deriveFont(btn_option4.getFont().getSize()-2f));
         btn_option4.setText("Gợi ý 4");
         btn_option4.setMaximumSize(new java.awt.Dimension(72, 40));
         btn_option4.setMinimumSize(new java.awt.Dimension(72, 35));
         btn_option4.setPreferredSize(new java.awt.Dimension(72, 35));
         pnl_orderCustomerGiveOptions.add(btn_option4);
 
+        btn_option5.setFont(btn_option5.getFont().deriveFont(btn_option5.getFont().getSize()-2f));
         btn_option5.setText("Gợi ý 5");
         btn_option5.setMaximumSize(new java.awt.Dimension(72, 40));
         btn_option5.setMinimumSize(new java.awt.Dimension(72, 35));
         btn_option5.setPreferredSize(new java.awt.Dimension(72, 35));
         pnl_orderCustomerGiveOptions.add(btn_option5);
 
+        btn_option6.setFont(btn_option6.getFont().deriveFont(btn_option6.getFont().getSize()-2f));
         btn_option6.setText("Gợi ý 6");
         btn_option6.setMaximumSize(new java.awt.Dimension(72, 40));
         btn_option6.setMinimumSize(new java.awt.Dimension(72, 35));
         btn_option6.setPreferredSize(new java.awt.Dimension(72, 35));
         pnl_orderCustomerGiveOptions.add(btn_option6);
 
+        btn_option7.setFont(btn_option7.getFont().deriveFont(btn_option7.getFont().getSize()-2f));
         btn_option7.setText("Gợi ý 7");
         btn_option7.setMaximumSize(new java.awt.Dimension(72, 40));
         btn_option7.setMinimumSize(new java.awt.Dimension(72, 35));
         btn_option7.setPreferredSize(new java.awt.Dimension(72, 35));
         pnl_orderCustomerGiveOptions.add(btn_option7);
 
+        btn_option8.setFont(btn_option8.getFont().deriveFont(btn_option8.getFont().getSize()-2f));
         btn_option8.setText("Gợi ý 8");
         btn_option8.setMaximumSize(new java.awt.Dimension(72, 40));
         btn_option8.setMinimumSize(new java.awt.Dimension(72, 35));
         btn_option8.setPreferredSize(new java.awt.Dimension(72, 35));
         pnl_orderCustomerGiveOptions.add(btn_option8);
 
+        btn_option9.setFont(btn_option9.getFont().deriveFont(btn_option9.getFont().getSize()-2f));
         btn_option9.setText("Gợi ý 8");
         btn_option9.setMaximumSize(new java.awt.Dimension(72, 40));
         btn_option9.setMinimumSize(new java.awt.Dimension(72, 35));
@@ -1566,7 +1580,7 @@ public class Sales_GUI extends javax.swing.JPanel {
 
             if (chk_defaultCustomer.isSelected()) {
 //                Khách hàng mặc định
-                order.setCustomer(customer);
+                order.setCustomer(defaultCustomer);
             } else {
                 order.setCustomer(customer);
             }

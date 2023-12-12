@@ -216,6 +216,7 @@ public final class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
         pnl_purchaseOrderDetail.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chi tiết đơn nhập hàng:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185))); // NOI18N
         pnl_purchaseOrderDetail.setLayout(new java.awt.BorderLayout());
 
+        tbl_purchaseOrderDetail.setAutoCreateRowSorter(true);
         tbl_purchaseOrderDetail.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr_orderDetail.setViewportView(tbl_purchaseOrderDetail);
 
@@ -381,6 +382,7 @@ public final class PurchaseOrderManagement_GUI extends javax.swing.JPanel {
 
         scr_purchaseOrder.setPreferredSize(new java.awt.Dimension(800, 402));
 
+        tbl_purchaseOrder.setAutoCreateRowSorter(true);
         tbl_purchaseOrder.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr_purchaseOrder.setViewportView(tbl_purchaseOrder);
 

@@ -445,10 +445,9 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         setLayout(new java.awt.BorderLayout());
 
         pnl_topEmp.setMinimumSize(new java.awt.Dimension(20, 20));
-        pnl_topEmp.setPreferredSize(new java.awt.Dimension(1368, 70));
+        pnl_topEmp.setPreferredSize(new java.awt.Dimension(1368, 50));
         pnl_topEmp.setLayout(new javax.swing.BoxLayout(pnl_topEmp, javax.swing.BoxLayout.X_AXIS));
 
-        pnl_searchEmp.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         pnl_searchEmp.setLayout(new javax.swing.BoxLayout(pnl_searchEmp, javax.swing.BoxLayout.X_AXIS));
 
         txt_searchEmp.setPreferredSize(new java.awt.Dimension(500, 30));
@@ -465,7 +464,6 @@ public class EmployeeManagement_GUI extends javax.swing.JPanel {
         });
         pnl_searchEmp.add(txt_searchEmp);
 
-        pnl_btnSearchEmp.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         pnl_btnSearchEmp.setLayout(new java.awt.BorderLayout());
 
         btn_searchEmp.setText("Tìm kiếm");

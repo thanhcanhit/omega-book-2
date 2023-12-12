@@ -168,8 +168,9 @@ public class BrandManagement_GUI extends javax.swing.JPanel {
         pnl_cart.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách nhà cung cấp", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(71, 118, 185))); // NOI18N
         pnl_cart.setLayout(new java.awt.BorderLayout());
 
+        tbl_brand.setAutoCreateRowSorter(true);
         tbl_brand.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tbl_brand.setShowGrid(true);
+        tbl_brand.setShowGrid(false);
         scr_cart.setViewportView(tbl_brand);
 
         pnl_cart.add(scr_cart, java.awt.BorderLayout.CENTER);
@@ -252,7 +253,7 @@ public class BrandManagement_GUI extends javax.swing.JPanel {
 
         pnl_right.add(pnl_info, java.awt.BorderLayout.CENTER);
 
-        pnl_btnGroup.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        pnl_btnGroup.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 5));
         pnl_btnGroup.setPreferredSize(new java.awt.Dimension(281, 60));
         pnl_btnGroup.setLayout(new java.awt.GridLayout(1, 2, 5, 5));
 

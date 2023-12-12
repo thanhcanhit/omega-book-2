@@ -9,9 +9,7 @@ import com.formdev.flatlaf.FlatClientProperties;
 import entity.Account;
 import entity.Employee;
 import java.awt.Dimension;
-import java.awt.Image;
 import java.awt.Toolkit;
-import javax.swing.ImageIcon;
 import main.Application;
 import raven.toast.Notifications;
 
