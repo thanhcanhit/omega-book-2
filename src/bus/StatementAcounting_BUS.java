@@ -13,10 +13,12 @@ import entity.CashCount;
 import entity.CashCountSheet;
 import entity.Employee;
 import entity.Order;
+import gui.StatementAcounting_GUI;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import main.Application;
 import raven.toast.Notifications;
 import utilities.AcountingVoucherPrinter;
 
@@ -31,8 +33,8 @@ public class StatementAcounting_BUS {
     private Employee_DAO employee_DAO = new Employee_DAO();
     private Order_DAO order_DAO = new Order_DAO();
     private StatementCashCount_BUS statementCashCount_BUS = new StatementCashCount_BUS();
-    
-    public  AcountingVoucher getAcountingByID(String id){
+
+    public AcountingVoucher getAcountingByID(String id) {
         return acountingVoucher_DAO.getOne(id);
     }
 
@@ -87,11 +89,14 @@ public class StatementAcounting_BUS {
         AcountingVoucher acountingVoucher = new AcountingVoucher(id, start, end, cashCountSheet, list);
         cashCountSheet_DAO.create(cashCountSheet);
         acountingVoucher_DAO.create(acountingVoucher);
-        
+
         for (Order order : list) {
             order_DAO.updateOrderAcountingVoucher(order.getOrderID(), acountingVoucher.getAcountingVoucherID());
         }
+        Notifications.getInstance().show(Notifications.Type.SUCCESS, "Tạo phiếu kết toán thành công");
+        Application.showForm(new StatementAcounting_GUI());
         generatePDF(acountingVoucher_DAO.getOne(id));
+
     }
 
     public Employee getEmployeeByID(String id) {
@@ -135,8 +140,8 @@ public class StatementAcounting_BUS {
         }
         return sum;
     }
-    
-      public void generatePDF(AcountingVoucher acounting) {
+
+    public void generatePDF(AcountingVoucher acounting) {
 //        tạo file pdf và hiển thị + in file pdf đó
         AcountingVoucherPrinter printer = new AcountingVoucherPrinter(acounting);
         printer.generatePDF();
