@@ -74,21 +74,18 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel {
         chart.addLegend("Sản phẩm", new Color(71, 118, 185));
         getChart(formatDate);
         renderProductTable(bus.getTopProductInDay(formatDate), formatDate);
-
-        date_statisticProduct.addPropertyChangeListener((PropertyChangeEvent e) -> {
-            if ("date".equals(e.getPropertyName())) {
-                Date selectedDate = (Date) e.getNewValue();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                String formattedDate = dateFormat.format(selectedDate);
-                renderProductTable(bus.getTopProductInDay(formattedDate), formattedDate);
-                tbl_topProduct.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
+        
+        tbl_topProduct.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
                     int rowIndex = tbl_topProduct.getSelectedRow();
                     if (rowIndex != -1) {
                         String id = tblModel_product.getValueAt(rowIndex, 0).toString();
                         Product p;
                         try {
                             p = bus.getProduct(id);
-                            renderInfoProduct(p, formattedDate);
+                            
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                             
+                            renderInfoProduct(p,  dateFormat.format(date_statisticProduct.getDate()));
                         } catch (Exception ex) {
                         }
 
@@ -96,7 +93,14 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel {
                     return;
 
                 });
+        date_statisticProduct.addPropertyChangeListener((PropertyChangeEvent e) -> {
+            if ("date".equals(e.getPropertyName())) {
+                Date selectedDate = (Date) e.getNewValue();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                String formattedDate = dateFormat.format(selectedDate);
+                renderProductTable(bus.getTopProductInDay(formattedDate), formattedDate);
                 getChart(formattedDate);
+                initInfoProduct();
 
             }
         });
@@ -151,6 +155,14 @@ public final class StatisticProduct_GUI extends javax.swing.JPanel {
         txt_productType.setText(p.getType().toString());
         txt_quantity.setText(bus.getQuantitySale(p.getProductID(), date) + "");
         txt_total.setText(FormatNumber.toVND(bus.getTotalProduct(p.getProductID(), date)));
+    }
+    public void initInfoProduct() {
+        txt_productName.setText("");
+        txt_price.setText("");
+        txt_productID.setText("");
+        txt_productType.setText("");
+        txt_quantity.setText( "");
+        txt_total.setText("");
     }
 
     /**
