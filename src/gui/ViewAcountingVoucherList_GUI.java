@@ -104,8 +104,6 @@ public class ViewAcountingVoucherList_GUI extends javax.swing.JPanel {
         pnl_center = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_acountingVoucherList = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
-        btn_exportExcel = new javax.swing.JButton();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -257,12 +255,6 @@ public class ViewAcountingVoucherList_GUI extends javax.swing.JPanel {
 
         pnl_center.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        btn_exportExcel.setText("Xuất file excel");
-        btn_exportExcel.setIcon(SVGIcon.getSVGIcon("imgs/public/excel.svg"));
-        jPanel1.add(btn_exportExcel);
-
-        pnl_center.add(jPanel1, java.awt.BorderLayout.SOUTH);
-
         add(pnl_center, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -303,14 +295,12 @@ public class ViewAcountingVoucherList_GUI extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_exportExcel;
     private javax.swing.JButton btn_filter;
     private javax.swing.JButton btn_reload;
     private javax.swing.JComboBox<String> cbo_difference;
     private javax.swing.JComboBox<String> cbo_sales;
     private com.toedter.calendar.JDateChooser date_endDate;
     private com.toedter.calendar.JDateChooser date_startDate;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_difference;
     private javax.swing.JLabel lbl_employee1;

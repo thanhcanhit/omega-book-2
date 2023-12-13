@@ -23,6 +23,10 @@ public class Login_BUS {
 
     public Employee login(String id, String password) throws Exception {
         Account acc = accountDAO.getOne(id);
+        if (!employeeDAO.getOne(id).isStatus()) {
+            throw new Exception("Tài khoản đã bị vô hiệu hóa doa nhân viên đã thôi việc!");
+
+        }
         if (acc == null) {
             throw new Exception("Tài khoản không tồn tại!");
         } else if (!PasswordHash.comparePasswords(password, acc.getPassWord())) {

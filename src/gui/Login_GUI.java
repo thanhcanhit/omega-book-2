@@ -34,10 +34,10 @@ public class Login_GUI extends javax.swing.JPanel {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         return screenSize;
     }
-    
+
     public boolean checkValueFormChangePassword(String id, String pass, String passNew, String passConfirm)
             throws Exception {
-        
+
         if (id.equals("")) {
             throw new Exception("Mã đăng nhập không được bỏ trống!");
         }
@@ -388,7 +388,7 @@ public class Login_GUI extends javax.swing.JPanel {
         // TODO add your handling code here:
         String id = txt_account.getText();
         String password = String.copyValueOf(pwr_password.getPassword());
-        
+
         try {
             Employee emp = log_BUS.login(id, password);
             if (emp != null && emp.isStatus()) {
@@ -406,10 +406,10 @@ public class Login_GUI extends javax.swing.JPanel {
         String passNew = String.valueOf(pwr_passwordNew.getPassword());
         String passConfirm = String.valueOf(pwr_passwordSubmit.getPassword());
         System.out.println(pass);
-        
+
         try {
             if (checkValueFormChangePassword(id, pass, passNew, passConfirm)) {
-                
+
 //                Account acc = new Account(passNew, new Employee(id));
                 if (log_BUS.changePassword(id, pass, passNew)) {
                     Notifications.getInstance().show(Notifications.Type.SUCCESS, "Đổi mật khẩu thành công!");
@@ -418,7 +418,7 @@ public class Login_GUI extends javax.swing.JPanel {
                     pwr_passwordC.setText("");
                     pwr_passwordNew.setText("");
                     pwr_passwordSubmit.setText("");
-                    
+
                 }
             }
         } catch (Exception ex) {
@@ -437,11 +437,11 @@ public class Login_GUI extends javax.swing.JPanel {
         pnl_changePasswordForm.setVisible(false);
         pnl_loginForm.setVisible(true);
     }//GEN-LAST:event_lbl_changeForm2MouseClicked
-    
-    private void formAncestorResized(java.awt.event.HierarchyEvent evt) {        
-        
-    }    
-    
+
+    private void formAncestorResized(java.awt.event.HierarchyEvent evt) {
+
+    }
+
     private void txt_accountLoginActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txt_accountLoginActionPerformed
         // TODO add your handling code here:
     }// GEN-LAST:event_txt_accountLoginActionPerformed

@@ -85,8 +85,6 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         txt_totalCustomer = new javax.swing.JTextField();
         jPanel15 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
         jPanel16 = new javax.swing.JPanel();
         jPanel17 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -148,7 +146,7 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         jPanel14.setLayout(new javax.swing.BoxLayout(jPanel14, javax.swing.BoxLayout.X_AXIS));
 
         jLabel7.setFont(jLabel7.getFont().deriveFont((float)16));
-        jLabel7.setText("Số lượng khách mua hàng:");
+        jLabel7.setText("Số lượng khách thành viên:");
         jLabel7.setPreferredSize(new java.awt.Dimension(200, 0));
         jPanel14.add(jLabel7);
 
@@ -173,21 +171,6 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
         jPanel15.setMinimumSize(new java.awt.Dimension(0, 30));
         jPanel15.setPreferredSize(new java.awt.Dimension(0, 30));
         jPanel15.setLayout(new javax.swing.BoxLayout(jPanel15, javax.swing.BoxLayout.X_AXIS));
-
-        jLabel8.setFont(jLabel8.getFont().deriveFont((float)16));
-        jLabel8.setText("Khách hàng thành viên:");
-        jLabel8.setPreferredSize(new java.awt.Dimension(200, 0));
-        jPanel15.add(jLabel8);
-
-        jTextField8.setEditable(false);
-        jTextField8.setFont(jTextField8.getFont().deriveFont((float)16));
-        jTextField8.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jTextField8.setToolTipText("");
-        jTextField8.setMaximumSize(new java.awt.Dimension(2147483647, 30));
-        jTextField8.setMinimumSize(new java.awt.Dimension(64, 40));
-        jTextField8.setPreferredSize(new java.awt.Dimension(64, 40));
-        jPanel15.add(jTextField8);
-
         jPanel13.add(jPanel15);
 
         pnl_infoCustomer.add(jPanel13);
@@ -454,7 +437,6 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
@@ -462,7 +444,6 @@ public class StatisticCustomer_GUI extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
-    private javax.swing.JTextField jTextField8;
     private javax.swing.JLabel lbl_female18To40;
     private javax.swing.JLabel lbl_femaleOver40;
     private javax.swing.JLabel lbl_femaleUnder18;
