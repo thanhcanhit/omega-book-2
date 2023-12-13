@@ -81,23 +81,26 @@ public class Welcome_GUI extends javax.swing.JFrame {
         pnl_container.setMaximumSize(new java.awt.Dimension(400, 255));
         pnl_container.setMinimumSize(new java.awt.Dimension(400, 255));
         pnl_container.setPreferredSize(new java.awt.Dimension(400, 255));
-        pnl_container.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnl_container.setLayout(null);
 
         lbl_header.setFont(lbl_header.getFont().deriveFont(lbl_header.getFont().getStyle() | java.awt.Font.BOLD, 32));
         lbl_header.setText("Omega Book");
         lbl_header.setIconTextGap(12);
         lbl_header.putClientProperty(FlatClientProperties.STYLE, "foreground:$Menu.foreground;");
-        pnl_container.add(lbl_header, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 240, 50));
+        pnl_container.add(lbl_header);
+        lbl_header.setBounds(100, 90, 240, 50);
 
         lbl_date.setFont(lbl_date.getFont().deriveFont(lbl_date.getFont().getStyle() | java.awt.Font.BOLD, 18));
         lbl_date.setText("10-2023");
         lbl_date.putClientProperty(FlatClientProperties.STYLE, "foreground:$Menu.foreground;");
-        pnl_container.add(lbl_date, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 220, 80, -1));
+        pnl_container.add(lbl_date);
+        lbl_date.setBounds(320, 230, 80, 25);
 
         lbl_loading.setFont(lbl_loading.getFont().deriveFont((float)15));
         lbl_loading.setText("Đang kết nối...");
         lbl_loading.putClientProperty(FlatClientProperties.STYLE, "foreground:$Menu.foreground;");
-        pnl_container.add(lbl_loading, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 170, -1, -1));
+        pnl_container.add(lbl_loading);
+        lbl_loading.setBounds(150, 180, 94, 21);
 
         pnl_decoration.setBackground(new java.awt.Color(153, 204, 255));
         pnl_decoration.setForeground(new java.awt.Color(153, 204, 255));
@@ -115,7 +118,8 @@ public class Welcome_GUI extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        pnl_container.add(pnl_decoration, new org.netbeans.lib.awtextra.AbsoluteConstraints(-40, 90, 100, 100));
+        pnl_container.add(pnl_decoration);
+        pnl_decoration.setBounds(-30, 120, 100, 100);
 
         pnl_decoration1.setBackground(new java.awt.Color(153, 204, 255));
         pnl_decoration1.setForeground(new java.awt.Color(153, 204, 255));
@@ -133,7 +137,8 @@ public class Welcome_GUI extends javax.swing.JFrame {
             .addGap(0, 50, Short.MAX_VALUE)
         );
 
-        pnl_container.add(pnl_decoration1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, -10, 50, 50));
+        pnl_container.add(pnl_decoration1);
+        pnl_decoration1.setBounds(320, 10, 50, 50);
 
         pnl_decoration2.setBackground(new java.awt.Color(153, 204, 255));
         pnl_decoration2.setForeground(new java.awt.Color(153, 204, 255));
@@ -151,10 +156,12 @@ public class Welcome_GUI extends javax.swing.JFrame {
             .addGap(0, 60, Short.MAX_VALUE)
         );
 
-        pnl_container.add(pnl_decoration2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 220, 60, 60));
+        pnl_container.add(pnl_decoration2);
+        pnl_decoration2.setBounds(170, 230, 60, 60);
 
         progressbar_status.setValue(60);
-        pnl_container.add(progressbar_status, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 200, 240, -1));
+        pnl_container.add(progressbar_status);
+        progressbar_status.setBounds(90, 210, 240, 4);
 
         pnl_container.putClientProperty(FlatClientProperties.STYLE, "background:rgb(71, 118, 185);"
             + "arc:8;");
