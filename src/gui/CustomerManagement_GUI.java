@@ -673,6 +673,7 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
                     txt_address.getText(), rad_men.isSelected());
             if (!isCompleted) {
                 Notifications.getInstance().show(Notifications.Type.ERROR, "Khách hàng đã tồn tại");
+                return;
             }
             renderCustomerTable(customer_BUS.getAllCustomer());
             reloadForm();
