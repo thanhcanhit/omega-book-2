@@ -405,7 +405,6 @@ public class Login_GUI extends javax.swing.JPanel {
         String pass = String.valueOf(pwr_passwordC.getPassword());
         String passNew = String.valueOf(pwr_passwordNew.getPassword());
         String passConfirm = String.valueOf(pwr_passwordSubmit.getPassword());
-        System.out.println(pass);
 
         try {
             if (checkValueFormChangePassword(id, pass, passNew, passConfirm)) {
