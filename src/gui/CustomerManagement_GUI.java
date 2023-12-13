@@ -646,10 +646,19 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
     }// GEN-LAST:event_rad_womenActionPerformed
 
     private void btn_updateActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_updateActionPerformed
+        int row = tbl_customer.getSelectedRow();
+//        if (row != -1)
         try {
             // TODO add your handling code here:
-            customer_BUS.updateCustomer(getValueForm(), txt_customerID.getText());
-            renderCustomerTable(customer_BUS.getAllCustomer());
+            if (row != -1) {
+                customer_BUS.updateCustomer(getValueForm(), txt_customerID.getText());
+                renderCustomerTable(customer_BUS.getAllCustomer());
+
+            } else {
+                Notifications.getInstance().show(Notifications.Type.ERROR, "Chưa chọn khách hàng muốn cập nhật thông tin!");
+                return;
+            }
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, "Cập nhật thông tin khách hàng thành công!");
 
         } catch (Exception ex) {
             Logger.getLogger(CustomerManagement_GUI.class
@@ -663,10 +672,12 @@ public class CustomerManagement_GUI extends javax.swing.JPanel {
             boolean isCompleted = customer_BUS.createCustomer(txt_name.getText(), date_dateOfBirth.getDate(), txt_phoneNumber.getText(),
                     txt_address.getText(), rad_men.isSelected());
             if (!isCompleted) {
-                Notifications.getInstance().show(Notifications.Type.ERROR, "Số điện thoại đã tồn tại");
+                Notifications.getInstance().show(Notifications.Type.ERROR, "Khách hàng đã tồn tại");
             }
             renderCustomerTable(customer_BUS.getAllCustomer());
             reloadForm();
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, "Thêm khách hàng thành công!");
+
         } catch (Exception ex) {
             Notifications.getInstance().show(Notifications.Type.ERROR, ex.getMessage());
         }
